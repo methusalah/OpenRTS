@@ -8,7 +8,7 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
-import model.army.TacticalIA.TacticalAI;
+import model.army.tacticalIA.TacticalAI;
 import model.warfare.Faction;
 
 /**
