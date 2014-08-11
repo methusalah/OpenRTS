@@ -1,0 +1,22 @@
+Material MyMaterial : Common/MatDefs/Light/Lighting.j3md {
+    MaterialParameters {
+        DiffuseMap : Repeat models/vehicule01/vehicule01_prUVW.bmp
+        Specular : 0.9 0.9 0.9 0.0
+        Diffuse : 0.588 0.588 0.588 1.0
+        UseMaterialColors : true
+        ParallaxHeight : 0.05
+        Ambient : 0.588 0.588 0.588 1.0
+        Shininess : 10.0
+    }
+    AdditionalRenderState {
+        FaceCull Back
+        Wireframe Off
+        DepthWrite On
+        PolyOffset 0.0 0.0
+        AlphaTestFalloff 0.0
+        Blend Off
+        PointSprite Off
+        ColorWrite On
+        DepthTest On
+    }
+}

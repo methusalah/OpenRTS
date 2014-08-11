@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Turret id="StdTurret">
+    <Speed value="720"/>
+    <IdleSpeed value="20"/>
+    <OnIdle value="Spin"/>
+    <BoneName value="BoneTourelle_Corps"/>
+  </Turret>
+</catalog>

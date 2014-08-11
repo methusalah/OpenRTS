@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Projectile id="StdProjectile">
+    <Speed value="4"/>
+    <Mass value="1.3"/>
+    <ModelPath value="human/hmissileT1/hmissileT1_02.mesh.xml"/>
+    <Precision value="InRadius"/>
+    <MoverLink value="Fly"/>
+  </Projectile>
+  <Projectile id="BatteryMissile">
+    <Speed value="6"/>
+    <Mass value="0.8"/>
+    <ModelPath value="human/hmissileT1/hmissileT1_02.mesh.xml"/>
+    <Precision value="InRadius"/>
+    <MoverLink value="Fly"/>
+  </Projectile>
+</catalog>

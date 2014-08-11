@@ -1,0 +1,164 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import geometry.AlignedBoundingBox;
+import geometry.Point2D;
+import java.util.ArrayList;
+import java.util.HashMap;
+import model.map.Map;
+import model.army.data.Unit;
+import model.army.ArmyManager;
+import model.army.Unity;
+import model.army.motion.pathfinding.FlowField;
+import tools.LogUtil;
+
+/**
+ *
+ * @author Benoît
+ */
+public class Commander {
+    
+    
+    ArmyManager armyManager;
+    Map map;
+    
+    public ArrayList<Unit> selection = new ArrayList<>();
+    public HashMap<String, Unity> unitiesInContext = new HashMap<>();
+    boolean moveAttack = false;
+    
+    ArrayList<ReportEventListener> listeners = new ArrayList<>();
+    
+    public Commander(ArmyManager um, Map map) {
+        this.armyManager = um;
+        this.map = map;
+    }
+    
+    public void setMoveAttack(){
+        moveAttack = true;
+    }
+    
+    public void orderHold() {
+        for(Unit u : selection)
+            u.ai.orderHold();
+    }
+    
+    public void select(String label, Point2D pos) {
+        if(moveAttack)
+            act(label, pos);
+        else if(isValid(label))
+            for(Unit u : armyManager.units)
+                if(u.label.matches(label)) {
+                    unselect();
+                    selection.add(u);
+                    break;
+                }
+        sendReportOrder();
+    }
+    
+    public void select(Point2D corner1, Point2D corner2) {
+        unselect();
+        AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
+        for(Unit u : armyManager.units)
+            if(rect.contains(u.getPos()))
+                selection.add(u);
+        moveAttack = false;
+        sendReportOrder();
+    }
+    
+    public void act(String label, Point2D pos) {
+        Unit target = getUnit(label);
+        if(target != null && target.faction != selection.get(0).faction)
+            orderAttack(target);
+        else
+            orderMove(pos);
+        moveAttack = false;
+    }
+    
+    private void orderMove(Point2D p) {
+        FlowField ff = new FlowField(map, p);
+        for(Unit u : selection){
+            u.getMover().setDestination(ff);
+            if(moveAttack)
+                u.ai.orderMoveAttack();
+            else
+                u.ai.orderMove();
+        }
+    }
+    
+    private void orderAttack(Unit enemy) {
+        FlowField ff = new FlowField(map, enemy.getPos());
+        for(Unit u : selection){
+            u.getMover().setDestination(ff);
+            if(moveAttack)
+                // TODO moveattacking an enemy must take care of the enemy movements
+                u.ai.orderMoveAttack();
+            else
+                u.ai.orderAttack(enemy);
+        }
+    }
+
+    
+    private void unselect() {
+        selection.clear();
+        sendReportOrder();
+    }
+
+    
+    private boolean isValid(String label){
+        return label != null && !label.isEmpty();
+    }
+    
+    private Unit getUnit(String label){
+        if(isValid(label))
+            for(Unit u : armyManager.units)
+                if(u.label.matches(label))
+                    return u;
+        return null;
+    }
+
+    public void selectAll() {
+        unselect();
+        selection.addAll(armyManager.units);
+        sendReportOrder();
+    }
+    
+    public void sendReportOrder(){
+        for(ReportEventListener l : listeners)
+            l.manageEvent();
+    }
+    
+    public void registerListener(ReportEventListener l){
+        listeners.add(l);
+    }
+    
+    public void updateSelectables(Point2D visionCenter){
+        unitiesInContext.clear();
+        if(visionCenter != null)
+            for(Unit u : armyManager.units)
+                if(u.getPos().getDistance(visionCenter) < 10){
+                    if(!unitiesInContext.containsKey(u.id))
+                        unitiesInContext.put(u.id, new Unity());
+                    unitiesInContext.get(u.id).add(u);
+                }
+        sendReportOrder();
+    }
+    
+    public void selectUnityInContext(Unity u){
+        unselect();
+        selection.addAll(unitiesInContext.get(u.id));
+    }
+    
+    public ArrayList<Unity> getUnitiesInContext(){
+        ArrayList<Unity> res = new ArrayList<>();
+        for(Unity unity : unitiesInContext.values())
+            res.add(unity);
+        return res;
+    }
+
+
+    
+    
+}

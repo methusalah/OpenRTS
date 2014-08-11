@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene formatVersion="1.0" upAxis="z" unitsPerMeter="100" unitType="centimeters" minOgreVersion="1.7" ogreMaxVersion="2.6.2" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
+    <nodes>
+        <node name="vehicule01">
+            <position x="0" y="-9.95265e-006" z="230"/>
+            <scale x="1" y="1" z="1"/>
+            <rotation qx="0" qy="0" qz="0" qw="1"/>
+            <entity name="vehicule01" castShadows="true" receiveShadows="true" meshFile="vehicule01.mesh">
+                <subentities>
+                    <subentity index="0" materialName="alien_base01"/>
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>
