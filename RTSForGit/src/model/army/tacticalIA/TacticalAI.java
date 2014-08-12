@@ -14,7 +14,7 @@ import model.warfare.Faction;
 import tools.LogUtil;
 
 /**
- *
+ *a
  * @author Benoît
  */
 public class TacticalAI {
