@@ -20,7 +20,7 @@
     <SeparationRadius value="1.5"/>
     <Speed value="1"/>
     <Mass value="4"/>
-    <ModelPath value="human/vehicule01.mesh.xml"/>
+    <ModelPath value="human/flying01/flying01.mesh.xml"/>
     <MaxHealth value="300"/>
     <Sight value="10"/>
     <MoverLink value="Fly"/>
