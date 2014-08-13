@@ -9,6 +9,7 @@ import model.army.data.Projectile;
 import geometry.Point2D;
 import java.awt.Color;
 import java.util.ArrayList;
+import model.army.data.Actor;
 import model.army.data.BuilderLibrary;
 import model.map.Map;
 import model.army.data.effects.PersistentEffect;
@@ -24,8 +25,8 @@ public class ArmyManager {
     public ArrayList<Unit> destroyedUnits = new ArrayList<>();
 
     private ArrayList<PersistentEffect> persistenteffects = new ArrayList<>();
-    
     public ArrayList<Projectile> projectiles = new ArrayList<>();
+    public ArrayList<Actor> activeActors = new ArrayList<>();
 
     public void createTestArmy(BuilderLibrary lib){
         Faction f1 = new Faction(Color.RED);
@@ -97,5 +98,13 @@ public class ArmyManager {
     }
     public void registerProjectile(Projectile projectile){
         projectiles.add(projectile);
+    }
+    
+    public void registerActor(Actor actor){
+        activeActors.add(actor);
+    }
+    
+    public void deleteActor(Actor actor){
+        activeActors.remove(actor);
     }
 }

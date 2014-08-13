@@ -8,6 +8,7 @@ import geometry.Point2D;
 import model.army.data.definitions.DefElement;
 import java.util.HashMap;
 import model.army.ArmyManager;
+import model.army.data.actors.UnitActor;
 import model.army.data.definitions.Definition;
 import model.warfare.Faction;
 
@@ -30,8 +31,8 @@ public class UnitBuilder {
     
     static final String WEAPONLIST = "WeaponList";
     static final String TURRET_LINK = "TurretLink";
-    
     static final String WEAPON_LINK = "WeaponLink";
+    static final String ACTOR_LINK = "ActorLink";
 
     public String id;
     public String race;
@@ -61,7 +62,7 @@ public class UnitBuilder {
                 case SEPARATION_RADIUS : res.separationRadius = de.getDoubleVal(); break;
                 case SPEED : res.speed = de.getDoubleVal(); break;
                 case MASS : res.mass = de.getDoubleVal(); break;
-                case MOVER_LINK : res.mover = lib.moverBuilders.get(de.getVal()).build(res, position); break;
+                case MOVER_LINK : res.mover = lib.getMoverBuilder(de.getVal()).build(res, position); break;
                     
                 case UINAME : res.UIName = de.getVal(); break;
                 case RACE : res.race = de.getVal(); break;
@@ -69,15 +70,16 @@ public class UnitBuilder {
                 case MAXHEALTH : res.setMaxHealth(de.getIntVal()); break;
                 case SIGHT : res.sight = de.getDoubleVal(); break;
                 case WEAPONLIST :
-                    Weapon w = lib.weaponBuilders.get(de.getVal(WEAPON_LINK)).build(res);
+                    Weapon w = lib.getWeaponBuilder(de.getVal(WEAPON_LINK)).build(res);
                     Turret t = null;
                     if(de.getVal(TURRET_LINK) != null)
-                        t = lib.turretBuilders.get(de.getVal(TURRET_LINK)).build();
+                        t = lib.getTurretBuilder(de.getVal(TURRET_LINK)).build();
                     if(w!=null){
                         res.weapons.add(w);
                         res.turrets.add(t);
                     }
                     break;
+                case ACTOR_LINK : res.actor = (UnitActor)lib.getActorBuilder(de.getVal()).build(res); break;
             }
         am.registerUnit(res);
         return res;

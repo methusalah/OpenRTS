@@ -36,14 +36,4 @@ public class ParticuleActor extends Actor {
     public ParticuleActor(String trigger, Actor parent){
         super(trigger, parent);
     }
-
-
-    @Override
-    public void act() {
-    }
-
-    @Override
-    public void interrupt() {
-    }
-    
 }

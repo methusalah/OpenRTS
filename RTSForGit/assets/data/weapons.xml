@@ -14,6 +14,13 @@
     <ScanRange value="5"/>
     <Period value="4"/>
   </Weapon>
+  <Weapon id="Rifle">
+    <UIName value="fusil standard"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="5"/>
+    <ScanRange value="5"/>
+    <Period value="4"/>
+  </Weapon>
   <Weapon id="Battery">
     <UIName value="battery de missile"/>
     <EffectLink value="StdLauncher"/>

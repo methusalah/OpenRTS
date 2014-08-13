@@ -36,6 +36,7 @@ public class Model {
         parser.addFile(new File("assets/data/movers.xml"));
         parser.addFile(new File("assets/data/effects.xml"));
         parser.addFile(new File("assets/data/projectiles.xml"));
+        parser.addFile(new File("assets/data/actors.xml"));
         parser.readFile();
         
         armyManager.createTestArmy(lib);

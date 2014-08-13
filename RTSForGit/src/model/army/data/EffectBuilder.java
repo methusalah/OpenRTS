@@ -69,7 +69,7 @@ public class EffectBuilder {
         for(DefElement de : def.elements)
             switch(de.name){
                 case TYPE : res.type = de.getVal(); break;
-                case EFFECT_LINK_LIST : res.effectBuilders.add(lib.effectBuilders.get(de.getVal())); break;
+                case EFFECT_LINK_LIST : res.effectBuilders.add(lib.getEffectBuilder(de.getVal())); break;
 
                 case AMOUNT : res.amount = de.getIntVal(); break;
 
@@ -77,7 +77,7 @@ public class EffectBuilder {
                 case PERIOD_DURATION_LIST : res.durations.add(de.getDoubleVal()*1000); break;
                 case PERIOD_RANGE_LIST : res.ranges.add(de.getDoubleVal()*1000); break;
                     
-                case PROJECTILE_LINK : res.projectile = lib.projectileBuilders.get(de.getVal()).build((LauncherEffect)res, target, targetPoint); break;
+                case PROJECTILE_LINK : res.projectile = lib.getProjectileBuilder(de.getVal()).build((LauncherEffect)res, target, targetPoint); break;
             }
         return res;
     }

@@ -18,19 +18,23 @@ import model.warfare.Faction;
  * @author Benoît
  */
 public class BuilderLibrary {
+    private static final String ERROR = "Impossible to find ";
+    
     private static final String UNIT = "Unit";
     private static final String MOVER = "Mover";
     private static final String WEAPON = "Weapon";
     private static final String TURRET = "Turret";
     private static final String EFFECT = "Effect";
     private static final String PROJECTILE = "Projectile";
+    private static final String ACTOR = "Actor";
     
-    public HashMap<String, UnitBuilder> unitBuilders = new HashMap<>();
-    public HashMap<String, MoverBuilder> moverBuilders = new HashMap<>();
-    public HashMap<String, WeaponBuilder> weaponBuilders = new HashMap<>();
-    public HashMap<String, TurretBuilder> turretBuilders = new HashMap<>();
-    public HashMap<String, EffectBuilder> effectBuilders = new HashMap<>();
-    public HashMap<String, ProjectileBuilder> projectileBuilders = new HashMap<>();
+    private HashMap<String, UnitBuilder> unitBuilders = new HashMap<>();
+    private HashMap<String, MoverBuilder> moverBuilders = new HashMap<>();
+    private HashMap<String, WeaponBuilder> weaponBuilders = new HashMap<>();
+    private HashMap<String, TurretBuilder> turretBuilders = new HashMap<>();
+    private HashMap<String, EffectBuilder> effectBuilders = new HashMap<>();
+    private HashMap<String, ProjectileBuilder> projectileBuilders = new HashMap<>();
+    private HashMap<String, ActorBuilder> actorBuilders = new HashMap<>();
 
     Map map;
     ArmyManager am;
@@ -49,6 +53,7 @@ public class BuilderLibrary {
             case TURRET : submitTurret(def); break;
             case EFFECT : submitEffect(def); break;
             case PROJECTILE : submitProjectile(def); break;
+            case ACTOR : submitActor(def); break;
         }
     }
     
@@ -75,6 +80,9 @@ public class BuilderLibrary {
     private void submitProjectile(Definition def){
         projectileBuilders.put(def.id, new ProjectileBuilder(def, this, am));
     }
+    private void submitActor(Definition def){
+        actorBuilders.put(def.id, new ActorBuilder(def, am, this));
+    }
     
     public void buildUnitFromRace(String race, Faction faction, Point2D pos){
         ArrayList<UnitBuilder> subList = new ArrayList<>();
@@ -85,4 +93,50 @@ public class BuilderLibrary {
         int i = (int)Math.floor(MyRandom.next()*subList.size());
         subList.get(i).build(faction, pos);
     }
+    
+    public UnitBuilder getUnitBuilder(String id){
+        UnitBuilder res = unitBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public MoverBuilder getMoverBuilder(String id){
+        MoverBuilder res = moverBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public WeaponBuilder getWeaponBuilder(String id){
+        WeaponBuilder res = weaponBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public TurretBuilder getTurretBuilder(String id){
+        TurretBuilder res = turretBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public EffectBuilder getEffectBuilder(String id){
+        EffectBuilder res = effectBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public ProjectileBuilder getProjectileBuilder(String id){
+        ProjectileBuilder res = projectileBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public ActorBuilder getActorBuilder(String id){
+        ActorBuilder res = actorBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    
+    
+    
 }

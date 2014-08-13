@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Actor id="Tank">
+    <Type value="Unit"/>
+    <ModelPath value="human/htank/htank03c.mesh.xml"/>
+    <Scale value="1"/>
+    <TurretBone value="BoneTourelle_Corps"/>
+  </Actor>
+  <Actor id="Aircraft">
+    <Type value="Unit"/>
+    <ModelPath value="human/flying01/flying01.mesh.xml"/>
+    <Scale value="1"/>
+  </Actor>
+  
+  <Actor id="Marine">
+    <Type value="Unit"/>
+    <ModelPath value="human/infantry01.mesh.xml"/>
+    <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onWait" ActorLink="Idle"/>
+    <Scale value="1"/>
+  </Actor>
+  <Actor id="Move">
+    <Type value="Animation"/>
+    <AnimName value="run"/>
+    <Speed value="2"/>
+    <Cycle value="Cycle"/>
+  </Actor>
+  <Actor id="Idle">
+    <Type value="Animation"/>
+    <AnimName value="idle"/>
+    <Speed value="0.8"/>
+    <Cycle value="Loop"/>
+  </Actor>
+
+  <Actor id="SmallAlien">
+    <Type value="Unit"/>
+    <ModelPath value="alien/infantry01.mesh.xml"/>
+    <Scale value="1"/>
+  </Actor>
+  <Actor id="BigAlien">
+    <Type value="Unit"/>
+    <ModelPath value="alien/vehicule01.mesh.xml"/>
+    <Scale value="1"/>
+  </Actor>
+  <Actor id="Missile">
+    <Type value="Projectile"/>
+    <ModelPath value="human/hmissileT1/hmissileT1_02.mesh.xml"/>
+    <Scale value="1"/>
+  </Actor>
+</catalog>

@@ -21,6 +21,7 @@ public class MovableActor extends ModelActor {
     
     public void setMovable(Movable movable){
         this.movable = movable;
+        act();
     }
     
     public Point3D getPos(){

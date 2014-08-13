@@ -5,6 +5,7 @@
 package model.army.data.actors;
 
 import java.util.ArrayList;
+import model.Commander;
 import model.army.data.Actor;
 import model.army.data.Turret;
 import model.army.data.Unit;
@@ -23,10 +24,30 @@ public class UnitActor extends MovableActor {
     
     public void setUnit(Unit unit){
         movable = unit;
+        act();
     }
     
     public void updateTurretOrientation(){
         turretOrientation = ((Unit)movable).getTurretOrientation();
+    }
+    
+    public boolean hasTurret(){
+        return getUnit().hasTurret();
+    }
+    
+    @Override
+    public String getLabel(){
+        return getUnit().label;
+    }
+    
+    public Unit getUnit(){
+        return (Unit)movable;
+    }
+    
+    public boolean isSelectedOn(Commander commander){
+        if(commander.selection.contains(getUnit()))
+            return true;
+        return false;
     }
 
 }

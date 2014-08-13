@@ -8,6 +8,7 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
+import model.army.data.actors.UnitActor;
 import model.army.tacticalIA.TacticalAI;
 import model.warfare.Faction;
 
@@ -27,6 +28,7 @@ public class Unit extends Movable {
     double sight;
     ArrayList<Turret> turrets = new ArrayList<>();
     ArrayList<Weapon> weapons = new ArrayList<>();
+    UnitActor actor;
 
     public TacticalAI ai;
     public String label = "label"+this.toString();
@@ -54,6 +56,7 @@ public class Unit extends Movable {
     }
     
     public void update(double elapsedTime){
+        State lastState = state;
         if(destroyed())
             return;
         
@@ -74,6 +77,12 @@ public class Unit extends Movable {
 
         if(hasTurret())
             turrets.get(0).update(elapsedTime, mover.hasMoved);
+        
+        if(state != lastState)
+            switch (state){
+                case MOVE : actor.onMove(); break;
+                case IDLE : actor.onWait(); break;
+            }
     }
     
     private void head(double angle){
@@ -125,6 +134,7 @@ public class Unit extends Movable {
     private void destroy(){
         mover.z = -0.5;
         state = State.DESTROYED;
+        actor.destroy();
     }
     
     public boolean destroyed(){

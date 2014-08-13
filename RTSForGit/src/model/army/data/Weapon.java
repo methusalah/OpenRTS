@@ -20,6 +20,7 @@ public class Weapon {
     EffectBuilder effectBuilder;
 
     final Unit holder;
+    Actor actor;
 
     // variables
     private Unit target;

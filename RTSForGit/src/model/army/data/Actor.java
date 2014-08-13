@@ -5,6 +5,7 @@
 package model.army.data;
 
 import java.util.ArrayList;
+import model.army.ArmyManager;
 
 /**
  *
@@ -16,11 +17,14 @@ public abstract class Actor {
     protected static final String ON_ATTACK = "onAttack";
     protected static final String ON_DESTROYED = "onDestroyed";
     protected static final String ON_EXPLODED = "onExploded";
+    protected static final String ON_ALL_TIME = "onAllTime";
     
     Actor parent;
     String trigger;
     ArrayList<Actor> children = new ArrayList<>();
     public boolean destroyed = false;
+    
+    ArmyManager armyManager;
     
     
     public Actor(String trigger, Actor parent){
@@ -36,7 +40,7 @@ public abstract class Actor {
         trigger(ON_WAIT);
     }
     
-    public void trigger(String trigger){
+    private void trigger(String trigger){
         for(Actor a : children)
             if(a.trigger.equals(trigger))
                 a.act();
@@ -44,10 +48,20 @@ public abstract class Actor {
                 a.interrupt();
     }
     
-    public abstract void act();
-    public abstract void interrupt();
+    public void act(){
+        trigger(ON_ALL_TIME);
+        armyManager.registerActor(this);
+    }
+    public void interrupt(){
+        armyManager.deleteActor(this);
+    }
     
     public void destroy(){
         destroyed = true;
+        armyManager.deleteActor(this);
+    }
+    
+    public Actor getParent(){
+        return parent;
     }
 }

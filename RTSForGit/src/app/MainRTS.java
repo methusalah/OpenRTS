@@ -70,7 +70,8 @@ public class MainRTS extends MySimpleApplication {
         public void simpleUpdate(float tpf) {
             float maxedTPF = Math.min(tpf, 0.1f);
             model.armyManager.updateMovers(maxedTPF);
-            view.unitsRend.renderMovers();
+//            view.unitsRend.renderMovers();
+            view.unitsRend.renderActors();
             fieldCtrl.updateSelection();
             model.updateConfigs();
             model.commander.updateSelectables(fieldCtrl.getViewCenter());

@@ -17,15 +17,8 @@ public class ModelActor extends Actor {
     public ModelActor(String trigger, Actor parent){
         super(trigger, parent);
     }
-
-
-    @Override
-    public void act() {
-    }
-
-    @Override
-    public void interrupt() {
-    }
-
     
+    public String getLabel(){
+        return "";
+    }
 }
