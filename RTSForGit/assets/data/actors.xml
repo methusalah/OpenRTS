@@ -5,7 +5,19 @@
     <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <Scale value="1"/>
     <TurretBone value="BoneTourelle_Corps"/>
+    <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onWait" ActorLink="Idle"/>
   </Actor>
+  <Actor id="TankCanonMainActor">
+    <ActorList Trigger="onShoot" ActorLink="TankCanonAnimation"/>
+  </Actor>
+  <Actor id="TankCanonAnimation">
+    <Type value="Animation"/>
+    <AnimName value="attack01"/>
+    <Speed value="1"/>
+    <Cycle value="Once"/>
+  </Actor>
+  
   <Actor id="Aircraft">
     <Type value="Unit"/>
     <ModelPath value="human/flying01/flying01.mesh.xml"/>

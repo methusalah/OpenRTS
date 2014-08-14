@@ -6,15 +6,17 @@ package model.army.data;
 
 import java.util.ArrayList;
 import model.army.ArmyManager;
+import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-public abstract class Actor {
+public class Actor {
     protected static final String ON_MOVE = "onMove";
     protected static final String ON_WAIT = "onWait";
-    protected static final String ON_ATTACK = "onAttack";
+    protected static final String ON_AIM = "onAim";
+    protected static final String ON_SHOOT = "onShoot";
     protected static final String ON_DESTROYED = "onDestroyed";
     protected static final String ON_EXPLODED = "onExploded";
     protected static final String ON_ALL_TIME = "onAllTime";
@@ -39,13 +41,18 @@ public abstract class Actor {
     public void onWait(){
         trigger(ON_WAIT);
     }
+    public void onShoot(){
+        trigger(ON_SHOOT);
+    }
+    public void onAim(){
+        trigger(ON_AIM);
+    }
     
     private void trigger(String trigger){
+        if(this.trigger.equals(trigger))
+            act();
         for(Actor a : children)
-            if(a.trigger.equals(trigger))
-                a.act();
-            else
-                a.interrupt();
+            a.trigger(trigger);
     }
     
     public void act(){
@@ -63,5 +70,9 @@ public abstract class Actor {
     
     public Actor getParent(){
         return parent;
+    }
+    
+    public boolean containsModel(){
+        return false;
     }
 }

@@ -23,9 +23,28 @@ public class AnimationActor extends Actor {
     }
 
     @Override
+    public void act() {
+        launched = false;
+        super.act(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    @Override
     public void interrupt() {
         super.interrupt();
         launched = false;
+    }
+    
+    public ModelActor getParentModelActor(){
+        Actor parent = this;
+        do {
+            parent = parent.getParent();
+            if(parent == null)
+                throw new RuntimeException("AnimationActor seems to miss a modelActor parent");
+            
+        } while(!parent.containsModel());
+        return (ModelActor)parent;
+
     }
     
     

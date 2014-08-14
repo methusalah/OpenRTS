@@ -77,6 +77,8 @@ public class Weapon {
         if(target == null)
             throw new RuntimeException("no target");
         if(lastStrikeTime+1000*period < System.currentTimeMillis()){
+            if(actor != null)
+                actor.onShoot();
             target.ai.registerAsAttacker(holder);
             effectBuilder.build(holder, target, null).launch();
             lastStrikeTime = System.currentTimeMillis();

@@ -14,7 +14,7 @@ import model.army.data.definitions.Definition;
  */
 public class WeaponBuilder {
     static final String UINAME = "UIName"; 
-    static final String RANGE = "Range"; 
+    static final String RANGE = "Range";
     static final String SCAN_RANGE = "ScanRange"; 
     static final String PERIOD = "Period"; 
     static final String EFFECT_LINK = "EffectLink";
@@ -37,7 +37,7 @@ public class WeaponBuilder {
                 case SCAN_RANGE : res.scanRange = de.getDoubleVal(); break;
                 case PERIOD : res.period = de.getDoubleVal(); break;
                 case EFFECT_LINK : res.effectBuilder = lib.getEffectBuilder(de.getVal()); break;
-                case ACTOR_LINK : res.actor = lib.getActorBuilder(de.getVal()).build("", holder.actor); break;
+                case ACTOR_LINK : res.actor = lib.getActorBuilder(de.getVal()).build(); break;
             }
         return res;
     }

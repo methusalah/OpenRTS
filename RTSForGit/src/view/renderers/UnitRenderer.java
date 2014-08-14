@@ -71,6 +71,8 @@ public class UnitRenderer implements AnimEventListener {
         if(!models.containsKey(modelPath))
             models.put(modelPath, am.loadModel("models/"+modelPath));
         Spatial res = models.get(modelPath).clone();
+        if(res == null)
+            LogUtil.logger.info(modelPath);
         AnimControl control = res.getControl(AnimControl.class);
         control.addListener(this);
         control.createChannel();
@@ -103,6 +105,21 @@ public class UnitRenderer implements AnimEventListener {
             if(a instanceof AnimationActor)
                 renderAnimationActor((AnimationActor)a);
         }
+        
+        
+        // here we use the scenegraph to grab the coordinates of all bones and store them for the model.
+        for(Actor a : armyManager.activeActors){
+            if(a.containsModel()){
+                Spatial s = modelActors.get(a);
+                Skeleton sk = s.getControl(AnimControl.class).getSkeleton();
+                for(int i=0; i<sk.getBoneCount(); i++){
+                    Bone b = sk.getBone(i);
+                    ((ModelActor)a).boneCoords.put(b.getName(), Translator.toPoint3D(b.getWorldBindPosition()));
+                }
+
+            }
+        }
+        
     }
     
     private void renderMovableActor(MovableActor actor){
@@ -139,16 +156,8 @@ public class UnitRenderer implements AnimEventListener {
         if(actor.launched)
             return;
         actor.launched = true;
-        // first we locate the spatial controlled by the model actor parent
-        Actor parent = actor;
-        Spatial s = null;
-        do {
-            parent = parent.getParent();
-            if(parent == null)
-                throw new RuntimeException("AnimationActor seems to miss a modelActor parent");
-            s = modelActors.get(parent);
-        } while(s == null);
         
+        Spatial s = modelActors.get(actor.getParentModelActor());
         AnimControl control = s.getControl(AnimControl.class);
         AnimChannel channel = control.getChannel(0);
         channel.setAnim(actor.animName);
@@ -158,7 +167,6 @@ public class UnitRenderer implements AnimEventListener {
             case Cycle : channel.setLoopMode(LoopMode.Cycle); break;
         }
         channel.setSpeed((float)actor.speed);
-        
     }
     
     
@@ -195,7 +203,7 @@ public class UnitRenderer implements AnimEventListener {
         Skeleton sk = control.getSkeleton();
         Bone turretBone = sk.getBone(actor.turretBone);
         if(turretBone == null)
-            throw new RuntimeException("head oriented unit has no head bone");
+            throw new RuntimeException("Can't find the bone "+actor.turretBone+"for turret.");
         
         Quaternion r = turretBone.getWorldBindRotation()
                 .mult(new Quaternion().fromAngleAxis((float)Angle.RIGHT, Vector3f.UNIT_Z))

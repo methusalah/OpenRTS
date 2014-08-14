@@ -69,6 +69,7 @@ public class UnitBuilder {
                 case MODELPATH : res.modelPath = de.getVal(); break;
                 case MAXHEALTH : res.setMaxHealth(de.getIntVal()); break;
                 case SIGHT : res.sight = de.getDoubleVal(); break;
+                case ACTOR_LINK : res.actor = (UnitActor)lib.getActorBuilder(de.getVal()).build(res); break;
                 case WEAPONLIST :
                     Weapon w = lib.getWeaponBuilder(de.getVal(WEAPON_LINK)).build(res);
                     Turret t = null;
@@ -79,9 +80,9 @@ public class UnitBuilder {
                         res.turrets.add(t);
                     }
                     break;
-                case ACTOR_LINK : res.actor = (UnitActor)lib.getActorBuilder(de.getVal()).build(res); break;
             }
         am.registerUnit(res);
+        res.linkActors();
         return res;
     }
 }

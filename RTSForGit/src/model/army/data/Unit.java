@@ -66,6 +66,7 @@ public class Unit extends Movable {
         ai.update();
         
         if(weapons.get(0).isAttacking()){
+            actor.onAim();
             state = State.ATTACK;
             head(weapons.get(0).getTargetAngle());
         }
@@ -90,6 +91,12 @@ public class Unit extends Movable {
             turrets.get(0).setYaw(angle-mover.orientation);
         else
             mover.targetOrientation = angle;
+    }
+    
+    public void linkActors(){
+        for(Weapon w : weapons)
+            if(w.actor != null)
+                w.actor.parent = actor;
     }
     
     public void idle(){

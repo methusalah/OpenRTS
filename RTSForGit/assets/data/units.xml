@@ -10,7 +10,7 @@
     <MaxHealth value="120"/>
     <Sight value="10"/>
     <MoverLink value="Ground"/>
-    <WeaponList WeaponLink="StdWeapon" TurretLink="StdTurret"/>
+    <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>
     <ActorLink value="Tank"/>
   </Unit>
   <Unit id="Marine">

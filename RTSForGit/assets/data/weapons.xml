@@ -7,6 +7,14 @@
     <ScanRange value="7"/>
     <Period value="5"/>
   </Weapon>
+  <Weapon id="TankCanon">
+    <UIName value="Canon"/>
+    <EffectLink value="StdDoubleShot"/>
+    <Range value="5"/>
+    <ScanRange value="7"/>
+    <Period value="5"/>
+    <ActorLink value="TankCanonMainActor"/>
+  </Weapon>
   <Weapon id="MeleeWeapon">
     <UIName value="attaque au corps a corps"/>
     <EffectLink value="StdDamage"/>

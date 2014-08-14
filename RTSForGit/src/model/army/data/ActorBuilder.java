@@ -17,6 +17,7 @@ import model.army.data.definitions.Definition;
 import model.army.data.effects.DamageEffect;
 import model.army.data.effects.LauncherEffect;
 import model.army.data.effects.PersistentEffect;
+import tools.LogUtil;
 
 /**
  *
@@ -29,8 +30,10 @@ public class ActorBuilder {
     static final String TYPE_PROJECTILE = "Projectile";
     static final String TYPE_PARTICULE = "Particule";
     static final String TYPE_ANIMATION = "Animation";
+    static final String TYPE_DEFAULT = "Default";
+    
     static final String ACTOR_LIST = "ActorList";
-    static final String ACTOR_TRIGGER = "Trigger";
+    static final String TRIGGER = "Trigger";
     static final String ACTOR_LINK = "ActorLink";
 
     static final String MODEL_PATH = "ModelPath";
@@ -61,6 +64,8 @@ public class ActorBuilder {
                 type = de.getVal();
                 break;
             }
+        if(type == null)
+            type = TYPE_DEFAULT;
 
     }
     
@@ -77,6 +82,10 @@ public class ActorBuilder {
     public Actor build(String trigger, Movable movable, Actor parent){
         Actor res;
         switch(type){
+            case TYPE_DEFAULT :
+                res = new Actor(trigger, parent);
+                res.armyManager = am;
+                break;
             case TYPE_UNIT :
                 res = new UnitActor(trigger, parent);
                 res.armyManager = am;
@@ -96,8 +105,9 @@ public class ActorBuilder {
         
         for(DefElement de : def.elements)
             switch(de.name){
+                case TRIGGER : res.trigger = de.getVal(); break;
                 case ACTOR_LIST :
-                    Actor child = lib.getActorBuilder(de.getVal(ACTOR_LINK)).build(de.getVal(ACTOR_TRIGGER), res);
+                    Actor child = lib.getActorBuilder(de.getVal(ACTOR_LINK)).build(de.getVal(TRIGGER), res);
                     res.children.add(child);
                     break;
                     
