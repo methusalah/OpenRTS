@@ -11,17 +11,27 @@ import com.jme3.animation.Bone;
 import com.jme3.animation.LoopMode;
 import com.jme3.animation.Skeleton;
 import com.jme3.asset.AssetManager;
+import com.jme3.bounding.BoundingVolume;
+import com.jme3.collision.Collidable;
+import com.jme3.collision.CollisionResults;
+import com.jme3.collision.UnsupportedCollisionException;
+import com.jme3.effect.ParticleEmitter;
+import com.jme3.effect.ParticleMesh;
+import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import geometry.Point2D;
+import geometry3D.Point3D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 import math.Angle;
 import model.Commander;
 import model.map.Map;
@@ -32,6 +42,7 @@ import model.army.data.Projectile;
 import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
 import model.army.data.actors.MovableActor;
+import model.army.data.actors.ParticleActor;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import tools.LogUtil;
@@ -56,6 +67,7 @@ public class UnitRenderer implements AnimEventListener {
     HashMap<String, Spatial> models = new HashMap<>();
     
     HashMap<Actor, Spatial> modelActors = new HashMap<>();
+    HashMap<Actor, ParticleEmitter> particleActors = new HashMap<>();
     HashMap<Actor, Node> selectionCircles = new HashMap<>();
     
 	
@@ -104,6 +116,8 @@ public class UnitRenderer implements AnimEventListener {
                 renderProjectileActor((ProjectileActor)a);
             if(a instanceof AnimationActor)
                 renderAnimationActor((AnimationActor)a);
+            if(a instanceof ParticleActor)
+                renderParticleActor((ParticleActor)a);
         }
         
         
@@ -152,7 +166,7 @@ public class UnitRenderer implements AnimEventListener {
         renderMovableActor(actor);
     }
 
-    private  void renderAnimationActor(AnimationActor actor){
+    private void renderAnimationActor(AnimationActor actor){
         if(actor.launched)
             return;
         actor.launched = true;
@@ -168,6 +182,53 @@ public class UnitRenderer implements AnimEventListener {
         }
         channel.setSpeed((float)actor.speed);
     }
+    
+    private void renderParticleActor(ParticleActor actor){
+//        if(actor.launched)
+//            return;
+//        actor.launched = true;
+        
+        UnitActor ua = (UnitActor)actor.getParentModelActor();
+        Vector3f emissionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.emissionNode));
+        Vector3f directionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.directionNode));
+        directionPoint = directionPoint.subtract(emissionPoint);
+        
+        if(!particleActors.containsKey(actor)){
+            ParticleEmitter emitter = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, actor.maxCount);
+            
+            Material m = new Material(am, "Common/MatDefs/Misc/Particle.j3md");
+            m.setTexture("Texture", am.loadTexture("textures/"+actor.spritePath));
+            emitter.setMaterial(m);
+            
+            emitter.setParticlesPerSec(actor.perSecond);
+            emitter.setImagesX(actor.nbRow); 
+            emitter.setImagesY(actor.nbCol);
+
+            ColorRGBA c = new ColorRGBA(0.7f, 0.7f, 0.7f, 0.7f);
+    //        c.fromIntRGBA(actor.startColor);
+            emitter.setStartColor(c);
+
+            c = new ColorRGBA(0.7f, 0.7f, 0.7f, 0);
+    //        c.fromIntRGBA(actor.endColor);
+            emitter.setEndColor(c);
+
+            emitter.setStartSize((float)actor.startSize);
+            emitter.setEndSize((float)actor.endSize);
+            if(actor.gravity)
+                emitter.setGravity(0, -1, 0);
+            else
+                emitter.setGravity(0, 0, 0);
+
+            emitter.setLowLife((float)actor.minLife);
+            emitter.setHighLife((float)actor.maxLife);
+
+            emitter.getParticleInfluencer().setInitialVelocity(directionPoint);
+            emitter.getParticleInfluencer().setVelocityVariation(0.3f);
+            mainNode.attachChild(emitter);
+            particleActors.put(actor, emitter);
+        }
+        particleActors.get(actor).setLocalTranslation(emissionPoint);
+}
     
     
     
@@ -220,4 +281,15 @@ public class UnitRenderer implements AnimEventListener {
     @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
     }
+    
+    private Point3D getBoneWorldPos(UnitActor actor, String boneName){
+        Spatial s = modelActors.get(actor);
+        Vector3f modelSpacePos = s.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
+        Point2D p2D = Translator.toPoint2D(modelSpacePos);
+        p2D = p2D.getRotation(actor.getOrientation()+Angle.RIGHT);
+        Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
+        p3D = p3D.getAddition(actor.getPos());
+        return p3D;
+    }
+
 }

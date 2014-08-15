@@ -11,6 +11,7 @@ import java.util.HashMap;
 import model.army.ArmyManager;
 import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
+import model.army.data.actors.ParticleActor;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import model.army.data.definitions.Definition;
@@ -28,7 +29,7 @@ public class ActorBuilder {
 
     static final String TYPE_UNIT = "Unit";
     static final String TYPE_PROJECTILE = "Projectile";
-    static final String TYPE_PARTICULE = "Particule";
+    static final String TYPE_PARTICLE = "Particle";
     static final String TYPE_ANIMATION = "Animation";
     static final String TYPE_DEFAULT = "Default";
     
@@ -36,11 +37,13 @@ public class ActorBuilder {
     static final String TRIGGER = "Trigger";
     static final String ACTOR_LINK = "ActorLink";
 
+    // model
     static final String MODEL_PATH = "ModelPath";
     static final String SCALE = "Scale";
     static final String TURRET_BONE = "TurretBone";
     static final String WEAPON_BONE = "WeaponBone";
     
+    // animation
     static final String ANIMATION_NAME = "AnimName";
     static final String SPEED = "Speed";
     static final String CYCLE = "Cycle";
@@ -48,7 +51,21 @@ public class ActorBuilder {
     static final String CYCLE_LOOP = "Loop";
     static final String CYCLE_CYCLE = "Cycle";
     
-
+    // particle
+    static final String SPRITE_PATH = "SpritePath";
+    static final String NB_COL = "NbCol";
+    static final String NB_ROW = "NbRow";
+    static final String EMISSION_NODE = "EmissionNode";
+    static final String DIRECTION_NODE = "DirectionNode";
+    static final String MAX_COUNT = "MaxCount";
+    static final String PER_SECOND = "PerSecond";
+    static final String START_SIZE = "StartSize";
+    static final String END_SIZE = "EndSize";
+    static final String START_COLOR = "StartColor";
+    static final String END_COLOR = "EndColor";
+    static final String MIN_LIFE = "MinLife";
+    static final String MAX_LIFE = "Max_Life";
+    static final String GRAVITY = "Gravity";
     
     String type;
     Definition def;
@@ -100,6 +117,10 @@ public class ActorBuilder {
                 res = new AnimationActor(trigger, parent);
                 res.armyManager = am;
                 break;
+            case TYPE_PARTICLE :
+                res = new ParticleActor(trigger, parent);
+                res.armyManager = am;
+                break;
             default : throw new RuntimeException("Unknown actor type (id : "+def.id+").");
         }
         
@@ -111,18 +132,38 @@ public class ActorBuilder {
                     res.children.add(child);
                     break;
                     
+                // model
                 case MODEL_PATH : ((ModelActor)res).modelPath = de.getVal(); break;
                 case SCALE : ((ModelActor)res).scale = de.getDoubleVal(); break;
                 case TURRET_BONE : ((UnitActor)res).turretBone = de.getVal(); break;
                 case WEAPON_BONE : ; break;
                     
+                // animation
                 case ANIMATION_NAME : ((AnimationActor)res).animName = de.getVal(); break;
                 case SPEED : ((AnimationActor)res).speed = de.getDoubleVal(); break;
-                case CYCLE : switch (de.getVal()){
-                    case CYCLE_ONCE : ((AnimationActor)res).cycle = AnimationActor.Cycle.Once; break;
-                    case CYCLE_LOOP : ((AnimationActor)res).cycle = AnimationActor.Cycle.Loop; break;
-                    case CYCLE_CYCLE : ((AnimationActor)res).cycle = AnimationActor.Cycle.Cycle; break;
-                }
+                case CYCLE :
+                    switch (de.getVal()){
+                        case CYCLE_ONCE : ((AnimationActor)res).cycle = AnimationActor.Cycle.Once; break;
+                        case CYCLE_LOOP : ((AnimationActor)res).cycle = AnimationActor.Cycle.Loop; break;
+                        case CYCLE_CYCLE : ((AnimationActor)res).cycle = AnimationActor.Cycle.Cycle; break;
+                    }
+                    break;
+                    
+                // particle
+                case SPRITE_PATH : ((ParticleActor)res).spritePath = de.getVal(); break;
+                case NB_COL : ((ParticleActor)res).nbCol = de.getIntVal(); break;
+                case NB_ROW : ((ParticleActor)res).nbRow = de.getIntVal(); break;
+                case EMISSION_NODE : ((ParticleActor)res).emissionNode = de.getVal(); break;
+                case DIRECTION_NODE : ((ParticleActor)res).directionNode = de.getVal(); break;
+                case MAX_COUNT : ((ParticleActor)res).maxCount = de.getIntVal(); break;
+                case PER_SECOND : ((ParticleActor)res).perSecond = de.getIntVal(); break;
+                case START_SIZE : ((ParticleActor)res).startSize = de.getDoubleVal(); break;
+                case END_SIZE : ((ParticleActor)res).endSize = de.getDoubleVal(); break;
+                case START_COLOR : ((ParticleActor)res).startColor = de.getIntFromHexVal(); break;
+                case END_COLOR : ((ParticleActor)res).endColor = de.getIntFromHexVal(); break;
+                case MIN_LIFE : ((ParticleActor)res).minLife = de.getDoubleVal(); break;
+                case MAX_LIFE : ((ParticleActor)res).maxLife = de.getDoubleVal(); break;
+                case GRAVITY : ((ParticleActor)res).gravity = de.getBoolVal(); break;
 
             }
         return res;

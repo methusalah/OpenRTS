@@ -57,6 +57,10 @@ public class DefElement {
     public boolean getBoolVal(){
         return Boolean.parseBoolean(getVal());
     }
+
+    public int getIntFromHexVal(){
+        return Integer.parseInt("7f", 16);
+    }
     
     
     

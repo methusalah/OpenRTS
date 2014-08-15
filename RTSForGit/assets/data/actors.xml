@@ -6,6 +6,8 @@
     <Scale value="1"/>
     <TurretBone value="BoneTourelle_Corps"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onMove" ActorLink="LeftDust"/>
+    <ActorList Trigger="onMove" ActorLink="RightDust"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
   </Actor>
   <Actor id="TankCanonMainActor">
@@ -16,6 +18,40 @@
     <AnimName value="attack01"/>
     <Speed value="1"/>
     <Cycle value="Once"/>
+  </Actor>
+  <Actor id="LeftDust">
+    <Type value="Particle"/>
+    <SpritePath value="flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <EmissionNode value="chenillearrieredroite02"/>
+    <DirectionNode value="chenillearrieredroite02"/>
+    <MaxCount value="30"/>
+    <PerSecond value="10"/>
+    <StartSize value="0.3"/>
+    <EndSize value="0.1"/>
+    <StartColor value="0x7fffffff"/>
+    <EndColor value="ff00ff0"/>
+    <MinLife value="1"/>
+    <MaxLife value="3"/>
+    <Gravity value="false"/>
+  </Actor>
+  <Actor id="RightDust">
+    <Type value="Particle"/>
+    <SpritePath value="flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <EmissionNode value="chenillearrieregauche02"/>
+    <DirectionNode value="chenillearrieregauche02"/>
+    <MaxCount value="30"/>
+    <PerSecond value="10"/>
+    <StartSize value="0.3"/>
+    <EndSize value="0.1"/>
+    <StartColor value="0x7fffffff"/>
+    <EndColor value="ff00ff0"/>
+    <MinLife value="1"/>
+    <MaxLife value="3"/>
+    <Gravity value="false"/>
   </Actor>
   
   <Actor id="Aircraft">

@@ -35,7 +35,7 @@ public class Translator {
 	}
 
 	public static Point2D toPoint2D(Vector3f v) {
-		return new Point2D(v.x, v.z);
+		return new Point2D(v.x, v.y);
 	}
 	public static Point3D toPoint3D(Vector3f v) {
 		return new Point3D(v.x, v.y, v.z);
