@@ -1,0 +1,31 @@
+material Herbe
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.054902 0.2 0.0196078 1
+			diffuse 0.054902 0.2 0.0196078 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}
+
+
+
+material Rocher
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.270588 0.270588 0.270588 1
+			diffuse 0.270588 0.270588 0.270588 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}
