@@ -8,6 +8,7 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import math.Angle;
 import math.MyRandom;
+import model.army.data.actors.ProjectileActor;
 import model.army.data.effects.LauncherEffect;
 import tools.LogUtil;
 
@@ -30,6 +31,8 @@ public class Projectile extends Movable {
     public Unit source;
     
     public String label = "label"+this.toString();
+    
+    ProjectileActor actor;
 
     
     Point3D offset;
@@ -79,6 +82,7 @@ public class Projectile extends Movable {
         double dist = mover.pos.getDistance(new Point2D(targetPoint.x, targetPoint.y));
         if(dist < 0.05 || dist > lastDist){
             arrived = true;
+            actor.interrupt();
             effect.notifyArrival();
         }
         lastDist = dist;

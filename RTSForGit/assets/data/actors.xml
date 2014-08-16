@@ -12,6 +12,7 @@
   </Actor>
   <Actor id="TankCanonMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankCanonAnimation"/>
+    <ActorList Trigger="onShoot" ActorLink="TankCanonFlash"/>
   </Actor>
   <Actor id="TankCanonAnimation">
     <Type value="Animation"/>
@@ -19,21 +20,40 @@
     <Speed value="1"/>
     <Cycle value="Once"/>
   </Actor>
+  <Actor id="TankCanonFlash">
+    <Type value="Particle"/>
+    <SpritePath value="flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <EmissionBone value="Bone003"/>
+    <DirectionBone value="Bone003"/>
+    <MaxCount value="30"/>
+    <PerSecond value="10"/>
+    <EmitAll value="true"/>
+    <StartSize value="0.3"/>
+    <EndSize value="0"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="0.5"/>
+    <MaxLife value="0.6"/>
+    <Gravity value="false"/>
+  </Actor>
   <Actor id="LeftDust">
     <Type value="Particle"/>
     <SpritePath value="flame.png"/>
     <NbCol value="2"/>
     <NbRow value="2"/>
-    <EmissionNode value="chenillearrieredroite02"/>
-    <DirectionNode value="chenillearrieredroite02"/>
+    <EmissionBone value="chenillearrieredroite02"/>
+    <DirectionBone value="chenillearrieredroite02"/>
     <MaxCount value="30"/>
     <PerSecond value="10"/>
-    <StartSize value="0.3"/>
-    <EndSize value="0.1"/>
-    <StartColor value="0x7fffffff"/>
-    <EndColor value="ff00ff0"/>
-    <MinLife value="1"/>
-    <MaxLife value="3"/>
+    <EmitAll value="false"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.4"/>
+    <StartColor R="205" G="185" B="156" A="180"/>
+    <EndColor R="205" G="185" B="156" A="0"/>
+    <MinLife value="1.6"/>
+    <MaxLife value="1.6"/>
     <Gravity value="false"/>
   </Actor>
   <Actor id="RightDust">
@@ -41,16 +61,17 @@
     <SpritePath value="flame.png"/>
     <NbCol value="2"/>
     <NbRow value="2"/>
-    <EmissionNode value="chenillearrieregauche02"/>
-    <DirectionNode value="chenillearrieregauche02"/>
+    <EmissionBone value="chenillearrieregauche02"/>
+    <DirectionBone value="chenillearrieregauche02"/>
     <MaxCount value="30"/>
     <PerSecond value="10"/>
-    <StartSize value="0.3"/>
-    <EndSize value="0.1"/>
-    <StartColor value="0x7fffffff"/>
-    <EndColor value="ff00ff0"/>
-    <MinLife value="1"/>
-    <MaxLife value="3"/>
+    <EmitAll value="false"/>
+   <StartSize value="0.2"/>
+    <EndSize value="0.4"/>
+    <StartColor R="205" G="185" B="156" A="180"/>
+    <EndColor R="205" G="185" B="156" A="0"/>
+    <MinLife value="1.6"/>
+    <MaxLife value="1.6"/>
     <Gravity value="false"/>
   </Actor>
   

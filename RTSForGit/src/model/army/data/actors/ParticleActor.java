@@ -5,6 +5,7 @@
 package model.army.data.actors;
 
 import geometry3D.Point3D;
+import java.awt.Color;
 import model.army.data.Actor;
 
 /**
@@ -21,10 +22,11 @@ public class ParticleActor extends Actor {
     public boolean randomSprite;
     public int maxCount;
     public int perSecond;
+    public boolean emitAll;
     public double startSize;
     public double endSize;
-    public int startColor;
-    public int endColor;
+    public Color startColor;
+    public Color endColor;
     public Point3D velocity;
     public double fanning;
     public double minLife;
@@ -50,6 +52,14 @@ public class ParticleActor extends Actor {
         } while(!parent.containsModel());
         return (ModelActor)parent;
     }
+
+    @Override
+    protected void act() {
+        launched = false;
+        super.act();
+    }
+    
+    
 
 
 }

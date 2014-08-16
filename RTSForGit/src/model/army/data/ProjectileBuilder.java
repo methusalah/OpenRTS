@@ -7,6 +7,7 @@ package model.army.data;
 import geometry3D.Point3D;
 import model.army.data.definitions.DefElement;
 import model.army.ArmyManager;
+import model.army.data.actors.ProjectileActor;
 import model.army.data.definitions.Definition;
 import model.army.data.effects.LauncherEffect;
 import tools.LogUtil;
@@ -44,7 +45,7 @@ public class ProjectileBuilder {
                 case SPEED : res.speed = de.getDoubleVal(); break;
                 case MASS : res.mass = de.getDoubleVal(); break;
                 case MOVER_LINK : res.mover = lib.getMoverBuilder(de.getVal()).build(res, launcher.source.getPos()); break;
-                case ACTOR_LINK : lib.getActorBuilder(de.getVal()).build(res); break;
+                case ACTOR_LINK : res.actor = (ProjectileActor)lib.getActorBuilder(de.getVal()).build(res); break;
                 
                 case MODELPATH : res.modelPath = de.getVal(); break;
                 case PRECISION :

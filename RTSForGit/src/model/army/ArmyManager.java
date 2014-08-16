@@ -27,6 +27,7 @@ public class ArmyManager {
     private ArrayList<PersistentEffect> persistenteffects = new ArrayList<>();
     public ArrayList<Projectile> projectiles = new ArrayList<>();
     public ArrayList<Actor> activeActors = new ArrayList<>();
+    public ArrayList<Actor> deletedActors = new ArrayList<>();
 
     public void createTestArmy(BuilderLibrary lib){
         Faction f1 = new Faction(Color.RED);
@@ -78,8 +79,6 @@ public class ArmyManager {
             else
                 p.update(elapsedTime);
         projectiles.removeAll(arrived);
-                        
-            
     }
 
     public ArrayList<Unit> getUnits(){
@@ -106,5 +105,16 @@ public class ArmyManager {
     
     public void deleteActor(Actor actor){
         activeActors.remove(actor);
+        deletedActors.add(actor);
+    }
+    
+    public ArrayList<Actor> grabDeletedActors(){
+        ArrayList<Actor> res = new ArrayList<>(deletedActors);
+        deletedActors.clear();
+        return res;
+    }
+    public ArrayList<Actor> getActors(){
+        ArrayList<Actor> res = new ArrayList<>(activeActors);
+        return res;
     }
 }

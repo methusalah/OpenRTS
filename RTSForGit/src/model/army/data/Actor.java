@@ -7,6 +7,7 @@ package model.army.data;
 import java.util.ArrayList;
 import model.army.ArmyManager;
 import tools.LogUtil;
+import view.renderers.ActorViewElements;
 
 /**
  *
@@ -24,7 +25,8 @@ public class Actor {
     Actor parent;
     String trigger;
     ArrayList<Actor> children = new ArrayList<>();
-    public boolean destroyed = false;
+    
+    public ActorViewElements viewElements = new ActorViewElements();
     
     ArmyManager armyManager;
     
@@ -35,36 +37,44 @@ public class Actor {
     }
     
     public void onMove(){
-        trigger(ON_MOVE);
+        activate(ON_MOVE);
+        desactivate(ON_WAIT);
+        desactivate(ON_AIM);
     }
-    
     public void onWait(){
-        trigger(ON_WAIT);
-    }
-    public void onShoot(){
-        trigger(ON_SHOOT);
+        activate(ON_WAIT);
+        desactivate(ON_MOVE);
+        desactivate(ON_AIM);
     }
     public void onAim(){
-        trigger(ON_AIM);
+        activate(ON_AIM);
+        desactivate(ON_WAIT);
+        desactivate(ON_MOVE);
+        
+    }
+    public void onShoot(){
+        activate(ON_SHOOT);
     }
     
-    private void trigger(String trigger){
+    private void activate(String trigger){
         if(this.trigger.equals(trigger))
             act();
         for(Actor a : children)
-            a.trigger(trigger);
+            a.activate(trigger);
     }
     
-    public void act(){
-        trigger(ON_ALL_TIME);
+    private void desactivate(String trigger){
+        if(this.trigger.equals(trigger))
+            interrupt();
+        for(Actor a : children)
+            a.desactivate(trigger);
+    }
+    
+    protected void act(){
         armyManager.registerActor(this);
     }
-    public void interrupt(){
-        armyManager.deleteActor(this);
-    }
     
-    public void destroy(){
-        destroyed = true;
+    public void interrupt(){
         armyManager.deleteActor(this);
     }
     

@@ -5,12 +5,16 @@
 package view.renderers;
 
 import com.jme3.animation.Bone;
+import com.jme3.effect.ParticleEmitter;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
  *
  * @author Benoît
  */
-public class ModelActorViewElement {
+public class ActorViewElements {
     public Spatial spatial;
+    public ParticleEmitter particleEmitter;
+    public Node selectionCircle;
 }

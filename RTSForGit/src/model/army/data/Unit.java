@@ -66,7 +66,6 @@ public class Unit extends Movable {
         ai.update();
         
         if(weapons.get(0).isAttacking()){
-            actor.onAim();
             state = State.ATTACK;
             head(weapons.get(0).getTargetAngle());
         }
@@ -79,10 +78,11 @@ public class Unit extends Movable {
         if(hasTurret())
             turrets.get(0).update(elapsedTime, mover.hasMoved);
         
-        if(state != lastState)
+        if(!state.equals(lastState))
             switch (state){
                 case MOVE : actor.onMove(); break;
                 case IDLE : actor.onWait(); break;
+                case ATTACK : actor.onAim(); break;
             }
     }
     
@@ -141,7 +141,7 @@ public class Unit extends Movable {
     private void destroy(){
         mover.z = -0.5;
         state = State.DESTROYED;
-        actor.destroy();
+        actor.interrupt();
     }
     
     public boolean destroyed(){

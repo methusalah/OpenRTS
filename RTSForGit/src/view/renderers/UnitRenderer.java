@@ -66,11 +66,6 @@ public class UnitRenderer implements AnimEventListener {
     
     HashMap<String, Spatial> models = new HashMap<>();
     
-    HashMap<Actor, Spatial> modelActors = new HashMap<>();
-    HashMap<Actor, ParticleEmitter> particleActors = new HashMap<>();
-    HashMap<Actor, Node> selectionCircles = new HashMap<>();
-    
-	
     public UnitRenderer(ArmyManager um, Map map, MaterialManager mm, AssetManager am, Commander commander) {
         this.armyManager = um;
         this.map = map;
@@ -97,19 +92,20 @@ public class UnitRenderer implements AnimEventListener {
     
     public void renderActors(){
         // first, the spatials attached to destroyed actor are destroyed
-        ArrayList<Actor> toRemove = new ArrayList<>();
-        for(Actor a : modelActors.keySet())
-            if(a.destroyed){
-                mainNode.detachChild(modelActors.get(a));
-                toRemove.add(a);
-                if(mainNode.hasChild(selectionCircles.get(a)))
-                    mainNode.detachChild(selectionCircles.get(a));
-                selectionCircles.remove(a);
-                }
-        for(Actor a : toRemove)
-            modelActors.remove(a);
+        for(Actor a : armyManager.grabDeletedActors()){
+            if(a.viewElements.spatial != null){
+                mainNode.detachChild(a.viewElements.spatial);
+                a.viewElements.spatial = null;
+            }
+            if(a.viewElements.particleEmitter != null)
+                a.viewElements.particleEmitter.setParticlesPerSec(0);
+            if(a.viewElements.selectionCircle != null){
+                mainNode.detachChild(a.viewElements.selectionCircle);
+                a.viewElements.selectionCircle = null;
+            }
+        }
         
-        for(Actor a : armyManager.activeActors){
+        for(Actor a : armyManager.getActors()){
             if(a instanceof UnitActor)
                 renderUnitActor((UnitActor)a);
             if(a instanceof ProjectileActor)
@@ -122,10 +118,9 @@ public class UnitRenderer implements AnimEventListener {
         
         
         // here we use the scenegraph to grab the coordinates of all bones and store them for the model.
-        for(Actor a : armyManager.activeActors){
+        for(Actor a : armyManager.getActors()){
             if(a.containsModel()){
-                Spatial s = modelActors.get(a);
-                Skeleton sk = s.getControl(AnimControl.class).getSkeleton();
+                Skeleton sk = a.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
                 for(int i=0; i<sk.getBoneCount(); i++){
                     Bone b = sk.getBone(i);
                     ((ModelActor)a).boneCoords.put(b.getName(), Translator.toPoint3D(b.getWorldBindPosition()));
@@ -137,15 +132,15 @@ public class UnitRenderer implements AnimEventListener {
     }
     
     private void renderMovableActor(MovableActor actor){
-        if(!modelActors.containsKey(actor)){
+        if(actor.viewElements.spatial == null){
             Spatial s = buildSpatial(actor.modelPath);
             s.setLocalScale((float)actor.scale*DEFAULT_SCALE);
             s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
             s.setName(actor.getLabel());
-            modelActors.put(actor, s);
+            actor.viewElements.spatial = s;
             mainNode.attachChild(s);
         }
-        Spatial s = modelActors.get(actor);
+        Spatial s = actor.viewElements.spatial;
 
         // translation
         s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
@@ -167,13 +162,8 @@ public class UnitRenderer implements AnimEventListener {
     }
 
     private void renderAnimationActor(AnimationActor actor){
-        if(actor.launched)
-            return;
-        actor.launched = true;
-        
-        Spatial s = modelActors.get(actor.getParentModelActor());
-        AnimControl control = s.getControl(AnimControl.class);
-        AnimChannel channel = control.getChannel(0);
+        Spatial s = actor.getParentModelActor().viewElements.spatial;
+        AnimChannel channel = s.getControl(AnimControl.class).getChannel(0);
         channel.setAnim(actor.animName);
         switch (actor.cycle){
             case Once : channel.setLoopMode(LoopMode.DontLoop); break;
@@ -181,19 +171,19 @@ public class UnitRenderer implements AnimEventListener {
             case Cycle : channel.setLoopMode(LoopMode.Cycle); break;
         }
         channel.setSpeed((float)actor.speed);
+        
+        actor.interrupt();
     }
     
     private void renderParticleActor(ParticleActor actor){
-//        if(actor.launched)
-//            return;
-//        actor.launched = true;
-        
+        if(actor.launched)
+            return;
         UnitActor ua = (UnitActor)actor.getParentModelActor();
         Vector3f emissionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.emissionNode));
         Vector3f directionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.directionNode));
         directionPoint = directionPoint.subtract(emissionPoint);
         
-        if(!particleActors.containsKey(actor)){
+        if(actor.viewElements.particleEmitter == null){
             ParticleEmitter emitter = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, actor.maxCount);
             
             Material m = new Material(am, "Common/MatDefs/Misc/Particle.j3md");
@@ -204,13 +194,8 @@ public class UnitRenderer implements AnimEventListener {
             emitter.setImagesX(actor.nbRow); 
             emitter.setImagesY(actor.nbCol);
 
-            ColorRGBA c = new ColorRGBA(0.7f, 0.7f, 0.7f, 0.7f);
-    //        c.fromIntRGBA(actor.startColor);
-            emitter.setStartColor(c);
-
-            c = new ColorRGBA(0.7f, 0.7f, 0.7f, 0);
-    //        c.fromIntRGBA(actor.endColor);
-            emitter.setEndColor(c);
+            emitter.setStartColor(Translator.toColorRGBA(actor.startColor));
+            emitter.setEndColor(Translator.toColorRGBA(actor.endColor));
 
             emitter.setStartSize((float)actor.startSize);
             emitter.setEndSize((float)actor.endSize);
@@ -225,9 +210,19 @@ public class UnitRenderer implements AnimEventListener {
             emitter.getParticleInfluencer().setInitialVelocity(directionPoint);
             emitter.getParticleInfluencer().setVelocityVariation(0.3f);
             mainNode.attachChild(emitter);
-            particleActors.put(actor, emitter);
+            actor.viewElements.particleEmitter = emitter;
         }
-        particleActors.get(actor).setLocalTranslation(emissionPoint);
+        ParticleEmitter pe = actor.viewElements.particleEmitter;
+        if(pe.getParticlesPerSec() == 0)
+            pe.setParticlesPerSec(actor.perSecond);
+        pe.setLocalTranslation(emissionPoint);
+        
+        if(actor.emitAll){
+            pe.emitAllParticles();
+            actor.interrupt();
+        }
+            
+
 }
     
     
@@ -235,16 +230,16 @@ public class UnitRenderer implements AnimEventListener {
     
     
     private void drawSelectionCircle(UnitActor actor){
-        if(!selectionCircles.containsKey(actor)){
+        if(actor.viewElements.selectionCircle == null){
             Geometry g = new Geometry();
             g.setMesh(new Circle((float)actor.getUnit().getSeparationRadius(), 10));
             g.setMaterial(mm.greenMaterial);
             g.rotate((float)Angle.RIGHT, 0, 0);
             Node n = new Node();
             n.attachChild(g);
-            selectionCircles.put(actor, n);
+            actor.viewElements.selectionCircle = n;
         }
-        Node n = selectionCircles.get(actor);
+        Node n = actor.viewElements.selectionCircle;
         n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
         if(actor.isSelectedOn(commander)){
@@ -259,10 +254,8 @@ public class UnitRenderer implements AnimEventListener {
         if(!actor.hasTurret())
             return;
         actor.updateTurretOrientation();
-        Spatial s = modelActors.get(actor);
-        AnimControl control = s.getControl(AnimControl.class);
-        Skeleton sk = control.getSkeleton();
-        Bone turretBone = sk.getBone(actor.turretBone);
+        
+        Bone turretBone = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(actor.turretBone);
         if(turretBone == null)
             throw new RuntimeException("Can't find the bone "+actor.turretBone+"for turret.");
         
@@ -283,8 +276,7 @@ public class UnitRenderer implements AnimEventListener {
     }
     
     private Point3D getBoneWorldPos(UnitActor actor, String boneName){
-        Spatial s = modelActors.get(actor);
-        Vector3f modelSpacePos = s.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
+        Vector3f modelSpacePos = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
         Point2D p2D = Translator.toPoint2D(modelSpacePos);
         p2D = p2D.getRotation(actor.getOrientation()+Angle.RIGHT);
         Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);

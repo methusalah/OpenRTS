@@ -6,6 +6,7 @@ package model.army.data;
 
 import geometry.Point2D;
 import geometry3D.Point3D;
+import java.awt.Color;
 import model.army.data.definitions.DefElement;
 import java.util.HashMap;
 import model.army.ArmyManager;
@@ -55,10 +56,11 @@ public class ActorBuilder {
     static final String SPRITE_PATH = "SpritePath";
     static final String NB_COL = "NbCol";
     static final String NB_ROW = "NbRow";
-    static final String EMISSION_NODE = "EmissionNode";
-    static final String DIRECTION_NODE = "DirectionNode";
+    static final String EMISSION_NODE = "EmissionBone";
+    static final String DIRECTION_NODE = "DirectionBone";
     static final String MAX_COUNT = "MaxCount";
     static final String PER_SECOND = "PerSecond";
+    static final String EMIT_ALL = "EmitAll";
     static final String START_SIZE = "StartSize";
     static final String END_SIZE = "EndSize";
     static final String START_COLOR = "StartColor";
@@ -66,6 +68,13 @@ public class ActorBuilder {
     static final String MIN_LIFE = "MinLife";
     static final String MAX_LIFE = "Max_Life";
     static final String GRAVITY = "Gravity";
+
+    static final String RED = "R";
+    static final String GREEN = "G";
+    static final String BLUE = "B";
+    static final String ALPHA = "A";
+    
+    
     
     String type;
     Definition def;
@@ -157,10 +166,21 @@ public class ActorBuilder {
                 case DIRECTION_NODE : ((ParticleActor)res).directionNode = de.getVal(); break;
                 case MAX_COUNT : ((ParticleActor)res).maxCount = de.getIntVal(); break;
                 case PER_SECOND : ((ParticleActor)res).perSecond = de.getIntVal(); break;
+                case EMIT_ALL : ((ParticleActor)res).emitAll = de.getBoolVal(); break;
                 case START_SIZE : ((ParticleActor)res).startSize = de.getDoubleVal(); break;
                 case END_SIZE : ((ParticleActor)res).endSize = de.getDoubleVal(); break;
-                case START_COLOR : ((ParticleActor)res).startColor = de.getIntFromHexVal(); break;
-                case END_COLOR : ((ParticleActor)res).endColor = de.getIntFromHexVal(); break;
+                case START_COLOR :
+                    ((ParticleActor)res).startColor = new Color(de.getIntVal(RED),
+                            de.getIntVal(GREEN),
+                            de.getIntVal(BLUE),
+                            de.getIntVal(ALPHA));
+                    break;
+                case END_COLOR :
+                    ((ParticleActor)res).endColor = new Color(de.getIntVal(RED),
+                            de.getIntVal(GREEN),
+                            de.getIntVal(BLUE),
+                            de.getIntVal(ALPHA));
+                    break;
                 case MIN_LIFE : ((ParticleActor)res).minLife = de.getDoubleVal(); break;
                 case MAX_LIFE : ((ParticleActor)res).maxLife = de.getDoubleVal(); break;
                 case GRAVITY : ((ParticleActor)res).gravity = de.getBoolVal(); break;

@@ -6,6 +6,7 @@ package model.army.data.definitions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import tools.LogUtil;
 
 /**
  *
@@ -58,9 +59,6 @@ public class DefElement {
         return Boolean.parseBoolean(getVal());
     }
 
-    public int getIntFromHexVal(){
-        return Integer.parseInt("7f", 16);
-    }
     
     
     
