@@ -25,8 +25,8 @@
     <SpritePath value="flame.png"/>
     <NbCol value="2"/>
     <NbRow value="2"/>
-    <EmissionBone value="Bone003"/>
-    <DirectionBone value="Bone003"/>
+    <EmissionBone value="BoneCanon03"/>
+    <DirectionBone value="BoneCanon03"/>
     <MaxCount value="30"/>
     <PerSecond value="10"/>
     <EmitAll value="true"/>
@@ -44,7 +44,7 @@
     <NbCol value="2"/>
     <NbRow value="2"/>
     <EmissionBone value="chenillearrieredroite02"/>
-    <DirectionBone value="chenillearrieredroite02"/>
+    <DirectionBone value="chenillearrieredroite03"/>
     <MaxCount value="30"/>
     <PerSecond value="10"/>
     <EmitAll value="false"/>
@@ -62,7 +62,7 @@
     <NbCol value="2"/>
     <NbRow value="2"/>
     <EmissionBone value="chenillearrieregauche02"/>
-    <DirectionBone value="chenillearrieregauche02"/>
+    <DirectionBone value="chenillearrieregauche03"/>
     <MaxCount value="30"/>
     <PerSecond value="10"/>
     <EmitAll value="false"/>
