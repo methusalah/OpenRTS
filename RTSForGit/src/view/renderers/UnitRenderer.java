@@ -181,7 +181,8 @@ public class UnitRenderer implements AnimEventListener {
         UnitActor ua = (UnitActor)actor.getParentModelActor();
         Vector3f emissionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.emissionNode));
         Vector3f directionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.directionNode));
-        directionPoint = directionPoint.subtract(emissionPoint);
+                
+        directionPoint = directionPoint.subtract(emissionPoint).mult((float)actor.velocity);
         
         if(actor.viewElements.particleEmitter == null){
             ParticleEmitter emitter = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, actor.maxCount);
@@ -207,19 +208,25 @@ public class UnitRenderer implements AnimEventListener {
             emitter.setLowLife((float)actor.minLife);
             emitter.setHighLife((float)actor.maxLife);
 
-            emitter.getParticleInfluencer().setInitialVelocity(directionPoint);
-            emitter.getParticleInfluencer().setVelocityVariation(0.3f);
+            emitter.getParticleInfluencer().setVelocityVariation((float)actor.fanning);
             mainNode.attachChild(emitter);
             actor.viewElements.particleEmitter = emitter;
         }
         ParticleEmitter pe = actor.viewElements.particleEmitter;
+        pe.getParticleInfluencer().setInitialVelocity(directionPoint);
         if(pe.getParticlesPerSec() == 0)
             pe.setParticlesPerSec(actor.perSecond);
         pe.setLocalTranslation(emissionPoint);
         
-        if(actor.emitAll){
+        if(actor.duration == 0){
             pe.emitAllParticles();
             actor.interrupt();
+        } else {
+            if(actor.startTime == 0)
+                actor.startTime = System.currentTimeMillis();
+            else
+                if(actor.startTime+actor.duration < System.currentTimeMillis())
+                    actor.interrupt();
         }
             
 

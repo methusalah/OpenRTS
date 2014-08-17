@@ -58,9 +58,11 @@ public class ActorBuilder {
     static final String NB_ROW = "NbRow";
     static final String EMISSION_NODE = "EmissionBone";
     static final String DIRECTION_NODE = "DirectionBone";
+    static final String VELOCITY = "Velocity";
+    static final String FANNING = "Fanning";
     static final String MAX_COUNT = "MaxCount";
     static final String PER_SECOND = "PerSecond";
-    static final String EMIT_ALL = "EmitAll";
+    static final String DURATION = "Duration";
     static final String START_SIZE = "StartSize";
     static final String END_SIZE = "EndSize";
     static final String START_COLOR = "StartColor";
@@ -164,9 +166,11 @@ public class ActorBuilder {
                 case NB_ROW : ((ParticleActor)res).nbRow = de.getIntVal(); break;
                 case EMISSION_NODE : ((ParticleActor)res).emissionNode = de.getVal(); break;
                 case DIRECTION_NODE : ((ParticleActor)res).directionNode = de.getVal(); break;
+                case VELOCITY : ((ParticleActor)res).velocity = de.getDoubleVal(); break;
+                case FANNING : ((ParticleActor)res).fanning = de.getDoubleVal(); break;
                 case MAX_COUNT : ((ParticleActor)res).maxCount = de.getIntVal(); break;
                 case PER_SECOND : ((ParticleActor)res).perSecond = de.getIntVal(); break;
-                case EMIT_ALL : ((ParticleActor)res).emitAll = de.getBoolVal(); break;
+                case DURATION : ((ParticleActor)res).duration = de.getDoubleVal(); break;
                 case START_SIZE : ((ParticleActor)res).startSize = de.getDoubleVal(); break;
                 case END_SIZE : ((ParticleActor)res).endSize = de.getDoubleVal(); break;
                 case START_COLOR :

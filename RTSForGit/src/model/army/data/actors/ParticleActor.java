@@ -19,16 +19,16 @@ public class ParticleActor extends Actor {
     public String emissionNode;
     public String directionNode;
     
+    public double velocity = 0;
+    public double fanning = 0;
     public boolean randomSprite;
     public int maxCount;
     public int perSecond;
-    public boolean emitAll;
+    public double duration = Double.MAX_VALUE;
     public double startSize;
     public double endSize;
     public Color startColor;
     public Color endColor;
-    public Point3D velocity;
-    public double fanning;
     public double minLife;
     public double maxLife;
     public double spinSpeed;
@@ -37,6 +37,7 @@ public class ParticleActor extends Actor {
     public double emissionPointVariation;
     
     public boolean launched = false;
+    public long startTime = 0;
     
     public ParticleActor(String trigger, Actor parent){
         super(trigger, parent);
@@ -56,6 +57,7 @@ public class ParticleActor extends Actor {
     @Override
     protected void act() {
         launched = false;
+        startTime = 0;
         super.act();
     }
     

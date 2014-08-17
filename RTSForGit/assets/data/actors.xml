@@ -13,6 +13,7 @@
   <Actor id="TankCanonMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankCanonAnimation"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash"/>
+    <ActorList Trigger="onShoot" ActorLink="TankCanonFlash2"/>
   </Actor>
   <Actor id="TankCanonAnimation">
     <Type value="Animation"/>
@@ -22,27 +23,49 @@
   </Actor>
   <Actor id="TankCanonFlash">
     <Type value="Particle"/>
-    <SpritePath value="flame.png"/>
+    <SpritePath value="particles/flame.png"/>
     <NbCol value="2"/>
     <NbRow value="2"/>
     <EmissionBone value="BoneCanon03"/>
-    <DirectionBone value="BoneCanon03"/>
+    <DirectionBone value="BoneCanonMuzzle"/>
+    <Velocity value="100"/>
+    <Fanning value="0.1"/>
+    <Duration value="100"/>
     <MaxCount value="30"/>
-    <PerSecond value="10"/>
-    <EmitAll value="true"/>
-    <StartSize value="0.3"/>
-    <EndSize value="0"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.1"/>
     <StartColor R="255" G="255" B="0" A="180"/>
     <EndColor R="255" G="0" B="0" A="255"/>
-    <MinLife value="0.5"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.6"/>
+    <Gravity value="false"/>
+  </Actor>
+  <Actor id="TankCanonFlash2">
+    <Type value="Particle"/>
+    <SpritePath value="particles/flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <EmissionBone value="BoneCanon03"/>
+    <DirectionBone value="BoneCanonMuzzle"/>
+    <Velocity value="50"/>
+    <Fanning value="0.8"/>
+    <Duration value="100"/>
+    <MaxCount value="60"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.1"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="0.2"/>
     <MaxLife value="0.6"/>
     <Gravity value="false"/>
   </Actor>
   <Actor id="LeftDust">
     <Type value="Particle"/>
-    <SpritePath value="flame.png"/>
-    <NbCol value="2"/>
-    <NbRow value="2"/>
+    <SpritePath value="particles/smoketex.jpg"/>
+    <NbCol value="1"/>
+    <NbRow value="1"/>
     <EmissionBone value="chenillearrieredroite02"/>
     <DirectionBone value="chenillearrieredroite03"/>
     <MaxCount value="30"/>
@@ -58,9 +81,9 @@
   </Actor>
   <Actor id="RightDust">
     <Type value="Particle"/>
-    <SpritePath value="flame.png"/>
-    <NbCol value="2"/>
-    <NbRow value="2"/>
+    <SpritePath value="particles/smoketex.jpg"/>
+    <NbCol value="1"/>
+    <NbRow value="1"/>
     <EmissionBone value="chenillearrieregauche02"/>
     <DirectionBone value="chenillearrieregauche03"/>
     <MaxCount value="30"/>

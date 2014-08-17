@@ -7,7 +7,7 @@ package model.army.tacticalIA;
 import model.army.data.Unit;
 
 /**
- *a
+ *
  * @author Benoît
  */
 public class AttackEvent {
