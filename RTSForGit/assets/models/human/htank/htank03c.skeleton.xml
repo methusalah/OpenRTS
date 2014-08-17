@@ -42,37 +42,43 @@
                 <axis x="-1.43858e-008" y="2.8098e-008" z="1"/>
             </rotation>
         </bone>
-        <bone id="7" name="chenillearrieredroite01">
+        <bone id="7" name="BoneCanonMuzzle">
+            <position x="21.3435" y="0" z="0"/>
+            <rotation angle="0.00338291">
+                <axis x="-3.50804e-011" y="2.0732e-008" z="1"/>
+            </rotation>
+        </bone>
+        <bone id="8" name="chenillearrieredroite01">
             <position x="138.737" y="-0.000255585" z="0"/>
             <rotation angle="0.319316">
                 <axis x="-0.066766" y="-0.920798" z="0.384282"/>
             </rotation>
         </bone>
-        <bone id="8" name="chenillearrieredroite02">
+        <bone id="9" name="chenillearrieredroite02">
             <position x="392.257" y="7.62939e-006" z="0.000244141"/>
             <rotation angle="0.322871">
                 <axis x="0.0610719" y="0.908854" z="-0.412619"/>
             </rotation>
         </bone>
-        <bone id="9" name="chenillearrieredroite03">
+        <bone id="10" name="chenillearrieredroite03">
             <position x="40.7531" y="-0.00012207" z="0"/>
             <rotation angle="1.5708">
                 <axis x="0.999999" y="0.000902657" z="-0.000892245"/>
             </rotation>
         </bone>
-        <bone id="10" name="chenillearrieregauche01">
+        <bone id="11" name="chenillearrieregauche01">
             <position x="138.728" y="-0.0001297" z="0"/>
             <rotation angle="0.317193">
                 <axis x="0.0666493" y="0.919852" z="0.386563"/>
             </rotation>
         </bone>
-        <bone id="11" name="chenillearrieregauche02">
+        <bone id="12" name="chenillearrieregauche02">
             <position x="396.424" y="0.000640869" z="0"/>
             <rotation angle="0.32227">
                 <axis x="-0.0610151" y="-0.908629" z="-0.413123"/>
             </rotation>
         </bone>
-        <bone id="12" name="chenillearrieregauche03">
+        <bone id="13" name="chenillearrieregauche03">
             <position x="36.1082" y="-6.00815e-005" z="-0.00769043"/>
             <rotation angle="1.57082">
                 <axis x="0.999987" y="-0.00355238" z="0.00357562"/>
@@ -86,6 +92,7 @@
         <boneparent bone="BoneCanon01" parent="BoneTourelle_Corps"/>
         <boneparent bone="BoneCanon02" parent="BoneCanon01"/>
         <boneparent bone="BoneCanon03" parent="BoneCanon02"/>
+        <boneparent bone="BoneCanonMuzzle" parent="BoneCanon03"/>
         <boneparent bone="chenillearrieredroite01" parent="BoneVehicule_Base"/>
         <boneparent bone="chenillearrieredroite02" parent="chenillearrieredroite01"/>
         <boneparent bone="chenillearrieredroite03" parent="chenillearrieredroite02"/>
@@ -245,55 +252,55 @@
                         <keyframe time="0">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0">
-                                <axis x="1" y="0" z="0"/>
+                                <axis x="0" y="-1" z="0"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.125">
                             <translate x="7.62939e-006" y="6.10352e-005" z="0"/>
                             <rotate angle="0.426516">
-                                <axis x="-2.87716e-008" y="-2.09827e-015" z="1"/>
+                                <axis x="-2.87716e-008" y="-8.39308e-015" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.25">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0.378658">
-                                <axis x="-2.87716e-008" y="-4.71933e-015" z="1"/>
+                                <axis x="-2.87716e-008" y="-9.43866e-015" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.375">
                             <translate x="1.52588e-005" y="0" z="0"/>
                             <rotate angle="0.3083">
-                                <axis x="-2.87716e-008" y="-8.67694e-015" z="1"/>
+                                <axis x="-2.87716e-008" y="-1.15693e-014" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.5">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0.226327">
-                                <axis x="-2.87716e-008" y="-9.83167e-015" z="1"/>
+                                <axis x="-2.87716e-008" y="1.96633e-015" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.625">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0.143619">
-                                <axis x="-2.87715e-008" y="-1.2379e-014" z="1"/>
+                                <axis x="-2.87715e-008" y="-3.71369e-014" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.75">
                             <translate x="0" y="6.10352e-005" z="0"/>
                             <rotate angle="0.0710583">
-                                <axis x="-2.87716e-008" y="0" z="1"/>
+                                <axis x="-2.87716e-008" y="-3.12535e-014" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.875">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0.0195069">
-                                <axis x="-2.87713e-008" y="1.3643e-013" z="1"/>
+                                <axis x="-2.87713e-008" y="0" z="1"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="1">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0">
-                                <axis x="1" y="0" z="0"/>
+                                <axis x="0" y="-1" z="0"/>
                             </rotate>
                         </keyframe>
                     </keyframes>
@@ -495,13 +502,13 @@
                         <keyframe time="0">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0">
-                                <axis x="1" y="0" z="0"/>
+                                <axis x="0" y="-1" z="0"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.0333333">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0">
-                                <axis x="1" y="0" z="0"/>
+                                <axis x="0" y="-1" z="0"/>
                             </rotate>
                         </keyframe>
                     </keyframes>
@@ -643,13 +650,13 @@
                         <keyframe time="0">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0">
-                                <axis x="1" y="0" z="0"/>
+                                <axis x="0" y="-1" z="0"/>
                             </rotate>
                         </keyframe>
                         <keyframe time="0.0333333">
                             <translate x="0" y="0" z="0"/>
                             <rotate angle="0">
-                                <axis x="1" y="0" z="0"/>
+                                <axis x="0" y="-1" z="0"/>
                             </rotate>
                         </keyframe>
                     </keyframes>
