@@ -103,8 +103,10 @@
 
   <Actor id="SmallAlien">
     <Type value="Unit"/>
-    <ModelPath value="alien/infantry01.mesh.xml"/>
+    <ModelPath value="alien/miniwalker/miniwalker02a.mesh.xml"/>
     <Scale value="1"/>
+    <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onWait" ActorLink="Idle"/>
   </Actor>
   <Actor id="BigAlien">
     <Type value="Unit"/>
