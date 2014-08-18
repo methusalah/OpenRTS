@@ -17,7 +17,9 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.collision.UnsupportedCollisionException;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
+import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -43,6 +45,8 @@ import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
 import model.army.data.actors.MovableActor;
 import model.army.data.actors.ParticleActor;
+import static model.army.data.actors.ParticleActor.Facing.Horizontal;
+import static model.army.data.actors.ParticleActor.Facing.Velocity;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import tools.LogUtil;
@@ -180,17 +184,20 @@ public class UnitRenderer implements AnimEventListener {
             return;
         UnitActor ua = (UnitActor)actor.getParentModelActor();
         Vector3f emissionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.emissionNode));
-        Vector3f directionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.directionNode));
-                
-        directionPoint = directionPoint.subtract(emissionPoint).mult((float)actor.velocity);
+        Vector3f direction = Translator.toVector3f(getBoneWorldPos(ua, actor.directionNode));
+        direction = direction.subtract(emissionPoint).normalize();
+        
+        Vector3f velocity = direction.mult((float)actor.velocity);
         
         if(actor.viewElements.particleEmitter == null){
             ParticleEmitter emitter = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, actor.maxCount);
             
             Material m = new Material(am, "Common/MatDefs/Misc/Particle.j3md");
             m.setTexture("Texture", am.loadTexture("textures/"+actor.spritePath));
+            if(!actor.add)
+                m.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+
             emitter.setMaterial(m);
-            
             emitter.setParticlesPerSec(actor.perSecond);
             emitter.setImagesX(actor.nbRow); 
             emitter.setImagesY(actor.nbCol);
@@ -201,19 +208,29 @@ public class UnitRenderer implements AnimEventListener {
             emitter.setStartSize((float)actor.startSize);
             emitter.setEndSize((float)actor.endSize);
             if(actor.gravity)
-                emitter.setGravity(0, -1, 0);
+                emitter.setGravity(0, 0, 4);
             else
                 emitter.setGravity(0, 0, 0);
 
             emitter.setLowLife((float)actor.minLife);
             emitter.setHighLife((float)actor.maxLife);
 
-            emitter.getParticleInfluencer().setVelocityVariation((float)actor.fanning);
+            if(actor.startVariation != 0)
+                emitter.setShape(new EmitterSphereShape(Vector3f.ZERO, (float)actor.startVariation));
+            
+            if(actor.facing == ParticleActor.Facing.Horizontal)
+                emitter.setFaceNormal(Vector3f.UNIT_Z);
+            if(actor.velocity != 0)
+                emitter.setFacingVelocity(true);
             mainNode.attachChild(emitter);
             actor.viewElements.particleEmitter = emitter;
         }
         ParticleEmitter pe = actor.viewElements.particleEmitter;
-        pe.getParticleInfluencer().setInitialVelocity(directionPoint);
+        pe.getParticleInfluencer().setInitialVelocity(velocity);
+        pe.getParticleInfluencer().setVelocityVariation((float)actor.fanning);
+        if(actor.facing == ParticleActor.Facing.Velocity)
+            pe.setFaceNormal(direction);
+        
         if(pe.getParticlesPerSec() == 0)
             pe.setParticlesPerSec(actor.perSecond);
         pe.setLocalTranslation(emissionPoint);

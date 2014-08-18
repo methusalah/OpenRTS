@@ -5,7 +5,7 @@
     <Race value="human"/>
     <Radius value="0.5"/>
     <SeparationRadius value="0.5"/>
-    <Speed value="3"/>
+    <Speed value="1.8"/>
     <Mass value="4"/>
     <MaxHealth value="120"/>
     <Sight value="10"/>

@@ -9,10 +9,10 @@
   </Weapon>
   <Weapon id="TankCanon">
     <UIName value="Canon"/>
-    <EffectLink value="StdDoubleShot"/>
+    <EffectLink value="StdDamage"/>
     <Range value="5"/>
     <ScanRange value="7"/>
-    <Period value="5"/>
+    <Period value="1.8"/>
     <ActorLink value="TankCanonMainActor"/>
   </Weapon>
   <Weapon id="MeleeWeapon">

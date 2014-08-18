@@ -70,6 +70,12 @@ public class ActorBuilder {
     static final String MIN_LIFE = "MinLife";
     static final String MAX_LIFE = "Max_Life";
     static final String GRAVITY = "Gravity";
+    static final String FACING = "Facing";
+    static final String FACING_VELOCITY = "Velocity";
+    static final String FACING_HORIZONTAL = "Horizontal";
+    static final String ADD = "Add";
+    static final String START_VARIATION = "StartVariation";
+    
 
     static final String RED = "R";
     static final String GREEN = "G";
@@ -188,6 +194,14 @@ public class ActorBuilder {
                 case MIN_LIFE : ((ParticleActor)res).minLife = de.getDoubleVal(); break;
                 case MAX_LIFE : ((ParticleActor)res).maxLife = de.getDoubleVal(); break;
                 case GRAVITY : ((ParticleActor)res).gravity = de.getBoolVal(); break;
+                case FACING : 
+                    switch (de.getVal()){
+                        case FACING_HORIZONTAL : ((ParticleActor)res).facing = ParticleActor.Facing.Horizontal; break;
+                        case FACING_VELOCITY : ((ParticleActor)res).facing = ParticleActor.Facing.Velocity; break;
+                    }
+                    break;
+                case ADD : ((ParticleActor)res).add = de.getBoolVal(); break;
+                case START_VARIATION : ((ParticleActor)res).startVariation = de.getDoubleVal(); break;
 
             }
         return res;

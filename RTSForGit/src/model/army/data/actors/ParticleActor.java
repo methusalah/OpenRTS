@@ -13,9 +13,11 @@ import model.army.data.Actor;
  * @author Benoît
  */
 public class ParticleActor extends Actor {
+    public enum Facing{Horizontal, Velocity, Camera}
+    
     public String spritePath;
-    public int nbCol;
-    public int nbRow;
+    public int nbCol = 1;
+    public int nbRow = 1;
     public String emissionNode;
     public String directionNode;
     
@@ -33,8 +35,11 @@ public class ParticleActor extends Actor {
     public double maxLife;
     public double spinSpeed;
     public boolean randomAngle;
-    public boolean gravity;
+    public boolean gravity = false;
     public double emissionPointVariation;
+    public Facing facing = Facing.Camera;
+    public boolean add = true;
+    public double startVariation = 0;
     
     public boolean launched = false;
     public long startTime = 0;

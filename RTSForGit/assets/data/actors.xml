@@ -8,12 +8,15 @@
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onMove" ActorLink="LeftDust"/>
     <ActorList Trigger="onMove" ActorLink="RightDust"/>
+    <ActorList Trigger="onMove" ActorLink="LeftMud"/>
+    <ActorList Trigger="onMove" ActorLink="RightMud"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
   </Actor>
   <Actor id="TankCanonMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankCanonAnimation"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash2"/>
+    <ActorList Trigger="onShoot" ActorLink="TankCanonShockwave"/>
   </Actor>
   <Actor id="TankCanonAnimation">
     <Type value="Animation"/>
@@ -28,7 +31,7 @@
     <NbRow value="2"/>
     <EmissionBone value="BoneCanon03"/>
     <DirectionBone value="BoneCanonMuzzle"/>
-    <Velocity value="100"/>
+    <Velocity value="5"/>
     <Fanning value="0.1"/>
     <Duration value="100"/>
     <MaxCount value="30"/>
@@ -39,7 +42,6 @@
     <EndColor R="255" G="0" B="0" A="255"/>
     <MinLife value="0.2"/>
     <MaxLife value="0.6"/>
-    <Gravity value="false"/>
   </Actor>
   <Actor id="TankCanonFlash2">
     <Type value="Particle"/>
@@ -48,7 +50,7 @@
     <NbRow value="2"/>
     <EmissionBone value="BoneCanon03"/>
     <DirectionBone value="BoneCanonMuzzle"/>
-    <Velocity value="50"/>
+    <Velocity value="2.5"/>
     <Fanning value="0.8"/>
     <Duration value="100"/>
     <MaxCount value="60"/>
@@ -59,43 +61,94 @@
     <EndColor R="255" G="0" B="0" A="255"/>
     <MinLife value="0.2"/>
     <MaxLife value="0.6"/>
-    <Gravity value="false"/>
+  </Actor>
+  <Actor id="TankCanonShockwave">
+    <Type value="Particle"/>
+    <SpritePath value="particles/shockwave.png"/>
+    <EmissionBone value="BoneCanon03"/>
+    <DirectionBone value="BoneCanonMuzzle"/>
+    <Facing value="Velocity"/>
+    <Duration value="0"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.7"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="0.4"/>
+    <MaxLife value="0.4"/>
+  </Actor>
+  
+  
+  <Actor id="LeftMud">
+    <Type value="Particle"/>
+    <SpritePath value="particles/mudd.png"/>
+    <Add value="false"/>
+    <EmissionBone value="chenillearrieregauche02"/>
+    <DirectionBone value="chenillearrieregauche03"/>
+    <Velocity value="0.8"/>
+    <Fanning value="0.5"/>
+    <MaxCount value="30"/>
+    <PerSecond value="20"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.1"/>
+    <StartColor R="144" G="108" B="63" A="255"/>
+    <EndColor R="144" G="108" B="63" A="255"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.5"/>
+    <Gravity value="true"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  <Actor id="RightMud">
+    <Type value="Particle"/>
+    <SpritePath value="particles/mudd.png"/>
+    <Add value="false"/>
+    <EmissionBone value="chenillearrieredroite02"/>
+    <DirectionBone value="chenillearrieredroite03"/>
+    <Velocity value="0.8"/>
+    <Fanning value="0.5"/>
+    <MaxCount value="30"/>
+    <PerSecond value="20"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.1"/>
+    <StartColor R="144" G="108" B="63" A="255"/>
+    <EndColor R="144" G="108" B="63" A="255"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.5"/>
+    <Gravity value="true"/>
+    <StartVariation value="0.05"/>
   </Actor>
   <Actor id="LeftDust">
     <Type value="Particle"/>
-    <SpritePath value="particles/smoketex.jpg"/>
-    <NbCol value="1"/>
-    <NbRow value="1"/>
-    <EmissionBone value="chenillearrieredroite02"/>
-    <DirectionBone value="chenillearrieredroite03"/>
+    <SpritePath value="particles/smoke.png"/>
+    <Add value="false"/>
+    <EmissionBone value="chenillearrieregauche02"/>
+    <DirectionBone value="chenillearrieregauche03"/>
     <MaxCount value="30"/>
-    <PerSecond value="10"/>
-    <EmitAll value="false"/>
+    <PerSecond value="30"/>
     <StartSize value="0.2"/>
     <EndSize value="0.4"/>
     <StartColor R="205" G="185" B="156" A="180"/>
     <EndColor R="205" G="185" B="156" A="0"/>
     <MinLife value="1.6"/>
     <MaxLife value="1.6"/>
-    <Gravity value="false"/>
+    <StartVariation value="0.1"/>
   </Actor>
   <Actor id="RightDust">
     <Type value="Particle"/>
-    <SpritePath value="particles/smoketex.jpg"/>
-    <NbCol value="1"/>
-    <NbRow value="1"/>
-    <EmissionBone value="chenillearrieregauche02"/>
-    <DirectionBone value="chenillearrieregauche03"/>
+    <SpritePath value="particles/smoke.png"/>
+    <Add value="false"/>
+    <EmissionBone value="chenillearrieredroite02"/>
+    <DirectionBone value="chenillearrieredroite03"/>
     <MaxCount value="30"/>
-    <PerSecond value="10"/>
-    <EmitAll value="false"/>
-   <StartSize value="0.2"/>
+    <PerSecond value="30"/>
+    <StartSize value="0.2"/>
     <EndSize value="0.4"/>
     <StartColor R="205" G="185" B="156" A="180"/>
     <EndColor R="205" G="185" B="156" A="0"/>
     <MinLife value="1.6"/>
     <MaxLife value="1.6"/>
-    <Gravity value="false"/>
+    <StartVariation value="0.1"/>
   </Actor>
   
   <Actor id="Aircraft">
