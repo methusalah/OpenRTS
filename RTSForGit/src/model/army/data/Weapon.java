@@ -4,6 +4,7 @@
  */
 package model.army.data;
 
+import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Precision;
 
@@ -18,6 +19,9 @@ public class Weapon {
     double scanRange;
     double period;
     EffectBuilder effectBuilder;
+    public String sourceBone;
+    public String directionBone;
+
 
     final Unit holder;
     Actor actor;
@@ -80,13 +84,20 @@ public class Weapon {
             if(actor != null)
                 actor.onShoot();
             target.ai.registerAsAttacker(holder);
-            effectBuilder.build(holder, target, null).launch();
+            Effect e = effectBuilder.build(holder, target, null);
+            Point3D p = holder.actor.boneCoords.get(sourceBone);
+            if(p != null){
+                Point3D dir = holder.actor.boneCoords.get(directionBone).getSubtraction(p).getNormalized();
+                e.setSourcePoint(p, dir);
+            }
+            e.launch();
+            
             lastStrikeTime = System.currentTimeMillis();
         }
     }
     
-    public double getTargetAngle(){
-        return target.getPos().getSubtraction(holder.getPos()).getAngle();
+    public double getDesiredYaw(){
+        return target.getPos2D().getSubtraction(holder.getPos2D()).getAngle();
     }
     
     public boolean hasTargetAtRange(){

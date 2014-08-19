@@ -5,6 +5,7 @@
 package model.army.tacticalIA;
 
 import geometry.Point2D;
+import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Precision;
 import model.army.tacticalIA.AttackEvent;
@@ -39,8 +40,8 @@ public class TacticalAI {
     Unit unit;
     FSM stateMachine;
 
-    Point2D post;
-    Point2D aggressionPlace;
+    Point3D post;
+    Point3D aggressionPlace;
 
     double disturbTime;
     public boolean holdposition;

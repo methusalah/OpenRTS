@@ -123,11 +123,11 @@ public class UnitRenderer implements AnimEventListener {
         
         // here we use the scenegraph to grab the coordinates of all bones and store them for the model.
         for(Actor a : armyManager.getActors()){
-            if(a.containsModel()){
+            if(a instanceof UnitActor){
                 Skeleton sk = a.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
                 for(int i=0; i<sk.getBoneCount(); i++){
                     Bone b = sk.getBone(i);
-                    ((ModelActor)a).boneCoords.put(b.getName(), Translator.toPoint3D(b.getWorldBindPosition()));
+                    ((UnitActor)a).boneCoords.put(b.getName(), getBoneWorldPos((UnitActor)a, i));
                 }
 
             }
@@ -151,7 +151,15 @@ public class UnitRenderer implements AnimEventListener {
         
         // rotation
         Quaternion r = new Quaternion();
-        r.fromAngles(0, 0, (float)(actor.getOrientation()+Angle.RIGHT));
+        if(actor instanceof ProjectileActor){
+            Vector3f u = new Vector3f(0, -1, 0);
+            Vector3f v = Translator.toVector3f(((ProjectileActor)actor).getProjectile().mover.velocity).normalize();
+            float real = 1+u.dot(v);
+            Vector3f w = u.cross(v);
+            r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
+        } else {
+            r.fromAngles(0, 0, (float)(actor.getOrientation()+Angle.RIGHT));
+        }
         s.setLocalRotation(r);
     }
     
@@ -306,6 +314,10 @@ public class UnitRenderer implements AnimEventListener {
         Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
         p3D = p3D.getAddition(actor.getPos());
         return p3D;
+    }
+
+    private Point3D getBoneWorldPos(UnitActor actor, int boneIndex){
+        return getBoneWorldPos(actor, actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
     }
 
 }

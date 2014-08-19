@@ -22,7 +22,6 @@ public class ProjectileBuilder {
     static final String MOVER_LINK = "MoverLink";
     static final String ACTOR_LINK = "ActorLink";
 
-    static final String MODELPATH = "ModelPath";
     static final String PRECISION = "Precision"; 
     public static final String PRECISION_CENTER = "Center"; 
     public static final String PRECISION_IN_RADIUS = "InRadius";
@@ -47,7 +46,6 @@ public class ProjectileBuilder {
                 case MOVER_LINK : res.mover = lib.getMoverBuilder(de.getVal()).build(res, launcher.source.getPos()); break;
                 case ACTOR_LINK : res.actor = (ProjectileActor)lib.getActorBuilder(de.getVal()).build(res); break;
                 
-                case MODELPATH : res.modelPath = de.getVal(); break;
                 case PRECISION :
                     switch (de.getVal()){
                         case PRECISION_IN_RADIUS : res.precisionType = de.getVal(); break;

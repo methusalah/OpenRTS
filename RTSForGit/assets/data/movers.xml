@@ -6,6 +6,10 @@
   </Mover>
   <Mover id="Fly">
     <PathfindingMode value="Fly"/>
+    <Heightmap value="Sky"/>
+  </Mover>
+  <Mover id="Projectile">
+    <PathfindingMode value="Fly"/>
     <Heightmap value="Air"/>
   </Mover>
 </catalog>

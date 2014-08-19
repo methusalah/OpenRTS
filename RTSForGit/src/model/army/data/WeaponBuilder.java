@@ -19,6 +19,8 @@ public class WeaponBuilder {
     static final String PERIOD = "Period"; 
     static final String EFFECT_LINK = "EffectLink";
     static final String ACTOR_LINK = "ActorLink";
+    static final String SOURCE_BONE = "SourceBone";
+    static final String DIRECTION_BONE = "DirectionBone";
 
     Definition def;
     BuilderLibrary lib;
@@ -38,6 +40,8 @@ public class WeaponBuilder {
                 case PERIOD : res.period = de.getDoubleVal(); break;
                 case EFFECT_LINK : res.effectBuilder = lib.getEffectBuilder(de.getVal()); break;
                 case ACTOR_LINK : res.actor = lib.getActorBuilder(de.getVal()).build(); break;
+                case SOURCE_BONE : res.sourceBone = de.getVal(); break;
+                case DIRECTION_BONE : res.directionBone = de.getVal(); break;
             }
         return res;
     }
