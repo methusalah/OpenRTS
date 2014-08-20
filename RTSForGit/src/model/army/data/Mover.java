@@ -38,7 +38,7 @@ public class Mover {
     public Point3D velocity = Point3D.ORIGIN;
     
     public double orientation = 0;
-    public double targetOrientation = 0;
+    public double desiredOrientation = 0;
     
     public boolean hasMoved = false;
     
@@ -116,9 +116,9 @@ public class Mover {
     
     public void head(double elapsedTime) {
         if(!velocity.isOrigin())
-            targetOrientation = velocity.get2D().getAngle();
+            desiredOrientation = velocity.get2D().getAngle();
 
-        double diff = Angle.getOrientedDifference(orientation, targetOrientation);
+        double diff = Angle.getOrientedDifference(orientation, desiredOrientation);
         if(diff > 0)
             orientation += Math.min(diff, movable.getRotSpeed()*elapsedTime);
         else

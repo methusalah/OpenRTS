@@ -30,8 +30,8 @@ public class TurretBuilder {
         this.def = def;
     }
     
-    public Turret build(){
-        Turret res = new Turret();
+    public Turret build(Unit holder){
+        Turret res = new Turret(holder);
         for(DefElement de : def.elements)
             switch(de.name){
                 case SPEED : res.speed = Angle.toRadians(de.getDoubleVal()); break;

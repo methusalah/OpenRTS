@@ -39,6 +39,8 @@ public class PersistentEffect extends Effect {
     public void update(){
         if(!launched)
             return;
+        if(source.destroyed())
+            terminated = true;
         if(!terminated && lastPeriod+currentPeriodDuration < System.currentTimeMillis()){
             effectBuilders.get(effectIndex).build(source, target, targetPoint).launch();
             

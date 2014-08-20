@@ -17,6 +17,14 @@
     <SourceBone value="BoneCanon03"/>
     <DirectionBone value="BoneCanonMuzzle"/>
   </Weapon>
+  <Weapon id="TankMachinegun">
+    <UIName value="Canon"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="3"/>
+    <ScanRange value="3"/>
+    <Period value="0.5"/>
+    <ActorLink value="TankMachinegunMainActor"/>
+  </Weapon>
   <Weapon id="MeleeWeapon">
     <UIName value="attaque au corps a corps"/>
     <EffectLink value="StdDamage"/>

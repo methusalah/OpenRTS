@@ -12,6 +12,9 @@
     <ActorList Trigger="onMove" ActorLink="RightMud"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
   </Actor>
+  <Actor id="TankMachinegunMainActor">
+    <ActorList Trigger="onShoot" ActorLink="TankMachinegun"/>
+  </Actor>
   <Actor id="TankCanonMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankCanonAnimation"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash"/>
@@ -23,6 +26,23 @@
     <AnimName value="attack01"/>
     <Speed value="1"/>
     <Cycle value="Once"/>
+  </Actor>
+  <Actor id="TankMachinegun">
+    <Type value="Particle"/>
+    <SpritePath value="particles/flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <Velocity value="5"/>
+    <Fanning value="0.1"/>
+    <Duration value="100"/>
+    <MaxCount value="30"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.1"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.6"/>
   </Actor>
   <Actor id="TankCanonFlash">
     <Type value="Particle"/>

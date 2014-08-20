@@ -110,29 +110,22 @@ public class UnitRenderer implements AnimEventListener {
         }
         
         for(Actor a : armyManager.getActors()){
-            if(a instanceof UnitActor)
-                renderUnitActor((UnitActor)a);
-            if(a instanceof ProjectileActor)
-                renderProjectileActor((ProjectileActor)a);
-            if(a instanceof AnimationActor)
-                renderAnimationActor((AnimationActor)a);
-            if(a instanceof ParticleActor)
-                renderParticleActor((ParticleActor)a);
-        }
-        
-        
-        // here we use the scenegraph to grab the coordinates of all bones and store them for the model.
-        for(Actor a : armyManager.getActors()){
             if(a instanceof UnitActor){
-                Skeleton sk = a.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
+                UnitActor ua = (UnitActor)a;
+                renderUnitActor((UnitActor)a);
+
+                Skeleton sk = ua.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
                 for(int i=0; i<sk.getBoneCount(); i++){
                     Bone b = sk.getBone(i);
-                    ((UnitActor)a).boneCoords.put(b.getName(), getBoneWorldPos((UnitActor)a, i));
+                    ua.boneCoords.put(b.getName(), getBoneWorldPos(ua, i));
                 }
-
-            }
+            } else if(a instanceof ProjectileActor)
+                renderProjectileActor((ProjectileActor)a);
+            else if(a instanceof AnimationActor)
+                renderAnimationActor((AnimationActor)a);
+            else if(a instanceof ParticleActor)
+                renderParticleActor((ParticleActor)a);
         }
-        
     }
     
     private void renderMovableActor(MovableActor actor){
@@ -143,8 +136,11 @@ public class UnitRenderer implements AnimEventListener {
             s.setName(actor.getLabel());
             actor.viewElements.spatial = s;
             mainNode.attachChild(s);
+            // We force update here because we need imediatly to have access to bones' absolute position.
+            s.getControl(AnimControl.class).update(0);
         }
         Spatial s = actor.viewElements.spatial;
+
 
         // translation
         s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
@@ -190,9 +186,16 @@ public class UnitRenderer implements AnimEventListener {
     private void renderParticleActor(ParticleActor actor){
         if(actor.launched)
             return;
-        UnitActor ua = (UnitActor)actor.getParentModelActor();
-        Vector3f emissionPoint = Translator.toVector3f(getBoneWorldPos(ua, actor.emissionNode));
-        Vector3f direction = Translator.toVector3f(getBoneWorldPos(ua, actor.directionNode));
+        MovableActor ma = (UnitActor)actor.getParentModelActor();
+        Vector3f emissionPoint;
+        Vector3f direction;
+        if(actor.emissionNode != null){
+            emissionPoint = Translator.toVector3f(getBoneWorldPos(ma, actor.emissionNode));
+            direction = Translator.toVector3f(getBoneWorldPos(ma, actor.directionNode));
+        } else {
+            emissionPoint = Translator.toVector3f(ma.getPos());
+            direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getOrientation(), 1).get3D(0));
+        }
         direction = direction.subtract(emissionPoint).normalize();
         
         Vector3f velocity = direction.mult((float)actor.velocity);
@@ -253,8 +256,6 @@ public class UnitRenderer implements AnimEventListener {
                 if(actor.startTime+actor.duration < System.currentTimeMillis())
                     actor.interrupt();
         }
-            
-
 }
     
     
@@ -307,7 +308,7 @@ public class UnitRenderer implements AnimEventListener {
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
     }
     
-    private Point3D getBoneWorldPos(UnitActor actor, String boneName){
+    private Point3D getBoneWorldPos(MovableActor actor, String boneName){
         Vector3f modelSpacePos = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
         Point2D p2D = Translator.toPoint2D(modelSpacePos);
         p2D = p2D.getRotation(actor.getOrientation()+Angle.RIGHT);
@@ -316,7 +317,7 @@ public class UnitRenderer implements AnimEventListener {
         return p3D;
     }
 
-    private Point3D getBoneWorldPos(UnitActor actor, int boneIndex){
+    private Point3D getBoneWorldPos(MovableActor actor, int boneIndex){
         return getBoneWorldPos(actor, actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
     }
 

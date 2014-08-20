@@ -11,6 +11,7 @@
     <Sight value="10"/>
     <MoverLink value="Ground"/>
     <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>
+    <WeaponList WeaponLink="TankMachinegun"/>
     <ActorLink value="Tank"/>
   </Unit>
   <Unit id="Marine">

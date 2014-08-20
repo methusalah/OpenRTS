@@ -61,22 +61,20 @@ public class Unit extends Movable {
             return;
         
         findNearbyMovers();
-        weapons.get(0).update(faction.enemies.get(0).units);
+        updateWeapons();
         
         ai.update();
-        
-        if(weapons.get(0).isAttacking()){
-            state = State.ATTACK;
-            head(weapons.get(0).getDesiredYaw());
-        }
+
+        for(Weapon w : weapons)
+            if(w.isAttacking())
+                state = State.ATTACK;
         
         mover.updatePosition(elapsedTime);
         
         if(mover.hasMoved)
             state = State.MOVE;
 
-        if(hasTurret())
-            turrets.get(0).update(elapsedTime, mover.hasMoved);
+        updateTurrets(elapsedTime);
         
         if(!state.equals(lastState))
             switch (state){
@@ -86,11 +84,18 @@ public class Unit extends Movable {
             }
     }
     
-    private void head(double angle){
-        if(hasTurret())
-            turrets.get(0).setYaw(angle-mover.orientation);
-        else
-            mover.targetOrientation = angle;
+    private void updateWeapons(){
+        for(Weapon w : weapons)
+            w.update(faction.enemies.get(0).units);
+    }
+    
+    private void updateTurrets(double elapsedTime){
+        for(Turret t : turrets)
+            t.update(elapsedTime, state == State.MOVE);
+    }
+    
+    protected void setYaw(double yaw){
+        mover.desiredOrientation = yaw;
     }
     
     public void linkActors(){

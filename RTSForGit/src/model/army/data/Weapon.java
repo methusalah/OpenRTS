@@ -7,6 +7,7 @@ package model.army.data;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Precision;
+import tools.LogUtil;
 
 /**
  *
@@ -22,11 +23,13 @@ public class Weapon {
     public String sourceBone;
     public String directionBone;
 
-
     final Unit holder;
+    protected Turret turret;
     Actor actor;
 
     // variables
+    Point3D pos;
+    Point3D vec;
     private Unit target;
     public double lastStrikeTime = 0;
     boolean attacking = false;
@@ -39,6 +42,14 @@ public class Weapon {
     }
     
     public void update(ArrayList<Unit> enemiesNearby){
+        if(sourceBone != null && !holder.actor.boneCoords.isEmpty()){
+            pos = holder.actor.boneCoords.get(sourceBone);
+            vec = holder.actor.boneCoords.get(directionBone).getSubtraction(pos).getNormalized();
+        }else{
+            pos = holder.getPos();
+            vec = holder.getPos2D().getTranslation(holder.getOrientation(), 1).getNormalized().get3D(0);
+        }
+
         attacking = false;
         onScan.clear();
         atRange.clear();
@@ -80,24 +91,27 @@ public class Weapon {
         attacking = true;
         if(target == null)
             throw new RuntimeException("no target");
+        
+        setDesiredYaw();
+        
         if(lastStrikeTime+1000*period < System.currentTimeMillis()){
             if(actor != null)
                 actor.onShoot();
             target.ai.registerAsAttacker(holder);
             Effect e = effectBuilder.build(holder, target, null);
-            Point3D p = holder.actor.boneCoords.get(sourceBone);
-            if(p != null){
-                Point3D dir = holder.actor.boneCoords.get(directionBone).getSubtraction(p).getNormalized();
-                e.setSourcePoint(p, dir);
-            }
+            e.setSourcePoint(pos, vec);
             e.launch();
             
             lastStrikeTime = System.currentTimeMillis();
         }
     }
     
-    public double getDesiredYaw(){
-        return target.getPos2D().getSubtraction(holder.getPos2D()).getAngle();
+    private void setDesiredYaw(){
+        double desiredYaw = target.getPos2D().getSubtraction(pos.get2D()).getAngle();
+        if(turret != null)
+            turret.setYaw(desiredYaw);
+        else
+            holder.setYaw(desiredYaw);
     }
     
     public boolean hasTargetAtRange(){
