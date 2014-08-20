@@ -9,6 +9,7 @@ import model.army.motion.pathfinding.FlowField;
 import geometry.AlignedBoundingBox;
 import geometry.BoundingCircle;
 import geometry.Point2D;
+import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
 import model.map.Map;
@@ -20,7 +21,7 @@ import model.army.motion.SteeringMachine;
  * @author Benoît
  */
 public class Mover {
-    public enum Heightmap {AIR, GROUND};
+    public enum Heightmap {SKY, AIR, GROUND};
     public enum PathfindingMode {FLY, WALK};
 
     // final 
@@ -33,9 +34,8 @@ public class Mover {
     CollisionManager cm;
 
     // variables
-    public Point2D pos = Point2D.ORIGIN;
-    public double z = 0;
-    public Point2D velocity = Point2D.ORIGIN;
+    public Point3D pos = Point3D.ORIGIN;
+    public Point3D velocity = Point3D.ORIGIN;
     
     public double orientation = 0;
     public double targetOrientation = 0;
@@ -46,24 +46,22 @@ public class Mover {
     public ArrayList<Mover> toFlockWith = new ArrayList<>();
     
     
-    public Path path = new Path();
     public FlowField flowfield;
     private boolean hasDestination;
 
-    public Mover(Map map, Movable movable, Point2D position){
+    public Mover(Map map, Movable movable, Point3D position){
         this.map = map;
         this.movable = movable;
         pos = position;
         cm = new CollisionManager(this, map);
         sm = new SteeringMachine(this);
-        updateElevation();
     }
     
     public void updatePosition(double elapsedTime) {
         double savedOrientation = orientation;
-        Point2D savedPos = new Point2D(pos);
+        Point3D savedPos = new Point3D(pos);
         
-        Point2D steering = sm.getSteeringAndReset(elapsedTime);
+        Point3D steering = sm.getSteeringAndReset(elapsedTime);
         cm.applySteering(steering, elapsedTime, toAvoid);
         head(elapsedTime);
         
@@ -79,13 +77,6 @@ public class Mover {
     
     public void setDestination(FlowField ff){
         flowfield = ff;
-        path.clear();
-        hasDestination = true;
-    }
-    
-    public void setDestination(Path p){
-        path = p;
-        flowfield = null;
         hasDestination = true;
     }
     
@@ -98,12 +89,9 @@ public class Mover {
     }
     
     public Point2D getDestination(){
-        if(!path.isEmpty())
-            return path.getLastWaypoint();
-        else if(flowfield != null)
+        if(flowfield != null)
             return flowfield.destination;
-        else
-            return null;
+        return null;
     }
     
     public double getDistance(Mover o) {
@@ -111,7 +99,7 @@ public class Mover {
     }
 
     public BoundingCircle getBoundingCircle() {
-        return new BoundingCircle(pos, movable.getRadius());
+        return new BoundingCircle(new Point2D(pos), movable.getRadius());
     }
 
     public boolean collide(ArrayList<AlignedBoundingBox> walls){
@@ -128,7 +116,7 @@ public class Mover {
     
     public void head(double elapsedTime) {
         if(!velocity.isOrigin())
-            targetOrientation = velocity.getAngle();
+            targetOrientation = velocity.get2D().getAngle();
 
         double diff = Angle.getOrientedDifference(orientation, targetOrientation);
         if(diff > 0)
@@ -137,7 +125,7 @@ public class Mover {
             orientation += Math.max(diff, -movable.getRotSpeed()*elapsedTime);
     }
 
-    public Point2D getVectorTo(Mover o) {
+    public Point3D getVectorTo(Mover o) {
         return o.pos.getSubtraction(pos);
     }
     
@@ -160,7 +148,7 @@ public class Mover {
         sm.avoidHoldingUnits(toAvoidExceptTarget);
     }
 
-    public void seek(Point2D position){
+    public void seek(Point3D position){
         flock();
         sm.seek(position);
         sm.avoidHoldingUnits(toAvoid);
@@ -175,9 +163,10 @@ public class Mover {
     
     void updateElevation(){
         if(heightmap == Heightmap.GROUND)
-                z = map.getGroundAltitude(pos);
-            else
-                z = map.getTile(pos).level+3;
+            pos = new Point3D(pos.x, pos.y, map.getGroundAltitude(pos.get2D())+0.25);
+        else if(heightmap == Heightmap.SKY)
+            pos = new Point3D(pos.x, pos.y, map.getTile(pos.get2D()).level+3);
+            
     }
     
     public boolean fly(){
@@ -186,5 +175,9 @@ public class Mover {
     
     public double getSpeed(){
         return movable.getSpeed();
+    }
+    
+    public Point2D getPos2D(){
+        return new Point2D(pos);
     }
 }

@@ -67,7 +67,7 @@ public class Unit extends Movable {
         
         if(weapons.get(0).isAttacking()){
             state = State.ATTACK;
-            head(weapons.get(0).getTargetAngle());
+            head(weapons.get(0).getDesiredYaw());
         }
         
         mover.updatePosition(elapsedTime);
@@ -139,7 +139,6 @@ public class Unit extends Movable {
     }
     
     private void destroy(){
-        mover.z = -0.5;
         state = State.DESTROYED;
         actor.interrupt();
     }
@@ -156,13 +155,9 @@ public class Unit extends Movable {
         return !turrets.isEmpty() && turrets.get(0) != null;
     }
     
-    public Point2D getPos(){
-        return mover.pos;
-    }
-    
     @Override
-    public Point3D getPos3D(){
-        return new Point3D(mover.pos, mover.z+0.25, 1);
+    public Point3D getPos(){
+        return mover.pos;
     }
 
     public double getTurretOrientation(){
@@ -197,5 +192,9 @@ public class Unit extends Movable {
     
     public ArrayList<Turret> getTurrets(){
         return turrets;
+    }
+    
+    public Point2D getPos2D(){
+        return new Point2D(getPos());
     }
 }

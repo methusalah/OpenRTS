@@ -62,7 +62,7 @@ public class Commander {
         unselect();
         AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
         for(Unit u : armyManager.units)
-            if(rect.contains(u.getPos()))
+            if(rect.contains(u.getPos2D()))
                 selection.add(u);
         moveAttack = false;
         sendReportOrder();
@@ -89,7 +89,7 @@ public class Commander {
     }
     
     private void orderAttack(Unit enemy) {
-        FlowField ff = new FlowField(map, enemy.getPos());
+        FlowField ff = new FlowField(map, enemy.getPos2D());
         for(Unit u : selection){
             u.getMover().setDestination(ff);
             if(moveAttack)
@@ -138,7 +138,7 @@ public class Commander {
         unitiesInContext.clear();
         if(visionCenter != null)
             for(Unit u : armyManager.units)
-                if(u.getPos().getDistance(visionCenter) < 10){
+                if(u.getPos2D().getDistance(visionCenter) < 10){
                     if(!unitiesInContext.containsKey(u.id))
                         unitiesInContext.put(u.id, new Unity());
                     unitiesInContext.get(u.id).add(u);

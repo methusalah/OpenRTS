@@ -16,7 +16,7 @@ public abstract class Movable {
     double separationRadius;
     double speed;
     double mass;
-    Mover mover;
+    public Mover mover;
     
     public double getSpeed() {
         return speed;
@@ -49,5 +49,5 @@ public abstract class Movable {
         return mover.orientation;
     }
 
-    public abstract Point3D getPos3D();
+    public abstract Point3D getPos();
 }

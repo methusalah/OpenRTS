@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import model.army.data.Unit;
 
 /**
- *a
+ *
  * @author Benoît
  */
 public class FSM {

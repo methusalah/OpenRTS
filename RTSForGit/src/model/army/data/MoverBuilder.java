@@ -5,6 +5,7 @@
 package model.army.data;
 
 import geometry.Point2D;
+import geometry3D.Point3D;
 import model.army.data.definitions.DefElement;
 import java.util.HashMap;
 import model.army.data.definitions.Definition;
@@ -20,6 +21,7 @@ public class MoverBuilder {
     
     static final String FLY = "Fly";
     static final String WALK = "Walk";
+    static final String SKY = "Sky";
     static final String AIR = "Air";
     static final String GROUND = "Ground";
 
@@ -31,7 +33,7 @@ public class MoverBuilder {
         this.map = map;
     }
     
-    public Mover build(Movable movable, Point2D position){
+    public Mover build(Movable movable, Point3D position){
         Mover res = new Mover(map, movable, position);
         for(DefElement de : def.elements)
             switch(de.name){
@@ -43,6 +45,7 @@ public class MoverBuilder {
                     break;
                 case HEIGHTMAP :
                     switch (de.getVal()){
+                        case SKY : res.heightmap = Mover.Heightmap.SKY; break;
                         case AIR : res.heightmap = Mover.Heightmap.AIR; break;
                         case GROUND : res.heightmap = Mover.Heightmap.GROUND; break;
                     }

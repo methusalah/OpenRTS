@@ -8,6 +8,7 @@ import model.army.data.Mover;
 import geometry.AlignedBoundingBox;
 import geometry.BoundingCircle;
 import geometry.Point2D;
+import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
 import model.map.Map;
@@ -42,7 +43,7 @@ public class CollisionManager {
         this.map = map;
     }
     
-    public void applySteering(Point2D steering, double elapsedTime, ArrayList<? extends Mover> holdingNeighbours) {
+    public void applySteering(Point3D steering, double elapsedTime, ArrayList<? extends Mover> holdingNeighbours) {
         double traveledDistance = agent.getSpeed()*elapsedTime;
         if(traveledDistance < 0.001)
             LogUtil.logger.info("very short traveled distance...");
@@ -51,21 +52,21 @@ public class CollisionManager {
         this.holdingNeighbours = holdingNeighbours;
         walls = getSurroundingWalls();
         
-        if(steering.equals(Point2D.ORIGIN)){
+        if(steering.equals(Point3D.ORIGIN)){
             brake(elapsedTime);
         } else {
-            Point2D scaledSteering = steering.getScaled(traveledDistance);
+            Point3D scaledSteering = steering;//.getScaled(traveledDistance);
             
-            if(agent.fly())
+            if(agent.fly()){
                 agent.velocity = agent.velocity.getAddition(scaledSteering).getTruncation(traveledDistance);
-            else {
+            } else {
                 scaledSteering = adaptSteering(scaledSteering);
-                if(scaledSteering.equals(Point2D.ORIGIN)){
+                if(scaledSteering.equals(Point3D.ORIGIN)){
                     manageStuck();
-                    agent.velocity = Point2D.ORIGIN;
+                    agent.velocity = Point3D.ORIGIN;
                 } else {
-                    Point2D newVelocity = agent.velocity.getAddition(scaledSteering).getTruncation(traveledDistance);
-                    if(collideMap(getMovedBound(newVelocity)))
+                    Point3D newVelocity = agent.velocity.getAddition(scaledSteering).getTruncation(traveledDistance);
+                    if(collideMap(getMovedBound(newVelocity.get2D())))
                         agent.velocity = scaledSteering;
                     else
                         agent.velocity = newVelocity;
@@ -78,20 +79,20 @@ public class CollisionManager {
     
     public void brake(double elapsedTime) {
         try {
-            Point2D brakeForce = agent.velocity.getNegation().getMult(BRAKING_RATIO);
+            Point3D brakeForce = agent.velocity.getNegation().getMult(BRAKING_RATIO);
             brakeForce.getTruncation(elapsedTime);
             agent.velocity = agent.velocity.getAddition(brakeForce);
         } catch(RuntimeException e){
             LogUtil.logger.info("erreur dans le brake : "+agent.velocity+" ; elapsed time : "+elapsedTime);
         }
         
-        if(agent.velocity.getLength()<0.01)
-            agent.velocity = Point2D.ORIGIN;
+        if(agent.velocity.getNorm()<0.01)
+            agent.velocity = Point3D.ORIGIN;
         agent.pos.getAddition(agent.velocity);
     }
     
-    private Point2D adaptSteering(Point2D steering){
-        CollisionType ct = getCollision(steering);
+    private Point3D adaptSteering(Point3D steering){
+        CollisionType ct = getCollision(steering.get2D());
         if(ct == CollisionType.NONE){
             tolerance = Math.max(--tolerance, ADAPT_TOLERANCE);
             return steering;
@@ -112,7 +113,7 @@ public class CollisionManager {
             giveUp();
     }
     
-    private Point2D getValidSteeringAndChooseDirection(Point2D steering){
+    private Point3D getValidSteeringAndChooseDirection(Point3D steering){
         int count = 0;
         Point2D clockwiseTry = new Point2D(steering);
         Point2D counterclockwiseTry = new Point2D(steering);
@@ -120,22 +121,22 @@ public class CollisionManager {
             clockwiseTry = clockwiseTry.getRotation(-ADAPTATION_STEP);
             if(getCollision(clockwiseTry) == CollisionType.NONE){
                 tryClockwise = true;
-                return clockwiseTry;
+                return clockwiseTry.get3D(steering.z);
             }
 
             counterclockwiseTry = counterclockwiseTry.getRotation(ADAPTATION_STEP);
             if(getCollision(counterclockwiseTry) == CollisionType.NONE){
                 tryClockwise = false;
-                return counterclockwiseTry;
+                return counterclockwiseTry.get3D(steering.z);
             }
 
             if(count++ > tolerance/ADAPTATION_STEP){
-                return Point2D.ORIGIN;
+                return Point3D.ORIGIN;
             }
         }
     }
     
-    private Point2D getValidSteeringWithChosenDirection(Point2D steering){
+    private Point3D getValidSteeringWithChosenDirection(Point3D steering){
         int count = 0;
         Point2D triedSteering = new Point2D(steering);
         while(true){
@@ -145,10 +146,10 @@ public class CollisionManager {
                 triedSteering = triedSteering.getRotation(ADAPTATION_STEP);
 
             if(getCollision(triedSteering) == CollisionType.NONE)
-                return triedSteering;
+                return triedSteering.get3D(steering.z);
 
             if(count++ > tolerance/ADAPTATION_STEP) {
-                return Point2D.ORIGIN;
+                return Point3D.ORIGIN;
             }
         }
     }
@@ -170,7 +171,7 @@ public class CollisionManager {
         ArrayList<AlignedBoundingBox> res = new ArrayList<>();
         for(int x = -2; x<3; x++)
             for(int y = -2; y<3; y++){
-                Point2D tilePos = agent.pos.getAddition(x, y);
+                Point2D tilePos = agent.getPos2D().getAddition(x, y);
                 if(!map.isInBounds(tilePos))
                     continue;
                 Tile t = map.getTile(tilePos);
@@ -190,7 +191,7 @@ public class CollisionManager {
     }
     
     private BoundingCircle getMovedBound(Point2D velocity){
-        return new BoundingCircle(agent.pos.getAddition(velocity), agent.movable.getRadius());
+        return new BoundingCircle(agent.getPos2D().getAddition(velocity), agent.movable.getRadius());
     }
     
     private void giveUp(){
@@ -204,7 +205,7 @@ public class CollisionManager {
     private Mover collideHolding(Point2D velocity) {
         Mover nearest = null;
         for(Mover m : holdingNeighbours)
-            if(m != agent && agent.pos.getAddition(velocity).getDistance(m.pos) <= agent.getSpacing(m))
+            if(m != agent && agent.getPos2D().getAddition(velocity).getDistance(m.getPos2D()) <= agent.getSpacing(m))
                 if(nearest == null || nearest.getDistance(agent) > m.getDistance(agent))
                     nearest = m;
         return nearest;

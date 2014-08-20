@@ -5,6 +5,7 @@
 package model.army.data;
 
 import geometry.Point2D;
+import geometry3D.Point3D;
 import model.army.data.definitions.DefElement;
 import java.util.HashMap;
 import model.army.ArmyManager;
@@ -62,7 +63,7 @@ public class UnitBuilder {
                 case SEPARATION_RADIUS : res.separationRadius = de.getDoubleVal(); break;
                 case SPEED : res.speed = de.getDoubleVal(); break;
                 case MASS : res.mass = de.getDoubleVal(); break;
-                case MOVER_LINK : res.mover = lib.getMoverBuilder(de.getVal()).build(res, position); break;
+                case MOVER_LINK : res.mover = lib.getMoverBuilder(de.getVal()).build(res, new Point3D(position, 0)); break;
                     
                 case UINAME : res.UIName = de.getVal(); break;
                 case RACE : res.race = de.getVal(); break;

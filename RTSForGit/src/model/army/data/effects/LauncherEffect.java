@@ -12,20 +12,26 @@ import model.army.data.Mover;
 import model.army.data.Projectile;
 import model.army.data.Unit;
 import model.map.Map;
+import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
 public class LauncherEffect extends Effect {
-    public Projectile p;
-    
     public LauncherEffect(Unit source, Unit target, Point3D targetPoint) {
         super(source, target, targetPoint);
     }
     
     @Override
     public void launch(){
+        if(sourcePoint != null){
+            projectile.mover.pos = sourcePoint;
+            projectile.mover.velocity = sourceVec;
+        } else
+            projectile.mover.velocity = Point3D.UNIT_Z;
+        
+            
     }
     
     public void notifyArrival(){

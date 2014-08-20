@@ -24,6 +24,8 @@ public abstract class Effect {
 
     
     protected Unit source;
+    protected Point3D sourcePoint;
+    protected Point3D sourceVec;
     protected Unit target;
     protected Point3D targetPoint;
     
@@ -35,4 +37,9 @@ public abstract class Effect {
     }
     
     public abstract void launch();
+    
+    public void setSourcePoint(Point3D source, Point3D vec){
+        sourcePoint = source;
+        sourceVec = vec;
+    }
 }

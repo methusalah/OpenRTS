@@ -25,7 +25,7 @@ public class MovableActor extends ModelActor {
     }
     
     public Point3D getPos(){
-        return movable.getPos3D();
+        return movable.getPos();
     }
     
     public double getOrientation(){

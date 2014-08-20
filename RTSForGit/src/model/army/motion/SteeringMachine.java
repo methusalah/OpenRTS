@@ -7,8 +7,10 @@ package model.army.motion;
 import model.army.data.Mover;
 import geometry.Point2D;
 import geometry.Segment2D;
+import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
+import tools.LogUtil;
 
 /**
  *
@@ -32,24 +34,24 @@ public class SteeringMachine {
     
     ArrayList<? extends Mover> holdingNeighbours;
     
-    Point2D steering = Point2D.ORIGIN;
+    Point3D steering = Point3D.ORIGIN;
     
-    public Point2D separationForce = Point2D.ORIGIN;
-    public Point2D cohesionForce = Point2D.ORIGIN;
-    public Point2D alignementForce = Point2D.ORIGIN;
-    public Point2D destinationForce = Point2D.ORIGIN;
-    public Point2D avoidModification = Point2D.ORIGIN;
+    public Point3D separationForce = Point3D.ORIGIN;
+    public Point3D cohesionForce = Point3D.ORIGIN;
+    public Point3D alignementForce = Point3D.ORIGIN;
+    public Point3D destinationForce = Point3D.ORIGIN;
+    public Point3D avoidModification = Point3D.ORIGIN;
     
     public SteeringMachine(Mover m) {
         mover = m;
     }
 
-    public Point2D getSteeringAndReset(double elapsedTime){
+    public Point3D getSteeringAndReset(double elapsedTime){
         steering = steering.getTruncation(elapsedTime);
         steering = steering.getDivision(mover.movable.getMass());
-        Point2D res = new Point2D(steering);
+        Point3D res = new Point3D(steering);
         
-        steering = Point2D.ORIGIN;
+        steering = Point3D.ORIGIN;
         return res;
     }
     
@@ -74,15 +76,15 @@ public class SteeringMachine {
     }
     
     public void avoidHoldingUnits(ArrayList<? extends Mover> holdingUnits){
-        Point2D savedSteering = steering;
+        Point3D savedSteering = steering;
         modifySteeringToAvoid(holdingUnits);
         if(savedSteering.equals(steering))
-            avoidModification = Point2D.ORIGIN;
+            avoidModification = Point3D.ORIGIN;
         else
             avoidModification = steering;
     }
     
-    public void seek(Point2D target){
+    public void seek(Point3D target){
         steering = steering.getAddition(target.getSubtraction(mover.pos).getNormalized());
     }
     
@@ -90,66 +92,31 @@ public class SteeringMachine {
         seek(m.pos);
     }
     
-    private Point2D getFollowFlowFieldForce(){
-        if(!mover.hasDestination())
-            return Point2D.ORIGIN;
-        else if(mover.pos.getDistance(mover.getDestination()) < DESTINATION_REACH_TOLERANCE){
+    private Point3D getFollowFlowFieldForce(){
+        Point2D destination = mover.getDestination();
+        if(destination == null)
+            return Point3D.ORIGIN;
+        else if(mover.getPos2D().getDistance(destination) < DESTINATION_REACH_TOLERANCE){
             mover.setDestinationReached();
-            return Point2D.ORIGIN;
-        } else if(mover.fly())
-            return mover.flowfield.destination.getSubtraction(mover.pos).getNormalized().getMult(FOLLOW_PATH_FORCE);
-        else
-            return mover.flowfield.getVector(mover.pos).getMult(FOLLOW_PATH_FORCE);
-    }
-        
-    private Point2D getFollowPathForce(){
-        Point2D target = null;
-        if(mover.hasDestination()) {
-            discardWaypoint();
-            if(mover.hasDestination())
-                target = mover.path.getFirstWaypoint();
-        }
-        
-        if(target != null)
-            return target.getSubtraction(mover.pos).getNormalized().getMult(FOLLOW_PATH_FORCE);
-        else
-            return Point2D.ORIGIN;
-    }
-    
-    private void discardWaypoint(){
-        Point2D w = mover.path.getFirstWaypoint();
-        double dist = w.getDistance(mover.pos);
-        boolean discard = false;
-        
-        if(dist <= WAYPOINT_WIDTH)
-            discard = true;
-        else if(dist <= DESTINATION_REACH_TOLERANCE) {
-            if(mover.path.size() == 1) {
-                discard = true;
-            } else {
-                Point2D nextW = mover.path.get(1);
-                Point2D previousW = mover.path.getLastDiscarded();
-                if(previousW != null && Angle.getTurn(nextW, w, mover.pos) != Angle.getTurn(nextW, w, previousW))
-                    discard = true;
-            }
-        }
-        
-        if(mover.path.size() > 1 && mover.pos.getDistance(mover.path.get(1)) < dist/2)
-            discard = true;
-            
-        if(discard){
-            mover.path.discardFirstWaypoint();
+            return Point3D.ORIGIN;
+        } else{
+            Point2D flatForce;
+            if(mover.fly())
+                flatForce = destination.getSubtraction(mover.getPos2D()).getNormalized().getMult(FOLLOW_PATH_FORCE);
+            else
+                flatForce = mover.flowfield.getVector(mover.getPos2D()).getMult(FOLLOW_PATH_FORCE);
+            return new Point3D(flatForce, 0);
         }
     }
-    
-    private Point2D getSeparationForce(ArrayList<? extends Mover> neighbors) {
-        Point2D res = Point2D.ORIGIN;
+
+    private Point3D getSeparationForce(ArrayList<? extends Mover> neighbors) {
+        Point3D res = Point3D.ORIGIN;
         if(neighbors.isEmpty())
             return res;
         
         for(Mover n : neighbors){
             double neededDistance = n.getSpacing(mover)-n.getDistance(mover);
-            Point2D sepVector = n.getVectorTo(mover).getScaled(neededDistance);
+            Point3D sepVector = n.getVectorTo(mover).getScaled(neededDistance);
             res = res.getAddition(sepVector);
         }
         if(mover.fly())
@@ -158,10 +125,11 @@ public class SteeringMachine {
             return res.getNormalized().getMult(SEPARATION_FORCE);
     }
 
-    private Point2D getCohesionForce(ArrayList<? extends Mover> neighbors) {
+    private Point3D getCohesionForce(ArrayList<? extends Mover> neighbors) {
+        Point3D res = Point3D.ORIGIN;
         if(neighbors.isEmpty())
-            return Point2D.ORIGIN;
-        Point2D res = Point2D.ORIGIN;
+            return res;
+        
         for(Mover n : neighbors)
             res = res.getAddition(n.pos);
         res = res.getDivision(neighbors.size());
@@ -169,53 +137,33 @@ public class SteeringMachine {
         return res.getNormalized().getMult(COHESION_FORCE);
     }
 
-    private Point2D getAlignmentForce(ArrayList<? extends Mover> neighbors) {
+    private Point3D getAlignmentForce(ArrayList<? extends Mover> neighbors) {
+        Point3D res = Point3D.ORIGIN;
         if(neighbors.isEmpty())
-            return Point2D.ORIGIN;
-        Point2D res = Point2D.ORIGIN;
+            return res;
+        
         for(Mover n : neighbors)
             res = res.getAddition(n.velocity);
         res = res.getDivision(neighbors.size());
         return res.getNormalized().getMult(ALIGNMENT_FORCE);
     }
 
-    private Point2D queue(Point2D steering, ArrayList<Mover> neighbors) {
-        
-        if(neighbors.isEmpty())
-            return Point2D.ORIGIN;
-        
-        boolean neighborAhead = false;
-        Point2D ahead = mover.pos.getAddition(mover.velocity.getNormalized().getMult(NEIGHBOR_AHEAD_DIST));
-        for(Mover n : neighbors)
-            if(n.pos.getDistance(ahead)<NEIGHBOR_AHEAD_RAD)
-                neighborAhead = true;
-        
-        Point2D brake = Point2D.ORIGIN;
-        if(neighborAhead) {
-//            brake = steering.getNegation().getMult(1);
-//            brake = brake.getAddition(velocity.getNegation().getNormalized());
-//            brake = brake.getAddition(separate(neighbors).getMult(1));
-            mover.velocity = Point2D.ORIGIN;
-            return Point2D.ORIGIN;
-        }
-        
-        return brake;
-    }
-    
+    /**
+     * avoidance is on (x;y) plane only
+     * @param holdingMovers 
+     */
     private void modifySteeringToAvoid(ArrayList<? extends Mover> holdingMovers) {
-        if(mover.velocity.equals(Point2D.ORIGIN))
+        if(mover.velocity.equals(Point3D.ORIGIN))
             return;
         
-//        double futurVelocityAngle = agent.velocity.getAddition(steering.getScaled(agent.velocity.getLength())).getAngle();
-        
-        Segment2D anticipation = new Segment2D(mover.pos, mover.pos.getTranslation(steering.getAngle(), MAX_ANTICIPATION));
+        Segment2D anticipation = new Segment2D(mover.getPos2D(), mover.getPos2D().getTranslation(new Point2D(steering).getAngle(), MAX_ANTICIPATION));
         
         Point2D intersection = null;
         Mover obstacle = null;
         for(Mover m : holdingMovers){
-            Point2D i = anticipation.getIntersectionsWithCircle(m.pos, mover.getSpacing(m)).get(0);
+            Point2D i = anticipation.getIntersectionsWithCircle(m.getPos2D(), mover.getSpacing(m)).get(0);
             if(i != null &&
-                    (intersection == null || i.getDistance(mover.pos) < intersection.getDistance(mover.pos))){
+                    (intersection == null || i.getDistance(mover.getPos2D()) < intersection.getDistance(mover.getPos2D()))){
                 intersection = i;
                 obstacle = m;
             }
@@ -227,19 +175,18 @@ public class SteeringMachine {
         if(obstacle.getDistance(mover) < obstacle.getSpacing(mover)*1.1)
             return;
         
-        double hypotenuse = mover.pos.getDistance(obstacle.pos);
+        double hypotenuse = mover.getPos2D().getDistance(obstacle.getPos2D());
         double opposé = mover.getSpacing(obstacle);
         
         double adjacent = Math.sqrt(hypotenuse*hypotenuse-opposé*opposé);
         double avoidanceAngle = Math.atan(opposé/adjacent)*1.1;
 
-        Point2D toObstacle = obstacle.pos.getSubtraction(mover.pos).getNormalized();
+        Point2D toObstacle = obstacle.getPos2D().getSubtraction(mover.getPos2D()).getNormalized();
         
-        if(Angle.getOrientedDifference(steering.getAngle(), toObstacle.getAngle()) < 0){
-            steering = toObstacle.getRotation(avoidanceAngle);
-        }else{
-            steering = toObstacle.getRotation(-avoidanceAngle);
-        }
+        if(Angle.getOrientedDifference(new Point2D(steering).getAngle(), toObstacle.getAngle()) < 0)
+            steering = new Point3D(toObstacle.getRotation(avoidanceAngle), steering.z);
+        else
+            steering = new Point3D(toObstacle.getRotation(-avoidanceAngle), steering.z);
     }
     
     

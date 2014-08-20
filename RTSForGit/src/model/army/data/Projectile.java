@@ -19,8 +19,6 @@ import tools.LogUtil;
 public class Projectile extends Movable {
 
     // final 
-    public String modelPath;
-
     String precisionType;
     double precision;
     
@@ -35,8 +33,6 @@ public class Projectile extends Movable {
     ProjectileActor actor;
 
     
-    Point3D offset;
-    
     public boolean arrived = false;
     
     public Projectile(LauncherEffect effect, Unit target, Point3D targetPoint){
@@ -50,37 +46,17 @@ public class Projectile extends Movable {
         if(targetPoint == null)
             return;
         
-        Point2D targetPos2D = new Point2D(targetPoint.x, targetPoint.y);
-        mover.sm.seek(targetPos2D);
+        mover.sm.seek(targetPoint);
         
         mover.updatePosition(elapsedTime);
         
         testArrival();
     }
     
-    public double getZ(){
-        if(targetPoint == null)
-            return source.getMover().z;
-        double flightDist = source.getPos().getDistance(new Point2D(targetPoint.x, targetPoint.y));
-        double zDiff = target.getMover().z-source.getMover().z;
-        double flightDistDone = source.getPos().getDistance(mover.pos);
-        double flightRate = flightDistDone/flightDist;
-        
-        return source.getMover().z+zDiff*flightRate;
-    }
-    
-    public double getZAngle(){
-        if(targetPoint == null)
-            return 0;
-        double flightDist = source.getPos().getDistance(new Point2D(targetPoint.x, targetPoint.y));
-        double zDiff = source.getMover().z-target.getMover().z;
-        return new Point2D(flightDist, zDiff).getAngle();
-    }
-    
-    private double lastDist = 999;
+    private double lastDist = Double.MAX_VALUE;
     private void testArrival(){
-        double dist = mover.pos.getDistance(new Point2D(targetPoint.x, targetPoint.y));
-        if(dist < 0.05 || dist > lastDist){
+        double dist = mover.pos.getDistance(targetPoint);
+        if(dist < 0.05 || (dist < 1 && dist > lastDist)){
             arrived = true;
             actor.interrupt();
             effect.notifyArrival();
@@ -88,26 +64,26 @@ public class Projectile extends Movable {
         lastDist = dist;
     }
     
-    public void updateTargetPoint(){
+    protected void updateTargetPoint(){
         switch (precisionType) {
-            case ProjectileBuilder.PRECISION_CENTER : targetPoint = target.getPos3D(); break;
-            case ProjectileBuilder.PRECISION_IN_RADIUS : targetPoint = getOffset(target.getPos3D(), target.radius); break;
-            case ProjectileBuilder.PRECISION_OTHER : targetPoint = getOffset(target.getPos3D(), precision); break;
+            case ProjectileBuilder.PRECISION_CENTER : targetPoint = target.getPos(); break;
+            case ProjectileBuilder.PRECISION_IN_RADIUS : targetPoint = getOffset(target.getPos(), target.radius); break;
+            case ProjectileBuilder.PRECISION_OTHER : targetPoint = getOffset(target.getPos(), precision); break;
             default : throw new RuntimeException("unknown precision type "+precisionType);
         }
 
     }
     
     public Point3D getOffset(Point3D pos, double offset){
-        Point2D pos2D = new Point2D(pos.x, pos.y);
+        Point2D pos2D = pos.get2D();
         double angle = MyRandom.next()*Angle.FLAT*2;
         double distance = MyRandom.next()*offset;
         pos2D = pos2D.getTranslation(angle, distance);
-        return new Point3D(pos2D, pos.z, 1);
+        return pos2D.get3D(pos.z);
     }
 
     @Override
-    public Point3D getPos3D(){
-        return new Point3D(mover.pos, getZ(), 1);
+    public Point3D getPos(){
+        return mover.pos;
     }
 }
