@@ -1,24 +1,50 @@
 <skeleton>
     <bones>
-        <bone id="0" name="Bone001">
-            <position x="-2.88308e-006" y="-4.49478" z="-4.02396e-007"/>
-            <rotation angle="2.0944">
-                <axis x="-0.57735" y="0.57735" z="-0.57735"/>
+        <bone id="0" name="BRoot">
+            <position x="3.02115e-006" y="-139.405" z="0.539814"/>
+            <rotation angle="2.09351">
+                <axis x="0.577056" y="0.577939" z="0.577056"/>
             </rotation>
         </bone>
-        <bone id="1" name="Bone002">
-            <position x="119.262" y="-1.07884e-005" z="2.4643e-005"/>
+        <bone id="1" name="BTuyere">
+            <position x="143.469" y="-7.48038e-006" z="1.71028e-005"/>
             <rotation angle="0">
-                <axis x="-0.57735" y="0.57735" z="-0.57735"/>
+                <axis x="-0.577595" y="0.577595" z="-0.57686"/>
+            </rotation>
+        </bone>
+        <bone id="2" name="BTuyereDirection">
+            <position x="3.9987" y="0" z="-3.55612e-010"/>
+            <rotation angle="0.00182698">
+                <axis x="2.43645e-005" y="-0.000264512" z="1"/>
             </rotation>
         </bone>
     </bones>
     <bonehierarchy>
-        <boneparent bone="Bone002" parent="Bone001"/>
+        <boneparent bone="BTuyere" parent="BRoot"/>
+        <boneparent bone="BTuyereDirection" parent="BTuyere"/>
     </bonehierarchy>
     <animations>
         <animation name="idle" length="0.0333333">
-            <tracks/>
+            <tracks>
+                <track bone="BTuyereDirection">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="0.00128174" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.000976562" y="1" z="-2.98023e-008"/>
+                            </rotate>
+                            <scale x="1.00032" y="1" z="1"/>
+                        </keyframe>
+                        <keyframe time="0.0333333">
+                            <translate x="0.00128174" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.000976562" y="1" z="-2.98023e-008"/>
+                            </rotate>
+                            <scale x="1.00032" y="1" z="1"/>
+                        </keyframe>
+                    </keyframes>
+                </track>
+            </tracks>
         </animation>
     </animations>
 </skeleton>
