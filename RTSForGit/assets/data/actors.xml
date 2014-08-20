@@ -4,7 +4,7 @@
     <Type value="Unit"/>
     <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <Scale value="1"/>
-    <TurretBone value="BoneTourelle_Corps"/>
+    <TurretBone value="BTurret01"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onMove" ActorLink="LeftDust"/>
     <ActorList Trigger="onMove" ActorLink="RightDust"/>
@@ -49,8 +49,8 @@
     <SpritePath value="particles/flame.png"/>
     <NbCol value="2"/>
     <NbRow value="2"/>
-    <EmissionBone value="BoneCanon03"/>
-    <DirectionBone value="BoneCanonMuzzle"/>
+    <EmissionBone value="BMuzzle01"/>
+    <DirectionBone value="BMuzzleVec01"/>
     <Velocity value="5"/>
     <Fanning value="0.1"/>
     <Duration value="100"/>
@@ -68,8 +68,8 @@
     <SpritePath value="particles/flame.png"/>
     <NbCol value="2"/>
     <NbRow value="2"/>
-    <EmissionBone value="BoneCanon03"/>
-    <DirectionBone value="BoneCanonMuzzle"/>
+    <EmissionBone value="BMuzzle02"/>
+    <DirectionBone value="BMuzzleVec02"/>
     <Velocity value="2.5"/>
     <Fanning value="0.8"/>
     <Duration value="100"/>
@@ -85,8 +85,8 @@
   <Actor id="TankCanonShockwave">
     <Type value="Particle"/>
     <SpritePath value="particles/shockwave.png"/>
-    <EmissionBone value="BoneCanon03"/>
-    <DirectionBone value="BoneCanonMuzzle"/>
+    <EmissionBone value="BMuzzle01"/>
+    <DirectionBone value="BMuzzleVec01"/>
     <Facing value="Velocity"/>
     <Duration value="0"/>
     <MaxCount value="1"/>
@@ -104,8 +104,8 @@
     <Type value="Particle"/>
     <SpritePath value="particles/mudd.png"/>
     <Add value="false"/>
-    <EmissionBone value="chenillearrieregauche02"/>
-    <DirectionBone value="chenillearrieregauche03"/>
+    <EmissionBone value="BDust01"/>
+    <DirectionBone value="BDustVec01"/>
     <Velocity value="0.8"/>
     <Fanning value="0.5"/>
     <MaxCount value="30"/>
@@ -123,8 +123,8 @@
     <Type value="Particle"/>
     <SpritePath value="particles/mudd.png"/>
     <Add value="false"/>
-    <EmissionBone value="chenillearrieredroite02"/>
-    <DirectionBone value="chenillearrieredroite03"/>
+    <EmissionBone value="BDust02"/>
+    <DirectionBone value="BDustVec02"/>
     <Velocity value="0.8"/>
     <Fanning value="0.5"/>
     <MaxCount value="30"/>
@@ -142,8 +142,8 @@
     <Type value="Particle"/>
     <SpritePath value="particles/smoke.png"/>
     <Add value="false"/>
-    <EmissionBone value="chenillearrieregauche02"/>
-    <DirectionBone value="chenillearrieregauche03"/>
+    <EmissionBone value="BDust01"/>
+    <DirectionBone value="BDustVec01"/>
     <MaxCount value="30"/>
     <PerSecond value="30"/>
     <StartSize value="0.2"/>
@@ -158,8 +158,8 @@
     <Type value="Particle"/>
     <SpritePath value="particles/smoke.png"/>
     <Add value="false"/>
-    <EmissionBone value="chenillearrieredroite02"/>
-    <DirectionBone value="chenillearrieredroite03"/>
+    <EmissionBone value="BDust02"/>
+    <DirectionBone value="BDustVec02"/>
     <MaxCount value="30"/>
     <PerSecond value="30"/>
     <StartSize value="0.2"/>

@@ -14,8 +14,8 @@
     <ScanRange value="7"/>
     <Period value="1.8"/>
     <ActorLink value="TankCanonMainActor"/>
-    <SourceBone value="BoneCanon03"/>
-    <DirectionBone value="BoneCanonMuzzle"/>
+    <SourceBone value="BMuzzle01"/>
+    <DirectionBone value="BMuzzleVec01"/>
   </Weapon>
   <Weapon id="TankMachinegun">
     <UIName value="Canon"/>

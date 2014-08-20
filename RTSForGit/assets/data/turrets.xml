@@ -4,6 +4,6 @@
     <Speed value="720"/>
     <IdleSpeed value="20"/>
     <OnIdle value="Spin"/>
-    <BoneName value="BoneTourelle_Corps"/>
+    <BoneName value="BTurret01"/>
   </Turret>
 </catalog>
