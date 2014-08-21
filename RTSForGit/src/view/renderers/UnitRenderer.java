@@ -41,6 +41,7 @@ import model.army.data.Unit;
 import model.army.ArmyManager;
 import model.army.data.Actor;
 import model.army.data.Projectile;
+import model.army.data.Turret;
 import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
 import model.army.data.actors.MovableActor;
@@ -117,7 +118,7 @@ public class UnitRenderer implements AnimEventListener {
                 Skeleton sk = ua.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
                 for(int i=0; i<sk.getBoneCount(); i++){
                     Bone b = sk.getBone(i);
-                    ua.boneCoords.put(b.getName(), getBoneWorldPos(ua, i));
+                    ua.setBone(b.getName(), getBoneWorldPos(ua, i));
                 }
             } else if(a instanceof ProjectileActor)
                 renderProjectileActor((ProjectileActor)a);
@@ -194,7 +195,7 @@ public class UnitRenderer implements AnimEventListener {
             direction = Translator.toVector3f(getBoneWorldPos(ma, actor.directionNode));
         } else {
             emissionPoint = Translator.toVector3f(ma.getPos());
-            direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getOrientation(), 1).get3D(0));
+            direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getOrientation(), 1).get3D(emissionPoint.z));
         }
         direction = direction.subtract(emissionPoint).normalize();
         
@@ -284,20 +285,18 @@ public class UnitRenderer implements AnimEventListener {
     }
  
     private void orientTurret(UnitActor actor) {
-        if(!actor.hasTurret())
-            return;
-        actor.updateTurretOrientation();
-        
-        Bone turretBone = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(actor.turretBone);
-        if(turretBone == null)
-            throw new RuntimeException("Can't find the bone "+actor.turretBone+"for turret.");
-        
-        Quaternion r = turretBone.getWorldBindRotation()
-                .mult(new Quaternion().fromAngleAxis((float)Angle.RIGHT, Vector3f.UNIT_Z))
-                .mult(new Quaternion().fromAngleAxis((float)actor.turretOrientation, Vector3f.UNIT_Y));
-        
-        turretBone.setUserControl(true);
-        turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
+        for(Turret t : actor.getTurrets()){
+            Bone turretBone = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(t.boneName);
+            if(turretBone == null)
+                throw new RuntimeException("Can't find the bone "+t.boneName+" for turret.");
+
+            Quaternion r = turretBone.getWorldBindRotation()
+                    .mult(new Quaternion().fromAngleAxis((float)Angle.RIGHT, Vector3f.UNIT_Z))
+                    .mult(new Quaternion().fromAngleAxis((float)t.yaw, Vector3f.UNIT_Y));
+
+            turretBone.setUserControl(true);
+            turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
+        }
     }
     
     @Override

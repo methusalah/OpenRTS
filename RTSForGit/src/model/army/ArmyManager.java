@@ -40,8 +40,8 @@ public class ArmyManager {
                 lib.buildUnitFromRace("human", f1, new Point2D(x, y));
                 i++;
             }
-        for(int y=2; y<8; y++)
-            for(int x=2; x<20; x++){
+        for(int y=2; y<8; y+=2)
+            for(int x=2; x<20; x+=2){
                 lib.buildUnitFromRace("alien", f2, new Point2D(x, y));
                 i++;
             }

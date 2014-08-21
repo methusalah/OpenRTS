@@ -5,6 +5,7 @@
 package model.army.data;
 
 import math.Angle;
+import math.Precision;
 import tools.LogUtil;
 
 /**
@@ -40,7 +41,7 @@ public class Turret {
             switch (onIdle){
                 case RESET : reset(); break;
                 case HOLD : break;
-                case RESET_ON_MOVE : 
+                case RESET_ON_MOVE :
                     if(holderMove)
                         reset();
                     break;
@@ -48,13 +49,14 @@ public class Turret {
             }
         }
 
-        if(desiredYaw != yaw){
+        if(!Angle.areSimilar(desiredYaw,yaw)){
             double diff = Angle.getOrientedDifference(yaw, desiredYaw);
             if(diff > 0)
                 yaw += Math.min(diff, localSpeed*elapsedTime);
             else
-                yaw += Math.max(diff, -localSpeed*elapsedTime);
-        }
+                yaw -= Math.min(-diff, localSpeed*elapsedTime);
+        } else
+            yaw = desiredYaw;
         idle = true;
     }
     

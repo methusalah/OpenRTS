@@ -11,6 +11,7 @@ import math.Precision;
 import model.army.tacticalIA.AttackEvent;
 import model.army.data.Unit;
 import model.army.data.Mover;
+import model.army.data.Weapon;
 import model.warfare.Faction;
 import tools.LogUtil;
 
@@ -104,7 +105,7 @@ public class TacticalAI {
         }
        
         // attack nearby enemies
-        if(unit.getWeapon().hasTargetOnScan()){
+        if(unit.arming.scanning()){
             stateMachine.pushState(RETURN_POST);
             stateMachine.pushState(AUTO_ATTACK, new ArrayList<>());
         }
@@ -138,11 +139,11 @@ public class TacticalAI {
     void doAttackBack() {
         if(!isAttacked() || getAggressionPlaceDistance() > PURSUE_RADIUS)
             stateMachine.popState();
-        else if(unit.getWeapon().hasTargetAtRange()){
+        else if(unit.arming.acquiring()){
             holdposition = true;
-            unit.getWeapon().attack();
-        } else if(unit.getWeapon().hasTargetOnScan())
-            unit.getMover().seek(unit.getWeapon().getTarget().getMover());
+            unit.arming.attack();
+        } else if(unit.arming.scanning())
+            unit.getMover().seek(unit.arming.getNearestScanned().getMover());
         else if(getValidNearest(getAttackers()) != null)
             unit.getMover().seek(getValidNearest(getAttackers()).getMover());
         else
@@ -154,11 +155,11 @@ public class TacticalAI {
             stateMachine.pushState(ATTACK_BACK);
         else if(getPostDistance() > PURSUE_RADIUS)
             stateMachine.popState();
-        else if(unit.getWeapon().hasTargetAtRange()){
+        else if(unit.arming.acquiring()){
             holdposition = true;
-            unit.getWeapon().attack();
-        } else if(unit.getWeapon().hasTargetOnScan())
-            unit.getMover().seek(unit.getWeapon().getTarget().getMover());
+            unit.arming.attack();
+        } else if(unit.arming.scanning())
+            unit.getMover().seek(unit.arming.getNearestScanned().getMover());
         else if(getValidNearest(enemies) != null)
             unit.getMover().seek(getValidNearest(enemies).getMover());
         else
@@ -169,9 +170,9 @@ public class TacticalAI {
         if(u.destroyed()){
             post = unit.getPos();
             stateMachine.popState();
-        } else if(unit.getWeapon().hasTargetAtRange(u)) {
+        } else if(unit.arming.acquiring(u)) {
             holdposition = true;
-            unit.getWeapon().attack(u);
+            unit.arming.attack(u);
         } else if(!unit.getMover().hasDestination())
             unit.getMover().seek(u.getMover());
         else
@@ -192,7 +193,7 @@ public class TacticalAI {
             post = unit.getPos();
             stateMachine.popState();
         } else {
-            if(unit.getWeapon().hasTargetOnScan())
+            if(unit.arming.scanning())
                 stateMachine.pushState(AUTO_ATTACK, new ArrayList<>());
             else
                 unit.getMover().followPath();
@@ -202,8 +203,8 @@ public class TacticalAI {
     void doHold(){
         unit.idle();
         holdposition = true;
-        if(unit.getWeapon().hasTargetAtRange())
-            unit.getWeapon().attack();
+        if(unit.arming.acquiring())
+            unit.arming.attack();
     }
     
     private double getPostDistance(){
@@ -266,5 +267,4 @@ public class TacticalAI {
     public ArrayList<String> getStates() {
         return stateMachine.states;
     }
-
 }

@@ -42,6 +42,7 @@ public class TurretBuilder {
                         case RESET : res.onIdle = Turret.OnIdleBehave.RESET; break;
                         case SPIN : res.onIdle = Turret.OnIdleBehave.SPIN; break;
                         case HOLD : res.onIdle = Turret.OnIdleBehave.HOLD; break;
+                        default : throw new IllegalArgumentException(de.getVal()+" is not a valid onIdle value for Turret "+def.id);
                     }
                     break;
                 case BONE_NAME : res.boneName = de.getVal(); break;

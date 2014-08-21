@@ -12,6 +12,7 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
+import math.Precision;
 import model.map.Map;
 import model.army.motion.CollisionManager;
 import model.army.motion.SteeringMachine;
@@ -37,8 +38,8 @@ public class Mover {
     public Point3D pos = Point3D.ORIGIN;
     public Point3D velocity = Point3D.ORIGIN;
     
-    public double orientation = 0;
-    public double desiredOrientation = 0;
+    public double yaw = 0;
+    public double desiredYaw = 0;
     
     public boolean hasMoved = false;
     
@@ -58,14 +59,14 @@ public class Mover {
     }
     
     public void updatePosition(double elapsedTime) {
-        double savedOrientation = orientation;
+        double savedOrientation = yaw;
         Point3D savedPos = new Point3D(pos);
         
         Point3D steering = sm.getSteeringAndReset(elapsedTime);
         cm.applySteering(steering, elapsedTime, toAvoid);
         head(elapsedTime);
         
-        hasMoved = savedOrientation != orientation || !savedPos.equals(pos);
+        hasMoved = savedOrientation != yaw || !savedPos.equals(pos);
         
         if(hasMoved)
             updateElevation();
@@ -116,13 +117,16 @@ public class Mover {
     
     public void head(double elapsedTime) {
         if(!velocity.isOrigin())
-            desiredOrientation = velocity.get2D().getAngle();
+            desiredYaw = velocity.get2D().getAngle();
 
-        double diff = Angle.getOrientedDifference(orientation, desiredOrientation);
-        if(diff > 0)
-            orientation += Math.min(diff, movable.getRotSpeed()*elapsedTime);
-        else
-            orientation += Math.max(diff, -movable.getRotSpeed()*elapsedTime);
+        if(!Angle.areSimilar(desiredYaw, yaw)){
+            double diff = Angle.getOrientedDifference(yaw, desiredYaw);
+            if(diff > 0)
+                yaw += Math.min(diff, movable.getRotSpeed()*elapsedTime);
+            else
+                yaw -= Math.min(-diff, movable.getRotSpeed()*elapsedTime);
+        } else
+            yaw = desiredYaw;
     }
 
     public Point3D getVectorTo(Mover o) {

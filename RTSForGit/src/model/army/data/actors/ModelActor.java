@@ -17,7 +17,7 @@ public class ModelActor extends Actor {
     public String modelPath;
     public double scale;
     
-    public HashMap<String, Point3D> boneCoords = new HashMap<>();
+    private HashMap<String, Point3D> boneCoords = new HashMap<>();
     
     public ModelActor(String trigger, Actor parent){
         super(trigger, parent);
@@ -30,6 +30,21 @@ public class ModelActor extends Actor {
     @Override
     public boolean containsModel() {
         return true;
+    }
+    
+    public Point3D getBoneCoord(String boneName){
+        Point3D res = boneCoords.get(boneName);
+        if(res == null)
+            throw new IllegalArgumentException("Can't find bone "+boneName);
+        return res;
+    }
+    
+    public void setBone(String name, Point3D coord){
+        boneCoords.put(name, coord);
+    }
+    
+    public boolean hasBone(){
+        return !boneCoords.isEmpty();
     }
     
     

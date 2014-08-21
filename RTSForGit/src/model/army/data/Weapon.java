@@ -6,6 +6,7 @@ package model.army.data;
 
 import geometry3D.Point3D;
 import java.util.ArrayList;
+import math.Angle;
 import math.Precision;
 import tools.LogUtil;
 
@@ -22,6 +23,8 @@ public class Weapon {
     EffectBuilder effectBuilder;
     public String sourceBone;
     public String directionBone;
+    boolean allowMovement = false;
+    
 
     final Unit holder;
     protected Turret turret;
@@ -34,17 +37,17 @@ public class Weapon {
     public double lastStrikeTime = 0;
     boolean attacking = false;
     
-    ArrayList<Unit> onScan = new ArrayList<>();
-    ArrayList<Unit> atRange = new ArrayList<>();
+    protected ArrayList<Unit> onScan = new ArrayList<>();
+    protected ArrayList<Unit> atRange = new ArrayList<>();
     
     public Weapon(Unit holder){
         this.holder = holder;
     }
     
     public void update(ArrayList<Unit> enemiesNearby){
-        if(sourceBone != null && !holder.actor.boneCoords.isEmpty()){
-            pos = holder.actor.boneCoords.get(sourceBone);
-            vec = holder.actor.boneCoords.get(directionBone).getSubtraction(pos).getNormalized();
+        if(sourceBone != null && holder.actor.hasBone()){
+            pos = holder.actor.getBoneCoord(sourceBone);
+            vec = holder.actor.getBoneCoord(directionBone).getSubtraction(pos).getNormalized();
         }else{
             pos = holder.getPos();
             vec = holder.getPos2D().getTranslation(holder.getOrientation(), 1).getNormalized().get3D(0);
@@ -95,39 +98,38 @@ public class Weapon {
         setDesiredYaw();
         
         if(lastStrikeTime+1000*period < System.currentTimeMillis()){
-            if(actor != null)
-                actor.onShoot();
-            target.ai.registerAsAttacker(holder);
-            Effect e = effectBuilder.build(holder, target, null);
-            e.setSourcePoint(pos, vec);
-            e.launch();
-            
-            lastStrikeTime = System.currentTimeMillis();
+            if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) < Angle.toRadians(5)){
+                if(actor != null)
+                    actor.onShoot();
+                target.ai.registerAsAttacker(holder);
+                Effect e = effectBuilder.build(holder, target, null);
+                e.setSourcePoint(pos, vec);
+                e.launch();
+
+                lastStrikeTime = System.currentTimeMillis();
+            }
         }
     }
     
     private void setDesiredYaw(){
-        double desiredYaw = target.getPos2D().getSubtraction(pos.get2D()).getAngle();
+        double desiredYaw = getTargetAngle();
         if(turret != null)
             turret.setYaw(desiredYaw);
         else
             holder.setYaw(desiredYaw);
     }
     
-    public boolean hasTargetAtRange(){
-        return target != null && isAtRange(target);
+    private double getTargetAngle(){
+        return target.getPos2D().getSubtraction(pos.get2D()).getAngle();
     }
+    
+    private double getAngle(){
+        return vec.get2D().getAngle();
+    }
+    
     
     public boolean hasTargetAtRange(Unit specificTarget){
         return isAtRange(specificTarget);
-    }
-
-    public boolean hasTargetOnScan(){
-        return target != null;
-    }
-    
-    public boolean hasNoTarget(){
-        return target == null;
     }
     
     private boolean isAtRange(Unit u){
@@ -144,5 +146,13 @@ public class Weapon {
     
     public Unit getTarget(){
         return target;
+    }
+    
+    public boolean acquiring(){
+        return !atRange.isEmpty();
+    }
+    
+    public boolean scanning(){
+        return !onScan.isEmpty();
     }
 }

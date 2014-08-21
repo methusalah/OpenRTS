@@ -152,7 +152,6 @@ public class ActorBuilder {
                 // model
                 case MODEL_PATH : ((ModelActor)res).modelPath = de.getVal(); break;
                 case SCALE : ((ModelActor)res).scale = de.getDoubleVal(); break;
-                case TURRET_BONE : ((UnitActor)res).turretBone = de.getVal(); break;
                 case WEAPON_BONE : ; break;
                     
                 // animation

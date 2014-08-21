@@ -73,12 +73,12 @@ public class UnitBuilder {
                 case ACTOR_LINK : res.actor = (UnitActor)lib.getActorBuilder(de.getVal()).build(res); break;
                 case WEAPONLIST :
                     Weapon w = lib.getWeaponBuilder(de.getVal(WEAPON_LINK)).build(res);
-                    res.weapons.add(w);
+                    res.arming.weapons.add(w);
                     Turret t = null;
                     if(de.getVal(TURRET_LINK) != null){
                         t = lib.getTurretBuilder(de.getVal(TURRET_LINK)).build(res);
                         w.turret = t;
-                        res.turrets.add(t);
+                        res.arming.turrets.add(t);
                     }
                     break;
             }

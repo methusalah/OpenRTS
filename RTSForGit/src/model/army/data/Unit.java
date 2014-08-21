@@ -17,7 +17,7 @@ import model.warfare.Faction;
  * @author Benoît
  */
 public class Unit extends Movable {
-    public enum State {MOVE, ATTACK, IDLE, DESTROYED, STUCK};
+    public enum State {MOVING, AIMING, IDLING, DESTROYED, STUCK};
 
     // final data
     public String id;
@@ -26,21 +26,21 @@ public class Unit extends Movable {
     public String modelPath;
     public int maxHealth;
     double sight;
-    ArrayList<Turret> turrets = new ArrayList<>();
-    ArrayList<Weapon> weapons = new ArrayList<>();
     UnitActor actor;
 
+    public Arming arming;
     public TacticalAI ai;
     public String label = "label"+this.toString();
     
     // variables
     public Faction faction;
     public int health;
-    public State state = State.IDLE;
+    public State state = State.IDLING;
     
     public Unit(Faction faction){
         ai = new TacticalAI(this);
         setFaction(faction);
+        arming = new Arming(this);
     }
     
     void setMaxHealth(int maxHealth){
@@ -61,52 +61,45 @@ public class Unit extends Movable {
             return;
         
         findNearbyMovers();
-        updateWeapons();
+        arming.updateWeapons();
         
         ai.update();
 
-        for(Weapon w : weapons)
-            if(w.isAttacking())
-                state = State.ATTACK;
+        if(arming.isAiming())
+            state = State.AIMING;
         
         mover.updatePosition(elapsedTime);
         
         if(mover.hasMoved)
-            state = State.MOVE;
+            state = State.MOVING;
 
-        updateTurrets(elapsedTime);
+        arming.updateTurrets(elapsedTime);
         
         if(!state.equals(lastState))
             switch (state){
-                case MOVE : actor.onMove(); break;
-                case IDLE : actor.onWait(); break;
-                case ATTACK : actor.onAim(); break;
+                case MOVING : actor.onMove(); break;
+                case IDLING : actor.onWait(); break;
+                case AIMING : actor.onAim(); break;
             }
     }
     
-    private void updateWeapons(){
-        for(Weapon w : weapons)
-            w.update(faction.enemies.get(0).units);
-    }
-    
-    private void updateTurrets(double elapsedTime){
-        for(Turret t : turrets)
-            t.update(elapsedTime, state == State.MOVE);
+    protected boolean isMoving(){
+        return state == State.MOVING;
     }
     
     protected void setYaw(double yaw){
-        mover.desiredOrientation = yaw;
+        mover.desiredYaw = yaw;
     }
     
     public void linkActors(){
-        for(Weapon w : weapons)
+        for(Weapon w : arming.weapons)
             if(w.actor != null)
                 w.actor.parent = actor;
     }
     
     public void idle(){
         if(state != State.STUCK)
-            state = State.IDLE;
+            state = State.IDLING;
     }
     
     private void findNearbyMovers() {
@@ -156,22 +149,11 @@ public class Unit extends Movable {
         return (double)health/maxHealth;
     }
     
-    public boolean hasTurret(){
-        return !turrets.isEmpty() && turrets.get(0) != null;
-    }
-    
     @Override
     public Point3D getPos(){
         return mover.pos;
     }
 
-    public double getTurretOrientation(){
-        if(hasTurret())
-            return turrets.get(0).yaw;
-        else
-            throw new RuntimeException("can't get turret orientation if unit has no turret");
-    }
-    
     public double getDistance(Unit other){
         return mover.getDistance(other.mover);
     }
@@ -191,15 +173,11 @@ public class Unit extends Movable {
         return mover;
     }
     
-    public Weapon getWeapon(){
-        return weapons.get(0);
+    public Point2D getPos2D(){
+        return getPos().get2D();
     }
     
     public ArrayList<Turret> getTurrets(){
-        return turrets;
-    }
-    
-    public Point2D getPos2D(){
-        return new Point2D(getPos());
+        return arming.turrets;
     }
 }

@@ -46,7 +46,7 @@ public abstract class Movable {
     }
     
     public double getOrientation(){
-        return mover.orientation;
+        return mover.yaw;
     }
 
     public abstract Point3D getPos();

@@ -15,9 +15,6 @@ import model.army.data.Unit;
  * @author Benoît
  */
 public class UnitActor extends MovableActor {
-    public String turretBone;
-    public double turretOrientation;
-    
     public UnitActor(String trigger, Actor parent){
         super(trigger, parent);
     }
@@ -27,12 +24,8 @@ public class UnitActor extends MovableActor {
         act();
     }
     
-    public void updateTurretOrientation(){
-        turretOrientation = ((Unit)movable).getTurretOrientation();
-    }
-    
-    public boolean hasTurret(){
-        return getUnit().hasTurret();
+    public ArrayList<Turret> getTurrets(){
+        return ((Unit)movable).getTurrets();
     }
     
     @Override
