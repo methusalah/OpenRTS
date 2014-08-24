@@ -173,7 +173,7 @@
   
   <Actor id="Aircraft">
     <Type value="Unit"/>
-    <ModelPath value="human/flying01/flying01.mesh.xml"/>
+    <ModelPath value="human/adav/adav02a.mesh.xml"/>
     <Scale value="1"/>
   </Actor>
   

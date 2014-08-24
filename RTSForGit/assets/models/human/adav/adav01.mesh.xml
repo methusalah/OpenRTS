@@ -9637,7 +9637,7 @@
             </boneassignments>
         </submesh>
     </submeshes>
-    <skeletonlink name="flying01.skeleton"/>
+    <skeletonlink name="adav01.skeleton"/>
     <submeshnames>
         <submeshname name="submesh0" index="0"/>
         <submeshname name="submesh1" index="1"/>

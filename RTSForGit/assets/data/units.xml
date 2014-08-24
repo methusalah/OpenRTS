@@ -32,7 +32,7 @@
     <Race value="human"/>
     <Radius value="0.6"/>
     <SeparationRadius value="0.6"/>
-    <Speed value="1"/>
+    <Speed value="4"/>
     <Mass value="8"/>
     <MaxHealth value="300"/>
     <Sight value="10"/>
