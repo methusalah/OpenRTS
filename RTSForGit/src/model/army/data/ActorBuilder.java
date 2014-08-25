@@ -9,6 +9,7 @@ import geometry3D.Point3D;
 import java.awt.Color;
 import model.army.data.definitions.DefElement;
 import java.util.HashMap;
+import math.Angle;
 import model.army.ArmyManager;
 import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
@@ -75,6 +76,7 @@ public class ActorBuilder {
     static final String FACING_HORIZONTAL = "Horizontal";
     static final String ADD = "Add";
     static final String START_VARIATION = "StartVariation";
+    static final String ROTATION_SPEED = "RotationSpeed";
     
 
     static final String RED = "R";
@@ -201,6 +203,7 @@ public class ActorBuilder {
                     break;
                 case ADD : ((ParticleActor)res).add = de.getBoolVal(); break;
                 case START_VARIATION : ((ParticleActor)res).startVariation = de.getDoubleVal(); break;
+                case ROTATION_SPEED : ((ParticleActor)res).rotationSpeed = Angle.toRadians(de.getDoubleVal()); break;
 
             }
         return res;
