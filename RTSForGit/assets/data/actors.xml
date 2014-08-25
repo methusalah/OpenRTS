@@ -108,16 +108,16 @@
     <DirectionBone value="BDustVec01"/>
     <Velocity value="0.8"/>
     <Fanning value="0.5"/>
-    <MaxCount value="30"/>
-    <PerSecond value="20"/>
-    <StartSize value="0.1"/>
-    <EndSize value="0.1"/>
+    <MaxCount value="60"/>
+    <PerSecond value="40"/>
+    <StartSize value="0.05"/>
+    <EndSize value="0.05"/>
     <StartColor R="144" G="108" B="63" A="255"/>
     <EndColor R="144" G="108" B="63" A="255"/>
-    <MinLife value="0.2"/>
-    <MaxLife value="0.5"/>
+    <MinLife value="0.5"/>
+    <MaxLife value="0.8"/>
     <Gravity value="true"/>
-    <StartVariation value="0.05"/>
+    <StartVariation value="0.1"/>
   </Actor>
   <Actor id="RightMud">
     <Type value="Particle"/>
@@ -127,54 +127,145 @@
     <DirectionBone value="BDustVec02"/>
     <Velocity value="0.8"/>
     <Fanning value="0.5"/>
-    <MaxCount value="30"/>
-    <PerSecond value="20"/>
-    <StartSize value="0.1"/>
-    <EndSize value="0.1"/>
+    <MaxCount value="60"/>
+    <PerSecond value="40"/>
+    <StartSize value="0.05"/>
+    <EndSize value="0.05"/>
     <StartColor R="144" G="108" B="63" A="255"/>
     <EndColor R="144" G="108" B="63" A="255"/>
-    <MinLife value="0.2"/>
-    <MaxLife value="0.5"/>
+    <MinLife value="0.5"/>
+    <MaxLife value="0.8"/>
     <Gravity value="true"/>
-    <StartVariation value="0.05"/>
+    <StartVariation value="0.1"/>
   </Actor>
   <Actor id="LeftDust">
     <Type value="Particle"/>
-    <SpritePath value="particles/smoke.png"/>
+    <SpritePath value="particles/smoke01.png"/>
     <Add value="false"/>
     <EmissionBone value="BDust01"/>
     <DirectionBone value="BDustVec01"/>
-    <MaxCount value="30"/>
+    <MaxCount value="60"/>
     <PerSecond value="30"/>
-    <StartSize value="0.2"/>
-    <EndSize value="0.4"/>
-    <StartColor R="205" G="185" B="156" A="180"/>
-    <EndColor R="205" G="185" B="156" A="0"/>
-    <MinLife value="1.6"/>
-    <MaxLife value="1.6"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="128"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="1.1"/>
+    <MaxLife value="1.3"/>
     <StartVariation value="0.1"/>
   </Actor>
   <Actor id="RightDust">
     <Type value="Particle"/>
-    <SpritePath value="particles/smoke.png"/>
+    <SpritePath value="particles/smoke01.png"/>
     <Add value="false"/>
     <EmissionBone value="BDust02"/>
     <DirectionBone value="BDustVec02"/>
-    <MaxCount value="30"/>
+    <MaxCount value="60"/>
     <PerSecond value="30"/>
-    <StartSize value="0.2"/>
-    <EndSize value="0.4"/>
-    <StartColor R="205" G="185" B="156" A="180"/>
-    <EndColor R="205" G="185" B="156" A="0"/>
-    <MinLife value="1.6"/>
-    <MaxLife value="1.6"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="128"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="1.1"/>
+    <MaxLife value="1.3"/>
     <StartVariation value="0.1"/>
   </Actor>
   
   <Actor id="Aircraft">
     <Type value="Unit"/>
     <ModelPath value="human/adav/adav02a.mesh.xml"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet01"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet02"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet03"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet04"/>
+    <ActorList Trigger="onMove" ActorLink="AdavContrail01"/>    
     <Scale value="1"/>
+  </Actor>
+  <Actor id="AdavJet01">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet01"/>
+    <DirectionBone value="BJetVec01"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.05"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+    <Actor id="AdavJet02">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet02"/>
+    <DirectionBone value="BJetVec02"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.05"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+    <Actor id="AdavJet03">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet03"/>
+    <DirectionBone value="BJetVec03"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.05"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  <Actor id="AdavJet04">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet04"/>
+    <DirectionBone value="BJetVec04"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.05"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  <Actor id="AdavContrail01">
+    <Type value="Particle"/>
+    <SpritePath value="particles/contrail02.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <Add value="false"/>
+    <EmissionBone value="BContrail01"/>
+    <DirectionBone value="BContrailVec01"/>
+    <MaxCount value="100"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.02"/>
+    <EndSize value="0.02"/>
+    <StartColor R="255" G="255" B="255" A="255"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="0.5"/>
+    <MaxLife value="0.5"/>
+    <StartVariation value="0.0"/>
   </Actor>
   
   <Actor id="Marine">

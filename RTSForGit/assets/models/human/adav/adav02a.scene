@@ -2,7 +2,7 @@
 <scene formatVersion="1.0" upAxis="z" unitsPerMeter="100" minOgreVersion="1.7" ogreMaxVersion="2.6.3" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
     <nodes>
         <node name="adav02a">
-            <position x="-0.294259" y="174.023" z="28.927"/>
+            <position x="-0.430263" y="185.333" z="52.8826"/>
             <scale x="1" y="1" z="1"/>
             <rotation qx="0" qy="0" qz="0" qw="1"/>
             <entity name="adav02a" castShadows="true" receiveShadows="true" meshFile="adav02a.mesh">
