@@ -153,6 +153,7 @@
     <MinLife value="1.1"/>
     <MaxLife value="1.3"/>
     <StartVariation value="0.1"/>
+    <RotationSpeed value="360"/>
   </Actor>
   <Actor id="RightDust">
     <Type value="Particle"/>
@@ -169,6 +170,7 @@
     <MinLife value="1.1"/>
     <MaxLife value="1.3"/>
     <StartVariation value="0.1"/>
+    <RotationSpeed value="360"/>
   </Actor>
   
   <Actor id="Aircraft">

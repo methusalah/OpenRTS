@@ -226,6 +226,7 @@ public class UnitRenderer implements AnimEventListener {
 
             emitter.setLowLife((float)actor.minLife);
             emitter.setHighLife((float)actor.maxLife);
+            emitter.setRotateSpeed((float)actor.rotationSpeed);
 
             if(actor.startVariation != 0)
                 emitter.setShape(new EmitterSphereShape(Vector3f.ZERO, (float)actor.startVariation));

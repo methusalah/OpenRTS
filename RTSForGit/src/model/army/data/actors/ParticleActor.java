@@ -35,6 +35,7 @@ public class ParticleActor extends Actor {
     public double maxLife;
     public double spinSpeed;
     public boolean randomAngle;
+    public double rotationSpeed;
     public boolean gravity = false;
     public double emissionPointVariation;
     public Facing facing = Facing.Camera;
