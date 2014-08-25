@@ -17,10 +17,8 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class SteeringMachine {
-    private static double DESTINATION_REACH_TOLERANCE = 1.4;
-    private static double WAYPOINT_WIDTH = 0.3;
-    private static double NEIGHBOR_AHEAD_DIST = 0.5;
-    private static double NEIGHBOR_AHEAD_RAD = 0.3;
+    private static double DESTINATION_REACH_TOLERANCE = 0.3;
+    private static double DESTINATION_REACH_SIGNAL_DISTANCE = 2;
     private static double MAX_ANTICIPATION = 2.5;
 
     private static double FOLLOW_PATH_FORCE = 1;
@@ -116,9 +114,13 @@ public class SteeringMachine {
         
         for(Mover n : neighbors){
             double neededDistance = n.getSpacing(mover)-n.getDistance(mover);
+            if(neededDistance <= 0)
+                continue;
             Point3D sepVector = n.getVectorTo(mover).getScaled(neededDistance);
             res = res.getAddition(sepVector);
         }
+        if(res.isOrigin())
+            return res;
         if(mover.fly())
             return res.getNormalized().getMult(SEPARATION_FORCE_FOR_FLYING);
         else

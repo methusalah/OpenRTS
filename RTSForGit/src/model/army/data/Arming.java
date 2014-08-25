@@ -25,6 +25,8 @@ public class Arming {
     }
     
     protected void updateWeapons(){
+        onScan = false;
+        atRange = false;
         for(Weapon w : weapons){
             w.update(holder.faction.enemies.get(0).units);
             if(w.acquiring())
@@ -32,6 +34,7 @@ public class Arming {
             if(w.scanning())
                 onScan = true;
         }
+        aiming = false;
     }
     
     protected void updateTurrets(double elapsedTime){
@@ -65,12 +68,14 @@ public class Arming {
     public void attack(){
         if(!atRange)
             throw new RuntimeException("Asking to attack but no target at range.");
+        aiming = true;
         for(Weapon w : weapons)
             if(w.acquiring())
                 w.attack();
     }
     
     public void attack(Unit unit){
+        aiming = true;
         boolean found = false;
         for(Weapon w : weapons)
             if(w.hasTargetAtRange(unit)){

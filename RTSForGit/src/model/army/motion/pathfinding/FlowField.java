@@ -145,21 +145,28 @@ public class FlowField {
     public Point2D getVector(Point2D p){
         Point2D res = Point2D.ORIGIN;
         
-        Tile t = map.getTile(p);
-        if(p.getDistance(t.getPos2D()) != 0)
-            res = res.getAddition(getVector(t).getMult(1/p.getDistance(t.getPos2D())));
-        else
-            res = res.getAddition(getVector(t));
-        if(t.n != null)
-            res = res.getAddition(getVector(t.n).getMult(1/p.getDistance(t.n.getPos2D())));
-        if(t.s != null)
-            res = res.getAddition(getVector(t.s).getMult(1/p.getDistance(t.s.getPos2D())));
-        if(t.e != null)
-            res = res.getAddition(getVector(t.e).getMult(1/p.getDistance(t.e.getPos2D())));
-        if(t.w != null)
-            res = res.getAddition(getVector(t.w).getMult(1/p.getDistance(t.w.getPos2D())));
-        return res.getNormalized();
+        if(p.getDistance(destination) < 1.5)
+//            ||
+//                !map.meetObstacle2(p, destination))
+            return destination.getSubtraction(p).getNormalized();
         
+        Tile t = map.getTile(p);
+        return getVector(t);
+//        if(p.getDistance(t.getPos2D()) != 0)
+//            res = res.getAddition(getVector(t).getMult(1/p.getDistance(t.getPos2D())));
+//        else
+//            res = res.getAddition(getVector(t));
+//        
+//        if(t.n != null)
+//            res = res.getAddition(getVector(t.n).getMult(1/p.getDistance(t.n.getPos2D())));
+//        if(t.s != null)
+//            res = res.getAddition(getVector(t.s).getMult(1/p.getDistance(t.s.getPos2D())));
+//        if(t.e != null)
+//            res = res.getAddition(getVector(t.e).getMult(1/p.getDistance(t.e.getPos2D())));
+//        if(t.w != null)
+//            res = res.getAddition(getVector(t.w).getMult(1/p.getDistance(t.w.getPos2D())));
+//        return res.getNormalized();
+//        
 //        return vectorMap[(int)Math.floor(p.x)][(int)Math.floor(p.y)];
     }
 }

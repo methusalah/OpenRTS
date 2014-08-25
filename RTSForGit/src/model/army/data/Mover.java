@@ -16,6 +16,7 @@ import math.Precision;
 import model.map.Map;
 import model.army.motion.CollisionManager;
 import model.army.motion.SteeringMachine;
+import tools.LogUtil;
 
 /**
  *
@@ -45,10 +46,12 @@ public class Mover {
     
     public ArrayList<Mover> toAvoid = new ArrayList<>();
     public ArrayList<Mover> toFlockWith = new ArrayList<>();
+    public ArrayList<Mover> toLetPass = new ArrayList<>();
     
     
     public FlowField flowfield;
     private boolean hasDestination;
+    public boolean hasFoundPost;
 
     public Mover(Map map, Movable movable, Point3D position){
         this.map = map;
@@ -59,17 +62,26 @@ public class Mover {
     }
     
     public void updatePosition(double elapsedTime) {
-        double savedOrientation = yaw;
-        Point3D savedPos = new Point3D(pos);
+        double lastYaw = yaw;
+        Point3D lastPos = new Point3D(pos);
         
         Point3D steering = sm.getSteeringAndReset(elapsedTime);
         cm.applySteering(steering, elapsedTime, toAvoid);
         head(elapsedTime);
         
-        hasMoved = savedOrientation != yaw || !savedPos.equals(pos);
-        
+        hasMoved = lastYaw != yaw || !lastPos.equals(pos);
         if(hasMoved)
             updateElevation();
+        
+        if(hasDestination)
+            hasFoundPost = false;
+        else {
+            hasFoundPost = true;
+            for(Mover m : toFlockWith)
+                if(m.hasDestination){
+                    hasFoundPost = false;
+                }
+        }
     }
     
     public double getSpacing(Mover o) {
@@ -79,10 +91,14 @@ public class Mover {
     public void setDestination(FlowField ff){
         flowfield = ff;
         hasDestination = true;
+        hasFoundPost = false;
     }
     
     public void setDestinationReached(){
         hasDestination = false;
+        for(Mover m : toFlockWith)
+            if(getDistance(m) < getSpacing(m)+toFlockWith.size()/20)
+                m.hasDestination = false;
     }
     
     public boolean hasDestination(){
@@ -134,7 +150,7 @@ public class Mover {
     }
     
     public void separate(){
-        sm.applySeparation(toFlockWith);
+        sm.applySeparation(toLetPass);
     }
     
     public void flock(){

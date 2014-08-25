@@ -70,6 +70,10 @@ public class Commander {
     
     public void act(String label, Point2D pos) {
         Unit target = getUnit(label);
+        for(Unit u : selection){
+            u.group.clear();
+            u.group.addAll(selection);
+        }
         if(target != null && target.faction != selection.get(0).faction)
             orderAttack(target);
         else

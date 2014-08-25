@@ -100,7 +100,7 @@ public class View {
     	sunComp1.setDirection(new Vector3f(-2, 1, -1f).normalize());
     	rootNode.addLight(sunComp1);
         
-        int SHADOWMAP_SIZE = 512;
+        int SHADOWMAP_SIZE = 4096;
 //        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
 //        sr.setLight(sun);
 //        vp.addProcessor(sr);

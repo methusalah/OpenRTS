@@ -4,6 +4,7 @@
  */
 package model.army.data;
 
+import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
@@ -31,7 +32,8 @@ public class Weapon {
     Actor actor;
 
     // variables
-    Point3D pos;
+    Point3D pivot;
+    Point3D source;
     Point3D vec;
     private Unit target;
     public double lastStrikeTime = 0;
@@ -46,11 +48,12 @@ public class Weapon {
     
     public void update(ArrayList<Unit> enemiesNearby){
         if(sourceBone != null && holder.actor.hasBone()){
-            pos = holder.actor.getBoneCoord(sourceBone);
-            vec = holder.actor.getBoneCoord(directionBone).getSubtraction(pos).getNormalized();
+            pivot = holder.actor.getBoneCoord(turret.boneName);
+            source = holder.actor.getBoneCoord(sourceBone);
+            vec = holder.actor.getBoneCoord(directionBone).getSubtraction(source).getNormalized();
         }else{
-            pos = holder.getPos();
-            vec = holder.getPos2D().getTranslation(holder.getOrientation(), 1).getNormalized().get3D(0);
+            pivot = holder.getPos();
+            vec = Point2D.ORIGIN.getTranslation(holder.getOrientation(), 1).getNormalized().get3D(0);
         }
 
         attacking = false;
@@ -103,7 +106,7 @@ public class Weapon {
                     actor.onShoot();
                 target.ai.registerAsAttacker(holder);
                 Effect e = effectBuilder.build(holder, target, null);
-                e.setSourcePoint(pos, vec);
+                e.setSourcePoint(source, vec);
                 e.launch();
 
                 lastStrikeTime = System.currentTimeMillis();
@@ -120,7 +123,7 @@ public class Weapon {
     }
     
     private double getTargetAngle(){
-        return target.getPos2D().getSubtraction(pos.get2D()).getAngle();
+        return target.getPos2D().getSubtraction(pivot.get2D()).getAngle();
     }
     
     private double getAngle(){

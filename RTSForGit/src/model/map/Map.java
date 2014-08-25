@@ -17,6 +17,7 @@ public class Map {
 	Tile[][] tiles;
         ArrayList<Tile> tileList = null;
         ArrayList<Ramp> ramps = new ArrayList<Ramp>();
+        public ArrayList<Tile> traversed = new ArrayList<>();
 	public int width;
 	public int height;
 	
@@ -73,6 +74,73 @@ public class Map {
         return getTile((int)Math.floor(p.x), (int)Math.floor(p.y));
     }
 
+    public boolean meetObstacle2(Point2D p1, Point2D p2) {
+      // calculate the direction of the ray (linear algebra)
+        double dirX = p2.x-p1.x;
+        double dirY = p2.y-p1.y;
+        double length = Math.sqrt(dirX * dirX + dirY * dirY);
+        dirX /= length; // normalize the direction vector
+        dirY /= length;
+        double tDeltaX = Math.abs(dirX); // how far we must move in the ray direction before we encounter a new voxel in x-direction
+        double tDeltaY = Math.abs(dirY); // same but y-direction
+ 
+        // start voxel coordinates
+        int x = (int)Math.floor(p1.x);  // use your transformer function here
+        int y = (int)Math.floor(p1.y);
+ 
+        // end voxel coordinates
+        int endX = (int)Math.floor(p2.x);
+        int endY = (int)Math.floor(p2.y);
+ 
+        // decide which direction to start walking in
+        int stepX = (int) Math.signum(dirX);
+        int stepY = (int) Math.signum(dirY);
+ 
+        double tMaxX, tMaxY;
+        // calculate distance to first intersection in the voxel we start from
+        if(dirX < 0)
+            tMaxX = ((double)x-p1.x)/dirX;
+        else
+            tMaxX = ((double)(x+1)-p1.x)/dirX;
+ 
+        if(dirY < 0)
+            tMaxY = ((double)y-p1.y)/dirY;
+        else
+            tMaxY = ((double)(y+1)-p1.y) / dirY;
+ 
+        // check if first is occupied
+        if(getTile(x, y).isCliff()) // use your function here
+            return true;
+ 
+        while(true){
+            if(tMaxX < tMaxY){
+                tMaxX += tDeltaX;
+                x += stepX;
+            }else{
+                tMaxY += tDeltaY;
+                y += stepY;
+            }
+ 
+            traversed.add(getTile(x, y));
+            if(getTile(x, y).isCliff())
+                return true;
+
+            if(stepX > 0){
+                if (x >= endX)
+                    break;
+            }else if (x <= endX)
+                break;
+ 
+            if(stepY > 0){
+                if (y >= endY)
+                    break;
+            }else if (y <= endY)
+                break;
+ 
+        }
+        return false;
+    }
+    
     public boolean meetObstacle(Point2D p1, Point2D p2) {
         Line2D l = new Line2D(p2, p1);
         double a = l.getSlope();

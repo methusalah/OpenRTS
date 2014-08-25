@@ -34,6 +34,7 @@ public class Unit extends Movable {
     
     // variables
     public Faction faction;
+    public ArrayList<Unit> group = new ArrayList<>();
     public int health;
     public State state = State.IDLING;
     
@@ -104,13 +105,16 @@ public class Unit extends Movable {
     
     private void findNearbyMovers() {
         mover.toFlockWith.clear();
+        mover.toLetPass.clear();
         mover.toAvoid.clear();
+        for(Unit u : group)
+            if(u != this)
+                mover.toFlockWith.add(u.getMover());
         for(Unit u : faction.units)
             if(u != this &&
-//                    !u.isHoldingPosition() &&
                     getBoundsDistance(u) <= 0
                     && u.mover.heightmap.equals(mover.heightmap))
-                mover.toFlockWith.add(u.mover);
+                mover.toLetPass.add(u.mover);
         mover.toAvoid = getHoldingNeighbors();
     }
     

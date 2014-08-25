@@ -18,7 +18,7 @@
     <DirectionBone value="BMuzzleVec01"/>
   </Weapon>
   <Weapon id="TankMachinegun">
-    <UIName value="Canon"/>
+    <UIName value="Machinegun"/>
     <EffectLink value="StdDamage"/>
     <Range value="3"/>
     <ScanRange value="3"/>

@@ -57,36 +57,30 @@ public class TacticalAI {
     }
     
     public void orderMove(){
-        aggressions.clear();
-        stateMachine.popAll();
+        abandonAll();
         stateMachine.pushState(WAIT_ORDERS);
         stateMachine.pushState(MOVE);
     }
 
     public void orderMoveAttack(){
-        aggressions.clear();
-        stateMachine.popAll();
+        abandonAll();
         stateMachine.pushState(WAIT_ORDERS);
         stateMachine.pushState(MOVE_ATTACK);
     }
 
     public void orderAttack(Unit enemy){
-        aggressions.clear();
-        stateMachine.popAll();
+        abandonAll();
         stateMachine.pushState(WAIT_ORDERS);
         stateMachine.pushState(ATTACK, enemy);
     }
 
     public void orderHold(){
-        aggressions.clear();
-        stateMachine.popAll();
+        abandonAll();
         stateMachine.pushState(HOLD);
     }
     
     public void update(){
         // TODO moche
-        if(post == null)
-            post = unit.getPos();
         filterAttackers();
         neighbors = getNeighbors();
         holdposition = false;
@@ -94,12 +88,14 @@ public class TacticalAI {
     }
 
     void doWaitOrders(){
+        if(!unit.getMover().hasFoundPost)
+            post = unit.getPos();
         unit.idle();
         // let allies pass
         unit.getMover().separate();
         
         // return to post if disturbed
-        if(getPostDistance() > FREE_MOVE_RADIUS){
+        if(post != null && getPostDistance() > FREE_MOVE_RADIUS){
             stateMachine.pushState(RETURN_POST);
             stateMachine.pushState(WAIT, DISTURB_DURATION);
         }
@@ -119,6 +115,9 @@ public class TacticalAI {
     }
     
     void doWait(double duration){
+        // let allies pass
+        unit.getMover().separate();
+
         if(disturbTime == 0)
             disturbTime = System.currentTimeMillis();
         else if(disturbTime+duration < System.currentTimeMillis()){
@@ -180,8 +179,8 @@ public class TacticalAI {
     }
     
     void doMove(){
+        post = unit.getPos();
         if(!unit.getMover().hasDestination()){
-            post = unit.getPos();
             stateMachine.popState();
         } else
             unit.getMover().followPath();
@@ -190,7 +189,6 @@ public class TacticalAI {
     void doMoveAttack(){
         post = unit.getPos();
         if(!unit.getMover().hasDestination()){
-            post = unit.getPos();
             stateMachine.popState();
         } else {
             if(unit.arming.scanning())
@@ -201,6 +199,7 @@ public class TacticalAI {
     }
     
     void doHold(){
+        post = unit.getPos();
         unit.idle();
         holdposition = true;
         if(unit.arming.acquiring())
@@ -208,6 +207,8 @@ public class TacticalAI {
     }
     
     private double getPostDistance(){
+        if(post == null)
+            return 0;
         return unit.getPos().getDistance(post);
     }
 
@@ -266,5 +267,12 @@ public class TacticalAI {
     
     public ArrayList<String> getStates() {
         return stateMachine.states;
+    }
+    
+    public void abandonAll(){
+        post = null;
+        aggressionPlace = null;
+        aggressions.clear();
+        stateMachine.popAll();
     }
 }
