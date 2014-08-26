@@ -104,36 +104,42 @@ public class FlowField {
             for(int y=0; y<height; y++){
                 if(hasNoHeat(x, y))
                     vectorMap[x][y] = Point2D.ORIGIN;
-                else {
-                    int north;
-                    if(y == height-1 || hasNoHeat(x, y+1))
-                        north = getHeat(x, y);
-                    else
-                        north = getHeat(x, y+1);
+                else{
+                    Point2D tileCenter = new Point2D(x+0.5, y+.5);
+                    if(tileCenter.getDistance(destination) < 10 &&
+                            !map.meetObstacle(tileCenter, destination))
+                        vectorMap[x][y] = destination.getSubtraction(tileCenter).getNormalized();
+                    else{
+                        int north;
+                        if(y == height-1 || hasNoHeat(x, y+1))
+                            north = getHeat(x, y);
+                        else
+                            north = getHeat(x, y+1);
 
-                    int south;
-                    if(y == 0 || hasNoHeat(x, y-1))
-                        south = getHeat(x, y);
-                    else
-                        south = getHeat(x, y-1);
+                        int south;
+                        if(y == 0 || hasNoHeat(x, y-1))
+                            south = getHeat(x, y);
+                        else
+                            south = getHeat(x, y-1);
 
-                    int west;
-                    if(x == 0 || hasNoHeat(x-1, y))
-                        west = getHeat(x, y);
-                    else
-                        west = getHeat(x-1, y);
+                        int west;
+                        if(x == 0 || hasNoHeat(x-1, y))
+                            west = getHeat(x, y);
+                        else
+                            west = getHeat(x-1, y);
 
-                    int east;
-                    if(x == width-1 || hasNoHeat(x+1, y))
-                        east = getHeat(x, y);
-                    else
-                        east = getHeat(x+1, y);
+                        int east;
+                        if(x == width-1 || hasNoHeat(x+1, y))
+                            east = getHeat(x, y);
+                        else
+                            east = getHeat(x+1, y);
 
-                    int vx;
-                    int vy;
-                    vx = west-east;
-                    vy = south-north;
-                    vectorMap[x][y] = new Point2D(vx, vy).getNormalized();
+                        int vx;
+                        int vy;
+                        vx = west-east;
+                        vy = south-north;
+                        vectorMap[x][y] = new Point2D(vx, vy).getNormalized();
+                    }
                 }
             }
     }
@@ -144,11 +150,6 @@ public class FlowField {
     
     public Point2D getVector(Point2D p){
         Point2D res = Point2D.ORIGIN;
-        
-        if(p.getDistance(destination) < 1.5)
-//            ||
-//                !map.meetObstacle2(p, destination))
-            return destination.getSubtraction(p).getNormalized();
         
         Tile t = map.getTile(p);
         return getVector(t);

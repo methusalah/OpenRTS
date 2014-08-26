@@ -17,7 +17,6 @@ public class Map {
 	Tile[][] tiles;
         ArrayList<Tile> tileList = null;
         ArrayList<Ramp> ramps = new ArrayList<Ramp>();
-        public ArrayList<Tile> traversed = new ArrayList<>();
 	public int width;
 	public int height;
 	
@@ -59,7 +58,6 @@ public class Map {
                 tr = new Triangle3D(sw, se, ne);
             else
                 tr = new Triangle3D(sw, ne, nw);
-//            LogUtil.logger.info("z = "+tr.getElevated(pos).z);
             
             return tr.getElevated(pos).z;
         }
@@ -74,15 +72,20 @@ public class Map {
         return getTile((int)Math.floor(p.x), (int)Math.floor(p.y));
     }
 
-    public boolean meetObstacle2(Point2D p1, Point2D p2) {
+    /*
+     * Fast Voxel Traversal Algorithm for Ray Tracing
+     * John Amanatides
+     * Andrew Woo
+     */
+    public boolean meetObstacle(Point2D p1, Point2D p2) {
       // calculate the direction of the ray (linear algebra)
         double dirX = p2.x-p1.x;
         double dirY = p2.y-p1.y;
         double length = Math.sqrt(dirX * dirX + dirY * dirY);
         dirX /= length; // normalize the direction vector
         dirY /= length;
-        double tDeltaX = Math.abs(dirX); // how far we must move in the ray direction before we encounter a new voxel in x-direction
-        double tDeltaY = Math.abs(dirY); // same but y-direction
+        double tDeltaX = 1/Math.abs(dirX); // how far we must move in the ray direction before we encounter a new voxel in x-direction
+        double tDeltaY = 1/Math.abs(dirY); // same but y-direction
  
         // start voxel coordinates
         int x = (int)Math.floor(p1.x);  // use your transformer function here
@@ -109,10 +112,10 @@ public class Map {
             tMaxY = ((double)(y+1)-p1.y) / dirY;
  
         // check if first is occupied
-        if(getTile(x, y).isCliff()) // use your function here
+        if(getTile(x, y).isCliff())
             return true;
- 
-        while(true){
+        boolean reachedX = false, reachedY = false;
+        while(!reachedX || !reachedY){
             if(tMaxX < tMaxY){
                 tMaxX += tDeltaX;
                 x += stepX;
@@ -120,53 +123,21 @@ public class Map {
                 tMaxY += tDeltaY;
                 y += stepY;
             }
- 
-            traversed.add(getTile(x, y));
             if(getTile(x, y).isCliff())
                 return true;
 
             if(stepX > 0){
                 if (x >= endX)
-                    break;
+                    reachedX = true;
             }else if (x <= endX)
-                break;
+                reachedX = true;
  
             if(stepY > 0){
                 if (y >= endY)
-                    break;
+                    reachedY = true;
             }else if (y <= endY)
-                break;
- 
+                reachedY = true;
         }
-        return false;
-    }
-    
-    public boolean meetObstacle(Point2D p1, Point2D p2) {
-        Line2D l = new Line2D(p2, p1);
-        double a = l.getSlope();
-        double b = p1.y-a*p1.x;
-        
-        double minX = Math.min(p1.x, p2.x);
-        double maxX = Math.max(p1.x, p2.x);
-        // ugly test
-        if(minX == maxX)
-            return true;
-        
-        for(double i = minX; i<maxX; i+=0.1){
-            double y = a*i+b;
-            try {
-                Tile t = getTile((int)Math.floor(i), (int)Math.floor(y));
-                if(t.isCliff())
-                    return true;
-            } catch (Exception e) {
-                LogUtil.logger.info("bug avec la droite à l'index : "+i+" ou y = "+y);
-                LogUtil.logger.info(""+p1+" et "+p2);
-                LogUtil.logger.info("pente :"+a+" et b : "+b);
-                throw new RuntimeException();
-            }
-        }
-
-            
         return false;
     }
     

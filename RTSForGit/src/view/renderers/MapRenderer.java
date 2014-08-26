@@ -54,22 +54,27 @@ public class MapRenderer {
 	
 	public void renderTiles() {
 		LogUtil.logger.info("rendering tiles");
-                Point2D start = new Point2D(45, 15);
-                Point2D end = new Point2D(50, 35);
-                map.meetObstacle2(start, end);
-                for(Tile t : map.traversed){
-                    Geometry g = new Geometry();
-                    g.setMesh(new Box(0.45f, 0.45f, 0.45f));
-                    g.setMaterial(mm.greenMaterial);
-                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, t.level*2f);
-                    mainNode.attachChild(g);
-                }
-                Geometry g1 = new Geometry();
-                g1.setMesh(new Line(Translator.toVector3f(start, 2.2), Translator.toVector3f(end, 2.2)));
-                g1.setMaterial(mm.redMaterial);
-                mainNode.attachChild(g1);
                 
-                
+                // debug flow field simplification
+//                Point2D start = new Point2D(42.2, 10.72);
+//                Point2D end = new Point2D(33.39, 10.09);
+//                map.meetObstacle2(start, end);
+//		LogUtil.logger.info("nb traversed : "+map.traversed.size());
+//                for(Tile t : map.traversed){
+//                    Geometry g = new Geometry();
+//                    g.setMesh(new Box(0.45f, 0.45f, 0.1f));
+//                    if(t.isCliff())
+//                        g.setMaterial(mm.blackMaterial);
+//                    else
+//                        g.setMaterial(mm.greenMaterial);
+//                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, t.level*2f);
+//                    mainNode.attachChild(g);
+//                }
+//                Geometry g1 = new Geometry();
+//                g1.setMesh(new Line(Translator.toVector3f(start, 2.2), Translator.toVector3f(end, 2.2)));
+//                g1.setMaterial(mm.redMaterial);
+//                mainNode.attachChild(g1);
+                // end debug
                 
 		Node shadowCaster = new Node();
 		Node shadowReceiver = new Node();

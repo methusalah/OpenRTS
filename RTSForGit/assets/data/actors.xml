@@ -254,20 +254,19 @@
   <Actor id="AdavContrail01">
     <Type value="Particle"/>
     <SpritePath value="particles/contrail02.png"/>
-    <!--<NbCol value="2"/>
-    <NbRow value="2"/>-->
+    <NbCol value="1"/>
+    <NbRow value="1"/>
     <Add value="false"/>
     <EmissionBone value="BContrail01"/>
     <DirectionBone value="BContrailVec01"/>
-    <MaxCount value="100"/>
+    <MaxCount value="500"/>
     <PerSecond value="100"/>
     <StartSize value="0.02"/>
     <EndSize value="0.02"/>
     <StartColor R="255" G="255" B="255" A="255"/>
     <EndColor R="255" G="255" B="255" A="0"/>
-    <MinLife value="0.5"/>
-    <MaxLife value="0.5"/>
-    <StartVariation value="0.0"/>
+    <MinLife value="1"/>
+    <MaxLife value="1"/>
   </Actor>
   
   <Actor id="Marine">

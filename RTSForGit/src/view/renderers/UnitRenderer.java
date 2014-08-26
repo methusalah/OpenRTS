@@ -258,6 +258,8 @@ public class UnitRenderer implements AnimEventListener {
                 if(actor.startTime+actor.duration < System.currentTimeMillis())
                     actor.interrupt();
         }
+        
+        pe.getParticles();
 }
     
     
