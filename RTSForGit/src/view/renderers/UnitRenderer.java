@@ -188,7 +188,9 @@ public class UnitRenderer implements AnimEventListener {
     private void renderParticleActor(ParticleActor actor){
         if(actor.launched)
             return;
-        MovableActor ma = (UnitActor)actor.getParentModelActor();
+        MovableActor ma = (MovableActor)actor.getParentModelActor();
+        if(ma.viewElements.spatial == null)
+            LogUtil.logger.info("missing spatial from parent actor "+ma.id+" to render particles from "+actor.id);
         Vector3f emissionPoint;
         Vector3f direction;
         if(actor.emissionNode != null){
@@ -249,18 +251,18 @@ public class UnitRenderer implements AnimEventListener {
             pe.setParticlesPerSec(actor.perSecond);
         pe.setLocalTranslation(emissionPoint);
         
-        if(actor.duration == 0){
+        if(actor.duration == 0)
             pe.emitAllParticles();
-            actor.interrupt();
-        } else {
-            if(actor.startTime == 0)
-                actor.startTime = System.currentTimeMillis();
-            else
-                if(actor.startTime+actor.duration < System.currentTimeMillis())
-                    actor.interrupt();
-        }
-        
-        pe.getParticles();
+
+        actor.updateDuration();
+//        actor.stopEmission();
+//        } else {
+//            if(actor.startTime == 0)
+//                actor.startTime = System.currentTimeMillis();
+//            else
+//                if(actor.startTime+actor.duration < System.currentTimeMillis())
+//                    actor.stopEmission();
+//        }
 }
     
     

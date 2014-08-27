@@ -67,7 +67,12 @@ public class ParticleActor extends Actor {
         super.act();
     }
     
-    
-
-
+    public void updateDuration(){
+        if(duration == 0)
+            interrupt();
+        else if(startTime == 0)
+            startTime = System.currentTimeMillis();
+        else if(duration != Double.MAX_VALUE && startTime+duration < System.currentTimeMillis())
+            interrupt();
+    }
 }

@@ -142,6 +142,7 @@ public class ActorBuilder {
                 break;
             default : throw new RuntimeException("Unknown actor type (id : "+def.id+").");
         }
+        res.id = def.id;
         
         for(DefElement de : def.elements)
             switch(de.name){

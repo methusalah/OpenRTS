@@ -45,10 +45,14 @@ public class Projectile extends Movable {
     public void update(double elapsedTime){
         if(targetPoint == null)
             return;
-        
+
+        updateTargetPoint();
         mover.sm.seek(targetPoint);
         
         mover.updatePosition(elapsedTime);
+        
+        if(mover.hasMoved)
+            actor.onMove(true);
         
         testArrival();
     }
@@ -56,22 +60,32 @@ public class Projectile extends Movable {
     private double lastDist = Double.MAX_VALUE;
     private void testArrival(){
         double dist = mover.pos.getDistance(targetPoint);
-        if(dist < 0.05 || (dist < 1 && dist > lastDist)){
+        double tolerance;
+        if(targetPoint.equals(target.getPos()))
+            tolerance = target.radius;
+        else
+            tolerance = 0.1;
+            
+        if(dist < tolerance || (dist < 1 && dist > lastDist)){
             arrived = true;
-            actor.interrupt();
+            actor.onMove(false);
+            actor.onDestroyedEvent();
+            actor.destroyAfterActing();
             effect.notifyArrival();
         }
         lastDist = dist;
     }
     
     protected void updateTargetPoint(){
-        switch (precisionType) {
-            case ProjectileBuilder.PRECISION_CENTER : targetPoint = target.getPos(); break;
-            case ProjectileBuilder.PRECISION_IN_RADIUS : targetPoint = getOffset(target.getPos(), target.radius); break;
-            case ProjectileBuilder.PRECISION_OTHER : targetPoint = getOffset(target.getPos(), precision); break;
-            default : throw new RuntimeException("unknown precision type "+precisionType);
-        }
-
+        if(targetPoint == null)
+            switch (precisionType) {
+                case ProjectileBuilder.PRECISION_CENTER : targetPoint = target.getPos(); break;
+                case ProjectileBuilder.PRECISION_IN_RADIUS : targetPoint = getOffset(target.getPos(), target.radius); break;
+                case ProjectileBuilder.PRECISION_OTHER : targetPoint = getOffset(target.getPos(), precision); break;
+                default : throw new RuntimeException("unknown precision type "+precisionType);
+            }
+        else if(target != null && precisionType.equals(ProjectileBuilder.PRECISION_CENTER))
+            targetPoint = target.getPos();
     }
     
     public Point3D getOffset(Point3D pos, double offset){
