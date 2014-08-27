@@ -32,8 +32,7 @@ public class DefParser {
     
     BuilderLibrary lib;
     
-    public DefParser(BuilderLibrary lib, File f){
-        files.put(f, 0l);
+    public DefParser(BuilderLibrary lib){
         this.lib = lib;
     }
     

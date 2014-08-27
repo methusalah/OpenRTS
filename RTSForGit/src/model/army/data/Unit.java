@@ -9,7 +9,7 @@ import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
 import model.army.data.actors.UnitActor;
-import model.army.tacticalIA.TacticalAI;
+import model.army.tacticalAI.TacticalAI;
 import model.warfare.Faction;
 
 /**

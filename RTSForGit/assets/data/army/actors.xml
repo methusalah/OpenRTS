@@ -259,8 +259,8 @@
     <Add value="false"/>
     <EmissionBone value="BContrail01"/>
     <DirectionBone value="BContrailVec01"/>
-    <MaxCount value="500"/>
-    <PerSecond value="100"/>
+    <MaxCount value="5000"/>
+    <PerSecond value="1000"/>
     <StartSize value="0.02"/>
     <EndSize value="0.02"/>
     <StartColor R="255" G="255" B="255" A="255"/>

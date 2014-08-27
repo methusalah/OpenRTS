@@ -51,6 +51,7 @@ import static model.army.data.actors.ParticleActor.Facing.Velocity;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import tools.LogUtil;
+import view.jme.MyParticleEmitter;
 import view.material.MaterialManager;
 import view.math.Translator;
 import view.mesh.Circle;
@@ -202,7 +203,7 @@ public class UnitRenderer implements AnimEventListener {
         Vector3f velocity = direction.mult((float)actor.velocity);
         
         if(actor.viewElements.particleEmitter == null){
-            ParticleEmitter emitter = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, actor.maxCount);
+            ParticleEmitter emitter = new ParticleEmitter(actor.spritePath, ParticleMesh.Type.Triangle, actor.maxCount);
             
             Material m = new Material(am, "Common/MatDefs/Misc/Particle.j3md");
             m.setTexture("Texture", am.loadTexture("textures/"+actor.spritePath));

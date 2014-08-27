@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.army.TacticalIA;
+package model.army.tacticalAI;
 
 import java.util.ArrayList;
 import model.army.data.Unit;

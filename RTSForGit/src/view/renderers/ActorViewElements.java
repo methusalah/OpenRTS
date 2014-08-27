@@ -8,6 +8,7 @@ import com.jme3.animation.Bone;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import view.jme.MyParticleEmitter;
 
 /**
  *

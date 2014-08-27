@@ -53,7 +53,7 @@ public class MainRTS extends MySimpleApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-                Map m = MapFactory.buildMap("assets/data/map.bmp");
+                Map m = MapFactory.buildMap("assets/data/maps/map.bmp");
                 model = new Model(m);
                 view = new View(rootNode, guiNode, assetManager, viewPort, model);
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);

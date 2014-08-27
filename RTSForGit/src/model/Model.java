@@ -30,13 +30,12 @@ public class Model {
         commander = new Commander(armyManager, map);
         
         lib = new BuilderLibrary(map, armyManager);
-        parser = new DefParser(lib, new File(CONFIG_PATH));
-        parser.addFile(new File("assets/data/weapons.xml"));
-        parser.addFile(new File("assets/data/turrets.xml"));
-        parser.addFile(new File("assets/data/movers.xml"));
-        parser.addFile(new File("assets/data/effects.xml"));
-        parser.addFile(new File("assets/data/projectiles.xml"));
-        parser.addFile(new File("assets/data/actors.xml"));
+        parser = new DefParser(lib);
+        File folder = new File("assets/data/army");
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++)
+            if (listOfFiles[i].isFile())
+                parser.addFile(listOfFiles[i]);
         parser.readFile();
         
         armyManager.createTestArmy(lib);
