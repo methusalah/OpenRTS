@@ -18,8 +18,8 @@ public class ParticleActor extends Actor {
     public String spritePath;
     public int nbCol = 1;
     public int nbRow = 1;
-    public String emissionNode;
-    public String directionNode;
+    public String emissionBone;
+    public String directionBone;
     
     public double velocity = 0;
     public double fanning = 0;

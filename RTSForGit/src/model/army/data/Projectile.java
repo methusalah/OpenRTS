@@ -70,7 +70,7 @@ public class Projectile extends Movable {
             arrived = true;
             actor.onMove(false);
             actor.onDestroyedEvent();
-            actor.destroyAfterActing();
+            actor.destroy();
             effect.notifyArrival();
         }
         lastDist = dist;

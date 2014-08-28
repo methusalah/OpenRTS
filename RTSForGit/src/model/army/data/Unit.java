@@ -141,7 +141,7 @@ public class Unit extends Movable {
         actor.onAim(false);
         actor.onWait(false);
         actor.onDestroyedEvent();
-        actor.destroyAfterActing();
+        actor.destroy();
     }
     
     public boolean destroyed(){

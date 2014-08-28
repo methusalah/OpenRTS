@@ -80,11 +80,11 @@ public class ArmyManager {
                 p.update(elapsedTime);
         projectiles.removeAll(arrived);
         
-        ArrayList<Actor> safeList = new ArrayList<>();
-        safeList.addAll(activeActors);
-        for(Actor a : safeList)
-            if(a.isDestroyed() && ! a.isActing())
-                deleteActor(a);
+//        ArrayList<Actor> safeList = new ArrayList<>();
+//        safeList.addAll(activeActors);
+//        for(Actor a : safeList)
+//            if(a.isDestroyed() && ! a.isActing())
+//                deleteActor(a);
     }
 
     public ArrayList<Unit> getUnits(){

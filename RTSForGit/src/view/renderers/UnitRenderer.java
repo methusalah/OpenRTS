@@ -99,16 +99,12 @@ public class UnitRenderer implements AnimEventListener {
     public void renderActors(){
         // first, the spatials attached to destroyed actor are destroyed
         for(Actor a : armyManager.grabDeletedActors()){
-            if(a.viewElements.spatial != null){
+            if(a.viewElements.spatial != null)
                 mainNode.detachChild(a.viewElements.spatial);
-                a.viewElements.spatial = null;
-            }
             if(a.viewElements.particleEmitter != null)
                 a.viewElements.particleEmitter.setParticlesPerSec(0);
-            if(a.viewElements.selectionCircle != null){
+            if(a.viewElements.selectionCircle != null)
                 mainNode.detachChild(a.viewElements.selectionCircle);
-                a.viewElements.selectionCircle = null;
-            }
         }
         
         for(Actor a : armyManager.getActors()){
@@ -188,14 +184,22 @@ public class UnitRenderer implements AnimEventListener {
     private void renderParticleActor(ParticleActor actor){
         if(actor.launched)
             return;
+        if(actor.viewElements.particleEmitter == null){
+            createEmitter(actor);
+        }
+        
         MovableActor ma = (MovableActor)actor.getParentModelActor();
         if(ma.viewElements.spatial == null)
             LogUtil.logger.info("missing spatial from parent actor "+ma.id+" to render particles from "+actor.id);
+        
         Vector3f emissionPoint;
         Vector3f direction;
-        if(actor.emissionNode != null){
-            emissionPoint = Translator.toVector3f(getBoneWorldPos(ma, actor.emissionNode));
-            direction = Translator.toVector3f(getBoneWorldPos(ma, actor.directionNode));
+        if(actor.emissionBone != null){
+            emissionPoint = Translator.toVector3f(getBoneWorldPos(ma, actor.emissionBone));
+            if(actor.directionBone != null)
+                direction = Translator.toVector3f(getBoneWorldPos(ma, actor.directionBone));
+            else
+                direction = new Vector3f(emissionPoint);
         } else {
             emissionPoint = Translator.toVector3f(ma.getPos());
             direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getOrientation(), 1).get3D(emissionPoint.z));
@@ -203,10 +207,25 @@ public class UnitRenderer implements AnimEventListener {
         direction = direction.subtract(emissionPoint).normalize();
         
         Vector3f velocity = direction.mult((float)actor.velocity);
+
+        ParticleEmitter pe = actor.viewElements.particleEmitter;
+        pe.getParticleInfluencer().setInitialVelocity(velocity);
+        pe.getParticleInfluencer().setVelocityVariation((float)actor.fanning);
+        if(actor.facing == ParticleActor.Facing.Velocity)
+            pe.setFaceNormal(direction);
         
-        if(actor.viewElements.particleEmitter == null){
+        if(pe.getParticlesPerSec() == 0)
+            pe.setParticlesPerSec(actor.perSecond);
+        pe.setLocalTranslation(emissionPoint);
+        
+        if(actor.duration == 0)
+            pe.emitAllParticles();
+
+        actor.updateDuration();
+    }
+    
+    private void createEmitter(ParticleActor actor){
             ParticleEmitter emitter = new ParticleEmitter(actor.spritePath, ParticleMesh.Type.Triangle, actor.maxCount);
-            
             Material m = new Material(am, "Common/MatDefs/Misc/Particle.j3md");
             m.setTexture("Texture", am.loadTexture("textures/"+actor.spritePath));
             if(!actor.add)
@@ -240,30 +259,8 @@ public class UnitRenderer implements AnimEventListener {
                 emitter.setFacingVelocity(true);
             mainNode.attachChild(emitter);
             actor.viewElements.particleEmitter = emitter;
-        }
-        ParticleEmitter pe = actor.viewElements.particleEmitter;
-        pe.getParticleInfluencer().setInitialVelocity(velocity);
-        pe.getParticleInfluencer().setVelocityVariation((float)actor.fanning);
-        if(actor.facing == ParticleActor.Facing.Velocity)
-            pe.setFaceNormal(direction);
-        
-        if(pe.getParticlesPerSec() == 0)
-            pe.setParticlesPerSec(actor.perSecond);
-        pe.setLocalTranslation(emissionPoint);
-        
-        if(actor.duration == 0)
-            pe.emitAllParticles();
 
-        actor.updateDuration();
-//        actor.stopEmission();
-//        } else {
-//            if(actor.startTime == 0)
-//                actor.startTime = System.currentTimeMillis();
-//            else
-//                if(actor.startTime+actor.duration < System.currentTimeMillis())
-//                    actor.stopEmission();
-//        }
-}
+    }
     
     
     

@@ -88,8 +88,8 @@ public class Actor {
     protected void interrupt(){
         acting = false;
         armyManager.deleteActor(this);
-        for(Actor a : children)
-            a.interrupt();
+//        for(Actor a : children)
+//            a.interrupt();
     }
     
     public Actor getParent(){
@@ -100,7 +100,8 @@ public class Actor {
         return false;
     }
     
-    public void destroyAfterActing(){
+    public void destroy(){
+        interrupt();
         acting = false;
         destroyed = true;
     }
@@ -109,12 +110,12 @@ public class Actor {
         return destroyed;
     }
     
-    public boolean isActing(){
-        if(acting)
-            return true;
-        for(Actor a : children)
-            if(a.isActing())
-                return true;
-        return false;
-    }
+//    public boolean isActing(){
+//        if(acting)
+//            return true;
+//        for(Actor a : children)
+//            if(a.isActing())
+//                return true;
+//        return false;
+//    }
 }

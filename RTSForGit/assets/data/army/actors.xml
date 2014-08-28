@@ -11,6 +11,7 @@
     <ActorList Trigger="onMove" ActorLink="LeftMud"/>
     <ActorList Trigger="onMove" ActorLink="RightMud"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankDestroyed"/>
   </Actor>
   <Actor id="TankMachinegunMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankMachinegun"/>
@@ -172,7 +173,28 @@
     <StartVariation value="0.1"/>
     <RotationSpeed value="360"/>
   </Actor>
+
+  <Actor id="TankDestroyed">
+    <Type value="Particle"/>
+    <SpritePath value="particles/flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <Velocity value="1"/>
+    <Fanning value="1"/>
+    <Duration value="4000"/>
+    <MaxCount value="100"/>
+    <PerSecond value="200"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.1"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="1"/>
+    <MaxLife value="2"/>
+  </Actor>
+
   
+    
+        
   <Actor id="Aircraft">
     <Type value="Unit"/>
     <ModelPath value="human/adav/adav02a.mesh.xml"/>

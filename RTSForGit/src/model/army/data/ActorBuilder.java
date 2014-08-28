@@ -172,8 +172,8 @@ public class ActorBuilder {
                 case SPRITE_PATH : ((ParticleActor)res).spritePath = de.getVal(); break;
                 case NB_COL : ((ParticleActor)res).nbCol = de.getIntVal(); break;
                 case NB_ROW : ((ParticleActor)res).nbRow = de.getIntVal(); break;
-                case EMISSION_NODE : ((ParticleActor)res).emissionNode = de.getVal(); break;
-                case DIRECTION_NODE : ((ParticleActor)res).directionNode = de.getVal(); break;
+                case EMISSION_NODE : ((ParticleActor)res).emissionBone = de.getVal(); break;
+                case DIRECTION_NODE : ((ParticleActor)res).directionBone = de.getVal(); break;
                 case VELOCITY : ((ParticleActor)res).velocity = de.getDoubleVal(); break;
                 case FANNING : ((ParticleActor)res).fanning = de.getDoubleVal(); break;
                 case MAX_COUNT : ((ParticleActor)res).maxCount = de.getIntVal(); break;
