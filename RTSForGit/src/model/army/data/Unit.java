@@ -57,7 +57,6 @@ public class Unit extends Movable {
     }
     
     public void update(double elapsedTime){
-        State lastState = state;
         if(destroyed())
             return;
         
@@ -66,22 +65,18 @@ public class Unit extends Movable {
         
         ai.update();
 
-        if(arming.isAiming())
-            state = State.AIMING;
+        actor.onAim(arming.isAiming());
         
         mover.updatePosition(elapsedTime);
         
-        if(mover.hasMoved)
-            state = State.MOVING;
-
+        if(mover.hasMoved){
+            actor.onMove(true);
+            actor.onWait(false);
+        }else{
+            actor.onMove(false);
+            actor.onWait(true);
+        }
         arming.updateTurrets(elapsedTime);
-        
-        if(!state.equals(lastState))
-            switch (state){
-                case MOVING : actor.onMove(); break;
-                case IDLING : actor.onWait(); break;
-                case AIMING : actor.onAim(); break;
-            }
     }
     
     protected boolean isMoving(){
@@ -142,7 +137,11 @@ public class Unit extends Movable {
     
     private void destroy(){
         state = State.DESTROYED;
-        actor.interrupt();
+        actor.onMove(false);
+        actor.onAim(false);
+        actor.onWait(false);
+        actor.onDestroyedEvent();
+        actor.destroyAfterActing();
     }
     
     public boolean destroyed(){

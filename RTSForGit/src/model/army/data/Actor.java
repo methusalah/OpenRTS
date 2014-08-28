@@ -25,8 +25,11 @@ public class Actor {
     Actor parent;
     String trigger;
     ArrayList<Actor> children = new ArrayList<>();
+    public String id;
     
     public ActorViewElements viewElements = new ActorViewElements();
+    boolean acting = false;
+    boolean destroyed = false;
     
     ArmyManager armyManager;
     
@@ -36,24 +39,29 @@ public class Actor {
         this.parent = parent;
     }
     
-    public void onMove(){
-        activate(ON_MOVE);
-        desactivate(ON_WAIT);
-        desactivate(ON_AIM);
+    public void onMove(boolean cond){
+        if(cond)
+            activate(ON_MOVE);
+        else
+            desactivate(ON_MOVE);
     }
-    public void onWait(){
-        activate(ON_WAIT);
-        desactivate(ON_MOVE);
-        desactivate(ON_AIM);
+    public void onWait(boolean cond){
+        if(cond)
+            activate(ON_WAIT);
+        else
+            desactivate(ON_WAIT);
     }
-    public void onAim(){
-        activate(ON_AIM);
-        desactivate(ON_WAIT);
-        desactivate(ON_MOVE);
-        
+    public void onAim(boolean cond){
+        if(cond)
+            activate(ON_AIM);
+        else
+            desactivate(ON_AIM);
     }
-    public void onShoot(){
+    public void onShootEvent(){
         activate(ON_SHOOT);
+    }
+    public void onDestroyedEvent(){
+        activate(ON_DESTROYED);
     }
     
     private void activate(String trigger){
@@ -71,11 +79,17 @@ public class Actor {
     }
     
     protected void act(){
+        if(acting)
+            return;
+        acting = true;
         armyManager.registerActor(this);
     }
     
-    public void interrupt(){
+    protected void interrupt(){
+        acting = false;
         armyManager.deleteActor(this);
+        for(Actor a : children)
+            a.interrupt();
     }
     
     public Actor getParent(){
@@ -83,6 +97,24 @@ public class Actor {
     }
     
     public boolean containsModel(){
+        return false;
+    }
+    
+    public void destroyAfterActing(){
+        acting = false;
+        destroyed = true;
+    }
+    
+    public boolean isDestroyed(){
+        return destroyed;
+    }
+    
+    public boolean isActing(){
+        if(acting)
+            return true;
+        for(Actor a : children)
+            if(a.isActing())
+                return true;
         return false;
     }
 }

@@ -40,8 +40,8 @@ public class ArmyManager {
                 lib.buildUnitFromRace("human", f1, new Point2D(x, y));
                 i++;
             }
-        for(int y=2; y<8; y+=1)
-            for(int x=2; x<20; x+=1){
+        for(int y=2; y<15; y+=2)
+            for(int x=44; x<56; x+=2){
                 lib.buildUnitFromRace("alien", f2, new Point2D(x, y));
                 i++;
             }
@@ -79,6 +79,12 @@ public class ArmyManager {
             else
                 p.update(elapsedTime);
         projectiles.removeAll(arrived);
+        
+        ArrayList<Actor> safeList = new ArrayList<>();
+        safeList.addAll(activeActors);
+        for(Actor a : safeList)
+            if(a.isDestroyed() && ! a.isActing())
+                deleteActor(a);
     }
 
     public ArrayList<Unit> getUnits(){

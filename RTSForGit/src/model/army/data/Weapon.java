@@ -103,7 +103,7 @@ public class Weapon {
         if(lastStrikeTime+1000*period < System.currentTimeMillis()){
             if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) < Angle.toRadians(5)){
                 if(actor != null)
-                    actor.onShoot();
+                    actor.onShootEvent();
                 target.ai.registerAsAttacker(holder);
                 Effect e = effectBuilder.build(holder, target, null);
                 e.setSourcePoint(source, vec);

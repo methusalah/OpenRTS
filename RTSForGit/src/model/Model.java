@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.util.ArrayList;
 import model.map.Map;
 import model.army.ArmyManager;
 import model.army.data.BuilderLibrary;
@@ -8,7 +9,7 @@ import model.army.data.definitions.DefParser;
 import tools.LogUtil;
 
 public class Model {
-    static final String CONFIG_PATH = "assets/data/units.xml";
+    static final String CONFIG_PATH = "assets/data/army";
     static final double UPDATE_DELAY = 1000;
     
     public Map map;
@@ -31,16 +32,29 @@ public class Model {
         
         lib = new BuilderLibrary(map, armyManager);
         parser = new DefParser(lib);
-        File folder = new File("assets/data/army");
-        File[] listOfFiles = folder.listFiles();
-        for (int i = 0; i < listOfFiles.length; i++)
-            if (listOfFiles[i].isFile())
-                parser.addFile(listOfFiles[i]);
+
+        ArrayList<File> files = getFiles(CONFIG_PATH);
+        while(!files.isEmpty()){
+            ArrayList<File> toAdd = new ArrayList<>();
+            for(File f : files)
+                if(f.isFile())
+                    parser.addFile(f);
+                else if(f.isDirectory())
+                    toAdd.addAll(getFiles(f.getAbsolutePath()));
+            files.clear();
+            files.addAll(toAdd);
+        }
         parser.readFile();
         
         armyManager.createTestArmy(lib);
-        
-        
+    }
+    
+    private ArrayList<File> getFiles(String folderPath){
+        ArrayList<File> res = new ArrayList<>();
+        File folder = new File(folderPath);
+        for(File f : folder.listFiles())
+            res.add(f);
+        return res;
     }
     
     public void updateConfigs() {
