@@ -14,6 +14,7 @@ import model.army.data.Movable;
  */
 public class MovableActor extends ModelActor {
     Movable movable;
+
     
     public MovableActor(String trigger, Actor parent){
         super(trigger, parent);
@@ -31,5 +32,12 @@ public class MovableActor extends ModelActor {
     public double getOrientation(){
         return movable.getOrientation();
     }
+
+    @Override
+    public String getType() {
+        return "movable";
+    }
+    
+    
     
 }

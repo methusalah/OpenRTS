@@ -12,6 +12,7 @@
     <ActorList Trigger="onMove" ActorLink="RightMud"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
     <ActorList Trigger="onDestroyed" ActorLink="TankDestroyed"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankWreck"/>
   </Actor>
   <Actor id="TankMachinegunMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankMachinegun"/>
@@ -190,6 +191,43 @@
     <EndColor R="255" G="0" B="0" A="255"/>
     <MinLife value="1"/>
     <MaxLife value="2"/>
+  </Actor>
+  <Actor id="TankWreck">
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck1"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck2"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck3"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck5"/>
+  </Actor>
+  <Actor id="TankWreck1">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece01.mesh.xml"/>
+      <Mass value="1"/>
+      <Life value="6000"/>
+  </Actor>
+  <Actor id="TankWreck2">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece02.mesh.xml"/>
+      <Mass value="1"/>
+      <Life value="6000"/>
+  </Actor>
+  <Actor id="TankWreck3">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece03.mesh.xml"/>
+      <Mass value="1"/>
+      <Life value="6000"/>
+  </Actor>
+  <Actor id="TankWreck4">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece04.mesh.xml"/>
+      <Mass value="1"/>
+      <Life value="6000"/>
+  </Actor>
+  <Actor id="TankWreck5">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece05.mesh.xml"/>
+      <Mass value="1"/>
+      <Life value="6000"/>
   </Actor>
 
   

@@ -13,7 +13,9 @@ import math.Angle;
 import model.army.ArmyManager;
 import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
+import model.army.data.actors.MovableActor;
 import model.army.data.actors.ParticleActor;
+import model.army.data.actors.PhysicActor;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import model.army.data.definitions.Definition;
@@ -34,6 +36,7 @@ public class ActorBuilder {
     static final String TYPE_PARTICLE = "Particle";
     static final String TYPE_ANIMATION = "Animation";
     static final String TYPE_DEFAULT = "Default";
+    static final String TYPE_PHYSIC = "Physic";
     
     static final String ACTOR_LIST = "ActorList";
     static final String TRIGGER = "Trigger";
@@ -42,8 +45,9 @@ public class ActorBuilder {
     // model
     static final String MODEL_PATH = "ModelPath";
     static final String SCALE = "Scale";
-    static final String TURRET_BONE = "TurretBone";
-    static final String WEAPON_BONE = "WeaponBone";
+    static final String PHYSICAL = "Physical";
+    static final String MASS = "Mass";
+    static final String LIFE = "Life";
     
     // animation
     static final String ANIMATION_NAME = "AnimName";
@@ -140,6 +144,10 @@ public class ActorBuilder {
                 res = new ParticleActor(trigger, parent);
                 res.armyManager = am;
                 break;
+            case TYPE_PHYSIC :
+                res = new PhysicActor(trigger, parent);
+                res.armyManager = am;
+                break;
             default : throw new RuntimeException("Unknown actor type (id : "+def.id+").");
         }
         res.id = def.id;
@@ -155,7 +163,10 @@ public class ActorBuilder {
                 // model
                 case MODEL_PATH : ((ModelActor)res).modelPath = de.getVal(); break;
                 case SCALE : ((ModelActor)res).scale = de.getDoubleVal(); break;
-                case WEAPON_BONE : ; break;
+                    
+                // physic
+                case LIFE : ((PhysicActor)res).life = de.getDoubleVal(); break;
+                case MASS : ((PhysicActor)res).mass = de.getDoubleVal(); break;
                     
                 // animation
                 case ANIMATION_NAME : ((AnimationActor)res).animName = de.getVal(); break;

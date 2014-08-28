@@ -28,4 +28,11 @@ public class ProjectileActor extends MovableActor {
     public Projectile getProjectile(){
         return (Projectile)movable;
     }
+
+    @Override
+    public String getType() {
+        return "projectile";
+    }
+    
+    
 }

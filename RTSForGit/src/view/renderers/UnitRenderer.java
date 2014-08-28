@@ -12,6 +12,8 @@ import com.jme3.animation.LoopMode;
 import com.jme3.animation.Skeleton;
 import com.jme3.asset.AssetManager;
 import com.jme3.bounding.BoundingVolume;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.collision.Collidable;
 import com.jme3.collision.CollisionResults;
 import com.jme3.collision.UnsupportedCollisionException;
@@ -48,6 +50,7 @@ import model.army.data.actors.MovableActor;
 import model.army.data.actors.ParticleActor;
 import static model.army.data.actors.ParticleActor.Facing.Horizontal;
 import static model.army.data.actors.ParticleActor.Facing.Velocity;
+import model.army.data.actors.PhysicActor;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import tools.LogUtil;
@@ -69,6 +72,7 @@ public class UnitRenderer implements AnimEventListener {
     AssetManager am;
     Commander commander;
     public Node mainNode = new Node();
+    public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
     
     HashMap<String, Spatial> models = new HashMap<>();
     
@@ -87,8 +91,10 @@ public class UnitRenderer implements AnimEventListener {
         if(res == null)
             LogUtil.logger.info(modelPath);
         AnimControl control = res.getControl(AnimControl.class);
-        control.addListener(this);
-        control.createChannel();
+        if(control != null){
+            control.addListener(this);
+            control.createChannel();
+        }
         return res;
     }
     
@@ -97,10 +103,13 @@ public class UnitRenderer implements AnimEventListener {
     }
     
     public void renderActors(){
-        // first, the spatials attached to destroyed actor are destroyed
+        // first, the spatials attached to interrupted actor are detached
         for(Actor a : armyManager.grabDeletedActors()){
-            if(a.viewElements.spatial != null)
+            if(a.viewElements.spatial != null){
                 mainNode.detachChild(a.viewElements.spatial);
+                if(a instanceof PhysicActor)
+                    mainPhysicsSpace.remove(a.viewElements.spatial);
+            }
             if(a.viewElements.particleEmitter != null)
                 a.viewElements.particleEmitter.setParticlesPerSec(0);
             if(a.viewElements.selectionCircle != null)
@@ -108,25 +117,27 @@ public class UnitRenderer implements AnimEventListener {
         }
         
         for(Actor a : armyManager.getActors()){
-            if(a instanceof UnitActor){
-                UnitActor ua = (UnitActor)a;
-                renderUnitActor((UnitActor)a);
+            switch (a.getType()){
+                case "default" : break;
+                case "physic" : renderPhysicActor((PhysicActor)a); break;
+                case "unit" : 
+                    UnitActor ua = (UnitActor)a;
+                    renderUnitActor(ua);
 
-                Skeleton sk = ua.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
-                for(int i=0; i<sk.getBoneCount(); i++){
-                    Bone b = sk.getBone(i);
-                    ua.setBone(b.getName(), getBoneWorldPos(ua, i));
-                }
-            } else if(a instanceof ProjectileActor)
-                renderProjectileActor((ProjectileActor)a);
-            else if(a instanceof AnimationActor)
-                renderAnimationActor((AnimationActor)a);
-            else if(a instanceof ParticleActor)
-                renderParticleActor((ParticleActor)a);
+                    Skeleton sk = ua.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
+                    for(int i=0; i<sk.getBoneCount(); i++){
+                        Bone b = sk.getBone(i);
+                        ua.setBone(b.getName(), getBoneWorldPos(ua, i));
+                    }
+                    break;
+                case "projectile" : renderProjectileActor((ProjectileActor)a); break;
+                case "animation" : renderAnimationActor((AnimationActor)a); break;
+                case "particle" : renderParticleActor((ParticleActor)a); break;
+            }
         }
     }
     
-    private void renderMovableActor(MovableActor actor){
+    private void renderModelActor(ModelActor actor){
         if(actor.viewElements.spatial == null){
             Spatial s = buildSpatial(actor.modelPath);
             s.setLocalScale((float)actor.scale*DEFAULT_SCALE);
@@ -135,10 +146,37 @@ public class UnitRenderer implements AnimEventListener {
             actor.viewElements.spatial = s;
             mainNode.attachChild(s);
             // We force update here because we need imediatly to have access to bones' absolute position.
-            s.getControl(AnimControl.class).update(0);
+            AnimControl animControl = s.getControl(AnimControl.class);
+            if(animControl !=  null)
+                animControl.update(0);
         }
+    }
+    
+    private void renderPhysicActor(PhysicActor actor){
+        if(actor.done)
+            return;
+        renderModelActor(actor);
         Spatial s = actor.viewElements.spatial;
+        MovableActor ma = (MovableActor)actor.getParentModelActor();
+        LogUtil.logger.info("hop !"+ma.id+" position : "+ma.getPos());
+        
+        // translation
+        s.setLocalTranslation(Translator.toVector3f(ma.getPos()));
+        
+        // rotation
+        Quaternion r = new Quaternion();
+        r.fromAngles(0, 0, (float)(ma.getOrientation()+Angle.RIGHT));
+        s.setLocalRotation(r);
 
+        s.addControl(new RigidBodyControl((float)actor.mass));
+        mainPhysicsSpace.add(s);
+        
+        actor.done = true;
+    }
+    
+    private void renderMovableActor(MovableActor actor){
+        renderModelActor(actor);
+        Spatial s = actor.viewElements.spatial;
 
         // translation
         s.setLocalTranslation(Translator.toVector3f(actor.getPos()));

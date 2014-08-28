@@ -3,6 +3,7 @@ package view;
 import view.material.MaterialManager;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
@@ -28,6 +29,7 @@ public class View {
     Model model;
     public Node rootNode;
     public Node guiNode = new Node();
+    public PhysicsSpace physicsSpace;
         
     // Renderers
     public MapRenderer mapRend;
@@ -40,9 +42,10 @@ public class View {
     public AssetManager am;
     public Pointer pointer;
 
-    public View(Node scene, Node gui, AssetManager am, ViewPort vp, Model m){
+    public View(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp, Model m){
         model = m;
-        rootNode = scene;
+        this.rootNode = rootNode;
+        this.physicsSpace = physicsSpace;
         gui.attachChild(guiNode);
 
         mm = new MaterialManager(am);
@@ -52,9 +55,12 @@ public class View {
 
         mapRend = new MapRenderer(model.map, mm, am);
         rootNode.attachChild(mapRend.mainNode);
+        mapRend.mainPhysicsSpace = physicsSpace;
+        
         
         unitsRend = new UnitRenderer(model.armyManager, model.map, mm, am, model.commander);
         rootNode.attachChild(unitsRend.mainNode);
+        unitsRend.mainPhysicsSpace = physicsSpace;
         createLight();
         createSky();
     }

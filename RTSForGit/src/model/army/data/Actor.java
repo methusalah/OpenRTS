@@ -110,6 +110,10 @@ public class Actor {
         return destroyed;
     }
     
+    public String getType(){
+        return "default";
+    }
+    
 //    public boolean isActing(){
 //        if(acting)
 //            return true;

@@ -43,4 +43,11 @@ public class UnitActor extends MovableActor {
         return false;
     }
 
+    @Override
+    public String getType() {
+        return "unit";
+    }
+    
+    
+
 }

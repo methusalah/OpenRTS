@@ -13,6 +13,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 import collections.PointRing;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
@@ -32,11 +34,12 @@ import view.math.Translator;
 public class MapRenderer {
 
     Map map;
-	MaterialManager mm;
-	public Node mainNode = new Node();
-	private Spatial cliff;
-	private Spatial cliffAcute;
-	private Spatial cliffObtuse;
+    MaterialManager mm;
+    public Node mainNode = new Node();
+    public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
+    private Spatial cliff;
+    private Spatial cliffAcute;
+    private Spatial cliffObtuse;
 	
 	public MapRenderer(Map map, MaterialManager mm, AssetManager am) {
             this.map = map;
@@ -55,27 +58,6 @@ public class MapRenderer {
 	public void renderTiles() {
 		LogUtil.logger.info("rendering tiles");
                 
-                // debug flow field simplification
-//                Point2D start = new Point2D(42.2, 10.72);
-//                Point2D end = new Point2D(33.39, 10.09);
-//                map.meetObstacle2(start, end);
-//		LogUtil.logger.info("nb traversed : "+map.traversed.size());
-//                for(Tile t : map.traversed){
-//                    Geometry g = new Geometry();
-//                    g.setMesh(new Box(0.45f, 0.45f, 0.1f));
-//                    if(t.isCliff())
-//                        g.setMaterial(mm.blackMaterial);
-//                    else
-//                        g.setMaterial(mm.greenMaterial);
-//                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, t.level*2f);
-//                    mainNode.attachChild(g);
-//                }
-//                Geometry g1 = new Geometry();
-//                g1.setMesh(new Line(Translator.toVector3f(start, 2.2), Translator.toVector3f(end, 2.2)));
-//                g1.setMaterial(mm.redMaterial);
-//                mainNode.attachChild(g1);
-                // end debug
-                
 		Node shadowCaster = new Node();
 		Node shadowReceiver = new Node();
                 TerrainMesh tm = new TerrainMesh();
@@ -87,18 +69,24 @@ public class MapRenderer {
                                     s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
                                     s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
                                     shadowCaster.attachChild(s);
+                                    s.addControl(new RigidBodyControl(0));
+                                    mainPhysicsSpace.add(s);
                                     continue;
                             } else if(t.cliff.obtuseDiag){
                                     Spatial s = cliffObtuse.clone();
                                     s.rotate(0, 0, (float) (t.cliff.angle-Angle.RIGHT));
                                     s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
                                     shadowCaster.attachChild(s);
+                                    s.addControl(new RigidBodyControl(0));
+                                    mainPhysicsSpace.add(s);
                                     continue;
                             } else {
                                     Spatial s = cliffAcute.clone();
                                     s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
                                     s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
                                     shadowCaster.attachChild(s);
+                                    s.addControl(new RigidBodyControl(0));
+                                    mainPhysicsSpace.add(s);
                                     continue;
                             }
                     }
@@ -113,7 +101,9 @@ public class MapRenderer {
                         "textures/dirt.jpg",
                         "textures/road_normal.png"));
                 g.setShadowMode(RenderQueue.ShadowMode.Receive);
+                g.addControl(new RigidBodyControl(0));
 		mainNode.attachChild(g);
+                mainPhysicsSpace.add(g);
 
 		mainNode.attachChild(GeometryBatchFactory.optimize(shadowCaster));
 		mainNode.attachChild(GeometryBatchFactory.optimize(shadowReceiver));

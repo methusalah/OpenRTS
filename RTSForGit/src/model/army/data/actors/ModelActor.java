@@ -15,7 +15,8 @@ import view.renderers.ActorViewElements;
  */
 public class ModelActor extends Actor {
     public String modelPath;
-    public double scale;
+    public double scale = 1;
+
     
     private HashMap<String, Point3D> boneCoords = new HashMap<>();
     
@@ -46,6 +47,13 @@ public class ModelActor extends Actor {
     public boolean hasBone(){
         return !boneCoords.isEmpty();
     }
+
+    @Override
+    public String getType() {
+        return "model";
+    }
+    
+    
     
     
 }

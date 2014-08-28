@@ -46,6 +46,13 @@ public class AnimationActor extends Actor {
         return (ModelActor)parent;
 
     }
+
+    @Override
+    public String getType() {
+        return "animation";
+    }
+    
+    
     
     
 }

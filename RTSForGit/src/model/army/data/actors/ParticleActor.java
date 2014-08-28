@@ -75,4 +75,11 @@ public class ParticleActor extends Actor {
         else if(duration != Double.MAX_VALUE && startTime+duration < System.currentTimeMillis())
             interrupt();
     }
+
+    @Override
+    public String getType() {
+        return "particle";
+    }
+    
+    
 }

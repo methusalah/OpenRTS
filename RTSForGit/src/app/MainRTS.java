@@ -1,5 +1,6 @@
 package app;
 
+import com.jme3.bullet.BulletAppState;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,13 +50,17 @@ public class MainRTS extends MySimpleApplication {
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
 		fpp.addFilter(bloom);
 		viewPort.addProcessor(fpp);
+                
+                bulletAppState = new BulletAppState();
+                stateManager.attach(bulletAppState);
+                bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
 
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
                 Map m = MapFactory.buildMap("assets/data/maps/map.bmp");
                 model = new Model(m);
-                view = new View(rootNode, guiNode, assetManager, viewPort, model);
+                view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
                 fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);

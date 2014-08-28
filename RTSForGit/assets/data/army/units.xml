@@ -3,9 +3,9 @@
   <Unit id="humantank">
     <UIName value="Tank de la mort"/>
     <Race value="human"/>
-    <Radius value="0.5"/>
-    <SeparationRadius value="0.5"/>
-    <Speed value="1.8"/>
+    <Radius value="0.8"/>
+    <SeparationRadius value="0.8"/>
+    <Speed value="4"/>
     <Mass value="4"/>
     <MaxHealth value="120"/>
     <Sight value="10"/>
