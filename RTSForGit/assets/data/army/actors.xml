@@ -373,6 +373,7 @@
     <Scale value="1"/>
     <ActorList Trigger="onMove" ActorLink="StdJet"/>
     <ActorList Trigger="onDestroyed" ActorLink="StdMissileExpl"/>
+    <ActorList Trigger="onDestroyed" ActorLink="StdMissileExplGlow"/>    
   </Actor>
   <Actor id="StdJet">
     <Type value="Particle"/>
@@ -395,7 +396,7 @@
     <NbRow value="7"/>
     <Add value="false"/>
     <EmissionBone value="BRoot"/>
-    <DirectionBone value="BRoot"/>
+    <DirectionBone value="BJet01"/>
     <MaxCount value="1"/>
     <PerSecond value="0"/>
     <Duration value="0"/>
@@ -403,8 +404,24 @@
     <EndSize value="0.3"/>
     <StartColor R="255" G="255" B="255" A="255"/>
     <EndColor R="255" G="255" B="255" A="255"/>
-    <MinLife value="1"/>
-    <MaxLife value="1"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
   </Actor>
+  <Actor id="StdMissileExplGlow">
+    <Type value="Particle"/>
+    <SpritePath value="particles/glow01.png"/>
+    <Add value="true"/>
+    <EmissionBone value="BRoot"/>
+    <DirectionBone value="BJet01"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <Duration value="0"/>
+    <StartSize value="0.6"/>
+    <EndSize value="0.3"/>
+    <StartColor R="255" G="255" B="0" A="200"/>
+    <EndColor R="100" G="0" B="0" A="75"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
+  </Actor>  
 
 </catalog>
