@@ -12,6 +12,7 @@
     <ActorList Trigger="onMove" ActorLink="RightMud"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
     <ActorList Trigger="onDestroyed" ActorLink="TankDestroyed"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankDestroyedGlow"/>
     <ActorList Trigger="onDestroyed" ActorLink="TankWreck"/>
   </Actor>
   <Actor id="TankMachinegunMainActor">
@@ -177,21 +178,40 @@
 
   <Actor id="TankDestroyed">
     <Type value="Particle"/>
-    <SpritePath value="particles/flame.png"/>
+<!--    <SpritePath value="particles/flame.png"/>
     <NbCol value="2"/>
-    <NbRow value="2"/>
-    <Velocity value="1"/>
+    <NbRow value="2"/>-->
+    <SpritePath value="particles/explosion01.png"/>
+    <NbCol value="7"/>
+    <NbRow value="7"/>    
+    <Velocity value="2"/>
     <Fanning value="1"/>
-    <Duration value="4000"/>
+    <Duration value="250"/>
     <MaxCount value="100"/>
     <PerSecond value="200"/>
-    <StartSize value="0.2"/>
-    <EndSize value="0.1"/>
-    <StartColor R="255" G="255" B="0" A="180"/>
-    <EndColor R="255" G="0" B="0" A="255"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="0" A="220"/>
+    <EndColor R="100" G="0" B="0" A="128"/>
     <MinLife value="1"/>
-    <MaxLife value="2"/>
+    <MaxLife value="3"/>
   </Actor>
+  <Actor id="TankDestroyedGlow">
+    <Type value="Particle"/>
+    <SpritePath value="particles/glow01.png"/>
+    <EmissionBone value="B03"/>
+    <DirectionBone value="B04"/>
+    <Add value="true"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <Duration value="0"/>
+    <StartSize value="2"/>
+    <EndSize value="1"/>
+    <StartColor R="255" G="255" B="0" A="255"/>
+    <EndColor R="100" G="0" B="0" A="200"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
+  </Actor>   
   <Actor id="TankWreck">
       <ActorList Trigger="onDestroyed" ActorLink="TankWreck1"/>
       <ActorList Trigger="onDestroyed" ActorLink="TankWreck2"/>
