@@ -15,6 +15,8 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class FlowField {
+    private static final double OBSTACLE_CHECK_DIST = 30;
+    
     private Map map;
     public int[][] heatMap;
     Point2D[][] vectorMap;
@@ -106,7 +108,8 @@ public class FlowField {
                     vectorMap[x][y] = Point2D.ORIGIN;
                 else{
                     Point2D tileCenter = new Point2D(x+0.5, y+0.5);
-                    if(tileCenter.getDistance(destination) < 10 &&
+                    // First we check if there is a strait way to the destination whithout obstacle
+                    if(tileCenter.getDistance(destination) < OBSTACLE_CHECK_DIST &&
                             !map.meetObstacle(tileCenter, destination))
                         vectorMap[x][y] = null;
                     else{

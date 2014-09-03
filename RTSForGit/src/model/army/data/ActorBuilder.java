@@ -15,7 +15,7 @@ import model.army.data.actors.AnimationActor;
 import model.army.data.actors.ModelActor;
 import model.army.data.actors.MovableActor;
 import model.army.data.actors.ParticleActor;
-import model.army.data.actors.PhysicActor;
+import model.army.data.actors.RagdollActor;
 import model.army.data.actors.ProjectileActor;
 import model.army.data.actors.UnitActor;
 import model.army.data.definitions.Definition;
@@ -45,9 +45,11 @@ public class ActorBuilder {
     // model
     static final String MODEL_PATH = "ModelPath";
     static final String SCALE = "Scale";
-    static final String PHYSICAL = "Physical";
+    
+    // physic
     static final String MASS = "Mass";
     static final String LIFE = "Life";
+    static final String MASS_CENTER_BONE = "MassCenterBone";
     
     // animation
     static final String ANIMATION_NAME = "AnimName";
@@ -73,7 +75,7 @@ public class ActorBuilder {
     static final String START_COLOR = "StartColor";
     static final String END_COLOR = "EndColor";
     static final String MIN_LIFE = "MinLife";
-    static final String MAX_LIFE = "Max_Life";
+    static final String MAX_LIFE = "MaxLife";
     static final String GRAVITY = "Gravity";
     static final String FACING = "Facing";
     static final String FACING_VELOCITY = "Velocity";
@@ -145,7 +147,7 @@ public class ActorBuilder {
                 res.armyManager = am;
                 break;
             case TYPE_PHYSIC :
-                res = new PhysicActor(trigger, parent);
+                res = new RagdollActor(trigger, parent);
                 res.armyManager = am;
                 break;
             default : throw new RuntimeException("Unknown actor type (id : "+def.id+").");
@@ -154,6 +156,7 @@ public class ActorBuilder {
         
         for(DefElement de : def.elements)
             switch(de.name){
+                case TYPE : break;
                 case TRIGGER : res.trigger = de.getVal(); break;
                 case ACTOR_LIST :
                     Actor child = lib.getActorBuilder(de.getVal(ACTOR_LINK)).build(de.getVal(TRIGGER), res);
@@ -165,8 +168,9 @@ public class ActorBuilder {
                 case SCALE : ((ModelActor)res).scale = de.getDoubleVal(); break;
                     
                 // physic
-                case LIFE : ((PhysicActor)res).life = de.getDoubleVal(); break;
-                case MASS : ((PhysicActor)res).mass = de.getDoubleVal(); break;
+                case LIFE : ((RagdollActor)res).life = de.getDoubleVal(); break;
+                case MASS : ((RagdollActor)res).mass = de.getDoubleVal(); break;
+                case MASS_CENTER_BONE : ((RagdollActor)res).massCenterBone = de.getVal(); break;
                     
                 // animation
                 case ANIMATION_NAME : ((AnimationActor)res).animName = de.getVal(); break;
@@ -217,6 +221,7 @@ public class ActorBuilder {
                 case START_VARIATION : ((ParticleActor)res).startVariation = de.getDoubleVal(); break;
                 case ROTATION_SPEED : ((ParticleActor)res).rotationSpeed = Angle.toRadians(de.getDoubleVal()); break;
 
+                default:throw new RuntimeException("'"+de.name+"' element unknown in "+def.id+" actor.");
             }
         return res;
     }

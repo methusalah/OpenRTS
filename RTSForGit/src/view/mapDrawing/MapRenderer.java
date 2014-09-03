@@ -1,4 +1,4 @@
-package view.renderers;
+package view.mapDrawing;
 
 import geometry.Point2D;
 import geometry.Polygon;

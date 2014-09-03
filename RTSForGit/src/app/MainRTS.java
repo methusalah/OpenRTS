@@ -9,7 +9,7 @@ import model.Model;
 import model.map.Map;
 import tools.LogUtil;
 import view.View;
-import view.renderers.MapRenderer;
+import view.mapDrawing.MapRenderer;
 
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.Vector3f;
@@ -66,7 +66,6 @@ public class MainRTS extends MySimpleApplication {
                 fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
 		
                 view.mapRend.renderTiles();
-                view.unitsRend.renderFirstTime();
                 
                 guiViewPort.addProcessor(niftyDisplay);
 	}
@@ -76,7 +75,7 @@ public class MainRTS extends MySimpleApplication {
             float maxedTPF = Math.min(tpf, 0.1f);
             model.armyManager.updateMovers(maxedTPF);
 //            view.unitsRend.renderMovers();
-            view.unitsRend.renderActors();
+            view.actorManager.render();
             fieldCtrl.updateSelection();
             model.updateConfigs();
             model.commander.updateSelectables(fieldCtrl.getViewCenter());

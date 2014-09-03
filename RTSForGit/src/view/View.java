@@ -15,13 +15,10 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.shadow.DirectionalLightShadowRenderer;
-import com.jme3.util.SkyFactory;
 import geometry.Point2D;
 import model.Model;
-import view.math.Translator;
-import view.renderers.MapRenderer;
-import view.renderers.UnitRenderer;
+import view.actorDrawing.ActorDrawingManager;
+import view.mapDrawing.MapRenderer;
 
 public class View {
 
@@ -33,7 +30,8 @@ public class View {
         
     // Renderers
     public MapRenderer mapRend;
-    public UnitRenderer unitsRend;
+    public ActorDrawingManager actorManager;
+//    public UnitRenderer unitsRend;
 
 
     // Internal ressources
@@ -58,9 +56,9 @@ public class View {
         mapRend.mainPhysicsSpace = physicsSpace;
         
         
-        unitsRend = new UnitRenderer(model.armyManager, model.map, mm, am, model.commander);
-        rootNode.attachChild(unitsRend.mainNode);
-        unitsRend.mainPhysicsSpace = physicsSpace;
+        actorManager = new ActorDrawingManager(am, mm, model.armyManager);
+        rootNode.attachChild(actorManager.mainNode);
+        actorManager.mainPhysicsSpace = physicsSpace;
         createLight();
         createSky();
     }
@@ -106,18 +104,23 @@ public class View {
     	sunComp1.setDirection(new Vector3f(-2, 1, -1f).normalize());
     	rootNode.addLight(sunComp1);
         
-        int SHADOWMAP_SIZE = 4096;
+        FilterPostProcessor fpp = new FilterPostProcessor(am);
+
+        int SHADOWMAP_SIZE = 16384;
 //        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
-//        sr.setLight(sun);
+//        sr.setLight(sunComp1);
 //        vp.addProcessor(sr);
-        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 2);
+        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
         sf.setLight(sunComp1);
         sf.setEnabled(true);
         sf.setShadowZExtend(SHADOWMAP_SIZE);
-        FilterPostProcessor fpp = new FilterPostProcessor(am);
         fpp.addFilter(sf);
+
+//        SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
+//        fpp.addFilter(ssaoFilter);
+
         vp.addProcessor(fpp);
-//
+
 //    	DirectionalLight second2 = new DirectionalLight();
 //    	second2.setColor(ColorRGBA.White.clone().multLocal(1)); // bright white light
 //    	second2.setDirection(new Vector3f(0f, -0.5f, -1f).normalize());

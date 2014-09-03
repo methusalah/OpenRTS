@@ -7,7 +7,7 @@ package model.army.data;
 import java.util.ArrayList;
 import model.army.ArmyManager;
 import tools.LogUtil;
-import view.renderers.ActorViewElements;
+import view.actorDrawing.ActorViewElements;
 
 /**
  *

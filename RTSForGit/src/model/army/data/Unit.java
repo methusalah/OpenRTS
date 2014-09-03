@@ -37,6 +37,7 @@ public class Unit extends Movable {
     public ArrayList<Unit> group = new ArrayList<>();
     public int health;
     public State state = State.IDLING;
+    public boolean selected = false;
     
     public Unit(Faction faction){
         ai = new TacticalAI(this);

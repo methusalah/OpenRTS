@@ -7,7 +7,7 @@ package model.army.data.actors;
 import geometry3D.Point3D;
 import java.util.HashMap;
 import model.army.data.Actor;
-import view.renderers.ActorViewElements;
+import view.actorDrawing.ActorViewElements;
 
 /**
  *

@@ -52,7 +52,7 @@ public class Commander {
             for(Unit u : armyManager.units)
                 if(u.label.matches(label)) {
                     unselect();
-                    selection.add(u);
+                    select(u);
                     break;
                 }
         sendReportOrder();
@@ -63,9 +63,14 @@ public class Commander {
         AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
         for(Unit u : armyManager.units)
             if(rect.contains(u.getPos2D()))
-                selection.add(u);
+                select(u);
         moveAttack = false;
         sendReportOrder();
+    }
+    
+    private void select(Unit u){
+        u.selected = true;
+        selection.add(u);
     }
     
     public void act(String label, Point2D pos) {
@@ -106,6 +111,8 @@ public class Commander {
 
     
     private void unselect() {
+        for(Unit u : selection)
+            u.selected = false;
         selection.clear();
         sendReportOrder();
     }

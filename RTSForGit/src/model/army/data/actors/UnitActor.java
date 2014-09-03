@@ -43,6 +43,10 @@ public class UnitActor extends MovableActor {
         return false;
     }
 
+    public boolean isSelected(){
+        return getUnit().selected;
+    }
+
     @Override
     public String getType() {
         return "unit";

@@ -4,7 +4,6 @@
     <Type value="Unit"/>
     <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <Scale value="1"/>
-    <TurretBone value="BTurret01"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onMove" ActorLink="LeftDust"/>
     <ActorList Trigger="onMove" ActorLink="RightDust"/>
@@ -154,7 +153,7 @@
     <StartColor R="255" G="255" B="255" A="128"/>
     <EndColor R="255" G="255" B="255" A="0"/>
     <MinLife value="1.1"/>
-    <MaxLife value="1.3"/>
+    <MaxLife value="1.1"/>
     <StartVariation value="0.1"/>
     <RotationSpeed value="360"/>
   </Actor>
@@ -391,23 +390,40 @@
     <Type value="Projectile"/>
     <ModelPath value="human/hmissileT1/hmissileT1_02.mesh.xml"/>
     <Scale value="1"/>
-    <ActorList Trigger="onMove" ActorLink="StdJet"/>
+    <ActorList Trigger="onMove" ActorLink="StdJetFlame"/>
+    <ActorList Trigger="onMove" ActorLink="StdJetSmoke"/>
     <ActorList Trigger="onDestroyed" ActorLink="StdMissileExpl"/>
     <ActorList Trigger="onDestroyed" ActorLink="StdMissileExplGlow"/>    
   </Actor>
-  <Actor id="StdJet">
+  <Actor id="StdJetFlame">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
+    <Add value="false"/>
     <EmissionBone value="BJet01"/>
     <DirectionBone value="BJetVec01"/>
     <MaxCount value="100"/>
     <PerSecond value="80"/>
-    <StartSize value="0.05"/>
+    <StartSize value="0.08"/>
     <EndSize value="0.01"/>
     <StartColor R="245" G="205" B="0" A="255"/>
     <EndColor R="200" G="0" B="0" A="0"/>
     <MinLife value="0.2"/>
     <MaxLife value="0.2"/>
+  </Actor>
+  <Actor id="StdJetSmoke">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BJet01"/>
+    <DirectionBone value="BJetVec01"/>
+    <MaxCount value="100"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.01"/>
+    <EndSize value="0.08"/>
+    <StartColor R="250" G="250" B="250" A="180"/>
+    <EndColor R="150" G="150" B="150" A="50"/>
+    <MinLife value="0.8"/>
+    <MaxLife value="0.8"/>
   </Actor>
   <Actor id="StdMissileExpl">
     <Type value="Particle"/>

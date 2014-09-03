@@ -12,13 +12,14 @@ import model.army.data.Movable;
  *
  * @author Benoît
  */
-public class PhysicActor extends ModelActor {
+public class RagdollActor extends ModelActor {
     public double life = 1;
     public double mass = 1;
+    public String massCenterBone;
     
     public boolean done = false;
     
-    public PhysicActor(String trigger, Actor parent){
+    public RagdollActor(String trigger, Actor parent){
         super(trigger, parent);
     }
     
