@@ -76,10 +76,9 @@ public class ParticleActorDrawer {
         particleActor.updateDuration();
         
         
-        
         // trick to interpolate position of the particles when emitter moves between two frames
         // as jMonkey doesn't manage it
-        if(pe.getUserData("lastPos") != null && !pe.getUserData("lastPos").equals(pos)){
+        if(pe.getUserData("lastPos") != null && !pe.getUserData("lastPos").equals(emissionPoint)){
             double elapsedTime = System.currentTimeMillis()-(Long)pe.getUserData("lastTime");
             for(Particle p : getParticles(pe)){
                 double age = (p.startlife-p.life)*1000;

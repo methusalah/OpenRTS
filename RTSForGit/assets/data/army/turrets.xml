@@ -3,7 +3,7 @@
   <Turret id="StdTurret">
     <Speed value="200"/>
     <IdleSpeed value="20"/>
-    <OnIdle value="Spin"/>
+    <OnIdle value="ResetOnMove"/>
     <BoneName value="BTurret01"/>
   </Turret>
 </catalog>

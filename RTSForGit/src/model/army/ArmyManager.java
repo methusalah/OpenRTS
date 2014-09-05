@@ -34,17 +34,12 @@ public class ArmyManager {
         Faction f2 = new Faction(Color.GREEN);
         f1.setEnnemy(f2);
         
-        int i = 0;
-        for(int y=32; y<40; y++)
-            for(int x=16; x<25; x++){
+        for(int y=32; y<40; y+=1)
+            for(int x=16; x<25; x+=1)
                 lib.buildUnitFromRace("human", f1, new Point2D(x, y));
-                i++;
-            }
         for(int y=2; y<15; y+=2)
-            for(int x=44; x<56; x+=2){
+            for(int x=44; x<56; x+=2)
                 lib.buildUnitFromRace("alien", f2, new Point2D(x, y));
-                i++;
-            }
         LogUtil.logger.info("count : "+units.size());
         
     }

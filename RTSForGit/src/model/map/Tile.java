@@ -1,6 +1,7 @@
 package model.map;
 
 import geometry.AlignedBoundingBox;
+import geometry.BoundingShape;
 import geometry.Point2D;
 import geometry.Segment2D;
 import geometry3D.Point3D;
@@ -78,22 +79,7 @@ public class Tile {
         return new Point2D(x, y);
     }
     
-    public ArrayList<Segment2D> getOffsetedBounds(double offset){
-        ArrayList<Segment2D> res = new ArrayList<>();
-        Segment2D nWall = new Segment2D(new Point2D(x-offset, y+1+offset), new Point2D(x+1+offset, y+1+offset));
-        Segment2D sWall = new Segment2D(new Point2D(x-offset, y-offset), new Point2D(x+1+offset, y-offset));
-        
-        Segment2D eWall = new Segment2D(new Point2D(x+1+offset, y-offset), new Point2D(x+1+offset, y+1+offset));
-        Segment2D wWall = new Segment2D(new Point2D(x-offset, y-offset), new Point2D(x-offset, y+1+offset));
-
-        res.add(nWall);
-        res.add(sWall);
-        res.add(eWall);
-        res.add(wWall);
-        return res;
-    }
-
-    public AlignedBoundingBox getBoundingBox() {
+    public BoundingShape getBounds() {
         ArrayList<Point2D> points = new ArrayList<>();
         points.add(getPos2D());
         points.add(getPos2D().getAddition(1, 0));

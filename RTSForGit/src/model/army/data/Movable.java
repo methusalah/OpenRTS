@@ -42,9 +42,6 @@ public abstract class Movable {
         return mass;
     }
     
-    public void setStuck() {
-    }
-    
     public double getOrientation(){
         return mover.yaw;
     }

@@ -95,8 +95,7 @@ public class Unit extends Movable {
     }
     
     public void idle(){
-        if(state != State.STUCK)
-            state = State.IDLING;
+        state = State.IDLING;
     }
     
     private void findNearbyMovers() {

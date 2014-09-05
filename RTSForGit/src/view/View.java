@@ -106,7 +106,7 @@ public class View {
         
         FilterPostProcessor fpp = new FilterPostProcessor(am);
 
-        int SHADOWMAP_SIZE = 16384;
+        int SHADOWMAP_SIZE = 2048;
 //        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
 //        sr.setLight(sunComp1);
 //        vp.addProcessor(sr);

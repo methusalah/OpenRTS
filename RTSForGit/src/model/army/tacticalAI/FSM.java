@@ -28,6 +28,7 @@ public class FSM {
             case TacticalAI.AUTO_ATTACK : ia.doAutoAttack((ArrayList<Unit>)arg);break;
             case TacticalAI.WAIT_ORDERS : ia.doWaitOrders();break;
             case TacticalAI.MOVE : ia.doMove();break;
+            case TacticalAI.STOP : ia.doStop();break;
             case TacticalAI.ATTACK : ia.doAttack((Unit)arg);break;
             case TacticalAI.RETURN_POST : ia.doReturnPost();break;
             case TacticalAI.ATTACK_BACK : ia.doAttackBack();break;

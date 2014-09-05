@@ -115,12 +115,12 @@ public class Mover {
         return pos.getDistance(o.pos);
     }
 
-    public BoundingCircle getBoundingCircle() {
+    public BoundingCircle getBounds() {
         return new BoundingCircle(new Point2D(pos), movable.getRadius());
     }
 
     public boolean collide(ArrayList<AlignedBoundingBox> walls){
-        BoundingCircle agentBounds = getBoundingCircle();
+        BoundingCircle agentBounds = getBounds();
         for(AlignedBoundingBox wall : walls)
             if(agentBounds.collide(wall))
                 return true;

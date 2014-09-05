@@ -4,16 +4,10 @@
  */
 package model.army.tacticalAI;
 
-import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
-import math.Precision;
 import model.army.tacticalAI.AttackEvent;
 import model.army.data.Unit;
-import model.army.data.Mover;
-import model.army.data.Weapon;
-import model.warfare.Faction;
-import tools.LogUtil;
 
 /**
  *
@@ -23,6 +17,7 @@ public class TacticalAI {
     protected static final String AUTO_ATTACK = "autoattack";
     protected static final String WAIT_ORDERS = "waitorders";
     protected static final String MOVE = "move";
+    protected static final String STOP = "stop";
     protected static final String ATTACK = "attack";
     protected static final String RETURN_POST = "returnpost";
     protected static final String ATTACK_BACK = "attackback";
@@ -60,12 +55,14 @@ public class TacticalAI {
         abandonAll();
         stateMachine.pushState(WAIT_ORDERS);
         stateMachine.pushState(MOVE);
+        stateMachine.pushState(STOP);
     }
 
     public void orderMoveAttack(){
         abandonAll();
         stateMachine.pushState(WAIT_ORDERS);
         stateMachine.pushState(MOVE_ATTACK);
+        stateMachine.pushState(STOP);
     }
 
     public void orderAttack(Unit enemy){
@@ -184,6 +181,11 @@ public class TacticalAI {
             stateMachine.popState();
         } else
             unit.getMover().followPath();
+    }
+    
+    void doStop(){
+        if(unit.getMover().velocity.equals(Point3D.ORIGIN))
+            stateMachine.popState();
     }
 
     void doMoveAttack(){

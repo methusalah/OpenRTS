@@ -31,8 +31,8 @@ public class MainRTS extends MySimpleApplication {
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
 		settings.setBitsPerPixel(32);
-		settings.setWidth(1900);
-		settings.setHeight(960);
+		settings.setWidth(1550);
+		settings.setHeight(850);
 		settings.setTitle("RTS");
 		settings.setVSync(true);
 		Logger.getLogger("").setLevel(Level.INFO);
@@ -74,7 +74,6 @@ public class MainRTS extends MySimpleApplication {
         public void simpleUpdate(float tpf) {
             float maxedTPF = Math.min(tpf, 0.1f);
             model.armyManager.updateMovers(maxedTPF);
-//            view.unitsRend.renderMovers();
             view.actorManager.render();
             fieldCtrl.updateSelection();
             model.updateConfigs();
