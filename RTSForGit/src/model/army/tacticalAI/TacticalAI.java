@@ -40,7 +40,6 @@ public class TacticalAI {
     Point3D aggressionPlace;
 
     double disturbTime;
-    public boolean holdposition;
     
     ArrayList<AttackEvent> aggressions = new ArrayList<>();
     ArrayList<Unit> neighbors = new ArrayList<>();
@@ -79,8 +78,8 @@ public class TacticalAI {
     public void update(){
         // TODO moche
         filterAttackers();
+        unit.getMover().tryHold = false;
         neighbors = getNeighbors();
-        holdposition = false;
         stateMachine.update();
     }
 
@@ -128,15 +127,16 @@ public class TacticalAI {
             stateMachine.popState();
         else if(isAttacked())
             stateMachine.pushState(ATTACK_BACK);
-        else
+        else{
+            unit.getMover().separate();
             unit.getMover().seek(post);
+        }
     }
     
     void doAttackBack() {
         if(!isAttacked() || getAggressionPlaceDistance() > PURSUE_RADIUS)
             stateMachine.popState();
         else if(unit.arming.acquiring()){
-            holdposition = true;
             unit.arming.attack();
         } else if(unit.arming.scanning())
             unit.getMover().seek(unit.arming.getNearestScanned().getMover());
@@ -152,7 +152,6 @@ public class TacticalAI {
         else if(getPostDistance() > PURSUE_RADIUS)
             stateMachine.popState();
         else if(unit.arming.acquiring()){
-            holdposition = true;
             unit.arming.attack();
         } else if(unit.arming.scanning())
             unit.getMover().seek(unit.arming.getNearestScanned().getMover());
@@ -167,12 +166,11 @@ public class TacticalAI {
             post = unit.getPos();
             stateMachine.popState();
         } else if(unit.arming.acquiring(u)) {
-            holdposition = true;
             unit.arming.attack(u);
         } else if(!unit.getMover().hasDestination())
             unit.getMover().seek(u.getMover());
         else
-            unit.getMover().followPath();
+            unit.getMover().followPath(u.getMover());
     }
     
     void doMove(){
@@ -203,7 +201,9 @@ public class TacticalAI {
     void doHold(){
         post = unit.getPos();
         unit.idle();
-        holdposition = true;
+        unit.getMover().tryToHoldPositionSoftly();
+        unit.getMover().separate();
+//        holdposition = true;
         if(unit.arming.acquiring())
             unit.arming.attack();
     }

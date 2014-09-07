@@ -52,7 +52,9 @@ public class Mover {
     public FlowField flowfield;
     private boolean hasDestination;
     public boolean hasFoundPost;
-
+    public boolean holdPosition = false;
+    public boolean tryHold = false;
+    
     public Mover(Map map, Movable movable, Point3D position){
         this.map = map;
         this.movable = movable;
@@ -65,8 +67,10 @@ public class Mover {
         double lastYaw = yaw;
         Point3D lastPos = new Point3D(pos);
         
-        Point3D steering = sm.getSteeringAndReset(elapsedTime);
-        cm.applySteering(steering, elapsedTime, toAvoid);
+        if(!holdPosition){
+            Point3D steering = sm.getSteeringAndReset(elapsedTime);
+            cm.applySteering(steering, elapsedTime, toAvoid);
+        }
         head(elapsedTime);
         
         hasMoved = lastYaw != yaw || !lastPos.equals(pos);
@@ -81,6 +85,42 @@ public class Mover {
                 if(m.hasDestination){
                     hasFoundPost = false;
                 }
+        }
+        if(!tryHold)
+            holdPosition = false;
+    }
+    
+    public void tryToHoldPositionSoftly(){
+        tryHold = true;
+        if(fly())
+            holdPosition = true;
+        else {
+            ArrayList<Mover> all = new ArrayList<>();
+            all.addAll(toAvoid);
+            all.addAll(toFlockWith);
+            all.addAll(toLetPass);
+            for(Mover m : all)
+                if(collide(m))
+                    return;
+            for(Mover m : toFlockWith)
+                if(m.tryHold && !m.holdPosition)
+                    return;
+            holdPosition = true;
+        }
+    }
+    public void tryToHoldPositionHardly(){
+        tryHold = true;
+        if(fly())
+            holdPosition = true;
+        else {
+            ArrayList<Mover> all = new ArrayList<>();
+            all.addAll(toAvoid);
+            all.addAll(toFlockWith);
+            all.addAll(toLetPass);
+            for(Mover m : all)
+                if(m.holdPosition && collide(m))
+                    return;
+            holdPosition = true;
         }
     }
     
@@ -159,26 +199,39 @@ public class Mover {
 //        sm.applyAlignment(neighbors);
     }
     
-    public void seek(Mover other){
+    public void seek(Mover target){
         flock();
-        sm.seek(other);
+        separate();
+        sm.seek(target);
 
         ArrayList<Mover> toAvoidExceptTarget = new ArrayList<>(toAvoid);
-        toAvoidExceptTarget.remove(other);
+        toAvoidExceptTarget.remove(target);
         sm.avoidHoldingUnits(toAvoidExceptTarget);
     }
 
     public void seek(Point3D position){
         flock();
+        separate();
         sm.seek(position);
         sm.avoidHoldingUnits(toAvoid);
-    } 
-    
+    }
     
     public void followPath() {
         flock();
+        separate();
         sm.proceedToDestination();
         sm.avoidHoldingUnits(toAvoid);
+    }
+    
+
+    public void followPath(Mover target) {
+        flock();
+        separate();
+        sm.proceedToDestination();
+
+        ArrayList<Mover> toAvoidExceptTarget = new ArrayList<>(toAvoid);
+        toAvoidExceptTarget.remove(target);
+        sm.avoidHoldingUnits(toAvoidExceptTarget);
     }
     
     void updateElevation(){

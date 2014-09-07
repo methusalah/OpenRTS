@@ -132,7 +132,8 @@ public class Commander {
 
     public void selectAll() {
         unselect();
-        selection.addAll(armyManager.units);
+        for(Unit u : armyManager.units)
+            select(u);
         sendReportOrder();
     }
     
@@ -157,9 +158,10 @@ public class Commander {
         sendReportOrder();
     }
     
-    public void selectUnityInContext(Unity u){
+    public void selectUnityInContext(Unity unityID){
         unselect();
-        selection.addAll(unitiesInContext.get(u.id));
+        for(Unit u : unitiesInContext.get(unityID.id))
+            select(u);
     }
     
     public ArrayList<Unity> getUnitiesInContext(){

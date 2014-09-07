@@ -36,7 +36,7 @@ public class Reporter {
     }
 
     public static String getHolding(Unit u) {
-        if(u.isHoldingPosition())
+        if(u.getMover().holdPosition)
             return "Holding : Yes";
         else
             return "Holding : No";

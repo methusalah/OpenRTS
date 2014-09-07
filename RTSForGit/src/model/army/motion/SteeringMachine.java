@@ -23,7 +23,7 @@ public class SteeringMachine {
 
     private static double FOLLOW_PATH_FORCE = 1;
     private static double ALIGNMENT_FORCE = 0.7;
-    private static double SEPARATION_FORCE = 2.5;
+    private static double SEPARATION_FORCE = 3;
     private static double SEPARATION_FORCE_FOR_FLYING = 0.01;
     private static double COHESION_FORCE = 1;
     

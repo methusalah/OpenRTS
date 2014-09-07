@@ -98,19 +98,27 @@ public class Weapon {
         if(target == null)
             throw new RuntimeException("no target");
         
-        setDesiredYaw();
+        boolean ready = true;
+        if(!holder.getMover().holdPosition){
+           holder.getMover().tryToHoldPositionHardly();
+           ready = false;
+        }
+        if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5)){
+            setDesiredYaw();
+            ready = false;
+        }
+        if(lastStrikeTime+1000*period > System.currentTimeMillis())
+            ready = false;
         
-        if(lastStrikeTime+1000*period < System.currentTimeMillis()){
-            if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) < Angle.toRadians(5)){
-                if(actor != null)
-                    actor.onShootEvent();
-                target.ai.registerAsAttacker(holder);
-                Effect e = effectBuilder.build(holder, target, null);
-                e.setSourcePoint(source, vec);
-                e.launch();
+        if(ready){
+            if(actor != null)
+                actor.onShootEvent();
+            target.ai.registerAsAttacker(holder);
+            Effect e = effectBuilder.build(holder, target, null);
+            e.setSourcePoint(source, vec);
+            e.launch();
 
-                lastStrikeTime = System.currentTimeMillis();
-            }
+            lastStrikeTime = System.currentTimeMillis();
         }
     }
     

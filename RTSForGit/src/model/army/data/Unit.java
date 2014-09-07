@@ -60,7 +60,6 @@ public class Unit extends Movable {
     public void update(double elapsedTime){
         if(destroyed())
             return;
-        
         findNearbyMovers();
         arming.updateWeapons();
         
@@ -120,14 +119,14 @@ public class Unit extends Movable {
                 res.add(u.mover);
         
         for(Unit u : faction.units)
-            if(u != this && u.isHoldingPosition())
+            if(u != this && u.mover.holdPosition)
                 res.add(u.mover);
         return res;
     }
     
-    public boolean isHoldingPosition(){
-        return ai.holdposition;
-    }
+//    public boolean isHoldingPosition(){
+//        return ai.holdposition;
+//    }
     
     public void damage(int amount) {
         health -= amount;

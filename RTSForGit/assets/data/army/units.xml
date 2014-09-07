@@ -59,7 +59,7 @@
     <Radius value="0.35"/>
     <SeparationRadius value="0.35"/>
     <Speed value="7"/>
-    <Mass value="0.8"/>
+    <Mass value="0.3"/>
     <ModelPath value="alien/infantry01.mesh.xml"/>
     <MaxHealth value="120"/>
     <Sight value="8"/>
