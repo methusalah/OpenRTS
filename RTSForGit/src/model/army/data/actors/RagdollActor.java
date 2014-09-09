@@ -13,11 +13,13 @@ import model.army.data.Movable;
  * @author Benoît
  */
 public class RagdollActor extends ModelActor {
-    public double life = 1;
+    public double startLife = 1;
+    public double life;
     public double mass = 1;
     public String massCenterBone;
+    public long timer;
     
-    public boolean done = false;
+    public boolean launched = false;
     
     public RagdollActor(String trigger, Actor parent){
         super(trigger, parent);
@@ -41,6 +43,10 @@ public class RagdollActor extends ModelActor {
     
     public void renderingDone(){
         interrupt();
+    }
+    
+    public boolean alive(){
+        return life > 0;
     }
 
     

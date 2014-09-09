@@ -100,7 +100,7 @@ public class Mover {
             all.addAll(toFlockWith);
             all.addAll(toLetPass);
             for(Mover m : all)
-                if(collide(m))
+                if(getBounds().collide(m.getBounds()))
                     return;
             for(Mover m : toFlockWith)
                 if(m.tryHold && !m.holdPosition)
@@ -118,7 +118,7 @@ public class Mover {
             all.addAll(toFlockWith);
             all.addAll(toLetPass);
             for(Mover m : all)
-                if(m.holdPosition && collide(m))
+                if(m.holdPosition && getBounds().collide(m.getBounds()))
                     return;
             holdPosition = true;
         }
@@ -137,7 +137,7 @@ public class Mover {
     public void setDestinationReached(){
         hasDestination = false;
         for(Mover m : toFlockWith)
-            if(getDistance(m) < getSpacing(m)+toFlockWith.size()/20)
+            if(getDistance(m) < getSpacing(m)+3)
                 m.hasDestination = false;
     }
     
@@ -159,18 +159,6 @@ public class Mover {
         return new BoundingCircle(new Point2D(pos), movable.getRadius());
     }
 
-    public boolean collide(ArrayList<AlignedBoundingBox> walls){
-        BoundingCircle agentBounds = getBounds();
-        for(AlignedBoundingBox wall : walls)
-            if(agentBounds.collide(wall))
-                return true;
-        return false;
-    }
-    
-    public boolean collide(Mover other){
-        return getDistance(other) <= getSpacing(other);
-    }
-    
     public void head(double elapsedTime) {
         if(!velocity.isOrigin())
             desiredYaw = velocity.get2D().getAngle();
@@ -189,6 +177,7 @@ public class Mover {
         return o.pos.getSubtraction(pos);
     }
     
+    // TODO ici le toFlockWith perd son sens quand il ne s'agit que de separation.
     public void separate(){
         sm.applySeparation(toLetPass);
     }

@@ -167,6 +167,7 @@ public class TacticalAI {
             stateMachine.popState();
         } else if(unit.arming.acquiring(u)) {
             unit.arming.attack(u);
+            unit.getMover().setDestinationReached();
         } else if(!unit.getMover().hasDestination())
             unit.getMover().seek(u.getMover());
         else

@@ -97,16 +97,19 @@ public class Weapon {
         attacking = true;
         if(target == null)
             throw new RuntimeException("no target");
+        if(!isAtRange(target))
+            throw new RuntimeException("target not at range");
+        
+//        holder.getMover().tryToHoldPositionHardly();
+        setDesiredYaw();
         
         boolean ready = true;
-        if(!holder.getMover().holdPosition){
-           holder.getMover().tryToHoldPositionHardly();
-           ready = false;
-        }
-        if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5)){
-            setDesiredYaw();
+//        if(!holder.getMover().holdPosition)
+//           ready = false;
+        
+        if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5))
             ready = false;
-        }
+        
         if(lastStrikeTime+1000*period > System.currentTimeMillis())
             ready = false;
         

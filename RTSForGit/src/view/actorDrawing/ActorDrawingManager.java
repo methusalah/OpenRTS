@@ -43,7 +43,7 @@ public class ActorDrawingManager implements AnimEventListener {
     ModelActorDrawer modelDrawer;
     ParticleActorDrawer particleDrawer;
     AnimationActorDrawer animationDrawer;
-    PhysicActorDrawer physicDrawer;
+    RagdollActorDrawer physicDrawer;
     
     
     HashMap<String, Spatial> models = new HashMap<>();
@@ -57,7 +57,7 @@ public class ActorDrawingManager implements AnimEventListener {
         modelDrawer = new ModelActorDrawer(this);
         particleDrawer = new ParticleActorDrawer(this);
         animationDrawer = new AnimationActorDrawer();
-        physicDrawer = new PhysicActorDrawer(this);
+        physicDrawer = new RagdollActorDrawer(this);
    }
     
     public void render(){
@@ -65,8 +65,6 @@ public class ActorDrawingManager implements AnimEventListener {
         for(Actor a : armyManager.grabDeletedActors()){
             if(a.viewElements.spatial != null){
                 mainNode.detachChild(a.viewElements.spatial);
-                if(a instanceof RagdollActor)
-                    mainPhysicsSpace.remove(a.viewElements.spatial);
             }
             if(a.viewElements.particleEmitter != null)
                 a.viewElements.particleEmitter.setParticlesPerSec(0);

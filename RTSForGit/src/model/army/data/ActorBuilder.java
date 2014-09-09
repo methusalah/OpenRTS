@@ -168,7 +168,7 @@ public class ActorBuilder {
                 case SCALE : ((ModelActor)res).scale = de.getDoubleVal(); break;
                     
                 // physic
-                case LIFE : ((RagdollActor)res).life = de.getDoubleVal(); break;
+                case LIFE : ((RagdollActor)res).startLife = de.getDoubleVal()*1000; break;
                 case MASS : ((RagdollActor)res).mass = de.getDoubleVal(); break;
                 case MASS_CENTER_BONE : ((RagdollActor)res).massCenterBone = de.getVal(); break;
                     

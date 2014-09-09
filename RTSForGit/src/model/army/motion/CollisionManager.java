@@ -54,7 +54,6 @@ public class CollisionManager {
 
         // if mover is already colliding something, we separate it
         if(!mover.fly() && willCollide(Point3D.ORIGIN)){
-            LogUtil.logger.info("I collide and move baaaaack !! "+mover.movable.getRadius());
             mover.pos = mover.pos.getAddition(getAntiOverlapVector().getScaled(traveledDistance));
             mover.velocity = Point3D.ORIGIN;
         }else{
