@@ -1,0 +1,18 @@
+material Rock_Standard
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.0588235 0.0588235 0.0588235 1
+			diffuse 0.317647 0.207843 0.0862745 1
+			specular 0.4 0.301961 0.196078 0.03 10
+
+			texture_unit
+			{
+			}
+		}
+
+	}
+
+}
