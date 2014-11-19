@@ -179,7 +179,7 @@ public class CollisionManager {
                 if(!map.isInBounds(tilePos))
                     continue;
                 Tile t = map.getTile(tilePos);
-                if(t.isCliff())
+                if(t.isBlocked())
                     obstacles.add(t.getBounds());
             }
     }

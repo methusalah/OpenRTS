@@ -81,20 +81,26 @@ public class MaterialManager {
         Material m = new Material(assetManager, "Common/MatDefs/Terrain/TerrainLighting.j3md");
         m.setTexture("AlphaMap", assetManager.loadTexture(alpha));
         
+        // texture 1
         Texture t1 = assetManager.loadTexture(tex1);
         t1.setWrap(WrapMode.Repeat);
         m.setTexture("DiffuseMap", t1);
-        m.setFloat("DiffuseMap_0_scale", 16f);
+        m.setFloat("DiffuseMap_0_scale", 8f);
 
+        // texture 2
         Texture t2 = assetManager.loadTexture(tex2);
         t2.setWrap(WrapMode.Repeat);
         m.setTexture("DiffuseMap_1", t2);
-        m.setFloat("DiffuseMap_1_scale", 64f);
+        m.setFloat("DiffuseMap_1_scale", 8f);
 
-        Texture t3 = assetManager.loadTexture(tex3);
-        t3.setWrap(WrapMode.Repeat);
-        m.setTexture("DiffuseMap_2", t3);
-        m.setFloat("DiffuseMap_2_scale", 64f);
+        Texture normal = assetManager.loadTexture("textures/env01/groundGrass_n.png");
+        normal.setWrap(WrapMode.Repeat);
+        m.setTexture("NormalMap", normal);
+
+//        Texture t3 = assetManager.loadTexture(tex3);
+//        t3.setWrap(WrapMode.Repeat);
+//        m.setTexture("DiffuseMap_2", t3);
+//        m.setFloat("DiffuseMap_2_scale", 64f);
 
 //        Texture t4 = assetManager.loadTexture(tex4);
 //        t4.setWrap(WrapMode.Repeat);

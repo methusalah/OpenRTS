@@ -83,43 +83,43 @@ public class View {
         yAxe.setLocalTranslation(0, 5, 0);
         rootNode.attachChild(yAxe);
     }
-	
+    public DirectionalLight sunComp1;
     public void createLight() {
     	AmbientLight al = new AmbientLight();
     	al.setColor(ColorRGBA.White.clone().multLocal(1.5f)); // bright white light
     	rootNode.addLight(al);
     	
-    	DirectionalLight zenith = new DirectionalLight();
-    	zenith.setColor(new ColorRGBA(250f/255f, 214f/255f, 165f/255f, 255f/255f).clone().multLocal(1.025f)); // bright white light
-    	zenith.setDirection(new Vector3f(0f, 0f, -1f));
-    	rootNode.addLight(zenith);
+//    	DirectionalLight zenith = new DirectionalLight();
+//    	zenith.setColor(new ColorRGBA(250f/255f, 214f/255f, 165f/255f, 255f/255f).clone().multLocal(0.8f)); // bright white light
+//    	zenith.setDirection(new Vector3f(0f, 0f, -1f));
+//    	rootNode.addLight(zenith);
     	
 //    	DirectionalLight sun = new DirectionalLight();
 //    	sun.setColor(ColorRGBA.White.clone().multLocal(1.01f)); // bright white light
 //    	sun.setDirection(new Vector3f(2, 1, -1f).normalize());
 //    	rootNode.addLight(sun);
 
-        DirectionalLight sunComp1 = new DirectionalLight();
-    	sunComp1.setColor(new ColorRGBA(250f/255f, 214f/255f, 165f/255f, 255f/255f).clone().multLocal(2f)); // bright white light
+        sunComp1 = new DirectionalLight();
+    	sunComp1.setColor(new ColorRGBA(255f/255f, 255f/255f, 255f/255f, 255f/255f).clone().multLocal(2f)); // bright white light
     	sunComp1.setDirection(new Vector3f(-2, 1, -1f).normalize());
     	rootNode.addLight(sunComp1);
         
-        FilterPostProcessor fpp = new FilterPostProcessor(am);
-
-        int SHADOWMAP_SIZE = 2048;
-//        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
-//        sr.setLight(sunComp1);
-//        vp.addProcessor(sr);
-        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
-        sf.setLight(sunComp1);
-        sf.setEnabled(true);
-        sf.setShadowZExtend(SHADOWMAP_SIZE);
-        fpp.addFilter(sf);
-
-//        SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
-//        fpp.addFilter(ssaoFilter);
-
-        vp.addProcessor(fpp);
+//        FilterPostProcessor fpp = new FilterPostProcessor(am);
+//
+//        int SHADOWMAP_SIZE = 2048;
+////        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
+////        sr.setLight(sunComp1);
+////        vp.addProcessor(sr);
+//        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
+//        sf.setLight(sunComp1);
+//        sf.setEnabled(true);
+//        sf.setShadowZExtend(SHADOWMAP_SIZE);
+//        fpp.addFilter(sf);
+//
+////        SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
+////        fpp.addFilter(ssaoFilter);
+//
+//        vp.addProcessor(fpp);
 
 //    	DirectionalLight second2 = new DirectionalLight();
 //    	second2.setColor(ColorRGBA.White.clone().multLocal(1)); // bright white light

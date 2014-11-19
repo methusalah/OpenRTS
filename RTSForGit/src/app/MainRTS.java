@@ -19,6 +19,7 @@ import com.jme3.post.filters.BloomFilter;
 import com.jme3.system.AppSettings;
 import controller.battlefield.BattleFieldController;
 import geometry.Point2D;
+import math.Angle;
 
 import model.map.MapFactory;
 
@@ -45,6 +46,7 @@ public class MainRTS extends MySimpleApplication {
 		app.start();
 	}
         
+        @Override
 	public void simpleInitApp() {
 		FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
@@ -70,6 +72,9 @@ public class MainRTS extends MySimpleApplication {
                 guiViewPort.addProcessor(niftyDisplay);
 	}
 
+        Vector3f dir = new Vector3f(0, 0, 0);
+        double angle = Angle.FLAT;
+        
         @Override
         public void simpleUpdate(float tpf) {
             float maxedTPF = Math.min(tpf, 0.1f);
@@ -78,6 +83,17 @@ public class MainRTS extends MySimpleApplication {
             fieldCtrl.updateSelection();
             model.updateConfigs();
             model.commander.updateSelectables(fieldCtrl.getViewCenter());
+//            angle+=tpf*10;
+//            if(angle>Angle.FLAT*2){
+//                angle = Angle.FLAT;
+////                Vector3f dir = new Vector3f(2, -1, 0);
+//            }
+//
+//            double newX = Math.cos(angle);
+//            double newY = Math.sin(angle);
+//            dir = new Vector3f((float)newX, (float)newY, -1);
+//
+//            view.sunComp1.setDirection(dir);
         }
 
 	@Override

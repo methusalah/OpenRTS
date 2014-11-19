@@ -48,7 +48,11 @@ public class MapFactory {
                         isCliff = true;
                         level = 1;
                 }
-                m.tiles[x][y] = new Tile(x, y, level, isCliff);
+                if(isCliff)
+                    m.tiles[x][y] = new Cliff(x, y, level);
+                else
+                    m.tiles[x][y] = new Tile(x, y, level);
+                    
                 if(c.equals(RampStartColor)){
                     m.tiles[x][y].rampStart = true;
                     m.tiles[x][y].rampComp = true;
@@ -82,19 +86,19 @@ public class MapFactory {
             }
 
         // add ground height noise
-        for(Tile t : m.getTiles()) {
-            if(!t.isCliff() &&
-                t.w!=null && !t.w.isCliff() &&
-                t.s!=null && !t.s.isCliff() &&
-                t.w.s!= null && !t.w.s.isCliff())
-            t.z += ((MyRandom.next()-0.5)/4);
-        }
+//        for(Tile t : m.getTiles()) {
+//            if(!t.isBlocked() &&
+//                t.w!=null && !t.w.isBlocked() &&
+//                t.s!=null && !t.s.isBlocked() &&
+//                t.w.s!= null && !t.w.s.isBlocked())
+//            t.z += ((MyRandom.next()-0.5)/4);
+//        }
 
         // compute cliffs direction
         // warning, compute ramps before because it creates cliffs
         for(Tile t : m.getTiles()) {
             if(t.isCliff())
-                t.cliff.ComputeAngle();
+                ((Cliff)t).ComputeAngle();
         }
         
 

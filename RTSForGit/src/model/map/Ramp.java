@@ -79,11 +79,11 @@ public class Ramp {
         }
         
         for(Tile t : tiles){
-            if(longitudinal && (t.x == minX || t.x == maxX)){
-                t.cliff = new Cliff(t);
-            } else if(!longitudinal && (t.y == minY || t.y == maxY)){
-                t.cliff = new Cliff(t);
-            }
+//            if(longitudinal && (t.x == minX || t.x == maxX)){
+//                t.cliff = new Cliff(t);
+//            } else if(!longitudinal && (t.y == minY || t.y == maxY)){
+//                t.cliff = new Cliff(t);
+//            }
         }
         
         // compute height

@@ -63,7 +63,7 @@ public class Map {
         }
 
     public boolean isBlocked(int x, int y) {
-        if(getTile(x, y).isCliff())
+        if(getTile(x, y).isBlocked())
             return true;
         return false;
     }
@@ -112,7 +112,7 @@ public class Map {
             tMaxY = ((double)(y+1)-p1.y) / dirY;
  
         // check if first is occupied
-        if(getTile(x, y).isCliff())
+        if(getTile(x, y).isBlocked())
             return true;
         boolean reachedX = false, reachedY = false;
         while(!reachedX || !reachedY){
@@ -123,7 +123,7 @@ public class Map {
                 tMaxY += tDeltaY;
                 y += stepY;
             }
-            if(getTile(x, y).isCliff())
+            if(getTile(x, y).isBlocked())
                 return true;
 
             if(stepX > 0){
@@ -153,7 +153,7 @@ public class Map {
     public boolean isWalkable(Point2D p){
         if(!isInBounds(p))
             return false;
-        if(getTile(p).isCliff())
+        if(getTile(p).isBlocked())
             return false;
         return true;
         

@@ -13,16 +13,27 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 import collections.PointRing;
+import com.jme3.bounding.BoundingVolume;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.collision.Collidable;
+import com.jme3.collision.CollisionResults;
+import com.jme3.collision.UnsupportedCollisionException;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Mesh;
+import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 import com.jme3.texture.Texture;
+import com.jme3.util.TangentBinormalGenerator;
+import java.util.Queue;
 
 import math.Angle;
+import model.map.Cliff;
+import model.map.CliffMesh;
 import model.map.Map;
 import model.map.Tile;
 import model.map.TerrainMesh;
@@ -64,41 +75,55 @@ public class MapRenderer {
 		for(Tile t : map.getTiles()) {
                     tm.add(t);
                     if(t.isCliff()){
-                            if(t.cliff.ortho) {
-                                    Spatial s = cliff.clone();
-                                    s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
-                                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
-                                    shadowCaster.attachChild(s);
-                                    s.addControl(new RigidBodyControl(0));
-                                    mainPhysicsSpace.add(s);
-                                    continue;
-                            } else if(t.cliff.obtuseDiag){
-                                    Spatial s = cliffObtuse.clone();
-                                    s.rotate(0, 0, (float) (t.cliff.angle-Angle.RIGHT));
-                                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
-                                    shadowCaster.attachChild(s);
-                                    s.addControl(new RigidBodyControl(0));
-                                    mainPhysicsSpace.add(s);
-                                    continue;
-                            } else {
-                                    Spatial s = cliffAcute.clone();
-                                    s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
-                                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
-                                    shadowCaster.attachChild(s);
-                                    s.addControl(new RigidBodyControl(0));
-                                    mainPhysicsSpace.add(s);
-                                    continue;
-                            }
+                        Cliff c = (Cliff)t;
+                        CliffMesh mesh = new CliffMesh(c);
+                        Geometry g = new Geometry("cliff");
+                        g.setMesh(Translator.toJMEMesh(mesh));
+                        g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
+                        g.setShadowMode(RenderQueue.ShadowMode.Receive);
+
+                        g.rotate(0, 0, (float) (c.angle));
+                        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
+                        
+                        mainNode.attachChild(g);
+                        
+//                            if(c.ortho) {
+//                                    Spatial s = cliff.clone();
+//                                    s.rotate(0, 0, (float) (c.angle+Angle.RIGHT));
+//                                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
+//                                    shadowCaster.attachChild(s);
+//                                    s.addControl(new RigidBodyControl(0));
+//                                    mainPhysicsSpace.add(s);
+//                                    continue;
+//                            } else if(c.obtuseDiag){
+//                                    Spatial s = cliffObtuse.clone();
+//                                    s.rotate(0, 0, (float) (c.angle-Angle.RIGHT));
+//                                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
+//                                    shadowCaster.attachChild(s);
+//                                    s.addControl(new RigidBodyControl(0));
+//                                    mainPhysicsSpace.add(s);
+//                                    continue;
+//                            } else {
+//                                    Spatial s = cliffAcute.clone();
+//                                    s.rotate(0, 0, (float) (c.angle+Angle.RIGHT));
+//                                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
+//                                    shadowCaster.attachChild(s);
+//                                    s.addControl(new RigidBodyControl(0));
+//                                    mainPhysicsSpace.add(s);
+//                                    continue;
+//                            }
                     }
 		}
                 tm.compute();
                 Geometry g = new Geometry();
-		g.setMesh(Translator.toJMEMesh(tm));
+                Mesh mesh = Translator.toJMEMesh(tm);
+                TangentBinormalGenerator.generate(mesh);
+		g.setMesh(mesh);
 //		g.setMaterial(mm.getLightingTexture("textures/grass.tga"));
 		g.setMaterial(mm.getTerrain("textures/alphamap.png",
                         "textures/grass.tga",
                         "textures/road.jpg",
-                        "textures/dirt.jpg",
+                        "textures/road.jpg",
                         "textures/road_normal.png"));
                 g.setShadowMode(RenderQueue.ShadowMode.Receive);
                 g.addControl(new RigidBodyControl(0));

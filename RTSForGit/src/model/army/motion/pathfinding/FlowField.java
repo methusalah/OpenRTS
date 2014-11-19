@@ -40,7 +40,7 @@ public class FlowField {
     }
     
     private void travelMapFrom(Tile t, int heat){
-        if(t == null || t.isCliff() || heat >= getHeat(t))
+        if(t == null || t.isBlocked() || heat >= getHeat(t))
             return;
         setHeat(t, heat);
         
@@ -58,7 +58,7 @@ public class FlowField {
             toVisit.clear();
             for(Tile t : toVisitThisTurn){
                 iterate();
-                if(t != null && !t.isCliff() && getHeat(t) == Integer.MAX_VALUE){
+                if(t != null && !t.isBlocked() && getHeat(t) == Integer.MAX_VALUE){
                     setHeat(t, heat);
                     toVisit.add(t.n);
                     toVisit.add(t.s);

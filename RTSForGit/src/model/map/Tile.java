@@ -10,6 +10,8 @@ import java.util.Collection;
 import math.MyRandom;
 
 public class Tile {
+    
+    public static final double STAGE_HEIGHT = 2;
 	public Tile n;
 	public Tile s;
 	public Tile e;
@@ -19,24 +21,25 @@ public class Tile {
 	public int y;
         public int level;
 	public double z;
-	public Cliff cliff = null;
 	
         public Ramp ramp = null;
         public boolean rampStart = false;
         public boolean rampComp = false;
         
 	
-	public Tile(int x, int y, int level, boolean isCliff) {
+	public Tile(int x, int y, int level) {
 		this.x = x;
 		this.y = y;
                 this.level = level;
-		this.z = level*2;
-		if(isCliff)
-			this.cliff = new Cliff(this);
+		this.z = level*STAGE_HEIGHT;
 	}
+        
+        public Tile(Tile o){
+            this(o.x, o.y, o.level);
+        }
 	
-	public double getNeighborsMaxLevel(){
-		double res = 0;
+	public int getNeighborsMaxLevel(){
+		int res = 0;
 		if(n != null && n.level>res)
 			res = n.level;
 
@@ -51,8 +54,8 @@ public class Tile {
 		return res;
 	}
 
-        public double getNeighborsMinLevel(){
-		double res = Integer.MAX_VALUE;
+        public int getNeighborsMinLevel(){
+		int res = Integer.MAX_VALUE;
 		if(n != null && n.level<res)
 			res = n.level;
 
@@ -67,9 +70,15 @@ public class Tile {
 		return res;
 	}
 	
-	public boolean isCliff(){
-		return cliff != null;
-	}
+	public boolean isBlocked(){
+		return false;
+        }
+        
+        public boolean isCliff(){
+            return false;
+        }
+        
+        
         
         public Point3D getPos(){
             return new Point3D(x, y, z);
