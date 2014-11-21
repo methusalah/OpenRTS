@@ -86,13 +86,13 @@ public class MapFactory {
             }
 
         // add ground height noise
-//        for(Tile t : m.getTiles()) {
-//            if(!t.isBlocked() &&
-//                t.w!=null && !t.w.isBlocked() &&
-//                t.s!=null && !t.s.isBlocked() &&
-//                t.w.s!= null && !t.w.s.isBlocked())
-//            t.z += ((MyRandom.next()-0.5)/4);
-//        }
+        for(Tile t : m.getTiles()) {
+            if(!t.isBlocked() &&
+                t.w!=null && !t.w.isBlocked() &&
+                t.s!=null && !t.s.isBlocked() &&
+                t.w.s!= null && !t.w.s.isBlocked())
+            t.z += MyRandom.between(-0.1, 0.1);
+        }
 
         // compute cliffs direction
         // warning, compute ramps before because it creates cliffs

@@ -16,7 +16,7 @@ public class Map {
 	
 	Tile[][] tiles;
         ArrayList<Tile> tileList = null;
-        ArrayList<Ramp> ramps = new ArrayList<Ramp>();
+        ArrayList<Ramp> ramps = new ArrayList<>();
 	public int width;
 	public int height;
 	
@@ -28,7 +28,7 @@ public class Map {
         
 	public ArrayList<Tile> getTiles() {
             if(tileList == null){
-                tileList = new ArrayList<Tile>();
+                tileList = new ArrayList<>();
                 for(int x=0; x<width; x++)
                         for(int y=0; y<height; y++)
                                 tileList.add(tiles[x][y]);

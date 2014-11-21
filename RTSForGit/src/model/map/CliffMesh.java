@@ -35,19 +35,38 @@ public class CliffMesh extends MyMesh {
 //        else
 //            LogUtil.logger.info("obtuse");
         
-        
-        for(int col=0; col<Cliff.NB_VERTEX_COL-1; col++)
+        boolean pair = false;
+        for(int col=0; col<Cliff.NB_VERTEX_COL-1; col++){
+            pair = !pair;
             for(int row=0; row<Cliff.NB_VERTEX_ROWS-1; row++){
-                Triangle3D t1 = new Triangle3D(
-                        grid[col][row],
-                        grid[col][row+1],
-                        grid[col+1][row]
+                double offset = Cliff.STAGE_HEIGHT/Cliff.NB_VERTEX_ROWS/4;
+                if(!pair)
+                    offset = -Cliff.STAGE_HEIGHT/Cliff.NB_VERTEX_ROWS/4;
+                Triangle3D t1;
+                Triangle3D t2;
+                if(pair){
+                    t1 = new Triangle3D(
+                        grid[col][row].getAddition(0, 0, offset),
+                        grid[col][row+1].getAddition(0, 0, offset),
+                        grid[col+1][row+1].getAddition(0, 0, -offset)
                         );
-                Triangle3D t2 = new Triangle3D(
-                        grid[col+1][row],
-                        grid[col][row+1],
-                        grid[col+1][row+1]
+                    t2 = new Triangle3D(
+                        grid[col][row].getAddition(0, 0, offset),
+                        grid[col+1][row+1].getAddition(0, 0, -offset),
+                        grid[col+1][row].getAddition(0, 0, -offset)
                         );
+                } else{
+                    t1 = new Triangle3D(
+                        grid[col][row].getAddition(0, 0, offset),
+                        grid[col][row+1].getAddition(0, 0, offset),
+                        grid[col+1][row].getAddition(0, 0, -offset)
+                        );
+                    t2 = new Triangle3D(
+                        grid[col][row+1].getAddition(0, 0, offset),
+                        grid[col+1][row+1].getAddition(0, 0, -offset),
+                        grid[col+1][row].getAddition(0, 0, -offset)
+                        );
+                }
                 
                 int index = vertices.size();
                 vertices.add(t1.a);
@@ -80,5 +99,6 @@ public class CliffMesh extends MyMesh {
                 
                 
             }
+        }
     }
 }

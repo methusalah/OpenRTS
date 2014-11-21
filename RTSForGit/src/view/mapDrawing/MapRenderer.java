@@ -117,7 +117,7 @@ public class MapRenderer {
                 tm.compute();
                 Geometry g = new Geometry();
                 Mesh mesh = Translator.toJMEMesh(tm);
-                TangentBinormalGenerator.generate(mesh);
+//                TangentBinormalGenerator.generate(mesh);
 		g.setMesh(mesh);
 //		g.setMaterial(mm.getLightingTexture("textures/grass.tga"));
 		g.setMaterial(mm.getTerrain("textures/alphamap.png",

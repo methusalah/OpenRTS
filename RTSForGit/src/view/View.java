@@ -101,7 +101,7 @@ public class View {
 
         sunComp1 = new DirectionalLight();
     	sunComp1.setColor(new ColorRGBA(255f/255f, 255f/255f, 255f/255f, 255f/255f).clone().multLocal(2f)); // bright white light
-    	sunComp1.setDirection(new Vector3f(-2, 1, -1f).normalize());
+    	sunComp1.setDirection(new Vector3f(-2.2f, 1.8f, -1f).normalize());
     	rootNode.addLight(sunComp1);
         
 //        FilterPostProcessor fpp = new FilterPostProcessor(am);
