@@ -46,7 +46,7 @@ public class Model {
         }
         parser.readFile();
         
-        armyManager.createTestArmy(lib);
+//        armyManager.createTestArmy(lib);
     }
     
     private ArrayList<File> getFiles(String folderPath){

@@ -4,6 +4,7 @@
  */
 package model.map;
 
+import model.map.CliffShape.CliffShape;
 import collections.PointRing;
 import geometry.Point2D;
 import geometry.Polygon;
@@ -104,103 +105,94 @@ public class TerrainMesh extends MyMesh {
         if(!triangles.isEmpty())
             return triangles;
         
-        if(c.e == null || c.n == null)
+        if(c.shape == null || c.e == null || c.n == null)
             return triangles;
         
 
         ArrayList<Triangle3D> toTranslate = new ArrayList<>();
-        Point3D[][] vertices = c.getVertices();
+        Point3D[][] grid = c.shape.getVertices();
         
-        if(c.acuteDiag){
-            Point3D o = new Point3D(-0.5, -0.5, Cliff.STAGE_HEIGHT);
-            Point3D e = new Point3D(0.5, -0.5, 0);
-            Point3D ne = new Point3D(0.5, 0.5, 0);
-            Point3D n = new Point3D(-0.5, 0.5, 0);
-            
-            for(int i=0; i<Cliff.NB_VERTEX_COL-1; i++){
-                Point3D p1 = vertices[i][Cliff.NB_VERTEX_ROWS-1];
-                Point3D p2 = vertices[i+1][Cliff.NB_VERTEX_ROWS-1];
-                toTranslate.add(new Triangle3D(o, p2, p1));
-            }
-            
-            toTranslate.add(new Triangle3D(ne, n, vertices[0][0]));
-            for(int i=0; i<Cliff.NB_VERTEX_COL-1; i++){
-                Point3D p1 = vertices[i][0];
-                Point3D p2 = vertices[i+1][0];
-                toTranslate.add(new Triangle3D(ne, p1, p2));
-            }
-            toTranslate.add(new Triangle3D(ne, vertices[2][0], e));
-            
-        } else if(c.obtuseDiag){
-            Point3D o = new Point3D(-0.5, -0.5, 0);
-            Point3D e = new Point3D(0.5, -0.5, Cliff.STAGE_HEIGHT);
-            Point3D ne = new Point3D(0.5, 0.5, Cliff.STAGE_HEIGHT);
-            Point3D n = new Point3D(-0.5, 0.5, Cliff.STAGE_HEIGHT);
-            
-            for(int i=0; i<Cliff.NB_VERTEX_COL-1; i++){
-                Point3D p1 = vertices[i][0];
-                Point3D p2 = vertices[i+1][0];
-                toTranslate.add(new Triangle3D(o, p1, p2));
-            }
-            
-            toTranslate.add(new Triangle3D(ne, vertices[0][Cliff.NB_VERTEX_ROWS-1], e));
-            for(int i=0; i<Cliff.NB_VERTEX_COL-1; i++){
-                Point3D p1 = vertices[i][Cliff.NB_VERTEX_ROWS-1];
-                Point3D p2 = vertices[i+1][Cliff.NB_VERTEX_ROWS-1];
-                toTranslate.add(new Triangle3D(ne, p2, p1));
-            }
-            toTranslate.add(new Triangle3D(ne, n, vertices[Cliff.NB_VERTEX_COL-1][Cliff.NB_VERTEX_ROWS-1]));
-        } else {
-            Point3D o = new Point3D(-0.5, -0.5, Cliff.STAGE_HEIGHT);
-            Point3D e = new Point3D(0.5, -0.5, 0);
-            Point3D ne = new Point3D(0.5, 0.5, 0);
-            Point3D n = new Point3D(-0.5, 0.5, Cliff.STAGE_HEIGHT);
-            Point3D middleE = new Point3D(-0.5, 0, Cliff.STAGE_HEIGHT);
-            Point3D middleW = new Point3D(0.5, 0, 0);
-            
-            toTranslate.add(new Triangle3D(middleE, vertices[0][Cliff.NB_VERTEX_ROWS-1], n));
-            for(int i=0; i<Cliff.NB_VERTEX_COL-1; i++){
-                Point3D p1 = vertices[i][Cliff.NB_VERTEX_ROWS-1];
-                Point3D p2 = vertices[i+1][Cliff.NB_VERTEX_ROWS-1];
-                toTranslate.add(new Triangle3D(middleE, p2, p1));
-            }
-            toTranslate.add(new Triangle3D(middleE, o, vertices[Cliff.NB_VERTEX_COL-1][Cliff.NB_VERTEX_ROWS-1]));
-            
-            toTranslate.add(new Triangle3D(middleW, ne, vertices[0][0]));
-            for(int i=0; i<Cliff.NB_VERTEX_COL-1; i++){
-                Point3D p1 = vertices[i][0];
-                Point3D p2 = vertices[i+1][0];
-                toTranslate.add(new Triangle3D(middleW, p1, p2));
-            }
-            toTranslate.add(new Triangle3D(middleW, vertices[Cliff.NB_VERTEX_COL-1][0], e));
+        switch (c.shape.getType()){
+            case Salient : 
+                Point3D o = new Point3D(-0.5, -0.5, Cliff.STAGE_HEIGHT);
+                Point3D e = new Point3D(0.5, -0.5, 0);
+                Point3D ne = new Point3D(0.5, 0.5, 0);
+                Point3D n = new Point3D(-0.5, 0.5, 0);
+
+                for(int i=0; i<CliffShape.NB_VERTEX_COL-1; i++){
+                    Point3D p1 = grid[i][CliffShape.NB_VERTEX_ROWS-1];
+                    Point3D p2 = grid[i+1][CliffShape.NB_VERTEX_ROWS-1];
+                    toTranslate.add(new Triangle3D(o, p2, p1));
+                }
+
+                toTranslate.add(new Triangle3D(ne, n, grid[0][0]));
+                for(int i=0; i<CliffShape.NB_VERTEX_COL-1; i++){
+                    Point3D p1 = grid[i][0];
+                    Point3D p2 = grid[i+1][0];
+                    toTranslate.add(new Triangle3D(ne, p1, p2));
+                }
+                toTranslate.add(new Triangle3D(ne, grid[2][0], e));
+                break;
+                
+            case Corner : 
+                o = new Point3D(-0.5, -0.5, 0);
+                e = new Point3D(0.5, -0.5, Cliff.STAGE_HEIGHT);
+                ne = new Point3D(0.5, 0.5, Cliff.STAGE_HEIGHT);
+                n = new Point3D(-0.5, 0.5, Cliff.STAGE_HEIGHT);
+
+                for(int i=0; i<CliffShape.NB_VERTEX_COL-1; i++){
+                    Point3D p1 = grid[i][0];
+                    Point3D p2 = grid[i+1][0];
+                    toTranslate.add(new Triangle3D(o, p1, p2));
+                }
+
+                toTranslate.add(new Triangle3D(ne, grid[0][CliffShape.NB_VERTEX_ROWS-1], e));
+                for(int i=0; i<CliffShape.NB_VERTEX_COL-1; i++){
+                    Point3D p1 = grid[i][CliffShape.NB_VERTEX_ROWS-1];
+                    Point3D p2 = grid[i+1][CliffShape.NB_VERTEX_ROWS-1];
+                    toTranslate.add(new Triangle3D(ne, p2, p1));
+                }
+                toTranslate.add(new Triangle3D(ne, n, grid[CliffShape.NB_VERTEX_COL-1][CliffShape.NB_VERTEX_ROWS-1]));
+                break;
+                
+            case Orthogonal : 
+                o = new Point3D(-0.5, -0.5, Cliff.STAGE_HEIGHT);
+                e = new Point3D(0.5, -0.5, 0);
+                ne = new Point3D(0.5, 0.5, 0);
+                n = new Point3D(-0.5, 0.5, Cliff.STAGE_HEIGHT);
+                Point3D middleE = new Point3D(-0.5, 0, Cliff.STAGE_HEIGHT);
+                Point3D middleW = new Point3D(0.5, 0, 0);
+
+                toTranslate.add(new Triangle3D(middleE, grid[0][CliffShape.NB_VERTEX_ROWS-1], n));
+                for(int i=0; i<CliffShape.NB_VERTEX_COL-1; i++){
+                    Point3D p1 = grid[i][CliffShape.NB_VERTEX_ROWS-1];
+                    Point3D p2 = grid[i+1][CliffShape.NB_VERTEX_ROWS-1];
+                    toTranslate.add(new Triangle3D(middleE, p2, p1));
+                }
+                toTranslate.add(new Triangle3D(middleE, o, grid[CliffShape.NB_VERTEX_COL-1][CliffShape.NB_VERTEX_ROWS-1]));
+
+                toTranslate.add(new Triangle3D(middleW, ne, grid[0][0]));
+                for(int i=0; i<CliffShape.NB_VERTEX_COL-1; i++){
+                    Point3D p1 = grid[i][0];
+                    Point3D p2 = grid[i+1][0];
+                    toTranslate.add(new Triangle3D(middleW, p1, p2));
+                }
+                toTranslate.add(new Triangle3D(middleW, grid[CliffShape.NB_VERTEX_COL-1][0], e));
+                break;
+                
+            default: throw new RuntimeException("trying to computes cliff's grounds for an unspecialized cliff : "+c.getPos());
         }
         
         
         for(Triangle3D t : toTranslate)
-            triangles.add(t.getRotationAroundZ(c.angle).getTranslation(c.getPos().x+0.5, c.getPos().y+0.5, c.level*Cliff.STAGE_HEIGHT));
+            triangles.add(t.getRotationAroundZ(c.shape.angle).getTranslation(c.getPos().x+0.5, c.getPos().y+0.5, c.level*Cliff.STAGE_HEIGHT));
         return triangles;
     }
     
-    private ArrayList<Triangle3D> getTrianglesFromNeihbours(Tile t){
+    private ArrayList<Triangle3D> getNearbyTriangles(Tile t){
         ArrayList<Triangle3D> res = new ArrayList<>();
-        if(t.n != null){
-            res.addAll(getTriangles(t.n));
-            if(t.n.e != null)
-                res.addAll(getTriangles(t.n.e));
-            if(t.n.w != null)
-                res.addAll(getTriangles(t.n.w));
-        }
-        if(t.e != null)
-            res.addAll(getTriangles(t.e));
-        if(t.s != null){
-            res.addAll(getTriangles(t.s));
-            if(t.s.e != null)
-                res.addAll(getTriangles(t.s.e));
-            if(t.s.w != null)
-                res.addAll(getTriangles(t.s.w));
-        }
-        if(t.w != null)
-            res.addAll(getTriangles(t.w));
+        for(Tile neib : t.get8Neighbors())
+            res.addAll(getTriangles(neib));
         res.addAll(getTriangles(t));
         return res;
         
@@ -209,6 +201,59 @@ public class TerrainMesh extends MyMesh {
     
     public void compute(){
         double texScale = 1d/128d;
+        
+//        ArrayList<Triangle3D> triangul = new ArrayList<>();
+//        Point3D[][] points = new Point3D[128][128];
+//        
+//        double noise = 0.2;
+//        
+//        for(Tile t : tiles.keySet()){
+//            if(t.x % 2 != 0)
+//                // pair
+//                points[t.x][t.y] = new Point3D(t.x+MyRandom.between(-noise, noise), t.y+0.25+MyRandom.between(-noise, noise), t.z);
+//            else 
+//                points[t.x][t.y] = new Point3D(t.x+MyRandom.between(-noise, noise), t.y-0.25+MyRandom.between(-noise, noise), t.z);
+//            if(t.isCliff()){
+//                triangul.addAll(getTriangles(t));
+//            }
+//        }
+//
+//        for(int i=0; i<128; i++)
+//            for(int j=0; j<128; j++){
+//                if(i <127 && j<127 && 
+//                        (points[i+1][j].z-points[i][j].z < 1 &&
+//                        points[i][j+1].z-points[i][j].z < 1 &&
+//                        points[i+1][j+1].z-points[i][j].z < 1))
+//                if(i%2!=0){
+//                    triangul.add(new Triangle3D(points[i][j], points[i+1][j+1], points[i][j+1]));
+//                    triangul.add(new Triangle3D(points[i][j], points[i+1][j], points[i+1][j+1]));
+//                } else {
+//                    triangul.add(new Triangle3D(points[i][j], points[i+1][j], points[i][j+1]));
+//                    triangul.add(new Triangle3D(points[i][j+1], points[i+1][j], points[i+1][j+1]));
+//
+//                }
+//            }
+//        
+//        for(Triangle3D t : triangul){
+//            int index = vertices.size();
+//                vertices.add(t.a);
+//                vertices.add(t.b);
+//                vertices.add(t.c);
+//
+//                indices.add(index);
+//                indices.add(index+1);
+//                indices.add(index+2);
+//
+//                normals.add(t.normal);
+//                normals.add(t.normal);
+//                normals.add(t.normal);
+//
+//                textCoord.add(new Point2D(t.a.x, t.a.y).getMult(texScale));
+//                textCoord.add(new Point2D(t.b.x, t.b.y).getMult(texScale));
+//                textCoord.add(new Point2D(t.c.x, t.c.y).getMult(texScale));
+//        }
+        
+        
         for(Tile tile : tiles.keySet()){
             ArrayList<Triangle3D> triangles = new ArrayList<>();
             triangles.addAll(getTriangles(tile));
@@ -226,7 +271,7 @@ public class TerrainMesh extends MyMesh {
                 Point3D normal2 = t.normal;
                 Point3D normal3 = t.normal;
                 
-                for(Triangle3D n : getTrianglesFromNeihbours(tile)){
+                for(Triangle3D n : getNearbyTriangles(tile)){
                     ArrayList<Point3D> shared = t.getCommonPoints(n);
                     if(shared.size() == 3)
                         continue;

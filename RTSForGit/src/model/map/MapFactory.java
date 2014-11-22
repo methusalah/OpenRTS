@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import math.MyRandom;
 import ressources.Image;
 import ressources.ImageReader;
+import tools.LogUtil;
 
 /**
  *
@@ -27,31 +28,20 @@ public class MapFactory {
     public static Map buildMap(String mapPath) {
         Image i = ImageReader.read(mapPath);
         Map m = new Map(i.width, i.height);
+        ArrayList<Cliff> cliffs = new ArrayList<>();
         
         // Assign roles to tiles
         for(int x=0; x<i.width; x++)
             for(int y=0; y<i.height; y++){
                 Color c = i.get(x, i.height-y-1);
                 int level = 0;
-                boolean isCliff = false;
                 if(c.equals(h1Color))
                         level = 0;
                 if(c.equals(h2Color))
                         level = 1;
                 if(c.equals(h3Color))
                         level = 2;
-                if(c.equals(h1cliffColor)){
-                        isCliff = true;
-                        level = 0;
-                }
-                if(c.equals(h2cliffColor)){
-                        isCliff = true;
-                        level = 1;
-                }
-                if(isCliff)
-                    m.tiles[x][y] = new Cliff(x, y, level);
-                else
-                    m.tiles[x][y] = new Tile(x, y, level);
+                m.tiles[x][y] = new Tile(x, y, level);
                     
                 if(c.equals(RampStartColor)){
                     m.tiles[x][y].rampStart = true;
@@ -76,6 +66,20 @@ public class MapFactory {
                         t.n = m.tiles[x][y+1];
             }
         
+        // find cliffs 
+	for(int x=0; x<i.width; x++)
+            for(int y=0; y<i.height; y++){
+                Tile t = m.tiles[x][y];
+                for(Tile neib : t.get8Neighbors())
+                    if(t.level != -1 && neib.level > t.level){
+                        Cliff c = new Cliff(t);
+                        m.tiles[x][y] = c;
+                        cliffs.add(c);
+                        break;
+                    }
+            }
+        
+        
         
         // compute ramps
         for(Tile t : m.getTiles())
@@ -94,14 +98,10 @@ public class MapFactory {
             t.z += MyRandom.between(-0.1, 0.1);
         }
 
-        // compute cliffs direction
+        // compute cliffs' shape
         // warning, compute ramps before because it creates cliffs
-        for(Tile t : m.getTiles()) {
-            if(t.isCliff())
-                ((Cliff)t).ComputeAngle();
-        }
-        
-
+        for(Cliff c : cliffs)
+            c.drawShape();
         return m;
     }
     

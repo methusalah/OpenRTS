@@ -36,6 +36,11 @@ public class Tile {
         
         public Tile(Tile o){
             this(o.x, o.y, o.level);
+            n = o.n;
+            s = o.s;
+            e = o.e;
+            w = o.w;
+            z = o.z;
         }
 	
 	public int getNeighborsMaxLevel(){
@@ -95,5 +100,42 @@ public class Tile {
         points.add(getPos2D().getAddition(1, 1));
         points.add(getPos2D().getAddition(0, 1));
         return new AlignedBoundingBox(points);
+    }
+    
+    public ArrayList<Tile> get4Neighbors(){
+        ArrayList<Tile> res = new ArrayList<>();
+        if(n!=null)
+            res.add(n);
+        if(s!=null)
+            res.add(s);
+        if(e!=null)
+            res.add(e);
+        if(w!=null)
+            res.add(w);
+        return res;
+    }
+    
+    public ArrayList<Tile> get8Neighbors(){
+        ArrayList<Tile> res = new ArrayList<>();
+        if(n!=null){
+            res.add(n);
+            if(n.e!=null)
+                res.add(n.e);
+            if(n.w!=null)
+                res.add(n.w);
+        }
+        if(s!=null){
+            res.add(s);
+            if(s.e!=null)
+                res.add(s.e);
+            if(s.w!=null)
+                res.add(s.w);
+        }
+        if(e!=null)
+            res.add(e);
+        if(w!=null)
+            res.add(w);
+        return res;
+        
     }
 }

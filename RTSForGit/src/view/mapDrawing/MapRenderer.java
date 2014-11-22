@@ -76,13 +76,15 @@ public class MapRenderer {
                     tm.add(t);
                     if(t.isCliff()){
                         Cliff c = (Cliff)t;
-                        CliffMesh mesh = new CliffMesh(c);
+                        if(c.shape == null)
+                            continue;
+                        CliffMesh mesh = new CliffMesh(c.shape);
                         Geometry g = new Geometry("cliff");
                         g.setMesh(Translator.toJMEMesh(mesh));
                         g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
                         g.setShadowMode(RenderQueue.ShadowMode.Receive);
 
-                        g.rotate(0, 0, (float) (c.angle));
+                        g.rotate(0, 0, (float) (c.shape.angle));
                         g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
                         
                         mainNode.attachChild(g);
