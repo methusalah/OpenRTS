@@ -65,7 +65,8 @@ public class MainRTS extends MySimpleApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-                Map m = MapFactory.buildMap("assets/data/maps/map.bmp");
+                MapFactory mapFac = new MapFactory("assets/data/maps/map.bmp");
+                Map m = mapFac.getMap();
                 model = new Model(m);
                 view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
@@ -143,17 +144,17 @@ public class MainRTS extends MySimpleApplication {
             fieldCtrl.updateSelection();
             model.updateConfigs();
             model.commander.updateSelectables(fieldCtrl.getViewCenter());
-//            angle+=tpf*10;
+            angle+=tpf/30;
 //            if(angle>Angle.FLAT*2){
 //                angle = Angle.FLAT;
-////                Vector3f dir = new Vector3f(2, -1, 0);
+//                Vector3f dir = new Vector3f(2, -1, 0);
 //            }
-//
-//            double newX = Math.cos(angle);
-//            double newY = Math.sin(angle);
-//            dir = new Vector3f((float)newX, (float)newY, -1);
-//
-//            view.sunComp1.setDirection(dir);
+
+            double newX = Math.cos(angle);
+            double newY = Math.sin(angle);
+            dir = new Vector3f((float)newX, (float)newY, -1);
+
+            view.sunComp1.setDirection(dir);
         }
 
 	@Override

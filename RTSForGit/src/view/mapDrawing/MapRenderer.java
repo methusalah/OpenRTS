@@ -32,11 +32,12 @@ import com.jme3.util.TangentBinormalGenerator;
 import java.util.Queue;
 
 import math.Angle;
-import model.map.Cliff;
-import model.map.CliffMesh;
+import model.map.cliff.Cliff;
+import model.map.cliff.CliffMesh;
 import model.map.Map;
+import model.map.parcel.ParcelManager;
 import model.map.Tile;
-import model.map.TerrainMesh;
+import model.map.parcel.ParcelMesh;
 
 import tools.LogUtil;
 import view.material.MaterialManager;
@@ -71,9 +72,27 @@ public class MapRenderer {
                 
 		Node shadowCaster = new Node();
 		Node shadowReceiver = new Node();
-                TerrainMesh tm = new TerrainMesh();
+                ParcelManager pm = new ParcelManager(map);
+                
+                for(ParcelMesh mesh : pm.meshes){
+                    Geometry g = new Geometry();
+                    Mesh jmeMesh = Translator.toJMEMesh(mesh);
+    //                TangentBinormalGenerator.generate(mesh);
+                    g.setMesh(jmeMesh);
+    //		g.setMaterial(mm.getLightingTexture("textures/grass.tga"));
+                    g.setMaterial(mm.getTerrain("textures/alphamap.png",
+                            "textures/grass.tga",
+                            "textures/road.jpg",
+                            "textures/road.jpg",
+                            "textures/road_normal.png"));
+                    g.setShadowMode(RenderQueue.ShadowMode.Receive);
+                    g.addControl(new RigidBodyControl(0));
+                    mainNode.attachChild(g);
+                    mainPhysicsSpace.add(g);
+                }
+
+                
 		for(Tile t : map.getTiles()) {
-                    tm.add(t);
                     if(t.isCliff()){
                         Cliff c = (Cliff)t;
                         if(c.shape == null)
@@ -82,7 +101,7 @@ public class MapRenderer {
                         Geometry g = new Geometry("cliff");
                         g.setMesh(Translator.toJMEMesh(mesh));
                         g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
-                        g.setShadowMode(RenderQueue.ShadowMode.Receive);
+                        g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
                         g.rotate(0, 0, (float) (c.shape.angle));
                         g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)t.level*2);
@@ -116,21 +135,6 @@ public class MapRenderer {
 //                            }
                     }
 		}
-                tm.compute();
-                Geometry g = new Geometry();
-                Mesh mesh = Translator.toJMEMesh(tm);
-//                TangentBinormalGenerator.generate(mesh);
-		g.setMesh(mesh);
-//		g.setMaterial(mm.getLightingTexture("textures/grass.tga"));
-		g.setMaterial(mm.getTerrain("textures/alphamap.png",
-                        "textures/grass.tga",
-                        "textures/road.jpg",
-                        "textures/road.jpg",
-                        "textures/road_normal.png"));
-                g.setShadowMode(RenderQueue.ShadowMode.Receive);
-                g.addControl(new RigidBodyControl(0));
-		mainNode.attachChild(g);
-                mainPhysicsSpace.add(g);
 
 		mainNode.attachChild(GeometryBatchFactory.optimize(shadowCaster));
 		mainNode.attachChild(GeometryBatchFactory.optimize(shadowReceiver));

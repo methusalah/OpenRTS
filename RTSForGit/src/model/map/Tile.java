@@ -22,25 +22,11 @@ public class Tile {
         public int level;
 	public double z;
 	
-        public Ramp ramp = null;
-        public boolean rampStart = false;
-        public boolean rampComp = false;
-        
-	
-	public Tile(int x, int y, int level) {
-		this.x = x;
-		this.y = y;
-                this.level = level;
-		this.z = level*STAGE_HEIGHT;
-	}
-        
-        public Tile(Tile o){
-            this(o.x, o.y, o.level);
-            n = o.n;
-            s = o.s;
-            e = o.e;
-            w = o.w;
-            z = o.z;
+        public Tile(TileDef def){
+            x = def.x;
+            y = def.y;
+            z = def.z;
+            level = def.level;
         }
 	
 	public int getNeighborsMaxLevel(){

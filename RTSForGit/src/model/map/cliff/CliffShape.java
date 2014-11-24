@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.CliffShape;
+package model.map.cliff;
 
+import collections.Ring;
 import geometry.Point2D;
 import geometry3D.Point3D;
+import geometry3D.Polygon3D;
 import java.util.ArrayList;
 import math.MyRandom;
-import model.map.Cliff;
 
 /**
  *
@@ -20,12 +21,13 @@ public abstract class CliffShape {
     public final static int NB_VERTEX_ROWS = 13;
     public final static int NB_VERTEX_COL = 3;
     private final static double NOISE_POWER = 0.13;
+    protected final static double MIDDLE_EDGE_VARIATION = 0.1;
     
     Cliff cliff;
     
     public double angle = 0;
     public Point2D pivot;
-    Point3D[][] vertices = null;
+    Point3D[][] grid = null;
 
     ArrayList<Point3D> startingProfile = new ArrayList<>();
     ArrayList<Point3D> profile1 = new ArrayList<>();
@@ -47,7 +49,7 @@ public abstract class CliffShape {
     
     private ArrayList<Point3D> createProfile(){
         ArrayList<Point3D> res = new ArrayList<>();
-        res.add(new Point3D(0.7, 0, 0));
+        res.add(new Point3D(0.6, 0, 0));
         res.add(new Point3D(0.55, 0, 0.07*2));
         res.add(new Point3D(0.48, 0, 0.15*2));
         res.add(new Point3D(0.41, 0, 0.25*2));
@@ -59,7 +61,7 @@ public abstract class CliffShape {
         res.add(new Point3D(0.65, 0, 0.9*2));
         res.add(new Point3D(0.62, 0, 1.01*2));
         res.add(new Point3D(0.40, 0, 1.01*2));
-        res.add(new Point3D(0.30, 0, 1*2));
+        res.add(new Point3D(0.35, 0, 1*2));
         return res;
     }
     
@@ -84,22 +86,27 @@ public abstract class CliffShape {
     
     protected abstract void extrudeProfile();
     
-    public Point3D[][] getVertices(){
-        if(vertices != null)
-            return vertices;
+    public Point3D[][] getGrid(){
+        if(grid != null)
+            return grid;
 
-        vertices = new Point3D[3][NB_VERTEX_ROWS];
+        grid = new Point3D[3][NB_VERTEX_ROWS];
         buildProfiles();
         extrudeProfile();
 
         for(int i=0; i<NB_VERTEX_COL; i++)
             for(int j=0; j<NB_VERTEX_ROWS; j++)
-                vertices[i][j] = vertices[i][j].getAddition(-0.5, -0.5, 0);
-        return vertices;
+                grid[i][j] = grid[i][j].getAddition(-0.5, -0.5, 0);
+        return grid;
     }
     
+    public abstract ArrayList<Ring<Point3D>> getGrounds();
+    
     private CliffShape getParentShape(){
-        return cliff.parent.shape;
+        if(cliff.parent != null)
+            return cliff.parent.shape;
+        else
+            return null;
     }
     
     public abstract Type getType();

@@ -2,11 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.CliffShape;
+package model.map.cliff;
 
 import geometry.Point2D;
 import math.Angle;
-import model.map.Cliff;
 import static model.map.Tile.STAGE_HEIGHT;
 import tools.LogUtil;
 
@@ -16,15 +15,17 @@ import tools.LogUtil;
  */
 public class CliffShapeFactory {
     
-    public static CliffShape getSpecialised(Cliff c){
+    public static CliffShape createShape(Cliff c){
         double angle;
         Point2D pivot = c.getPos2D();
 
         if(c.n == null || c.s == null || c.e == null || c.w == null)
             return null;
         
-        // orthogonal
-        if(c.n.isCliff() && c.s.isCliff()){
+        String s = c.getConnectedCliffs();
+        switch(c.getConnectedCliffs()){
+            // orthogonal
+            case "ns" :
                 if(c.e.z>c.w.z){
                         angle = Angle.FLAT;
                         c.parent = (Cliff)c.s;
@@ -33,7 +34,7 @@ public class CliffShapeFactory {
                         c.parent = (Cliff)c.n;
                 }
                 return new OrthogonalCliffShape(c, angle, pivot);
-        } else if(c.e.isCliff() && c.w.isCliff()) {
+            case "ew" :
                 if(c.n.z>c.s.z){
                         angle = -Angle.RIGHT;
                         c.parent = (Cliff)c.e;
@@ -42,8 +43,8 @@ public class CliffShapeFactory {
                         c.parent = (Cliff)c.w;
                 }
                 return new OrthogonalCliffShape(c, angle, pivot);
-        // digonal	
-        } else if(c.w.isCliff() && c.s.isCliff()) {
+            // digonal
+            case "sw" :
                 angle = 0;
                 if(c.w.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
                         c.parent = (Cliff)c.w;
@@ -52,7 +53,7 @@ public class CliffShapeFactory {
                         c.parent = (Cliff)c.s;
                         return new CornerCliffShape(c, angle, pivot);
                 }
-        } else if(c.s.isCliff() && c.e.isCliff()) {
+            case "se" :
                 angle = Angle.RIGHT;
                 pivot = pivot.getAddition(1, 0);
                 if(c.s.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
@@ -62,7 +63,7 @@ public class CliffShapeFactory {
                         c.parent = (Cliff)c.e;
                         return new CornerCliffShape(c, angle, pivot);
                 }
-        } else if(c.e.isCliff() && c.n.isCliff()) {
+            case "ne" :
                 angle = Angle.FLAT;
                 pivot = pivot.getAddition(1, 1);
                 if(c.e.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
@@ -72,7 +73,7 @@ public class CliffShapeFactory {
                         c.parent = (Cliff)c.n;
                         return new CornerCliffShape(c, angle, pivot);
                 }
-        } else if(c.n.isCliff() && c.w.isCliff()) {
+            case "nw" :
                 angle = -Angle.RIGHT;
                 pivot = pivot.getAddition(0, 1);
                 if(c.n.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
@@ -82,6 +83,41 @@ public class CliffShapeFactory {
                         c.parent = (Cliff)c.w;
                         return new CornerCliffShape(c, angle, pivot);
                 }
-        } else throw new RuntimeException("Error with cliff neighboring."+c.getPos2D());
+            // ending cliff (for ramp end)
+            case "n" :
+                if(c.e.z>c.w.z){
+                        angle = Angle.FLAT;
+                } else {
+                        angle = 0;
+                        c.parent = (Cliff)c.n;
+                }
+                return new OrthogonalCliffShape(c, angle, pivot);
+            case "s" :
+                if(c.e.z>c.w.z){
+                        angle = Angle.FLAT;
+                        c.parent = (Cliff)c.s;
+                } else {
+                        angle = 0;
+                }
+                return new OrthogonalCliffShape(c, angle, pivot);
+            case "e" :
+                if(c.n.z>c.s.z){
+                        angle = -Angle.RIGHT;
+                        c.parent = (Cliff)c.e;
+                } else {
+                        angle = Angle.RIGHT;
+                }
+                return new OrthogonalCliffShape(c, angle, pivot);
+            case "w" :
+                if(c.n.z>c.s.z){
+                        angle = -Angle.RIGHT;
+                } else {
+                        angle = Angle.RIGHT;
+                        c.parent = (Cliff)c.w;
+                }
+                return new OrthogonalCliffShape(c, angle, pivot);
+            default : LogUtil.logger.info("Cliff neighboring is strange for "+c);
+                return null;
+        }
     }
 }

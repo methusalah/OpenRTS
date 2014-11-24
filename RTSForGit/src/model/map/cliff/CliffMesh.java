@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map;
+package model.map.cliff;
 
-import model.map.CliffShape.CliffShape;
+import model.map.cliff.CliffShape;
 import geometry.Point2D;
 import geometry3D.MyMesh;
 import geometry3D.Point3D;
@@ -18,7 +18,7 @@ import tools.LogUtil;
 public class CliffMesh extends MyMesh {
     
     public CliffMesh(CliffShape shape){
-        Point3D[][] grid = shape.getVertices();
+        Point3D[][] grid = shape.getGrid();
         Point2D uv0 = new Point2D(grid[0][0].y, grid[0][0].z);
         double x = uv0.x;
         double y = uv0.y; 
@@ -40,33 +40,46 @@ public class CliffMesh extends MyMesh {
         for(int col=0; col<CliffShape.NB_VERTEX_COL-1; col++){
             pair = !pair;
             for(int row=0; row<CliffShape.NB_VERTEX_ROWS-1; row++){
+                Point3D sw = grid[col][row];
+                Point3D nw = grid[col][row+1];
+                Point3D ne = grid[col+1][row+1];
+                Point3D se = grid[col+1][row];
+
+                Point3D sw2 = sw;
+                Point3D nw2 = nw;
+                Point3D ne2 = ne;
+                Point3D se2 = se;
+
                 double offset = Cliff.STAGE_HEIGHT/CliffShape.NB_VERTEX_ROWS/4;
-                if(!pair)
-                    offset = -Cliff.STAGE_HEIGHT/CliffShape.NB_VERTEX_ROWS/4;
+
                 Triangle3D t1;
                 Triangle3D t2;
                 if(pair){
-                    t1 = new Triangle3D(
-                        grid[col][row].getAddition(0, 0, offset),
-                        grid[col][row+1].getAddition(0, 0, offset),
-                        grid[col+1][row+1].getAddition(0, 0, -offset)
-                        );
-                    t2 = new Triangle3D(
-                        grid[col][row].getAddition(0, 0, offset),
-                        grid[col+1][row+1].getAddition(0, 0, -offset),
-                        grid[col+1][row].getAddition(0, 0, -offset)
-                        );
+                    if(row > 0){
+                        Point3D seBottom = grid[col+1][row-1];
+                        sw2 = sw.getAddition(nw.getSubtraction(sw).getScaled(offset));
+                        se2 = se.getAddition(seBottom.getSubtraction(se).getScaled(offset));
+                    }
+                    if(row < CliffShape.NB_VERTEX_ROWS-2){
+                        Point3D nwTop = grid[col][row+2];
+                        nw2 = nw.getAddition(nwTop.getSubtraction(nw).getScaled(offset));
+                        ne2 = ne.getAddition(se.getSubtraction(ne).getScaled(offset));
+                    }
+                    t1 = new Triangle3D(sw2, nw2, ne2);
+                    t2 = new Triangle3D(sw2, ne2, se2);
                 } else{
-                    t1 = new Triangle3D(
-                        grid[col][row].getAddition(0, 0, offset),
-                        grid[col][row+1].getAddition(0, 0, offset),
-                        grid[col+1][row].getAddition(0, 0, -offset)
-                        );
-                    t2 = new Triangle3D(
-                        grid[col][row+1].getAddition(0, 0, offset),
-                        grid[col+1][row+1].getAddition(0, 0, -offset),
-                        grid[col+1][row].getAddition(0, 0, -offset)
-                        );
+                    if(row > 0){
+                        Point3D swBottom = grid[col][row-1];
+                        sw2 = sw.getAddition(swBottom.getSubtraction(sw).getScaled(offset));
+                        se2 = se.getAddition(ne.getSubtraction(se).getScaled(offset));
+                    }
+                    if(row < CliffShape.NB_VERTEX_ROWS-2){
+                        Point3D neTop = grid[col+1][row+2];
+                        nw2 = nw.getAddition(sw.getSubtraction(nw).getScaled(offset));
+                        ne2 = ne.getAddition(neTop.getSubtraction(ne).getScaled(offset));
+                    }
+                    t1 = new Triangle3D(sw2, nw2, se2);
+                    t2 = new Triangle3D(se2, nw2, ne2);
                 }
                 
                 int index = vertices.size();

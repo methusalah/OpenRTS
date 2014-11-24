@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
+import model.map.cliff.Cliff;
 
 import ressources.Image;
 import tools.LogUtil;
@@ -15,6 +16,7 @@ import tools.LogUtil;
 public class Map {
 	
 	Tile[][] tiles;
+        public ArrayList<Cliff> cliffs = new ArrayList<>();
         ArrayList<Tile> tileList = null;
         ArrayList<Ramp> ramps = new ArrayList<>();
 	public int width;
@@ -25,6 +27,12 @@ public class Map {
             this.height = height;
             tiles = new Tile[width][height];
 	}
+        
+        public void add(Tile t){
+            tiles[t.x][t.y] = t;
+            if(t.isCliff())
+                cliffs.add((Cliff)t);
+        }
         
 	public ArrayList<Tile> getTiles() {
             if(tileList == null){

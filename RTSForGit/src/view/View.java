@@ -104,22 +104,22 @@ public class View {
     	sunComp1.setDirection(new Vector3f(-2.2f, 1.8f, -2f).normalize());
     	rootNode.addLight(sunComp1);
         
-//        FilterPostProcessor fpp = new FilterPostProcessor(am);
-//
-//        int SHADOWMAP_SIZE = 2048;
-////        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
-////        sr.setLight(sunComp1);
-////        vp.addProcessor(sr);
-//        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
-//        sf.setLight(sunComp1);
-//        sf.setEnabled(true);
-//        sf.setShadowZExtend(SHADOWMAP_SIZE);
-//        fpp.addFilter(sf);
-//
-////        SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
-////        fpp.addFilter(ssaoFilter);
-//
-//        vp.addProcessor(fpp);
+        FilterPostProcessor fpp = new FilterPostProcessor(am);
+
+        int SHADOWMAP_SIZE = 4096;
+//        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
+//        sr.setLight(sunComp1);
+//        vp.addProcessor(sr);
+        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
+        sf.setLight(sunComp1);
+        sf.setEnabled(true);
+        sf.setShadowZExtend(SHADOWMAP_SIZE);
+        fpp.addFilter(sf);
+
+//        SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
+//        fpp.addFilter(ssaoFilter);
+
+        vp.addProcessor(fpp);
 
 //    	DirectionalLight second2 = new DirectionalLight();
 //    	second2.setColor(ColorRGBA.White.clone().multLocal(1)); // bright white light

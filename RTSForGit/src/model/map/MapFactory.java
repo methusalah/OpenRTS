@@ -4,6 +4,7 @@
  */
 package model.map;
 
+import model.map.cliff.Cliff;
 import java.awt.Color;
 import java.util.ArrayList;
 import math.MyRandom;
@@ -19,78 +20,51 @@ public class MapFactory {
     private static final Color h1Color = new Color(0, 150, 0, 255);
     private static final Color h2Color = new Color(0, 200, 0, 255);
     private static final Color h3Color = new Color(0, 250, 0, 255);
-    private static final Color h1cliffColor = new Color(250, 150, 0, 255);
-    private static final Color h2cliffColor = new Color(250, 200, 0, 255);
-    private static final Color h3cliffColor = new Color(250, 250, 0, 255);
     private static final Color RampColor = new Color(0, 150, 250, 255);
     private static final Color RampStartColor = new Color(0, 0, 250, 255);
 
-    public static Map buildMap(String mapPath) {
-        Image i = ImageReader.read(mapPath);
-        Map m = new Map(i.width, i.height);
-        ArrayList<Cliff> cliffs = new ArrayList<>();
+    TileDef[][] tileDef;
+    Map map;
+
+    public MapFactory(String mapPath) {
+        Image mapFile = ImageReader.read(mapPath);
+        map = new Map(mapFile.width, mapFile.height);
+        tileDef = new TileDef[map.width][map.height];
+
+        defineTiles(mapFile);
         
-        // Assign roles to tiles
-        for(int x=0; x<i.width; x++)
-            for(int y=0; y<i.height; y++){
-                Color c = i.get(x, i.height-y-1);
-                int level = 0;
-                if(c.equals(h1Color))
-                        level = 0;
-                if(c.equals(h2Color))
-                        level = 1;
-                if(c.equals(h3Color))
-                        level = 2;
-                m.tiles[x][y] = new Tile(x, y, level);
-                    
-                if(c.equals(RampStartColor)){
-                    m.tiles[x][y].rampStart = true;
-                    m.tiles[x][y].rampComp = true;
-                }
-                if(c.equals(RampColor)){
-                    m.tiles[x][y].rampComp = true;
+        // inctanciate map's tiles
+	for(int x=0; x<map.width; x++)
+            for(int y=0; y<map.height; y++){
+                TileDef def = tileDef[x][y];
+                if(def.cliff){
+                    map.add(new Cliff(def));
+                } else {
+                    map.add(new Tile(def));
                 }
             }
 
         // link tiles
-	for(int x=0; x<i.width; x++)
-            for(int y=0; y<i.height; y++){
-                Tile t = m.tiles[x][y];
+	for(int x=0; x<map.width; x++)
+            for(int y=0; y<map.height; y++){
+                Tile t = map.tiles[x][y];
                 if(x>0)
-                        t.w = m.tiles[x-1][y];
-                if(x<i.width-1)
-                        t.e = m.tiles[x+1][y];
+                        t.w = map.tiles[x-1][y];
+                if(x<map.width-1)
+                        t.e = map.tiles[x+1][y];
                 if(y>0)
-                        t.s = m.tiles[x][y-1];
-                if(y<i.height-1)
-                        t.n = m.tiles[x][y+1];
-            }
-        
-        // find cliffs 
-	for(int x=0; x<i.width; x++)
-            for(int y=0; y<i.height; y++){
-                Tile t = m.tiles[x][y];
-                for(Tile neib : t.get8Neighbors())
-                    if(t.level != -1 && neib.level > t.level){
-                        Cliff c = new Cliff(t);
-                        m.tiles[x][y] = c;
-                        cliffs.add(c);
-                        break;
-                    }
+                        t.s = map.tiles[x][y-1];
+                if(y<map.height-1)
+                        t.n = map.tiles[x][y+1];
+                if(t.isCliff())
+                    ((Cliff)t).correctGroundZ();
             }
         
         
         
-        // compute ramps
-        for(Tile t : m.getTiles())
-            if(t.rampStart) {
-                ArrayList<Tile> rampTiles = new ArrayList<Tile>();
-                findRampComp(t, rampTiles);
-                m.ramps.add(new Ramp(rampTiles));
-            }
-
+        
         // add ground height noise
-        for(Tile t : m.getTiles()) {
+        for(Tile t : map.getTiles()) {
             if(!t.isBlocked() &&
                 t.w!=null && !t.w.isBlocked() &&
                 t.s!=null && !t.s.isBlocked() &&
@@ -100,20 +74,85 @@ public class MapFactory {
 
         // compute cliffs' shape
         // warning, compute ramps before because it creates cliffs
-        for(Cliff c : cliffs)
+        for(Cliff c : map.cliffs)
             c.drawShape();
-        return m;
     }
     
-    private static void findRampComp(Tile t, ArrayList<Tile> list) {
-            if((t.rampComp || t.rampStart) && !list.contains(t)){
-                list.add(t);
-                findRampComp(t.n, list);
-                findRampComp(t.s, list);
-                findRampComp(t.e, list);
-                findRampComp(t.w, list);
+    public Map getMap(){
+        return map;
+    }
+    
+    private void defineTiles(Image mapFile){
+        ArrayList<TileDef> rampStarts = new ArrayList<>();
+
+        // Assign roles to tiles
+        // first we read the map to find level variations
+        // with ground level and ramps
+        for(int x=0; x<map.width; x++)
+            for(int y=0; y<map.height; y++){
+                TileDef def = new TileDef();
+                def.x = x;
+                def.y = y;
+                
+                Color c = mapFile.get(x, mapFile.height-y-1);
+                if(c.equals(h1Color))
+                        def.setLevel(0);
+                if(c.equals(h2Color))
+                        def.setLevel(1);
+                if(c.equals(h3Color))
+                        def.setLevel(2);
+                if(c.equals(RampStartColor)){
+                    def.rampStart = true;
+                    rampStarts.add(def);
+                }
+                if(c.equals(RampColor))
+                    def.rampComp = true;
+                tileDef[x][y] = def;
             }
+        // second we compare levels to find cliffs
+        for(int x=0; x<map.width; x++)
+            for(int y=0; y<map.height; y++){
+                if(tileDef[x][y].rampComp)
+                    continue;
+                for(int i=-1; i<=1; i++)
+                    for(int j=-1; j<=1; j++){
+                        if(i==0 && j==0)
+                            continue;
+                        if(x+i>=map.width || x+i < 0 ||
+                                y+j>=map.height || y+j < 0)
+                            continue;
+                        if(tileDef[x][y].level < tileDef[x+i][y+j].level)
+                            tileDef[x][y].cliff = true;
+                
+                    }
+            }
+        // third and last, we read ramps to find the last cliffs
+        for(TileDef def : rampStarts){
+            Ramp ramp = new Ramp();
+            feedRamp(def, ramp);
+            ramp.finalise();
         }
+    }
+    
+    private void feedRamp(TileDef def, Ramp ramp) {
+        if(def.rampStart)
+            ramp.start = def;
+        if(!def.rampComp && !def.rampStart && def.level > ramp.maxLevel)
+            ramp.maxLevel = def.level;
+        if(!def.rampComp && !def.rampStart && def.level < ramp.minLevel)
+            ramp.minLevel = def.level;
+        if((def.rampComp || def.rampStart) && !ramp.defs.contains(def)){
+            ramp.defs.add(def);
+            if(def.y<map.height-1)
+                feedRamp(tileDef[def.x][def.y+1], ramp);
+            if(def.y>0)
+                feedRamp(tileDef[def.x][def.y-1], ramp);
+            if(def.x<map.width-1)
+                feedRamp(tileDef[def.x+1][def.y], ramp);
+            if(def.x>0)
+                feedRamp(tileDef[def.x-1][def.y], ramp);
+        }
+    }
 
     
 }
