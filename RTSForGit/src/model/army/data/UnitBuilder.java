@@ -6,11 +6,11 @@ package model.army.data;
 
 import geometry.Point2D;
 import geometry3D.Point3D;
-import model.army.data.definitions.DefElement;
+import ressources.definitions.DefElement;
 import java.util.HashMap;
 import model.army.ArmyManager;
 import model.army.data.actors.UnitActor;
-import model.army.data.definitions.Definition;
+import ressources.definitions.Definition;
 import model.warfare.Faction;
 
 /**

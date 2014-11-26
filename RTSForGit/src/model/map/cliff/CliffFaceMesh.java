@@ -4,7 +4,7 @@
  */
 package model.map.cliff;
 
-import model.map.cliff.CliffShape;
+import model.map.cliff.faces.NaturalFace;
 import geometry.Point2D;
 import geometry3D.MyMesh;
 import geometry3D.Point3D;
@@ -15,14 +15,14 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class CliffMesh extends MyMesh {
+public class CliffFaceMesh extends MyMesh {
     
-    public CliffMesh(CliffShape shape){
+    public CliffFaceMesh(NaturalFace shape){
         Point3D[][] grid = shape.getGrid();
         Point2D uv0 = new Point2D(grid[0][0].y, grid[0][0].z);
         double x = uv0.x;
         double y = uv0.y; 
-        Point2D uv1 = new Point2D(grid[CliffShape.NB_VERTEX_COL-1][CliffShape.NB_VERTEX_ROWS-1].y, grid[CliffShape.NB_VERTEX_COL-1][CliffShape.NB_VERTEX_ROWS-1].z);
+        Point2D uv1 = new Point2D(grid[NaturalFace.NB_VERTEX_COL-1][NaturalFace.NB_VERTEX_ROWS-1].y, grid[NaturalFace.NB_VERTEX_COL-1][NaturalFace.NB_VERTEX_ROWS-1].z);
         double xScale = 1/(uv1.x-uv0.x);
         double yScale = 1/(uv1.y-uv0.y);
         
@@ -37,9 +37,9 @@ public class CliffMesh extends MyMesh {
 //            LogUtil.logger.info("obtuse");
         
         boolean pair = false;
-        for(int col=0; col<CliffShape.NB_VERTEX_COL-1; col++){
+        for(int col=0; col<NaturalFace.NB_VERTEX_COL-1; col++){
             pair = !pair;
-            for(int row=0; row<CliffShape.NB_VERTEX_ROWS-1; row++){
+            for(int row=0; row<NaturalFace.NB_VERTEX_ROWS-1; row++){
                 Point3D sw = grid[col][row];
                 Point3D nw = grid[col][row+1];
                 Point3D ne = grid[col+1][row+1];
@@ -50,7 +50,7 @@ public class CliffMesh extends MyMesh {
                 Point3D ne2 = ne;
                 Point3D se2 = se;
 
-                double offset = Cliff.STAGE_HEIGHT/CliffShape.NB_VERTEX_ROWS/4;
+                double offset = Cliff.STAGE_HEIGHT/NaturalFace.NB_VERTEX_ROWS/4;
 
                 Triangle3D t1;
                 Triangle3D t2;
@@ -60,7 +60,7 @@ public class CliffMesh extends MyMesh {
                         sw2 = sw.getAddition(nw.getSubtraction(sw).getScaled(offset));
                         se2 = se.getAddition(seBottom.getSubtraction(se).getScaled(offset));
                     }
-                    if(row < CliffShape.NB_VERTEX_ROWS-2){
+                    if(row < NaturalFace.NB_VERTEX_ROWS-2){
                         Point3D nwTop = grid[col][row+2];
                         nw2 = nw.getAddition(nwTop.getSubtraction(nw).getScaled(offset));
                         ne2 = ne.getAddition(se.getSubtraction(ne).getScaled(offset));
@@ -73,7 +73,7 @@ public class CliffMesh extends MyMesh {
                         sw2 = sw.getAddition(swBottom.getSubtraction(sw).getScaled(offset));
                         se2 = se.getAddition(ne.getSubtraction(se).getScaled(offset));
                     }
-                    if(row < CliffShape.NB_VERTEX_ROWS-2){
+                    if(row < NaturalFace.NB_VERTEX_ROWS-2){
                         Point3D neTop = grid[col+1][row+2];
                         nw2 = nw.getAddition(sw.getSubtraction(nw).getScaled(offset));
                         ne2 = ne.getAddition(neTop.getSubtraction(ne).getScaled(offset));

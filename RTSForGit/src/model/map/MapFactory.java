@@ -17,11 +17,14 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class MapFactory {
-    private static final Color h1Color = new Color(0, 150, 0, 255);
-    private static final Color h2Color = new Color(0, 200, 0, 255);
-    private static final Color h3Color = new Color(0, 250, 0, 255);
-    private static final Color RampColor = new Color(0, 150, 250, 255);
-    private static final Color RampStartColor = new Color(0, 0, 250, 255);
+    private static final Color NATURAL_STAGE_1 = new Color(0, 150, 0, 255);
+    private static final Color NATURAL_STAGE_2 = new Color(0, 200, 0, 255);
+    private static final Color NATURAL_STAGE_3 = new Color(0, 250, 0, 255);
+    private static final Color URBAN_STAGE_1 = new Color(150, 250, 0, 255);
+    private static final Color URBAN_STAGE_2 = new Color(200, 250, 0, 255);
+    private static final Color URBAN_STAGE_3 = new Color(250, 250, 0, 255);
+    private static final Color RAMP = new Color(0, 150, 250, 255);
+    private static final Color RAMP_START = new Color(0, 0, 250, 255);
 
     TileDef[][] tileDef;
     Map map;
@@ -95,17 +98,29 @@ public class MapFactory {
                 def.y = y;
                 
                 Color c = mapFile.get(x, mapFile.height-y-1);
-                if(c.equals(h1Color))
+                if(c.equals(NATURAL_STAGE_1))
                         def.setLevel(0);
-                if(c.equals(h2Color))
+                if(c.equals(NATURAL_STAGE_2))
                         def.setLevel(1);
-                if(c.equals(h3Color))
+                if(c.equals(NATURAL_STAGE_3))
                         def.setLevel(2);
-                if(c.equals(RampStartColor)){
+                if(c.equals(URBAN_STAGE_1)){
+                        def.setLevel(0);
+                        def.urban = true;
+                }
+                if(c.equals(URBAN_STAGE_2)){
+                        def.setLevel(1);
+                        def.urban = true;
+                }
+                if(c.equals(URBAN_STAGE_3)){
+                        def.setLevel(2);
+                        def.urban = true;
+                }
+                if(c.equals(RAMP_START)){
                     def.rampStart = true;
                     rampStarts.add(def);
                 }
-                if(c.equals(RampColor))
+                if(c.equals(RAMP))
                     def.rampComp = true;
                 tileDef[x][y] = def;
             }
@@ -121,8 +136,10 @@ public class MapFactory {
                         if(x+i>=map.width || x+i < 0 ||
                                 y+j>=map.height || y+j < 0)
                             continue;
-                        if(tileDef[x][y].level < tileDef[x+i][y+j].level)
+                        if(tileDef[x][y].level < tileDef[x+i][y+j].level){
                             tileDef[x][y].cliff = true;
+                            tileDef[x][y].urban = tileDef[x+i][y+j].urban;
+                        }
                 
                     }
             }
@@ -137,8 +154,10 @@ public class MapFactory {
     private void feedRamp(TileDef def, Ramp ramp) {
         if(def.rampStart)
             ramp.start = def;
-        if(!def.rampComp && !def.rampStart && def.level > ramp.maxLevel)
+        if(!def.rampComp && !def.rampStart && def.level > ramp.maxLevel){
             ramp.maxLevel = def.level;
+            ramp.urban = def.urban;
+        }
         if(!def.rampComp && !def.rampStart && def.level < ramp.minLevel)
             ramp.minLevel = def.level;
         if((def.rampComp || def.rampStart) && !ramp.defs.contains(def)){

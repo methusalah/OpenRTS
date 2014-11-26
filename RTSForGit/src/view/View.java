@@ -9,6 +9,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -116,8 +117,8 @@ public class View {
         sf.setShadowZExtend(SHADOWMAP_SIZE);
         fpp.addFilter(sf);
 
-//        SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
-//        fpp.addFilter(ssaoFilter);
+        SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
+        fpp.addFilter(ssaoFilter);
 
         vp.addProcessor(fpp);
 

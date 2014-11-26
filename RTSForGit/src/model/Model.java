@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.map.Map;
 import model.army.ArmyManager;
 import model.army.data.BuilderLibrary;
-import model.army.data.definitions.DefParser;
+import ressources.definitions.DefParser;
 import tools.LogUtil;
 
 public class Model {
@@ -19,7 +19,7 @@ public class Model {
     public Reporter reporter;
     
 
-    public BuilderLibrary lib;;
+    public BuilderLibrary lib;
     DefParser parser;
     File confFile;
     long lastModified = 0;
@@ -46,7 +46,7 @@ public class Model {
         }
         parser.readFile();
         
-        armyManager.createTestArmy(lib);
+//        armyManager.createTestArmy(lib);
     }
     
     private ArrayList<File> getFiles(String folderPath){

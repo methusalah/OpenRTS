@@ -6,10 +6,10 @@ package model.army.data;
 
 import geometry.Point2D;
 import geometry3D.Point3D;
-import model.army.data.definitions.DefElement;
+import ressources.definitions.DefElement;
 import java.util.HashMap;
 import model.army.ArmyManager;
-import model.army.data.definitions.Definition;
+import ressources.definitions.Definition;
 import model.army.data.effects.DamageEffect;
 import model.army.data.effects.LauncherEffect;
 import model.army.data.effects.PersistentEffect;
@@ -27,7 +27,7 @@ public class EffectBuilder {
     public static final String TYPE_LAUNCHER = "Launcher";
 
     // damage
-    static final String AMOUNT = "Amount"; 
+    static final String AMOUNT = "Amount";
     
     // persistent
     static final String PERIOD_COUNT = "PeriodCount";

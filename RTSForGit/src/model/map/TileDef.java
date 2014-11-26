@@ -16,6 +16,7 @@ public class TileDef {
     public boolean rampComp = false;
     public boolean rampStart = false;
     public boolean cliff = false;
+    public boolean urban = false;
     
     public void setLevel(int level){
         this.level = level;

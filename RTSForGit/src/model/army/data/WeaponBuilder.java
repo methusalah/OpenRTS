@@ -4,9 +4,9 @@
  */
 package model.army.data;
 
-import model.army.data.definitions.DefElement;
+import ressources.definitions.DefElement;
 import java.util.HashMap;
-import model.army.data.definitions.Definition;
+import ressources.definitions.Definition;
 
 /**
  *

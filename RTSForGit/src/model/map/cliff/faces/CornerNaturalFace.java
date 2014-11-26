@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.cliff;
+package model.map.cliff.faces;
 
 import collections.Ring;
 import geometry.Point2D;
@@ -12,14 +12,17 @@ import geometry3D.Triangle3D;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
-import static model.map.cliff.CliffShape.MIDDLE_EDGE_VARIATION;
+import model.map.Asset;
+import model.map.cliff.Cliff;
+import static model.map.cliff.faces.NaturalFace.MIDDLE_EDGE_VARIATION;
+import static model.map.cliff.faces.NaturalFace.TOP_ROCK_PROB;
 
 /**
  *
  * @author Benoît
  */
-public class CornerCliffShape extends CliffShape {
-    public CornerCliffShape(Cliff cliff, double angle, Point2D pivot){
+public class CornerNaturalFace extends NaturalFace {
+    public CornerNaturalFace(Cliff cliff, double angle, Point2D pivot){
         super(cliff, angle, pivot);
     }
 
@@ -41,14 +44,10 @@ public class CornerCliffShape extends CliffShape {
     private ArrayList<Point3D> mirror(ArrayList<Point3D> profile){
         ArrayList<Point3D> res = new ArrayList<>();
         for(Point3D v : profile)
-            res.add(new Point3D(0.5-(v.x-0.5), -v.y, v.z));
+            res.add(new Point3D(1-v.x, -v.y, v.z));
         return res;
     }
 
-    @Override
-    public Type getType() {
-        return Type.Corner;
-    }
 
     @Override
     public ArrayList<Ring<Point3D>> getGrounds() {
@@ -60,21 +59,45 @@ public class CornerCliffShape extends CliffShape {
         Ring<Point3D> lowerPoints = new Ring<>();
         Ring<Point3D> upperPoints = new Ring<>();
 
-        lowerPoints.add(sw);
-        for(int i=0; i<CliffShape.NB_VERTEX_COL; i++)
-            lowerPoints.add(getGrid()[i][0]);
+        if(cliff.urban){
+            lowerPoints.add(sw);
+            lowerPoints.add(se.getAddition(0, 0, -Cliff.STAGE_HEIGHT));
+            lowerPoints.add(nw.getAddition(0, 0, -Cliff.STAGE_HEIGHT));
 
-        upperPoints.add(se);
-        upperPoints.add(ne);
-        upperPoints.add(nw);
-        for(int i=CliffShape.NB_VERTEX_COL-1; i>=0; i--)
-            upperPoints.add(getGrid()[i][CliffShape.NB_VERTEX_ROWS-1]);
+            upperPoints.add(se);
+            upperPoints.add(ne);
+            upperPoints.add(nw);
+            
+        } else {
+            lowerPoints.add(sw);
+            for(int i=0; i<NaturalFace.NB_VERTEX_COL; i++)
+                lowerPoints.add(getGrid()[i][0]);
+
+            upperPoints.add(se);
+            upperPoints.add(ne);
+            upperPoints.add(nw);
+            for(int i=NaturalFace.NB_VERTEX_COL-1; i>=0; i--)
+                upperPoints.add(getGrid()[i][NaturalFace.NB_VERTEX_ROWS-1]);
+        }
         
         ArrayList<Ring<Point3D>> res = new ArrayList<>();
         res.add(lowerPoints);
         res.add(upperPoints);
         return res;
     }
+
+    @Override
+    public ArrayList<Asset> getAssets() {
+        ArrayList<Asset> res = super.getAssets();
+        for(Asset a : res){
+            a.pos = new Point3D(1-a.pos.x, a.pos.y, a.pos.z);
+            a.pos = a.pos.get2D().getRotation(Angle.RIGHT*MyRandom.next()).get3D(a.pos.z);
+            a.pos = a.pos.get2D().getRotation(angle, new Point2D(0.5, 0.5)).get3D(a.pos.z);
+        }
+        return res;
+    }
+    
+    
     
     
 }

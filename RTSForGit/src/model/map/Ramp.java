@@ -27,6 +27,7 @@ public class Ramp {
     int width;
     double angle;
     boolean longitudinal;
+    boolean urban;
     
     
     public void finalise() {
@@ -74,6 +75,7 @@ public class Ramp {
                     !longitudinal && (def.y == minY || def.y == maxY)){
                 def.cliff = true;
                 def.setLevel(minLevel);
+                def.urban = urban;
             } else
                 def.setLevel(maxLevel);
                 

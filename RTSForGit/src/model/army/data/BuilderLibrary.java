@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import math.MyRandom;
 import model.army.ArmyManager;
-import model.army.data.definitions.Definition;
+import ressources.definitions.Definition;
 import model.map.Map;
 import model.warfare.Faction;
 

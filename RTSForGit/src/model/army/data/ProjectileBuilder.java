@@ -5,10 +5,10 @@
 package model.army.data;
 
 import geometry3D.Point3D;
-import model.army.data.definitions.DefElement;
+import ressources.definitions.DefElement;
 import model.army.ArmyManager;
 import model.army.data.actors.ProjectileActor;
-import model.army.data.definitions.Definition;
+import ressources.definitions.Definition;
 import model.army.data.effects.LauncherEffect;
 import tools.LogUtil;
 
