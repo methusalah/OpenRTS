@@ -9,6 +9,7 @@ import geometry.Point2D;
 import geometry3D.MyMesh;
 import geometry3D.Point3D;
 import geometry3D.Triangle3D;
+import model.map.Tile;
 import tools.LogUtil;
 
 /**
@@ -17,8 +18,7 @@ import tools.LogUtil;
  */
 public class CliffFaceMesh extends MyMesh {
     
-    public CliffFaceMesh(NaturalFace shape){
-        Point3D[][] grid = shape.getGrid();
+    public CliffFaceMesh(Point3D[][] grid){
         Point2D uv0 = new Point2D(grid[0][0].y, grid[0][0].z);
         double x = uv0.x;
         double y = uv0.y; 
@@ -50,7 +50,7 @@ public class CliffFaceMesh extends MyMesh {
                 Point3D ne2 = ne;
                 Point3D se2 = se;
 
-                double offset = Cliff.STAGE_HEIGHT/NaturalFace.NB_VERTEX_ROWS/4;
+                double offset = Tile.STAGE_HEIGHT/NaturalFace.NB_VERTEX_ROWS/4;
 
                 Triangle3D t1;
                 Triangle3D t2;

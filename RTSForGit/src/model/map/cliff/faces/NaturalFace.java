@@ -11,8 +11,10 @@ import geometry3D.Polygon3D;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
-import model.map.Asset;
+import model.map.Tile;
+import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
+import model.map.cliff.CliffFaceMesh;
 
 /**
  *
@@ -33,25 +35,23 @@ public abstract class NaturalFace {
     
     Cliff cliff;
     
-    public double angle = 0;
-    public Point2D pivot;
-    Point3D[][] grid = null;
-
-    ArrayList<Point3D> startingProfile = new ArrayList<>();
-    ArrayList<Point3D> profile1 = new ArrayList<>();
-    ArrayList<Point3D> endingProfile = new ArrayList<>();
+    public CliffFaceMesh mesh;
     
-    public NaturalFace(Cliff cliff, double angle, Point2D pivot){
+    ArrayList<Point3D> parentProfile = new ArrayList<>();
+    ArrayList<Point3D> middleProfile = new ArrayList<>();
+    ArrayList<Point3D> childProfile = new ArrayList<>();
+    Point3D[][] grid;
+    
+    public NaturalFace(Cliff cliff){
         this.cliff = cliff;
-        this.angle = angle;
-        this.pivot = pivot;
+        buildMesh();
     }
     
-    protected ArrayList<Point3D> getEndingProfile(){
-        if(endingProfile.isEmpty()){
-            endingProfile = noise(createProfile());
+    protected ArrayList<Point3D> getChildProfile(){
+        if(childProfile.isEmpty()){
+            childProfile = noise(createProfile());
         }
-        return endingProfile;
+        return childProfile;
         
     }
     
@@ -83,21 +83,20 @@ public abstract class NaturalFace {
     }
     
     private void buildProfiles(){
-        if(getParentShape() != null)
-            startingProfile = getParentShape().getEndingProfile();
+        if(getParentFace() != null)
+            parentProfile = getParentFace().getChildProfile();
         else
-            startingProfile = noise(createProfile());
-        profile1 = noise(createProfile());
-        if(endingProfile.isEmpty())
-            endingProfile = noise(createProfile());
+            parentProfile = noise(createProfile());
+        middleProfile = noise(createProfile());
+        if(getChildFace() != null && !getChildFace().parentProfile.isEmpty())
+            childProfile = getChildFace().parentProfile;
+        else if(childProfile.isEmpty())
+            childProfile = noise(createProfile());
     }
     
     protected abstract void extrudeProfile();
     
-    public Point3D[][] getGrid(){
-        if(grid != null)
-            return grid;
-
+    private void buildMesh(){
         grid = new Point3D[3][NB_VERTEX_ROWS];
         buildProfiles();
         extrudeProfile();
@@ -105,16 +104,16 @@ public abstract class NaturalFace {
         for(int i=0; i<NB_VERTEX_COL; i++)
             for(int j=0; j<NB_VERTEX_ROWS; j++)
                 grid[i][j] = grid[i][j].getAddition(-0.5, -0.5, 0);
-        return grid;
+        mesh = new CliffFaceMesh(grid);
     }
     
-    public ArrayList<Asset> getAssets(){
-                ArrayList<Asset> res = new ArrayList<>();
+    public ArrayList<Trinket> getAssets(){
+                ArrayList<Trinket> res = new ArrayList<>();
         if(MyRandom.next()<TOP_ROCK_PROB){
-            Asset a = new Asset("models/env/exterior01/rockA.mesh.xml");
+            Trinket a = new Trinket("models/env/exterior01/rockA.mesh.xml");
             a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(-0.3, 0.3),
                     0, 
-                    MyRandom.between(0.6*Cliff.STAGE_HEIGHT, 0.9*Cliff.STAGE_HEIGHT));
+                    MyRandom.between(0.6* Tile.STAGE_HEIGHT, 0.9*Tile.STAGE_HEIGHT));
             a.scale = MyRandom.between(0.7, 1.4);
             a.rotX = Angle.FLAT*2*MyRandom.next();
             a.rotY = Angle.FLAT*2*MyRandom.next();
@@ -122,10 +121,10 @@ public abstract class NaturalFace {
             res.add(a);
         }
         if(MyRandom.next()<SIDE_ROCK_PROB){
-            Asset a = new Asset("models/env/exterior01/rockA.mesh.xml");
+            Trinket a = new Trinket("models/env/exterior01/rockA.mesh.xml");
             a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(-0.2, 0.2),
                     0,
-                    MyRandom.between(0.1*Cliff.STAGE_HEIGHT, 0.6*Cliff.STAGE_HEIGHT));
+                    MyRandom.between(0.1*Tile.STAGE_HEIGHT, 0.6*Tile.STAGE_HEIGHT));
             a.scale = MyRandom.between(0.7, 1.4);
             a.rotX = Angle.FLAT*2*MyRandom.next();
             a.rotY = Angle.FLAT*2*MyRandom.next();
@@ -133,10 +132,10 @@ public abstract class NaturalFace {
             res.add(a);
         }
         if(MyRandom.next()<BOTTOM_ROCK_PROB){
-            Asset a = new Asset("models/env/exterior01/rockA.mesh.xml");
+            Trinket a = new Trinket("models/env/exterior01/rockA.mesh.xml");
             a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(0.3, 0.8),
                     0,
-                    MyRandom.between(-0.3*Cliff.STAGE_HEIGHT, 0*Cliff.STAGE_HEIGHT));
+                    MyRandom.between(-0.3*Tile.STAGE_HEIGHT, 0*Tile.STAGE_HEIGHT));
             a.scale = MyRandom.between(0.7, 1.4);
             a.rotX = Angle.FLAT*2*MyRandom.next();
             a.rotY = Angle.FLAT*2*MyRandom.next();
@@ -144,16 +143,16 @@ public abstract class NaturalFace {
             res.add(a);
         }
         if(MyRandom.next()<TOP_PLANT_PROB){
-            Asset a = new Asset("models/env/exterior01/GrassB.mesh.xml");
+            Trinket a = new Trinket("models/env/exterior01/GrassB.mesh.xml");
             a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(-0.3, 0.3),
                     0, 
-                    Cliff.STAGE_HEIGHT);
+                    Tile.STAGE_HEIGHT);
             a.scale = MyRandom.between(0.7, 1.4);
             a.rotZ = Angle.FLAT*2*MyRandom.next();
             res.add(a);
         }
         if(MyRandom.next()<BOTTOM_PLANT_PROB){
-            Asset a = new Asset("models/env/exterior01/GrassB.mesh.xml");
+            Trinket a = new Trinket("models/env/exterior01/GrassB.mesh.xml");
             a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(0.7, 1.5),
                     0,
                     0);
@@ -167,15 +166,16 @@ public abstract class NaturalFace {
     
     public abstract ArrayList<Ring<Point3D>> getGrounds();
     
-    private NaturalFace getParentShape(){
+    private NaturalFace getParentFace(){
         if(cliff.parent != null)
-            return cliff.parent.naturalFace;
+            return cliff.parent.cliff.naturalFace;
         else
             return null;
     }
-
-    public boolean isNatural(){
-        return !cliff.urban;
+    private NaturalFace getChildFace(){
+        if(cliff.child != null)
+            return cliff.child.cliff.naturalFace;
+        else
+            return null;
     }
-    
 }

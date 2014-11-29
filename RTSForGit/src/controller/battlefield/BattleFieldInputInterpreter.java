@@ -16,6 +16,7 @@ import view.math.Translator;
 
 public class BattleFieldInputInterpreter extends InputInterpreter {
 	
+    private Commander commander;
     private BattleFieldController fc;
     public Point2D selectionStartOnMap;
     public Point2D selectionStartOnScreen;
@@ -27,7 +28,8 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
     protected final static String SwitchCam = "switchcam";
 
     BattleFieldInputInterpreter(InputManager im, Camera cam, Commander commander, View view, BattleFieldController fc) {
-        super(im, cam, commander, view);
+        super(im, cam, view);
+        this.commander = commander;
         selector.centered = false;
         this.fc = fc;
     }

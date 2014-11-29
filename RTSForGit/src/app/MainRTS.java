@@ -20,6 +20,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import controller.battlefield.BattleFieldController;
+import controller.editor.EditorController;
 import geometry.Point2D;
 import geometry3D.MyMesh;
 import geometry3D.Point3D;
@@ -33,6 +34,7 @@ public class MainRTS extends MySimpleApplication {
 	View view;
 	MapRenderer tr;
 	BattleFieldController fieldCtrl;
+        EditorController editorCtrl;
 
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
@@ -65,13 +67,14 @@ public class MainRTS extends MySimpleApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-                MapFactory mapFac = new MapFactory("assets/data/maps/map.bmp");
-                Map m = mapFac.getMap();
-                model = new Model(m);
+//                MapFactory mapFac = new MapFactory("assets/data/maps/map.bmp");
+//                Map m = mapFac.getMap();
+                model = new Model();
                 view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-                fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+//                fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+                editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
 		
                 view.mapRend.renderTiles();
                 
@@ -87,9 +90,9 @@ public class MainRTS extends MySimpleApplication {
             float maxedTPF = Math.min(tpf, 0.1f);
             model.armyManager.updateMovers(maxedTPF);
             view.actorManager.render();
-            fieldCtrl.updateSelection();
+//            fieldCtrl.updateSelection();
             model.updateConfigs();
-            model.commander.updateSelectables(fieldCtrl.getViewCenter());
+//            model.commander.updateSelectables(fieldCtrl.getViewCenter());
             angle+=tpf/30;
 
             double newX = Math.cos(angle);
@@ -97,6 +100,7 @@ public class MainRTS extends MySimpleApplication {
             dir = new Vector3f((float)newX, (float)newY, -1);
 
             view.sunComp1.setDirection(dir);
+            view.mapRend.update();
         }
 
 	@Override

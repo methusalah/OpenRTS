@@ -52,7 +52,7 @@ public class View {
         this.vp = vp;
         pointer = new Pointer();
 
-        mapRend = new MapRenderer(model.map, mm, am);
+        mapRend = new MapRenderer(model.map, model.parcelManager, mm, am, model.editor);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
         

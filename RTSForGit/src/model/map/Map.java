@@ -5,20 +5,20 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import geometry3D.Triangle3D;
 import java.awt.Color;
+import java.awt.List;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
 import model.map.cliff.Cliff;
+import model.map.parcel.ParcelManager;
 
 import ressources.Image;
 import tools.LogUtil;
 
 public class Map {
 	
-	Tile[][] tiles;
+	public Tile[][] tiles;
         public ArrayList<Cliff> cliffs = new ArrayList<>();
-        ArrayList<Tile> tileList = null;
-        ArrayList<Ramp> ramps = new ArrayList<>();
 	public int width;
 	public int height;
 	
@@ -30,18 +30,14 @@ public class Map {
         
         public void add(Tile t){
             tiles[t.x][t.y] = t;
-            if(t.isCliff())
-                cliffs.add((Cliff)t);
         }
         
 	public ArrayList<Tile> getTiles() {
-            if(tileList == null){
-                tileList = new ArrayList<>();
-                for(int x=0; x<width; x++)
-                        for(int y=0; y<height; y++)
-                                tileList.add(tiles[x][y]);
-            }
-            return tileList;
+            ArrayList<Tile> res = new ArrayList<>();
+            for(int x=0; x<width; x++)
+                    for(int y=0; y<height; y++)
+                            res.add(tiles[x][y]);
+            return res;
 	}
         
         public Tile getTile(int x, int y) {
@@ -164,6 +160,53 @@ public class Map {
         if(getTile(p).isBlocked())
             return false;
         return true;
-        
+    }
+    
+    public ArrayList<Tile> get8Around(Tile t){
+        ArrayList<Tile> res = new ArrayList<>();
+        for(int i=-1; i<=1; i++)
+            for(int j=-1; j<=1; j++){
+                if(i==0 && j==0)
+                    continue;
+                if(t.x+i>=width || t.x+i < 0 ||
+                        t.y+j>=height || t.y+j < 0)
+                    continue;
+                res.add(tiles[t.x+i][t.y+j]);
+            }
+        return res;
+    }
+    public ArrayList<Tile> get9Around(Tile t){
+        ArrayList<Tile> res = new ArrayList<>();
+        for(int i=-1; i<=1; i++)
+            for(int j=-1; j<=1; j++){
+                if(i==0 && j==0)
+                    continue;
+                if(t.x+i>=width || t.x+i < 0 ||
+                        t.y+j>=height || t.y+j < 0)
+                    continue;
+                res.add(tiles[t.x+i][t.y+j]);
+            }
+        res.add(t);
+        return res;
+    }
+    public ArrayList<Tile> get4Around(Tile t){
+        ArrayList<Tile> res = new ArrayList<>();
+        if(t.n != null)
+            res.add(t.n);
+        if(t.s != null)
+            res.add(t.s);
+        if(t.e != null)
+            res.add(t.e);
+        if(t.w != null)
+            res.add(t.w);
+        return res;
+    }
+    
+    public ArrayList<Tile> getTilesWithCliff(){
+        ArrayList<Tile> res = new ArrayList<>();
+        for(Tile t : getTiles())
+            if(t.isCliff())
+                res.add(t);
+        return res;
     }
 }

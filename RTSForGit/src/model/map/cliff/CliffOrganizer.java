@@ -10,6 +10,7 @@ import model.map.cliff.faces.OrthogonalNaturalFace;
 import model.map.cliff.faces.SalientNaturalFace;
 import geometry.Point2D;
 import math.Angle;
+import model.map.Tile;
 import static model.map.Tile.STAGE_HEIGHT;
 import tools.LogUtil;
 
@@ -19,123 +20,124 @@ import tools.LogUtil;
  */
 public class CliffOrganizer {
     
-    public static NaturalFace createShape(Cliff c){
-        double angle;
-        Point2D pivot = c.getPos2D();
+    public static void organize(Cliff c){
+        Tile t = c.tile;
+        Tile n = c.tile.n;
+        Tile s = c.tile.s;
+        Tile e = c.tile.e;
+        Tile w = c.tile.w;
 
-        if(c.n == null || c.s == null || c.e == null || c.w == null)
-            return null;
+        if(n == null || s == null || e == null || w == null){
+            c.type = Cliff.Type.Border;
+            return;
+        }
         
-        String s = c.getConnectedCliffs();
         switch(c.getConnectedCliffs()){
             // orthogonal
             case "ns" :
-                if(c.e.z>c.w.z){
-                        angle = Angle.FLAT;
-                        c.parent = (Cliff)c.s;
+                if(e.level>w.level){
+                        c.angle = Angle.FLAT;
+                        c.setParent(s.cliff);
                 } else {
-                        angle = 0;
-                        c.parent = (Cliff)c.n;
+                        c.angle = 0;
+                        c.setParent(n.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
-                return new OrthogonalNaturalFace(c, angle, pivot);
+                break;
             case "ew" :
-                if(c.n.z>c.s.z){
-                        angle = -Angle.RIGHT;
-                        c.parent = (Cliff)c.e;
+                if(n.level>s.level){
+                        c.angle = -Angle.RIGHT;
+                        c.setParent(e.cliff);
                 } else {
-                        angle = Angle.RIGHT;
-                        c.parent = (Cliff)c.w;
+                        c.angle = Angle.RIGHT;
+                        c.setParent(w.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
-                return new OrthogonalNaturalFace(c, angle, pivot);
+                break;
+
+                
             // digonal
             case "sw" :
-                angle = 0;
-                if(c.w.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
-                        c.parent = (Cliff)c.w;
+                c.angle = 0;
+                if(w.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
+                        c.setParent(w.cliff);
                         c.type = Cliff.Type.Salient;
-                        return new SalientNaturalFace(c, angle, pivot);
                 } else {
-                        c.parent = (Cliff)c.s;
+                        c.setParent(s.cliff);
                         c.type = Cliff.Type.Corner;
-                        return new CornerNaturalFace(c, angle, pivot);
                 }
+                break;
             case "se" :
-                angle = Angle.RIGHT;
-                pivot = pivot.getAddition(1, 0);
-                if(c.s.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
-                        c.parent = (Cliff)c.s;
+                c.angle = Angle.RIGHT;
+                if(s.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
+                        c.setParent(s.cliff);
                         c.type = Cliff.Type.Salient;
-                        return new SalientNaturalFace(c, angle, pivot);
                 } else {
-                        c.parent = (Cliff)c.e;
+                        c.setParent(e.cliff);
                         c.type = Cliff.Type.Corner;
-                        return new CornerNaturalFace(c, angle, pivot);
                 }
+                break;
             case "ne" :
-                angle = Angle.FLAT;
-                pivot = pivot.getAddition(1, 1);
-                if(c.e.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
-                        c.parent = (Cliff)c.e;
+                c.angle = Angle.FLAT;
+                if(e.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
+                        c.setParent(e.cliff);
                         c.type = Cliff.Type.Salient;
-                        return new SalientNaturalFace(c, angle, pivot);
                 } else {
-                        c.parent = (Cliff)c.n;
+                        c.setParent(n.cliff);
                         c.type = Cliff.Type.Corner;
-                        return new CornerNaturalFace(c, angle, pivot);
                 }
+                break;
             case "nw" :
-                angle = -Angle.RIGHT;
-                pivot = pivot.getAddition(0, 1);
-                if(c.n.getNeighborsMaxLevel()>c.getNeighborsMaxLevel()){
-                        c.parent = (Cliff)c.n;
+                c.angle = -Angle.RIGHT;
+                if(n.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
+                        c.setParent(n.cliff);
                         c.type = Cliff.Type.Salient;
-                        return new SalientNaturalFace(c, angle, pivot);
                 } else {
-                        c.parent = (Cliff)c.w;
+                        c.setParent(w.cliff);
                         c.type = Cliff.Type.Corner;
-                        return new CornerNaturalFace(c, angle, pivot);
                 }
+                break;
+                
+                
             // ending cliff (for ramp end)
             case "n" :
-                if(c.e.z>c.w.z){
-                        angle = Angle.FLAT;
+                if(e.z>w.z){
+                        c.angle = Angle.FLAT;
                 } else {
-                        angle = 0;
-                        c.parent = (Cliff)c.n;
+                        c.angle = 0;
+                        c.setParent(n.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
-                return new OrthogonalNaturalFace(c, angle, pivot);
+                break;
             case "s" :
-                if(c.e.z>c.w.z){
-                        angle = Angle.FLAT;
-                        c.parent = (Cliff)c.s;
+                if(e.z>w.z){
+                        c.angle = Angle.FLAT;
+                        c.setParent(s.cliff);
                 } else {
-                        angle = 0;
+                        c.angle = 0;
                 }
                 c.type = Cliff.Type.Orthogonal;
-                return new OrthogonalNaturalFace(c, angle, pivot);
+                break;
             case "e" :
-                if(c.n.z>c.s.z){
-                        angle = -Angle.RIGHT;
-                        c.parent = (Cliff)c.e;
+                if(n.z>s.z){
+                        c.angle = -Angle.RIGHT;
+                        c.setParent(e.cliff);
                 } else {
-                        angle = Angle.RIGHT;
+                        c.angle = Angle.RIGHT;
                 }
                 c.type = Cliff.Type.Orthogonal;
-                return new OrthogonalNaturalFace(c, angle, pivot);
+                break;
             case "w" :
-                if(c.n.z>c.s.z){
-                        angle = -Angle.RIGHT;
+                if(n.z>s.z){
+                        c.angle = -Angle.RIGHT;
                 } else {
-                        angle = Angle.RIGHT;
-                        c.parent = (Cliff)c.w;
+                        c.angle = Angle.RIGHT;
+                        c.setParent(w.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
-                return new OrthogonalNaturalFace(c, angle, pivot);
-            default : LogUtil.logger.info("Cliff neighboring is strange for "+c);
-                return null;
+                break;
+            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.tile.getPos2D()+" : "+c.getConnectedCliffs());
+                c.type = Cliff.Type.Border;
         }
     }
 }

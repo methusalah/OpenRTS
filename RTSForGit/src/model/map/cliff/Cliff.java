@@ -1,64 +1,76 @@
 package model.map.cliff;
 
+import java.util.ArrayList;
 import math.Angle;
 import model.map.Tile;
 import model.map.cliff.faces.NaturalFace;
 import model.map.cliff.CliffOrganizer;
 import static model.map.Tile.STAGE_HEIGHT;
 import model.map.TileDef;
+import model.map.cliff.faces.CornerNaturalFace;
 import model.map.cliff.faces.ManmadeFace;
+import model.map.cliff.faces.OrthogonalNaturalFace;
+import model.map.cliff.faces.SalientNaturalFace;
 import tools.LogUtil;
 
-public class Cliff extends Tile {
-    public enum Type{Orthogonal, Salient, Corner}
+public class Cliff {
+    public enum Type{Orthogonal, Salient, Corner, Border}
     
-    public Cliff parent;
+    public Tile tile;
+    public Tile parent;
+    public Tile child;
+    public double angle = 0;
+    public Type type;
 
     public NaturalFace naturalFace;
     public ManmadeFace manmadeFace;
-    public boolean urban;
+    public ArrayList<Trinket> trinkets;
     
-    public Type type;
-
-    public Cliff(TileDef def) {
-        super(def);
-        if(!def.cliff)
-            throw new IllegalArgumentException("Trying to create a cliff with a non cliff definition.");
-        urban = def.urban;
+    public Cliff(Tile t) {
+        this.tile = t;
     }
     
     public void correctGroundZ(){
-        if(w!=null && w.level > level ||
-                s!=null && s.level > level ||
-                w!=null && w.s!=null && w.s.level > level)
-            z = (level+1)*STAGE_HEIGHT;
+        if(tile.w!=null && tile.w.level > tile.level ||
+                tile.s!=null && tile.s.level > tile.level ||
+                tile.w!=null && tile.w.s!=null && tile.w.s.level > tile.level)
+            tile.z = (tile.level+1)*STAGE_HEIGHT;
     }
 
-    @Override
-    public boolean isBlocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCliff() {
-        return true;
+    public void connect(){
+        correctGroundZ();
+        CliffOrganizer.organize(this);
     }
     
-    
-    public void drawShape(){
-        naturalFace = CliffOrganizer.createShape(this);
+    public void buildFace(){
+        switch (type){
+            case Orthogonal : naturalFace = new OrthogonalNaturalFace(this); break;
+            case Salient : naturalFace = new SalientNaturalFace(this); break;
+            case Corner : naturalFace = new CornerNaturalFace(this); break;
+        }
     }
     
     public String getConnectedCliffs(){
         String res = new String();
-        if(n != null && n.isCliff())
+        if(isNeighborCliff(tile.n))
             res = res.concat("n");
-        if(s != null && s.isCliff())
+        if(isNeighborCliff(tile.s))
             res = res.concat("s");
-        if(e != null && e.isCliff())
+        if(isNeighborCliff(tile.e))
             res = res.concat("e");
-        if(w != null && w.isCliff())
+        if(isNeighborCliff(tile.w))
             res = res.concat("w");
         return res;
     }
+    
+    private boolean isNeighborCliff(Tile t){
+        return t != null && t.level == tile.level && t.isCliff();
+    }
+    
+    public void setParent(Cliff o){
+        parent = o.tile;
+        o.child = this.tile;
+    }
+    
+    
 }

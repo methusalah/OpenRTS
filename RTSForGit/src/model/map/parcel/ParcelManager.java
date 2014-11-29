@@ -6,6 +6,7 @@ package model.map.parcel;
 
 import java.util.ArrayList;
 import model.map.Map;
+import model.map.Tile;
 import tools.LogUtil;
 
 /**
@@ -33,12 +34,25 @@ public class ParcelManager {
         for(int i=0; i<map.width; i++)
             for(int j=0; j<map.height; j++){
                 int index = (int)(Math.floor(j/RESOLUTION)*Math.ceil((double)map.width/RESOLUTION)+Math.floor(i/RESOLUTION));
-//                LogUtil.logger.info("tile "+i+","+j+" : index = "+index);
                 meshes.get(index).add(map.getTile(i, j));
             }
         
         for(ParcelMesh mesh : meshes)
             mesh.compute();
+    }
+    
+    public ArrayList<ParcelMesh> getUpdatedParcelsFor(ArrayList<Tile> tiles){
+        ArrayList<ParcelMesh> res = new ArrayList<>();
+        for(Tile t : tiles){
+            int index = (int)(Math.floor(t.y/RESOLUTION)*Math.ceil((double)map.width/RESOLUTION)+Math.floor(t.x/RESOLUTION));
+            if(!res.contains(meshes.get(index)))
+                res.add(meshes.get(index));
+        }
+        
+        for(ParcelMesh mesh : res)
+            mesh.rebuild();
+            
+        return res;
     }
     
 }

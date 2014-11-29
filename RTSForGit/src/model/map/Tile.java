@@ -8,72 +8,79 @@ import geometry3D.Point3D;
 import java.util.ArrayList;
 import java.util.Collection;
 import math.MyRandom;
+import model.map.cliff.Cliff;
 
 public class Tile {
     
     public static final double STAGE_HEIGHT = 2;
-	public Tile n;
-	public Tile s;
-	public Tile e;
-	public Tile w;
+    public Tile n;
+    public Tile s;
+    public Tile e;
+    public Tile w;
 
-        public int x;
-	public int y;
-        public int level;
-	public double z;
-	
-        public Tile(TileDef def){
-            x = def.x;
-            y = def.y;
-            z = def.z;
-            level = def.level;
-        }
-	
-	public int getNeighborsMaxLevel(){
-		int res = 0;
-		if(n != null && n.level>res)
-			res = n.level;
+    public int x;
+    public int y;
+    public int level;
+    public double z;
 
-		if(s != null && s.level>res)
-			res = s.level;
-		
-		if(e != null && e.level>res)
-			res = e.level;
-		
-		if(w != null && w.level>res)
-			res = w.level;
-		return res;
-	}
+    public Cliff cliff;
 
-        public int getNeighborsMinLevel(){
-		int res = Integer.MAX_VALUE;
-		if(n != null && n.level<res)
-			res = n.level;
+    public Tile(TileDef def){
+        x = def.x;
+        y = def.y;
+        z = def.z;
+        level = def.level;
+    }
+    public Tile(int x, int y){
+        this.x = x;
+        this.y = y;
+        z = 0;
+        level = 0;
+    }
 
-		if(s != null && s.level<res)
-			res = s.level;
-		
-		if(e != null && e.level<res)
-			res = e.level;
-		
-		if(w != null && w.level<res)
-			res = w.level;
-		return res;
-	}
-	
-	public boolean isBlocked(){
-		return false;
-        }
-        
-        public boolean isCliff(){
-            return false;
-        }
-        
-        
-        
-        public Point3D getPos(){
-            return new Point3D(x, y, z);
-        }
+    public int getNeighborsMaxLevel(){
+            int res = 0;
+            if(n != null && n.level>res)
+                    res = n.level;
+
+            if(s != null && s.level>res)
+                    res = s.level;
+
+            if(e != null && e.level>res)
+                    res = e.level;
+
+            if(w != null && w.level>res)
+                    res = w.level;
+            return res;
+    }
+
+    public int getNeighborsMinLevel(){
+            int res = Integer.MAX_VALUE;
+            if(n != null && n.level<res)
+                    res = n.level;
+
+            if(s != null && s.level<res)
+                    res = s.level;
+
+            if(e != null && e.level<res)
+                    res = e.level;
+
+            if(w != null && w.level<res)
+                    res = w.level;
+            return res;
+    }
+
+    public boolean isBlocked(){
+        return isCliff();
+    }
+
+    public boolean isCliff(){
+        return cliff != null;
+    }
+
+    public Point3D getPos(){
+        return new Point3D(x, y, z);
+    }
 
     public Point2D getPos2D() {
         return new Point2D(x, y);
@@ -123,5 +130,10 @@ public class Tile {
             res.add(w);
         return res;
         
+    }
+    
+    public void setCliff(){
+        if(!isCliff())
+            cliff = new Cliff(this);
     }
 }

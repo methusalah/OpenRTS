@@ -1,10 +1,14 @@
 package model;
 
+import geometry.Point2D;
 import java.io.File;
 import java.util.ArrayList;
 import model.map.Map;
 import model.army.ArmyManager;
 import model.army.data.BuilderLibrary;
+import model.map.MapEditor;
+import model.map.MapFactory;
+import model.map.parcel.ParcelManager;
 import ressources.definitions.DefParser;
 import tools.LogUtil;
 
@@ -17,6 +21,8 @@ public class Model {
     
     public Commander commander;
     public Reporter reporter;
+    public MapEditor editor;
+    public ParcelManager parcelManager;
     
 
     public BuilderLibrary lib;
@@ -25,8 +31,18 @@ public class Model {
     long lastModified = 0;
     double nextUpdate = 0;
     
-    public Model(Map map) {
-        this.map = map;
+    public Model() {
+        this.map = MapFactory.getNewMap(128, 128);
+        parcelManager = new ParcelManager(map);
+        editor = new MapEditor(map, parcelManager);
+
+//        for(int x=10; x<20; x++)
+//            for(int y=10; y<20; y++)
+//                editor.levelUp(new Point2D(x, y));
+//        editor.levelUp(new Point2D(11, 11));
+//        editor.incHeight(new Point2D(5, 5));
+//        editor.incHeight(new Point2D(5, 5));
+        
         armyManager = new ArmyManager();
         commander = new Commander(armyManager, map);
         

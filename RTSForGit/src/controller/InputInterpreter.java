@@ -11,14 +11,12 @@ import model.Commander;
 
 public abstract class InputInterpreter implements AnalogListener, ActionListener {
 
-	protected Commander commander;
 	protected View view;
 	protected SpatialSelector selector;
 	public boolean isActive = false;
 	protected InputManager inputManager;
 	
-	protected InputInterpreter(InputManager im, Camera c, Commander commander, View v){
-		this.commander = commander;
+	protected InputInterpreter(InputManager im, Camera c, View v){
 		view = v;
 		inputManager = im;
 		selector = new SpatialSelector(c, im, v);
