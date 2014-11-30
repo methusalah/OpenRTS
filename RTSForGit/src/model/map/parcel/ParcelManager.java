@@ -41,6 +41,12 @@ public class ParcelManager {
             mesh.compute();
     }
     
+    public ArrayList<ParcelMesh> getUpdatedParcelsFor(Tile t){
+        ArrayList<Tile> tiles = new ArrayList<>();
+        tiles.add(t);
+        return getUpdatedParcelsFor(tiles);
+    }
+
     public ArrayList<ParcelMesh> getUpdatedParcelsFor(ArrayList<Tile> tiles){
         ArrayList<ParcelMesh> res = new ArrayList<>();
         for(Tile t : tiles){

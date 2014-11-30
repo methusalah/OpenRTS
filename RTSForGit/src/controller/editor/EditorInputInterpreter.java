@@ -24,6 +24,8 @@ public class EditorInputInterpreter extends InputInterpreter {
 
     protected final static String leftclic = "lc";
     protected final static String rightclic = "rc";
+    protected final static String r = "r";
+    protected final static String f = "f";
 
     EditorInputInterpreter(InputManager im, Camera cam, MapEditor editor, View view, EditorController fc) {
         super(im, cam, view);
@@ -37,9 +39,13 @@ public class EditorInputInterpreter extends InputInterpreter {
             String[] mappings = new String[]{
                             leftclic,
                             rightclic,
+                            r,
+                            f,
             };
             inputManager.addMapping(leftclic, new MouseButtonTrigger(0));
             inputManager.addMapping(rightclic, new MouseButtonTrigger(1));
+            inputManager.addMapping(r, new KeyTrigger(KeyInput.KEY_R));
+            inputManager.addMapping(f, new KeyTrigger(KeyInput.KEY_F));
 
 
             inputManager.addListener(this, mappings);
@@ -57,6 +63,10 @@ public class EditorInputInterpreter extends InputInterpreter {
                 editor.levelUp(getSpatialCoord());
         } else if (name.equals(rightclic) && !isPressed){
                 editor.levelDown(getSpatialCoord());
+        } else if (name.equals(r) && !isPressed){
+                editor.incHeight(getSpatialCoord());
+        } else if (name.equals(f) && !isPressed){
+                editor.decHeight(getSpatialCoord());
         }
     }
 

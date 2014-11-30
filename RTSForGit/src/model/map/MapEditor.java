@@ -66,11 +66,15 @@ public class MapEditor {
     }
     
     public void incHeight(Point2D p){
-        map.getTile(p).elevation+=0.1;
+        Tile tile = map.getTile(p);
+        tile.elevation+=0.1;
+        updatedParcels.addAll(pm.getUpdatedParcelsFor(tile));
     }
     
     public void decHeight(Point2D p){
-        map.getTile(p).elevation-=0.1;
+        Tile tile = map.getTile(p);
+        tile.elevation-=0.1;
+        updatedParcels.addAll(pm.getUpdatedParcelsFor(tile));
     }
     
     private void update(ArrayList<Tile> tiles){
