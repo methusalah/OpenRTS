@@ -53,7 +53,7 @@ public class EditorController extends Controller {
     }
     
     public void drawActiveArea(){
-        Point2D coord = ss.getCoord(view.mapRend.logicalTerrainNode);
+        Point2D coord = ss.getCoord(view.mapRend.gridNode);
         if(coord != null)
             view.mapRend.drawActiveArea(coord);
     }

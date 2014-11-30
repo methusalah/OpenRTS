@@ -62,8 +62,9 @@ public class MapRenderer {
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
     private HashMap<Tile, Spatial> tilesSpatial = new HashMap<>();
-    public  Node logicalTerrainNode = new Node();
-    private LogicalTerrainMesh ltm;
+    public  Node gridNode = new Node();
+    private Geometry gridGeom;
+    private GridMesh gridMesh;
     private Node activeArea = new Node();
 	
 	public MapRenderer(Map map, ParcelManager parcelManager, MaterialManager mm, AssetManager am, MapEditor editor) {
@@ -85,18 +86,18 @@ public class MapRenderer {
 	
 	public void renderTiles() {
 		LogUtil.logger.info("rendering ground");
-                ltm = new LogicalTerrainMesh(map);
-                Geometry g = new Geometry();
-                g.setMesh(Translator.toJMEMesh(ltm));
-                Material mat = mm.getColor(ColorRGBA.Blue);
+                gridMesh = new GridMesh(map);
+                gridGeom = new Geometry();
+                gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
+                Material mat = mm.getColor(ColorRGBA.Black);
                 mat.getAdditionalRenderState().setWireframe(true);
-                g.setMaterial(mat);//mm.getLightingTexture("textures/grass.tga"));
+                gridGeom.setMaterial(mat);//mm.getLightingTexture("textures/grass.tga"));
                 
-                logicalTerrainNode.attachChild(g);
-                mainNode.attachChild(logicalTerrainNode);
+                gridNode.attachChild(gridGeom);
+                mainNode.attachChild(gridNode);
 
                 for(ParcelMesh mesh : parcelManager.meshes){
-                    g = new Geometry();
+                    Geometry g = new Geometry();
                     Mesh jmeMesh = Translator.toJMEMesh(mesh);
     //                TangentBinormalGenerator.generate(mesh);
                     g.setMesh(jmeMesh);
@@ -117,7 +118,7 @@ public class MapRenderer {
                     if(t.cliff.naturalFace == null)
                         continue;
                     if(t.cliff.manmadeFace == null){
-                        g = new Geometry();
+                        Geometry g = new Geometry();
                         g.setMesh(Translator.toJMEMesh(t.cliff.naturalFace.mesh));
                         g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
                         g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -168,8 +169,8 @@ public class MapRenderer {
         public void update(){
             ArrayList<Tile> updated = editor.grabUpdatedTiles();
             if(!updated.isEmpty()){
-                ltm.update();
-                ((Geometry)logicalTerrainNode.getChildren().get(0)).setMesh(Translator.toJMEMesh(ltm));
+                gridMesh.update();
+                ((Geometry)gridNode.getChildren().get(0)).setMesh(Translator.toJMEMesh(gridMesh));
             }
             for(Tile t : updated){
                 if(t.isCliff()){
@@ -230,5 +231,13 @@ public class MapRenderer {
             if(neib.level>z)
                 z = neib.level;
         activeArea.setLocalTranslation(t.x, t.y, (float)(z*Tile.STAGE_HEIGHT));
+    }
+    
+    public void toggleGrid(){
+        if(mainNode.hasChild(gridNode))
+            mainNode.detachChild(gridNode);
+        else
+            mainNode.attachChild(gridNode);
+            
     }
 }

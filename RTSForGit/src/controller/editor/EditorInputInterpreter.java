@@ -26,6 +26,7 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String rightclic = "rc";
     protected final static String r = "r";
     protected final static String f = "f";
+    protected final static String GridDisplay = "GridDisplay";
 
     EditorInputInterpreter(InputManager im, Camera cam, MapEditor editor, View view, EditorController fc) {
         super(im, cam, view);
@@ -41,11 +42,13 @@ public class EditorInputInterpreter extends InputInterpreter {
                             rightclic,
                             r,
                             f,
+                            GridDisplay,
             };
             inputManager.addMapping(leftclic, new MouseButtonTrigger(0));
             inputManager.addMapping(rightclic, new MouseButtonTrigger(1));
             inputManager.addMapping(r, new KeyTrigger(KeyInput.KEY_R));
             inputManager.addMapping(f, new KeyTrigger(KeyInput.KEY_F));
+            inputManager.addMapping(GridDisplay, new KeyTrigger(KeyInput.KEY_G));
 
 
             inputManager.addListener(this, mappings);
@@ -67,6 +70,8 @@ public class EditorInputInterpreter extends InputInterpreter {
                 editor.incHeight(getSpatialCoord());
         } else if (name.equals(f) && !isPressed){
                 editor.decHeight(getSpatialCoord());
+        } else if (name.equals(GridDisplay) && !isPressed){
+                controller.view.mapRend.toggleGrid();
         }
     }
 
@@ -84,6 +89,6 @@ public class EditorInputInterpreter extends InputInterpreter {
     }
         
     private Point2D getSpatialCoord(){
-        return selector.getCoord(view.mapRend.logicalTerrainNode);
+        return selector.getCoord(view.mapRend.gridNode);
     }
 }
