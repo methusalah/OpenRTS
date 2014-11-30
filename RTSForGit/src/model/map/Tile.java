@@ -21,20 +21,19 @@ public class Tile {
     public int x;
     public int y;
     public int level;
-    public double z;
+    public double elevation = 0;
+    private boolean elevatedForCliff = false;
 
     public Cliff cliff;
 
     public Tile(TileDef def){
         x = def.x;
         y = def.y;
-        z = def.z;
         level = def.level;
     }
     public Tile(int x, int y){
         this.x = x;
         this.y = y;
-        z = 0;
         level = 0;
     }
 
@@ -79,7 +78,7 @@ public class Tile {
     }
 
     public Point3D getPos(){
-        return new Point3D(x, y, z);
+        return new Point3D(x, y, getZ());
     }
 
     public Point2D getPos2D() {
@@ -135,5 +134,28 @@ public class Tile {
     public void setCliff(){
         if(!isCliff())
             cliff = new Cliff(this);
+    }
+    public void unsetCliff(){
+//        if(cliff.parent != null)
+//            cliff.parent.cliff.child = null;
+        cliff = null;
+    }
+    
+    public void correctElevation(){
+        if(elevatedForCliff)
+            elevatedForCliff = false;
+        
+        if(isCliff() &&
+                (w!=null && w.level > level ||
+                s!=null && s.level > level ||
+                w!=null && w.s!=null && w.s.level > level))
+            elevatedForCliff = true;
+    }
+    
+    public double getZ(){
+        if(elevatedForCliff)
+            return (level+1)*STAGE_HEIGHT+elevation;
+        else
+            return level*STAGE_HEIGHT+elevation;
     }
 }

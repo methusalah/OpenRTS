@@ -59,17 +59,17 @@ public class ParcelMesh extends MyMesh {
         Point3D nw;
         if(t.x % 2 != 0){
             // pair
-            sw = new Point3D(t.x, t.y+offset, t.z);
-            se = new Point3D(t.e.x, t.e.y-offset, t.e.z);
-            ne = new Point3D(t.e.n.x, t.e.n.y-offset, t.e.n.z);
-            nw = new Point3D(t.n.x, t.n.y+offset, t.n.z);
+            sw = new Point3D(t.x, t.y+offset, t.getZ());
+            se = new Point3D(t.e.x, t.e.y-offset, t.e.getZ());
+            ne = new Point3D(t.e.n.x, t.e.n.y-offset, t.e.n.getZ());
+            nw = new Point3D(t.n.x, t.n.y+offset, t.n.getZ());
             triangles.add(new Triangle3D(sw, se, ne));
             triangles.add(new Triangle3D(sw, ne, nw));
         } else {
-            sw = new Point3D(t.x, t.y-offset, t.z);
-            se = new Point3D(t.e.x, t.e.y+offset, t.e.z);
-            ne = new Point3D(t.e.n.x, t.e.n.y+offset, t.e.n.z);
-            nw = new Point3D(t.n.x, t.n.y-offset, t.n.z);
+            sw = new Point3D(t.x, t.y-offset, t.getZ());
+            se = new Point3D(t.e.x, t.e.y+offset, t.e.getZ());
+            ne = new Point3D(t.e.n.x, t.e.n.y+offset, t.e.n.getZ());
+            nw = new Point3D(t.n.x, t.n.y-offset, t.n.getZ());
             triangles.add(new Triangle3D(sw, se, nw));
             triangles.add(new Triangle3D(nw, se, ne));
         }

@@ -101,6 +101,7 @@ public class MainRTS extends MySimpleApplication {
 
             view.sunComp1.setDirection(dir);
             view.mapRend.update();
+            editorCtrl.drawActiveArea();
         }
 
 	@Override

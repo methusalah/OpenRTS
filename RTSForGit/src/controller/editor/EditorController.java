@@ -42,7 +42,7 @@ public class EditorController extends Controller {
         this.im = im;
         this.view = view;
         ss = new SpatialSelector(cam, im, view);
-        ss.centered = true;
+        ss.centered = false;
         
         model.commander.registerListener(this);
         
@@ -52,12 +52,14 @@ public class EditorController extends Controller {
         im.setCursorVisible(true);
     }
     
+    public void drawActiveArea(){
+        Point2D coord = ss.getCoord(view.mapRend.logicalTerrainNode);
+        if(coord != null)
+            view.mapRend.drawActiveArea(coord);
+    }
+
     @Override
     public void manageEvent() {
         gui.update();
-    }
-    
-    public Point2D getViewCenter(){
-        return ss.getCoord(view.rootNode);
     }
 }

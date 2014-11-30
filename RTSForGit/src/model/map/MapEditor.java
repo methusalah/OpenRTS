@@ -6,6 +6,7 @@ package model.map;
 
 import geometry.Point2D;
 import java.util.ArrayList;
+import static model.map.Tile.STAGE_HEIGHT;
 import model.map.cliff.Cliff;
 import model.map.parcel.ParcelManager;
 import model.map.parcel.ParcelMesh;
@@ -27,47 +28,78 @@ public class MapEditor {
     }
     
     public void levelUp(Point2D p){
-        Tile t = map.getTile(p);
-        if(t.level < 2){
-            t.level++;
-            t.z = t.level*Tile.STAGE_HEIGHT;
-        }
-        update(t);
+        Tile tile = map.getTile(p);
+        int level = tile.level+1;
+        if(level > 2)
+            level = 2;
+        if(leadsToDoubleCliff(tile, level))
+            return;
+        
+        ArrayList<Tile> group = new ArrayList<>();
+        group.add(tile);
+        for(Tile t : group)
+            t.level = level;
+        update(group);
     }
     
     public void levelDown(Point2D p){
-        Tile t = map.getTile(p);
-        if(t.level >0){
-            t.level--;
-            t.z -= t.level*Tile.STAGE_HEIGHT;
-        }
-        update(t);
+        Tile tile = map.getTile(p);
+        int level = tile.level-1;
+        if(level < 0)
+            level = 0;
+        if(leadsToDoubleCliff(tile, level))
+            return;
+        
+        ArrayList<Tile> group = new ArrayList<>();
+        group.add(tile);
+        for(Tile t : group)
+            t.level = level;
+        update(group);
+    }
+    
+    private boolean leadsToDoubleCliff(Tile t, int level){
+        for(Tile n : map.get8Around(t))
+            if(n.isCliff() &&
+                    (level > n.level+1 || level < n.level))
+                return true;
+        return false;
     }
     
     public void incHeight(Point2D p){
-        map.getTile(p).z+=0.1;
+        map.getTile(p).elevation+=0.1;
     }
     
     public void decHeight(Point2D p){
-        map.getTile(p).z-=0.1;
+        map.getTile(p).elevation-=0.1;
     }
     
-    private void update(Tile t){
-        updatedTiles.addAll(map.get9Around(t));
-        for(Tile n : updatedTiles){
+    private void update(ArrayList<Tile> tiles){
+        updatedTiles.clear();
+        updatedTiles.addAll(tiles);
+        for(Tile t : tiles)
+            for(Tile n : map.get9Around(t))
+                if(!updatedTiles.contains(n))
+                    updatedTiles.add(n);
+        
+        for(Tile t : updatedTiles){
             boolean diff = false;
-            for(Tile nn : map.get8Around(n))
-                if(n.level < nn.level){
+            for(Tile nn : map.get8Around(t))
+                if(t.level < nn.level){
                     diff = true;
                     break;
                 }
-            if(!n.isCliff() && diff)
-                n.setCliff();
-            if(n.isCliff() && !diff)
-                n.cliff = null;
+            if(!t.isCliff() && diff)
+                t.setCliff();
+            if(t.isCliff()){
+                if(!diff)
+                    t.unsetCliff();
+                else if(t.cliff.type == Cliff.Type.Bugged)
+                    t.cliff.type = null;
+            }
         }
 
         for(Tile n : updatedTiles){
+            n.correctElevation();
             if(n.isCliff())
                 n.cliff.connect();
         }

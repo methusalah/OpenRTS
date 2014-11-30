@@ -73,6 +73,9 @@ public class Map {
     }
 
     public Tile getTile(Point2D p) {
+        if(p.x<0 || p.x>width ||
+                p.y<0 || p.y>height)
+            return null;
         return getTile((int)Math.floor(p.x), (int)Math.floor(p.y));
     }
 
@@ -179,6 +182,18 @@ public class Map {
         ArrayList<Tile> res = new ArrayList<>();
         for(int i=-1; i<=1; i++)
             for(int j=-1; j<=1; j++){
+                if(t.x+i>=width || t.x+i < 0 ||
+                        t.y+j>=height || t.y+j < 0)
+                    continue;
+                res.add(tiles[t.x+i][t.y+j]);
+            }
+        return res;
+        
+    }
+    public ArrayList<Tile> get16Around(Tile t){
+        ArrayList<Tile> res = new ArrayList<>();
+        for(int i=-2; i<=2; i++)
+            for(int j=-2; j<=2; j++){
                 if(i==0 && j==0)
                     continue;
                 if(t.x+i>=width || t.x+i < 0 ||
@@ -186,7 +201,7 @@ public class Map {
                     continue;
                 res.add(tiles[t.x+i][t.y+j]);
             }
-        res.add(t);
+        res.removeAll(get8Around(t));
         return res;
     }
     public ArrayList<Tile> get4Around(Tile t){

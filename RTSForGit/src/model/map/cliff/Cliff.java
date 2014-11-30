@@ -14,7 +14,7 @@ import model.map.cliff.faces.SalientNaturalFace;
 import tools.LogUtil;
 
 public class Cliff {
-    public enum Type{Orthogonal, Salient, Corner, Border}
+    public enum Type{Orthogonal, Salient, Corner, Border, Bugged}
     
     public Tile tile;
     public Tile parent;
@@ -30,15 +30,7 @@ public class Cliff {
         this.tile = t;
     }
     
-    public void correctGroundZ(){
-        if(tile.w!=null && tile.w.level > tile.level ||
-                tile.s!=null && tile.s.level > tile.level ||
-                tile.w!=null && tile.w.s!=null && tile.w.s.level > tile.level)
-            tile.z = (tile.level+1)*STAGE_HEIGHT;
-    }
-
     public void connect(){
-        correctGroundZ();
         CliffOrganizer.organize(this);
     }
     
@@ -64,7 +56,19 @@ public class Cliff {
     }
     
     private boolean isNeighborCliff(Tile t){
-        return t != null && t.level == tile.level && t.isCliff();
+        if(t == null ||
+                !t.isCliff() ||
+                t.level != tile.level ||
+                t.cliff.type == Type.Bugged)
+            return false;
+        
+        for(Tile neib1 : tile.get8Neighbors())
+            if(neib1.level>tile.level)
+                for(Tile neib2 : t.get8Neighbors())
+                    if(neib2.level>tile.level)
+                        if(neib1 == neib2)
+                            return true;
+        return false;
     }
     
     public void setParent(Cliff o){
@@ -72,5 +76,13 @@ public class Cliff {
         o.child = this.tile;
     }
     
+    public ArrayList<Tile> getUpperGrounds(){
+        ArrayList<Tile> res = new ArrayList<>();
+        for(Tile n : tile.get8Neighbors())
+            if(n.level>tile.level)
+                res.add(n);
+        return res;
+        
+    }
     
 }

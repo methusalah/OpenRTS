@@ -27,6 +27,7 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
+import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import com.jme3.util.TangentBinormalGenerator;
 import java.util.ArrayList;
@@ -61,6 +62,9 @@ public class MapRenderer {
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
     private HashMap<Tile, Spatial> tilesSpatial = new HashMap<>();
+    public  Node logicalTerrainNode = new Node();
+    private LogicalTerrainMesh ltm;
+    private Node activeArea = new Node();
 	
 	public MapRenderer(Map map, ParcelManager parcelManager, MaterialManager mm, AssetManager am, MapEditor editor) {
             this.map = map;
@@ -68,12 +72,31 @@ public class MapRenderer {
             this.mm = mm;
             this.am = am;
             this.editor = editor;
+            
+            Geometry g = new Geometry();
+            g.setMesh(new Quad(1, 1));
+            Material mat = mm.getColor(ColorRGBA.Green);
+            mat.getAdditionalRenderState().setWireframe(true);
+            g.setMaterial(mat);
+            g.setLocalTranslation(0, 0, 0.11f);
+            activeArea.attachChild(g);
+            mainNode.attachChild(activeArea);
 	}
 	
 	public void renderTiles() {
 		LogUtil.logger.info("rendering ground");
+                ltm = new LogicalTerrainMesh(map);
+                Geometry g = new Geometry();
+                g.setMesh(Translator.toJMEMesh(ltm));
+                Material mat = mm.getColor(ColorRGBA.Blue);
+                mat.getAdditionalRenderState().setWireframe(true);
+                g.setMaterial(mat);//mm.getLightingTexture("textures/grass.tga"));
+                
+                logicalTerrainNode.attachChild(g);
+                mainNode.attachChild(logicalTerrainNode);
+
                 for(ParcelMesh mesh : parcelManager.meshes){
-                    Geometry g = new Geometry();
+                    g = new Geometry();
                     Mesh jmeMesh = Translator.toJMEMesh(mesh);
     //                TangentBinormalGenerator.generate(mesh);
                     g.setMesh(jmeMesh);
@@ -94,7 +117,7 @@ public class MapRenderer {
                     if(t.cliff.naturalFace == null)
                         continue;
                     if(t.cliff.manmadeFace == null){
-                        Geometry g = new Geometry();
+                        g = new Geometry();
                         g.setMesh(Translator.toJMEMesh(t.cliff.naturalFace.mesh));
                         g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
                         g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -143,23 +166,40 @@ public class MapRenderer {
 	}
         
         public void update(){
-            for(Tile t : editor.grabUpdatedTiles()){
+            ArrayList<Tile> updated = editor.grabUpdatedTiles();
+            if(!updated.isEmpty()){
+                ltm.update();
+                ((Geometry)logicalTerrainNode.getChildren().get(0)).setMesh(Translator.toJMEMesh(ltm));
+            }
+            for(Tile t : updated){
                 if(t.isCliff()){
-                    if(t.cliff.naturalFace == null)
-                        continue;
-                    Geometry g = (Geometry)tilesSpatial.get(t);
-                    if(g != null)
-                        mainNode.detachChild(g);
-                    g = new Geometry();
-                    g.setMesh(Translator.toJMEMesh(t.cliff.naturalFace.mesh));
-                    g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
-//                        g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+                    if(t.cliff.type == Cliff.Type.Bugged){
+                        Geometry g = (Geometry)tilesSpatial.get(t);
+                        if(g != null)
+                            mainNode.detachChild(g);
+                        g = new Geometry();
+                        g.setMesh(new Box(0.5f, 0.5f, 1));
+                        g.setMaterial(mm.redMaterial);
+                        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+1);
+                        tilesSpatial.put(t, g);
+                        mainNode.attachChild(g);
+                    } else {
+                        if(t.cliff.naturalFace == null)
+                            continue;
+                        Geometry g = (Geometry)tilesSpatial.get(t);
+                        if(g != null)
+                            mainNode.detachChild(g);
+                        g = new Geometry();
+                        g.setMesh(Translator.toJMEMesh(t.cliff.naturalFace.mesh));
+                        g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
+    //                        g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
-                    g.rotate(0, 0, (float)(t.cliff.angle));
-                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
+                        g.rotate(0, 0, (float)(t.cliff.angle));
+                        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
 
-                    tilesSpatial.put(t, g);
-                    mainNode.attachChild(g);
+                        tilesSpatial.put(t, g);
+                        mainNode.attachChild(g);
+                    }
                 } else {
                     Geometry g = (Geometry)tilesSpatial.get(t);
                     if(g != null){
@@ -168,12 +208,11 @@ public class MapRenderer {
                     }
                 }
             }
+
             for(ParcelMesh parcel : editor.grabUpdatedParcels()){
                 Geometry g = (Geometry)parcelsSpatial.get(parcel);
                 g.setMesh(Translator.toJMEMesh(parcel));
             }
-            
-            
         }
         
         private Spatial getModel(String path){
@@ -181,4 +220,15 @@ public class MapRenderer {
                     models.put(path, am.loadModel(path));
                 return models.get(path).clone();
         }
+
+    public void drawActiveArea(Point2D coord) {
+        Tile t = map.getTile(coord);
+        if(t == null || t.n == null || t.e == null)
+            return;
+        double z = t.level;
+        for(Tile neib : map.get8Around(t))
+            if(neib.level>z)
+                z = neib.level;
+        activeArea.setLocalTranslation(t.x, t.y, (float)(z*Tile.STAGE_HEIGHT));
+    }
 }

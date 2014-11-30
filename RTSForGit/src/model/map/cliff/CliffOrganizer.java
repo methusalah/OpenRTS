@@ -101,43 +101,47 @@ public class CliffOrganizer {
                 
             // ending cliff (for ramp end)
             case "n" :
-                if(e.z>w.z){
+                if(e.level>w.level){
                         c.angle = Angle.FLAT;
                 } else {
                         c.angle = 0;
                         c.setParent(n.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
+                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             case "s" :
-                if(e.z>w.z){
+                if(e.level>w.level){
                         c.angle = Angle.FLAT;
                         c.setParent(s.cliff);
                 } else {
                         c.angle = 0;
                 }
                 c.type = Cliff.Type.Orthogonal;
+                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             case "e" :
-                if(n.z>s.z){
+                if(n.level>s.level){
                         c.angle = -Angle.RIGHT;
                         c.setParent(e.cliff);
                 } else {
                         c.angle = Angle.RIGHT;
                 }
                 c.type = Cliff.Type.Orthogonal;
+                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             case "w" :
-                if(n.z>s.z){
+                if(n.level>s.level){
                         c.angle = -Angle.RIGHT;
                 } else {
                         c.angle = Angle.RIGHT;
                         c.setParent(w.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
+                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             default : LogUtil.logger.info("Cliff neighboring is strange at "+c.tile.getPos2D()+" : "+c.getConnectedCliffs());
-                c.type = Cliff.Type.Border;
+                c.type = Cliff.Type.Bugged;
         }
     }
 }

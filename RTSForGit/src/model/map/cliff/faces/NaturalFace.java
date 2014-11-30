@@ -15,6 +15,7 @@ import model.map.Tile;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
 import model.map.cliff.CliffFaceMesh;
+import tools.LogUtil;
 
 /**
  *
@@ -167,13 +168,13 @@ public abstract class NaturalFace {
     public abstract ArrayList<Ring<Point3D>> getGrounds();
     
     private NaturalFace getParentFace(){
-        if(cliff.parent != null)
+        if(cliff.parent != null && cliff.parent.cliff != null)
             return cliff.parent.cliff.naturalFace;
         else
             return null;
     }
     private NaturalFace getChildFace(){
-        if(cliff.child != null)
+        if(cliff.child != null && cliff.child.cliff != null)
             return cliff.child.cliff.naturalFace;
         else
             return null;

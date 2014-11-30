@@ -74,6 +74,6 @@ public class EditorInputInterpreter extends InputInterpreter {
     }
         
     private Point2D getSpatialCoord(){
-        return selector.getCoord(view.rootNode);
+        return selector.getCoord(view.mapRend.logicalTerrainNode);
     }
 }
