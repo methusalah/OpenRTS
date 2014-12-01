@@ -2,10 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map;
+package model.map.cliff.editor;
 
 import geometry.Point2D;
 import java.util.ArrayList;
+import model.map.Map;
+import model.map.Tile;
 import static model.map.Tile.STAGE_HEIGHT;
 import model.map.cliff.Cliff;
 import model.map.parcel.ParcelManager;
@@ -21,10 +23,12 @@ public class MapEditor {
     ArrayList<ParcelMesh> updatedParcels = new ArrayList<>();
     Map map;
     ParcelManager pm;
+    public TileSelector selector;
 
     public MapEditor(Map map, ParcelManager pm) {
         this.map = map;
         this.pm = pm;
+        selector = new TileSelector(map);
     }
     
     public void levelUp(Point2D p){
@@ -35,8 +39,7 @@ public class MapEditor {
         if(leadsToDoubleCliff(tile, level))
             return;
         
-        ArrayList<Tile> group = new ArrayList<>();
-        group.add(tile);
+        ArrayList<Tile> group = selector.getTiles();
         for(Tile t : group)
             t.level = level;
         update(group);
@@ -50,8 +53,7 @@ public class MapEditor {
         if(leadsToDoubleCliff(tile, level))
             return;
         
-        ArrayList<Tile> group = new ArrayList<>();
-        group.add(tile);
+        ArrayList<Tile> group = selector.getTiles();
         for(Tile t : group)
             t.level = level;
         update(group);
@@ -66,15 +68,17 @@ public class MapEditor {
     }
     
     public void incHeight(Point2D p){
-        Tile tile = map.getTile(p);
-        tile.elevation+=0.1;
-        updatedParcels.addAll(pm.getUpdatedParcelsFor(tile));
+        ArrayList<Tile> group = selector.getTiles();
+        for(Tile t : group)
+            t.elevation+=0.1;
+        updatedParcels.addAll(pm.getUpdatedParcelsFor(group));
     }
     
     public void decHeight(Point2D p){
-        Tile tile = map.getTile(p);
-        tile.elevation-=0.1;
-        updatedParcels.addAll(pm.getUpdatedParcelsFor(tile));
+        ArrayList<Tile> group = selector.getTiles();
+        for(Tile t : group)
+            t.elevation-=0.1;
+        updatedParcels.addAll(pm.getUpdatedParcelsFor(group));
     }
     
     private void update(ArrayList<Tile> tiles){

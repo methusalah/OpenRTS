@@ -39,7 +39,7 @@ import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
 import model.map.cliff.CliffFaceMesh;
 import model.map.Map;
-import model.map.MapEditor;
+import model.map.cliff.editor.MapEditor;
 import model.map.parcel.ParcelManager;
 import model.map.Tile;
 import model.map.cliff.faces.NaturalFace;

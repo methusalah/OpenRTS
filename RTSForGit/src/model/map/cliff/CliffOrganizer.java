@@ -108,7 +108,6 @@ public class CliffOrganizer {
                         c.setParent(n.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
-                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             case "s" :
                 if(e.level>w.level){
@@ -118,7 +117,6 @@ public class CliffOrganizer {
                         c.angle = 0;
                 }
                 c.type = Cliff.Type.Orthogonal;
-                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             case "e" :
                 if(n.level>s.level){
@@ -128,7 +126,6 @@ public class CliffOrganizer {
                         c.angle = Angle.RIGHT;
                 }
                 c.type = Cliff.Type.Orthogonal;
-                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             case "w" :
                 if(n.level>s.level){
@@ -138,7 +135,6 @@ public class CliffOrganizer {
                         c.setParent(w.cliff);
                 }
                 c.type = Cliff.Type.Orthogonal;
-                LogUtil.logger.info("strange"+c.getConnectedCliffs());
                 break;
             default : LogUtil.logger.info("Cliff neighboring is strange at "+c.tile.getPos2D()+" : "+c.getConnectedCliffs());
                 c.type = Cliff.Type.Bugged;

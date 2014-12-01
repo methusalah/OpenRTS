@@ -62,12 +62,10 @@ public class Cliff {
                 t.cliff.type == Type.Bugged)
             return false;
         
-        for(Tile neib1 : tile.get8Neighbors())
-            if(neib1.level>tile.level)
-                for(Tile neib2 : t.get8Neighbors())
-                    if(neib2.level>tile.level)
-                        if(neib1 == neib2)
-                            return true;
+        for(Tile n1 : getUpperGrounds())
+            for(Tile n2 : t.cliff.getUpperGrounds())
+                if(n1 == n2)
+                    return true;
         return false;
     }
     

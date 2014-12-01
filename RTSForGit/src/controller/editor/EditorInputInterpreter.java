@@ -13,7 +13,7 @@ import controller.InputInterpreter;
 import geometry.Point2D;
 import math.MyRandom;
 import model.Commander;
-import model.map.MapEditor;
+import model.map.cliff.editor.MapEditor;
 import tools.LogUtil;
 import view.math.Translator;
 
@@ -24,6 +24,9 @@ public class EditorInputInterpreter extends InputInterpreter {
 
     protected final static String leftclic = "lc";
     protected final static String rightclic = "rc";
+    protected final static String Selection_Shape = "selectionshape";
+    protected final static String Selection_Radius_Inc = "selectionradius+";
+    protected final static String Selection_Radius_Dec = "selectionradius-";
     protected final static String r = "r";
     protected final static String f = "f";
     protected final static String GridDisplay = "GridDisplay";
@@ -40,12 +43,19 @@ public class EditorInputInterpreter extends InputInterpreter {
             String[] mappings = new String[]{
                             leftclic,
                             rightclic,
+                            Selection_Shape,
+                            Selection_Radius_Inc,
+                            Selection_Radius_Dec,
                             r,
                             f,
                             GridDisplay,
+                            
             };
             inputManager.addMapping(leftclic, new MouseButtonTrigger(0));
             inputManager.addMapping(rightclic, new MouseButtonTrigger(1));
+            inputManager.addMapping(Selection_Shape, new KeyTrigger(KeyInput.KEY_A));
+            inputManager.addMapping(Selection_Radius_Inc, new KeyTrigger(KeyInput.KEY_Q));
+            inputManager.addMapping(Selection_Radius_Dec, new KeyTrigger(KeyInput.KEY_W));
             inputManager.addMapping(r, new KeyTrigger(KeyInput.KEY_R));
             inputManager.addMapping(f, new KeyTrigger(KeyInput.KEY_F));
             inputManager.addMapping(GridDisplay, new KeyTrigger(KeyInput.KEY_G));
@@ -66,6 +76,12 @@ public class EditorInputInterpreter extends InputInterpreter {
                 editor.levelUp(getSpatialCoord());
         } else if (name.equals(rightclic) && !isPressed){
                 editor.levelDown(getSpatialCoord());
+        } else if (name.equals(Selection_Shape) && !isPressed){
+                editor.selector.toggleShape();
+        } else if (name.equals(Selection_Radius_Inc) && !isPressed){
+                editor.selector.incRadius();
+        } else if (name.equals(Selection_Radius_Dec) && !isPressed){
+                editor.selector.decRadius();
         } else if (name.equals(r) && !isPressed){
                 editor.incHeight(getSpatialCoord());
         } else if (name.equals(f) && !isPressed){

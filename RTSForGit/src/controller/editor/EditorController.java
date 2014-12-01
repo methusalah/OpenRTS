@@ -54,8 +54,10 @@ public class EditorController extends Controller {
     
     public void drawActiveArea(){
         Point2D coord = ss.getCoord(view.mapRend.gridNode);
-        if(coord != null)
+        if(coord != null){
             view.mapRend.drawActiveArea(coord);
+            model.editor.selector.pos = coord;
+        }
     }
 
     @Override

@@ -147,13 +147,13 @@ public class ParcelMesh extends MyMesh {
                         if(shared.size() == 3)
                             continue;
                         if(shared.contains(t.a))
-                            normal1 = normal1.getAddition(n.normal.getMult(0.35));
+                            normal1 = normal1.getAddition(n.normal);//.getMult(0.35));
 
                         if(shared.contains(t.b))
-                            normal2 = normal2.getAddition(n.normal.getMult(0.35));
+                            normal2 = normal2.getAddition(n.normal);//.getMult(0.35));
 
                         if(shared.contains(t.c))
-                            normal3 = normal3.getAddition(n.normal.getMult(0.35));
+                            normal3 = normal3.getAddition(n.normal);//.getMult(0.35));
                     }
 
                     if(normal1.isOrigin())
