@@ -34,7 +34,7 @@ public class MapFactory {
         Map res = new Map(width, height);
         for(int x=0; x<width; x++)
             for(int y=0; y<height; y++)
-                res.tiles[x][y] = new Tile(x, y);
+                res.tiles[x][y] = new Tile(x, y, res);
 
         // link tiles
 	for(int x=0; x<width; x++)

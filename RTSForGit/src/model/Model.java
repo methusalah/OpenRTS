@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import model.map.Map;
 import model.army.ArmyManager;
 import model.army.data.BuilderLibrary;
-import model.map.cliff.editor.MapEditor;
+import model.map.editor.MapEditor;
 import model.map.MapFactory;
 import model.map.parcel.ParcelManager;
 import ressources.definitions.DefParser;

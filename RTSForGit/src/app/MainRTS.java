@@ -100,8 +100,7 @@ public class MainRTS extends MySimpleApplication {
             dir = new Vector3f((float)newX, (float)newY, -1);
 
             view.sunComp1.setDirection(dir);
-            view.mapRend.update();
-            editorCtrl.drawActiveArea();
+            editorCtrl.drawPencilPreview();
         }
 
 	@Override

@@ -13,6 +13,9 @@ import model.map.cliff.Cliff;
 public class Tile {
     
     public static final double STAGE_HEIGHT = 2;
+
+    private final Map map;
+
     public Tile n;
     public Tile s;
     public Tile e;
@@ -26,47 +29,27 @@ public class Tile {
 
     public Cliff cliff;
 
-    public Tile(TileDef def){
-        x = def.x;
-        y = def.y;
-        level = def.level;
-    }
-    public Tile(int x, int y){
+    public Tile(int x, int y, Map map){
+        this.map = map;
         this.x = x;
         this.y = y;
         level = 0;
     }
 
     public int getNeighborsMaxLevel(){
-            int res = 0;
-            if(n != null && n.level>res)
-                    res = n.level;
-
-            if(s != null && s.level>res)
-                    res = s.level;
-
-            if(e != null && e.level>res)
-                    res = e.level;
-
-            if(w != null && w.level>res)
-                    res = w.level;
-            return res;
+        int res = Integer.MIN_VALUE;
+        for(Tile n : map.get4Around(this))
+            if( n.level>res)
+                res = n.level;
+        return res;
     }
 
     public int getNeighborsMinLevel(){
-            int res = Integer.MAX_VALUE;
-            if(n != null && n.level<res)
-                    res = n.level;
-
-            if(s != null && s.level<res)
-                    res = s.level;
-
-            if(e != null && e.level<res)
-                    res = e.level;
-
-            if(w != null && w.level<res)
-                    res = w.level;
-            return res;
+        int res = Integer.MAX_VALUE;
+        for(Tile n : map.get4Around(this))
+            if( n.level<res)
+                res = n.level;
+        return res;
     }
 
     public boolean isBlocked(){
@@ -95,40 +78,15 @@ public class Tile {
     }
     
     public ArrayList<Tile> get4Neighbors(){
-        ArrayList<Tile> res = new ArrayList<>();
-        if(n!=null)
-            res.add(n);
-        if(s!=null)
-            res.add(s);
-        if(e!=null)
-            res.add(e);
-        if(w!=null)
-            res.add(w);
-        return res;
+        return map.get4Around(this);
     }
     
     public ArrayList<Tile> get8Neighbors(){
-        ArrayList<Tile> res = new ArrayList<>();
-        if(n!=null){
-            res.add(n);
-            if(n.e!=null)
-                res.add(n.e);
-            if(n.w!=null)
-                res.add(n.w);
-        }
-        if(s!=null){
-            res.add(s);
-            if(s.e!=null)
-                res.add(s.e);
-            if(s.w!=null)
-                res.add(s.w);
-        }
-        if(e!=null)
-            res.add(e);
-        if(w!=null)
-            res.add(w);
-        return res;
-        
+        return map.get8Around(this);
+    }
+
+    public ArrayList<Tile> get9Neighbors(){
+        return map.get9Around(this);
     }
     
     public void setCliff(){

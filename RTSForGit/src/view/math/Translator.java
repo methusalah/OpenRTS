@@ -19,7 +19,7 @@ public class Translator {
 	}
 
 	public static Vector3f toVector3f(Point2D p) {
-		return new Vector3f((float) p.x, 0, (float) p.y);
+		return new Vector3f((float) p.x, (float) p.y, 0);
 	}
 
 	public static Vector3f toVector3f(Point2D p, double elevation) {

@@ -42,7 +42,7 @@ public class SalientNaturalFace extends NaturalFace {
 
     @Override
     public ArrayList<Ring<Point3D>> getGrounds() {
-        Point3D sw = new Point3D(-0.5, -0.5, Tile.STAGE_HEIGHT);
+        Point3D sw = new Point3D(-0.5, -0.5, 0);
         Point3D se = new Point3D(0.5, -0.5, 0);
         Point3D ne = new Point3D(0.5, 0.5, 0);
         Point3D nw = new Point3D(-0.5, 0.5, 0);

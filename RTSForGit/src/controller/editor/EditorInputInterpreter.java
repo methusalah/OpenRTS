@@ -13,7 +13,7 @@ import controller.InputInterpreter;
 import geometry.Point2D;
 import math.MyRandom;
 import model.Commander;
-import model.map.cliff.editor.MapEditor;
+import model.map.editor.MapEditor;
 import tools.LogUtil;
 import view.math.Translator;
 
@@ -87,7 +87,7 @@ public class EditorInputInterpreter extends InputInterpreter {
         } else if (name.equals(f) && !isPressed){
                 editor.decHeight(getSpatialCoord());
         } else if (name.equals(GridDisplay) && !isPressed){
-                controller.view.mapRend.toggleGrid();
+                controller.view.editorRend.toggleGrid();
         }
     }
 
@@ -105,6 +105,6 @@ public class EditorInputInterpreter extends InputInterpreter {
     }
         
     private Point2D getSpatialCoord(){
-        return selector.getCoord(view.mapRend.gridNode);
+        return selector.getCoord(view.editorRend.gridNode);
     }
 }

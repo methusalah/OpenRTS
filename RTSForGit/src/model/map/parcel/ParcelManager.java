@@ -41,24 +41,25 @@ public class ParcelManager {
             mesh.compute();
     }
     
-    public ArrayList<ParcelMesh> getUpdatedParcelsFor(Tile t){
-        ArrayList<Tile> tiles = new ArrayList<>();
-        tiles.add(t);
-        return getUpdatedParcelsFor(tiles);
-    }
-
-    public ArrayList<ParcelMesh> getUpdatedParcelsFor(ArrayList<Tile> tiles){
+    public ArrayList<ParcelMesh> getParcelsFor(ArrayList<Tile> tiles){
         ArrayList<ParcelMesh> res = new ArrayList<>();
-        for(Tile t : tiles){
-            int index = (int)(Math.floor(t.y/RESOLUTION)*Math.ceil((double)map.width/RESOLUTION)+Math.floor(t.x/RESOLUTION));
-            if(!res.contains(meshes.get(index)))
-                res.add(meshes.get(index));
-        }
-        
-        for(ParcelMesh mesh : res)
-            mesh.rebuild();
-            
+        for(Tile t : tiles)
+            for(Tile n : t.get9Neighbors()){
+                int index = (int)(Math.floor((n.y)/RESOLUTION)*Math.ceil((double)map.width/RESOLUTION)+Math.floor((n.x)/RESOLUTION));
+                if(!res.contains(meshes.get(index)))
+                    res.add(meshes.get(index));
+            }
         return res;
     }
+    
+    public void updateParcelsFor(ArrayList<Tile> tiles){
+        ArrayList<ParcelMesh> meshes = getParcelsFor(tiles);
+        for(ParcelMesh mesh : meshes)
+            mesh.reset();
+        for(ParcelMesh mesh : meshes)
+            mesh.compute();
+        
+    }
+
     
 }

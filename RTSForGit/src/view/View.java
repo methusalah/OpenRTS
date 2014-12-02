@@ -19,6 +19,7 @@ import com.jme3.shadow.DirectionalLightShadowFilter;
 import geometry.Point2D;
 import model.Model;
 import view.actorDrawing.ActorDrawingManager;
+import view.mapDrawing.EditorRenderer;
 import view.mapDrawing.MapRenderer;
 
 public class View {
@@ -31,6 +32,7 @@ public class View {
         
     // Renderers
     public MapRenderer mapRend;
+    public EditorRenderer editorRend;
     public ActorDrawingManager actorManager;
 //    public UnitRenderer unitsRend;
 
@@ -52,14 +54,20 @@ public class View {
         this.vp = vp;
         pointer = new Pointer();
 
-        mapRend = new MapRenderer(model.map, model.parcelManager, mm, am, model.editor);
+        mapRend = new MapRenderer(model.map, model.parcelManager, mm, am);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
+        model.editor.addListener(mapRend);
+        
+        editorRend = new EditorRenderer(model.map, model.editor, mm);
+        rootNode.attachChild(editorRend.mainNode);
+        model.editor.addListener(editorRend);
         
         
         actorManager = new ActorDrawingManager(am, mm, model.armyManager);
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
+        
         createLight();
         createSky();
     }

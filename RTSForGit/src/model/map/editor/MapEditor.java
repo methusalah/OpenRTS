@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.cliff.editor;
+package model.map.editor;
 
 import geometry.Point2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.map.Map;
 import model.map.Tile;
@@ -13,18 +15,19 @@ import model.map.cliff.Cliff;
 import model.map.parcel.ParcelManager;
 import model.map.parcel.ParcelMesh;
 import tools.LogUtil;
+import view.mapDrawing.MapRenderer;
 
 /**
  *
  * @author Benoît
  */
 public class MapEditor {
-    ArrayList<Tile> updatedTiles = new ArrayList<>();
-    ArrayList<ParcelMesh> updatedParcels = new ArrayList<>();
-    Map map;
-    ParcelManager pm;
-    public TileSelector selector;
-
+    final Map map;
+    final ParcelManager pm;
+    public final TileSelector selector;
+    
+    ArrayList<ActionListener> listeners = new ArrayList<>();
+    
     public MapEditor(Map map, ParcelManager pm) {
         this.map = map;
         this.pm = pm;
@@ -42,7 +45,7 @@ public class MapEditor {
         ArrayList<Tile> group = selector.getTiles();
         for(Tile t : group)
             t.level = level;
-        update(group);
+        updateTiles(group);
     }
     
     public void levelDown(Point2D p){
@@ -50,13 +53,14 @@ public class MapEditor {
         int level = tile.level-1;
         if(level < 0)
             level = 0;
-        if(leadsToDoubleCliff(tile, level))
-            return;
-        
+
         ArrayList<Tile> group = selector.getTiles();
         for(Tile t : group)
+            if(leadsToDoubleCliff(t, level))
+                return;
+        for(Tile t : group)
             t.level = level;
-        update(group);
+        updateTiles(group);
     }
     
     private boolean leadsToDoubleCliff(Tile t, int level){
@@ -71,18 +75,18 @@ public class MapEditor {
         ArrayList<Tile> group = selector.getTiles();
         for(Tile t : group)
             t.elevation+=0.1;
-        updatedParcels.addAll(pm.getUpdatedParcelsFor(group));
+        updateParcels(group);
     }
     
     public void decHeight(Point2D p){
         ArrayList<Tile> group = selector.getTiles();
         for(Tile t : group)
             t.elevation-=0.1;
-        updatedParcels.addAll(pm.getUpdatedParcelsFor(group));
+        updateParcels(group);
     }
     
-    private void update(ArrayList<Tile> tiles){
-        updatedTiles.clear();
+    private void updateTiles(ArrayList<Tile> tiles){
+        ArrayList<Tile> updatedTiles = new ArrayList<>();
         updatedTiles.addAll(tiles);
         for(Tile t : tiles)
             for(Tile n : map.get9Around(t))
@@ -115,19 +119,24 @@ public class MapEditor {
             if(n.isCliff())
                 n.cliff.buildFace();
         }
-        updatedParcels.addAll(pm.getUpdatedParcelsFor(updatedTiles));
+        notifyListeners("tiles", updatedTiles);
+        updateParcels(tiles);
     }
     
-    public ArrayList<Tile> grabUpdatedTiles(){
-        ArrayList<Tile> res = new ArrayList<>();
-        res.addAll(updatedTiles);
-        updatedTiles.clear();
-        return res;
+    private void updateParcels(ArrayList<Tile> tiles){
+        pm.updateParcelsFor(tiles);
+        notifyListeners("parcels", tiles);
+        
     }
-    public ArrayList<ParcelMesh> grabUpdatedParcels(){
-        ArrayList<ParcelMesh> res = new ArrayList<>();
-        res.addAll(updatedParcels);
-        updatedParcels.clear();
-        return res;
+    
+    private void notifyListeners(String command, ArrayList<Tile> tiles){
+        ActionEvent event = new ActionEvent(tiles, 0, command);
+        for(ActionListener l : listeners)
+            l.actionPerformed(event);
     }
+
+    public void addListener(ActionListener l) {
+        listeners.add(l);
+    }
+    
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.cliff.editor;
+package model.map.editor;
 
 import collections.PointRing;
 import geometry.BoundingCircle;
@@ -121,8 +121,16 @@ public class TileSelector {
             case Diamond : return new Polygon(pr).getRotation(Angle.RIGHT/2, alignedPos);
                 default: throw new RuntimeException();
         }
-        
-        
+    }
+    
+    public double getShapeAngle(){
+        if(shape == Shape.Diamond)
+            return Angle.RIGHT/2;
+        return 0;
+    }
+    
+    public double getElevation(){
+        return map.getTile(getAlignedPos()).getZ();
     }
 
 }

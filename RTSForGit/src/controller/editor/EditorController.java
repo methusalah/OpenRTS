@@ -52,11 +52,11 @@ public class EditorController extends Controller {
         im.setCursorVisible(true);
     }
     
-    public void drawActiveArea(){
-        Point2D coord = ss.getCoord(view.mapRend.gridNode);
+    public void drawPencilPreview(){
+        Point2D coord = ss.getCoord(view.editorRend.gridNode);
         if(coord != null){
-            view.mapRend.drawActiveArea(coord);
             model.editor.selector.pos = coord;
+            view.editorRend.drawPencilPreview();
         }
     }
 
