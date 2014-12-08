@@ -5,9 +5,9 @@
 package model.map.cliff;
 
 import model.map.cliff.faces.natural.NaturalFace;
-import model.map.cliff.faces.natural.CornerNaturalFace;
-import model.map.cliff.faces.natural.OrthogonalNaturalFace;
-import model.map.cliff.faces.natural.SalientNaturalFace;
+import model.map.cliff.faces.natural.Dug1Corner;
+import model.map.cliff.faces.natural.Dug1Ortho;
+import model.map.cliff.faces.natural.Dug1Salient;
 import geometry.Point2D;
 import math.Angle;
 import model.map.Tile;

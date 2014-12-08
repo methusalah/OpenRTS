@@ -5,25 +5,20 @@
 package model.map.cliff.faces.natural;
 
 import collections.Ring;
-import geometry.Point2D;
 import geometry3D.Point3D;
-import geometry3D.Polygon3D;
 import java.util.ArrayList;
-import math.Angle;
 import math.MyRandom;
-import model.map.Tile;
-import model.map.cliff.Trinket;
-import model.map.cliff.Cliff;
-import static model.map.cliff.faces.natural.NaturalFace.MIDDLE_EDGE_VARIATION;
-import static model.map.cliff.faces.natural.NaturalFace.TOP_ROCK_PROB;
+import static model.map.cliff.faces.natural.Dug1.MAX_RIDGE_POS;
 
 /**
  *
  * @author Benoît
  */
-public class OrthogonalNaturalFace extends NaturalFace {
+public class Dug1Ortho extends Dug1 {
+    private final static double RIDGE_PROTRUDE = 0.6;
+    private final static double RIDGE_RETREAT = 0.6;
 
-    public OrthogonalNaturalFace(NaturalFace face){
+    public Dug1Ortho(NaturalFace face){
         super(face);
         buildMesh();
     }
@@ -31,12 +26,14 @@ public class OrthogonalNaturalFace extends NaturalFace {
     @Override
     protected void extrudeProfile() {
         int i = 0;
-        double curve = MyRandom.between(0.7, 1.3);
+        double ridgeDepth = MyRandom.between(1+RIDGE_PROTRUDE*ridgeDepthRange, 1-RIDGE_RETREAT*ridgeDepthRange);
+        double ridgePos = MyRandom.between(1+MAX_RIDGE_POS*ridgePosRange, 1-MAX_RIDGE_POS*ridgePosRange);
+        
         for(Point3D v : parentProfile)
             grid[0][i++] = v.getAddition(0, 1, 0);
         i = 0;
         for(Point3D v : middleProfile)
-            grid[1][i++] = v.getAddition(0, 0.5*MyRandom.between(1+MIDDLE_EDGE_VARIATION, 1-MIDDLE_EDGE_VARIATION), 0).get2D().getMult(curve).get3D(v.z);
+            grid[1][i++] = v.getAddition(0, 0.5*ridgePos, 0).get2D().getMult(ridgeDepth, 1).get3D(v.z);
         i = 0;
         for(Point3D v : childProfile)
             grid[2][i++] = v;
@@ -54,13 +51,13 @@ public class OrthogonalNaturalFace extends NaturalFace {
 
         lowerPoints.add(se);
         lowerPoints.add(ne);
-        for(int i=0; i<NaturalFace.NB_VERTEX_COL; i++)
+        for(int i=0; i<NB_VERTEX_COL; i++)
             lowerPoints.add(grid[i][0]);
 
         upperPoints.add(nw);
         upperPoints.add(sw);
-        for(int i=NaturalFace.NB_VERTEX_COL-1; i>=0; i--)
-            upperPoints.add(grid[i][NaturalFace.NB_VERTEX_ROWS-1]);
+        for(int i=NB_VERTEX_COL-1; i>=0; i--)
+            upperPoints.add(grid[i][NB_VERTEX_ROWS-1]);
         
         ArrayList<Ring<Point3D>> res = new ArrayList<>();
         res.add(lowerPoints);

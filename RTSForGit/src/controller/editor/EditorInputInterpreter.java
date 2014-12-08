@@ -135,10 +135,6 @@ public class EditorInputInterpreter extends InputInterpreter {
             LogUtil.logger.info(" '1', '2' & '3' decrease red, green and blue component");
             LogUtil.logger.info(" '0' reset color");
             LogUtil.logger.info(" + & - change intensity");
-            LogUtil.logger.info("");
-            LogUtil.logger.info("");
-            LogUtil.logger.info("");
-            LogUtil.logger.info("");
     }
 
     @Override

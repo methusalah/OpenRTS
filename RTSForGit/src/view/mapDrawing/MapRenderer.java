@@ -39,7 +39,7 @@ import math.Angle;
 import model.lighting.SunLight;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
-import model.map.cliff.faces.natural.NaturalFaceMesh;
+import model.map.cliff.faces.natural.Dug1Mesh;
 import model.map.Map;
 import model.map.editor.MapToolManager;
 import model.map.parcel.ParcelManager;

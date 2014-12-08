@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import model.army.data.actors.ParticleActor;
 import model.map.cliff.Cliff;
 import static model.map.cliff.Cliff.Type.Corner;
-import model.map.cliff.faces.natural.CornerNaturalFace;
+import model.map.cliff.faces.natural.Dug1Corner;
 import model.map.cliff.faces.Face;
 import model.map.cliff.faces.natural.NaturalFace;
-import model.map.cliff.faces.natural.OrthogonalNaturalFace;
-import model.map.cliff.faces.natural.SalientNaturalFace;
+import model.map.cliff.faces.natural.Dug1Ortho;
+import model.map.cliff.faces.natural.Dug1Salient;
 import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import ressources.definitions.Definition;
@@ -113,9 +113,9 @@ public class NaturalFaceBuilder {
         NaturalFace prototype = new NaturalFace(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
         switch (style){
             case STYLE_DUG_1 : switch (cliff.type){
-                case Corner : return new CornerNaturalFace(prototype);
-                case Salient : return new SalientNaturalFace(prototype);
-                case Orthogonal : return new OrthogonalNaturalFace(prototype);
+                case Corner : return new Dug1Corner(prototype);
+                case Salient : return new Dug1Salient(prototype);
+                case Orthogonal : return new Dug1Ortho(prototype);
                     default:return null;
             }
         }

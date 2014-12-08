@@ -33,12 +33,12 @@ public class SunLight {
     ArrayList<ActionListener> listeners = new ArrayList<>();
 
     public SunLight() {
-        double yaw = Angle.toRadians(15);
-        double pitch = Angle.toRadians(40);
+        double compass = Angle.toRadians(20);
+        double hourAngle = Angle.toRadians(40);
         double intensity = 2;
-        sun = new DirectionalLighting(Color.WHITE, yaw, pitch,  intensity);
+        sun = new DirectionalLighting(Color.WHITE, compass, hourAngle,  intensity);
         
-        shadowCaster = new DirectionalLighting(Color.WHITE, yaw, pitch, 0);
+        shadowCaster = new DirectionalLighting(Color.WHITE, compass, hourAngle, 0);
 
         ambient = new AmbientLighting(Color.WHITE);
         

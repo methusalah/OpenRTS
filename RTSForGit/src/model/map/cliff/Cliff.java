@@ -6,11 +6,11 @@ import model.map.Tile;
 import model.map.cliff.faces.natural.NaturalFace;
 import model.map.cliff.CliffOrganizer;
 import static model.map.Tile.STAGE_HEIGHT;
-import model.map.cliff.faces.natural.CornerNaturalFace;
+import model.map.cliff.faces.natural.Dug1Corner;
 import model.map.cliff.faces.Face;
 import model.map.cliff.faces.manmade.ManmadeFace;
-import model.map.cliff.faces.natural.OrthogonalNaturalFace;
-import model.map.cliff.faces.natural.SalientNaturalFace;
+import model.map.cliff.faces.natural.Dug1Ortho;
+import model.map.cliff.faces.natural.Dug1Salient;
 import tools.LogUtil;
 
 public class Cliff {

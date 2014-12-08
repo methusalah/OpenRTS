@@ -20,7 +20,7 @@ import java.util.HashMap;
 import javax.management.RuntimeErrorException;
 import math.MyRandom;
 import model.map.Tile;
-import model.map.cliff.faces.natural.CornerNaturalFace;
+import model.map.cliff.faces.natural.Dug1Corner;
 import tools.LogUtil;
 
 
