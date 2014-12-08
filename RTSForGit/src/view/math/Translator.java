@@ -1,5 +1,7 @@
 package view.math;
 
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
 import geometry.Point2D;
 import geometry3D.MyMesh;
 import geometry3D.Point3D;
@@ -7,10 +9,16 @@ import geometry3D.Point3D;
 import java.awt.Color;
 
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Mesh;
+import com.jme3.scene.Node;
 import com.jme3.scene.VertexBuffer.Type;
+import math.Angle;
+import model.lighting.AmbientLighting;
+import model.lighting.DirectionalLighting;
+import tools.LogUtil;
 
 public class Translator {
 
@@ -112,5 +120,56 @@ public class Translator {
 		res.updateBound();
 		return res;
 	}
-	
+        
+        public static AmbientLight toJMELight(AmbientLighting al){
+            AmbientLight res = new AmbientLight();
+            res.setColor(toColorRGBA(al.color).multLocal((float)(al.intensity)));
+            return res;
+        }
+
+        public static void toJMELight(AmbientLight JMEal, AmbientLighting al){
+            JMEal.setColor(toColorRGBA(al.color).multLocal((float)(al.intensity)));
+        }
+
+        public static DirectionalLight toJMELight(DirectionalLighting dl){
+            DirectionalLight res = new DirectionalLight();
+            res.setColor(toColorRGBA(dl.color).multLocal((float)(dl.intensity)));
+
+            Node world = new Node();
+            
+            Node yaw = new Node();
+            world.attachChild(yaw);
+            
+            Node pitch = new Node();
+            yaw.attachChild(pitch);
+            
+            Node offset = new Node();
+            pitch.attachChild(offset);
+            offset.setLocalTranslation(Vector3f.UNIT_X);
+            
+            pitch.rotate(0, (float)dl.pitch, 0);
+            
+            yaw.rotate(0, 0, (float)dl.yaw);
+            res.setDirection(offset.getWorldTranslation());
+            return res;
+        }
+        public static void toJMELight(DirectionalLight JMEdl, DirectionalLighting dl){
+            JMEdl.setColor(toColorRGBA(dl.color).multLocal((float)(dl.intensity)));
+            Node world = new Node();
+            
+            Node yaw = new Node();
+            world.attachChild(yaw);
+            
+            Node pitch = new Node();
+            yaw.attachChild(pitch);
+            
+            Node offset = new Node();
+            pitch.attachChild(offset);
+            offset.setLocalTranslation(Vector3f.UNIT_X);
+            
+            pitch.rotate(0, (float)dl.pitch, 0);
+            
+            yaw.rotate(0, 0, (float)dl.yaw);
+            JMEdl.setDirection(offset.getWorldTranslation());
+        }
 }

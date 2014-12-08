@@ -94,7 +94,8 @@ public class MainRTS extends MySimpleApplication {
             double newY = Math.sin(angle);
             dir = new Vector3f((float)newX, (float)newY, -0.8f);
 
-            view.sunComp1.setDirection(dir);
+//            view.sunComp1.setDirection(new Vector3f((float)newX, (float)newY, -0.4f));
+//            view.sunComp2.setDirection(new Vector3f((float)newX, (float)newY, -0.8f));
             editorCtrl.drawPencilPreview();
         }
 

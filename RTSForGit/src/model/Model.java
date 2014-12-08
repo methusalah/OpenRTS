@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import model.map.Map;
 import model.army.ArmyManager;
+import model.lighting.SunLight;
 import ressources.definitions.BuilderLibrary;
 import model.map.editor.MapToolManager;
 import model.map.MapFactory;
@@ -17,6 +18,7 @@ public class Model {
     static final double UPDATE_DELAY = 1000;
     
     public Map map;
+    public SunLight sunLight;
     public ArmyManager armyManager;
     
     public Commander commander;
@@ -33,6 +35,7 @@ public class Model {
     
     public Model() {
         this.map = MapFactory.getNewMap(128, 128);
+        sunLight = new SunLight();
         parcelManager = new ParcelManager(map);
 
 //        for(int x=10; x<20; x++)

@@ -13,6 +13,7 @@ import controller.InputInterpreter;
 import geometry.Point2D;
 import math.MyRandom;
 import model.Commander;
+import model.lighting.SunLight;
 import model.map.editor.MapToolManager;
 import tools.LogUtil;
 import view.math.Translator;
@@ -20,6 +21,7 @@ import view.math.Translator;
 public class EditorInputInterpreter extends InputInterpreter {
 	
     MapToolManager editor;
+    SunLight sunLight;
     private EditorController controller;
 
     
@@ -37,11 +39,29 @@ public class EditorInputInterpreter extends InputInterpreter {
 
     protected final static String INC_AIRBRUSH_FALLOF = "incairbrushfallof";
     protected final static String DEC_AIRBRUSH_FALLOF = "decairbrushfallof";
+
+    protected final static String TOGGLE_LIGHT_COMP = "togglelightcomp";
+    protected final static String INC_DAYTIME = "incdaytime";
+    protected final static String DEC_DAYTIME = "decdaytime";
+    protected final static String COMPASS_EAST = "compasseast";
+    protected final static String COMPASS_WEST = "compasswest";
+    protected final static String INC_INTENSITY = "incintensity";
+    protected final static String DEC_INTENSITY = "decintensity";
+    protected final static String TOGGLE_SPEED = "togglespeed";
+    protected final static String DEC_RED = "decred";
+    protected final static String DEC_GREEN = "decgreen";
+    protected final static String DEC_BLUE = "decblue";
+    protected final static String RESET_COLOR = "resetcolor";
     
     
-    EditorInputInterpreter(InputManager im, Camera cam, MapToolManager editor, View view, EditorController fc) {
+
+    
+    
+    
+    EditorInputInterpreter(InputManager im, Camera cam, MapToolManager editor, SunLight sunLight, View view, EditorController fc) {
         super(im, cam, view);
         this.editor = editor;
+        this.sunLight = sunLight;
         selector.centered = false;
         this.controller = fc;
     }
@@ -61,6 +81,19 @@ public class EditorInputInterpreter extends InputInterpreter {
                             INC_AIRBRUSH_FALLOF,
                             DEC_AIRBRUSH_FALLOF,
                             
+                            TOGGLE_LIGHT_COMP,
+                            INC_DAYTIME,
+                            DEC_DAYTIME,
+                            COMPASS_EAST,
+                            COMPASS_WEST,
+                            INC_INTENSITY,
+                            DEC_INTENSITY,
+                            TOGGLE_SPEED,
+                            DEC_RED, 
+                            DEC_GREEN,
+                            DEC_BLUE,
+                            RESET_COLOR
+                            
             };
             inputManager.addMapping(PRIMARY_ACTION, new MouseButtonTrigger(0));
             inputManager.addMapping(SECONDARY_ACTION, new MouseButtonTrigger(1));
@@ -74,8 +107,38 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addMapping(TOGGLE_GRID, new KeyTrigger(KeyInput.KEY_G));
             inputManager.addMapping(TOGGLE_CLIFF_SHAPE, new KeyTrigger(KeyInput.KEY_Z));
 
+            inputManager.addMapping(TOGGLE_LIGHT_COMP, new KeyTrigger(KeyInput.KEY_NUMPAD7));
+            inputManager.addMapping(INC_DAYTIME, new KeyTrigger(KeyInput.KEY_NUMPAD8));
+            inputManager.addMapping(DEC_DAYTIME, new KeyTrigger(KeyInput.KEY_NUMPAD5));
+            inputManager.addMapping(COMPASS_EAST, new KeyTrigger(KeyInput.KEY_NUMPAD6));
+            inputManager.addMapping(COMPASS_WEST, new KeyTrigger(KeyInput.KEY_NUMPAD4));
+            inputManager.addMapping(INC_INTENSITY, new KeyTrigger(KeyInput.KEY_ADD));
+            inputManager.addMapping(DEC_INTENSITY, new KeyTrigger(KeyInput.KEY_SUBTRACT));
+            inputManager.addMapping(TOGGLE_SPEED, new KeyTrigger(KeyInput.KEY_NUMPAD9));
+            inputManager.addMapping(DEC_RED, new KeyTrigger(KeyInput.KEY_NUMPAD1));
+            inputManager.addMapping(DEC_GREEN, new KeyTrigger(KeyInput.KEY_NUMPAD2));
+            inputManager.addMapping(DEC_BLUE, new KeyTrigger(KeyInput.KEY_NUMPAD3));
+            inputManager.addMapping(RESET_COLOR, new KeyTrigger(KeyInput.KEY_NUMPAD0));
 
             inputManager.addListener(this, mappings);
+            
+            LogUtil.logger.info("------ Map editing (ZQSD zone)");
+            LogUtil.logger.info(" '1' for cliff tool, '2' for height tool");
+            LogUtil.logger.info(" 'z' toggle between preset cliff styles");
+            LogUtil.logger.info(" Area selector : 'a' toggle between shapes (square, diamond and circle)");
+            LogUtil.logger.info("                 'q' & 'w' increase/decrease radius ");
+            LogUtil.logger.info("");
+            LogUtil.logger.info("------ Lighting (numpad)");
+            LogUtil.logger.info(" '7' toggle between sunlight components : sunlight/shadowcaster/both/ambient");
+            LogUtil.logger.info(" '8' & '5' increase/decrease daytime");
+            LogUtil.logger.info(" '4' & '6' rotate compass");
+            LogUtil.logger.info(" '1', '2' & '3' decrease red, green and blue component");
+            LogUtil.logger.info(" '0' reset color");
+            LogUtil.logger.info(" + & - change intensity");
+            LogUtil.logger.info("");
+            LogUtil.logger.info("");
+            LogUtil.logger.info("");
+            LogUtil.logger.info("");
     }
 
     @Override
@@ -86,6 +149,24 @@ public class EditorInputInterpreter extends InputInterpreter {
                 editor.primaryAction();
         } else if (name.equals(SECONDARY_ACTION)){
                 editor.secondaryAction();
+        } else if (name.equals(INC_DAYTIME)){
+            sunLight.incDayTime();
+        } else if (name.equals(DEC_DAYTIME)){
+            sunLight.decDayTime();
+        } else if (name.equals(COMPASS_EAST)){
+            sunLight.turnCompassEast();
+        } else if (name.equals(COMPASS_WEST)){
+            sunLight.turnCompasWest();
+        } else if (name.equals(INC_INTENSITY)){
+            sunLight.incIntensity();
+        } else if (name.equals(DEC_INTENSITY)){
+            sunLight.decIntensity();
+        } else if (name.equals(DEC_RED)){
+            sunLight.decRed();
+        } else if (name.equals(DEC_GREEN)){
+            sunLight.decGreen();
+        } else if (name.equals(DEC_BLUE)){
+            sunLight.decBlue();
         }
     }
 
@@ -105,6 +186,12 @@ public class EditorInputInterpreter extends InputInterpreter {
                 editor.cliffTool.swichCliff();
         } else if (name.equals(TOGGLE_GRID) && !isPressed){
                 controller.view.editorRend.toggleGrid();
+        } else if (name.equals(TOGGLE_LIGHT_COMP) && !isPressed){
+            sunLight.toggleLight();
+        } else if (name.equals(TOGGLE_SPEED) && !isPressed){
+            sunLight.toggleSpeed();
+        } else if (name.equals(RESET_COLOR) && !isPressed){
+            sunLight.resetColor();
         }
     }
 

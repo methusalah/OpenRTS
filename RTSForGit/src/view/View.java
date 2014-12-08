@@ -22,6 +22,7 @@ import geometry.Point2D;
 import model.Model;
 import view.actorDrawing.ActorDrawingManager;
 import view.mapDrawing.EditorRenderer;
+import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapRenderer;
 
 public class View {
@@ -36,6 +37,7 @@ public class View {
     public MapRenderer mapRend;
     public EditorRenderer editorRend;
     public ActorDrawingManager actorManager;
+    public LightDrawer lightDrawer;
 //    public UnitRenderer unitsRend;
 
 
@@ -55,6 +57,9 @@ public class View {
         this.am = am;
         this.vp = vp;
         pointer = new Pointer();
+        
+        lightDrawer = new LightDrawer(m.sunLight, am, rootNode, vp);
+        model.sunLight.addListener(lightDrawer);
 
         mapRend = new MapRenderer(model.map, model.parcelManager, mm, am);
         rootNode.attachChild(mapRend.mainNode);
@@ -96,51 +101,9 @@ public class View {
     }
     
     public DirectionalLight sunComp1;
+    public DirectionalLight sunComp2;
     private void createLight() {
-    	AmbientLight al = new AmbientLight();
-    	al.setColor(ColorRGBA.White.clone().multLocal(0.8f)); // bright white light
-    	rootNode.addLight(al);
     	
-//    	DirectionalLight zenith = new DirectionalLight();
-//    	zenith.setColor(new ColorRGBA(250f/255f, 214f/255f, 165f/255f, 255f/255f).clone().multLocal(0.8f)); // bright white light
-//    	zenith.setDirection(new Vector3f(0f, 0f, -1f));
-//    	rootNode.addLight(zenith);
-    	
-//    	DirectionalLight sun = new DirectionalLight();
-//    	sun.setColor(ColorRGBA.White.clone().multLocal(1.01f)); // bright white light
-//    	sun.setDirection(new Vector3f(2, 1, -1f).normalize());
-//    	rootNode.addLight(sun);
-
-        sunComp1 = new DirectionalLight();
-    	sunComp1.setColor(new ColorRGBA(255f/255f, 255f/255f, 255f/255f, 255f/255f).clone().multLocal(2f)); // bright white light
-    	sunComp1.setDirection(new Vector3f(-2.2f, 1.8f, -2f).normalize());
-    	rootNode.addLight(sunComp1);
-        
-        FilterPostProcessor fpp = new FilterPostProcessor(am);
-
-        int SHADOWMAP_SIZE = 4096;
-        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
-        sr.setLight(sunComp1);
-        vp.addProcessor(sr);
-//        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
-//        sf.setLight(sunComp1);
-//        sf.setEnabled(true);
-//        sf.setShadowZExtend(SHADOWMAP_SIZE);
-//        fpp.addFilter(sf);
-
-
-        // Ambiant occlusion filter
-        SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
-//        fpp.addFilter(ssaoFilter);
-        // Glow filter
-        BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
-        fpp.addFilter(bloom);
-        vp.addProcessor(fpp);
-
-//    	DirectionalLight second2 = new DirectionalLight();
-//    	second2.setColor(ColorRGBA.White.clone().multLocal(1)); // bright white light
-//    	second2.setDirection(new Vector3f(0f, -0.5f, -1f).normalize());
-//    	rootNode.addLight(second2);
     }
 
     public void drawSelectionArea(Point2D c1, Point2D c2) {

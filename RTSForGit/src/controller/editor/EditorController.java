@@ -39,7 +39,7 @@ public class EditorController extends Controller {
     
     public EditorController(Model model, View view, Nifty nifty, InputManager im, Camera cam){
         this.model = model;
-        ii = new EditorInputInterpreter(im, cam, model.editor, view, this);
+        ii = new EditorInputInterpreter(im, cam, model.editor, model.sunLight, view, this);
         gui = new EditorGUI(nifty, model.commander, model.reporter);
         this.im = im;
         this.view = view;

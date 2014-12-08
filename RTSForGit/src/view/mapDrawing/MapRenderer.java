@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Queue;
 
 import math.Angle;
+import model.lighting.SunLight;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
 import model.map.cliff.faces.natural.NaturalFaceMesh;
@@ -107,10 +108,9 @@ public class MapRenderer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Tile> updated = (ArrayList<Tile>)(e.getSource());
         switch(e.getActionCommand()){
-            case "parcels" : updateParcelsFor(updated); break;
-            case "tiles" : updateTiles(updated); break;
+            case "parcels" : updateParcelsFor((ArrayList<Tile>)(e.getSource())); break;
+            case "tiles" : updateTiles((ArrayList<Tile>)(e.getSource())); break;
                 default: throw new IllegalArgumentException("Unknown command : "+e.getActionCommand());
         }
     }
@@ -219,4 +219,5 @@ public class MapRenderer implements ActionListener {
             g.setMesh(Translator.toJMEMesh(parcel));
         }
     }
+    
 }
