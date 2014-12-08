@@ -9,6 +9,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
@@ -16,6 +17,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import geometry.Point2D;
 import model.Model;
 import view.actorDrawing.ActorDrawingManager;
@@ -72,7 +74,7 @@ public class View {
         createSky();
     }
 	
-    public void createSky() {
+    private void createSky() {
         vp.setBackgroundColor(new ColorRGBA(135f/255f, 206f/255f, 250f/255f, 1));
         Geometry xAxe = new Geometry();
         xAxe.setMesh(new Box(5, 0.1f, 0.1f));
@@ -92,10 +94,11 @@ public class View {
         yAxe.setLocalTranslation(0, 5, 0);
         rootNode.attachChild(yAxe);
     }
+    
     public DirectionalLight sunComp1;
-    public void createLight() {
+    private void createLight() {
     	AmbientLight al = new AmbientLight();
-    	al.setColor(ColorRGBA.White.clone().multLocal(1.5f)); // bright white light
+    	al.setColor(ColorRGBA.White.clone().multLocal(0.8f)); // bright white light
     	rootNode.addLight(al);
     	
 //    	DirectionalLight zenith = new DirectionalLight();
@@ -116,18 +119,22 @@ public class View {
         FilterPostProcessor fpp = new FilterPostProcessor(am);
 
         int SHADOWMAP_SIZE = 4096;
-//        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 3);
-//        sr.setLight(sunComp1);
-//        vp.addProcessor(sr);
-        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
-        sf.setLight(sunComp1);
-        sf.setEnabled(true);
-        sf.setShadowZExtend(SHADOWMAP_SIZE);
-        fpp.addFilter(sf);
+        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
+        sr.setLight(sunComp1);
+        vp.addProcessor(sr);
+//        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
+//        sf.setLight(sunComp1);
+//        sf.setEnabled(true);
+//        sf.setShadowZExtend(SHADOWMAP_SIZE);
+//        fpp.addFilter(sf);
 
+
+        // Ambiant occlusion filter
         SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
-        fpp.addFilter(ssaoFilter);
-
+//        fpp.addFilter(ssaoFilter);
+        // Glow filter
+        BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
+        fpp.addFilter(bloom);
         vp.addProcessor(fpp);
 
 //    	DirectionalLight second2 = new DirectionalLight();

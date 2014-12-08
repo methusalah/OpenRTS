@@ -61,15 +61,15 @@ public class MaterialManager {
     }
     
     public Material getLightingColor(ColorRGBA color) {
-		// We first check if the requested color exist in the map
-		if(colorsMap.containsKey(color))
-			return colorsMap.get(color);
-			
-		// At this point, we know that the color doesn't exist.
-		// We must create a new material, add it to the map and return it.
+        // We first check if the requested color exist in the map
+        if(colorsMap.containsKey(color))
+                return colorsMap.get(color);
+
+        // At this point, we know that the color doesn't exist.
+        // We must create a new material, add it to the map and return it.
     	Material res = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
     	res.setColor("Diffuse", color);
-		res.setFloat("Shininess", 120f);
+        res.setFloat("Shininess", 10f);
     	res.setBoolean("UseMaterialColors", true);
     	
     	colorsMap.put(color, res);
@@ -84,11 +84,13 @@ public class MaterialManager {
         // texture 1
         Texture t1 = assetManager.loadTexture(tex1);
         t1.setWrap(WrapMode.Repeat);
+        t1.setAnisotropicFilter(8);
         m.setTexture("DiffuseMap", t1);
         m.setFloat("DiffuseMap_0_scale", 8f);
 
         // texture 2
         Texture t2 = assetManager.loadTexture(tex2);
+        t2.setAnisotropicFilter(8);
         t2.setWrap(WrapMode.Repeat);
         m.setTexture("DiffuseMap_1", t2);
         m.setFloat("DiffuseMap_1_scale", 8f);
@@ -124,7 +126,7 @@ public class MaterialManager {
     	t.setAnisotropicFilter(8);
     	res.setTexture("DiffuseMap", t);
     	
-//       	res.setFloat("Shininess", 10f); // [0,128]
+       	res.setFloat("Shininess", 10f); // [0,128]
     	
     	// test for envmap
 //    	TextureCubeMap envmap = new TextureCubeMap(assetManager.loadTexture("Textures/cubemap_reflec.dds").getImage());

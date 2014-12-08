@@ -2,26 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.cliff.faces;
+package model.map.cliff.faces.natural;
 
 import collections.Ring;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import geometry3D.Polygon3D;
+import java.awt.Color;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
 import model.map.Tile;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
-import model.map.cliff.CliffFaceMesh;
+import model.map.cliff.faces.Face;
 import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-public abstract class NaturalFace {
+public class NaturalFace extends Face {
     public final static int NB_VERTEX_ROWS = 13;
     public final static int NB_VERTEX_COL = 3;
     private final static double NOISE_POWER = 0.13;
@@ -34,18 +35,44 @@ public abstract class NaturalFace {
     protected final static double TOP_PLANT_PROB = 0.1;
     protected final static double BOTTOM_PLANT_PROB = 0.1;
     
+    public NaturalFaceMesh mesh;
+
     Cliff cliff;
-    
-    public CliffFaceMesh mesh;
+    double noiseX, noiseY, noiseZ;
+    double ridgeDepth, ridgePos;
+    public Color color;
+    public String texturePath;
     
     ArrayList<Point3D> parentProfile = new ArrayList<>();
     ArrayList<Point3D> middleProfile = new ArrayList<>();
     ArrayList<Point3D> childProfile = new ArrayList<>();
     Point3D[][] grid;
     
-    public NaturalFace(Cliff cliff){
+    public NaturalFace(Cliff cliff, double noiseX, double noiseY, double noiseZ, double ridgeDepth, double ridgePos, Color color, String texturePath){
         this.cliff = cliff;
-        buildMesh();
+        this.noiseX = noiseX;
+        this.noiseY = noiseY;
+        this.noiseZ = noiseZ;
+        this.ridgeDepth = ridgeDepth;
+        this.ridgePos = ridgePos;
+        this.color = color;
+        this.texturePath = texturePath;
+    }
+
+    public NaturalFace(NaturalFace o){
+        this.cliff = o.cliff;
+        this.noiseX = o.noiseX;
+        this.noiseY = o.noiseY;
+        this.noiseZ = o.noiseZ;
+        this.ridgeDepth = o.ridgeDepth;
+        this.ridgePos = o.ridgePos;
+        this.color = o.color;
+        this.texturePath = o.texturePath;
+    }
+
+    @Override
+    public String getType() {
+        return "natural";
     }
     
     protected ArrayList<Point3D> getChildProfile(){
@@ -83,7 +110,7 @@ public abstract class NaturalFace {
         return res;
     }
     
-    private void buildProfiles(){
+    protected void buildProfiles(){
         if(getParentFace() != null)
             parentProfile = getParentFace().getChildProfile();
         else
@@ -95,9 +122,11 @@ public abstract class NaturalFace {
             childProfile = noise(createProfile());
     }
     
-    protected abstract void extrudeProfile();
+    protected void extrudeProfile(){
+        throw new UnsupportedOperationException("Can't be launched form this mother class.");
+    }
     
-    private void buildMesh(){
+    protected void buildMesh(){
         grid = new Point3D[3][NB_VERTEX_ROWS];
         buildProfiles();
         extrudeProfile();
@@ -105,78 +134,27 @@ public abstract class NaturalFace {
         for(int i=0; i<NB_VERTEX_COL; i++)
             for(int j=0; j<NB_VERTEX_ROWS; j++)
                 grid[i][j] = grid[i][j].getAddition(-0.5, -0.5, 0);
-        mesh = new CliffFaceMesh(grid);
+        mesh = new NaturalFaceMesh(grid);
     }
-    
-    public ArrayList<Trinket> getAssets(){
-                ArrayList<Trinket> res = new ArrayList<>();
-        if(MyRandom.next()<TOP_ROCK_PROB){
-            Trinket a = new Trinket("models/env/exterior01/rockA.mesh.xml");
-            a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(-0.3, 0.3),
-                    0, 
-                    MyRandom.between(0.6* Tile.STAGE_HEIGHT, 0.9*Tile.STAGE_HEIGHT));
-            a.scale = MyRandom.between(0.7, 1.4);
-            a.rotX = Angle.FLAT*2*MyRandom.next();
-            a.rotY = Angle.FLAT*2*MyRandom.next();
-            a.rotZ = Angle.FLAT*2*MyRandom.next();
-            res.add(a);
-        }
-        if(MyRandom.next()<SIDE_ROCK_PROB){
-            Trinket a = new Trinket("models/env/exterior01/rockA.mesh.xml");
-            a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(-0.2, 0.2),
-                    0,
-                    MyRandom.between(0.1*Tile.STAGE_HEIGHT, 0.6*Tile.STAGE_HEIGHT));
-            a.scale = MyRandom.between(0.7, 1.4);
-            a.rotX = Angle.FLAT*2*MyRandom.next();
-            a.rotY = Angle.FLAT*2*MyRandom.next();
-            a.rotZ = Angle.FLAT*2*MyRandom.next();
-            res.add(a);
-        }
-        if(MyRandom.next()<BOTTOM_ROCK_PROB){
-            Trinket a = new Trinket("models/env/exterior01/rockA.mesh.xml");
-            a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(0.3, 0.8),
-                    0,
-                    MyRandom.between(-0.3*Tile.STAGE_HEIGHT, 0*Tile.STAGE_HEIGHT));
-            a.scale = MyRandom.between(0.7, 1.4);
-            a.rotX = Angle.FLAT*2*MyRandom.next();
-            a.rotY = Angle.FLAT*2*MyRandom.next();
-            a.rotZ = Angle.FLAT*2*MyRandom.next();
-            res.add(a);
-        }
-        if(MyRandom.next()<TOP_PLANT_PROB){
-            Trinket a = new Trinket("models/env/exterior01/GrassB.mesh.xml");
-            a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(-0.3, 0.3),
-                    0, 
-                    Tile.STAGE_HEIGHT);
-            a.scale = MyRandom.between(0.7, 1.4);
-            a.rotZ = Angle.FLAT*2*MyRandom.next();
-            res.add(a);
-        }
-        if(MyRandom.next()<BOTTOM_PLANT_PROB){
-            Trinket a = new Trinket("models/env/exterior01/GrassB.mesh.xml");
-            a.pos = Point3D.ORIGIN.getAddition(MyRandom.between(0.7, 1.5),
-                    0,
-                    0);
-            a.scale = MyRandom.between(0.7, 1.4);
-            a.rotZ = Angle.FLAT*2*MyRandom.next();
-            res.add(a);
-        }
-        return res;
-
-    }
-    
-    public abstract ArrayList<Ring<Point3D>> getGrounds();
-    
     private NaturalFace getParentFace(){
-        if(cliff.parent != null && cliff.parent.cliff != null)
-            return cliff.parent.cliff.naturalFace;
+        if(cliff.parent != null &&
+                cliff.parent.cliff != null &&
+                cliff.parent.cliff.face instanceof NaturalFace)
+            return (NaturalFace)(cliff.parent.cliff.face);
         else
             return null;
     }
     private NaturalFace getChildFace(){
-        if(cliff.child != null && cliff.child.cliff != null)
-            return cliff.child.cliff.naturalFace;
+        if(cliff.child != null &&
+                cliff.child.cliff != null &&
+                cliff.child.cliff.face instanceof NaturalFace)
+            return (NaturalFace)(cliff.child.cliff.face);
         else
             return null;
+    }
+
+    @Override
+    public ArrayList<Ring<Point3D>> getGrounds() {
+        throw new UnsupportedOperationException("Can't be launched form this mother class.");
     }
 }

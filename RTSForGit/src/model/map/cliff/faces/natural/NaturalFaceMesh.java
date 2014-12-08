@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.cliff;
+package model.map.cliff.faces.natural;
 
 import model.map.cliff.faces.natural.NaturalFace;
 import geometry.Point2D;
@@ -16,9 +16,9 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class CliffFaceMesh extends MyMesh {
+public class NaturalFaceMesh extends MyMesh {
     
-    public CliffFaceMesh(Point3D[][] grid){
+    public NaturalFaceMesh(Point3D[][] grid){
         Point2D uv0 = new Point2D(grid[0][0].y, grid[0][0].z);
         double x = uv0.x;
         double y = uv0.y; 

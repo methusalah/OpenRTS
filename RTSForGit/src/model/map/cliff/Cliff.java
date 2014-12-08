@@ -3,14 +3,14 @@ package model.map.cliff;
 import java.util.ArrayList;
 import math.Angle;
 import model.map.Tile;
-import model.map.cliff.faces.NaturalFace;
+import model.map.cliff.faces.natural.NaturalFace;
 import model.map.cliff.CliffOrganizer;
 import static model.map.Tile.STAGE_HEIGHT;
-import model.map.TileDef;
-import model.map.cliff.faces.CornerNaturalFace;
-import model.map.cliff.faces.ManmadeFace;
-import model.map.cliff.faces.OrthogonalNaturalFace;
-import model.map.cliff.faces.SalientNaturalFace;
+import model.map.cliff.faces.natural.CornerNaturalFace;
+import model.map.cliff.faces.Face;
+import model.map.cliff.faces.manmade.ManmadeFace;
+import model.map.cliff.faces.natural.OrthogonalNaturalFace;
+import model.map.cliff.faces.natural.SalientNaturalFace;
 import tools.LogUtil;
 
 public class Cliff {
@@ -22,9 +22,8 @@ public class Cliff {
     public double angle = 0;
     public Type type;
 
-    public NaturalFace naturalFace;
-    public ManmadeFace manmadeFace;
-    public ArrayList<Trinket> trinkets;
+    public Face face;
+    public ArrayList<Trinket> trinkets = new ArrayList<>();
     
     public Cliff(Tile t) {
         this.tile = t;
@@ -32,14 +31,6 @@ public class Cliff {
     
     public void connect(){
         CliffOrganizer.organize(this);
-    }
-    
-    public void buildFace(){
-        switch (type){
-            case Orthogonal : naturalFace = new OrthogonalNaturalFace(this); break;
-            case Salient : naturalFace = new SalientNaturalFace(this); break;
-            case Corner : naturalFace = new CornerNaturalFace(this); break;
-        }
     }
     
     public String getConnectedCliffs(){

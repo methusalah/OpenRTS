@@ -4,6 +4,7 @@
  */
 package model.army.data;
 
+import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import java.util.HashMap;
 import ressources.definitions.Definition;
@@ -15,7 +16,7 @@ import ressources.definitions.Definition;
 public class WeaponBuilder {
     static final String UINAME = "UIName"; 
     static final String RANGE = "Range";
-    static final String SCAN_RANGE = "ScanRange"; 
+    static final String SCAN_RANGE = "ScanRange";
     static final String PERIOD = "Period"; 
     static final String EFFECT_LINK = "EffectLink";
     static final String ACTOR_LINK = "ActorLink";

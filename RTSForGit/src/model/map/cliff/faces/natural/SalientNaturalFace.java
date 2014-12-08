@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.cliff.faces;
+package model.map.cliff.faces.natural;
 
 import collections.Ring;
 import geometry.Point2D;
@@ -15,40 +15,31 @@ import math.MyRandom;
 import model.map.Tile;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
-import static model.map.cliff.faces.NaturalFace.MIDDLE_EDGE_VARIATION;
-import static model.map.cliff.faces.NaturalFace.TOP_ROCK_PROB;
 
 /**
  *
  * @author Benoît
  */
-public class CornerNaturalFace extends NaturalFace {
-    public CornerNaturalFace(Cliff cliff){
-        super(cliff);
+public class SalientNaturalFace extends NaturalFace {
+    
+    public SalientNaturalFace(NaturalFace face){
+        super(face);
+        buildMesh();
     }
 
     @Override
     protected void extrudeProfile() {
         int i = 0;
         double curve = MyRandom.between(0.7, 1);
-        
-        for(Point3D v : mirror(parentProfile))
-            grid[0][i++] = v;
+        for(Point3D v : parentProfile)
+            grid[0][i++] = v.get2D().getRotation(Angle.RIGHT).get3D(v.z);
         i = 0;
-        for(Point3D v : mirror(middleProfile))
+        for(Point3D v : middleProfile)
             grid[1][i++] = v.get2D().getRotation(Angle.RIGHT/2*MyRandom.between(1+MIDDLE_EDGE_VARIATION, 1-MIDDLE_EDGE_VARIATION)).getMult(curve).get3D(v.z);
         i = 0;
-        for(Point3D v : mirror(childProfile))
-            grid[2][i++] = v.get2D().getRotation(Angle.RIGHT).get3D(v.z);
+        for(Point3D v : childProfile)
+            grid[2][i++] = v;
     }
-    
-    private ArrayList<Point3D> mirror(ArrayList<Point3D> profile){
-        ArrayList<Point3D> res = new ArrayList<>();
-        for(Point3D v : profile)
-            res.add(new Point3D(1-v.x, -v.y, v.z));
-        return res;
-    }
-
 
     @Override
     public ArrayList<Ring<Point3D>> getGrounds() {
@@ -60,13 +51,13 @@ public class CornerNaturalFace extends NaturalFace {
         Ring<Point3D> lowerPoints = new Ring<>();
         Ring<Point3D> upperPoints = new Ring<>();
 
-        lowerPoints.add(sw);
+        lowerPoints.add(se);
+        lowerPoints.add(ne);
+        lowerPoints.add(nw);
         for(int i=0; i<NaturalFace.NB_VERTEX_COL; i++)
             lowerPoints.add(grid[i][0]);
 
-        upperPoints.add(se);
-        upperPoints.add(ne);
-        upperPoints.add(nw);
+        upperPoints.add(sw);
         for(int i=NaturalFace.NB_VERTEX_COL-1; i>=0; i--)
             upperPoints.add(grid[i][NaturalFace.NB_VERTEX_ROWS-1]);
         
@@ -75,19 +66,4 @@ public class CornerNaturalFace extends NaturalFace {
         res.add(upperPoints);
         return res;
     }
-
-    @Override
-    public ArrayList<Trinket> getAssets() {
-        ArrayList<Trinket> res = super.getAssets();
-        for(Trinket a : res){
-            a.pos = new Point3D(1-a.pos.x, a.pos.y, a.pos.z);
-            a.pos = a.pos.get2D().getRotation(Angle.RIGHT*MyRandom.next()).get3D(a.pos.z);
-            a.pos = a.pos.get2D().getRotation(cliff.angle, new Point2D(0.5, 0.5)).get3D(a.pos.z);
-        }
-        return res;
-    }
-    
-    
-    
-    
 }

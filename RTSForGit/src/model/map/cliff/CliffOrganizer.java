@@ -4,10 +4,10 @@
  */
 package model.map.cliff;
 
-import model.map.cliff.faces.NaturalFace;
-import model.map.cliff.faces.CornerNaturalFace;
-import model.map.cliff.faces.OrthogonalNaturalFace;
-import model.map.cliff.faces.SalientNaturalFace;
+import model.map.cliff.faces.natural.NaturalFace;
+import model.map.cliff.faces.natural.CornerNaturalFace;
+import model.map.cliff.faces.natural.OrthogonalNaturalFace;
+import model.map.cliff.faces.natural.SalientNaturalFace;
 import geometry.Point2D;
 import math.Angle;
 import model.map.Tile;
@@ -29,6 +29,11 @@ public class CliffOrganizer {
 
         if(n == null || s == null || e == null || w == null){
             c.type = Cliff.Type.Border;
+            return;
+        }
+        
+        if(c.getUpperGrounds().size()>5){
+            c.type = Cliff.Type.Bugged;
             return;
         }
         

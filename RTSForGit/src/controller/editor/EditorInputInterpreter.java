@@ -13,25 +13,33 @@ import controller.InputInterpreter;
 import geometry.Point2D;
 import math.MyRandom;
 import model.Commander;
-import model.map.editor.MapEditor;
+import model.map.editor.MapToolManager;
 import tools.LogUtil;
 import view.math.Translator;
 
 public class EditorInputInterpreter extends InputInterpreter {
 	
-    MapEditor editor;
+    MapToolManager editor;
     private EditorController controller;
 
-    protected final static String leftclic = "lc";
-    protected final static String rightclic = "rc";
-    protected final static String Selection_Shape = "selectionshape";
-    protected final static String Selection_Radius_Inc = "selectionradius+";
-    protected final static String Selection_Radius_Dec = "selectionradius-";
-    protected final static String r = "r";
-    protected final static String f = "f";
-    protected final static String GridDisplay = "GridDisplay";
+    
+    protected final static String PRIMARY_ACTION = "lc";
+    protected final static String SECONDARY_ACTION = "rc";
+    protected final static String TOGGLE_GRID = "GridDisplay";
 
-    EditorInputInterpreter(InputManager im, Camera cam, MapEditor editor, View view, EditorController fc) {
+    protected final static String SET_CLIFF_TOOL = "setclifftool";
+    protected final static String SET_HEIGHT_TOOL = "setheighttool";
+    protected final static String TOGGLE_SELECTOR_SHAPE = "selectorshape";
+    protected final static String INC_SELECTOR_RADIUS = "selectorradius+";
+    protected final static String DEC_SELECTOR_RADIUS = "selectorradius-";
+
+    protected final static String TOGGLE_CLIFF_SHAPE = "togglecliffshape";
+
+    protected final static String INC_AIRBRUSH_FALLOF = "incairbrushfallof";
+    protected final static String DEC_AIRBRUSH_FALLOF = "decairbrushfallof";
+    
+    
+    EditorInputInterpreter(InputManager im, Camera cam, MapToolManager editor, View view, EditorController fc) {
         super(im, cam, view);
         this.editor = editor;
         selector.centered = false;
@@ -41,24 +49,30 @@ public class EditorInputInterpreter extends InputInterpreter {
     @Override
     protected void registerInputs() {
             String[] mappings = new String[]{
-                            leftclic,
-                            rightclic,
-                            Selection_Shape,
-                            Selection_Radius_Inc,
-                            Selection_Radius_Dec,
-                            r,
-                            f,
-                            GridDisplay,
+                            PRIMARY_ACTION,
+                            SECONDARY_ACTION,
+                            TOGGLE_SELECTOR_SHAPE,
+                            INC_SELECTOR_RADIUS,
+                            DEC_SELECTOR_RADIUS,
+                            SET_CLIFF_TOOL,
+                            SET_HEIGHT_TOOL,
+                            TOGGLE_GRID,
+                            TOGGLE_CLIFF_SHAPE,
+                            INC_AIRBRUSH_FALLOF,
+                            DEC_AIRBRUSH_FALLOF,
                             
             };
-            inputManager.addMapping(leftclic, new MouseButtonTrigger(0));
-            inputManager.addMapping(rightclic, new MouseButtonTrigger(1));
-            inputManager.addMapping(Selection_Shape, new KeyTrigger(KeyInput.KEY_A));
-            inputManager.addMapping(Selection_Radius_Inc, new KeyTrigger(KeyInput.KEY_Q));
-            inputManager.addMapping(Selection_Radius_Dec, new KeyTrigger(KeyInput.KEY_W));
-            inputManager.addMapping(r, new KeyTrigger(KeyInput.KEY_R));
-            inputManager.addMapping(f, new KeyTrigger(KeyInput.KEY_F));
-            inputManager.addMapping(GridDisplay, new KeyTrigger(KeyInput.KEY_G));
+            inputManager.addMapping(PRIMARY_ACTION, new MouseButtonTrigger(0));
+            inputManager.addMapping(SECONDARY_ACTION, new MouseButtonTrigger(1));
+            
+            inputManager.addMapping(TOGGLE_SELECTOR_SHAPE, new KeyTrigger(KeyInput.KEY_A));
+            inputManager.addMapping(INC_SELECTOR_RADIUS, new KeyTrigger(KeyInput.KEY_Q));
+            inputManager.addMapping(DEC_SELECTOR_RADIUS, new KeyTrigger(KeyInput.KEY_W));
+            inputManager.addMapping(SET_CLIFF_TOOL, new KeyTrigger(KeyInput.KEY_1));
+            inputManager.addMapping(SET_HEIGHT_TOOL, new KeyTrigger(KeyInput.KEY_2));
+            
+            inputManager.addMapping(TOGGLE_GRID, new KeyTrigger(KeyInput.KEY_G));
+            inputManager.addMapping(TOGGLE_CLIFF_SHAPE, new KeyTrigger(KeyInput.KEY_Z));
 
 
             inputManager.addListener(this, mappings);
@@ -66,27 +80,30 @@ public class EditorInputInterpreter extends InputInterpreter {
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
-        if(!isActive)
-            return;
+//        if(!isActive)
+//            return;
+        if (name.equals(PRIMARY_ACTION)){
+                editor.primaryAction();
+        } else if (name.equals(SECONDARY_ACTION)){
+                editor.secondaryAction();
+        }
     }
 
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (name.equals(leftclic) && !isPressed){
-                editor.levelUp(getSpatialCoord());
-        } else if (name.equals(rightclic) && !isPressed){
-                editor.levelDown(getSpatialCoord());
-        } else if (name.equals(Selection_Shape) && !isPressed){
+        if (name.equals(TOGGLE_SELECTOR_SHAPE) && !isPressed){
                 editor.selector.toggleShape();
-        } else if (name.equals(Selection_Radius_Inc) && !isPressed){
+        } else if (name.equals(INC_SELECTOR_RADIUS) && !isPressed){
                 editor.selector.incRadius();
-        } else if (name.equals(Selection_Radius_Dec) && !isPressed){
+        } else if (name.equals(DEC_SELECTOR_RADIUS) && !isPressed){
                 editor.selector.decRadius();
-        } else if (name.equals(r) && !isPressed){
-                editor.incHeight(getSpatialCoord());
-        } else if (name.equals(f) && !isPressed){
-                editor.decHeight(getSpatialCoord());
-        } else if (name.equals(GridDisplay) && !isPressed){
+        } else if (name.equals(SET_CLIFF_TOOL) && !isPressed){
+                editor.setCliffTool();
+        } else if (name.equals(SET_HEIGHT_TOOL) && !isPressed){
+                editor.setHeightTool();
+        } else if (name.equals(TOGGLE_CLIFF_SHAPE) && !isPressed){
+                editor.cliffTool.swichCliff();
+        } else if (name.equals(TOGGLE_GRID) && !isPressed){
                 controller.view.editorRend.toggleGrid();
         }
     }

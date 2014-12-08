@@ -10,7 +10,7 @@ import geometry.Point2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import model.army.data.Actor;
-import model.army.data.BuilderLibrary;
+import ressources.definitions.BuilderLibrary;
 import model.map.Map;
 import model.army.data.effects.PersistentEffect;
 import model.warfare.Faction;

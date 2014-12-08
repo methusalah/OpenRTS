@@ -5,15 +5,15 @@ import java.io.File;
 import java.util.ArrayList;
 import model.map.Map;
 import model.army.ArmyManager;
-import model.army.data.BuilderLibrary;
-import model.map.editor.MapEditor;
+import ressources.definitions.BuilderLibrary;
+import model.map.editor.MapToolManager;
 import model.map.MapFactory;
 import model.map.parcel.ParcelManager;
 import ressources.definitions.DefParser;
 import tools.LogUtil;
 
 public class Model {
-    static final String CONFIG_PATH = "assets/data/army";
+    static final String CONFIG_PATH = "assets/data";
     static final double UPDATE_DELAY = 1000;
     
     public Map map;
@@ -21,7 +21,7 @@ public class Model {
     
     public Commander commander;
     public Reporter reporter;
-    public MapEditor editor;
+    public MapToolManager editor;
     public ParcelManager parcelManager;
     
 
@@ -34,7 +34,6 @@ public class Model {
     public Model() {
         this.map = MapFactory.getNewMap(128, 128);
         parcelManager = new ParcelManager(map);
-        editor = new MapEditor(map, parcelManager);
 
 //        for(int x=10; x<20; x++)
 //            for(int y=10; y<20; y++)
@@ -62,6 +61,7 @@ public class Model {
         }
         parser.readFile();
         
+        editor = new MapToolManager(map, parcelManager, lib);
 //        armyManager.createTestArmy(lib);
     }
     

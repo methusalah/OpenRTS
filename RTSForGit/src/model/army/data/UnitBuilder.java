@@ -4,6 +4,7 @@
  */
 package model.army.data;
 
+import ressources.definitions.BuilderLibrary;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import ressources.definitions.DefElement;

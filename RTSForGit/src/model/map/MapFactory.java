@@ -26,7 +26,6 @@ public class MapFactory {
     private static final Color RAMP = new Color(0, 150, 250, 255);
     private static final Color RAMP_START = new Color(0, 0, 250, 255);
 
-    TileDef[][] tileDef;
     Map map;
 
     

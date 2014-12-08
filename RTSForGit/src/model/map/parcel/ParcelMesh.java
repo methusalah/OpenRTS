@@ -5,7 +5,7 @@
 package model.map.parcel;
 
 import model.map.cliff.Cliff;
-import model.map.cliff.faces.NaturalFace;
+import model.map.cliff.faces.natural.NaturalFace;
 import collections.PointRing;
 import collections.Ring;
 import geometry.Point2D;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import javax.management.RuntimeErrorException;
 import math.MyRandom;
 import model.map.Tile;
-import model.map.cliff.faces.CornerNaturalFace;
+import model.map.cliff.faces.natural.CornerNaturalFace;
 import tools.LogUtil;
 
 
@@ -72,7 +72,7 @@ public class ParcelMesh extends MyMesh {
     }
     
     private ArrayList<Triangle3D> getCliffGrounds(Tile t){
-        if(t.cliff.naturalFace == null)
+        if(t.cliff.face == null)
             return new ArrayList<>();
 
         Point2D sw = new Point2D(-0.5, -0.5);
@@ -81,18 +81,21 @@ public class ParcelMesh extends MyMesh {
         Point2D nw = new Point2D(-0.5, 0.5);
         
         ArrayList<Polygon3D> polygons = new ArrayList<>();
-        for(Ring<Point3D> ring : t.cliff.naturalFace.getGrounds()){
+        for(Ring<Point3D> ring : t.cliff.face.getGrounds()){
             Ring<Point3D> elevatedRing = new Ring<>();
             for(Point3D p : ring){
                 p = p.get2D().getRotation(t.cliff.angle).get3D(p.z);
                 if(p.get2D().equals(sw))
                     p = p.getAddition(0, 0, t.getZ());
-                if(p.get2D().equals(se))
+                else if(p.get2D().equals(se))
                     p = p.getAddition(0, 0, t.e.getZ());
-                if(p.get2D().equals(ne))
+                else if(p.get2D().equals(ne))
                     p = p.getAddition(0, 0, t.n.e.getZ());
-                if(p.get2D().equals(nw))
+                else if(p.get2D().equals(nw))
                     p = p.getAddition(0, 0, t.n.getZ());
+                else
+                    p = p.getAddition(0, 0, t.level*Tile.STAGE_HEIGHT);
+                    
                 elevatedRing.add(p);
             }
             try {

@@ -20,7 +20,6 @@ import com.jme3.collision.Collidable;
 import com.jme3.collision.CollisionResults;
 import com.jme3.collision.UnsupportedCollisionException;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Mesh;
@@ -39,12 +38,16 @@ import java.util.Queue;
 import math.Angle;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
-import model.map.cliff.CliffFaceMesh;
+import model.map.cliff.faces.natural.NaturalFaceMesh;
 import model.map.Map;
-import model.map.editor.MapEditor;
+import model.map.editor.MapToolManager;
 import model.map.parcel.ParcelManager;
 import model.map.Tile;
-import model.map.cliff.faces.NaturalFace;
+import static model.map.cliff.Cliff.Type.Corner;
+import static model.map.cliff.Cliff.Type.Orthogonal;
+import static model.map.cliff.Cliff.Type.Salient;
+import model.map.cliff.faces.manmade.ManmadeFace;
+import model.map.cliff.faces.natural.NaturalFace;
 import model.map.parcel.ParcelMesh;
 
 import tools.LogUtil;
@@ -58,6 +61,8 @@ public class MapRenderer implements ActionListener {
     MaterialManager mm;
     AssetManager am;
     public Node mainNode = new Node();
+    public Node castAndReceiveNode = new Node();
+    public Node receiveNode = new Node();
     public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
     private HashMap<String, Spatial> models = new HashMap<>();
 
@@ -69,78 +74,28 @@ public class MapRenderer implements ActionListener {
         this.parcelManager = parcelManager;
         this.mm = mm;
         this.am = am;
+        castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
+        mainNode.attachChild(castAndReceiveNode);
+        mainNode.attachChild(receiveNode);
     }
 	
     public void renderTiles() {
             LogUtil.logger.info("rendering ground");
-
             for(ParcelMesh mesh : parcelManager.meshes){
                 Geometry g = new Geometry();
                 Mesh jmeMesh = Translator.toJMEMesh(mesh);
 //                TangentBinormalGenerator.generate(mesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(mm.getTerrain("textures/alphamap.png",
-                        "textures/grass.tga",
+                        "textures/grass.png",
                         "textures/road.jpg",
                         "textures/road.jpg",
                         "textures/road_normal.png"));
-                g.setShadowMode(RenderQueue.ShadowMode.Receive);
 //                g.addControl(new RigidBodyControl(0));
                 parcelsSpatial.put(mesh, g);
-                mainNode.attachChild(g);
+                castAndReceiveNode.attachChild(g);
 //                mainPhysicsSpace.add(g);
-            }
-
-            LogUtil.logger.info("rendering cliffs");
-            for(Tile t : map.getTilesWithCliff()) {
-                if(t.cliff.naturalFace == null)
-                    continue;
-                if(t.cliff.manmadeFace == null){
-                    Geometry g = new Geometry();
-                    g.setMesh(Translator.toJMEMesh(t.cliff.naturalFace.mesh));
-                    g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
-                    g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-
-                    g.rotate(0, 0, (float)(t.cliff.angle));
-                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
-
-                    tilesSpatial.put(t, g);
-                    mainNode.attachChild(g);
-
-                    for(Trinket a : t.cliff.naturalFace.getAssets()){
-                        Spatial s = getModel(a.path);
-                        s.scale(0.002f*(float)a.scale);
-                        s.rotate((float)a.rotX, (float)a.rotY, (float)a.rotZ);
-                        if(a.path.equals("models/env/exterior01/rockA.mesh.xml"))
-                            s.setMaterial(mm.getLightingTexture("textures/road.jpg"));
-                        s.setLocalTranslation(Translator.toVector3f(a.pos.getAddition(t.x, t.y, t.level*Tile.STAGE_HEIGHT)));
-                        s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-                        mainNode.attachChild(s);
-                    }
-                } else {
-                    Spatial s = null;
-                    switch (t.cliff.type){
-                        case Orthogonal : 
-                            s = getModel("models/env/interior01/wallA.mesh.xml");
-                            s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
-                            break;
-                        case Salient : 
-                            s = getModel("models/env/interior01/wallAngle1A.mesh.xml");
-                            s.rotate(0, 0, (float)(t.cliff.angle+Angle.RIGHT));
-                            break;
-                        case Corner : 
-                            s = getModel("models/env/interior01/wallAngle2A.mesh.xml");
-                            s.rotate(0, 0, (float)(t.cliff.angle));
-                            break;
-                    }
-                    if(s == null)
-                        continue;
-                    s.scale(0.005f);
-                    s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+0.1f);
-                    s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-                    tilesSpatial.put(t, s);
-                    mainNode.attachChild(s);
-                }
             }
     }
 
@@ -162,42 +117,100 @@ public class MapRenderer implements ActionListener {
     
     private void updateTiles(ArrayList<Tile> tiles){
         for(Tile t : tiles){
+            freeTileNode(t);
             if(t.isCliff()){
-                if(t.cliff.type == Cliff.Type.Bugged){
-                    Geometry g = (Geometry)tilesSpatial.get(t);
-                    if(g != null)
-                        mainNode.detachChild(g);
-                    g = new Geometry();
-                    g.setMesh(new Box(0.5f, 0.5f, 1));
-                    g.setMaterial(mm.redMaterial);
-                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+1);
-                    tilesSpatial.put(t, g);
-                    mainNode.attachChild(g);
-                } else {
-                    if(t.cliff.naturalFace == null)
-                        continue;
-                    Geometry g = (Geometry)tilesSpatial.get(t);
-                    if(g != null)
-                        mainNode.detachChild(g);
-                    g = new Geometry();
-                    g.setMesh(Translator.toJMEMesh(t.cliff.naturalFace.mesh));
-                    g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
-//                        g.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-
-                    g.rotate(0, 0, (float)(t.cliff.angle));
-                    g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
-
-                    tilesSpatial.put(t, g);
-                    mainNode.attachChild(g);
-                }
-            } else {
-                Geometry g = (Geometry)tilesSpatial.get(t);
-                if(g != null){
-                    mainNode.detachChild(g);
-                    tilesSpatial.remove(t);
-                }
+                if(t.cliff.type == Cliff.Type.Bugged)
+                    attachBuggedCliff(t);
+                else if(t.cliff.face == null)
+                    continue;
+                else if(t.cliff.face.getType().equals("natural"))
+                    attachNaturalCliff(t);
+                else if(t.cliff.face.getType().equals("manmade"))
+                    attachManmadeCliff(t);
             }
         }
+    }
+    
+    private void freeTileNode(Tile t){
+        Node n = (Node)tilesSpatial.get(t);
+        if(n != null)
+            castAndReceiveNode.detachChild(n);
+        tilesSpatial.remove(t);
+    }
+    
+    private void attachBuggedCliff(Tile t){
+        Geometry g = new Geometry();
+        g.setMesh(new Box(0.5f, 0.5f, 1));
+        g.setMaterial(mm.redMaterial);
+        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+1);
+        
+        Node n = new Node();
+        n.attachChild(g);
+        tilesSpatial.put(t, n);
+        castAndReceiveNode.attachChild(n);
+    }
+    
+    private void attachNaturalCliff(Tile t){
+        Node n = new Node();
+        tilesSpatial.put(t, n);
+        castAndReceiveNode.attachChild(n);
+
+        NaturalFace face = (NaturalFace)(t.cliff.face);
+        Geometry g = new Geometry();
+        g.setMesh(Translator.toJMEMesh(face.mesh));
+        if(face.color != null)
+            g.setMaterial(mm.getLightingColor(Translator.toColorRGBA(face.color)));
+        else
+            g.setMaterial(mm.getLightingTexture(face.texturePath));
+//            g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
+        g.rotate(0, 0, (float)(t.cliff.angle));
+        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
+        n.attachChild(g);
+        attachTrinkets(t);
+    }
+    
+    private void attachManmadeCliff(Tile t){
+        Node n = new Node();
+        tilesSpatial.put(t, n);
+        castAndReceiveNode.attachChild(n);
+
+        ManmadeFace face = (ManmadeFace)(t.cliff.face);
+        Spatial s = getModel(face.modelPath);
+        if(s == null){
+            LogUtil.logger.warning("Can't find model "+face.modelPath);
+            return;
+        }
+        switch (t.cliff.type){
+            case Orthogonal : 
+                s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
+                break;
+            case Salient : 
+                s.rotate(0, 0, (float)(t.cliff.angle+Angle.RIGHT));
+                break;
+            case Corner : 
+                s.rotate(0, 0, (float)(t.cliff.angle));
+                break;
+        }
+        s.scale(0.005f);
+        s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+0.1f);
+        n.attachChild(s);
+    }
+    
+    private void attachTrinkets(Tile t){
+        Node n = (Node)tilesSpatial.get(t);
+        if(n == null)
+            throw new RuntimeException("Can't attach trinkets before face.");
+        
+        for(Trinket trinket : t.cliff.trinkets){
+            Spatial s = getModel(trinket.modelPath);
+            s.scale(0.002f*(float)trinket.scaleX, 0.002f*(float)trinket.scaleY, 0.002f*(float)trinket.scaleZ);
+            s.rotate((float)trinket.rotX, (float)trinket.rotY, (float)trinket.rotZ);
+            if(trinket.color != null)
+                s.setMaterial(mm.getLightingColor(Translator.toColorRGBA(trinket.color)));
+            s.setLocalTranslation(Translator.toVector3f(trinket.pos.getAddition(t.x, t.y, t.level*Tile.STAGE_HEIGHT)));
+            n.attachChild(s);
+        }
+        
     }
     
     private void updateParcelsFor(ArrayList<Tile> tiles){

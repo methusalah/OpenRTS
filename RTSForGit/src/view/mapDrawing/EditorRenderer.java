@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.map.Map;
 import model.map.Tile;
-import model.map.editor.MapEditor;
+import model.map.editor.MapToolManager;
 import model.map.editor.TileSelector;
 import view.material.MaterialManager;
 import view.math.Translator;
@@ -31,7 +31,7 @@ import view.math.Translator;
  */
 public class EditorRenderer implements ActionListener {
     private final Map map;
-    private final MapEditor editor;
+    private final MapToolManager editor;
     private final MaterialManager mm;
     
     public Node mainNode = new Node();
@@ -41,7 +41,7 @@ public class EditorRenderer implements ActionListener {
     private Geometry gridGeom;
     private GridMesh gridMesh;
 
-    public EditorRenderer(Map map, MapEditor editor, MaterialManager mm) {
+    public EditorRenderer(Map map, MapToolManager editor, MaterialManager mm) {
         this.map = map;
         this.mm = mm;
         this.editor = editor;
@@ -106,14 +106,6 @@ public class EditorRenderer implements ActionListener {
     }
     
     
-    public void drawPencilPreview(Point2D coord) {
-        Quaternion q = new Quaternion();
-        q.fromAngles(0, 0, (float)editor.selector.getShapeAngle());
-        pencilNode.setLocalRotation(q);
-        pencilNode.setLocalScale((float)editor.selector.radius*2, (float)editor.selector.radius*2, 0);
-        pencilNode.setLocalTranslation(Translator.toVector3f(editor.selector.pos, 0.1));
-    }
-    
     public void drawPencilPreview() {
         ArrayList<Tile> tiles = editor.selector.getTiles();
         int index = 0;
@@ -121,7 +113,7 @@ public class EditorRenderer implements ActionListener {
             if(index < tiles.size())
                 s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)editor.selector.getElevation()+0.1f));
             else
-                s.setLocalTranslation(Vector3f.ZERO);
+                s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
             index++;
         }
     }

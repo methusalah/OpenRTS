@@ -23,7 +23,8 @@ public class TileSelector {
     enum Shape {Square, Diamond, Circle}
     
     Map map;
-    public Point2D pos;
+    private Point2D pos;
+    public Point2D alignedPos;
     public Shape shape = Shape.Square;
     public double radius = 2;
 
@@ -50,6 +51,11 @@ public class TileSelector {
         shape = Shape.Circle;
     }
     
+    public void setPos(Point2D pos){
+        this.pos = pos;
+        alignedPos = null;
+    }
+    
     public void toggleShape(){
         switch(shape){
             case Circle : setSquare(); break;
@@ -69,18 +75,23 @@ public class TileSelector {
         }
     }
     
+    public Tile getCenterTile(){
+        return map.getTile(getAlignedPos());
+    }
+    
     private Point2D getAlignedPos(){
-        Point2D res = pos;
-        if(radius > 1){
-            int x = (int)Math.round(res.x);
-            int y = (int)Math.round(res.y);
-            if(x%2 != 0)
-                x--;
-            if(y%2 != 0)
-                y--;
-            res = new Point2D(x, y);
+        if(alignedPos == null){
+            if(radius > 1){
+                int x = (int)Math.round(pos.x);
+                int y = (int)Math.round(pos.y);
+                if(x%2 != 0)
+                    x--;
+                if(y%2 != 0)
+                    y--;
+                alignedPos = new Point2D(x, y);
+            }
         }
-        return res;
+        return alignedPos;
     }
     
     private ArrayList<Tile> getTilesInCircle() {
@@ -131,6 +142,22 @@ public class TileSelector {
     
     public double getElevation(){
         return map.getTile(getAlignedPos()).getZ();
+    }
+    
+    public double getCenteringRatio(Tile t){
+        switch(shape) {
+            case Square :
+                int xDist = (int)Math.abs(t.x-getAlignedPos().x);
+                int yDist = (int)Math.abs(t.y-getAlignedPos().y);
+                return (radius-Math.max(xDist, yDist))/radius;
+            case Diamond :
+                xDist = (int)Math.abs(t.x-getAlignedPos().x);
+                yDist = (int)Math.abs(t.y-getAlignedPos().y);
+                return (radius*2*1.414-xDist+yDist)/(radius*2*1.414);
+            case Circle :
+                return (radius-t.getPos2D().getDistance(getAlignedPos()))/radius;
+        }
+        return 0;
     }
 
 }

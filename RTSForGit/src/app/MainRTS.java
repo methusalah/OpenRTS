@@ -55,11 +55,6 @@ public class MainRTS extends MySimpleApplication {
         
         @Override
 	public void simpleInitApp() {
-		FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
-		fpp.addFilter(bloom);
-		viewPort.addProcessor(fpp);
-                
                 bulletAppState = new BulletAppState();
                 stateManager.attach(bulletAppState);
                 bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
@@ -93,11 +88,11 @@ public class MainRTS extends MySimpleApplication {
 //            fieldCtrl.updateSelection();
             model.updateConfigs();
 //            model.commander.updateSelectables(fieldCtrl.getViewCenter());
-            angle+=tpf/30;
+            angle+=tpf/50;
 
             double newX = Math.cos(angle);
             double newY = Math.sin(angle);
-            dir = new Vector3f((float)newX, (float)newY, -1);
+            dir = new Vector3f((float)newX, (float)newY, -0.8f);
 
             view.sunComp1.setDirection(dir);
             editorCtrl.drawPencilPreview();

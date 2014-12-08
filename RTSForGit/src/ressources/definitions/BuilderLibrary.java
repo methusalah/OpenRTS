@@ -2,16 +2,28 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.army.data;
+package ressources.definitions;
 
 import geometry.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import math.MyRandom;
 import model.army.ArmyManager;
+import model.army.data.ActorBuilder;
+import model.army.data.EffectBuilder;
+import model.army.data.MoverBuilder;
+import model.army.data.ProjectileBuilder;
+import model.army.data.TurretBuilder;
+import model.army.data.UnitBuilder;
+import model.army.data.WeaponBuilder;
 import ressources.definitions.Definition;
 import model.map.Map;
+import model.map.data.CliffShapeBuilder;
+import model.map.data.ManmadeFaceBuilder;
+import model.map.data.NaturalFaceBuilder;
+import model.map.data.TrinketBuilder;
 import model.warfare.Faction;
+import tools.LogUtil;
 
 /**
  *
@@ -28,6 +40,13 @@ public class BuilderLibrary {
     private static final String PROJECTILE = "Projectile";
     private static final String ACTOR = "Actor";
     
+    private static final String CLIFF_SHAPE = "CliffShape";
+    private static final String TRINKET = "Trinket";
+    private static final String NATURAL_FACE = "NaturalFace";
+    private static final String MANMADE_FACE = "ManmadeFace";
+
+
+    
     private HashMap<String, UnitBuilder> unitBuilders = new HashMap<>();
     private HashMap<String, MoverBuilder> moverBuilders = new HashMap<>();
     private HashMap<String, WeaponBuilder> weaponBuilders = new HashMap<>();
@@ -35,6 +54,11 @@ public class BuilderLibrary {
     private HashMap<String, EffectBuilder> effectBuilders = new HashMap<>();
     private HashMap<String, ProjectileBuilder> projectileBuilders = new HashMap<>();
     private HashMap<String, ActorBuilder> actorBuilders = new HashMap<>();
+
+    private HashMap<String, CliffShapeBuilder> cliffShapeBuilders = new HashMap<>();
+    private HashMap<String, TrinketBuilder> trinketBuilders = new HashMap<>();
+    private HashMap<String, NaturalFaceBuilder> naturalFaceBuilders = new HashMap<>();
+    private HashMap<String, ManmadeFaceBuilder> manmadeFaceBuilders = new HashMap<>();
 
     Map map;
     ArmyManager am;
@@ -54,6 +78,11 @@ public class BuilderLibrary {
             case EFFECT : submitEffect(def); break;
             case PROJECTILE : submitProjectile(def); break;
             case ACTOR : submitActor(def); break;
+
+            case CLIFF_SHAPE : submitCliffShape(def); break;
+            case TRINKET : submitTrinket(def); break;
+            case NATURAL_FACE : submitNaturalFace(def); break;
+            case MANMADE_FACE : submitManmadeFace(def); break;
         }
     }
     
@@ -83,6 +112,22 @@ public class BuilderLibrary {
     private void submitActor(Definition def){
         actorBuilders.put(def.id, new ActorBuilder(def, am, this));
     }
+    
+    private void submitCliffShape(Definition def){
+        cliffShapeBuilders.put(def.id, new CliffShapeBuilder(def, this));
+    }
+    private void submitTrinket(Definition def){
+        trinketBuilders.put(def.id, new TrinketBuilder(def));
+    }
+    private void submitNaturalFace(Definition def){
+        naturalFaceBuilders.put(def.id, new NaturalFaceBuilder(def));
+    }
+    private void submitManmadeFace(Definition def){
+        manmadeFaceBuilders.put(def.id, new ManmadeFaceBuilder(def));
+    }
+    
+    
+    
     
     public void buildUnitFromRace(String race, Faction faction, Point2D pos){
         ArrayList<UnitBuilder> subList = new ArrayList<>();
@@ -137,6 +182,32 @@ public class BuilderLibrary {
         return res;
     }
     
+    
+    
+    public CliffShapeBuilder getCliffShapeBuilder(String id){
+        CliffShapeBuilder res = cliffShapeBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public TrinketBuilder getTrinketBuilder(String id){
+        TrinketBuilder res = trinketBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public NaturalFaceBuilder getNaturalFaceBuilder(String id){
+        NaturalFaceBuilder res = naturalFaceBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
+    public ManmadeFaceBuilder getManmadeFaceBuilder(String id){
+        ManmadeFaceBuilder res = manmadeFaceBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
     
     
 }

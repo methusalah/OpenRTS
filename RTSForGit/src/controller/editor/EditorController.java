@@ -32,6 +32,8 @@ public class EditorController extends Controller {
     
     View view;
     
+    Point2D screenCoord;
+    
     
 
     
@@ -53,9 +55,10 @@ public class EditorController extends Controller {
     }
     
     public void drawPencilPreview(){
+//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
         Point2D coord = ss.getCoord(view.editorRend.gridNode);
         if(coord != null){
-            model.editor.selector.pos = coord;
+            model.editor.selector.setPos(coord);
             view.editorRend.drawPencilPreview();
         }
     }
