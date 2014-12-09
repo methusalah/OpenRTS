@@ -27,6 +27,7 @@ public class TileSelector {
     public Point2D alignedPos;
     public Shape shape = Shape.Square;
     public double radius = 2;
+    public boolean snapPair = true;
 
     public TileSelector(Map map) {
         this.map = map;
@@ -81,15 +82,15 @@ public class TileSelector {
     
     private Point2D getAlignedPos(){
         if(alignedPos == null){
-            if(radius > 1){
-                int x = (int)Math.round(pos.x);
-                int y = (int)Math.round(pos.y);
+            int x = (int)Math.round(pos.x);
+            int y = (int)Math.round(pos.y);
+            if(radius > 1 && snapPair){
                 if(x%2 != 0)
                     x--;
                 if(y%2 != 0)
                     y--;
-                alignedPos = new Point2D(x, y);
             }
+            alignedPos = new Point2D(x, y);
         }
         return alignedPos;
     }

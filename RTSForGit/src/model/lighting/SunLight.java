@@ -17,6 +17,11 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class SunLight {
+    public static double DEFAULT_COMPASS_ANGLE =  Angle.toRadians(20);
+    public static double DEFAULT_HOUR_ANGLE = Angle.toRadians(40);
+    public static double DEFAULT_SUN_INTENSITY = 2;
+    public static double DEFAULT_SHADOW_INTENSITY = 0.7;
+
     public DirectionalLighting sun;
     public DirectionalLighting shadowCaster;
     public AmbientLighting ambient;
@@ -33,12 +38,9 @@ public class SunLight {
     ArrayList<ActionListener> listeners = new ArrayList<>();
 
     public SunLight() {
-        double compass = Angle.toRadians(20);
-        double hourAngle = Angle.toRadians(40);
-        double intensity = 2;
-        sun = new DirectionalLighting(Color.WHITE, compass, hourAngle,  intensity);
+        sun = new DirectionalLighting(Color.WHITE, DEFAULT_COMPASS_ANGLE, DEFAULT_HOUR_ANGLE,  DEFAULT_SUN_INTENSITY);
         
-        shadowCaster = new DirectionalLighting(Color.WHITE, compass, hourAngle, 0);
+        shadowCaster = new DirectionalLighting(Color.WHITE, DEFAULT_COMPASS_ANGLE, DEFAULT_HOUR_ANGLE, 0.7);
 
         ambient = new AmbientLighting(Color.WHITE);
         

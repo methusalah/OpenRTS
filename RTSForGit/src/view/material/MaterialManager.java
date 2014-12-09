@@ -95,6 +95,8 @@ public class MaterialManager {
         m.setTexture("DiffuseMap_1", t2);
         m.setFloat("DiffuseMap_1_scale", 8f);
 
+        m.setFloat("Shininess", 0f); // [0,128]
+
 //        Texture normal = assetManager.loadTexture("textures/env01/groundGrass_n.png");
 //        normal.setWrap(WrapMode.Repeat);
 //        m.setTexture("NormalMap", normal);

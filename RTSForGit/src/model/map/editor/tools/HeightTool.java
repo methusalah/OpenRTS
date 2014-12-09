@@ -15,6 +15,8 @@ import model.map.editor.TileSelector;
  */
 public class HeightTool extends MapTool {
 
+    double amplitude = 0.2;
+    
     public HeightTool(MapToolManager manager, TileSelector selector) {
         super(manager, selector);
     }
@@ -27,7 +29,7 @@ public class HeightTool extends MapTool {
             x = x*10;
             x-=5;
             double localFalloff = 1/(1+Math.exp(-x));
-            t.elevation+=0.1*localFalloff;
+            t.elevation+=amplitude*localFalloff;
         }
         manager.updateParcels(group);
     }
@@ -40,7 +42,7 @@ public class HeightTool extends MapTool {
             x = x*10;
             x-=5;
             double localFalloff = 1/(1+Math.exp(-x));
-            t.elevation-=0.1*localFalloff;
+            t.elevation-=amplitude*localFalloff;
         }
         manager.updateParcels(group);
     }

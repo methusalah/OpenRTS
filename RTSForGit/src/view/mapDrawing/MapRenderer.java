@@ -89,7 +89,7 @@ public class MapRenderer implements ActionListener {
 //                TangentBinormalGenerator.generate(mesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(mm.getTerrain("textures/alphamap.png",
-                        "textures/grass.png",
+                        "textures/grass.tga",
                         "textures/road.jpg",
                         "textures/road.jpg",
                         "textures/road_normal.png"));

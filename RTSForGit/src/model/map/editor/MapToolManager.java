@@ -35,7 +35,7 @@ public class MapToolManager {
     public CliffTool cliffTool;
     MapTool actualTool;
     
-    double delay = 200;
+    double delay = 50;
     double lastAction = 0;
     
     ArrayList<ActionListener> listeners = new ArrayList<>();
@@ -47,14 +47,17 @@ public class MapToolManager {
         heightTool = new HeightTool(this, selector);
         cliffTool = new CliffTool(this, selector, lib);
         actualTool = cliffTool;
+        selector.snapPair = true;
     }
     
     public void setCliffTool(){
         actualTool = cliffTool;
+        selector.snapPair = true;
         LogUtil.logger.info("Cliff tool set.");
     }
     public void setHeightTool(){
         actualTool = heightTool;
+        selector.snapPair = false;
         LogUtil.logger.info("Height tool set.");
     }
     

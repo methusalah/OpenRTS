@@ -18,6 +18,7 @@ import geometry3D.Polygon3D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.management.RuntimeErrorException;
+import math.Angle;
 import math.MyRandom;
 import model.map.Tile;
 import model.map.cliff.faces.natural.Dug1Corner;
@@ -142,6 +143,8 @@ public class ParcelMesh extends MyMesh {
 
                 for(Triangle3D n : getNearbyTriangles(tile)){
                     ArrayList<Point3D> shared = t.getCommonPoints(n);
+//                    if(t.normal.getAngleWith(n.normal)>Angle.toRadians(90))
+//                        continue;
                     if(shared.size() == 3)
                         continue;
                     if(shared.contains(t.a))

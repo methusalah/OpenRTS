@@ -14,8 +14,10 @@ import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
+import com.jme3.shadow.CompareMode;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
+import com.jme3.shadow.EdgeFilteringMode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class LightDrawer implements ActionListener {
     AmbientLight al;
     DirectionalLight sun;
     DirectionalLight shadowCaster;
+    DirectionalLightShadowRenderer sr;
 
     public LightDrawer(SunLight sunLight, AssetManager am, Node rootNode, ViewPort vp) {
         this.sunLight = sunLight;
@@ -51,9 +54,12 @@ public class LightDrawer implements ActionListener {
         FilterPostProcessor fpp = new FilterPostProcessor(am);
 
         int SHADOWMAP_SIZE = 4096;
-        DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
+        sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
         sr.setLight(shadowCaster);
+        sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+        sr.setShadowIntensity((float)sunLight.shadowCaster.intensity);
         vp.addProcessor(sr);
+
         DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
         sf.setLight(shadowCaster);
         sf.setEnabled(true);
@@ -68,6 +74,8 @@ public class LightDrawer implements ActionListener {
         BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
         fpp.addFilter(bloom);
         vp.addProcessor(fpp);
+        
+        updateLights();
         
     }
     
@@ -85,6 +93,9 @@ public class LightDrawer implements ActionListener {
         Translator.toJMELight(al, sunLight.ambient);
         Translator.toJMELight(sun, sunLight.sun);
         Translator.toJMELight(shadowCaster, sunLight.shadowCaster);
+        shadowCaster.setColor(ColorRGBA.Blue.mult(0));
+        sr.setShadowIntensity((float)sunLight.shadowCaster.intensity);
+        
     }
 
     
