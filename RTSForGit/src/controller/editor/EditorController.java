@@ -57,9 +57,9 @@ public class EditorController extends Controller {
     public void drawPencilPreview(){
 //        screenCoord = Translator.toPoint2D(im.getCursorPosition());
         Point2D coord = ss.getCoord(view.editorRend.gridNode);
-        if(coord != null){
-            model.editor.selector.setPos(coord);
-            view.editorRend.drawPencilPreview();
+        if(coord != null && model.map.isInBounds(coord)){
+            model.editor.pencil.setPos(coord);
+            view.editorRend.drawPencil();
         }
     }
 

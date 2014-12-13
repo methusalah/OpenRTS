@@ -9,7 +9,7 @@ import model.map.Tile;
 import model.map.cliff.Cliff;
 import model.map.data.CliffShapeBuilder;
 import model.map.editor.MapToolManager;
-import model.map.editor.TileSelector;
+import model.map.editor.Pencil;
 import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
 
@@ -22,7 +22,7 @@ public class CliffTool extends MapTool {
     CliffShapeBuilder builder2;
     CliffShapeBuilder actualBuilder;
 
-    public CliffTool(MapToolManager manager, TileSelector selector, BuilderLibrary lib) {
+    public CliffTool(MapToolManager manager, Pencil selector, BuilderLibrary lib) {
         super(manager, selector);
         builder1 = lib.getCliffShapeBuilder("StdRockyVegyDug");
         builder2 = lib.getCliffShapeBuilder("StdManmade");
@@ -66,15 +66,15 @@ public class CliffTool extends MapTool {
                 return true;
         return false;
     }
-    
-    public void swichCliff(){
+
+    @Override
+    public void toggleSet() {
         if(actualBuilder == builder1){
             actualBuilder = builder2;
-            LogUtil.logger.info("Switched to cliff shape 1.");
         } else {
             actualBuilder = builder1;
-            LogUtil.logger.info("Switched to cliff shape 2.");
         }
+        LogUtil.logger.info("Cliff tool toggled to set "+actualBuilder.getID()+".");
     }
     
     public void setCliff(Cliff cliff){

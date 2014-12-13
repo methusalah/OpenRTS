@@ -4,6 +4,7 @@
  */
 package view.mapDrawing;
 
+import collections.PointRing;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
@@ -15,13 +16,18 @@ import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 import com.jme3.scene.shape.Quad;
 import geometry.Point2D;
+import geometry.Polygon;
+import geometry3D.Point3D;
+import geometry3D.PolygonExtruder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import math.Angle;
 import model.map.Map;
 import model.map.Tile;
 import model.map.editor.MapToolManager;
-import model.map.editor.TileSelector;
+import model.map.editor.Pencil;
+import tools.LogUtil;
 import view.material.MaterialManager;
 import view.math.Translator;
 
@@ -30,14 +36,20 @@ import view.math.Translator;
  * @author Benoît
  */
 public class EditorRenderer implements ActionListener {
+    public static final int CIRCLE_PENCIL_SAMPLE_COUNT = 30;
+    public static final double QUAD_PENCIL_SAMPLE_LENGTH = 0.5;
+    public static final int PENCIL_THICKNESS = 3;
+    
+    
     private final Map map;
     private final MapToolManager editor;
     private final MaterialManager mm;
     
     public Node mainNode = new Node();
     public Node gridNode = new Node();
-    public Node pencilNode = new Node();
-    public ArrayList<Node> pencilTiles = new ArrayList<>();
+    public Node CliffPencilNode = new Node();
+    public Node HeightPencilNode = new Node();
+    public Node AtlasPencilNode = new Node();
     private Geometry gridGeom;
     private GridMesh gridMesh;
 
@@ -46,7 +58,6 @@ public class EditorRenderer implements ActionListener {
         this.mm = mm;
         this.editor = editor;
                 
-        
         gridMesh = new GridMesh(map);
         gridGeom = new Geometry();
         gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
@@ -57,66 +68,183 @@ public class EditorRenderer implements ActionListener {
         gridNode.attachChild(gridGeom);
         mainNode.attachChild(gridNode);
         
-        Geometry g = new Geometry();
-        g.setMesh(new Box(0.5f, 0.5f, (float)Tile.STAGE_HEIGHT/2));
-        Material mat2 = mm.getColor(ColorRGBA.Green);
-        mat2.getAdditionalRenderState().setWireframe(true);
-        g.setMaterial(mat2);
-        g.setLocalTranslation(0, 0, (float)Tile.STAGE_HEIGHT/2+0.1f);
-//        pencilNode.attachChild(g);
-        mainNode.attachChild(pencilNode);
+        mainNode.attachChild(CliffPencilNode);
+        mainNode.attachChild(HeightPencilNode);
+        mainNode.attachChild(AtlasPencilNode);
         
-        for(int i=0; i<150; i++){
+        BuildCliffPencil();
+        BuildHeightPencil();
+        BuildAtlasPencil();
+    }
+    
+    private void BuildCliffPencil(){
+        for(int i=0; i<Pencil.MAX_RADIUS*2*Pencil.MAX_RADIUS*2; i++){
             Node n = new Node();
             Geometry l1 = new Geometry();
-            l1.setMesh(new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 1, 0.1f)));
-            l1.setMaterial(mm.greenMaterial);
+            Line l = new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 1, 0.1f));
+            l.setLineWidth(PENCIL_THICKNESS);
+            l1.setMesh(l);
+            l1.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(l1);
+
             Geometry l2 = new Geometry();
-            l2.setMesh(new Line(new Vector3f(0, 1, 0.1f), new Vector3f(1, 1, 0.1f)));
-            l2.setMaterial(mm.greenMaterial);
+            l = new Line(new Vector3f(0, 1, 0.1f), new Vector3f(1, 1, 0.1f));
+            l.setLineWidth(PENCIL_THICKNESS);
+            l2.setMesh(l);
+            l2.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(l2);
+            
             Geometry l3 = new Geometry();
-            l3.setMesh(new Line(new Vector3f(1, 1, 0.1f), new Vector3f(1, 0, 0.1f)));
-            l3.setMaterial(mm.greenMaterial);
+            l = new Line(new Vector3f(1, 1, 0.1f), new Vector3f(1, 0, 0.1f));
+            l.setLineWidth(PENCIL_THICKNESS);
+            l3.setMesh(l);
+            l3.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(l3);
+            
             Geometry l4 = new Geometry();
-            l4.setMesh(new Line(new Vector3f(1, 0, 0.1f), new Vector3f(0, 0, 0.1f)));
-            l4.setMaterial(mm.greenMaterial);
+            l = new Line(new Vector3f(1, 0, 0.1f), new Vector3f(0, 0, 0.1f));
+            l.setLineWidth(PENCIL_THICKNESS);
+            l4.setMesh(l);
+            l4.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(l4);
             
             Geometry lv1 = new Geometry();
             lv1.setMesh(new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 0, -10)));
-            lv1.setMaterial(mm.greenMaterial);
+            lv1.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(lv1);
             Geometry lv2 = new Geometry();
             lv2.setMesh(new Line(new Vector3f(0, 1, 0.1f), new Vector3f(0, 1, -10)));
-            lv2.setMaterial(mm.greenMaterial);
+            lv2.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(lv2);
             Geometry lv3 = new Geometry();
             lv3.setMesh(new Line(new Vector3f(1, 1, 0.1f), new Vector3f(1, 1, -10)));
-            lv3.setMaterial(mm.greenMaterial);
+            lv3.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(lv3);
             Geometry lv4 = new Geometry();
             lv4.setMesh(new Line(new Vector3f(1, 0, 0.1f), new Vector3f(1, 0, -10)));
-            lv4.setMaterial(mm.greenMaterial);
+            lv4.setMaterial(mm.getColor(ColorRGBA.Orange));
             n.attachChild(lv4);
-            pencilNode.attachChild(n);
+            CliffPencilNode.attachChild(n);
         }
     }
     
+    private void BuildHeightPencil(){
+        for(int i=0; i<Pencil.MAX_RADIUS*2*Pencil.MAX_RADIUS*2; i++){
+            Geometry g = new Geometry();
+            g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
+            g.setMaterial(mm.getColor(ColorRGBA.Orange));
+            HeightPencilNode.attachChild(g);
+        }
+    }
+
+    private void BuildAtlasPencil(){
+        for(int i=0; i<Pencil.MAX_RADIUS*16; i++){
+            Geometry g = new Geometry();
+            g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
+            g.setMaterial(mm.getColor(ColorRGBA.Orange));
+            AtlasPencilNode.attachChild(g);
+        }
+    }
+
     
-    public void drawPencilPreview() {
-        ArrayList<Tile> tiles = editor.selector.getTiles();
+    public void drawPencil() {
+        if(editor.actualTool == editor.cliffTool){
+            drawCliffPencil();
+        } else if(editor.actualTool == editor.heightTool){
+            drawHeightPencil();
+        } else if(editor.actualTool == editor.atlasTool){
+            drawAtlasPencil();
+        }
+    }
+    
+    private void drawCliffPencil() {
+        ArrayList<Tile> tiles = editor.pencil.getTiles();
         int index = 0;
-        for(Spatial s : pencilNode.getChildren()){
+        for(Spatial s : CliffPencilNode.getChildren()){
             if(index < tiles.size())
-                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)editor.selector.getElevation()+0.1f));
+                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)editor.pencil.getElevation()+0.1f));
             else
                 s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
             index++;
         }
     }
+    private void drawHeightPencil() {
+        ArrayList<Tile> tiles = editor.pencil.getTiles();
+        int index = 0;
+        for(Spatial s : HeightPencilNode.getChildren()){
+            if(index < tiles.size()){
+                Point3D start = tiles.get(index).getPos();
+                Point3D end = tiles.get(index).getPos().getAddition(0, 0, 0.5);
+                Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
+                l.setLineWidth(PENCIL_THICKNESS);
+                ((Geometry)s).setMesh(l);
+                s.setLocalTranslation(Vector3f.ZERO);
+//                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)editor.selector.getElevation()+0.1f));
+            } else
+                s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+            index++;
+        }
+    }
+    private void drawAtlasPencil() {
+        Pencil s = editor.pencil;
+        PointRing pr = new PointRing();
+        Point2D center = editor.pencil.getPos();
+        
+        if(s.shape == Pencil.Shape.Square ||
+                s.shape == Pencil.Shape.Diamond){
+            for(double i=-s.radius; i<s.radius; i+=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(i, -s.radius));
+            for(double i=-s.radius; i<s.radius; i+=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(s.radius, i));
+            for(double i=s.radius; i>-s.radius; i-=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(i, s.radius));
+            for(double i=s.radius; i>-s.radius; i-=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(-s.radius, i));
+            if(s.shape == Pencil.Shape.Diamond){
+                PointRing newPR = new PointRing();
+                for(Point2D p : pr)
+                    newPR.add(p.getRotation(Angle.RIGHT/2, center));
+                pr = newPR;
+            }
+        } else {
+            Point2D revol = center.getAddition(s.radius, 0);
+            for(int i=0; i<CIRCLE_PENCIL_SAMPLE_COUNT; i++)
+                pr.add(revol.getRotation(Angle.FLAT*2*i/CIRCLE_PENCIL_SAMPLE_COUNT, center));
+        }
+            
+        int index = 0;
+        for(Spatial spatial : AtlasPencilNode.getChildren()){
+            if(index < pr.size() &&
+                    map.isInBounds(pr.get(index)) &&
+                    map.isInBounds(pr.getNext(index))){
+                Point3D start = pr.get(index).get3D(map.getGroundAltitude(pr.get(index))+0.1);
+                Point3D end = pr.getNext(index).get3D(map.getGroundAltitude(pr.getNext(index))+0.1);
+                Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
+                l.setLineWidth(PENCIL_THICKNESS);
+                ((Geometry)spatial).setMesh(l);
+                spatial.setLocalTranslation(Vector3f.ZERO);
+            } else
+                spatial.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+            index++;
+        }
+    }
+    
+    private void hideCliffPencil(){
+        for(Spatial s : CliffPencilNode.getChildren()){
+            s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+        }
+    }
+    private void hideHeightPencil(){
+        for(Spatial s : HeightPencilNode.getChildren()){
+            s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+        }
+    }
+    private void hideAtlasPencil(){
+        for(Spatial s : AtlasPencilNode.getChildren()){
+            s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+        }
+    }
+
     
     public void toggleGrid(){
         if(mainNode.hasChild(gridNode))
@@ -128,12 +256,22 @@ public class EditorRenderer implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Tile> updated = (ArrayList<Tile>)(e.getSource());
-        if(!updated.isEmpty()){
-            gridMesh.update();
-            gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
+        switch(e.getActionCommand()){
+            case "tool" : 
+                if(editor.actualTool != editor.cliffTool)
+                    hideCliffPencil();
+                if(editor.actualTool != editor.heightTool)
+                    hideHeightPencil();
+                if(editor.actualTool != editor.atlasTool)
+                    hideAtlasPencil();
+                break;
+            case "parcels" : 
+                ArrayList<Tile> updated = (ArrayList<Tile>)(e.getSource());
+                if(!updated.isEmpty()){
+                    gridMesh.update();
+                    gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
+                }
+                break;
         }
     }
-
-
 }

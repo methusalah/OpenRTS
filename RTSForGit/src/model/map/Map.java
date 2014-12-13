@@ -10,61 +10,76 @@ import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
 import model.map.cliff.Cliff;
+import model.map.ground.GroundAtlas;
 import model.map.parcel.ParcelManager;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementArray;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
 import ressources.Image;
 import tools.LogUtil;
 
+@Root
 public class Map {
 	
-	public Tile[][] tiles;
-        public ArrayList<Cliff> cliffs = new ArrayList<>();
-	public int width;
-	public int height;
-	
-	public Map(int width, int height){
-            this.width = width;
-            this.height = height;
-            tiles = new Tile[width][height];
-	}
-        
-        public void add(Tile t){
-            tiles[t.x][t.y] = t;
-        }
-        
-	public ArrayList<Tile> getTiles() {
-            ArrayList<Tile> res = new ArrayList<>();
-            for(int x=0; x<width; x++)
-                    for(int y=0; y<height; y++)
-                            res.add(tiles[x][y]);
-            return res;
-	}
-        
-        public Tile getTile(int x, int y) {
-            return tiles[x][y];
-        }
-        
-        public double getGroundAltitude(Point2D pos) {
-            Tile t = getTile(pos);
-            if(t.n==null || t.s==null || t.e==null || t.w== null)
-                return 0;
+    @ElementArray
+    public Tile[][] tiles;
 
-            Point2D tPos2D = new Point2D(t.x, t.y);
-            Point2D tnePos2D = new Point2D(t.e.n.x, t.e.n.y);
-            
-            Point3D nw = t.n.getPos();
-            Point3D ne = t.n.e.getPos();
-            Point3D sw = t.getPos();
-            Point3D se = t.e.getPos();
-            Triangle3D tr;
-            
-            if(Angle.getTurn(tPos2D, tnePos2D, pos) == Angle.CLOCKWISE)
-                tr = new Triangle3D(sw, se, ne);
-            else
-                tr = new Triangle3D(sw, ne, nw);
-            
-            return tr.getElevated(pos).z;
-        }
+    @Element
+    public GroundAtlas atlas;
+    
+    @Element
+    public int width;
+    @Element
+    public int height;
+
+    public String fileName = "hop.xml";
+
+    public Map(int width, int height){
+        this.width = width;
+        this.height = height;
+        atlas = new GroundAtlas(1024, 1024);
+        tiles = new Tile[width][height];
+    }
+
+    public void add(Tile t){
+        tiles[t.x][t.y] = t;
+    }
+
+    public ArrayList<Tile> getTiles() {
+        ArrayList<Tile> res = new ArrayList<>();
+        for(int x=0; x<width; x++)
+                for(int y=0; y<height; y++)
+                        res.add(tiles[x][y]);
+        return res;
+    }
+
+    public Tile getTile(int x, int y) {
+        return tiles[x][y];
+    }
+
+    public double getGroundAltitude(Point2D pos) {
+        Tile t = getTile(pos);
+        if(t.n==null || t.s==null || t.e==null || t.w== null)
+            return 0;
+
+        Point2D tPos2D = new Point2D(t.x, t.y);
+        Point2D tnePos2D = new Point2D(t.e.n.x, t.e.n.y);
+
+        Point3D nw = t.n.getPos();
+        Point3D ne = t.n.e.getPos();
+        Point3D sw = t.getPos();
+        Point3D se = t.e.getPos();
+        Triangle3D tr;
+
+        if(Angle.getTurn(tPos2D, tnePos2D, pos) == Angle.CLOCKWISE)
+            tr = new Triangle3D(sw, se, ne);
+        else
+            tr = new Triangle3D(sw, ne, nw);
+
+        return tr.getElevated(pos).z;
+    }
 
     public boolean isBlocked(int x, int y) {
         if(getTile(x, y).isBlocked())

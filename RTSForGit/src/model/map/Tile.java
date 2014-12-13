@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import math.MyRandom;
 import model.map.cliff.Cliff;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+@Root
 public class Tile {
     
     public static final double STAGE_HEIGHT = 2;
@@ -21,11 +24,18 @@ public class Tile {
     public Tile e;
     public Tile w;
 
+    @Element
     public int x;
+    @Element
     public int y;
+    @Element
     public int level;
+    @Element
     public double elevation = 0;
-    private boolean elevatedForCliff = false;
+    @Element
+    public boolean elevatedForCliff = false;
+    @Element
+    public boolean isCliff = false;
 
     public Cliff cliff;
 
@@ -90,13 +100,14 @@ public class Tile {
     }
     
     public void setCliff(){
-        if(!isCliff())
+        if(!isCliff()){
             cliff = new Cliff(this);
+            isCliff = true;
+        }
     }
     public void unsetCliff(){
-//        if(cliff.parent != null)
-//            cliff.parent.cliff.child = null;
         cliff = null;
+        isCliff = false;
     }
     
     public void correctElevation(){

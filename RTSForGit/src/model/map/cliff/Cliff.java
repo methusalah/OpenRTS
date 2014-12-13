@@ -11,19 +11,21 @@ import model.map.cliff.faces.Face;
 import model.map.cliff.faces.manmade.ManmadeFace;
 import model.map.cliff.faces.natural.Dug1Ortho;
 import model.map.cliff.faces.natural.Dug1Salient;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import tools.LogUtil;
 
 public class Cliff {
     public enum Type{Orthogonal, Salient, Corner, Border, Bugged}
     
+    public Type type;
+    public ArrayList<Trinket> trinkets = new ArrayList<>();
+
     public Tile tile;
     public Tile parent;
     public Tile child;
     public double angle = 0;
-    public Type type;
-
     public Face face;
-    public ArrayList<Trinket> trinkets = new ArrayList<>();
     
     public Cliff(Tile t) {
         this.tile = t;

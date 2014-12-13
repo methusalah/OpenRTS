@@ -1,0 +1,4 @@
+Testsuite: org.simpleframework.xml.convert.EmptyElementConverterTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.096 sec
+
+Testcase: testConverter took 0.094 sec

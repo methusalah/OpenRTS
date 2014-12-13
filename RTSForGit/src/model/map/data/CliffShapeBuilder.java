@@ -41,5 +41,9 @@ public class CliffShapeBuilder {
                     break;
             }
     }
+    
+    public String getID(){
+        return def.id;
+    }
 
 }

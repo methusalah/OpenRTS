@@ -52,12 +52,14 @@ import model.map.cliff.faces.natural.NaturalFace;
 import model.map.parcel.ParcelMesh;
 
 import tools.LogUtil;
+import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.Translator;
 
 public class MapRenderer implements ActionListener {
 
     Map map;
+    public TerrainSplatTexture groundTexture;
     ParcelManager parcelManager;
     MaterialManager mm;
     AssetManager am;
@@ -72,6 +74,7 @@ public class MapRenderer implements ActionListener {
 	
     public MapRenderer(Map map, ParcelManager parcelManager, MaterialManager mm, AssetManager am) {
         this.map = map;
+        groundTexture = new TerrainSplatTexture(map.atlas, am);
         this.parcelManager = parcelManager;
         this.mm = mm;
         this.am = am;
@@ -83,16 +86,18 @@ public class MapRenderer implements ActionListener {
 	
     public void renderTiles() {
             LogUtil.logger.info("rendering ground");
+            groundTexture.addTexture(am.loadTexture("textures/grass.png"), null, 8);
+            groundTexture.addTexture(am.loadTexture("textures/road.jpg"), null, 32);
+            groundTexture.addTexture(am.loadTexture("textures/dirt.png"), null, 32);
+            groundTexture.addTexture(am.loadTexture("textures/bitume.jpg"), null, 32);
+            groundTexture.buildMaterial();
+            
             for(ParcelMesh mesh : parcelManager.meshes){
                 Geometry g = new Geometry();
                 Mesh jmeMesh = Translator.toJMEMesh(mesh);
 //                TangentBinormalGenerator.generate(mesh);
                 g.setMesh(jmeMesh);
-                g.setMaterial(mm.getTerrain("textures/alphamap.png",
-                        "textures/grass.tga",
-                        "textures/road.jpg",
-                        "textures/road.jpg",
-                        "textures/road_normal.png"));
+                g.setMaterial(groundTexture.getMaterial());
 //                g.addControl(new RigidBodyControl(0));
                 parcelsSpatial.put(mesh, g);
                 castAndReceiveNode.attachChild(g);
@@ -111,8 +116,13 @@ public class MapRenderer implements ActionListener {
         switch(e.getActionCommand()){
             case "parcels" : updateParcelsFor((ArrayList<Tile>)(e.getSource())); break;
             case "tiles" : updateTiles((ArrayList<Tile>)(e.getSource())); break;
-                default: throw new IllegalArgumentException("Unknown command : "+e.getActionCommand());
+            case "ground" : updateGroundTexture(); break;
         }
+    }
+    
+    private void updateGroundTexture(){
+        groundTexture.getMaterial();
+        
     }
     
     private void updateTiles(ArrayList<Tile> tiles){

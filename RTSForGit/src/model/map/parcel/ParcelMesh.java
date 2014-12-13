@@ -143,8 +143,10 @@ public class ParcelMesh extends MyMesh {
 
                 for(Triangle3D n : getNearbyTriangles(tile)){
                     ArrayList<Point3D> shared = t.getCommonPoints(n);
-//                    if(t.normal.getAngleWith(n.normal)>Angle.toRadians(90))
-//                        continue;
+                    if(t.normal.getAngleWith(n.normal)>Angle.RIGHT){
+                        LogUtil.logger.info("angle droit detecté");
+                        continue;
+                    }
                     if(shared.size() == 3)
                         continue;
                     if(shared.contains(t.a))

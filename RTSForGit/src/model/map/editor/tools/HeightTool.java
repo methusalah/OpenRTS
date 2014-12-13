@@ -7,7 +7,8 @@ package model.map.editor.tools;
 import java.util.ArrayList;
 import model.map.Tile;
 import model.map.editor.MapToolManager;
-import model.map.editor.TileSelector;
+import model.map.editor.Pencil;
+import tools.LogUtil;
 
 /**
  *
@@ -17,35 +18,32 @@ public class HeightTool extends MapTool {
 
     double amplitude = 0.2;
     
-    public HeightTool(MapToolManager manager, TileSelector selector) {
+    public HeightTool(MapToolManager manager, Pencil selector) {
         super(manager, selector);
     }
 
     @Override
     public void primaryAction() {
         ArrayList<Tile> group = selector.getTiles();
-        for(Tile t : group){
-            double x = selector.getCenteringRatio(t);
-            x = x*10;
-            x-=5;
-            double localFalloff = 1/(1+Math.exp(-x));
-            t.elevation+=amplitude*localFalloff;
-        }
+        for(Tile t : group)
+            t.elevation+=amplitude*selector.getApplicationRatio(t.getPos2D());
         manager.updateParcels(group);
     }
 
     @Override
     public void secondaryAction() {
         ArrayList<Tile> group = selector.getTiles();
-        for(Tile t : group){
-            double x = selector.getCenteringRatio(t);
-            x = x*10;
-            x-=5;
-            double localFalloff = 1/(1+Math.exp(-x));
-            t.elevation-=amplitude*localFalloff;
-        }
+        for(Tile t : group)
+            t.elevation-=amplitude*selector.getApplicationRatio(t.getPos2D());
         manager.updateParcels(group);
     }
+
+    @Override
+    public void toggleSet() {
+        LogUtil.logger.info("Height tool has no set.");
+    }
+    
+    
     
     
 }

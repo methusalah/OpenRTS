@@ -5,27 +5,23 @@
 package model.map.editor.tools;
 
 import model.map.editor.MapToolManager;
-import model.map.editor.TileSelector;
+import model.map.editor.Pencil;
 
 /**
  *
  * @author Benoît
  */
-public class MapTool {
+public abstract class MapTool {
     
     MapToolManager manager;
-    TileSelector selector;
+    Pencil selector;
 
-    public MapTool(MapToolManager manager, TileSelector selector) {
+    public MapTool(MapToolManager manager, Pencil selector) {
         this.manager = manager;
         this.selector = selector;
     }
     
-    public void primaryAction(){
-        throw new RuntimeException("Can't be called from mother class.");
-    }
-    public void secondaryAction(){
-        throw new RuntimeException("Can't be called from mother class.");
-    }
-    
+    public abstract void primaryAction();
+    public abstract void secondaryAction();
+    public abstract void toggleSet();
 }

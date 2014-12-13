@@ -10,13 +10,18 @@ import com.jme3.asset.plugins.FileLocator;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
+import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
+import com.jme3.texture.Texture2D;
+import com.jme3.texture.plugins.AWTLoader;
+import model.map.ground.GroundAtlas;
 
 public class MaterialManager {
 	AssetManager assetManager;
 
 	HashMap<String, Material> texturesMap = new HashMap<String, Material>();
+	HashMap<String, Texture> textureFileMap = new HashMap<String, Texture>();
 	HashMap<ColorRGBA, Material> colorsMap = new HashMap<ColorRGBA, Material>();
 
 	// Materials
@@ -77,41 +82,13 @@ public class MaterialManager {
     	return res;
     }
     
-    public Material getTerrain(String alpha, String tex1, String tex2, String tex3, String tex4){
-        Material m = new Material(assetManager, "Common/MatDefs/Terrain/TerrainLighting.j3md");
-        m.setTexture("AlphaMap", assetManager.loadTexture(alpha));
-        
-        // texture 1
-        Texture t1 = assetManager.loadTexture(tex1);
-        t1.setWrap(WrapMode.Repeat);
-        t1.setAnisotropicFilter(8);
-        m.setTexture("DiffuseMap", t1);
-        m.setFloat("DiffuseMap_0_scale", 8f);
-
-        // texture 2
-        Texture t2 = assetManager.loadTexture(tex2);
-        t2.setAnisotropicFilter(8);
-        t2.setWrap(WrapMode.Repeat);
-        m.setTexture("DiffuseMap_1", t2);
-        m.setFloat("DiffuseMap_1_scale", 8f);
-
-        m.setFloat("Shininess", 0f); // [0,128]
-
-//        Texture normal = assetManager.loadTexture("textures/env01/groundGrass_n.png");
-//        normal.setWrap(WrapMode.Repeat);
-//        m.setTexture("NormalMap", normal);
-
-//        Texture t3 = assetManager.loadTexture(tex3);
-//        t3.setWrap(WrapMode.Repeat);
-//        m.setTexture("DiffuseMap_2", t3);
-//        m.setFloat("DiffuseMap_2_scale", 64f);
-
-//        Texture t4 = assetManager.loadTexture(tex4);
-//        t4.setWrap(WrapMode.Repeat);
-//        m.setTexture("DiffuseMap_3", t4);
-//        m.setFloat("DiffuseMap_3_scale", 32f);
-        
-        return m;
+    private Texture getTexture(String path){
+        Texture res = textureFileMap.get(path);
+        if(res == null){
+            res = assetManager.loadTexture(path);
+            textureFileMap.put(path, res);
+        }
+        return res;
         
     }
     

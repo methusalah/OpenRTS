@@ -13,6 +13,7 @@ import model.map.Tile;
 import static model.map.Tile.STAGE_HEIGHT;
 import model.map.cliff.Cliff;
 import model.map.data.CliffShapeBuilder;
+import model.map.editor.tools.AtlasTool;
 import model.map.editor.tools.CliffTool;
 import model.map.editor.tools.HeightTool;
 import model.map.editor.tools.MapTool;
@@ -27,46 +28,64 @@ import view.mapDrawing.MapRenderer;
  * @author Benoît
  */
 public class MapToolManager {
-    final Map map;
+    public final Map map;
     final ParcelManager pm;
-    public final TileSelector selector;
+    public final Pencil pencil;
     
     public HeightTool heightTool;
     public CliffTool cliffTool;
-    MapTool actualTool;
+    public AtlasTool atlasTool;
+    public MapTool actualTool;
     
-    double delay = 50;
-    double lastAction = 0;
+    double delay = 0;
+    long lastAction = 0;
     
     ArrayList<ActionListener> listeners = new ArrayList<>();
     
     public MapToolManager(Map map, ParcelManager pm, BuilderLibrary lib) {
         this.map = map;
         this.pm = pm;
-        selector = new TileSelector(map);
-        heightTool = new HeightTool(this, selector);
-        cliffTool = new CliffTool(this, selector, lib);
+        pencil = new Pencil(map);
+        heightTool = new HeightTool(this, pencil);
+        cliffTool = new CliffTool(this, pencil, lib);
+        atlasTool = new AtlasTool(this, pencil, map.atlas);
         actualTool = cliffTool;
-        selector.snapPair = true;
+        pencil.snapPair = true;
     }
     
     public void setCliffTool(){
         actualTool = cliffTool;
-        selector.snapPair = true;
+        pencil.snapPair = true;
+        pencil.tileDependant = true;
         LogUtil.logger.info("Cliff tool set.");
+        notifyListeners("tool");
     }
     public void setHeightTool(){
         actualTool = heightTool;
-        selector.snapPair = false;
+        pencil.snapPair = false;
+        pencil.tileDependant = true;
         LogUtil.logger.info("Height tool set.");
+        notifyListeners("tool");
+    }
+    public void setAtlasTool(){
+        actualTool = atlasTool;
+        pencil.snapPair = false;
+        pencil.tileDependant = false;
+        LogUtil.logger.info("Atlas tool set.");
+        notifyListeners("tool");
+    }
+    public void toggleSet(){
+        actualTool.toggleSet();
     }
     
     public void primaryAction(){
         if(lastAction+delay<System.currentTimeMillis()){
+//            LogUtil.logger.info((System.currentTimeMillis()-lastAction)+" ms since last call");
             lastAction = System.currentTimeMillis();
             actualTool.primaryAction();
         }
     }
+
     public void secondaryAction(){
         if(lastAction+delay<System.currentTimeMillis()){
             lastAction = System.currentTimeMillis();
@@ -115,11 +134,20 @@ public class MapToolManager {
     public void updateParcels(ArrayList<Tile> tiles){
         pm.updateParcelsFor(tiles);
         notifyListeners("parcels", tiles);
-        
+    }
+
+    public void updateGroundAtlas(){
+        notifyListeners("ground", new ArrayList<Tile>());
     }
     
     private void notifyListeners(String command, ArrayList<Tile> tiles){
         ActionEvent event = new ActionEvent(tiles, 0, command);
+        for(ActionListener l : listeners)
+            l.actionPerformed(event);
+    }
+
+    private void notifyListeners(String command){
+        ActionEvent event = new ActionEvent(this, 0, command);
         for(ActionListener l : listeners)
             l.actionPerformed(event);
     }
