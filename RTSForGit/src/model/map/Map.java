@@ -16,10 +16,10 @@ import org.simpleframework.xml.Root;
 @Root
 public class Map {
 	
-    public MapStyle style;
+    public MapStyle style = new MapStyle();
     
     @Element
-    String mapStyleID;
+    public String mapStyleID;
     
     @ElementList
     public List<Tile> tiles;
@@ -38,7 +38,20 @@ public class Map {
         this.width = width;
         this.height = height;
         atlas = new GroundAtlas(1024, 1024);
+        atlas.fileName = fileName;
         tiles = new ArrayList<>(width*height);
+    }
+    
+    public Map(@Element(name="mapStyleID") String mapStyleID,
+            @ElementList(name="tiles") List<Tile> tiles,
+            @Element(name="atlas") GroundAtlas atlas,
+            @Element(name="width") int width,
+            @Element(name="height") int height){
+        this.mapStyleID = mapStyleID;
+        this.tiles = tiles;
+        this.atlas = atlas;
+        this.width = width;
+        this.height = height;
     }
 
     public List<Tile> getTiles() {

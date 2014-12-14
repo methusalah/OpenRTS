@@ -31,6 +31,7 @@ public class CliffShapeBuilder {
     }
     
     public void build(Cliff cliff){
+        cliff.tile.cliffShapeID = def.id;
         for(DefElement de : def.elements)
             switch(de.name){
                 case NATURAL_FACE_LINK : cliff.face = lib.getNaturalFaceBuilder(de.getVal()).build(cliff); break;

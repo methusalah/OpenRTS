@@ -17,20 +17,20 @@ public class Model {
     static final String CONFIG_PATH = "assets/data";
     static final double UPDATE_DELAY = 1000;
     
+    public MapFactory factory;
     public Map map;
     public SunLight sunLight;
     public ArmyManager armyManager;
     
     public Commander commander;
     public Reporter reporter;
-    public MapToolManager editor;
+    public MapToolManager toolManager;
     public ParcelManager parcelManager;
     
 
     public BuilderLibrary lib;
     DefParser parser;
     File confFile;
-    long lastModified = 0;
     double nextUpdate = 0;
     
     public Model() {
@@ -50,7 +50,7 @@ public class Model {
         }
         parser.readFile();
         
-        MapFactory factory = new MapFactory(lib);
+        factory = new MapFactory(lib);
         this.map = factory.getNew(128, 128);
         sunLight = new SunLight();
         parcelManager = new ParcelManager(map);
@@ -60,7 +60,7 @@ public class Model {
         lib.am = armyManager;
         
         commander = new Commander(armyManager, map);
-        editor = new MapToolManager(map, parcelManager, lib);
+        toolManager = new MapToolManager(map, parcelManager, lib);
 //        armyManager.createTestArmy(lib);
     }
     
@@ -77,5 +77,20 @@ public class Model {
             nextUpdate = System.currentTimeMillis()+UPDATE_DELAY;
             parser.readFile();
         }
+    }
+    
+    public void load(){
+        Map newMap = factory.load();
+        if(newMap != null){
+            map = newMap;
+            parcelManager = new ParcelManager(map);
+            lib.map = map;
+            commander = new Commander(armyManager, map);
+            toolManager = new MapToolManager(map, parcelManager, lib);
+        }
+    }
+    
+    public void save(){
+        factory.save(map);
     }
 }

@@ -4,6 +4,7 @@
  */
 package model.map.data;
 
+import model.map.Map;
 import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import ressources.definitions.Definition;
@@ -28,17 +29,16 @@ public class MapStyleBuilder {
         this.lib = lib;
     }
     
-    public MapStyle build(){
-        MapStyle res = new MapStyle();
+    public void build(Map map){
+        map.mapStyleID = def.id;
         for(DefElement de : def.elements)
             switch(de.name){
-                case CLIFF_SHAPE_LINK : res.cliffShapes.add(lib.getCliffShapeBuilder(de.getVal())); break;
+                case CLIFF_SHAPE_LINK : map.style.cliffShapes.add(lib.getCliffShapeBuilder(de.getVal())); break;
                 case GROUND_TEXTURE :
-                    res.textures.add(de.getVal(DIFFUSE));
-                    res.normals.add(de.getVal(NORMAL));
-                    res.scales.add(de.getDoubleVal(SCALE));
+                    map.style.textures.add(de.getVal(DIFFUSE));
+                    map.style.normals.add(de.getVal(NORMAL));
+                    map.style.scales.add(de.getDoubleVal(SCALE));
                     break;
             }
-        return res;
     }
 }

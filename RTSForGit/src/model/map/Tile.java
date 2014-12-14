@@ -17,7 +17,7 @@ import org.simpleframework.xml.Transient;
 public class Tile {
     public static final double STAGE_HEIGHT = 2;
 
-    private final Map map;
+    public Map map;
 
     public Tile n;
     public Tile s;
@@ -36,6 +36,8 @@ public class Tile {
     public boolean elevatedForCliff = false;
     @Element
     public boolean isCliff = false;
+    @Element(required=false)
+    public String cliffShapeID = "";
 
     public Cliff cliff;
 
@@ -44,6 +46,22 @@ public class Tile {
         this.x = x;
         this.y = y;
         level = 0;
+    }
+    
+    public Tile(@Element(name="x") int x,
+            @Element(name="y") int y,
+            @Element(name="level") int level,
+            @Element(name="elevation") double elevation,
+            @Element(name="elevatedForCliff") boolean elevatedForCliff,
+            @Element(name="isCliff") boolean isCliff,
+            @Element(name="cliffShapeID") String cliffShapeID){
+        this.x = x;
+        this.y = y;
+        this.level = level;
+        this.elevation = elevation;
+        this.elevatedForCliff = elevatedForCliff;
+        this.isCliff = isCliff;
+        this.cliffShapeID = cliffShapeID;
     }
 
     public int getNeighborsMaxLevel(){

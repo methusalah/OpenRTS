@@ -118,14 +118,14 @@ public class MapToolManager {
             }
         }
 
-        for(Tile n : updatedTiles){
-            n.correctElevation();
-            if(n.isCliff())
-                n.cliff.connect();
+        for(Tile t : updatedTiles){
+            t.correctElevation();
+            if(t.isCliff())
+                t.cliff.connect();
         }
-        for(Tile n : updatedTiles){
-            if(n.isCliff())
-                cliffTool.setCliff(n.cliff);
+        for(Tile t : updatedTiles){
+            if(t.isCliff())
+                cliffTool.setCliff(t.cliff);
         }
         notifyListeners("tiles", updatedTiles);
         updateParcels(tiles);

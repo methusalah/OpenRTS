@@ -19,12 +19,11 @@ import model.lighting.SunLight;
 import model.map.MapFactory;
 import model.map.editor.MapToolManager;
 import tools.LogUtil;
+import view.mapDrawing.MapRenderer;
 import view.math.Translator;
 
 public class EditorInputInterpreter extends InputInterpreter {
 	
-    MapToolManager toolManager;
-    SunLight sunLight;
     private EditorController controller;
 
     
@@ -63,12 +62,10 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String NEW = "new";
 
     
-    EditorInputInterpreter(InputManager im, Camera cam, MapToolManager editor, SunLight sunLight, View view, EditorController fc) {
+    EditorInputInterpreter(InputManager im, Camera cam, View view, EditorController controller) {
         super(im, cam, view);
-        this.toolManager = editor;
-        this.sunLight = sunLight;
         selector.centered = false;
-        this.controller = fc;
+        this.controller = controller;
     }
 
     @Override
@@ -158,17 +155,17 @@ public class EditorInputInterpreter extends InputInterpreter {
     @Override
     public void onAnalog(String name, float value, float tpf) {
         switch(name){
-            case PRIMARY_ACTION : toolManager.primaryAction(); break;
-            case SECONDARY_ACTION : toolManager.secondaryAction(); break;
-            case INC_DAYTIME : sunLight.incDayTime(); break;
-            case DEC_DAYTIME : sunLight.decDayTime(); break;
-            case COMPASS_EAST : sunLight.turnCompassEast(); break;
-            case COMPASS_WEST : sunLight.turnCompasWest(); break;
-            case INC_INTENSITY : sunLight.incIntensity(); break;
-            case DEC_INTENSITY : sunLight.decIntensity(); break;
-            case DEC_RED : sunLight.decRed(); break;
-            case DEC_GREEN : sunLight.decGreen(); break;
-            case DEC_BLUE : sunLight.decBlue(); break;
+            case PRIMARY_ACTION : controller.model.toolManager.primaryAction(); break;
+            case SECONDARY_ACTION : controller.model.toolManager.secondaryAction(); break;
+            case INC_DAYTIME : controller.model.sunLight.incDayTime(); break;
+            case DEC_DAYTIME : controller.model.sunLight.decDayTime(); break;
+            case COMPASS_EAST : controller.model.sunLight.turnCompassEast(); break;
+            case COMPASS_WEST : controller.model.sunLight.turnCompasWest(); break;
+            case INC_INTENSITY : controller.model.sunLight.incIntensity(); break;
+            case DEC_INTENSITY : controller.model.sunLight.decIntensity(); break;
+            case DEC_RED : controller.model.sunLight.decRed(); break;
+            case DEC_GREEN : controller.model.sunLight.decGreen(); break;
+            case DEC_BLUE : controller.model.sunLight.decBlue(); break;
         }
     }
 
@@ -176,20 +173,23 @@ public class EditorInputInterpreter extends InputInterpreter {
     public void onAction(String name, boolean isPressed, float tpf) {
         if(!isPressed)
             switch(name){
-                case TOGGLE_PENCIL_SHAPE : toolManager.pencil.toggleShape(); break;
-                case TOGGLE_PENCIL_MODE : toolManager.pencil.toggleMode(); break;
-                case INC_SELECTOR_RADIUS : toolManager.pencil.incRadius(); break;
-                case DEC_SELECTOR_RADIUS : toolManager.pencil.decRadius(); break;
-                case SET_CLIFF_TOOL : toolManager.setCliffTool(); break;
-                case SET_HEIGHT_TOOL : toolManager.setHeightTool(); break;
-                case SET_ATLAS_TOOL : toolManager.setAtlasTool(); break;
-                case TOGGLE_SET : toolManager.toggleSet(); break;
+                case TOGGLE_PENCIL_SHAPE : controller.model.toolManager.pencil.toggleShape(); break;
+                case TOGGLE_PENCIL_MODE : controller.model.toolManager.pencil.toggleMode(); break;
+                case INC_SELECTOR_RADIUS : controller.model.toolManager.pencil.incRadius(); break;
+                case DEC_SELECTOR_RADIUS : controller.model.toolManager.pencil.decRadius(); break;
+                case SET_CLIFF_TOOL : controller.model.toolManager.setCliffTool(); break;
+                case SET_HEIGHT_TOOL : controller.model.toolManager.setHeightTool(); break;
+                case SET_ATLAS_TOOL : controller.model.toolManager.setAtlasTool(); break;
+                case TOGGLE_SET : controller.model.toolManager.toggleSet(); break;
                 case TOGGLE_GRID : controller.view.editorRend.toggleGrid(); break;
-                case TOGGLE_LIGHT_COMP : sunLight.toggleLight(); break;
-                case TOGGLE_SPEED : sunLight.toggleSpeed(); break;
-                case RESET_COLOR : sunLight.resetColor(); break;
-                case SAVE : MapFactory.save(toolManager.map); break;
-//                case LOAD : controller.model.map = MapFactory.load(); break;
+                case TOGGLE_LIGHT_COMP : controller.model.sunLight.toggleLight(); break;
+                case TOGGLE_SPEED : controller.model.sunLight.toggleSpeed(); break;
+                case RESET_COLOR : controller.model.sunLight.resetColor(); break;
+                case SAVE : controller.model.save(); break;
+                case LOAD :
+                    controller.model.load();
+                    controller.view.reset();
+                    break;
 //                case NEW : controller.model.map = MapFactory.getNew(128, 128); break;
             }
     }

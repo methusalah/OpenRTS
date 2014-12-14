@@ -39,7 +39,7 @@ public class EditorController extends Controller {
     
     public EditorController(Model model, View view, Nifty nifty, InputManager im, Camera cam){
         this.model = model;
-        ii = new EditorInputInterpreter(im, cam, model.editor, model.sunLight, view, this);
+        ii = new EditorInputInterpreter(im, cam, view, this);
         gui = new EditorGUI(nifty, model.commander, model.reporter);
         this.im = im;
         this.view = view;
@@ -58,7 +58,7 @@ public class EditorController extends Controller {
 //        screenCoord = Translator.toPoint2D(im.getCursorPosition());
         Point2D coord = ss.getCoord(view.editorRend.gridNode);
         if(coord != null && model.map.isInBounds(coord)){
-            model.editor.pencil.setPos(coord);
+            model.toolManager.pencil.setPos(coord);
             view.editorRend.drawPencil();
         }
     }

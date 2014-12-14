@@ -45,7 +45,8 @@ public class GroundAtlas {
     @Element
     public int width, height;
     
-    public String fileName = "";
+    @Element
+    public String fileName;
     
     public List<DoubleMap> layers = new ArrayList<>();
     List<ByteBuffer> buffers = new ArrayList<>();
@@ -69,6 +70,16 @@ public class GroundAtlas {
         buffers.add(buildBuffer(0));
         buffers.add(buildBuffer(1));
     }
+
+    public GroundAtlas(@Element(name="width") int width,
+            @Element(name="height") int height,
+            @Element(name="fileName") String fileName){
+        this.width = width;
+        this.height = height;
+        this.fileName = fileName;
+    }
+    
+    
     
     private ByteBuffer buildBuffer(int index){
         ByteBuffer res = ByteBuffer.allocateDirect(width*height*4);
@@ -99,7 +110,7 @@ public class GroundAtlas {
                 bytes[index++] = (byte)i;
             }
         try {
-            FileOutputStream fos = new FileOutputStream(fileName+"atlas");
+            FileOutputStream fos = new FileOutputStream("assets/maps/"+fileName+"atlas");
             fos.write(bytes);
             fos.close();
         } catch (IOException e){
@@ -112,16 +123,20 @@ public class GroundAtlas {
         LogUtil.logger.info("Loading atlas...");
         byte[] bytes = new byte[width*height*LAYER_COUNT];
         try {
-            FileInputStream fis = new FileInputStream(fileName+"atlas");
+            FileInputStream fis = new FileInputStream("assets/maps/"+fileName+"atlas");
             fis.read(bytes, 0, width*height*LAYER_COUNT);
             fis.close();
         } catch (IOException e){
             System.out.println("IOException : " + e);
         }
         int index = 0;
-        for(DoubleMap l : layers)
-            for(int i=0; i<width*height; i++)
-                l.set(i, (double)bytes[index++]+128);
+        layers.clear();
+        for(int i=0; i<LAYER_COUNT; i++){
+            DoubleMap l = new DoubleMap(width, height);
+            for(int xy=0; xy<width*height; xy++)
+                l.set(xy, (double)bytes[index++]+128);
+            layers.add(l);
+        }
         buffers.clear();
         buffers.add(buildBuffer(0));
         buffers.add(buildBuffer(1));

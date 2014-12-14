@@ -64,11 +64,11 @@ public class View {
         mapRend = new MapRenderer(model.map, model.parcelManager, mm, am);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
-        model.editor.addListener(mapRend);
+        model.toolManager.addListener(mapRend);
         
-        editorRend = new EditorRenderer(model.map, model.editor, mm);
+        editorRend = new EditorRenderer(model.map, model.toolManager, mm);
         rootNode.attachChild(editorRend.mainNode);
-        model.editor.addListener(editorRend);
+        model.toolManager.addListener(editorRend);
         
         
         actorManager = new ActorDrawingManager(am, mm, model.armyManager);
@@ -77,6 +77,28 @@ public class View {
         
         createLight();
         createSky();
+    }
+    
+    public void reset(){
+        rootNode.detachChild(mapRend.mainNode);
+        rootNode.detachChild(editorRend.mainNode);
+        rootNode.detachChild(actorManager.mainNode);
+        
+        mapRend = new MapRenderer(model.map, model.parcelManager, mm, am);
+        rootNode.attachChild(mapRend.mainNode);
+        mapRend.mainPhysicsSpace = physicsSpace;
+        model.toolManager.addListener(mapRend);
+        mapRend.renderTiles();
+        
+        editorRend = new EditorRenderer(model.map, model.toolManager, mm);
+        rootNode.attachChild(editorRend.mainNode);
+        model.toolManager.addListener(editorRend);
+        
+        
+        actorManager = new ActorDrawingManager(am, mm, model.armyManager);
+        rootNode.attachChild(actorManager.mainNode);
+        actorManager.mainPhysicsSpace = physicsSpace;
+        
     }
 	
     private void createSky() {

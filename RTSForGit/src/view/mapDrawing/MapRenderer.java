@@ -1,47 +1,27 @@
 package view.mapDrawing;
 
-import geometry.Point2D;
-import geometry.Polygon;
-import geometry3D.PolygonExtruder;
-
-
-import jme3tools.optimize.GeometryBatchFactory;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
-import collections.PointRing;
-import com.jme3.bounding.BoundingVolume;
 import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.collision.Collidable;
-import com.jme3.collision.CollisionResults;
-import com.jme3.collision.UnsupportedCollisionException;
-import com.jme3.material.Material;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Mesh;
-import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Line;
-import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import com.jme3.util.TangentBinormalGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Queue;
+import java.util.List;
 
 import math.Angle;
-import model.lighting.SunLight;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
-import model.map.cliff.faces.natural.Dug1Mesh;
 import model.map.Map;
-import model.map.editor.MapToolManager;
 import model.map.parcel.ParcelManager;
 import model.map.Tile;
 import static model.map.cliff.Cliff.Type.Corner;
@@ -113,6 +93,7 @@ public class MapRenderer implements ActionListener {
                 castAndReceiveNode.attachChild(g);
 //                mainPhysicsSpace.add(g);
             }
+            updateTiles(map.tiles);
     }
 
     private Spatial getModel(String path){
@@ -135,7 +116,7 @@ public class MapRenderer implements ActionListener {
         
     }
     
-    private void updateTiles(ArrayList<Tile> tiles){
+    private void updateTiles(List<Tile> tiles){
         for(Tile t : tiles){
             freeTileNode(t);
             if(t.isCliff()){

@@ -39,7 +39,7 @@ public class MapFactory {
 
         linkTiles(res);
         res.mapStyleID = "StdMapStyle";
-        res.style = lib.getMapStyleBuilder(res.mapStyleID).build();
+        lib.getMapStyleBuilder(res.mapStyleID).build(res);
         return res;
     }
     
@@ -55,11 +55,31 @@ public class MapFactory {
                         e1.printStackTrace();
                 }
         }
-        if(res == null)
-            throw new RuntimeException("Can't load");
+        if(res == null){
+            LogUtil.logger.info("Load failed");
+            return null;
+        }
         
-        res.style = lib.getMapStyleBuilder(res.mapStyleID).build();
+        lib.getMapStyleBuilder(res.mapStyleID).build(res);
         linkTiles(res);
+        
+        for(Tile t : res.tiles)
+            if(t.isCliff)
+                t.setCliff();
+        
+        for(Tile t : res.tiles){
+            t.correctElevation();
+            if(t.isCliff)
+                t.cliff.connect();
+        }
+        for(Tile t : res.tiles){
+            if(t.isCliff)
+                lib.getCliffShapeBuilder(t.cliffShapeID).build(t.cliff);
+        }
+        
+        res.atlas.loadFromFile();
+        
+        
         
         return res;
     }
@@ -71,7 +91,7 @@ public class MapFactory {
     public static Map load(File file) throws Exception {
         Serializer serializer = new Persister();
         Map map = serializer.read(Map.class, file);
-        map.fileName = file.getCanonicalPath();
+        map.fileName = file.getName();
         return map;
     }
 
@@ -87,19 +107,21 @@ public class MapFactory {
 //		System.out.println(exr);
 //	}
 
-    public static void save(Map map) {
+    public void save(Map map) {
             Serializer serializer = new Persister();
             try {
-                serializer.write(map, new File(map.fileName));
+                serializer.write(map, new File("assets/maps/"+map.fileName));
             } catch (Exception ex) {
                 Logger.getLogger(MapFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
+            map.atlas.saveToFile();
     }
     
     private void linkTiles(Map map){
         for(int x=0; x<map.width; x++)
             for(int y=0; y<map.height; y++){
                 Tile t = map.getTile(x, y);
+                t.map = map;
                 if(x>0)
                         t.w = map.getTile(x-1, y);
                 if(x<map.width-1)
