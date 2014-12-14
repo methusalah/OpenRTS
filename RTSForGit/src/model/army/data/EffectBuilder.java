@@ -40,12 +40,10 @@ public class EffectBuilder {
 
     String effectType;
     Definition def;
-    private ArmyManager am;
     BuilderLibrary lib;
     
-    public EffectBuilder(Definition def, ArmyManager am, BuilderLibrary lib){
+    public EffectBuilder(Definition def, BuilderLibrary lib){
         this.def = def;
-        this.am = am;
         this.lib = lib;
         for(DefElement de : def.elements)
             if(de.name.equals(TYPE)){
@@ -61,7 +59,7 @@ public class EffectBuilder {
             case TYPE_DAMAGE : res = new DamageEffect(source, target, targetPoint); break;
             case TYPE_PERSISTENT :
                 res = new PersistentEffect(source, target, targetPoint);
-                am.addPersistentEffect((PersistentEffect)res);
+                lib.am.addPersistentEffect((PersistentEffect)res);
                 break;
             case TYPE_LAUNCHER : res = new LauncherEffect(source, target, targetPoint); break;
             default : throw new RuntimeException("Unknown effect type (id : "+def.id+").");

@@ -17,7 +17,7 @@ import view.View;
  */
 public abstract class Controller implements ReportEventListener {
     
-    protected Model model;
+    public Model model;
     public InputInterpreter ii;
     protected GUI gui;
 }

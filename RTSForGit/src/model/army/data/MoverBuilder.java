@@ -10,6 +10,7 @@ import ressources.definitions.DefElement;
 import java.util.HashMap;
 import ressources.definitions.Definition;
 import model.map.Map;
+import ressources.definitions.BuilderLibrary;
 
 /**
  *
@@ -25,16 +26,16 @@ public class MoverBuilder {
     static final String AIR = "Air";
     static final String GROUND = "Ground";
 
-    Map map;
     Definition def;
+    BuilderLibrary lib;
 
-    public MoverBuilder(Definition def, Map map){
+    public MoverBuilder(Definition def, BuilderLibrary lib){
         this.def = def;
-        this.map = map;
+        this.lib = lib;
     }
     
     public Mover build(Movable movable, Point3D position){
-        Mover res = new Mover(map, movable, position);
+        Mover res = new Mover(lib.map, movable, position);
         for(DefElement de : def.elements)
             switch(de.name){
                 case PATHFINDING_MODE :

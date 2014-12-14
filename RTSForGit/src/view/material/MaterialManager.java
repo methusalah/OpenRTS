@@ -15,7 +15,7 @@ import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.texture.Texture2D;
 import com.jme3.texture.plugins.AWTLoader;
-import model.map.ground.GroundAtlas;
+import model.map.atlas.GroundAtlas;
 
 public class MaterialManager {
 	AssetManager assetManager;

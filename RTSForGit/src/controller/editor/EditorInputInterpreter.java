@@ -57,12 +57,11 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String DEC_GREEN = "decgreen";
     protected final static String DEC_BLUE = "decblue";
     protected final static String RESET_COLOR = "resetcolor";
-    protected final static String SAVE = "save";
-    
-    
 
-    
-    
+    protected final static String SAVE = "save";
+    protected final static String LOAD = "load";
+    protected final static String NEW = "new";
+
     
     EditorInputInterpreter(InputManager im, Camera cam, MapToolManager editor, SunLight sunLight, View view, EditorController fc) {
         super(im, cam, view);
@@ -101,8 +100,9 @@ public class EditorInputInterpreter extends InputInterpreter {
                             DEC_GREEN,
                             DEC_BLUE,
                             RESET_COLOR,
-                            SAVE
-                            
+                            SAVE,
+                            LOAD,
+                            NEW,
             };
             inputManager.addMapping(PRIMARY_ACTION, new MouseButtonTrigger(0));
             inputManager.addMapping(SECONDARY_ACTION, new MouseButtonTrigger(1));
@@ -131,6 +131,8 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addMapping(DEC_BLUE, new KeyTrigger(KeyInput.KEY_NUMPAD3));
             inputManager.addMapping(RESET_COLOR, new KeyTrigger(KeyInput.KEY_NUMPAD0));
             inputManager.addMapping(SAVE, new KeyTrigger(KeyInput.KEY_F5));
+            inputManager.addMapping(LOAD, new KeyTrigger(KeyInput.KEY_F9));
+            inputManager.addMapping(NEW, new KeyTrigger(KeyInput.KEY_F12));
 
             inputManager.addListener(this, mappings);
             
@@ -139,7 +141,7 @@ public class EditorInputInterpreter extends InputInterpreter {
             LogUtil.logger.info(" 'e' toggle between sets for the actual tool.");
             LogUtil.logger.info(" Pencil : 'a' toggle between shapes (square, diamond and circle)");
             LogUtil.logger.info("          'z' toggle between modes (rough, brush and noise)");
-            LogUtil.logger.info("          'q' & 'w' increase/decrease radius ");
+            LogUtil.logger.info("          'q' & 'w' increase/decrease radius");
             LogUtil.logger.info("");
             LogUtil.logger.info("------ Lighting (numpad)");
             LogUtil.logger.info(" '7' toggle between sunlight components : sunlight/shadowcaster/both/ambient");
@@ -148,12 +150,13 @@ public class EditorInputInterpreter extends InputInterpreter {
             LogUtil.logger.info(" '1', '2' & '3' decrease red, green and blue component");
             LogUtil.logger.info(" '0' reset color");
             LogUtil.logger.info(" + & - change intensity");
+            LogUtil.logger.info("");
+            LogUtil.logger.info("------- General");
+            LogUtil.logger.info("F5 to save, F9 to load, F12 for a new map");
     }
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
-//        if(!isActive)
-//            return;
         switch(name){
             case PRIMARY_ACTION : toolManager.primaryAction(); break;
             case SECONDARY_ACTION : toolManager.secondaryAction(); break;
@@ -185,29 +188,9 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case TOGGLE_LIGHT_COMP : sunLight.toggleLight(); break;
                 case TOGGLE_SPEED : sunLight.toggleSpeed(); break;
                 case RESET_COLOR : sunLight.resetColor(); break;
-                case SAVE :try {
-                    MapFactory.write(toolManager.map);
-                    } catch (Exception ex) {
-                        Logger.getLogger(EditorInputInterpreter.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
+                case SAVE : MapFactory.save(toolManager.map); break;
+                case LOAD : controller.model.map = MapFactory.load(); break;
+//                case NEW : controller.model.map = MapFactory.getNew(128, 128); break;
             }
-    }
-
-    private String getSpatialLabel(){
-        Spatial s = selector.getGeometry(view.rootNode);
-        while(true){
-            if(s == null || s.getName() == null)
-                return null;
-            if(s.getName().startsWith("label"))
-                return s.getName();
-            s = s.getParent();
-            if(s == null)
-                return null;
-        }
-    }
-        
-    private Point2D getSpatialCoord(){
-        return selector.getCoord(view.editorRend.gridNode);
     }
 }

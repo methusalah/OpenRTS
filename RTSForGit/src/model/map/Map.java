@@ -1,30 +1,27 @@
 package model.map;
 
-import geometry.Line2D;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import geometry3D.Triangle3D;
-import java.awt.Color;
-import java.awt.List;
 import java.util.ArrayList;
+import java.util.List;
 import math.Angle;
-import math.MyRandom;
-import model.map.cliff.Cliff;
-import model.map.ground.GroundAtlas;
-import model.map.parcel.ParcelManager;
+import model.map.atlas.GroundAtlas;
+import model.map.data.MapStyle;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementArray;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-import ressources.Image;
-import tools.LogUtil;
 
 @Root
 public class Map {
 	
-    @ElementArray
-    public Tile[][] tiles;
+    public MapStyle style;
+    
+    @Element
+    String mapStyleID;
+    @ElementList
+    public List<Tile> tiles;
 
     @Element
     public GroundAtlas atlas;
@@ -40,23 +37,15 @@ public class Map {
         this.width = width;
         this.height = height;
         atlas = new GroundAtlas(1024, 1024);
-        tiles = new Tile[width][height];
+        tiles = new ArrayList<>(width*height);
     }
 
-    public void add(Tile t){
-        tiles[t.x][t.y] = t;
-    }
-
-    public ArrayList<Tile> getTiles() {
-        ArrayList<Tile> res = new ArrayList<>();
-        for(int x=0; x<width; x++)
-                for(int y=0; y<height; y++)
-                        res.add(tiles[x][y]);
-        return res;
+    public List<Tile> getTiles() {
+        return tiles;
     }
 
     public Tile getTile(int x, int y) {
-        return tiles[x][y];
+        return tiles.get(y*width+x);
     }
 
     public double getGroundAltitude(Point2D pos) {
@@ -189,7 +178,7 @@ public class Map {
                 if(t.x+i>=width || t.x+i < 0 ||
                         t.y+j>=height || t.y+j < 0)
                     continue;
-                res.add(tiles[t.x+i][t.y+j]);
+                res.add(getTile(t.x+i, t.y+j));
             }
         return res;
     }
@@ -200,7 +189,7 @@ public class Map {
                 if(t.x+i>=width || t.x+i < 0 ||
                         t.y+j>=height || t.y+j < 0)
                     continue;
-                res.add(tiles[t.x+i][t.y+j]);
+                res.add(getTile(t.x+i, t.y+j));
             }
         return res;
         
@@ -214,7 +203,7 @@ public class Map {
                 if(t.x+i>=width || t.x+i < 0 ||
                         t.y+j>=height || t.y+j < 0)
                     continue;
-                res.add(tiles[t.x+i][t.y+j]);
+                res.add(getTile(t.x+i, t.y+j));
             }
         res.removeAll(get8Around(t));
         return res;

@@ -20,6 +20,7 @@ import ressources.definitions.Definition;
 import model.map.Map;
 import model.map.data.CliffShapeBuilder;
 import model.map.data.ManmadeFaceBuilder;
+import model.map.data.MapStyleBuilder;
 import model.map.data.NaturalFaceBuilder;
 import model.map.data.TrinketBuilder;
 import model.warfare.Faction;
@@ -40,6 +41,7 @@ public class BuilderLibrary {
     private static final String PROJECTILE = "Projectile";
     private static final String ACTOR = "Actor";
     
+    private static final String MAP_STYLE = "MapStyle";
     private static final String CLIFF_SHAPE = "CliffShape";
     private static final String TRINKET = "Trinket";
     private static final String NATURAL_FACE = "NaturalFace";
@@ -55,17 +57,16 @@ public class BuilderLibrary {
     private HashMap<String, ProjectileBuilder> projectileBuilders = new HashMap<>();
     private HashMap<String, ActorBuilder> actorBuilders = new HashMap<>();
 
+    private HashMap<String, MapStyleBuilder> mapStyleBuilders = new HashMap<>();
     private HashMap<String, CliffShapeBuilder> cliffShapeBuilders = new HashMap<>();
     private HashMap<String, TrinketBuilder> trinketBuilders = new HashMap<>();
     private HashMap<String, NaturalFaceBuilder> naturalFaceBuilders = new HashMap<>();
     private HashMap<String, ManmadeFaceBuilder> manmadeFaceBuilders = new HashMap<>();
 
-    Map map;
-    ArmyManager am;
+    public Map map;
+    public ArmyManager am;
     
-    public BuilderLibrary(Map map, ArmyManager am){
-        this.map = map;
-        this.am = am;
+    public BuilderLibrary(){
     }
     
     
@@ -79,6 +80,7 @@ public class BuilderLibrary {
             case PROJECTILE : submitProjectile(def); break;
             case ACTOR : submitActor(def); break;
 
+            case MAP_STYLE : submitMapStyle(def); break;
             case CLIFF_SHAPE : submitCliffShape(def); break;
             case TRINKET : submitTrinket(def); break;
             case NATURAL_FACE : submitNaturalFace(def); break;
@@ -87,11 +89,11 @@ public class BuilderLibrary {
     }
     
     private void submitUnit(Definition def){
-        unitBuilders.put(def.id, new UnitBuilder(def, am, this));
+        unitBuilders.put(def.id, new UnitBuilder(def, this));
     }
 
     private void submitMover(Definition def){
-        moverBuilders.put(def.id, new MoverBuilder(def, map));
+        moverBuilders.put(def.id, new MoverBuilder(def, this));
     }
 
     private void submitWeapon(Definition def){
@@ -103,16 +105,19 @@ public class BuilderLibrary {
     }
 
     private void submitEffect(Definition def){
-        effectBuilders.put(def.id, new EffectBuilder(def, am, this));
+        effectBuilders.put(def.id, new EffectBuilder(def, this));
     }
 
     private void submitProjectile(Definition def){
-        projectileBuilders.put(def.id, new ProjectileBuilder(def, this, am));
+        projectileBuilders.put(def.id, new ProjectileBuilder(def, this));
     }
     private void submitActor(Definition def){
-        actorBuilders.put(def.id, new ActorBuilder(def, am, this));
+        actorBuilders.put(def.id, new ActorBuilder(def, this));
     }
     
+    private void submitMapStyle(Definition def){
+        mapStyleBuilders.put(def.id, new MapStyleBuilder(def, this));
+    }
     private void submitCliffShape(Definition def){
         cliffShapeBuilders.put(def.id, new CliffShapeBuilder(def, this));
     }
@@ -184,6 +189,12 @@ public class BuilderLibrary {
     
     
     
+    public MapStyleBuilder getMapStyleBuilder(String id){
+        MapStyleBuilder res = mapStyleBuilders.get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+id);
+        return res;
+    }
     public CliffShapeBuilder getCliffShapeBuilder(String id){
         CliffShapeBuilder res = cliffShapeBuilders.get(id);
         if(res == null)

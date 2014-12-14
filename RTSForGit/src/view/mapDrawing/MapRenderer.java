@@ -67,6 +67,7 @@ public class MapRenderer implements ActionListener {
     public Node castAndReceiveNode = new Node();
     public Node receiveNode = new Node();
     public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
+    
     private HashMap<String, Spatial> models = new HashMap<>();
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
@@ -86,16 +87,25 @@ public class MapRenderer implements ActionListener {
 	
     public void renderTiles() {
             LogUtil.logger.info("rendering ground");
-            groundTexture.addTexture(am.loadTexture("textures/grass.png"), null, 8);
-            groundTexture.addTexture(am.loadTexture("textures/road.jpg"), null, 32);
-            groundTexture.addTexture(am.loadTexture("textures/dirt.png"), null, 32);
-            groundTexture.addTexture(am.loadTexture("textures/bitume.jpg"), null, 32);
+            String texturePath = "textures/";
+            int index = 0;
+            for(String s : map.style.textures){
+                Texture diffuse = am.loadTexture(texturePath+s);
+                Texture normal;
+                if(map.style.normals.get(index) != null)
+                    normal = am.loadTexture(texturePath+map.style.normals.get(index));
+                else
+                    normal = null;
+                double scale = map.style.scales.get(index);
+                groundTexture.addTexture(diffuse, normal, scale);
+                index++;
+            }
             groundTexture.buildMaterial();
             
             for(ParcelMesh mesh : parcelManager.meshes){
                 Geometry g = new Geometry();
                 Mesh jmeMesh = Translator.toJMEMesh(mesh);
-//                TangentBinormalGenerator.generate(mesh);
+                TangentBinormalGenerator.generate(jmeMesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(groundTexture.getMaterial());
 //                g.addControl(new RigidBodyControl(0));
@@ -226,8 +236,9 @@ public class MapRenderer implements ActionListener {
     private void updateParcelsFor(ArrayList<Tile> tiles){
         for(ParcelMesh parcel : parcelManager.getParcelsFor(tiles)){
             Geometry g = (Geometry)parcelsSpatial.get(parcel);
-            g.setMesh(Translator.toJMEMesh(parcel));
+            Mesh jmeMesh = Translator.toJMEMesh(parcel);
+            TangentBinormalGenerator.generate(jmeMesh);
+            g.setMesh(jmeMesh);
         }
     }
-    
 }

@@ -40,12 +40,10 @@ public class UnitBuilder {
     public String race;
     
     private Definition def;
-    private ArmyManager am;
     private BuilderLibrary lib;
             
-    public UnitBuilder(Definition def, ArmyManager am, BuilderLibrary lib){
+    public UnitBuilder(Definition def, BuilderLibrary lib){
         this.def = def;
-        this.am = am;
         this.lib = lib;
         id = def.id;
         for(DefElement de : def.elements)
@@ -83,7 +81,7 @@ public class UnitBuilder {
                     }
                     break;
             }
-        am.registerUnit(res);
+        lib.am.registerUnit(res);
         res.linkActors();
         return res;
     }

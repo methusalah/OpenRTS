@@ -11,10 +11,10 @@ import math.MyRandom;
 import model.map.cliff.Cliff;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Transient;
 
 @Root
 public class Tile {
-    
     public static final double STAGE_HEIGHT = 2;
 
     private final Map map;

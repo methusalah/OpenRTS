@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import model.map.editor.tools.AtlasTool;
-import model.map.ground.GroundAtlas;
+import model.map.atlas.GroundAtlas;
 
 /**
  *
@@ -67,7 +67,10 @@ public class TerrainSplatTexture {
 
                 mat.setFloat("DiffuseMap_"+i+"_scale", scales.get(i).floatValue());
                 if(normaMaps.get(i) != null)
-                    mat.setTexture("NormalMap_"+i, diffuseMaps.get(i));
+                    if(i==0)
+                        mat.setTexture("NormalMap", normaMaps.get(i));
+                    else
+                        mat.setTexture("NormalMap_"+i, normaMaps.get(i));
             }
         }
     }

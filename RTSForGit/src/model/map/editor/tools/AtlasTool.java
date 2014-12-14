@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import model.map.Tile;
 import model.map.editor.MapToolManager;
 import model.map.editor.Pencil;
-import model.map.ground.GroundAtlas;
+import model.map.atlas.DoubleMap;
+import model.map.atlas.GroundAtlas;
 import tools.LogUtil;
 import view.mapDrawing.MapRenderer;
 
@@ -128,8 +129,8 @@ public class AtlasTool extends MapTool {
         double contextualIncrement = increment*selector.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
         
         double valueToDitribute=contextualIncrement;
-        ArrayList<Map2D> availableLayers = new ArrayList<>();
-        for(Map2D<Double> l : atlas.layers)
+        ArrayList<DoubleMap> availableLayers = new ArrayList<>();
+        for(DoubleMap l : atlas.layers)
             if(atlas.layers.indexOf(l) == actualLayer)
                 valueToDitribute -= add(l, x, y, contextualIncrement);
             else
@@ -137,10 +138,10 @@ public class AtlasTool extends MapTool {
         
         int secur = -1;
         while(valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ <50){
-            ArrayList<Map2D> unavailableLayers = new ArrayList<>();
+            ArrayList<DoubleMap> unavailableLayers = new ArrayList<>();
             double shared = valueToDitribute/availableLayers.size();
             valueToDitribute = 0;
-            for(Map2D<Double> m : availableLayers){
+            for(DoubleMap m : availableLayers){
                 valueToDitribute += subtract(m, x, y, shared);
                 if(m.get(x, y) == 0){
                     unavailableLayers.add(m);
@@ -162,8 +163,8 @@ public class AtlasTool extends MapTool {
         double contextualIncrement = increment*selector.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
         
         double valueToDitribute=contextualIncrement;
-        ArrayList<Map2D> availableLayers = new ArrayList<>();
-        for(Map2D<Double> l : atlas.layers)
+        ArrayList<DoubleMap> availableLayers = new ArrayList<>();
+        for(DoubleMap l : atlas.layers)
             if(atlas.layers.indexOf(l) == actualLayer)
                 valueToDitribute -= subtract(l, x, y, contextualIncrement);
             else if(l.get(x, y) > 0)
@@ -173,10 +174,10 @@ public class AtlasTool extends MapTool {
         
         int secur = -1;
         while(valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ <50){
-            ArrayList<Map2D> unavailableLayers = new ArrayList<>();
+            ArrayList<DoubleMap> unavailableLayers = new ArrayList<>();
             double shared = valueToDitribute/availableLayers.size();
             valueToDitribute = 0;
-            for(Map2D<Double> m : availableLayers){
+            for(DoubleMap m : availableLayers){
                 valueToDitribute += add(m, x, y, shared);
                 if(m.get(x, y) == 255){
                     unavailableLayers.add(m);
@@ -191,7 +192,7 @@ public class AtlasTool extends MapTool {
     
     
     private void updateAtlasPixel(int x, int y){
-        for(int i=0; i<3; i++){
+        for(int i=0; i<2; i++){
             ByteBuffer buffer = atlas.getBuffer(i);
                 int r = (int)Math.round(atlas.layers.get(i).get(x, y)) << 24;
                 int g = (int)Math.round(atlas.layers.get(i+1).get(x, y)) << 16;
@@ -202,7 +203,7 @@ public class AtlasTool extends MapTool {
         atlas.toUpdate = true;
     }
     
-    private double add(Map2D<Double> map, int x, int y, double val){
+    private double add(DoubleMap map, int x, int y, double val){
         double rest = 0;
         double newVal = map.get(x, y)+val;
         if(newVal>255){
@@ -212,7 +213,7 @@ public class AtlasTool extends MapTool {
         map.set(x, y, newVal);
         return rest;
     }
-    private double subtract(Map2D<Double> map, int x, int y, double val){
+    private double subtract(DoubleMap map, int x, int y, double val){
         double rest = 0;
         double newVal = map.get(x, y)-val;
         if(newVal<0){

@@ -34,21 +34,7 @@ public class Model {
     double nextUpdate = 0;
     
     public Model() {
-        this.map = MapFactory.getNewMap(128, 128);
-        sunLight = new SunLight();
-        parcelManager = new ParcelManager(map);
-
-//        for(int x=10; x<20; x++)
-//            for(int y=10; y<20; y++)
-//                editor.levelUp(new Point2D(x, y));
-//        editor.levelUp(new Point2D(11, 11));
-//        editor.incHeight(new Point2D(5, 5));
-//        editor.incHeight(new Point2D(5, 5));
-        
-        armyManager = new ArmyManager();
-        commander = new Commander(armyManager, map);
-        
-        lib = new BuilderLibrary(map, armyManager);
+        lib = new BuilderLibrary();
         parser = new DefParser(lib);
 
         ArrayList<File> files = getFiles(CONFIG_PATH);
@@ -64,6 +50,15 @@ public class Model {
         }
         parser.readFile();
         
+        this.map = MapFactory.getNew(128, 128, lib);
+        sunLight = new SunLight();
+        parcelManager = new ParcelManager(map);
+        lib.map = map;
+
+        armyManager = new ArmyManager();
+        lib.am = armyManager;
+        
+        commander = new Commander(armyManager, map);
         editor = new MapToolManager(map, parcelManager, lib);
 //        armyManager.createTestArmy(lib);
     }

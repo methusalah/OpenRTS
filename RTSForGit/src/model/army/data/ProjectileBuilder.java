@@ -28,13 +28,11 @@ public class ProjectileBuilder {
     public static final String PRECISION_IN_RADIUS = "InRadius";
     public static final String PRECISION_OTHER = "Other";
 
-    ArmyManager am;
     Definition def;
     BuilderLibrary lib;
     
-    public ProjectileBuilder(Definition def, BuilderLibrary lib, ArmyManager am){
+    public ProjectileBuilder(Definition def, BuilderLibrary lib){
         this.def = def;
-        this.am = am;
         this.lib = lib;
     }
     
@@ -57,7 +55,7 @@ public class ProjectileBuilder {
                     }
             }
         res.updateTargetPoint();
-        am.registerProjectile(res);
+        lib.am.registerProjectile(res);
         return res;
     }
 }
