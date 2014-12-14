@@ -20,6 +20,7 @@ public class Map {
     
     @Element
     String mapStyleID;
+    
     @ElementList
     public List<Tile> tiles;
 

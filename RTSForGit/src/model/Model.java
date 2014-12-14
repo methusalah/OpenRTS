@@ -50,7 +50,8 @@ public class Model {
         }
         parser.readFile();
         
-        this.map = MapFactory.getNew(128, 128, lib);
+        MapFactory factory = new MapFactory(lib);
+        this.map = factory.getNew(128, 128);
         sunLight = new SunLight();
         parcelManager = new ParcelManager(map);
         lib.map = map;

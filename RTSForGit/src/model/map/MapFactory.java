@@ -24,46 +24,47 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class MapFactory {
-    public static Map getNew(int width, int height, BuilderLibrary lib){
+
+    private BuilderLibrary lib;
+    
+    public MapFactory(BuilderLibrary lib) {
+        this.lib = lib;
+    }
+    
+    public Map getNew(int width, int height){
         Map res = new Map(width, height);
         for(int y=0; y<height; y++)
             for(int x=0; x<width; x++)
                 res.tiles.add(new Tile(x, y, res));
 
-        // link tiles
-	for(int x=0; x<width; x++)
-            for(int y=0; y<height; y++){
-                Tile t = res.getTile(x, y);
-                if(x>0)
-                        t.w = res.getTile(x-1, y);
-                if(x<width-1)
-                        t.e = res.getTile(x+1, y);
-                if(y>0)
-                        t.s = res.getTile(x, y-1);
-                if(y<height-1)
-                        t.n = res.getTile(x, y+1);
-            }
-        
-        res.style = lib.getMapStyleBuilder("StdMapStyle").build();
+        linkTiles(res);
+        res.mapStyleID = "StdMapStyle";
+        res.style = lib.getMapStyleBuilder(res.mapStyleID).build();
         return res;
     }
     
-    public static Map load(){
+    public Map load(){
+        Map res = null;
         final JFileChooser fc = new JFileChooser("assets/maps");
         int returnVal = fc.showOpenDialog(null);
         if (returnVal==JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
                 try {
-                    return load(f);
+                    res = load(f);
                 } catch (Exception e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                 }
         }
-        return null;
+        if(res == null)
+            throw new RuntimeException("Can't load");
+        
+        res.style = lib.getMapStyleBuilder(res.mapStyleID).build();
+        linkTiles(res);
+        
+        return res;
     }
     
-    public static Map load(String fname) throws Exception {
+    public Map load(String fname) throws Exception {
         return load(new File(fname));
     }
 
@@ -86,12 +87,28 @@ public class MapFactory {
 //		System.out.println(exr);
 //	}
 
-	public static void save(Map map) {
-		Serializer serializer = new Persister();
-                try {
-                    serializer.write(map, new File(map.fileName));
-                } catch (Exception ex) {
-                    Logger.getLogger(MapFactory.class.getName()).log(Level.SEVERE, null, ex);
-                }
-	}    
+    public static void save(Map map) {
+            Serializer serializer = new Persister();
+            try {
+                serializer.write(map, new File(map.fileName));
+            } catch (Exception ex) {
+                Logger.getLogger(MapFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
+    private void linkTiles(Map map){
+        for(int x=0; x<map.width; x++)
+            for(int y=0; y<map.height; y++){
+                Tile t = map.getTile(x, y);
+                if(x>0)
+                        t.w = map.getTile(x-1, y);
+                if(x<map.width-1)
+                        t.e = map.getTile(x+1, y);
+                if(y>0)
+                        t.s = map.getTile(x, y-1);
+                if(y<map.height-1)
+                        t.n = map.getTile(x, y+1);
+            }
+
+    }
 }

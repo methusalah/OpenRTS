@@ -18,15 +18,11 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class CliffTool extends MapTool {
-    CliffShapeBuilder builder1;
-    CliffShapeBuilder builder2;
     CliffShapeBuilder actualBuilder;
 
     public CliffTool(MapToolManager manager, Pencil selector, BuilderLibrary lib) {
         super(manager, selector);
-        builder1 = lib.getCliffShapeBuilder("StdRockyVegyDug");
-        builder2 = lib.getCliffShapeBuilder("StdManmade");
-        actualBuilder = builder2;
+        actualBuilder = manager.map.style.cliffShapes.get(0);
     }
 
     @Override
@@ -69,11 +65,11 @@ public class CliffTool extends MapTool {
 
     @Override
     public void toggleSet() {
-        if(actualBuilder == builder1){
-            actualBuilder = builder2;
-        } else {
-            actualBuilder = builder1;
-        }
+        ArrayList<CliffShapeBuilder> builders = manager.map.style.cliffShapes;
+        int index = builders.indexOf(actualBuilder)+1;
+        if(index == builders.size())
+            index = 0;
+        actualBuilder = builders.get(index);
         LogUtil.logger.info("Cliff tool toggled to set "+actualBuilder.getID()+".");
     }
     
