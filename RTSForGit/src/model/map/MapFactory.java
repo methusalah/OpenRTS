@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import math.MyRandom;
 import model.Model;
 import org.simpleframework.xml.Serializer;
@@ -25,6 +27,7 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class MapFactory {
+    private static final String MAP_FILE_EXTENSION = "map";
 
     private BuilderLibrary lib;
     
@@ -53,6 +56,9 @@ public class MapFactory {
     public Map load(){
         Map res = null;
         final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
+        fc.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Map file (*."+MAP_FILE_EXTENSION+")", MAP_FILE_EXTENSION);
+        fc.addChoosableFileFilter(filter);
         int returnVal = fc.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
@@ -116,15 +122,17 @@ public class MapFactory {
                     serializer.write(map, new File(map.fileName));
                 } else {
                     final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
+                    fc.setAcceptAllFileFilterUsed(false);
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Map file (*."+MAP_FILE_EXTENSION+")", MAP_FILE_EXTENSION);
+                    fc.addChoosableFileFilter(filter);
                     int returnVal = fc.showSaveDialog(null);
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
                         File f = fc.getSelectedFile();
+                        int i = f.getName().lastIndexOf('.');
+                        if(i == 0 || !f.getName().substring(i+1).equals(MAP_FILE_EXTENSION))
+                            f = new File(f.toString() + "."+MAP_FILE_EXTENSION);
+                        
                         map.fileName = f.getCanonicalPath();
-                        LogUtil.logger.info("absolute  "+f.getAbsolutePath());
-                        LogUtil.logger.info("canonical "+f.getCanonicalPath());
-                        LogUtil.logger.info("name      "+f.getName());
-                        LogUtil.logger.info("parent    "+f.getParent());
-                        LogUtil.logger.info("path      "+f.getPath());
                         LogUtil.logger.info("Saving map as "+map.fileName+"...");
                         serializer.write(map, new File(map.fileName));
                     }					
