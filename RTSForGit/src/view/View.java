@@ -19,16 +19,19 @@ import com.jme3.scene.shape.Line;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import geometry.Point2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
 import model.Model;
 import view.actorDrawing.ActorDrawingManager;
 import view.mapDrawing.EditorRenderer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapRenderer;
 
-public class View {
+public class View implements ActionListener {
 
     // External ressources
-    Model model;
+    public Model model;
     public Node rootNode;
     public Node guiNode = new Node();
     public PhysicsSpace physicsSpace;
@@ -38,7 +41,6 @@ public class View {
     public EditorRenderer editorRend;
     public ActorDrawingManager actorManager;
     public LightDrawer lightDrawer;
-//    public UnitRenderer unitsRend;
 
 
     // Internal ressources
@@ -61,12 +63,12 @@ public class View {
         lightDrawer = new LightDrawer(m.sunLight, am, rootNode, vp);
         model.sunLight.addListener(lightDrawer);
 
-        mapRend = new MapRenderer(model.map, model.parcelManager, mm, am);
+        mapRend = new MapRenderer(this, mm, am);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
         model.toolManager.addListener(mapRend);
         
-        editorRend = new EditorRenderer(model.map, model.toolManager, mm);
+        editorRend = new EditorRenderer(this, mm);
         rootNode.attachChild(editorRend.mainNode);
         model.toolManager.addListener(editorRend);
         
@@ -75,7 +77,6 @@ public class View {
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
         
-        createLight();
         createSky();
     }
     
@@ -84,13 +85,16 @@ public class View {
         rootNode.detachChild(editorRend.mainNode);
         rootNode.detachChild(actorManager.mainNode);
         
-        mapRend = new MapRenderer(model.map, model.parcelManager, mm, am);
+        model.toolManager.removeListener(mapRend);
+        model.toolManager.removeListener(editorRend);
+        
+        mapRend = new MapRenderer(this, mm, am);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
         model.toolManager.addListener(mapRend);
         mapRend.renderTiles();
         
-        editorRend = new EditorRenderer(model.map, model.toolManager, mm);
+        editorRend = new EditorRenderer(this, mm);
         rootNode.attachChild(editorRend.mainNode);
         model.toolManager.addListener(editorRend);
         
@@ -98,7 +102,6 @@ public class View {
         actorManager = new ActorDrawingManager(am, mm, model.armyManager);
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
-        
     }
 	
     private void createSky() {
@@ -122,12 +125,6 @@ public class View {
         rootNode.attachChild(yAxe);
     }
     
-    public DirectionalLight sunComp1;
-    public DirectionalLight sunComp2;
-    private void createLight() {
-    	
-    }
-
     public void drawSelectionArea(Point2D c1, Point2D c2) {
         float minX = (float) Math.min(c1.x, c2.x);
         float maxX = (float) Math.max(c1.x, c2.x);
@@ -161,5 +158,10 @@ public class View {
         g4.setMaterial(mm.getColor(ColorRGBA.White));
         guiNode.attachChild(g4);
 }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        reset();
+    }
 
 }

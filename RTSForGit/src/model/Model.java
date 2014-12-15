@@ -1,6 +1,8 @@
 package model;
 
 import geometry.Point2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import model.map.Map;
@@ -14,7 +16,9 @@ import ressources.definitions.DefParser;
 import tools.LogUtil;
 
 public class Model {
+    public static final String MAP_UPDATED_EVENT = "mapupdatedevent";
     static final String CONFIG_PATH = "assets/data";
+    public static final String DEFAULT_MAP_PATH = "assets/maps/";
     static final double UPDATE_DELAY = 1000;
     
     public MapFactory factory;
@@ -32,6 +36,8 @@ public class Model {
     DefParser parser;
     File confFile;
     double nextUpdate = 0;
+    
+    private ArrayList<ActionListener> listeners = new ArrayList<>();
     
     public Model() {
         lib = new BuilderLibrary();
@@ -82,15 +88,48 @@ public class Model {
     public void load(){
         Map newMap = factory.load();
         if(newMap != null){
+            LogUtil.logger.info("Reseting model...");
             map = newMap;
-            parcelManager = new ParcelManager(map);
             lib.map = map;
             commander = new Commander(armyManager, map);
+
+            LogUtil.logger.info("Reseting parcels...");
+            parcelManager = new ParcelManager(map);
             toolManager = new MapToolManager(map, parcelManager, lib);
+            LogUtil.logger.info("Reseting view...");
+            notifyListeners(MAP_UPDATED_EVENT);
+            LogUtil.logger.info("Done.");
         }
     }
     
     public void save(){
         factory.save(map);
+    }
+    
+    public void newMap(){
+        Map newMap = factory.getNew(128, 128);
+        if(newMap != null){
+            LogUtil.logger.info("Reseting model...");
+            map = newMap;
+            lib.map = map;
+            commander = new Commander(armyManager, map);
+
+            LogUtil.logger.info("Reseting parcels...");
+            parcelManager = new ParcelManager(map);
+            toolManager = new MapToolManager(map, parcelManager, lib);
+            LogUtil.logger.info("Reseting view...");
+            notifyListeners(MAP_UPDATED_EVENT);
+            LogUtil.logger.info("Done.");
+        }
+    }
+    
+    public void addListener(ActionListener listener){
+        listeners.add(listener);
+    }
+    
+    public void notifyListeners(String eventCommand){
+        for(ActionListener l : listeners)
+            l.actionPerformed(new ActionEvent(this, 0, eventCommand));
+        
     }
 }

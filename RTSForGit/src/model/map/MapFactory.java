@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import math.MyRandom;
+import model.Model;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import ressources.Image;
@@ -32,24 +33,31 @@ public class MapFactory {
     }
     
     public Map getNew(int width, int height){
+        LogUtil.logger.info("Creating new map...");
         Map res = new Map(width, height);
         for(int y=0; y<height; y++)
             for(int x=0; x<width; x++)
                 res.tiles.add(new Tile(x, y, res));
 
-        linkTiles(res);
+        LogUtil.logger.info("   builders");
         res.mapStyleID = "StdMapStyle";
         lib.getMapStyleBuilder(res.mapStyleID).build(res);
+
+        LogUtil.logger.info("   tiles' links");
+        linkTiles(res);
+
+        LogUtil.logger.info("Loading done.");
         return res;
     }
     
     public Map load(){
         Map res = null;
-        final JFileChooser fc = new JFileChooser("assets/maps");
+        final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
         int returnVal = fc.showOpenDialog(null);
-        if (returnVal==JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
                 try {
+                    LogUtil.logger.info("Loading map "+f.getCanonicalPath()+"...");
                     res = load(f);
                 } catch (Exception e1) {
                         e1.printStackTrace();
@@ -60,27 +68,32 @@ public class MapFactory {
             return null;
         }
         
+        LogUtil.logger.info("   builders");
         lib.getMapStyleBuilder(res.mapStyleID).build(res);
+
+        LogUtil.logger.info("   tiles' links");
         linkTiles(res);
         
         for(Tile t : res.tiles)
             if(t.isCliff)
                 t.setCliff();
         
+        LogUtil.logger.info("   cliffs' connexions");
         for(Tile t : res.tiles){
             t.correctElevation();
             if(t.isCliff)
                 t.cliff.connect();
         }
+
+        LogUtil.logger.info("   cliffs' shapes");
         for(Tile t : res.tiles){
             if(t.isCliff)
                 lib.getCliffShapeBuilder(t.cliffShapeID).build(t.cliff);
         }
         
-        res.atlas.loadFromFile();
-        
-        
-        
+        LogUtil.logger.info("   texture atlas");
+        res.atlas.loadFromFile(res.fileName);
+        LogUtil.logger.info("Loading done.");
         return res;
     }
     
@@ -91,30 +104,37 @@ public class MapFactory {
     public static Map load(File file) throws Exception {
         Serializer serializer = new Persister();
         Map map = serializer.read(Map.class, file);
-        map.fileName = file.getName();
+        map.fileName = file.getCanonicalPath();
         return map;
     }
-
-//	public static void main(String[] args) throws Exception {
-//		Serializer serializer = new Persister();
-//		Model example = new Model();
-//		File result = new File("c:\\temp\\xmlsimple\\example.xml");
-//		serializer.write(example, result);
-//		
-//		serializer = new Persister();
-//		File source = new File("c:\\temp\\xmlsimple\\example.xml");
-//		Model exr = serializer.read(Model.class, source);
-//		System.out.println(exr);
-//	}
 
     public void save(Map map) {
             Serializer serializer = new Persister();
             try {
-                serializer.write(map, new File("assets/maps/"+map.fileName));
+                if(map.fileName!=null) {
+                    LogUtil.logger.info("Saving map overwriting "+map.fileName+"...");
+                    serializer.write(map, new File(map.fileName));
+                } else {
+                    final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
+                    int returnVal = fc.showSaveDialog(null);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        File f = fc.getSelectedFile();
+                        map.fileName = f.getCanonicalPath();
+                        LogUtil.logger.info("absolute  "+f.getAbsolutePath());
+                        LogUtil.logger.info("canonical "+f.getCanonicalPath());
+                        LogUtil.logger.info("name      "+f.getName());
+                        LogUtil.logger.info("parent    "+f.getParent());
+                        LogUtil.logger.info("path      "+f.getPath());
+                        LogUtil.logger.info("Saving map as "+map.fileName+"...");
+                        serializer.write(map, new File(map.fileName));
+                    }					
+                }
             } catch (Exception ex) {
                 Logger.getLogger(MapFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
-            map.atlas.saveToFile();
+            LogUtil.logger.info("Saving texture atlas...");
+            map.atlas.saveToFile(map.fileName);
+            LogUtil.logger.info("Done.");
     }
     
     private void linkTiles(Map map){

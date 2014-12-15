@@ -1,6 +1,6 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the toolManager.
  */
 package view.mapDrawing;
 
@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import math.Angle;
 import model.map.Map;
 import model.map.Tile;
-import model.map.editor.MapToolManager;
 import model.map.editor.Pencil;
 import tools.LogUtil;
+import view.View;
 import view.material.MaterialManager;
 import view.math.Translator;
 
@@ -40,9 +40,7 @@ public class EditorRenderer implements ActionListener {
     public static final double QUAD_PENCIL_SAMPLE_LENGTH = 0.5;
     public static final int PENCIL_THICKNESS = 3;
     
-    
-    private final Map map;
-    private final MapToolManager editor;
+    View view;
     private final MaterialManager mm;
     
     public Node mainNode = new Node();
@@ -53,12 +51,11 @@ public class EditorRenderer implements ActionListener {
     private Geometry gridGeom;
     private GridMesh gridMesh;
 
-    public EditorRenderer(Map map, MapToolManager editor, MaterialManager mm) {
-        this.map = map;
+    public EditorRenderer(View view, MaterialManager mm) {
+        this.view = view;
         this.mm = mm;
-        this.editor = editor;
                 
-        gridMesh = new GridMesh(map);
+        gridMesh = new GridMesh(view.model.map);
         gridGeom = new Geometry();
         gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
         Material mat = mm.getColor(ColorRGBA.Black);
@@ -78,7 +75,7 @@ public class EditorRenderer implements ActionListener {
     }
     
     private void BuildCliffPencil(){
-        for(int i=0; i<Pencil.MAX_RADIUS*2*Pencil.MAX_RADIUS*2; i++){
+        for(int i=0; i< Pencil.MAX_RADIUS*2*Pencil.MAX_RADIUS*2; i++){
             Node n = new Node();
             Geometry l1 = new Geometry();
             Line l = new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 1, 0.1f));
@@ -148,28 +145,28 @@ public class EditorRenderer implements ActionListener {
 
     
     public void drawPencil() {
-        if(editor.actualTool == editor.cliffTool){
+        if(view.model.toolManager.actualTool == view.model.toolManager.cliffTool){
             drawCliffPencil();
-        } else if(editor.actualTool == editor.heightTool){
+        } else if(view.model.toolManager.actualTool == view.model.toolManager.heightTool){
             drawHeightPencil();
-        } else if(editor.actualTool == editor.atlasTool){
+        } else if(view.model.toolManager.actualTool == view.model.toolManager.atlasTool){
             drawAtlasPencil();
         }
     }
     
     private void drawCliffPencil() {
-        ArrayList<Tile> tiles = editor.pencil.getTiles();
+        ArrayList<Tile> tiles = view.model.toolManager.pencil.getTiles();
         int index = 0;
         for(Spatial s : CliffPencilNode.getChildren()){
             if(index < tiles.size())
-                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)editor.pencil.getElevation()+0.1f));
+                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)view.model.toolManager.pencil.getElevation()+0.1f));
             else
                 s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
             index++;
         }
     }
     private void drawHeightPencil() {
-        ArrayList<Tile> tiles = editor.pencil.getTiles();
+        ArrayList<Tile> tiles = view.model.toolManager.pencil.getTiles();
         int index = 0;
         for(Spatial s : HeightPencilNode.getChildren()){
             if(index < tiles.size()){
@@ -179,16 +176,16 @@ public class EditorRenderer implements ActionListener {
                 l.setLineWidth(PENCIL_THICKNESS);
                 ((Geometry)s).setMesh(l);
                 s.setLocalTranslation(Vector3f.ZERO);
-//                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)editor.selector.getElevation()+0.1f));
+//                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)toolManager.selector.getElevation()+0.1f));
             } else
                 s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
             index++;
         }
     }
     private void drawAtlasPencil() {
-        Pencil s = editor.pencil;
+        Pencil s = view.model.toolManager.pencil;
         PointRing pr = new PointRing();
-        Point2D center = editor.pencil.getPos();
+        Point2D center = view.model.toolManager.pencil.getPos();
         
         if(s.shape == Pencil.Shape.Square ||
                 s.shape == Pencil.Shape.Diamond){
@@ -215,10 +212,10 @@ public class EditorRenderer implements ActionListener {
         int index = 0;
         for(Spatial spatial : AtlasPencilNode.getChildren()){
             if(index < pr.size() &&
-                    map.isInBounds(pr.get(index)) &&
-                    map.isInBounds(pr.getNext(index))){
-                Point3D start = pr.get(index).get3D(map.getGroundAltitude(pr.get(index))+0.1);
-                Point3D end = pr.getNext(index).get3D(map.getGroundAltitude(pr.getNext(index))+0.1);
+                    view.model.map.isInBounds(pr.get(index)) &&
+                    view.model.map.isInBounds(pr.getNext(index))){
+                Point3D start = pr.get(index).get3D(view.model.map.getGroundAltitude(pr.get(index))+0.1);
+                Point3D end = pr.getNext(index).get3D(view.model.map.getGroundAltitude(pr.getNext(index))+0.1);
                 Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
                 l.setLineWidth(PENCIL_THICKNESS);
                 ((Geometry)spatial).setMesh(l);
@@ -258,11 +255,11 @@ public class EditorRenderer implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()){
             case "tool" : 
-                if(editor.actualTool != editor.cliffTool)
+                if(view.model.toolManager.actualTool != view.model.toolManager.cliffTool)
                     hideCliffPencil();
-                if(editor.actualTool != editor.heightTool)
+                if(view.model.toolManager.actualTool != view.model.toolManager.heightTool)
                     hideHeightPencil();
-                if(editor.actualTool != editor.atlasTool)
+                if(view.model.toolManager.actualTool != view.model.toolManager.atlasTool)
                     hideAtlasPencil();
                 break;
             case "parcels" : 

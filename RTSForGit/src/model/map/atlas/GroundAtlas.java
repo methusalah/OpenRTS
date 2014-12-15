@@ -45,18 +45,17 @@ public class GroundAtlas {
     @Element
     public int width, height;
     
-    @Element
-    public String fileName;
-    
     public List<DoubleMap> layers = new ArrayList<>();
     List<ByteBuffer> buffers = new ArrayList<>();
     
     public boolean toUpdate = false;
 
-    public GroundAtlas(int width, int height) {
+    public GroundAtlas(@Element(name="width")int width, @Element(name="height")int height) {
         this.width = width;
         this.height = height;
-                
+    }
+    
+    public void finalize(){
         for(int i=0; i<LAYER_COUNT; i++){
             DoubleMap layer = new DoubleMap(width, height);
             for(int x=0; x<width; x++)
@@ -71,16 +70,6 @@ public class GroundAtlas {
         buffers.add(buildBuffer(1));
     }
 
-    public GroundAtlas(@Element(name="width") int width,
-            @Element(name="height") int height,
-            @Element(name="fileName") String fileName){
-        this.width = width;
-        this.height = height;
-        this.fileName = fileName;
-    }
-    
-    
-    
     private ByteBuffer buildBuffer(int index){
         ByteBuffer res = ByteBuffer.allocateDirect(width*height*4);
         int firstMapIndex = index*4;
@@ -100,8 +89,7 @@ public class GroundAtlas {
     }
     
     
-    public void saveToFile(){
-        LogUtil.logger.info("Saving atlas...");
+    public void saveToFile(String fileName){
         byte[] bytes = new byte[width*height*LAYER_COUNT];
         int index = 0;
         for(DoubleMap l : layers)
@@ -110,20 +98,18 @@ public class GroundAtlas {
                 bytes[index++] = (byte)i;
             }
         try {
-            FileOutputStream fos = new FileOutputStream("assets/maps/"+fileName+"atlas");
+            FileOutputStream fos = new FileOutputStream(fileName+"atlas");
             fos.write(bytes);
             fos.close();
         } catch (IOException e){
             System.out.println("IOException : " + e);
         }
-        LogUtil.logger.info("done.");
     }
     
-    public void loadFromFile(){
-        LogUtil.logger.info("Loading atlas...");
+    public void loadFromFile(String fileName){
         byte[] bytes = new byte[width*height*LAYER_COUNT];
         try {
-            FileInputStream fis = new FileInputStream("assets/maps/"+fileName+"atlas");
+            FileInputStream fis = new FileInputStream(fileName+"atlas");
             fis.read(bytes, 0, width*height*LAYER_COUNT);
             fis.close();
         } catch (IOException e){
@@ -141,7 +127,6 @@ public class GroundAtlas {
         buffers.add(buildBuffer(0));
         buffers.add(buildBuffer(1));
         toUpdate = true;               
-        LogUtil.logger.info("done.");
     }
 
 }

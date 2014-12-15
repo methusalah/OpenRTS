@@ -66,6 +66,8 @@ public class MainRTS extends MySimpleApplication {
 //                Map m = mapFac.getMap();
                 model = new Model();
                 view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
+                model.addListener(view);
+                
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
 //                fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);

@@ -32,13 +32,13 @@ public class Map {
     @Element
     public int height;
 
-    public String fileName = "hop.xml";
+    public String fileName;
 
     public Map(int width, int height){
         this.width = width;
         this.height = height;
         atlas = new GroundAtlas(1024, 1024);
-        atlas.fileName = fileName;
+        atlas.finalize();
         tiles = new ArrayList<>(width*height);
     }
     

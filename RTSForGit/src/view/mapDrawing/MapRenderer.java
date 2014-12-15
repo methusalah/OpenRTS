@@ -32,31 +32,33 @@ import model.map.cliff.faces.natural.NaturalFace;
 import model.map.parcel.ParcelMesh;
 
 import tools.LogUtil;
+import view.View;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.Translator;
 
 public class MapRenderer implements ActionListener {
 
-    Map map;
-    public TerrainSplatTexture groundTexture;
-    ParcelManager parcelManager;
+    View view;
     MaterialManager mm;
     AssetManager am;
-    public Node mainNode = new Node();
-    public Node castAndReceiveNode = new Node();
-    public Node receiveNode = new Node();
-    public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
-    
+
     private HashMap<String, Spatial> models = new HashMap<>();
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
     private HashMap<Tile, Spatial> tilesSpatial = new HashMap<>();
-	
-    public MapRenderer(Map map, ParcelManager parcelManager, MaterialManager mm, AssetManager am) {
-        this.map = map;
-        groundTexture = new TerrainSplatTexture(map.atlas, am);
-        this.parcelManager = parcelManager;
+
+    public TerrainSplatTexture groundTexture;
+
+    public Node mainNode = new Node();
+    public Node castAndReceiveNode = new Node();
+    public Node receiveNode = new Node();
+    
+    public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
+    
+    public MapRenderer(View view, MaterialManager mm, AssetManager am) {
+        this.view = view;
+        groundTexture = new TerrainSplatTexture(view.model.map.atlas, am);
         this.mm = mm;
         this.am = am;
         castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -69,20 +71,20 @@ public class MapRenderer implements ActionListener {
             LogUtil.logger.info("rendering ground");
             String texturePath = "textures/";
             int index = 0;
-            for(String s : map.style.textures){
+            for(String s : view.model.map.style.textures){
                 Texture diffuse = am.loadTexture(texturePath+s);
                 Texture normal;
-                if(map.style.normals.get(index) != null)
-                    normal = am.loadTexture(texturePath+map.style.normals.get(index));
+                if(view.model.map.style.normals.get(index) != null)
+                    normal = am.loadTexture(texturePath+view.model.map.style.normals.get(index));
                 else
                     normal = null;
-                double scale = map.style.scales.get(index);
+                double scale = view.model.map.style.scales.get(index);
                 groundTexture.addTexture(diffuse, normal, scale);
                 index++;
             }
             groundTexture.buildMaterial();
             
-            for(ParcelMesh mesh : parcelManager.meshes){
+            for(ParcelMesh mesh : view.model.parcelManager.meshes){
                 Geometry g = new Geometry();
                 Mesh jmeMesh = Translator.toJMEMesh(mesh);
                 TangentBinormalGenerator.generate(jmeMesh);
@@ -93,7 +95,7 @@ public class MapRenderer implements ActionListener {
                 castAndReceiveNode.attachChild(g);
 //                mainPhysicsSpace.add(g);
             }
-            updateTiles(map.tiles);
+            updateTiles(view.model.map.tiles);
     }
 
     private Spatial getModel(String path){
@@ -215,7 +217,8 @@ public class MapRenderer implements ActionListener {
     }
     
     private void updateParcelsFor(ArrayList<Tile> tiles){
-        for(ParcelMesh parcel : parcelManager.getParcelsFor(tiles)){
+        for(ParcelMesh parcel : view.model.parcelManager.getParcelsFor(tiles)){
+            LogUtil.logger.info("hop !");
             Geometry g = (Geometry)parcelsSpatial.get(parcel);
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
             TangentBinormalGenerator.generate(jmeMesh);

@@ -155,5 +155,8 @@ public class MapToolManager {
     public void addListener(ActionListener l) {
         listeners.add(l);
     }
+    public void removeListener(ActionListener l) {
+        listeners.remove(l);
+    }
     
 }

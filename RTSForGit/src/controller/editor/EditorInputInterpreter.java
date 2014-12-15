@@ -186,11 +186,8 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case TOGGLE_SPEED : controller.model.sunLight.toggleSpeed(); break;
                 case RESET_COLOR : controller.model.sunLight.resetColor(); break;
                 case SAVE : controller.model.save(); break;
-                case LOAD :
-                    controller.model.load();
-                    controller.view.reset();
-                    break;
-//                case NEW : controller.model.map = MapFactory.getNew(128, 128); break;
+                case LOAD : controller.model.load(); break;
+                case NEW : controller.model.newMap(); break;
             }
     }
 }
