@@ -26,7 +26,7 @@ public class Pencil {
     public enum Mode {Rough, Airbrush, Noise}
     
     Map map;
-    private Point2D pos;
+    private Point2D pos = Point2D.ORIGIN;
     public Point2D alignedPos;
     public Shape shape = Shape.Square;
     public Mode mode = Mode.Rough;
