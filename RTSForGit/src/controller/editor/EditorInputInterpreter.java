@@ -139,11 +139,11 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addListener(this, mappings);
             
             LogUtil.logger.info("------ Map editing (ZQSD zone)");
-            LogUtil.logger.info(" '1' for cliff tool, '2' for height tool, '3' for atlas tool");
-            LogUtil.logger.info(" 'e' toggle between operations for the actual tool (upper, lower, apply texture, smooth height, propagate...");
-            LogUtil.logger.info(" 'd' toggle between sets for the actual tool (cliff style, texture...");
-            LogUtil.logger.info(" Pencil : 'a' toggle between shapes (square, diamond and circle)");
-            LogUtil.logger.info("          'z' toggle between modes (rough, brush and noise)");
+            LogUtil.logger.info(" Tools : '1' for cliff tool, '2' for height tool, '3' for atlas tool");
+            LogUtil.logger.info("          'e' toggle between actual tool's operations (raise, low, noise, smooth, propagate, uniform...");
+            LogUtil.logger.info("          'd' toggle between actual tool's sets (cliff styles, textures...)");
+            LogUtil.logger.info(" Pencil : 'a' toggle between pencil's shapes (square, diamond and circle)");
+            LogUtil.logger.info("          'z' toggle between pencil's modes (rough, brush and noise)");
             LogUtil.logger.info("          'q' & 'w' increase/decrease radius");
             LogUtil.logger.info("");
             LogUtil.logger.info("------ Lighting (numpad)");
@@ -152,7 +152,7 @@ public class EditorInputInterpreter extends InputInterpreter {
             LogUtil.logger.info(" '4' & '6' rotate compass");
             LogUtil.logger.info(" '1', '2' & '3' decrease red, green and blue component");
             LogUtil.logger.info(" '0' reset color");
-            LogUtil.logger.info(" + & - change intensity");
+            LogUtil.logger.info(" '+' & '-' change intensity");
             LogUtil.logger.info("");
             LogUtil.logger.info("------- General");
             LogUtil.logger.info("F5 to save, F9 to load, F12 for a new map");

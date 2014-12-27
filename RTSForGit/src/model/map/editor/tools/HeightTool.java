@@ -80,12 +80,17 @@ public class HeightTool extends MapTool {
     }
 
     private void smooth(ArrayList<Tile> tiles){
-        double average = 0;
-        for(Tile t : tiles)
-            average += t.elevation;
-        average /= tiles.size();
+//        double average = 0;
+//        for(Tile t : tiles)
+//            average += t.elevation;
+//        average /= tiles.size();
         
         for(Tile t : tiles){
+            double average = 0;
+            for(Tile n : t.get4Neighbors())
+                average += n.elevation;
+            average /= t.get4Neighbors().size();
+            
             double diff = average-t.elevation;
             double attenuatedAmplitude = amplitude*pencil.getApplicationRatio(t.getPos2D());
             if(diff > 0)
