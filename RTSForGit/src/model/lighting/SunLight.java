@@ -105,7 +105,7 @@ public class SunLight {
         }
         notifyListeners();
     }
-    public void turnCompasWest(){
+    public void turnCompassWest(){
         if(lastAction+delay<System.currentTimeMillis()){
             lastAction = System.currentTimeMillis();
             for(Lighting l : actualLights)

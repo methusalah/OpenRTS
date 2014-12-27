@@ -25,6 +25,8 @@ import view.math.Translator;
 public class EditorInputInterpreter extends InputInterpreter {
 	
     private EditorController controller;
+    
+    boolean analogUnpressed = false;
 
     
     protected final static String PRIMARY_ACTION = "lc";
@@ -39,6 +41,7 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String INC_SELECTOR_RADIUS = "selectorradius+";
     protected final static String DEC_SELECTOR_RADIUS = "selectorradius-";
 
+    protected final static String TOGGLE_OPERATION = "toggleoperation";
     protected final static String TOGGLE_SET = "toggleset";
 
     protected final static String INC_AIRBRUSH_FALLOF = "incairbrushfallof";
@@ -82,6 +85,7 @@ public class EditorInputInterpreter extends InputInterpreter {
                             SET_ATLAS_TOOL,
                             TOGGLE_GRID,
                             TOGGLE_SET,
+                            TOGGLE_OPERATION,
                             INC_AIRBRUSH_FALLOF,
                             DEC_AIRBRUSH_FALLOF,
                             
@@ -113,7 +117,8 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addMapping(SET_ATLAS_TOOL, new KeyTrigger(KeyInput.KEY_3));
 
             inputManager.addMapping(TOGGLE_GRID, new KeyTrigger(KeyInput.KEY_G));
-            inputManager.addMapping(TOGGLE_SET, new KeyTrigger(KeyInput.KEY_E));
+            inputManager.addMapping(TOGGLE_OPERATION, new KeyTrigger(KeyInput.KEY_E));
+            inputManager.addMapping(TOGGLE_SET, new KeyTrigger(KeyInput.KEY_D));
 
             inputManager.addMapping(TOGGLE_LIGHT_COMP, new KeyTrigger(KeyInput.KEY_NUMPAD7));
             inputManager.addMapping(INC_DAYTIME, new KeyTrigger(KeyInput.KEY_NUMPAD8));
@@ -135,7 +140,8 @@ public class EditorInputInterpreter extends InputInterpreter {
             
             LogUtil.logger.info("------ Map editing (ZQSD zone)");
             LogUtil.logger.info(" '1' for cliff tool, '2' for height tool, '3' for atlas tool");
-            LogUtil.logger.info(" 'e' toggle between sets for the actual tool.");
+            LogUtil.logger.info(" 'e' toggle between operations for the actual tool (upper, lower, apply texture, smooth height, propagate...");
+            LogUtil.logger.info(" 'd' toggle between sets for the actual tool (cliff style, texture...");
             LogUtil.logger.info(" Pencil : 'a' toggle between shapes (square, diamond and circle)");
             LogUtil.logger.info("          'z' toggle between modes (rough, brush and noise)");
             LogUtil.logger.info("          'q' & 'w' increase/decrease radius");
@@ -154,13 +160,16 @@ public class EditorInputInterpreter extends InputInterpreter {
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
-        switch(name){
+        if(analogUnpressed){
+            controller.model.toolManager.pencil.release();
+            analogUnpressed = false;
+        } else switch(name){
             case PRIMARY_ACTION : controller.model.toolManager.primaryAction(); break;
             case SECONDARY_ACTION : controller.model.toolManager.secondaryAction(); break;
             case INC_DAYTIME : controller.model.sunLight.incDayTime(); break;
             case DEC_DAYTIME : controller.model.sunLight.decDayTime(); break;
             case COMPASS_EAST : controller.model.sunLight.turnCompassEast(); break;
-            case COMPASS_WEST : controller.model.sunLight.turnCompasWest(); break;
+            case COMPASS_WEST : controller.model.sunLight.turnCompassWest(); break;
             case INC_INTENSITY : controller.model.sunLight.incIntensity(); break;
             case DEC_INTENSITY : controller.model.sunLight.decIntensity(); break;
             case DEC_RED : controller.model.sunLight.decRed(); break;
@@ -171,8 +180,20 @@ public class EditorInputInterpreter extends InputInterpreter {
 
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        if(!isPressed)
+        if(!isPressed){
             switch(name){
+                case PRIMARY_ACTION :
+                case SECONDARY_ACTION : 
+                case INC_DAYTIME :
+                case DEC_DAYTIME :
+                case COMPASS_EAST :
+                case COMPASS_WEST :
+                case INC_INTENSITY :
+                case DEC_INTENSITY :
+                case DEC_RED :
+                case DEC_GREEN :
+                case DEC_BLUE : analogUnpressed = true; break;
+                    
                 case TOGGLE_PENCIL_SHAPE : controller.model.toolManager.pencil.toggleShape(); break;
                 case TOGGLE_PENCIL_MODE : controller.model.toolManager.pencil.toggleMode(); break;
                 case INC_SELECTOR_RADIUS : controller.model.toolManager.pencil.incRadius(); break;
@@ -180,6 +201,7 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case SET_CLIFF_TOOL : controller.model.toolManager.setCliffTool(); break;
                 case SET_HEIGHT_TOOL : controller.model.toolManager.setHeightTool(); break;
                 case SET_ATLAS_TOOL : controller.model.toolManager.setAtlasTool(); break;
+                case TOGGLE_OPERATION : controller.model.toolManager.toggleOperation(); break;
                 case TOGGLE_SET : controller.model.toolManager.toggleSet(); break;
                 case TOGGLE_GRID : controller.view.editorRend.toggleGrid(); break;
                 case TOGGLE_LIGHT_COMP : controller.model.sunLight.toggleLight(); break;
@@ -189,5 +211,10 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case LOAD : controller.model.load(); break;
                 case NEW : controller.model.newMap(); break;
             }
+        }
+    }
+    
+    private void finishAnalogAction(){
+        
     }
 }

@@ -33,6 +33,7 @@ public class Pencil {
     public double radius = 2;
     public boolean snapPair = true;
     public boolean tileDependant = true;
+    public boolean maintained = false;
 
     public Pencil(Map map) {
         this.map = map;
@@ -200,7 +201,14 @@ public class Pencil {
             case Noise : return MyRandom.next();
                 default:throw new RuntimeException();
         }
-
+    }
+    
+    public void release(){
+        maintained = false;
+    }
+    
+    public void maintain(){
+        maintained = true;
     }
 
 }

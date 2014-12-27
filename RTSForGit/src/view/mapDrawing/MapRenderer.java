@@ -218,7 +218,6 @@ public class MapRenderer implements ActionListener {
     
     private void updateParcelsFor(ArrayList<Tile> tiles){
         for(ParcelMesh parcel : view.model.parcelManager.getParcelsFor(tiles)){
-            LogUtil.logger.info("hop !");
             Geometry g = (Geometry)parcelsSpatial.get(parcel);
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
             TangentBinormalGenerator.generate(jmeMesh);

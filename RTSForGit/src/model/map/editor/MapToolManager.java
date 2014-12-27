@@ -77,6 +77,9 @@ public class MapToolManager {
     public void toggleSet(){
         actualTool.toggleSet();
     }
+    public void toggleOperation(){
+        actualTool.toggleOperation();
+    }
     
     public void primaryAction(){
         if(lastAction+delay<System.currentTimeMillis()){

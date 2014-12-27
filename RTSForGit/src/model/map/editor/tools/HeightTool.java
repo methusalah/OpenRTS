@@ -24,17 +24,17 @@ public class HeightTool extends MapTool {
 
     @Override
     public void primaryAction() {
-        ArrayList<Tile> group = selector.getTiles();
+        ArrayList<Tile> group = pencil.getTiles();
         for(Tile t : group)
-            t.elevation+=amplitude*selector.getApplicationRatio(t.getPos2D());
+            t.elevation+=amplitude*pencil.getApplicationRatio(t.getPos2D());
         manager.updateParcels(group);
     }
 
     @Override
     public void secondaryAction() {
-        ArrayList<Tile> group = selector.getTiles();
+        ArrayList<Tile> group = pencil.getTiles();
         for(Tile t : group)
-            t.elevation-=amplitude*selector.getApplicationRatio(t.getPos2D());
+            t.elevation-=amplitude*pencil.getApplicationRatio(t.getPos2D());
         manager.updateParcels(group);
     }
 
@@ -42,6 +42,13 @@ public class HeightTool extends MapTool {
     public void toggleSet() {
         LogUtil.logger.info("Height tool has no set.");
     }
+
+    @Override
+    public void toggleOperation() {
+        LogUtil.logger.info("Height tool has no other operation for now.");
+    }
+    
+    
     
     
     

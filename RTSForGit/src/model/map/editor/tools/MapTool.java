@@ -14,14 +14,15 @@ import model.map.editor.Pencil;
 public abstract class MapTool {
     
     MapToolManager manager;
-    Pencil selector;
+    Pencil pencil;
 
     public MapTool(MapToolManager manager, Pencil selector) {
         this.manager = manager;
-        this.selector = selector;
+        this.pencil = selector;
     }
     
     public abstract void primaryAction();
     public abstract void secondaryAction();
     public abstract void toggleSet();
+    public abstract void toggleOperation();
 }

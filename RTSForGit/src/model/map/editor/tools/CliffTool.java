@@ -27,11 +27,11 @@ public class CliffTool extends MapTool {
 
     @Override
     public void primaryAction() {
-        int level = selector.getCenterTile().level+1;
+        int level = pencil.getCenterTile().level+1;
         if(level > 2)
             level = 2;
         
-        ArrayList<Tile> group = selector.getTiles();
+        ArrayList<Tile> group = pencil.getTiles();
         for(Tile t : group)
             if(leadsToDoubleCliff(t, level))
                 return;
@@ -42,11 +42,11 @@ public class CliffTool extends MapTool {
 
     @Override
     public void secondaryAction() {
-        int level = selector.getCenterTile().level-1;
+        int level = pencil.getCenterTile().level-1;
         if(level < 0)
             level = 0;
 
-        ArrayList<Tile> group = selector.getTiles();
+        ArrayList<Tile> group = pencil.getTiles();
         for(Tile t : group)
             if(leadsToDoubleCliff(t, level))
                 return;
@@ -72,6 +72,12 @@ public class CliffTool extends MapTool {
         actualBuilder = builders.get(index);
         LogUtil.logger.info("Cliff tool toggled to set "+actualBuilder.getID()+".");
     }
+    
+    @Override
+    public void toggleOperation() {
+        LogUtil.logger.info("Cliff tool has no other operation for now.");
+    }
+
     
     public void setCliff(Cliff cliff){
         actualBuilder.build(cliff);
