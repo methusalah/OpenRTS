@@ -16,7 +16,11 @@ import model.map.Tile;
 import model.map.editor.MapToolManager;
 import model.map.editor.Pencil;
 import model.map.atlas.DoubleMap;
-import model.map.atlas.GroundAtlas;
+import model.map.atlas.Atlas;
+import model.map.atlas.AtlasExplorer;
+import static model.map.editor.Pencil.Shape.Circle;
+import static model.map.editor.Pencil.Shape.Diamond;
+import static model.map.editor.Pencil.Shape.Square;
 import tools.LogUtil;
 import view.mapDrawing.MapRenderer;
 
@@ -25,10 +29,10 @@ import view.mapDrawing.MapRenderer;
  * @author Benoît
  */
 public class AtlasTool extends MapTool {
-
     enum Operation {AddDelete, PropagateSmooth}
     
-    GroundAtlas atlas;
+    Atlas atlas;
+    AtlasExplorer explorer;
     
     Operation actualOp = Operation.AddDelete;
     
@@ -37,23 +41,17 @@ public class AtlasTool extends MapTool {
     double increment = 20;
 
     
-    public AtlasTool(MapToolManager manager, Pencil selector, GroundAtlas atlas) {
+    public AtlasTool(MapToolManager manager, Pencil selector, Atlas atlas) {
         super(manager, selector);
         this.atlas = atlas;
+        explorer = new AtlasExplorer(manager.map);
     }
 
     @Override
     public void primaryAction() {
-        ArrayList<Point2D> pixels;
-        switch(pencil.shape){
-            case Circle : pixels = getPixelsInCircle(); break;
-            case Diamond : pixels = getPixelsInDiamond(); break;
-            case Square : pixels = getPixelsInSquare(); break;
-                default:throw new RuntimeException();
-        }
         switch (actualOp){
-            case AddDelete : increment(pixels); break;
-            case PropagateSmooth : propagate(pixels); break;
+            case AddDelete : increment(getInvolvedPixels()); break;
+            case PropagateSmooth : propagate(getInvolvedPixels()); break;
         }
         
         manager.updateGroundAtlas();
@@ -61,18 +59,20 @@ public class AtlasTool extends MapTool {
 
     @Override
     public void secondaryAction() {
-        ArrayList<Point2D> pixels;
-        switch(pencil.shape){
-            case Circle : pixels = getPixelsInCircle(); break;
-            case Diamond : pixels = getPixelsInDiamond(); break;
-            case Square : pixels = getPixelsInSquare(); break;
-                default:throw new RuntimeException();
-        }
         switch (actualOp){
-            case AddDelete : decrement(pixels); break;
-            case PropagateSmooth : smooth(pixels); break;
+            case AddDelete : decrement(getInvolvedPixels()); break;
+            case PropagateSmooth : smooth(getInvolvedPixels()); break;
         }
         manager.updateGroundAtlas();
+    }
+    
+    public ArrayList<Point2D> getInvolvedPixels(){
+        switch(pencil.shape){
+            case Circle : return explorer.getPixelsInMapSpaceCircle(pencil.getPos(), pencil.radius);
+            case Diamond : return explorer.getPixelsInMapSpaceDiamond(pencil.getPos(), pencil.radius);
+            case Square : return explorer.getPixelsInMapSpaceSquare(pencil.getPos(), pencil.radius);
+                default:throw new RuntimeException();
+        }
     }
 
     @Override
@@ -97,69 +97,21 @@ public class AtlasTool extends MapTool {
         }
     }
     
-    private ArrayList<Point2D> getPixelsInCircle(){
-        ArrayList<Point2D> res = new ArrayList<>();
-        Point2D relativeCenter = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.map.width, manager.map.height);
-        double relativeRadius = pencil.radius*atlas.width/manager.map.width;
-        int minX = (int)Math.round(Math.max(relativeCenter.x-relativeRadius, 0));
-        int maxX = (int)Math.round(Math.min(relativeCenter.x+relativeRadius, atlas.width-1));
-        int minY = (int)Math.round(Math.max(relativeCenter.y-relativeRadius, 0));
-        int maxY = (int)Math.round(Math.min(relativeCenter.y+relativeRadius, atlas.height-1));
-        for(int x=minX; x<maxX; x++)
-            for(int y=minY; y<maxY; y++){
-                Point2D p = new Point2D(x, y);
-                if(p.getDistance(relativeCenter) < relativeRadius)
-                    res.add(p);
-            }
-        return res;
-    }
-
-    private ArrayList<Point2D> getPixelsInSquare(){
-        ArrayList<Point2D> res = new ArrayList<>();
-        Point2D relativeCenter = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.map.width, manager.map.height);
-        double relativeRadius = pencil.radius*atlas.width/manager.map.width;
-        int minX = (int)Math.round(Math.max(relativeCenter.x-relativeRadius, 0));
-        int maxX = (int)Math.round(Math.min(relativeCenter.x+relativeRadius, atlas.width-1));
-        int minY = (int)Math.round(Math.max(relativeCenter.y-relativeRadius, 0));
-        int maxY = (int)Math.round(Math.min(relativeCenter.y+relativeRadius, atlas.height-1));
-        for(int x=minX; x<maxX; x++)
-            for(int y=minY; y<maxY; y++){
-                Point2D p = new Point2D(x, y);
-                res.add(p);
-            }
-        return res;
-    }
-
-    private ArrayList<Point2D> getPixelsInDiamond(){
-        ArrayList<Point2D> res = new ArrayList<>();
-        Point2D relativeCenter = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.map.width, manager.map.height);
-        double relativeRadius = pencil.radius*1.414*atlas.width/manager.map.width;
-        int minX = (int)Math.round(Math.max(relativeCenter.x-relativeRadius, 0));
-        int maxX = (int)Math.round(Math.min(relativeCenter.x+relativeRadius, atlas.width-1));
-        int minY = (int)Math.round(Math.max(relativeCenter.y-relativeRadius, 0));
-        int maxY = (int)Math.round(Math.min(relativeCenter.y+relativeRadius, atlas.height-1));
-        for(int x=minX; x<maxX; x++)
-            for(int y=minY; y<maxY; y++){
-                Point2D p = new Point2D(x, y);
-                if(p.getManathanDistance(relativeCenter) < relativeRadius)
-                    res.add(p);
-            }
-        return res;
-    }
-    
     private void increment(ArrayList<Point2D> pixels){
         for(Point2D p : pixels)
-            increment((int)Math.round(p.x), (int)Math.round(p.y), actualLayer);
+            increment(p, actualLayer);
     }
     
-    private void increment(int x, int y, int layer){
-        double contextualIncrement = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
+    private void increment(Point2D p, int layer){
+        int x = (int)Math.round(p.x);
+        int y = (int)Math.round(p.y);
+        double attenuatedInc = increment*pencil.getApplicationRatio(explorer.getInMapSpace(p));
         
-        double valueToDitribute=contextualIncrement;
+        double valueToDitribute=attenuatedInc;
         ArrayList<DoubleMap> availableLayers = new ArrayList<>();
         for(DoubleMap l : atlas.layers)
             if(atlas.layers.indexOf(l) == layer)
-                valueToDitribute -= add(l, x, y, contextualIncrement);
+                valueToDitribute -= add(l, x, y, attenuatedInc);
             else
                 availableLayers.add(l);
         
@@ -177,23 +129,25 @@ public class AtlasTool extends MapTool {
             availableLayers.removeAll(unavailableLayers);
         }
         if(secur>40)
-            LogUtil.logger.warning("Impossible to ditribute value");
+            LogUtil.logger.warning("Impossible to distribute value");
         updateAtlasPixel(x, y);
     }
     
     private void decrement(ArrayList<Point2D> pixels){
         for(Point2D p : pixels)
-            decrement((int)Math.round(p.x), (int)Math.round(p.y), actualLayer);
+            decrement(p, actualLayer);
     }
     
-    private void decrement(int x, int y, int layer){
-        double contextualIncrement = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
+    private void decrement(Point2D p, int layer){
+        int x = (int)Math.round(p.x);
+        int y = (int)Math.round(p.y);
+        double attenuatedInc = increment*pencil.getApplicationRatio(explorer.getInMapSpace(p));
         
-        double valueToDitribute=contextualIncrement;
+        double valueToDitribute=attenuatedInc;
         ArrayList<DoubleMap> availableLayers = new ArrayList<>();
         for(DoubleMap l : atlas.layers)
             if(atlas.layers.indexOf(l) == layer)
-                valueToDitribute -= subtract(l, x, y, contextualIncrement);
+                valueToDitribute -= subtract(l, x, y, attenuatedInc);
             else if(l.get(x, y) > 0)
                 availableLayers.add(l);
         if(availableLayers.isEmpty())
@@ -213,7 +167,7 @@ public class AtlasTool extends MapTool {
             availableLayers.removeAll(unavailableLayers);
         }
         if(secur>40)
-            LogUtil.logger.warning("Impossible to ditribute value");
+            LogUtil.logger.warning("Impossible to distribute value");
         updateAtlasPixel(x, y);
     }
     
@@ -228,18 +182,15 @@ public class AtlasTool extends MapTool {
                 if(l.get(centerX, centerY) > atlas.layers.get(autoLayer).get(centerX, centerY))
                     autoLayer = atlas.layers.indexOf(l);
         }
-        for(Point2D p : pixels){
-            int x = (int)Math.round(p.x);
-            int y = (int)Math.round(p.y);
-            increment(x, y, autoLayer);
-        }
+        for(Point2D p : pixels)
+            increment(p, autoLayer);
     }
     
     private void smooth(ArrayList<Point2D> pixels){
         for(Point2D p : pixels){
             int x = (int)Math.round(p.x);
             int y = (int)Math.round(p.y);
-            double contextualIncrement = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
+            double attenuatedInc = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
 
             int activeLayerCount = 0;
             for(DoubleMap l : atlas.layers)
@@ -250,9 +201,9 @@ public class AtlasTool extends MapTool {
                 if(l.get(x, y) != 0){
                     double diff = targetVal - l.get(x, y);
                     if(diff < 0)
-                        l.set(x, y, l.get(x, y)+Math.max(diff, -contextualIncrement));
+                        l.set(x, y, l.get(x, y)+Math.max(diff, -attenuatedInc));
                     else if(diff > 0)
-                        l.set(x, y, l.get(x, y)+Math.min(diff, contextualIncrement));
+                        l.set(x, y, l.get(x, y)+Math.min(diff, attenuatedInc));
                 }
             updateAtlasPixel(x, y);
         }

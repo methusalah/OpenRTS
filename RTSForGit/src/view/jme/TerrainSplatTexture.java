@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import model.map.editor.tools.AtlasTool;
-import model.map.atlas.GroundAtlas;
+import model.map.atlas.Atlas;
 
 /**
  *
@@ -22,7 +22,7 @@ import model.map.atlas.GroundAtlas;
  */
 public class TerrainSplatTexture {
     
-    GroundAtlas atlas;
+    Atlas atlas;
     ArrayList<Texture> diffuseMaps = new ArrayList<>();
     ArrayList<Texture> normaMaps = new ArrayList<>();
     ArrayList<Double> scales = new ArrayList<>();
@@ -32,7 +32,7 @@ public class TerrainSplatTexture {
     Material mat;
     AWTLoader awtLoader;
             
-    public TerrainSplatTexture(GroundAtlas atlas, AssetManager am) {
+    public TerrainSplatTexture(Atlas atlas, AssetManager am) {
         this.atlas = atlas;
         this.am = am;
         awtLoader = new AWTLoader();

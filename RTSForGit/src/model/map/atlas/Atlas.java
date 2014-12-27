@@ -39,7 +39,7 @@ import tools.LogUtil;
  * @author Benoît
  */
 @Root
-public class GroundAtlas {
+public class Atlas {
     private static int LAYER_COUNT = 8;
      
     @Element
@@ -50,7 +50,7 @@ public class GroundAtlas {
     
     public boolean toUpdate = false;
 
-    public GroundAtlas(@Element(name="width")int width, @Element(name="height")int height) {
+    public Atlas(@Element(name="width")int width, @Element(name="height")int height) {
         this.width = width;
         this.height = height;
     }

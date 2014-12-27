@@ -6,7 +6,7 @@ import geometry3D.Triangle3D;
 import java.util.ArrayList;
 import java.util.List;
 import math.Angle;
-import model.map.atlas.GroundAtlas;
+import model.map.atlas.Atlas;
 import model.map.data.MapStyle;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -25,7 +25,7 @@ public class Map {
     public List<Tile> tiles;
 
     @Element
-    public GroundAtlas atlas;
+    public Atlas atlas;
     
     @Element
     public int width;
@@ -37,14 +37,14 @@ public class Map {
     public Map(int width, int height){
         this.width = width;
         this.height = height;
-        atlas = new GroundAtlas(1024, 1024);
+        atlas = new Atlas(1024, 1024);
         atlas.finalize();
         tiles = new ArrayList<>(width*height);
     }
     
     public Map(@Element(name="mapStyleID") String mapStyleID,
             @ElementList(name="tiles") List<Tile> tiles,
-            @Element(name="atlas") GroundAtlas atlas,
+            @Element(name="atlas") Atlas atlas,
             @Element(name="width") int width,
             @Element(name="height") int height){
         this.mapStyleID = mapStyleID;

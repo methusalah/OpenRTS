@@ -6,6 +6,8 @@ package model.map.editor.tools;
 
 import java.util.ArrayList;
 import model.map.Tile;
+import model.map.atlas.Atlas;
+import model.map.atlas.AtlasExplorer;
 import model.map.cliff.Cliff;
 import model.map.data.CliffShapeBuilder;
 import model.map.editor.MapToolManager;
@@ -18,7 +20,12 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class CliffTool extends MapTool {
+    enum Operation {RaiseLow, Flatten}
+    
+    Operation actualOp = Operation.RaiseLow;
     CliffShapeBuilder actualBuilder;
+    
+    int maintainedlevel;
 
     public CliffTool(MapToolManager manager, Pencil selector, BuilderLibrary lib) {
         super(manager, selector);
@@ -27,38 +34,66 @@ public class CliffTool extends MapTool {
 
     @Override
     public void primaryAction() {
-        int level = pencil.getCenterTile().level+1;
-        if(level > 2)
-            level = 2;
-        
-        ArrayList<Tile> group = pencil.getTiles();
-        for(Tile t : group)
-            if(leadsToDoubleCliff(t, level))
-                return;
-        for(Tile t : group)
-            t.level = level;
-        manager.updateTiles(group);
+        switch (actualOp){
+            case RaiseLow : raise(); break;
+            case Flatten : flatten(); break;
+        }
     }
 
     @Override
     public void secondaryAction() {
-        int level = pencil.getCenterTile().level-1;
-        if(level < 0)
-            level = 0;
-
+        switch (actualOp){
+            case RaiseLow : low(); break;
+            case Flatten : break;
+        }
+    }
+    
+    private void raise(){
+        if(!pencil.maintained){
+            pencil.maintain();
+            maintainedlevel = pencil.getCenterTile().level+1;
+            if(maintainedlevel > 2)
+                maintainedlevel = 2;
+        }
+        changeLevel();
+    }
+    
+    private void low(){
+        if(!pencil.maintained){
+            pencil.maintain();
+            maintainedlevel = pencil.getCenterTile().level-1;
+            if(maintainedlevel < 0)
+                maintainedlevel = 0;
+        }
+        changeLevel();
+    }
+    
+    private void flatten(){
+        if(!pencil.maintained){
+            pencil.maintain();
+            maintainedlevel = pencil.getCenterTile().level;
+        }
+        LogUtil.logger.info("flattening to level "+maintainedlevel);
+        changeLevel();
+    }
+    
+    private void changeLevel(){
         ArrayList<Tile> group = pencil.getTiles();
         for(Tile t : group)
-            if(leadsToDoubleCliff(t, level))
+            if(leadsToDoubleCliff(t, maintainedlevel)){
+                LogUtil.logger.info("double cliff detected");
                 return;
+            }
         for(Tile t : group)
-            t.level = level;
+            t.level = maintainedlevel;
         manager.updateTiles(group);
     }
     
+
     private boolean leadsToDoubleCliff(Tile t, int level){
         for(Tile n : t.get8Neighbors())
-            if(n.isCliff() &&
-                    (level > n.level+1 || level < n.level))
+            if(//n.isCliff() &&
+                    (level > n.level+1 || level < n.level-1))
                 return true;
         return false;
     }
@@ -75,7 +110,16 @@ public class CliffTool extends MapTool {
     
     @Override
     public void toggleOperation() {
-        LogUtil.logger.info("Cliff tool has no other operation for now.");
+        switch (actualOp){
+            case RaiseLow :
+                actualOp = Operation.Flatten;
+                LogUtil.logger.info("Atlas tool operation toggled to flatten.");
+                break;
+            case Flatten :
+                actualOp = Operation.RaiseLow;
+                LogUtil.logger.info("Atlas tool operation toggled to raise/low.");
+                break;
+        }
     }
 
     

@@ -85,6 +85,7 @@ public class Pencil {
         }
         LogUtil.logger.info("Pencil shape : "+shape);
     }
+    
     public void toggleMode(){
         switch(mode){
             case Rough : mode = Mode.Airbrush; break;
@@ -173,7 +174,7 @@ public class Pencil {
         return map.getTile(getAlignedPos()).getZ();
     }
     
-    public double getEccentricity(Point2D p){
+    private double getEccentricity(Point2D p){
         switch(shape) {
             case Square :
                 double xDist = Math.abs(p.x-pos.x);
