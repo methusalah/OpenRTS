@@ -16,7 +16,7 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class HeightTool extends MapTool {
-    enum Operation {RaiseLow, NoiseSmooth, Uniform}
+    enum Operation {RaiseLow, NoiseSmooth, UniformReset}
     
     Operation actualOp = Operation.RaiseLow;
 
@@ -33,7 +33,7 @@ public class HeightTool extends MapTool {
         switch (actualOp){
             case RaiseLow : raise(group); break;
             case NoiseSmooth : noise(group); break;
-            case Uniform : uniform(group); break;
+            case UniformReset : uniform(group); break;
         }
         manager.updateParcels(group);
     }
@@ -44,7 +44,7 @@ public class HeightTool extends MapTool {
         switch (actualOp){
             case RaiseLow : low(group); break;
             case NoiseSmooth : smooth(group); break;
-            case Uniform : break;
+            case UniformReset : reset(group); break;
         }
         manager.updateParcels(group);
     }
@@ -80,11 +80,6 @@ public class HeightTool extends MapTool {
     }
 
     private void smooth(ArrayList<Tile> tiles){
-//        double average = 0;
-//        for(Tile t : tiles)
-//            average += t.elevation;
-//        average /= tiles.size();
-        
         for(Tile t : tiles){
             double average = 0;
             for(Tile n : t.get4Neighbors())
@@ -98,6 +93,11 @@ public class HeightTool extends MapTool {
             else if(diff < 0)
                 t.elevation += Math.max(diff, -attenuatedAmplitude);
         }
+    }
+    
+    private void reset(ArrayList<Tile> tiles){
+        for(Tile t : tiles)
+            t.elevation = 0;
     }
 
     @Override
@@ -113,10 +113,10 @@ public class HeightTool extends MapTool {
                 LogUtil.logger.info("Atlas tool operation toggled to noise/smooth.");
                 break;
             case NoiseSmooth :
-                actualOp = Operation.Uniform;
-                LogUtil.logger.info("Atlas tool operation toggled to uniform.");
+                actualOp = Operation.UniformReset;
+                LogUtil.logger.info("Atlas tool operation toggled to uniform/reset.");
                 break;
-            case Uniform :
+            case UniformReset :
                 actualOp = Operation.RaiseLow;
                 LogUtil.logger.info("Atlas tool operation toggled to raise/low.");
                 break;

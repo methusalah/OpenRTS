@@ -36,6 +36,7 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String SET_CLIFF_TOOL = "setclifftool";
     protected final static String SET_HEIGHT_TOOL = "setheighttool";
     protected final static String SET_ATLAS_TOOL = "setatlastool";
+    protected final static String SET_RAMP_TOOL = "setramptool";
     protected final static String TOGGLE_PENCIL_SHAPE = "pencilshape";
     protected final static String TOGGLE_PENCIL_MODE = "pencilmode";
     protected final static String INC_SELECTOR_RADIUS = "selectorradius+";
@@ -83,6 +84,7 @@ public class EditorInputInterpreter extends InputInterpreter {
                             SET_CLIFF_TOOL,
                             SET_HEIGHT_TOOL,
                             SET_ATLAS_TOOL,
+                            SET_RAMP_TOOL,
                             TOGGLE_GRID,
                             TOGGLE_SET,
                             TOGGLE_OPERATION,
@@ -115,6 +117,7 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addMapping(SET_CLIFF_TOOL, new KeyTrigger(KeyInput.KEY_1));
             inputManager.addMapping(SET_HEIGHT_TOOL, new KeyTrigger(KeyInput.KEY_2));
             inputManager.addMapping(SET_ATLAS_TOOL, new KeyTrigger(KeyInput.KEY_3));
+            inputManager.addMapping(SET_RAMP_TOOL, new KeyTrigger(KeyInput.KEY_4));
 
             inputManager.addMapping(TOGGLE_GRID, new KeyTrigger(KeyInput.KEY_G));
             inputManager.addMapping(TOGGLE_OPERATION, new KeyTrigger(KeyInput.KEY_E));
@@ -201,6 +204,7 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case SET_CLIFF_TOOL : controller.model.toolManager.setCliffTool(); break;
                 case SET_HEIGHT_TOOL : controller.model.toolManager.setHeightTool(); break;
                 case SET_ATLAS_TOOL : controller.model.toolManager.setAtlasTool(); break;
+                case SET_RAMP_TOOL : controller.model.toolManager.setRampTool(); break;
                 case TOGGLE_OPERATION : controller.model.toolManager.toggleOperation(); break;
                 case TOGGLE_SET : controller.model.toolManager.toggleSet(); break;
                 case TOGGLE_GRID : controller.view.editorRend.toggleGrid(); break;

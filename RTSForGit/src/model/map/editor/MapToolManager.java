@@ -17,6 +17,7 @@ import model.map.editor.tools.AtlasTool;
 import model.map.editor.tools.CliffTool;
 import model.map.editor.tools.HeightTool;
 import model.map.editor.tools.MapTool;
+import model.map.editor.tools.RampTool;
 import model.map.parcel.ParcelManager;
 import model.map.parcel.ParcelMesh;
 import ressources.definitions.BuilderLibrary;
@@ -35,6 +36,8 @@ public class MapToolManager {
     public HeightTool heightTool;
     public CliffTool cliffTool;
     public AtlasTool atlasTool;
+    public RampTool rampTool;
+    
     public MapTool actualTool;
     
     double delay = 0;
@@ -49,6 +52,7 @@ public class MapToolManager {
         heightTool = new HeightTool(this, pencil);
         cliffTool = new CliffTool(this, pencil, lib);
         atlasTool = new AtlasTool(this, pencil, map.atlas);
+        rampTool = new RampTool(this, pencil);
         actualTool = cliffTool;
         pencil.snapPair = true;
     }
@@ -56,22 +60,29 @@ public class MapToolManager {
     public void setCliffTool(){
         actualTool = cliffTool;
         pencil.snapPair = true;
-        pencil.tileDependant = true;
+        pencil.snapGrid = true;
         LogUtil.logger.info("Cliff tool set.");
         notifyListeners("tool");
     }
     public void setHeightTool(){
         actualTool = heightTool;
         pencil.snapPair = false;
-        pencil.tileDependant = true;
+        pencil.snapGrid = true;
         LogUtil.logger.info("Height tool set.");
         notifyListeners("tool");
     }
     public void setAtlasTool(){
         actualTool = atlasTool;
         pencil.snapPair = false;
-        pencil.tileDependant = false;
+        pencil.snapGrid = false;
         LogUtil.logger.info("Atlas tool set.");
+        notifyListeners("tool");
+    }
+    public void setRampTool(){
+        actualTool = rampTool;
+        pencil.snapPair = false;
+        pencil.snapGrid = true;
+        LogUtil.logger.info("Ramp tool set.");
         notifyListeners("tool");
     }
     public void toggleSet(){
@@ -111,10 +122,10 @@ public class MapToolManager {
                     diff = true;
                     break;
                 }
-            if(!t.isCliff() && diff)
+            if(!t.isCliff() && !t.isRamp && diff)
                 t.setCliff();
             if(t.isCliff()){
-                if(!diff)
+                if(t.isRamp || !diff)
                     t.unsetCliff();
                 else if(t.cliff.type == Cliff.Type.Bugged)
                     t.cliff.type = null;

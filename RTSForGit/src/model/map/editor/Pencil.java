@@ -27,12 +27,12 @@ public class Pencil {
     
     Map map;
     private Point2D pos = Point2D.ORIGIN;
-    public Point2D alignedPos;
+    public Point2D snappedPos;
     public Shape shape = Shape.Square;
     public Mode mode = Mode.Rough;
     public double radius = 2;
     public boolean snapPair = true;
-    public boolean tileDependant = true;
+    public boolean snapGrid = true;
     public boolean maintained = false;
 
     public Pencil(Map map) {
@@ -41,7 +41,7 @@ public class Pencil {
     
     public void incRadius(){
         double increment = 1;
-        if(!tileDependant)
+        if(!snapGrid)
             increment = 0.25;
         else if (!snapPair)
             increment = 0.5;
@@ -50,7 +50,7 @@ public class Pencil {
     }
     public void decRadius(){
         double increment = 1;
-        if(!tileDependant)
+        if(!snapGrid)
             increment = 0.25;
         else if (!snapPair || radius == 1)
             increment = 0.5;
@@ -70,7 +70,7 @@ public class Pencil {
     
     public void setPos(Point2D pos){
         this.pos = pos;
-        alignedPos = null;
+        snappedPos = null;
     }
     public Point2D getPos(){
         return pos;
@@ -106,11 +106,11 @@ public class Pencil {
     }
     
     public Tile getCenterTile(){
-        return map.getTile(getAlignedPos());
+        return map.getTile(getSnappedPos());
     }
     
-    private Point2D getAlignedPos(){
-        if(alignedPos == null){
+    private Point2D getSnappedPos(){
+        if(snappedPos == null){
             int x = (int)Math.floor(pos.x);
             int y = (int)Math.floor(pos.y);
             if(radius > 1 && snapPair){
@@ -119,16 +119,16 @@ public class Pencil {
                 if(y%2 != 0)
                     y--;
             }
-            alignedPos = new Point2D(x, y);
+            snappedPos = new Point2D(x, y);
         }
-        return alignedPos;
+        return snappedPos;
     }
     
     private ArrayList<Tile> getTilesInCircle() {
         ArrayList<Tile> res = new ArrayList<>();
-        BoundingCircle circle = new BoundingCircle(getAlignedPos().getAddition(1, 1), radius);
+        BoundingCircle circle = new BoundingCircle(getSnappedPos(), radius);
         for(Tile t : map.getTiles()){
-            if(circle.contains(t.getPos2D().getAddition(0.5, 0.5)))
+            if(circle.contains(t.getPos2D()))
                 res.add(t);
         }
         return res;
@@ -151,7 +151,7 @@ public class Pencil {
     }
 
     private Polygon getOrientedQuad(){
-        Point2D alignedPos = getAlignedPos().getAddition(1, 1);
+        Point2D alignedPos = getSnappedPos().getAddition(1, 1);
         PointRing pr = new PointRing();
         pr.add(alignedPos.getAddition(-radius, -radius));
         pr.add(alignedPos.getAddition(radius, -radius));
@@ -171,7 +171,7 @@ public class Pencil {
     }
     
     public double getElevation(){
-        return map.getTile(getAlignedPos()).getZ();
+        return map.getTile(getSnappedPos()).getZ();
     }
     
     private double getEccentricity(Point2D p){

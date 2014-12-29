@@ -34,6 +34,8 @@ public class Tile {
     public double elevation = 0;
     @Element
     public boolean isCliff = false;
+    public boolean isRamp = false;
+    public double rampZ = 0;
     @Element(required=false)
     public String cliffShapeID = "";
 
@@ -141,5 +143,12 @@ public class Tile {
             return (level+1)*STAGE_HEIGHT+elevation;
         else
             return level*STAGE_HEIGHT+elevation;
+    }
+    
+    public double getNeighbRampZ(){
+        for(Tile t : get4Neighbors())
+            if(t.rampZ != 0)
+                return t.rampZ;
+        return 0;
     }
 }

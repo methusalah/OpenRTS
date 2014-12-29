@@ -145,7 +145,8 @@ public class EditorRenderer implements ActionListener {
 
     
     public void drawPencil() {
-        if(view.model.toolManager.actualTool == view.model.toolManager.cliffTool){
+        if(view.model.toolManager.actualTool == view.model.toolManager.cliffTool ||
+                view.model.toolManager.actualTool == view.model.toolManager.rampTool){
             drawCliffPencil();
         } else if(view.model.toolManager.actualTool == view.model.toolManager.heightTool){
             drawHeightPencil();
@@ -255,7 +256,8 @@ public class EditorRenderer implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()){
             case "tool" : 
-                if(view.model.toolManager.actualTool != view.model.toolManager.cliffTool)
+                if(view.model.toolManager.actualTool != view.model.toolManager.cliffTool &&
+                        view.model.toolManager.actualTool != view.model.toolManager.rampTool)
                     hideCliffPencil();
                 if(view.model.toolManager.actualTool != view.model.toolManager.heightTool)
                     hideHeightPencil();
