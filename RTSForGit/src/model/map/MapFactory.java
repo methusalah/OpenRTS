@@ -80,6 +80,10 @@ public class MapFactory {
         LogUtil.logger.info("   tiles' links");
         linkTiles(res);
         
+        LogUtil.logger.info("   ramps");
+        for(Ramp r : res.ramps)
+            r.connect(res);
+        
         for(Tile t : res.tiles)
             if(t.isCliff)
                 t.setCliff();

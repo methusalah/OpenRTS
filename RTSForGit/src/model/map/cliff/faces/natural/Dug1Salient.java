@@ -37,13 +37,13 @@ public class Dug1Salient extends Dug1 {
         double ridgePos = MyRandom.between(1+MAX_RIDGE_POS*ridgePosRange, 1-MAX_RIDGE_POS*ridgePosRange);
 
         for(Point3D v : parentProfile)
-            grid[0][i++] = v.get2D().getRotation(Angle.RIGHT).get3D(v.z).getAddition(0, 0, cliff.parent.elevation);
+            grid[0][i++] = v.getRotationAroundZ(Angle.RIGHT);
         i = 0;
         for(Point3D v : middleProfile)
-            grid[1][i++] = v.get2D().getRotation(Angle.RIGHT/2*ridgePos).getMult(ridgeDepth).get3D(v.z).getAddition(0, 0, (cliff.parent.elevation+cliff.tile.elevation)/2);
+            grid[1][i++] = v.getRotationAroundZ(Angle.RIGHT/2*ridgePos).getMult(ridgeDepth, ridgeDepth, 1);
         i = 0;
         for(Point3D v : childProfile)
-            grid[2][i++] = v.getAddition(0, 0, cliff.tile.elevation);
+            grid[2][i++] = v;
     }
 
     @Override

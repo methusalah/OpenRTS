@@ -11,6 +11,7 @@ import model.map.data.MapStyle;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+import tools.LogUtil;
 
 
 @Root
@@ -23,6 +24,8 @@ public class Map {
     
     @ElementList
     public List<Tile> tiles;
+    @ElementList
+    public List<Ramp> ramps = new ArrayList<>();
 
     @Element
     public Atlas atlas;
@@ -241,5 +244,16 @@ public class Map {
             if(t.isCliff())
                 res.add(t);
         return res;
+    }
+    
+    public int getRef(Tile t){
+        return t.y*width+t.x;
+    }
+    
+    public Tile getTile(int ref){
+        int y = (int)Math.floor((double)ref/width);
+        int x = (int)Math.round((double)ref%width);
+        LogUtil.logger.info("ref = "+ref+" coord : "+new Point2D(x, y)+" div = "+(double)ref/width+" modulo = "+(double)ref%width);
+        return getTile(x, y);
     }
 }

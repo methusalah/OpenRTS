@@ -122,10 +122,10 @@ public class MapToolManager {
                     diff = true;
                     break;
                 }
-            if(!t.isCliff() && !t.isRamp && diff)
+            if(/*!t.isCliff() &&*/ diff)
                 t.setCliff();
             if(t.isCliff()){
-                if(t.isRamp || !diff)
+                if(!diff)
                     t.unsetCliff();
                 else if(t.cliff.type == Cliff.Type.Bugged)
                     t.cliff.type = null;
@@ -139,7 +139,7 @@ public class MapToolManager {
         }
         for(Tile t : updatedTiles){
             if(t.isCliff())
-                cliffTool.setCliff(t.cliff);
+                cliffTool.buildShape(t.cliff);
         }
         notifyListeners("tiles", updatedTiles);
         updateParcels(tiles);

@@ -5,6 +5,7 @@
 package model.map.editor.tools;
 
 import java.util.ArrayList;
+import model.map.Ramp;
 import model.map.Tile;
 import model.map.cliff.Cliff;
 import model.map.editor.MapToolManager;
@@ -23,29 +24,24 @@ public class RampTool extends MapTool{
 
     @Override
     public void primaryAction() {
-        ArrayList<Tile> changed = new ArrayList<>();
-        Tile cliffTile = pencil.getCenterTile();
-        if(!cliffTile.isCliff || cliffTile.cliff.type != Cliff.Type.Orthogonal)
-            return;
-        
-        int rampLength = 7;
-        changed.add(cliffTile);
-        double rampZ = 0;//-Tile.STAGE_HEIGHT/(rampLength+1);
-        cliffTile.level++;
-        cliffTile.rampZ = rampZ;
-        LogUtil.logger.info("applying z = "+rampZ);
-        
-        for(int i=0; i<rampLength; i++){
-            Tile n = manager.map.getTile(cliffTile.getPos2D().getTranslation(cliffTile.cliff.angle, i));
-            n.level = cliffTile.level;
-            n.elevation += rampZ;
-            n.rampZ = rampZ;
-            rampZ -= Tile.STAGE_HEIGHT/(rampLength+1);
-            changed.add(n);
+        Tile t = pencil.getCenterTile();
+        if(t.ramp != null){
+            t.ramp.grow(t);
+        } else {
+            if(!t.isCliff)
+                return;
+            new Ramp(t, manager.map);
         }
         
-        
-//        pencil.getCenterTile().isRamp = true;
+        ArrayList<Tile> changed = new ArrayList<>();
+        changed.addAll(t.ramp.tiles);
+        for(Tile t1 : t.ramp.tiles)
+            for(Tile n : t1.get8Neighbors()){
+                if(!changed.contains(n))
+                    changed.add(n);
+                if(n.isCliff)
+                    n.unsetCliff();
+            }
         manager.updateTiles(changed);
     }
 

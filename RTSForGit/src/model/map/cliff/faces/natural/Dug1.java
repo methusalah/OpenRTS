@@ -7,6 +7,9 @@ package model.map.cliff.faces.natural;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.MyRandom;
+import model.map.Ramp;
+import model.map.Tile;
+import tools.LogUtil;
 
 /**
  *
@@ -21,7 +24,8 @@ public abstract class Dug1 extends NaturalFace {
     public Dug1(NaturalFace o) {
         super(o);
     }
-        protected ArrayList<Point3D> getChildProfile(){
+    
+    protected ArrayList<Point3D> getChildProfile(){
         if(childProfile.isEmpty()){
             childProfile = noise(createProfile());
         }
@@ -57,15 +61,59 @@ public abstract class Dug1 extends NaturalFace {
     }
     
     protected void buildProfiles(){
+        // compute pinch ratios for ramps
+        double parentPinch = 0, middlePinch = 0, childPinch = 0;
+        if(cliff.tile.ramp != null){
+            Ramp r = cliff.tile.ramp;
+            double slope = r.getCliffSlopeRate(cliff.tile);
+            if(cliff.parent == null){
+                parentPinch = 1;
+                middlePinch = (slope+1)/2;
+                childPinch = slope;
+            } else {
+                double parentSlope = r.getCliffSlopeRate(cliff.parent);
+                 if(cliff.parent.ramp != cliff.tile.ramp)
+                     parentSlope = -0.1;
+                if(parentSlope >= slope){
+                    parentPinch = parentSlope;
+                    middlePinch = (slope+parentSlope)/2;
+                    childPinch = slope;
+                } else {
+                    if(cliff.child == null){
+                        parentPinch = slope;
+                        middlePinch = (slope+1)/2;
+                        childPinch = 1;
+                    } else {
+                        double childSlope = r.getCliffSlopeRate(cliff.child);
+                        if(cliff.child.ramp != cliff.tile.ramp)
+                            childSlope = 0;
+                        parentPinch = slope;
+                        middlePinch = (slope+childSlope)/2;
+                        childPinch = childSlope;
+                    }
+                }
+            }
+        }
+        
+        // elevating profiles according to ground elevation
+        double parentZ = 0;//cliff.parent != null? cliff.parent.elevation : cliff.tile.elevation;
+        double childZ = 0;//cliff.tile.elevation;
+        double middleZ = 0;//(parentZ+childZ)/2;
+        
+
+        // compute profiles
         if(getParentFace() != null && getParentFace() instanceof Dug1)
             parentProfile = ((Dug1)getParentFace()).getChildProfile();
         else
-            parentProfile = noise(createProfile());
-        middleProfile = noise(createProfile());
+            parentProfile = elevate(pinch(noise(createProfile()), parentPinch), parentZ);
+        
+        middleProfile = elevate(pinch(noise(createProfile()), middlePinch), middleZ);
+        
         if(getChildFace() != null && !getChildFace().parentProfile.isEmpty())
             childProfile = getChildFace().parentProfile;
         else if(childProfile.isEmpty())
-            childProfile = noise(createProfile());
+            childProfile = elevate(pinch(noise(createProfile()), childPinch), childZ);
+        
     }
     
     protected void extrudeProfile(){
@@ -81,5 +129,27 @@ public abstract class Dug1 extends NaturalFace {
             for(int j=0; j<NB_VERTEX_ROWS; j++)
                 grid[i][j] = grid[i][j].getAddition(-0.5, -0.5, 0);
         mesh = new Dug1Mesh(grid);
+    }
+    
+    private ArrayList<Point3D> pinch(ArrayList<Point3D> profile, double ratio){
+        if(ratio == 0)
+            return profile;
+        ArrayList<Point3D> res = new ArrayList<>();
+        for(Point3D p : profile){
+            if(ratio == 1)
+                res.add(new Point3D(0.5+MyRandom.next()*0.001, 0, 0));
+            else
+                res.add(p.getAddition(0, 0, -Tile.STAGE_HEIGHT*ratio*p.z/Tile.STAGE_HEIGHT));
+        }
+        return res;
+    }
+
+    private ArrayList<Point3D> elevate(ArrayList<Point3D> profile, double elevation){
+        if(elevation == 0)
+            return profile;
+        ArrayList<Point3D> res = new ArrayList<>();
+        for(Point3D p : profile)
+            res.add(p.getAddition(0, 0, elevation));
+        return res;
     }
 }

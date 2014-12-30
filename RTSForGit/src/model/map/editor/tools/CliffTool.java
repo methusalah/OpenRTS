@@ -73,7 +73,6 @@ public class CliffTool extends MapTool {
             pencil.maintain();
             maintainedlevel = pencil.getCenterTile().level;
         }
-        LogUtil.logger.info("flattening to level "+maintainedlevel);
         changeLevel();
     }
     
@@ -84,8 +83,13 @@ public class CliffTool extends MapTool {
                 LogUtil.logger.info("double cliff detected");
                 return;
             }
-        for(Tile t : group)
+        ArrayList<Tile> toUpdate = new ArrayList<>();
+        for(Tile t : group){
             t.level = maintainedlevel;
+            if(t.ramp != null)
+                toUpdate.addAll(t.ramp.destroy());
+        }
+        group.addAll(toUpdate);
         manager.updateTiles(group);
     }
     
@@ -123,7 +127,7 @@ public class CliffTool extends MapTool {
     }
 
     
-    public void setCliff(Cliff cliff){
+    public void buildShape(Cliff cliff){
         actualBuilder.build(cliff);
     }
 

@@ -8,6 +8,7 @@ import collections.Ring;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.MyRandom;
+import model.map.Ramp;
 import model.map.Tile;
 import static model.map.cliff.faces.natural.Dug1.MAX_RIDGE_POS;
 import tools.LogUtil;
@@ -31,54 +32,15 @@ public class Dug1Ortho extends Dug1 {
         double ridgeDepth = MyRandom.between(1+RIDGE_PROTRUDE*ridgeDepthRange, 1-RIDGE_RETREAT*ridgeDepthRange);
         double ridgePos = MyRandom.between(1+MAX_RIDGE_POS*ridgePosRange, 1-MAX_RIDGE_POS*ridgePosRange);
         
-//        double parentZ;
-//        if(cliff.parent != null)
-//            parentZ = cliff.parent.elevation;
-//        else
-//            parentZ = cliff.tile.elevation;
-//        double z = cliff.tile.elevation;
-//        
-//        for(Point3D v : parentProfile)
-//            grid[0][i++] = v.getAddition(0, 1, 0).getAddition(0, 0, parentZ);
-//        i = 0;
-//        for(Point3D v : middleProfile)
-//            grid[1][i++] = v.getAddition(0, 0.5*ridgePos, 0).get2D().getMult(ridgeDepth, 1).get3D(v.z).getAddition(0, 0, (parentZ+z)/2);
-//        i = 0;
-//        for(Point3D v : childProfile)
-//            grid[2][i++] = v.getAddition(0, 0, z);
-        
-        double parentRampLow, childRampLow;
-        if(cliff.parent == null){
-            parentRampLow = -Tile.STAGE_HEIGHT;
-            childRampLow = cliff.tile.getNeighbRampZ();
-        } else if(cliff.parent.getNeighbRampZ() <= cliff.tile.getNeighbRampZ()){
-            parentRampLow = cliff.parent.getNeighbRampZ();
-            childRampLow = cliff.tile.getNeighbRampZ();
-        } else {
-            parentRampLow = cliff.tile.getNeighbRampZ();
-            childRampLow = cliff.tile.getNeighbRampZ() - Tile.STAGE_HEIGHT/4;
-        }
-            
-        
-        
-        for(Point3D v : parentProfile){
-            grid[0][i++] = v.getAddition(0, 1, 0)
-                    .getAddition(0, 0, (v.z/Tile.STAGE_HEIGHT)*parentRampLow);
-            if(parentRampLow != 0){
-                LogUtil.logger.info("ramp low = "+parentRampLow);
-                LogUtil.logger.info("z           = "+v.z);
-                LogUtil.logger.info("applied low = "+(v.z/Tile.STAGE_HEIGHT)*parentRampLow);
-            }
-        }
+        for(Point3D v : parentProfile)
+            grid[0][i++] = v.getAddition(0, 1, 0);
         i = 0;
         for(Point3D v : middleProfile)
-            grid[1][i++] = v.getAddition(0, 0.5*ridgePos, 0).get2D().getMult(ridgeDepth, 1).get3D(v.z)
-                    .getAddition(0, 0, (v.z/Tile.STAGE_HEIGHT)*(parentRampLow+childRampLow)/2);
+            grid[1][i++] = v.getAddition(0, 0.5*ridgePos, 0).getMult(ridgeDepth, 1, 1);
         i = 0;
         for(Point3D v : childProfile)
-            grid[2][i++] = v
-                    .getAddition(0, 0, (v.z/Tile.STAGE_HEIGHT)*childRampLow);
-    }
+            grid[2][i++] = v;
+    }        
 
     @Override
     public ArrayList<Ring<Point3D>> getGrounds() {

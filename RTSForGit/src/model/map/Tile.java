@@ -34,13 +34,12 @@ public class Tile {
     public double elevation = 0;
     @Element
     public boolean isCliff = false;
-    public boolean isRamp = false;
-    public double rampZ = 0;
     @Element(required=false)
     public String cliffShapeID = "";
 
     public boolean elevatedForCliff = false;
     public Cliff cliff;
+    public Ramp ramp;
 
     public Tile(int x, int y, Map map){
         this.map = map;
@@ -117,6 +116,8 @@ public class Tile {
     }
     
     public void setCliff(){
+        if(ramp != null && ramp.getCliffSlopeRate(this) == 1)
+            return;
         if(!isCliff()){
             cliff = new Cliff(this);
             isCliff = true;
@@ -136,6 +137,9 @@ public class Tile {
                 s!=null && s.level > level ||
                 w!=null && w.s!=null && w.s.level > level))
             elevatedForCliff = true;
+        if(elevatedForCliff && ramp != null)
+            elevation = -Tile.STAGE_HEIGHT*ramp.getSlopeRate(this);
+
     }
     
     public double getZ(){
@@ -143,12 +147,5 @@ public class Tile {
             return (level+1)*STAGE_HEIGHT+elevation;
         else
             return level*STAGE_HEIGHT+elevation;
-    }
-    
-    public double getNeighbRampZ(){
-        for(Tile t : get4Neighbors())
-            if(t.rampZ != 0)
-                return t.rampZ;
-        return 0;
     }
 }
