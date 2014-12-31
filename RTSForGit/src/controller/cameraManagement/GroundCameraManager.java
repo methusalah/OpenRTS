@@ -24,7 +24,7 @@ public class GroundCameraManager extends CameraManager {
     protected final static String MOVE_FOREWARD = "moveforeward";
     protected final static String MOVE_BACKWARD = "movebackward";
 
-    private double maxSpeed = 10;
+    private double maxSpeed = 5;
     private double maxRotSpeed = 100;
     private Point3D pos;
     private final Model model;
@@ -53,7 +53,7 @@ public class GroundCameraManager extends CameraManager {
     
     private void placeCam(){
         if(model.battlefield.map.isInBounds(pos.get2D()))
-            pos.z = model.battlefield.map.getGroundAltitude(pos.get2D())+0.9;
+            pos.z = model.battlefield.map.getGroundAltitude(pos.get2D())+0.5;
         else
             pos.z = 0;
         cam.setLocation(Translator.toVector3f(pos));
@@ -74,10 +74,10 @@ public class GroundCameraManager extends CameraManager {
         inputManager.addMapping(ROTATE_LEFT, new MouseAxisTrigger(MouseInput.AXIS_X, true));
         inputManager.addMapping(ROTATE_RIGHT, new MouseAxisTrigger(MouseInput.AXIS_X, false));
         
-        inputManager.addMapping(STRAFE_LEFT, new KeyTrigger(KeyInput.KEY_UP));
-        inputManager.addMapping(STRAFE_RIGHT, new KeyTrigger(KeyInput.KEY_DOWN));
-        inputManager.addMapping(MOVE_FOREWARD, new KeyTrigger(KeyInput.KEY_RIGHT));
-        inputManager.addMapping(MOVE_BACKWARD, new KeyTrigger(KeyInput.KEY_LEFT));
+        inputManager.addMapping(STRAFE_LEFT, new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping(STRAFE_RIGHT, new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping(MOVE_FOREWARD, new KeyTrigger(KeyInput.KEY_Z));
+        inputManager.addMapping(MOVE_BACKWARD, new KeyTrigger(KeyInput.KEY_S));
         inputManager.addListener(this, mappings);
     }
     
@@ -85,8 +85,8 @@ public class GroundCameraManager extends CameraManager {
     public void onAnalog(String name, float value, float tpf) {
         double velocity = tpf*maxSpeed*1;
         switch(name){
-            case ROTATE_UP : rotateCamera(value, getLeft()); break;
-            case ROTATE_DOWN : rotateCamera(-value, getLeft()); break;
+            case ROTATE_UP : rotateCamera(-value, getLeft()); break;
+            case ROTATE_DOWN : rotateCamera(value, getLeft()); break;
             case ROTATE_LEFT : rotateCamera(value, Point3D.UNIT_Z); break;
             case ROTATE_RIGHT : rotateCamera(-value, Point3D.UNIT_Z); break;
                 
@@ -99,6 +99,7 @@ public class GroundCameraManager extends CameraManager {
 
     private void move(Point3D vec, double distance){
         pos = pos.getAddition(vec.getScaled(distance));
+        placeCam();
     }
     
     @Override
@@ -108,7 +109,7 @@ public class GroundCameraManager extends CameraManager {
     
     protected void rotateCamera(float value, Point3D axis){
         Matrix3f mat = new Matrix3f();
-        mat.fromAngleNormalAxis((float)maxRotSpeed * value, Translator.toVector3f(axis));
+        mat.fromAngleNormalAxis(value, Translator.toVector3f(axis));
 
         Vector3f up = cam.getUp();
         Vector3f left = cam.getLeft();
