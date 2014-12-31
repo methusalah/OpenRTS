@@ -125,29 +125,29 @@ public class ActorBuilder {
         switch(type){
             case TYPE_DEFAULT :
                 res = new Actor(trigger, parent);
-                res.armyManager = lib.am;
+                res.armyManager = lib.armyManager;
                 break;
             case TYPE_UNIT :
                 res = new UnitActor(trigger, parent);
-                res.armyManager = lib.am;
+                res.armyManager = lib.armyManager;
                 ((UnitActor)res).setUnit((Unit)movable);
                 break;
             case TYPE_PROJECTILE :
                 res = new ProjectileActor(trigger, parent);
-                res.armyManager = lib.am;
+                res.armyManager = lib.armyManager;
                 ((ProjectileActor)res).setProjectile((Projectile)movable);
                 break;
             case TYPE_ANIMATION :
                 res = new AnimationActor(trigger, parent);
-                res.armyManager = lib.am;
+                res.armyManager = lib.armyManager;
                 break;
             case TYPE_PARTICLE :
                 res = new ParticleActor(trigger, parent);
-                res.armyManager = lib.am;
+                res.armyManager = lib.armyManager;
                 break;
             case TYPE_PHYSIC :
                 res = new RagdollActor(trigger, parent);
-                res.armyManager = lib.am;
+                res.armyManager = lib.armyManager;
                 break;
             default : throw new RuntimeException("Unknown actor type (id : "+def.id+").");
         }

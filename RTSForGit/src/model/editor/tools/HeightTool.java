@@ -2,20 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor.tools;
+package model.editor.tools;
 
 import java.util.ArrayList;
 import math.MyRandom;
 import model.map.Tile;
-import model.map.editor.MapToolManager;
-import model.map.editor.Pencil;
+import model.editor.ToolManager;
+import model.editor.Pencil;
 import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-public class HeightTool extends MapTool {
+public class HeightTool extends EditorTool {
     enum Operation {RaiseLow, NoiseSmooth, UniformReset}
     
     Operation actualOp = Operation.RaiseLow;
@@ -23,7 +23,7 @@ public class HeightTool extends MapTool {
     double amplitude = 0.2;
     double maintainedElevation;
     
-    public HeightTool(MapToolManager manager, Pencil selector) {
+    public HeightTool(ToolManager manager, Pencil selector) {
         super(manager, selector);
     }
 
@@ -62,7 +62,7 @@ public class HeightTool extends MapTool {
     private void uniform(ArrayList<Tile> tiles){
         if(!pencil.maintained){
             pencil.maintain();
-            maintainedElevation = manager.map.getGroundAltitude(pencil.getPos());
+            maintainedElevation = manager.encounter.map.getGroundAltitude(pencil.getPos());
         }
         for(Tile t : tiles){
             double diff = maintainedElevation-t.elevation;

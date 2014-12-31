@@ -59,7 +59,7 @@ public class EffectBuilder {
             case TYPE_DAMAGE : res = new DamageEffect(source, target, targetPoint); break;
             case TYPE_PERSISTENT :
                 res = new PersistentEffect(source, target, targetPoint);
-                lib.am.addPersistentEffect((PersistentEffect)res);
+                lib.armyManager.addPersistentEffect((PersistentEffect)res);
                 break;
             case TYPE_LAUNCHER : res = new LauncherEffect(source, target, targetPoint); break;
             default : throw new RuntimeException("Unknown effect type (id : "+def.id+").");

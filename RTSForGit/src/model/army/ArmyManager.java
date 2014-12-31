@@ -44,7 +44,7 @@ public class ArmyManager {
         
     }
 
-    public void updateMovers(double elapsedTime) {
+    public void update(double elapsedTime) {
         ArrayList<Unit> destroyedThisTurn = new ArrayList<>();
         for(Unit u : units) {
             if(u.destroyed()){

@@ -9,13 +9,10 @@ import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 import controller.Controller;
-import controller.GUI;
-import controller.InputInterpreter;
 import controller.SpatialSelector;
 import de.lessvoid.nifty.Nifty;
 import geometry.Point2D;
 import model.Model;
-import model.ReportEventListener;
 import view.View;
 import view.math.Translator;
 
@@ -26,18 +23,14 @@ import view.math.Translator;
 public class BattleFieldController extends Controller {
     
     IsometricCamera isoCam;
-    FlyByCamera flyCam;
     InputManager im;
     SpatialSelector ss;
     
     View view;
-    
-    
 
-    
     public BattleFieldController(Model model, View view, Nifty nifty, InputManager im, Camera cam){
         this.model = model;
-        ii = new BattleFieldInputInterpreter(im, cam, model.commander, view, this);
+        ii = new BattleFieldInputInterpreter(im, cam, view, this);
         gui = new BattleFieldGUI(nifty, model.commander, model.reporter);
         this.im = im;
         this.view = view;
@@ -51,36 +44,23 @@ public class BattleFieldController extends Controller {
         isoCam.setEnabled(true);
         im.setCursorVisible(true);
         
-        flyCam = new AzertyFlyByCamera(cam);
-        flyCam.setEnabled(false);
-        flyCam.setMoveSpeed(10);
     }
     
-    protected void switchCamera(){
-        if(isoCam.isEnabled()){
-            isoCam.setEnabled(false);
-            isoCam.unregisterInput(im);
-            
-            flyCam.setEnabled(true);
-            flyCam.registerWithInput(im);
-            im.setCursorVisible(false);
-        } else {
-            flyCam.setEnabled(false);
-            flyCam.unregisterInput();
-            
-            isoCam.setEnabled(true);
-            isoCam.registerWithInput(im);
-            im.setCursorVisible(true);
-        }
-    }
-    
-    public void updateSelection(){
+    @Override
+    public void update(double elapsedTime) {
+        // draw selection rectangle
         Point2D selStart = ((BattleFieldInputInterpreter)ii).selectionStartOnScreen;
         if(selStart != null){
             Point2D p = Translator.toPoint2D(im.getCursorPosition());
             view.drawSelectionArea(selStart, p);
         } else
-            view.guiNode.detachAllChildren();        
+            view.guiNode.detachAllChildren();   
+        
+        // update selectables
+        model.commander.updateSelectables(getViewCenter());
+        
+        // udpdate army
+        model.battlefield.armyManager.update(elapsedTime);
     }
 
     @Override
@@ -88,7 +68,7 @@ public class BattleFieldController extends Controller {
         gui.update();
     }
     
-    public Point2D getViewCenter(){
+    private Point2D getViewCenter(){
         return ss.getCoord(view.rootNode);
     }
 }

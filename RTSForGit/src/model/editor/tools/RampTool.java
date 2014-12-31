@@ -2,23 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor.tools;
+package model.editor.tools;
 
 import java.util.ArrayList;
 import model.map.Ramp;
 import model.map.Tile;
 import model.map.cliff.Cliff;
-import model.map.editor.MapToolManager;
-import model.map.editor.Pencil;
+import model.editor.ToolManager;
+import model.editor.Pencil;
 import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-public class RampTool extends MapTool{
+public class RampTool extends EditorTool{
 
-    public RampTool(MapToolManager manager, Pencil selector) {
+    public RampTool(ToolManager manager, Pencil selector) {
         super(manager, selector);
     }
 
@@ -30,7 +30,7 @@ public class RampTool extends MapTool{
         } else {
             if(!t.isCliff)
                 return;
-            new Ramp(t, manager.map);
+            new Ramp(t, manager.encounter.map);
         }
         
         ArrayList<Tile> changed = new ArrayList<>();
@@ -58,5 +58,9 @@ public class RampTool extends MapTool{
     public void toggleOperation() {
         LogUtil.logger.info("Unavailable for ramp tool.");
     }
-    
+
+    @Override
+    public boolean isAnalog() {
+        return false;
+    }
 }

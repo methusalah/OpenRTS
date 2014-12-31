@@ -21,8 +21,6 @@ import java.util.List;
 import math.Angle;
 import model.map.cliff.Trinket;
 import model.map.cliff.Cliff;
-import model.map.Map;
-import model.map.parcel.ParcelManager;
 import model.map.Tile;
 import static model.map.cliff.Cliff.Type.Corner;
 import static model.map.cliff.Cliff.Type.Orthogonal;
@@ -58,7 +56,7 @@ public class MapRenderer implements ActionListener {
     
     public MapRenderer(View view, MaterialManager mm, AssetManager am) {
         this.view = view;
-        groundTexture = new TerrainSplatTexture(view.model.map.atlas, am);
+        groundTexture = new TerrainSplatTexture(view.model.battlefield.map.atlas, am);
         this.mm = mm;
         this.am = am;
         castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -71,20 +69,20 @@ public class MapRenderer implements ActionListener {
             LogUtil.logger.info("rendering ground");
             String texturePath = "textures/";
             int index = 0;
-            for(String s : view.model.map.style.textures){
+            for(String s : view.model.battlefield.map.style.textures){
                 Texture diffuse = am.loadTexture(texturePath+s);
                 Texture normal;
-                if(view.model.map.style.normals.get(index) != null)
-                    normal = am.loadTexture(texturePath+view.model.map.style.normals.get(index));
+                if(view.model.battlefield.map.style.normals.get(index) != null)
+                    normal = am.loadTexture(texturePath+view.model.battlefield.map.style.normals.get(index));
                 else
                     normal = null;
-                double scale = view.model.map.style.scales.get(index);
+                double scale = view.model.battlefield.map.style.scales.get(index);
                 groundTexture.addTexture(diffuse, normal, scale);
                 index++;
             }
             groundTexture.buildMaterial();
             
-            for(ParcelMesh mesh : view.model.parcelManager.meshes){
+            for(ParcelMesh mesh : view.model.battlefield.parcelManager.meshes){
                 Geometry g = new Geometry();
                 Mesh jmeMesh = Translator.toJMEMesh(mesh);
                 TangentBinormalGenerator.generate(jmeMesh);
@@ -95,7 +93,7 @@ public class MapRenderer implements ActionListener {
                 castAndReceiveNode.attachChild(g);
 //                mainPhysicsSpace.add(g);
             }
-            updateTiles(view.model.map.tiles);
+            updateTiles(view.model.battlefield.map.tiles);
     }
 
     private Spatial getModel(String path){
@@ -217,7 +215,7 @@ public class MapRenderer implements ActionListener {
     }
     
     private void updateParcelsFor(ArrayList<Tile> tiles){
-        for(ParcelMesh parcel : view.model.parcelManager.getParcelsFor(tiles)){
+        for(ParcelMesh parcel : view.model.battlefield.parcelManager.getParcelsFor(tiles)){
             Geometry g = (Geometry)parcelsSpatial.get(parcel);
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
             TangentBinormalGenerator.generate(jmeMesh);

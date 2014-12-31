@@ -2,16 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor.tools;
+package model.editor.tools;
 
 import java.util.ArrayList;
 import model.map.Tile;
-import model.map.atlas.Atlas;
-import model.map.atlas.AtlasExplorer;
 import model.map.cliff.Cliff;
 import model.map.data.CliffShapeBuilder;
-import model.map.editor.MapToolManager;
-import model.map.editor.Pencil;
+import model.editor.ToolManager;
+import model.editor.Pencil;
 import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
 
@@ -19,7 +17,7 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class CliffTool extends MapTool {
+public class CliffTool extends EditorTool {
     enum Operation {RaiseLow, Flatten}
     
     Operation actualOp = Operation.RaiseLow;
@@ -27,9 +25,9 @@ public class CliffTool extends MapTool {
     
     int maintainedlevel;
 
-    public CliffTool(MapToolManager manager, Pencil selector, BuilderLibrary lib) {
+    public CliffTool(ToolManager manager, Pencil selector) {
         super(manager, selector);
-        actualBuilder = manager.map.style.cliffShapes.get(0);
+        actualBuilder = manager.encounter.map.style.cliffShapes.get(0);
     }
 
     @Override
@@ -104,7 +102,7 @@ public class CliffTool extends MapTool {
 
     @Override
     public void toggleSet() {
-        ArrayList<CliffShapeBuilder> builders = manager.map.style.cliffShapes;
+        ArrayList<CliffShapeBuilder> builders = manager.encounter.map.style.cliffShapes;
         int index = builders.indexOf(actualBuilder)+1;
         if(index == builders.size())
             index = 0;

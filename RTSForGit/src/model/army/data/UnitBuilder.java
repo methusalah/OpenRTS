@@ -81,7 +81,7 @@ public class UnitBuilder {
                     }
                     break;
             }
-        lib.am.registerUnit(res);
+        lib.armyManager.registerUnit(res);
         res.linkActors();
         return res;
     }

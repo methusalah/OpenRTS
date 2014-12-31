@@ -1,17 +1,14 @@
 package model;
 
-import geometry.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import model.map.Map;
-import model.army.ArmyManager;
-import model.lighting.SunLight;
+import model.battlefield.Battlefield;
 import ressources.definitions.BuilderLibrary;
-import model.map.editor.MapToolManager;
+import model.editor.ToolManager;
 import model.map.MapFactory;
-import model.map.parcel.ParcelManager;
 import ressources.definitions.DefParser;
 import tools.LogUtil;
 
@@ -22,14 +19,11 @@ public class Model {
     static final double UPDATE_DELAY = 1000;
     
     public MapFactory factory;
-    public Map map;
-    public SunLight sunLight;
-    public ArmyManager armyManager;
+    public Battlefield battlefield;
     
     public Commander commander;
     public Reporter reporter;
-    public MapToolManager toolManager;
-    public ParcelManager parcelManager;
+    public ToolManager toolManager;
     
 
     public BuilderLibrary lib;
@@ -41,41 +35,12 @@ public class Model {
     
     public Model() {
         lib = new BuilderLibrary();
-        parser = new DefParser(lib);
-
-        ArrayList<File> files = getFiles(CONFIG_PATH);
-        while(!files.isEmpty()){
-            ArrayList<File> toAdd = new ArrayList<>();
-            for(File f : files)
-                if(f.isFile())
-                    parser.addFile(f);
-                else if(f.isDirectory())
-                    toAdd.addAll(getFiles(f.getAbsolutePath()));
-            files.clear();
-            files.addAll(toAdd);
-        }
-        parser.readFile();
+        parser = new DefParser(lib, CONFIG_PATH);
         
         factory = new MapFactory(lib);
-        this.map = factory.getNew(128, 128);
-        sunLight = new SunLight();
-        parcelManager = new ParcelManager(map);
-        lib.map = map;
+        setNewEncounter();
 
-        armyManager = new ArmyManager();
-        lib.am = armyManager;
-        
-        commander = new Commander(armyManager, map);
-        toolManager = new MapToolManager(map, parcelManager, lib);
 //        armyManager.createTestArmy(lib);
-    }
-    
-    private ArrayList<File> getFiles(String folderPath){
-        ArrayList<File> res = new ArrayList<>();
-        File folder = new File(folderPath);
-        for(File f : folder.listFiles())
-            res.add(f);
-        return res;
     }
     
     public void updateConfigs() {
@@ -85,42 +50,32 @@ public class Model {
         }
     }
     
-    public void load(){
-        Map newMap = factory.load();
-        if(newMap != null){
-            LogUtil.logger.info("Reseting model...");
-            map = newMap;
-            lib.map = map;
-            commander = new Commander(armyManager, map);
-
-            LogUtil.logger.info("Reseting parcels...");
-            parcelManager = new ParcelManager(map);
-            toolManager = new MapToolManager(map, parcelManager, lib);
-            LogUtil.logger.info("Reseting view...");
-            notifyListeners(MAP_UPDATED_EVENT);
-            LogUtil.logger.info("Done.");
-        }
+    public void loadEncounter(){
+        Map loadedMap = factory.load();
+        if(loadedMap != null)
+            setEncounter(loadedMap);
     }
     
-    public void save(){
-        factory.save(map);
+    public void saveEncounter(){
+        factory.save(battlefield.map);
     }
     
-    public void newMap(){
-        Map newMap = factory.getNew(128, 128);
-        if(newMap != null){
-            LogUtil.logger.info("Reseting model...");
-            map = newMap;
-            lib.map = map;
-            commander = new Commander(armyManager, map);
-
-            LogUtil.logger.info("Reseting parcels...");
-            parcelManager = new ParcelManager(map);
-            toolManager = new MapToolManager(map, parcelManager, lib);
-            LogUtil.logger.info("Reseting view...");
-            notifyListeners(MAP_UPDATED_EVENT);
-            LogUtil.logger.info("Done.");
-        }
+    public void setNewEncounter(){
+        setEncounter(factory.getNew(128, 128));
+    }
+    
+    private void setEncounter(Map map){
+        battlefield = new Battlefield(map, Battlefield.Instanciation.New);
+        
+        lib.map = battlefield.map;
+        lib.armyManager = battlefield.armyManager;
+        
+        commander = new Commander(battlefield.armyManager, battlefield.map);
+        toolManager = new ToolManager(battlefield, lib);
+        
+        LogUtil.logger.info("Reseting view...");
+        notifyListeners(MAP_UPDATED_EVENT);
+        LogUtil.logger.info("Done.");
     }
     
     public void addListener(ActionListener listener){

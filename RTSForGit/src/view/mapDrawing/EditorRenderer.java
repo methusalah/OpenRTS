@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import math.Angle;
 import model.map.Map;
 import model.map.Tile;
-import model.map.editor.Pencil;
+import model.editor.Pencil;
 import tools.LogUtil;
 import view.View;
 import view.material.MaterialManager;
@@ -55,7 +55,7 @@ public class EditorRenderer implements ActionListener {
         this.view = view;
         this.mm = mm;
                 
-        gridMesh = new GridMesh(view.model.map);
+        gridMesh = new GridMesh(view.model.battlefield.map);
         gridGeom = new Geometry();
         gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
         Material mat = mm.getColor(ColorRGBA.Black);
@@ -213,10 +213,10 @@ public class EditorRenderer implements ActionListener {
         int index = 0;
         for(Spatial spatial : AtlasPencilNode.getChildren()){
             if(index < pr.size() &&
-                    view.model.map.isInBounds(pr.get(index)) &&
-                    view.model.map.isInBounds(pr.getNext(index))){
-                Point3D start = pr.get(index).get3D(view.model.map.getGroundAltitude(pr.get(index))+0.1);
-                Point3D end = pr.getNext(index).get3D(view.model.map.getGroundAltitude(pr.getNext(index))+0.1);
+                    view.model.battlefield.map.isInBounds(pr.get(index)) &&
+                    view.model.battlefield.map.isInBounds(pr.getNext(index))){
+                Point3D start = pr.get(index).get3D(view.model.battlefield.map.getGroundAltitude(pr.get(index))+0.1);
+                Point3D end = pr.getNext(index).get3D(view.model.battlefield.map.getGroundAltitude(pr.getNext(index))+0.1);
                 Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
                 l.setLineWidth(PENCIL_THICKNESS);
                 ((Geometry)spatial).setMesh(l);

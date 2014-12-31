@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor;
+package model.editor;
 
 import collections.PointRing;
 import geometry.BoundingCircle;

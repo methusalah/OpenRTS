@@ -9,6 +9,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 
 public class SpatialSelector {
 
@@ -51,4 +52,16 @@ public class SpatialSelector {
 	private Ray getCameraRay(){
 		return new Ray(cam.getLocation(), cam.getDirection());
 	}
+        
+    public String getSpatialLabel(){
+        Spatial s = getGeometry(view.rootNode);
+        while(true){
+            if(s == null || s.getName() == null)
+                return null;
+            if(s.getName().startsWith("label"))
+                return s.getName();
+            s = s.getParent();
+        }
+    }
+
 }

@@ -55,7 +55,7 @@ public class ProjectileBuilder {
                     }
             }
         res.updateTargetPoint();
-        lib.am.registerProjectile(res);
+        lib.armyManager.registerProjectile(res);
         return res;
     }
 }

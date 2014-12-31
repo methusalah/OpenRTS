@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import math.MyRandom;
 import model.Model;
-import model.map.Map;
 import tools.LogUtil;
 import view.View;
 import view.mapDrawing.MapRenderer;
@@ -14,27 +13,20 @@ import view.mapDrawing.MapRenderer;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.BloomFilter;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
+import controller.Controller;
 import controller.battlefield.BattleFieldController;
 import controller.editor.EditorController;
-import geometry.Point2D;
-import geometry3D.MyMesh;
-import geometry3D.Point3D;
-import math.Angle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import model.map.MapFactory;
-import view.math.Translator;
-
-public class MainRTS extends MySimpleApplication {
+public class MainRTS extends MySimpleApplication implements ActionListener{
         Model model;
 	View view;
 	MapRenderer tr;
 	BattleFieldController fieldCtrl;
         EditorController editorCtrl;
+        Controller actualCtrl;
 
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
@@ -62,16 +54,19 @@ public class MainRTS extends MySimpleApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-//                MapFactory mapFac = new MapFactory("assets/data/maps/map.bmp");
-//                Map m = mapFac.getMap();
                 model = new Model();
                 view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
                 model.addListener(view);
                 
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-//                fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+                fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+                fieldCtrl.register(this);
                 editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+                editorCtrl.register(this);
+                
+                actualCtrl = editorCtrl;
+                actualCtrl.activate();
 		
                 view.mapRend.renderTiles();
                 
@@ -79,26 +74,13 @@ public class MainRTS extends MySimpleApplication {
                 
 	}
         
-        Vector3f dir = new Vector3f(0, 0, 0);
-        double angle = 0;
-        
         @Override
         public void simpleUpdate(float tpf) {
             float maxedTPF = Math.min(tpf, 0.1f);
-            model.armyManager.updateMovers(maxedTPF);
             view.actorManager.render();
-//            fieldCtrl.updateSelection();
+            actualCtrl.update(maxedTPF);
+            
             model.updateConfigs();
-//            model.commander.updateSelectables(fieldCtrl.getViewCenter());
-            angle+=tpf/50;
-
-            double newX = Math.cos(angle);
-            double newY = Math.sin(angle);
-            dir = new Vector3f((float)newX, (float)newY, -0.8f);
-
-//            view.sunComp1.setDirection(new Vector3f((float)newX, (float)newY, -0.4f));
-//            view.sunComp2.setDirection(new Vector3f((float)newX, (float)newY, -0.8f));
-            editorCtrl.drawPencilPreview();
         }
 
 	@Override
@@ -108,4 +90,23 @@ public class MainRTS extends MySimpleApplication {
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
 	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        LogUtil.logger.info("switching controller...");
+        Controller desiredCtrl;
+        switch(e.getActionCommand()){
+            case "CTRL1" : desiredCtrl = fieldCtrl; break;
+            case "CTRL2" : desiredCtrl = editorCtrl; break;
+            case "CTRL3" : desiredCtrl = null; break;
+                default:throw new IllegalAccessError();
+        }
+        
+        if(desiredCtrl == null)
+            return;
+        
+        actualCtrl.desactivate();
+        actualCtrl = desiredCtrl;
+        actualCtrl.activate();
+    }
 }

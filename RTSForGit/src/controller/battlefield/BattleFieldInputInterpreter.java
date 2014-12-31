@@ -7,94 +7,94 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Spatial;
 import controller.InputInterpreter;
 import geometry.Point2D;
-import model.Commander;
 import tools.LogUtil;
 import view.math.Translator;
 
 public class BattleFieldInputInterpreter extends InputInterpreter {
+    protected final static String SWITCH_CTRL_1 = "ctrl1";
+    protected final static String SWITCH_CTRL_2 = "ctrl2";
+    protected final static String SWITCH_CTRL_3 = "ctrl3";
+
+    protected final static String SELECT = "select";
+    protected final static String ACTION = "action";
+    protected final static String MOVE_ATTACK = "moveattack";
+    protected final static String HOLD = "hold";
 	
-    private Commander commander;
-    private BattleFieldController fc;
+    private BattleFieldController controller;
     public Point2D selectionStartOnMap;
     public Point2D selectionStartOnScreen;
 
-    protected final static String Select = "select";
-    protected final static String Action = "action";
-    protected final static String MoveAttack = "moveattack";
-    protected final static String Hold = "hold";
-    protected final static String SwitchCam = "switchcam";
-
-    BattleFieldInputInterpreter(InputManager im, Camera cam, Commander commander, View view, BattleFieldController fc) {
+    BattleFieldInputInterpreter(InputManager im, Camera cam, View view, BattleFieldController fc) {
         super(im, cam, view);
-        this.commander = commander;
         selector.centered = false;
-        this.fc = fc;
+        this.controller = fc;
+        setMappings();
+    }
+    
+    private void setMappings(){
+        mappings = new String[]{
+            SWITCH_CTRL_1,
+            SWITCH_CTRL_2,
+            SWITCH_CTRL_2,
+
+            SELECT,
+            ACTION,
+            MOVE_ATTACK,
+            HOLD,
+        };
+    }
+    
+    @Override
+    protected void registerInputs() {
+        inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_I));
+        inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_O));
+        inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_P));
+        inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
+        inputManager.addMapping(ACTION, new MouseButtonTrigger(1));
+        inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
+
+        inputManager.addListener(this, mappings);
+        
+        LogUtil.logger.info("battlefield controller online");
     }
 
     @Override
-    protected void registerInputs() {
-            String[] mappings = new String[]{
-                            Select,
-                            Action,
-                            MoveAttack,
-                            Hold,
-                            SwitchCam,
-            };
-            inputManager.addMapping(Select, new MouseButtonTrigger(0));
-            inputManager.addMapping(Action, new MouseButtonTrigger(1));
-            inputManager.addMapping(MoveAttack, new KeyTrigger(KeyInput.KEY_A));
-            inputManager.addMapping(Hold, new KeyTrigger(KeyInput.KEY_H));
-            inputManager.addMapping(SwitchCam, new KeyTrigger(KeyInput.KEY_C));
-
-
-            inputManager.addListener(this, mappings);
+    protected void unregisterInputs() {
+        for(String s : mappings)
+            if(inputManager.hasMapping(s))
+                inputManager.deleteMapping(s);
+        inputManager.removeListener(this);
     }
+    
+    
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
-        if(!isActive)
-            return;
     }
 
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (name.equals(Select)) {
-            if(isPressed)
+        if(!isPressed)
+            switch (name){
+                case SWITCH_CTRL_1 : controller.notifyListeners("CTRL1"); break;
+                case SWITCH_CTRL_2 : controller.notifyListeners("CTRL2"); break;
+                case SWITCH_CTRL_3 : controller.notifyListeners("CTRL3"); break;
+                case SELECT :
+                    if(!endSelection())
+                        controller.model.commander.select(selector.getSpatialLabel(), getSpatialCoord());
+                    break;
+                case ACTION : controller.model.commander.act(selector.getSpatialLabel(), getSpatialCoord()); break;
+                case MOVE_ATTACK : controller.model.commander.setMoveAttack(); break;
+                case HOLD : controller.model.commander.orderHold(); break;
+            }
+        else
+            if(name.equals(SELECT))
                 beginSelection();
-            else if(!endSelection())
-                    commander.select(getSpatialLabel(), getSpatialCoord());
-
-        } else if(name.equals(Action) && !isPressed) {
-            commander.act(getSpatialLabel(), getSpatialCoord());
-
-        } else if(name.equals(MoveAttack) && !isPressed) {
-            commander.setMoveAttack();
-
-        } else if(name.equals(Hold) && !isPressed) {
-            commander.orderHold();
-
-        } else if(name.equals(SwitchCam) && !isPressed) {
-            fc.switchCamera();
-
-        }
     }
 
-    private String getSpatialLabel(){
-        Spatial s = selector.getGeometry(view.rootNode);
-        while(true){
-            if(s == null || s.getName() == null)
-                return null;
-            if(s.getName().startsWith("label"))
-                return s.getName();
-            s = s.getParent();
-            if(s == null)
-                return null;
-        }
-    }
-        
     private Point2D getSpatialCoord(){
         return selector.getCoord(view.rootNode);
     }
@@ -109,7 +109,7 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
         Point2D selectionEndOnMap = selector.getCoord(view.rootNode);
         if(selectionStartOnMap != null && selectionEndOnMap != null &&
                 selectionStartOnMap.getDistance(selectionEndOnMap) > 1){
-            commander.select(selectionStartOnMap, selectionEndOnMap);
+            controller.model.commander.select(selectionStartOnMap, selectionEndOnMap);
             selectionSuccess = true;
         }
         selectionStartOnScreen = null;

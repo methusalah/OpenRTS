@@ -2,21 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor.tools;
+package model.editor.tools;
 
-import model.map.editor.MapToolManager;
-import model.map.editor.Pencil;
+import model.editor.ToolManager;
+import model.editor.Pencil;
 
 /**
  *
  * @author Benoît
  */
-public abstract class MapTool {
+public abstract class EditorTool {
     
-    MapToolManager manager;
+    ToolManager manager;
     Pencil pencil;
 
-    public MapTool(MapToolManager manager, Pencil selector) {
+    public EditorTool(ToolManager manager, Pencil selector) {
         this.manager = manager;
         this.pencil = selector;
     }
@@ -25,4 +25,8 @@ public abstract class MapTool {
     public abstract void secondaryAction();
     public abstract void toggleSet();
     public abstract void toggleOperation();
+    
+    public boolean isAnalog(){
+        return true;
+    }
 }

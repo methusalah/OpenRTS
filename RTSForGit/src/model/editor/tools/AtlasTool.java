@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor.tools;
+package model.editor.tools;
 
 import collections.Map2D;
 import com.jme3.texture.Image;
@@ -13,14 +13,14 @@ import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import model.map.Tile;
-import model.map.editor.MapToolManager;
-import model.map.editor.Pencil;
+import model.editor.ToolManager;
+import model.editor.Pencil;
 import model.map.atlas.DoubleMap;
 import model.map.atlas.Atlas;
 import model.map.atlas.AtlasExplorer;
-import static model.map.editor.Pencil.Shape.Circle;
-import static model.map.editor.Pencil.Shape.Diamond;
-import static model.map.editor.Pencil.Shape.Square;
+import static model.editor.Pencil.Shape.Circle;
+import static model.editor.Pencil.Shape.Diamond;
+import static model.editor.Pencil.Shape.Square;
 import tools.LogUtil;
 import view.mapDrawing.MapRenderer;
 
@@ -28,7 +28,7 @@ import view.mapDrawing.MapRenderer;
  *
  * @author Benoît
  */
-public class AtlasTool extends MapTool {
+public class AtlasTool extends EditorTool {
     enum Operation {AddDelete, PropagateSmooth}
     
     Atlas atlas;
@@ -41,10 +41,10 @@ public class AtlasTool extends MapTool {
     double increment = 20;
 
     
-    public AtlasTool(MapToolManager manager, Pencil selector, Atlas atlas) {
+    public AtlasTool(ToolManager manager, Pencil selector) {
         super(manager, selector);
-        this.atlas = atlas;
-        explorer = new AtlasExplorer(manager.map);
+        this.atlas = manager.encounter.map.atlas;
+        explorer = new AtlasExplorer(manager.encounter.map);
     }
 
     @Override
@@ -175,7 +175,7 @@ public class AtlasTool extends MapTool {
         if(!pencil.maintained){
             pencil.maintain();
             autoLayer = 0;
-            Point2D center = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.map.width, manager.map.height);
+            Point2D center = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.encounter.map.width, manager.encounter.map.height);
             int centerX = (int)Math.round(center.x);
             int centerY = (int)Math.round(center.y);
             for(DoubleMap l : atlas.layers)
@@ -190,7 +190,7 @@ public class AtlasTool extends MapTool {
         for(Point2D p : pixels){
             int x = (int)Math.round(p.x);
             int y = (int)Math.round(p.y);
-            double attenuatedInc = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.map.width, manager.map.height).getDivision(atlas.width, atlas.height));
+            double attenuatedInc = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.encounter.map.width, manager.encounter.map.height).getDivision(atlas.width, atlas.height));
 
             int activeLayerCount = 0;
             for(DoubleMap l : atlas.layers)

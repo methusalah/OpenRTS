@@ -9,6 +9,7 @@ import app.AzertyFlyByCamera;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Spatial;
 import controller.Controller;
 import controller.GUI;
 import controller.InputInterpreter;
@@ -53,11 +54,13 @@ public class EditorController extends Controller {
         isoCam.setEnabled(true);
         im.setCursorVisible(true);
     }
-    
-    public void drawPencilPreview(){
+
+    @Override
+    public void update(double elapsedTime) {
 //        screenCoord = Translator.toPoint2D(im.getCursorPosition());
+        model.toolManager.pointedSpatialLabel = ss.getSpatialLabel();
         Point2D coord = ss.getCoord(view.editorRend.gridNode);
-        if(coord != null && model.map.isInBounds(coord)){
+        if(coord != null && model.battlefield.map.isInBounds(coord)){
             model.toolManager.pencil.setPos(coord);
             view.editorRend.drawPencil();
         }

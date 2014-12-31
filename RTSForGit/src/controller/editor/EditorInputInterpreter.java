@@ -1,6 +1,5 @@
 package controller.editor;
 
-import controller.battlefield.*;
 import view.View;
 
 import com.jme3.input.InputManager;
@@ -8,26 +7,13 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Spatial;
 import controller.InputInterpreter;
-import geometry.Point2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import math.MyRandom;
-import model.Commander;
-import model.lighting.SunLight;
-import model.map.MapFactory;
-import model.map.editor.MapToolManager;
 import tools.LogUtil;
-import view.mapDrawing.MapRenderer;
-import view.math.Translator;
 
 public class EditorInputInterpreter extends InputInterpreter {
-	
-    private EditorController controller;
-    
-    boolean analogUnpressed = false;
-
+    protected final static String SWITCH_CTRL_1 = "ctrl1";
+    protected final static String SWITCH_CTRL_2 = "ctrl2";
+    protected final static String SWITCH_CTRL_3 = "ctrl3";
     
     protected final static String PRIMARY_ACTION = "lc";
     protected final static String SECONDARY_ACTION = "rc";
@@ -37,6 +23,8 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String SET_HEIGHT_TOOL = "setheighttool";
     protected final static String SET_ATLAS_TOOL = "setatlastool";
     protected final static String SET_RAMP_TOOL = "setramptool";
+    protected final static String SET_UNIT_TOOL = "setunittool";
+    
     protected final static String TOGGLE_PENCIL_SHAPE = "pencilshape";
     protected final static String TOGGLE_PENCIL_MODE = "pencilmode";
     protected final static String INC_SELECTOR_RADIUS = "selectorradius+";
@@ -64,49 +52,66 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String SAVE = "save";
     protected final static String LOAD = "load";
     protected final static String NEW = "new";
-
+    
+    private EditorController controller;
+    
+    boolean analogUnpressed = false;
     
     EditorInputInterpreter(InputManager im, Camera cam, View view, EditorController controller) {
         super(im, cam, view);
         selector.centered = false;
         this.controller = controller;
+        setMappings();
+    }
+    
+    private void setMappings(){
+        mappings = new String[]{
+            SWITCH_CTRL_1,
+            SWITCH_CTRL_2,
+            SWITCH_CTRL_2,
+
+            PRIMARY_ACTION,
+            SECONDARY_ACTION,
+            TOGGLE_PENCIL_SHAPE,
+            TOGGLE_PENCIL_MODE,
+            INC_SELECTOR_RADIUS,
+            DEC_SELECTOR_RADIUS,
+            SET_CLIFF_TOOL,
+            SET_HEIGHT_TOOL,
+            SET_ATLAS_TOOL,
+            SET_RAMP_TOOL,
+            SET_UNIT_TOOL,
+
+            TOGGLE_GRID,
+            TOGGLE_SET,
+            TOGGLE_OPERATION,
+            INC_AIRBRUSH_FALLOF,
+            DEC_AIRBRUSH_FALLOF,
+
+            TOGGLE_LIGHT_COMP,
+            INC_DAYTIME,
+            DEC_DAYTIME,
+            COMPASS_EAST,
+            COMPASS_WEST,
+            INC_INTENSITY,
+            DEC_INTENSITY,
+            TOGGLE_SPEED,
+            DEC_RED, 
+            DEC_GREEN,
+            DEC_BLUE,
+            RESET_COLOR,
+            SAVE,
+            LOAD,
+            NEW,
+        };
     }
 
     @Override
     protected void registerInputs() {
-            String[] mappings = new String[]{
-                            PRIMARY_ACTION,
-                            SECONDARY_ACTION,
-                            TOGGLE_PENCIL_SHAPE,
-                            TOGGLE_PENCIL_MODE,
-                            INC_SELECTOR_RADIUS,
-                            DEC_SELECTOR_RADIUS,
-                            SET_CLIFF_TOOL,
-                            SET_HEIGHT_TOOL,
-                            SET_ATLAS_TOOL,
-                            SET_RAMP_TOOL,
-                            TOGGLE_GRID,
-                            TOGGLE_SET,
-                            TOGGLE_OPERATION,
-                            INC_AIRBRUSH_FALLOF,
-                            DEC_AIRBRUSH_FALLOF,
-                            
-                            TOGGLE_LIGHT_COMP,
-                            INC_DAYTIME,
-                            DEC_DAYTIME,
-                            COMPASS_EAST,
-                            COMPASS_WEST,
-                            INC_INTENSITY,
-                            DEC_INTENSITY,
-                            TOGGLE_SPEED,
-                            DEC_RED, 
-                            DEC_GREEN,
-                            DEC_BLUE,
-                            RESET_COLOR,
-                            SAVE,
-                            LOAD,
-                            NEW,
-            };
+            inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_I));
+            inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_O));
+            inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_P));
+            
             inputManager.addMapping(PRIMARY_ACTION, new MouseButtonTrigger(0));
             inputManager.addMapping(SECONDARY_ACTION, new MouseButtonTrigger(1));
             
@@ -118,6 +123,7 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addMapping(SET_HEIGHT_TOOL, new KeyTrigger(KeyInput.KEY_2));
             inputManager.addMapping(SET_ATLAS_TOOL, new KeyTrigger(KeyInput.KEY_3));
             inputManager.addMapping(SET_RAMP_TOOL, new KeyTrigger(KeyInput.KEY_4));
+            inputManager.addMapping(SET_UNIT_TOOL, new KeyTrigger(KeyInput.KEY_5));
 
             inputManager.addMapping(TOGGLE_GRID, new KeyTrigger(KeyInput.KEY_G));
             inputManager.addMapping(TOGGLE_OPERATION, new KeyTrigger(KeyInput.KEY_E));
@@ -142,7 +148,7 @@ public class EditorInputInterpreter extends InputInterpreter {
             inputManager.addListener(this, mappings);
             
             LogUtil.logger.info("------ Map editing (ZQSD zone)");
-            LogUtil.logger.info(" Tools : '1' for cliff tool, '2' for height tool, '3' for atlas tool");
+            LogUtil.logger.info(" Tools : '1' for cliff tool, '2' for height tool, '3' for atlas tool, '4' for ramp tool, '5' for unit tool.");
             LogUtil.logger.info("          'e' toggle between actual tool's operations (raise, low, noise, smooth, propagate, uniform...");
             LogUtil.logger.info("          'd' toggle between actual tool's sets (cliff styles, textures...)");
             LogUtil.logger.info(" Pencil : 'a' toggle between pencil's shapes (square, diamond and circle)");
@@ -162,22 +168,32 @@ public class EditorInputInterpreter extends InputInterpreter {
     }
 
     @Override
+    protected void unregisterInputs() {
+        for (String s : mappings)
+            if (inputManager.hasMapping(s))
+                inputManager.deleteMapping(s);
+        inputManager.removeListener(this);
+    }
+    
+    
+
+    @Override
     public void onAnalog(String name, float value, float tpf) {
         if(analogUnpressed){
             controller.model.toolManager.pencil.release();
             analogUnpressed = false;
         } else switch(name){
-            case PRIMARY_ACTION : controller.model.toolManager.primaryAction(); break;
-            case SECONDARY_ACTION : controller.model.toolManager.secondaryAction(); break;
-            case INC_DAYTIME : controller.model.sunLight.incDayTime(); break;
-            case DEC_DAYTIME : controller.model.sunLight.decDayTime(); break;
-            case COMPASS_EAST : controller.model.sunLight.turnCompassEast(); break;
-            case COMPASS_WEST : controller.model.sunLight.turnCompassWest(); break;
-            case INC_INTENSITY : controller.model.sunLight.incIntensity(); break;
-            case DEC_INTENSITY : controller.model.sunLight.decIntensity(); break;
-            case DEC_RED : controller.model.sunLight.decRed(); break;
-            case DEC_GREEN : controller.model.sunLight.decGreen(); break;
-            case DEC_BLUE : controller.model.sunLight.decBlue(); break;
+            case PRIMARY_ACTION : controller.model.toolManager.analogPrimaryAction(); break;
+            case SECONDARY_ACTION : controller.model.toolManager.analogSecondaryAction(); break;
+            case INC_DAYTIME : controller.model.battlefield.sunLight.incDayTime(); break;
+            case DEC_DAYTIME : controller.model.battlefield.sunLight.decDayTime(); break;
+            case COMPASS_EAST : controller.model.battlefield.sunLight.turnCompassEast(); break;
+            case COMPASS_WEST : controller.model.battlefield.sunLight.turnCompassWest(); break;
+            case INC_INTENSITY : controller.model.battlefield.sunLight.incIntensity(); break;
+            case DEC_INTENSITY : controller.model.battlefield.sunLight.decIntensity(); break;
+            case DEC_RED : controller.model.battlefield.sunLight.decRed(); break;
+            case DEC_GREEN : controller.model.battlefield.sunLight.decGreen(); break;
+            case DEC_BLUE : controller.model.battlefield.sunLight.decBlue(); break;
         }
     }
 
@@ -186,7 +202,13 @@ public class EditorInputInterpreter extends InputInterpreter {
         if(!isPressed){
             switch(name){
                 case PRIMARY_ACTION :
+                    controller.model.toolManager.primaryAction();
+                    analogUnpressed = true;
+                    break;
                 case SECONDARY_ACTION : 
+                    controller.model.toolManager.secondaryAction();
+                    analogUnpressed = true;
+                    break;
                 case INC_DAYTIME :
                 case DEC_DAYTIME :
                 case COMPASS_EAST :
@@ -196,7 +218,10 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case DEC_RED :
                 case DEC_GREEN :
                 case DEC_BLUE : analogUnpressed = true; break;
-                    
+
+                case SWITCH_CTRL_1 : controller.notifyListeners("CTRL1"); break;
+                case SWITCH_CTRL_2 : controller.notifyListeners("CTRL2"); break;
+                case SWITCH_CTRL_3 : controller.notifyListeners("CTRL3"); break;
                 case TOGGLE_PENCIL_SHAPE : controller.model.toolManager.pencil.toggleShape(); break;
                 case TOGGLE_PENCIL_MODE : controller.model.toolManager.pencil.toggleMode(); break;
                 case INC_SELECTOR_RADIUS : controller.model.toolManager.pencil.incRadius(); break;
@@ -205,15 +230,17 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case SET_HEIGHT_TOOL : controller.model.toolManager.setHeightTool(); break;
                 case SET_ATLAS_TOOL : controller.model.toolManager.setAtlasTool(); break;
                 case SET_RAMP_TOOL : controller.model.toolManager.setRampTool(); break;
+                case SET_UNIT_TOOL : controller.model.toolManager.setUnitTool(); break;
+
                 case TOGGLE_OPERATION : controller.model.toolManager.toggleOperation(); break;
                 case TOGGLE_SET : controller.model.toolManager.toggleSet(); break;
                 case TOGGLE_GRID : controller.view.editorRend.toggleGrid(); break;
-                case TOGGLE_LIGHT_COMP : controller.model.sunLight.toggleLight(); break;
-                case TOGGLE_SPEED : controller.model.sunLight.toggleSpeed(); break;
-                case RESET_COLOR : controller.model.sunLight.resetColor(); break;
-                case SAVE : controller.model.save(); break;
-                case LOAD : controller.model.load(); break;
-                case NEW : controller.model.newMap(); break;
+                case TOGGLE_LIGHT_COMP : controller.model.battlefield.sunLight.toggleLight(); break;
+                case TOGGLE_SPEED : controller.model.battlefield.sunLight.toggleSpeed(); break;
+                case RESET_COLOR : controller.model.battlefield.sunLight.resetColor(); break;
+                case SAVE : controller.model.saveEncounter(); break;
+                case LOAD : controller.model.loadEncounter(); break;
+                case NEW : controller.model.setNewEncounter(); break;
             }
         }
     }

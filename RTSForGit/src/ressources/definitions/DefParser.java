@@ -26,24 +26,44 @@ import tools.LogUtil;
  */
 public class DefParser {
     private static final String ID = "id";
-    HashMap<File, Long> files = new HashMap<>();
+    HashMap<File, Long> filesAndTimers = new HashMap<>();
     ArrayList<File> filesToRead = new ArrayList<>();
     
     BuilderLibrary lib;
     
-    public DefParser(BuilderLibrary lib){
+    public DefParser(BuilderLibrary lib, String path){
         this.lib = lib;
+        ArrayList<File> filesAndDir = getFiles(path);
+        while(!filesAndDir.isEmpty()){
+            ArrayList<File> toAdd = new ArrayList<>();
+            for(File f : filesAndDir)
+                if(f.isFile())
+                    addFile(f);
+                else if(f.isDirectory())
+                    toAdd.addAll(getFiles(f.getAbsolutePath()));
+            filesAndDir.clear();
+            filesAndDir.addAll(toAdd);
+        }
+        readFile();
     }
     
+    private ArrayList<File> getFiles(String folderPath){
+        ArrayList<File> res = new ArrayList<>();
+        for(File f : new File(folderPath).listFiles())
+            res.add(f);
+        return res;
+    }
+
+    
     public void addFile(File f){
-        files.put(f, 0l);
+        filesAndTimers.put(f, 0l);
     }
     
     public void readFile() {
         filesToRead.clear();
-        for(File f : files.keySet())
-            if(f.lastModified() != files.get(f)){
-                files.put(f, f.lastModified());
+        for(File f : filesAndTimers.keySet())
+            if(f.lastModified() != filesAndTimers.get(f)){
+                filesAndTimers.put(f, f.lastModified());
                 filesToRead.add(f);
             }
         

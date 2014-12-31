@@ -13,7 +13,7 @@ import com.jme3.texture.plugins.AWTLoader;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
-import model.map.editor.tools.AtlasTool;
+import model.editor.tools.AtlasTool;
 import model.map.atlas.Atlas;
 
 /**

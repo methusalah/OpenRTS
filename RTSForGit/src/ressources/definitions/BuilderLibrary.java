@@ -64,7 +64,7 @@ public class BuilderLibrary {
     private HashMap<String, ManmadeFaceBuilder> manmadeFaceBuilders = new HashMap<>();
 
     public Map map;
-    public ArmyManager am;
+    public ArmyManager armyManager;
     
     public BuilderLibrary(){
     }
@@ -150,6 +150,13 @@ public class BuilderLibrary {
             throw new IllegalArgumentException(ERROR+id);
         return res;
     }
+    public ArrayList<UnitBuilder> getAllUnitBuilders(){
+        ArrayList<UnitBuilder> res = new ArrayList<>();
+        for(UnitBuilder ub : unitBuilders.values())
+            res.add(ub);
+        return res;
+    }
+    
     public MoverBuilder getMoverBuilder(String id){
         MoverBuilder res = moverBuilders.get(id);
         if(res == null)

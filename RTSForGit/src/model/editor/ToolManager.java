@@ -2,57 +2,57 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map.editor;
+package model.editor;
 
-import geometry.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.map.Map;
 import model.map.Tile;
-import static model.map.Tile.STAGE_HEIGHT;
 import model.map.cliff.Cliff;
-import model.map.data.CliffShapeBuilder;
-import model.map.editor.tools.AtlasTool;
-import model.map.editor.tools.CliffTool;
-import model.map.editor.tools.HeightTool;
-import model.map.editor.tools.MapTool;
-import model.map.editor.tools.RampTool;
+import model.editor.tools.AtlasTool;
+import model.editor.tools.CliffTool;
+import model.editor.tools.HeightTool;
+import model.editor.tools.EditorTool;
+import model.editor.tools.RampTool;
+import model.editor.tools.UnitTool;
+import model.battlefield.Battlefield;
 import model.map.parcel.ParcelManager;
-import model.map.parcel.ParcelMesh;
 import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
-import view.mapDrawing.MapRenderer;
 
 /**
  *
  * @author Benoît
  */
-public class MapToolManager {
-    public final Map map;
-    final ParcelManager pm;
+public class ToolManager {
+    public final Battlefield encounter;
     public final Pencil pencil;
+    
+    public String pointedSpatialLabel;
     
     public HeightTool heightTool;
     public CliffTool cliffTool;
     public AtlasTool atlasTool;
     public RampTool rampTool;
+    public UnitTool unitTool;
     
-    public MapTool actualTool;
+    public EditorTool actualTool;
     
     double delay = 0;
     long lastAction = 0;
     
     ArrayList<ActionListener> listeners = new ArrayList<>();
     
-    public MapToolManager(Map map, ParcelManager pm, BuilderLibrary lib) {
-        this.map = map;
-        this.pm = pm;
-        pencil = new Pencil(map);
+    public ToolManager(Battlefield encounter, BuilderLibrary lib) {
+        this.encounter = encounter;
+        pencil = new Pencil(encounter.map);
         heightTool = new HeightTool(this, pencil);
-        cliffTool = new CliffTool(this, pencil, lib);
-        atlasTool = new AtlasTool(this, pencil, map.atlas);
+        cliffTool = new CliffTool(this, pencil);
+        atlasTool = new AtlasTool(this, pencil);
         rampTool = new RampTool(this, pencil);
+        unitTool = new UnitTool(this, pencil, lib.getAllUnitBuilders());
+        
         actualTool = cliffTool;
         pencil.snapPair = true;
     }
@@ -85,6 +85,13 @@ public class MapToolManager {
         LogUtil.logger.info("Ramp tool set.");
         notifyListeners("tool");
     }
+    public void setUnitTool(){
+        actualTool = unitTool;
+        pencil.snapPair = false;
+        pencil.snapGrid = false;
+        LogUtil.logger.info("Unit tool set.");
+        notifyListeners("tool");
+    }
     public void toggleSet(){
         actualTool.toggleSet();
     }
@@ -92,32 +99,45 @@ public class MapToolManager {
         actualTool.toggleOperation();
     }
     
+    public void analogPrimaryAction(){
+        if(actualTool.isAnalog())
+            if(lastAction+delay<System.currentTimeMillis()){
+//                LogUtil.logger.info((System.currentTimeMillis()-lastAction)+" ms since last call");
+                lastAction = System.currentTimeMillis();
+                actualTool.primaryAction();
+            }
+    }
+    
     public void primaryAction(){
-        if(lastAction+delay<System.currentTimeMillis()){
-//            LogUtil.logger.info((System.currentTimeMillis()-lastAction)+" ms since last call");
-            lastAction = System.currentTimeMillis();
+        if(!actualTool.isAnalog())
             actualTool.primaryAction();
-        }
     }
 
-    public void secondaryAction(){
-        if(lastAction+delay<System.currentTimeMillis()){
-            lastAction = System.currentTimeMillis();
-            actualTool.secondaryAction();
-        }
+    public void analogSecondaryAction(){
+        if(actualTool.isAnalog())
+            if(lastAction+delay<System.currentTimeMillis()){
+                lastAction = System.currentTimeMillis();
+                actualTool.secondaryAction();
+            }
     }
+    
+    public void secondaryAction(){
+        if(!actualTool.isAnalog())
+            actualTool.secondaryAction();
+    }
+
     
     public void updateTiles(ArrayList<Tile> tiles){
         ArrayList<Tile> updatedTiles = new ArrayList<>();
         updatedTiles.addAll(tiles);
         for(Tile t : tiles)
-            for(Tile n : map.get9Around(t))
+            for(Tile n : encounter.map.get9Around(t))
                 if(!updatedTiles.contains(n))
                     updatedTiles.add(n);
         
         for(Tile t : updatedTiles){
             boolean diff = false;
-            for(Tile nn : map.get8Around(t))
+            for(Tile nn : encounter.map.get8Around(t))
                 if(t.level < nn.level){
                     diff = true;
                     break;
@@ -146,7 +166,7 @@ public class MapToolManager {
     }
     
     public void updateParcels(ArrayList<Tile> tiles){
-        pm.updateParcelsFor(tiles);
+        encounter.parcelManager.updateParcelsFor(tiles);
         notifyListeners("parcels", tiles);
     }
 

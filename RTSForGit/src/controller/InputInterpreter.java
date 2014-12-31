@@ -15,15 +15,16 @@ public abstract class InputInterpreter implements AnalogListener, ActionListener
 	protected SpatialSelector selector;
 	public boolean isActive = false;
 	protected InputManager inputManager;
+        protected String[] mappings;
 	
 	protected InputInterpreter(InputManager im, Camera c, View v){
 		view = v;
 		inputManager = im;
 		selector = new SpatialSelector(c, im, v);
-		registerInputs();
 	}
 	
 	protected abstract void registerInputs();
+	protected abstract void unregisterInputs();
 	
 	public void activate(){
 		isActive = true;

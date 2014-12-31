@@ -4,19 +4,15 @@
  */
 package model.army.data;
 
-import model.army.motion.pathfinding.Path;
 import model.army.motion.pathfinding.FlowField;
-import geometry.AlignedBoundingBox;
 import geometry.BoundingCircle;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
-import math.Precision;
 import model.map.Map;
 import model.army.motion.CollisionManager;
 import model.army.motion.SteeringMachine;
-import tools.LogUtil;
 
 /**
  *
@@ -241,5 +237,10 @@ public class Mover {
     
     public Point2D getPos2D(){
         return new Point2D(pos);
+    }
+    
+    public void setPosition(Point2D p){
+        velocity = Point3D.ORIGIN;
+        pos = p.get3D(map.getGroundAltitude(p));
     }
 }

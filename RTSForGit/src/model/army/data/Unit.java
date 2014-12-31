@@ -143,6 +143,14 @@ public class Unit extends Movable {
         actor.destroy();
     }
     
+    public void removeFromBattlefield(){
+        state = State.DESTROYED;
+        actor.onMove(false);
+        actor.onAim(false);
+        actor.onWait(false);
+        actor.destroy();
+    }
+    
     public boolean destroyed(){
         return state == State.DESTROYED;
     }
