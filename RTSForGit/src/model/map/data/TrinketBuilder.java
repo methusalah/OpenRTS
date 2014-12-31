@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
+import model.map.Tile;
 import model.map.cliff.Cliff;
 import static model.map.cliff.Cliff.Type.Orthogonal;
 import model.map.cliff.Trinket;
@@ -93,6 +94,10 @@ public class TrinketBuilder {
                 pos = new Point3D(1-pos.x, pos.y, pos.z);
                 pos = pos.getRotationAroundZ(Angle.RIGHT*posY);
                 break;
+        }
+        if(cliff.tile.ramp != null){
+            double ratio = cliff.tile.ramp.getCliffSlopeRate(cliff.tile);
+            pos = pos.getAddition(0, 0, -Tile.STAGE_HEIGHT*ratio*pos.z/Tile.STAGE_HEIGHT);
         }
         pos = pos.getRotationAroundZ(cliff.angle, new Point2D(0.5, 0.5));
 

@@ -19,6 +19,7 @@ public class CliffShapeBuilder {
     static final String NATURAL_FACE_LINK = "NaturalFaceLink";
     static final String MANMADE_FACE_LINK = "ManmadeFaceLink";
     static final String TRINKET_LIST = "TrinketList";
+    static final String RAMP_TRINKET_LIST = "RampTrinketList";
     static final String LINK = "link";
     static final String PROB = "prob";
 
@@ -37,7 +38,11 @@ public class CliffShapeBuilder {
                 case NATURAL_FACE_LINK : cliff.face = lib.getNaturalFaceBuilder(de.getVal()).build(cliff); break;
                 case MANMADE_FACE_LINK : cliff.face = lib.getManmadeFaceBuilder(de.getVal()).build(cliff); break;
                 case TRINKET_LIST :
-                    if(MyRandom.next()<de.getDoubleVal(PROB))
+                    if(cliff.tile.ramp == null && MyRandom.next()<de.getDoubleVal(PROB))
+                        cliff.trinkets.add(lib.getTrinketBuilder(de.getVal(LINK)).build(cliff));
+                    break;
+                case RAMP_TRINKET_LIST :
+                    if(cliff.tile.ramp != null && MyRandom.next()<de.getDoubleVal(PROB))
                         cliff.trinkets.add(lib.getTrinketBuilder(de.getVal(LINK)).build(cliff));
                     break;
             }
