@@ -22,14 +22,12 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
     protected final static String MOVE_ATTACK = "moveattack";
     protected final static String HOLD = "hold";
 	
-    private BattleFieldController controller;
     public Point2D selectionStartOnMap;
     public Point2D selectionStartOnScreen;
 
-    BattleFieldInputInterpreter(InputManager im, Camera cam, View view, BattleFieldController fc) {
-        super(im, cam, view);
-        selector.centered = false;
-        this.controller = fc;
+    BattleFieldInputInterpreter(BattleFieldController controller) {
+        super(controller);
+        controller.spatialSelector.centered = false;
         setMappings();
     }
     
@@ -37,7 +35,7 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
         mappings = new String[]{
             SWITCH_CTRL_1,
             SWITCH_CTRL_2,
-            SWITCH_CTRL_2,
+            SWITCH_CTRL_3,
 
             SELECT,
             ACTION,
@@ -47,10 +45,10 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
     }
     
     @Override
-    protected void registerInputs() {
-        inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_I));
-        inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_O));
-        inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_P));
+    protected void registerInputs(InputManager inputManager) {
+        inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
+        inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
+        inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
         inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
         inputManager.addMapping(ACTION, new MouseButtonTrigger(1));
         inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
@@ -62,7 +60,7 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
     }
 
     @Override
-    protected void unregisterInputs() {
+    protected void unregisterInputs(InputManager inputManager) {
         for(String s : mappings)
             if(inputManager.hasMapping(s))
                 inputManager.deleteMapping(s);
@@ -79,16 +77,16 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
     public void onAction(String name, boolean isPressed, float tpf) {
         if(!isPressed)
             switch (name){
-                case SWITCH_CTRL_1 : controller.notifyListeners("CTRL1"); break;
-                case SWITCH_CTRL_2 : controller.notifyListeners("CTRL2"); break;
-                case SWITCH_CTRL_3 : controller.notifyListeners("CTRL3"); break;
+                case SWITCH_CTRL_1 : ctrl.notifyListeners("CTRL1"); break;
+                case SWITCH_CTRL_2 : ctrl.notifyListeners("CTRL2"); break;
+                case SWITCH_CTRL_3 : ctrl.notifyListeners("CTRL3"); break;
                 case SELECT :
                     if(!endSelection())
-                        controller.model.commander.select(selector.getSpatialLabel(), getSpatialCoord());
+                        ctrl.model.commander.select(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord());
                     break;
-                case ACTION : controller.model.commander.act(selector.getSpatialLabel(), getSpatialCoord()); break;
-                case MOVE_ATTACK : controller.model.commander.setMoveAttack(); break;
-                case HOLD : controller.model.commander.orderHold(); break;
+                case ACTION : ctrl.model.commander.act(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord()); break;
+                case MOVE_ATTACK : ctrl.model.commander.setMoveAttack(); break;
+                case HOLD : ctrl.model.commander.orderHold(); break;
             }
         else
             if(name.equals(SELECT))
@@ -96,20 +94,20 @@ public class BattleFieldInputInterpreter extends InputInterpreter {
     }
 
     private Point2D getSpatialCoord(){
-        return selector.getCoord(view.rootNode);
+        return ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
     }
 
     private void beginSelection() {
-        selectionStartOnMap = selector.getCoord(view.rootNode);
-        selectionStartOnScreen = Translator.toPoint2D(inputManager.getCursorPosition());
+        selectionStartOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
+        selectionStartOnScreen = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
     }
 
     private boolean endSelection() {
         boolean selectionSuccess = false;
-        Point2D selectionEndOnMap = selector.getCoord(view.rootNode);
+        Point2D selectionEndOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
         if(selectionStartOnMap != null && selectionEndOnMap != null &&
                 selectionStartOnMap.getDistance(selectionEndOnMap) > 1){
-            controller.model.commander.select(selectionStartOnMap, selectionEndOnMap);
+            ctrl.model.commander.select(selectionStartOnMap, selectionEndOnMap);
             selectionSuccess = true;
         }
         selectionStartOnScreen = null;

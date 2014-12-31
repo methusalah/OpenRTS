@@ -10,27 +10,13 @@ import com.jme3.renderer.Camera;
 import model.Commander;
 
 public abstract class InputInterpreter implements AnalogListener, ActionListener {
-
-	protected View view;
-	protected SpatialSelector selector;
-	public boolean isActive = false;
-	protected InputManager inputManager;
         protected String[] mappings;
+        protected Controller ctrl;
 	
-	protected InputInterpreter(InputManager im, Camera c, View v){
-		view = v;
-		inputManager = im;
-		selector = new SpatialSelector(c, im, v);
+	protected InputInterpreter(Controller controller){
+            this.ctrl = controller;
 	}
 	
-	protected abstract void registerInputs();
-	protected abstract void unregisterInputs();
-	
-	public void activate(){
-		isActive = true;
-	}
-	
-	public void desactivate(){
-		isActive = false;
-	}
+	protected abstract void registerInputs(InputManager inputManager);
+	protected abstract void unregisterInputs(InputManager inputManager);
 }

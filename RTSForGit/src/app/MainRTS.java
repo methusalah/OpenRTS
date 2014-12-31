@@ -17,6 +17,7 @@ import com.jme3.system.AppSettings;
 import controller.Controller;
 import controller.battlefield.BattleFieldController;
 import controller.editor.EditorController;
+import controller.ground.GroundController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,13 +27,14 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 	MapRenderer tr;
 	BattleFieldController fieldCtrl;
         EditorController editorCtrl;
+        GroundController groundCtrl;
         Controller actualCtrl;
 
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
 		settings.setBitsPerPixel(32);
-		settings.setWidth(1200);
-		settings.setHeight(600);
+		settings.setWidth(1600);
+		settings.setHeight(850);
 		settings.setTitle("RTS");
 		settings.setVSync(true);
 		Logger.getLogger("").setLevel(Level.INFO);
@@ -61,9 +63,11 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
                 fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
-                fieldCtrl.register(this);
+                fieldCtrl.addListener(this);
                 editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
-                editorCtrl.register(this);
+                editorCtrl.addListener(this);
+                groundCtrl = new GroundController(model, view, inputManager, cam);
+                groundCtrl.addListener(this);
                 
                 actualCtrl = editorCtrl;
                 actualCtrl.activate();
@@ -98,7 +102,7 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
         switch(e.getActionCommand()){
             case "CTRL1" : desiredCtrl = fieldCtrl; break;
             case "CTRL2" : desiredCtrl = editorCtrl; break;
-            case "CTRL3" : desiredCtrl = null; break;
+            case "CTRL3" : desiredCtrl = groundCtrl; break;
                 default:throw new IllegalAccessError();
         }
         

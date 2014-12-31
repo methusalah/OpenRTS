@@ -53,14 +53,11 @@ public class EditorInputInterpreter extends InputInterpreter {
     protected final static String LOAD = "load";
     protected final static String NEW = "new";
     
-    private EditorController controller;
-    
     boolean analogUnpressed = false;
     
-    EditorInputInterpreter(InputManager im, Camera cam, View view, EditorController controller) {
-        super(im, cam, view);
-        selector.centered = false;
-        this.controller = controller;
+    EditorInputInterpreter(EditorController controller) {
+        super(controller);
+        controller.spatialSelector.centered = false;
         setMappings();
     }
     
@@ -68,7 +65,7 @@ public class EditorInputInterpreter extends InputInterpreter {
         mappings = new String[]{
             SWITCH_CTRL_1,
             SWITCH_CTRL_2,
-            SWITCH_CTRL_2,
+            SWITCH_CTRL_3,
 
             PRIMARY_ACTION,
             SECONDARY_ACTION,
@@ -107,10 +104,10 @@ public class EditorInputInterpreter extends InputInterpreter {
     }
 
     @Override
-    protected void registerInputs() {
-            inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_I));
-            inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_O));
-            inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_P));
+    protected void registerInputs(InputManager inputManager) {
+            inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
+            inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
+            inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
             
             inputManager.addMapping(PRIMARY_ACTION, new MouseButtonTrigger(0));
             inputManager.addMapping(SECONDARY_ACTION, new MouseButtonTrigger(1));
@@ -168,7 +165,7 @@ public class EditorInputInterpreter extends InputInterpreter {
     }
 
     @Override
-    protected void unregisterInputs() {
+    protected void unregisterInputs(InputManager inputManager) {
         for (String s : mappings)
             if (inputManager.hasMapping(s))
                 inputManager.deleteMapping(s);
@@ -180,20 +177,20 @@ public class EditorInputInterpreter extends InputInterpreter {
     @Override
     public void onAnalog(String name, float value, float tpf) {
         if(analogUnpressed){
-            controller.model.toolManager.pencil.release();
+            ctrl.model.toolManager.pencil.release();
             analogUnpressed = false;
         } else switch(name){
-            case PRIMARY_ACTION : controller.model.toolManager.analogPrimaryAction(); break;
-            case SECONDARY_ACTION : controller.model.toolManager.analogSecondaryAction(); break;
-            case INC_DAYTIME : controller.model.battlefield.sunLight.incDayTime(); break;
-            case DEC_DAYTIME : controller.model.battlefield.sunLight.decDayTime(); break;
-            case COMPASS_EAST : controller.model.battlefield.sunLight.turnCompassEast(); break;
-            case COMPASS_WEST : controller.model.battlefield.sunLight.turnCompassWest(); break;
-            case INC_INTENSITY : controller.model.battlefield.sunLight.incIntensity(); break;
-            case DEC_INTENSITY : controller.model.battlefield.sunLight.decIntensity(); break;
-            case DEC_RED : controller.model.battlefield.sunLight.decRed(); break;
-            case DEC_GREEN : controller.model.battlefield.sunLight.decGreen(); break;
-            case DEC_BLUE : controller.model.battlefield.sunLight.decBlue(); break;
+            case PRIMARY_ACTION : ctrl.model.toolManager.analogPrimaryAction(); break;
+            case SECONDARY_ACTION : ctrl.model.toolManager.analogSecondaryAction(); break;
+            case INC_DAYTIME : ctrl.model.battlefield.sunLight.incDayTime(); break;
+            case DEC_DAYTIME : ctrl.model.battlefield.sunLight.decDayTime(); break;
+            case COMPASS_EAST : ctrl.model.battlefield.sunLight.turnCompassEast(); break;
+            case COMPASS_WEST : ctrl.model.battlefield.sunLight.turnCompassWest(); break;
+            case INC_INTENSITY : ctrl.model.battlefield.sunLight.incIntensity(); break;
+            case DEC_INTENSITY : ctrl.model.battlefield.sunLight.decIntensity(); break;
+            case DEC_RED : ctrl.model.battlefield.sunLight.decRed(); break;
+            case DEC_GREEN : ctrl.model.battlefield.sunLight.decGreen(); break;
+            case DEC_BLUE : ctrl.model.battlefield.sunLight.decBlue(); break;
         }
     }
 
@@ -202,11 +199,11 @@ public class EditorInputInterpreter extends InputInterpreter {
         if(!isPressed){
             switch(name){
                 case PRIMARY_ACTION :
-                    controller.model.toolManager.primaryAction();
+                    ctrl.model.toolManager.primaryAction();
                     analogUnpressed = true;
                     break;
                 case SECONDARY_ACTION : 
-                    controller.model.toolManager.secondaryAction();
+                    ctrl.model.toolManager.secondaryAction();
                     analogUnpressed = true;
                     break;
                 case INC_DAYTIME :
@@ -219,33 +216,29 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case DEC_GREEN :
                 case DEC_BLUE : analogUnpressed = true; break;
 
-                case SWITCH_CTRL_1 : controller.notifyListeners("CTRL1"); break;
-                case SWITCH_CTRL_2 : controller.notifyListeners("CTRL2"); break;
-                case SWITCH_CTRL_3 : controller.notifyListeners("CTRL3"); break;
-                case TOGGLE_PENCIL_SHAPE : controller.model.toolManager.pencil.toggleShape(); break;
-                case TOGGLE_PENCIL_MODE : controller.model.toolManager.pencil.toggleMode(); break;
-                case INC_SELECTOR_RADIUS : controller.model.toolManager.pencil.incRadius(); break;
-                case DEC_SELECTOR_RADIUS : controller.model.toolManager.pencil.decRadius(); break;
-                case SET_CLIFF_TOOL : controller.model.toolManager.setCliffTool(); break;
-                case SET_HEIGHT_TOOL : controller.model.toolManager.setHeightTool(); break;
-                case SET_ATLAS_TOOL : controller.model.toolManager.setAtlasTool(); break;
-                case SET_RAMP_TOOL : controller.model.toolManager.setRampTool(); break;
-                case SET_UNIT_TOOL : controller.model.toolManager.setUnitTool(); break;
+                case SWITCH_CTRL_1 : ctrl.notifyListeners("CTRL1"); break;
+                case SWITCH_CTRL_2 : ctrl.notifyListeners("CTRL2"); break;
+                case SWITCH_CTRL_3 : ctrl.notifyListeners("CTRL3"); break;
+                case TOGGLE_PENCIL_SHAPE : ctrl.model.toolManager.pencil.toggleShape(); break;
+                case TOGGLE_PENCIL_MODE : ctrl.model.toolManager.pencil.toggleMode(); break;
+                case INC_SELECTOR_RADIUS : ctrl.model.toolManager.pencil.incRadius(); break;
+                case DEC_SELECTOR_RADIUS : ctrl.model.toolManager.pencil.decRadius(); break;
+                case SET_CLIFF_TOOL : ctrl.model.toolManager.setCliffTool(); break;
+                case SET_HEIGHT_TOOL : ctrl.model.toolManager.setHeightTool(); break;
+                case SET_ATLAS_TOOL : ctrl.model.toolManager.setAtlasTool(); break;
+                case SET_RAMP_TOOL : ctrl.model.toolManager.setRampTool(); break;
+                case SET_UNIT_TOOL : ctrl.model.toolManager.setUnitTool(); break;
 
-                case TOGGLE_OPERATION : controller.model.toolManager.toggleOperation(); break;
-                case TOGGLE_SET : controller.model.toolManager.toggleSet(); break;
-                case TOGGLE_GRID : controller.view.editorRend.toggleGrid(); break;
-                case TOGGLE_LIGHT_COMP : controller.model.battlefield.sunLight.toggleLight(); break;
-                case TOGGLE_SPEED : controller.model.battlefield.sunLight.toggleSpeed(); break;
-                case RESET_COLOR : controller.model.battlefield.sunLight.resetColor(); break;
-                case SAVE : controller.model.saveEncounter(); break;
-                case LOAD : controller.model.loadEncounter(); break;
-                case NEW : controller.model.setNewEncounter(); break;
+                case TOGGLE_OPERATION : ctrl.model.toolManager.toggleOperation(); break;
+                case TOGGLE_SET : ctrl.model.toolManager.toggleSet(); break;
+                case TOGGLE_GRID : ctrl.view.editorRend.toggleGrid(); break;
+                case TOGGLE_LIGHT_COMP : ctrl.model.battlefield.sunLight.toggleLight(); break;
+                case TOGGLE_SPEED : ctrl.model.battlefield.sunLight.toggleSpeed(); break;
+                case RESET_COLOR : ctrl.model.battlefield.sunLight.resetColor(); break;
+                case SAVE : ctrl.model.saveEncounter(); break;
+                case LOAD : ctrl.model.loadEncounter(); break;
+                case NEW : ctrl.model.setNewEncounter(); break;
             }
         }
-    }
-    
-    private void finishAnalogAction(){
-        
     }
 }

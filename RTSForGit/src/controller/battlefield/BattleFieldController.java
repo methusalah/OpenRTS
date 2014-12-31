@@ -9,6 +9,7 @@ import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 import controller.Controller;
+import controller.cameraManagement.IsometricCameraManager;
 import controller.SpatialSelector;
 import de.lessvoid.nifty.Nifty;
 import geometry.Point2D;
@@ -21,37 +22,23 @@ import view.math.Translator;
  * @author Benoît
  */
 public class BattleFieldController extends Controller {
-    
-    IsometricCamera isoCam;
-    InputManager im;
-    SpatialSelector ss;
-    
-    View view;
-
-    public BattleFieldController(Model model, View view, Nifty nifty, InputManager im, Camera cam){
-        this.model = model;
-        ii = new BattleFieldInputInterpreter(im, cam, view, this);
+    public BattleFieldController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
+        super(model, view, inputManager, cam);
+        
+        inputInterpreter = new BattleFieldInputInterpreter(this);
         gui = new BattleFieldGUI(nifty, model.commander, model.reporter);
-        this.im = im;
-        this.view = view;
-        ss = new SpatialSelector(cam, im, view);
-        ss.centered = true;
         
         model.commander.registerListener(this);
         
-        isoCam = new IsometricCamera(cam, 10);
-        isoCam.registerWithInput(im);
-        isoCam.setEnabled(true);
-        im.setCursorVisible(true);
-        
+        cameraManager = new IsometricCameraManager(cam, 10, model);
     }
     
     @Override
     public void update(double elapsedTime) {
         // draw selection rectangle
-        Point2D selStart = ((BattleFieldInputInterpreter)ii).selectionStartOnScreen;
+        Point2D selStart = ((BattleFieldInputInterpreter)inputInterpreter).selectionStartOnScreen;
         if(selStart != null){
-            Point2D p = Translator.toPoint2D(im.getCursorPosition());
+            Point2D p = Translator.toPoint2D(inputManager.getCursorPosition());
             view.drawSelectionArea(selStart, p);
         } else
             view.guiNode.detachAllChildren();   
@@ -69,6 +56,14 @@ public class BattleFieldController extends Controller {
     }
     
     private Point2D getViewCenter(){
-        return ss.getCoord(view.rootNode);
+        return spatialSelector.getCoord(view.rootNode);
     }
+
+    @Override
+    public void activate() {
+        super.activate();
+        inputManager.setCursorVisible(true);
+    }
+    
+    
 }

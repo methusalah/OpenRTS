@@ -4,33 +4,54 @@
  */
 package controller;
 
+import com.jme3.input.InputManager;
+import com.jme3.renderer.Camera;
+import controller.cameraManagement.CameraManager;
+import de.lessvoid.nifty.Nifty;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.Model;
 import model.ReportEventListener;
 import tools.LogUtil;
+import view.View;
 
 /**
  *
  * @author Benoît
  */
 public abstract class Controller implements ReportEventListener {
-    
     public Model model;
-    public InputInterpreter ii;
+    public View view;
+    public InputInterpreter inputInterpreter;
+    public InputManager inputManager;
+    public SpatialSelector spatialSelector;
+    public CameraManager cameraManager;
+    
     protected GUI gui;
     ArrayList<ActionListener> listeners = new ArrayList<>();
     
-    public abstract void update(double elapsedTime);
-    public void desactivate(){
-        ii.unregisterInputs();
-    }
-    public void activate(){
-        ii.registerInputs();
+    public Controller(Model model, View view, InputManager inputManager, Camera cam){
+        this.model = model;
+        this.view = view;
+        this.inputManager = inputManager;
+        spatialSelector = new SpatialSelector(cam, inputManager, view);
+        spatialSelector.centered = false;
     }
     
-    public void register(ActionListener listener){
+    
+    public abstract void update(double elapsedTime);
+    
+    public void desactivate(){
+        inputInterpreter.unregisterInputs(inputManager);
+        cameraManager.unregisterInputs(inputManager);
+    }
+    public void activate(){
+        inputInterpreter.registerInputs(inputManager);
+        cameraManager.registerInputs(inputManager);
+    }
+    
+    public void addListener(ActionListener listener){
         listeners.add(listener);
     }
     

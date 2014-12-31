@@ -4,6 +4,7 @@
  */
 package controller.editor;
 
+import controller.cameraManagement.IsometricCameraManager;
 import controller.battlefield.*;
 import app.AzertyFlyByCamera;
 import com.jme3.input.FlyByCamera;
@@ -26,40 +27,23 @@ import view.math.Translator;
  * @author Benoît
  */
 public class EditorController extends Controller {
-    
-    IsometricCamera isoCam;
-    InputManager im;
-    SpatialSelector ss;
-    
-    View view;
-    
     Point2D screenCoord;
-    
-    
+    public EditorController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
+        super(model, view, inputManager, cam);
 
-    
-    public EditorController(Model model, View view, Nifty nifty, InputManager im, Camera cam){
-        this.model = model;
-        ii = new EditorInputInterpreter(im, cam, view, this);
+        inputInterpreter = new EditorInputInterpreter(this);
         gui = new EditorGUI(nifty, model.commander, model.reporter);
-        this.im = im;
-        this.view = view;
-        ss = new SpatialSelector(cam, im, view);
-        ss.centered = false;
-        
+
         model.commander.registerListener(this);
         
-        isoCam = new IsometricCamera(cam, 10);
-        isoCam.registerWithInput(im);
-        isoCam.setEnabled(true);
-        im.setCursorVisible(true);
+        cameraManager = new IsometricCameraManager(cam, 10, model);
     }
 
     @Override
     public void update(double elapsedTime) {
 //        screenCoord = Translator.toPoint2D(im.getCursorPosition());
-        model.toolManager.pointedSpatialLabel = ss.getSpatialLabel();
-        Point2D coord = ss.getCoord(view.editorRend.gridNode);
+        model.toolManager.pointedSpatialLabel = spatialSelector.getSpatialLabel();
+        Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
         if(coord != null && model.battlefield.map.isInBounds(coord)){
             model.toolManager.pencil.setPos(coord);
             view.editorRend.drawPencil();
@@ -70,4 +54,12 @@ public class EditorController extends Controller {
     public void manageEvent() {
         gui.update();
     }
+
+    @Override
+    public void activate() {
+        super.activate();
+        inputManager.setCursorVisible(true);
+    }
+    
+    
 }
