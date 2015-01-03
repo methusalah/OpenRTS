@@ -24,4 +24,7 @@ public abstract class CameraManager implements AnalogListener, ActionListener{
 
     public abstract void unregisterInputs(InputManager inputManager);
     public abstract void registerInputs(InputManager inputManager);
+    public abstract void activate();
+    public abstract void desactivate();
+    
 }

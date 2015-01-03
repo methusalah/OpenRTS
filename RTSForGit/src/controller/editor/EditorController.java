@@ -32,7 +32,7 @@ public class EditorController extends Controller {
         super(model, view, inputManager, cam);
 
         inputInterpreter = new EditorInputInterpreter(this);
-        gui = new EditorGUI(nifty, model.commander, model.reporter);
+        gui = new EditorGUI(nifty, this);
 
         model.commander.registerListener(this);
         
@@ -48,6 +48,8 @@ public class EditorController extends Controller {
             model.toolManager.pencil.setPos(coord);
             view.editorRend.drawPencil();
         }
+        
+        gui.update();
     }
 
     @Override
@@ -59,7 +61,16 @@ public class EditorController extends Controller {
     public void activate() {
         super.activate();
         inputManager.setCursorVisible(true);
+        view.rootNode.attachChild(view.editorRend.mainNode);
+        gui.activate();
     }
+
+    @Override
+    public void desactivate() {
+        super.desactivate();
+        view.rootNode.detachChild(view.editorRend.mainNode);
+    }
+    
     
     
 }

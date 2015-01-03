@@ -62,6 +62,8 @@ public class Map {
     }
 
     public Tile getTile(int x, int y) {
+        if(!isInBounds(new Point2D(x, y)))
+            throw new IllegalArgumentException(new Point2D(x, y)+" is out of map bounds, ass hole.");
         return tiles.get(y*width+x);
     }
 

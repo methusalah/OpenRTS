@@ -16,10 +16,11 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class RampTool extends EditorTool{
+public class RampTool extends Tool{
+    private static final String ADD_DELETE_OP = "add/delete";
 
     public RampTool(ToolManager manager, Pencil selector) {
-        super(manager, selector);
+        super(manager, selector, ADD_DELETE_OP);
     }
 
     @Override
@@ -51,11 +52,6 @@ public class RampTool extends EditorTool{
 
     @Override
     public void toggleSet() {
-        LogUtil.logger.info("Unavailable for ramp tool.");
-    }
-
-    @Override
-    public void toggleOperation() {
         LogUtil.logger.info("Unavailable for ramp tool.");
     }
 

@@ -20,8 +20,9 @@ import tools.LogUtil;
  *
  * @author bedu
  */
-public class UnitTool extends EditorTool{
-    public enum Operation {AddRemove, MoveRotate}
+public class UnitTool extends Tool{
+    private static final String ADD_REMOVE_OP = "add/remove";
+    private static final String MOVE_ROTATE_OP = "move/rotate";
     
     ArrayList<UnitBuilder> builders;
     UnitBuilder actualBuilder;
@@ -29,13 +30,12 @@ public class UnitTool extends EditorTool{
     boolean analog = false;
     
     double angle = 0;
-    public Operation actualOp = Operation.AddRemove;
     
     Faction f1 = new Faction(Color.RED);
     Faction f2 = new Faction(Color.GREEN);
 
     public UnitTool(ToolManager manager, Pencil selector, ArrayList<UnitBuilder> builders) {
-        super(manager, selector);
+        super(manager, selector, ADD_REMOVE_OP, MOVE_ROTATE_OP);
         this.builders = builders;
         actualBuilder = builders.get(0);
         f1.setEnnemy(f2);
@@ -44,16 +44,16 @@ public class UnitTool extends EditorTool{
     @Override
     public void primaryAction() {
         switch (actualOp) {
-            case AddRemove : add(); break;
-            case MoveRotate : move(); break;
+            case ADD_REMOVE_OP : add(); break;
+            case MOVE_ROTATE_OP : move(); break;
         }
     }
 
     @Override
     public void secondaryAction() {
         switch (actualOp) {
-            case AddRemove : remove(); break;
-            case MoveRotate : rotate(); break;
+            case ADD_REMOVE_OP : remove(); break;
+            case MOVE_ROTATE_OP : rotate(); break;
         }
     }
     
@@ -84,11 +84,14 @@ public class UnitTool extends EditorTool{
                 for(Unit u : manager.encounter.armyManager.units)
                     if(u.label.matches(manager.pointedSpatialLabel)){
                         actualUnit = u;
+                        LogUtil.logger.info("maintening "+manager.pointedSpatialLabel);
                         break;
                     }
         }
-        if(actualUnit != null)
+        if(actualUnit != null){
+            LogUtil.logger.info("maintened "+actualUnit);
             actualUnit.mover.setPosition(pencil.getPos());
+        }
     }
     private void rotate(){
         if(!pencil.maintained){
@@ -119,24 +122,29 @@ public class UnitTool extends EditorTool{
     }
 
     @Override
-    public void toggleOperation() {
-        switch(actualOp){
-            case AddRemove :
-                actualOp = Operation.MoveRotate;
-                analog = true;
-                break;
-            case MoveRotate :
-                actualOp = Operation.AddRemove;
-                analog = false;
-                break;
-        }
-        LogUtil.logger.info("Operation switched to "+actualOp);
-    }
-
-    @Override
     public boolean isAnalog() {
         return analog;
     }
+
+    @Override
+    public void setOperation(int index) {
+        super.setOperation(index);
+        if(actualOp.equals(MOVE_ROTATE_OP))
+            analog = true;
+        else
+            analog = false;
+    }
+
+    @Override
+    public void toggleOperation() {
+        super.toggleOperation();
+        if(actualOp.equals(MOVE_ROTATE_OP))
+            analog = true;
+        else
+            analog = false;
+    }
     
+    
+
     
 }

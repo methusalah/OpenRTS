@@ -235,9 +235,9 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case TOGGLE_LIGHT_COMP : ctrl.model.battlefield.sunLight.toggleLight(); break;
                 case TOGGLE_SPEED : ctrl.model.battlefield.sunLight.toggleSpeed(); break;
                 case RESET_COLOR : ctrl.model.battlefield.sunLight.resetColor(); break;
-                case SAVE : ctrl.model.saveEncounter(); break;
-                case LOAD : ctrl.model.loadEncounter(); break;
-                case NEW : ctrl.model.setNewEncounter(); break;
+                case SAVE : ctrl.model.saveBattlefield(); break;
+                case LOAD : ctrl.model.loadBattlefield(); break;
+                case NEW : ctrl.model.setNewBattlefield(); break;
             }
         }
     }

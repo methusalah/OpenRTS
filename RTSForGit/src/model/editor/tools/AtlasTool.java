@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import model.map.Tile;
 import model.editor.ToolManager;
 import model.editor.Pencil;
@@ -28,13 +30,12 @@ import view.mapDrawing.MapRenderer;
  *
  * @author Benoît
  */
-public class AtlasTool extends EditorTool {
-    enum Operation {AddDelete, PropagateSmooth}
+public class AtlasTool extends Tool {
+    private static final String ADD_DELETE_OP = "add/delete";
+    private static final String PROPAGATE_SMOOTH_OP = "propagate/smooth";
     
     Atlas atlas;
     AtlasExplorer explorer;
-    
-    Operation actualOp = Operation.AddDelete;
     
     int actualLayer = 1;
     int autoLayer;
@@ -42,7 +43,7 @@ public class AtlasTool extends EditorTool {
 
     
     public AtlasTool(ToolManager manager, Pencil selector) {
-        super(manager, selector);
+        super(manager, selector, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
         this.atlas = manager.encounter.map.atlas;
         explorer = new AtlasExplorer(manager.encounter.map);
     }
@@ -50,8 +51,8 @@ public class AtlasTool extends EditorTool {
     @Override
     public void primaryAction() {
         switch (actualOp){
-            case AddDelete : increment(getInvolvedPixels()); break;
-            case PropagateSmooth : propagate(getInvolvedPixels()); break;
+            case ADD_DELETE_OP : increment(getInvolvedPixels()); break;
+            case PROPAGATE_SMOOTH_OP : propagate(getInvolvedPixels()); break;
         }
         
         manager.updateGroundAtlas();
@@ -60,8 +61,8 @@ public class AtlasTool extends EditorTool {
     @Override
     public void secondaryAction() {
         switch (actualOp){
-            case AddDelete : decrement(getInvolvedPixels()); break;
-            case PropagateSmooth : smooth(getInvolvedPixels()); break;
+            case ADD_DELETE_OP : decrement(getInvolvedPixels()); break;
+            case PROPAGATE_SMOOTH_OP : smooth(getInvolvedPixels()); break;
         }
         manager.updateGroundAtlas();
     }
@@ -83,20 +84,6 @@ public class AtlasTool extends EditorTool {
         LogUtil.logger.info("Atlas tool toggled to texture "+actualLayer+".");
     }
 
-    @Override
-    public void toggleOperation() {
-        switch (actualOp){
-            case AddDelete :
-                actualOp = Operation.PropagateSmooth;
-                LogUtil.logger.info("Atlas tool operation toggled to propagate/smooth.");
-                break;
-            case PropagateSmooth :
-                actualOp = Operation.AddDelete;
-                LogUtil.logger.info("Atlas tool operation toggled to add/delete.");
-                break;
-        }
-    }
-    
     private void increment(ArrayList<Point2D> pixels){
         for(Point2D p : pixels)
             increment(p, actualLayer);
@@ -243,6 +230,4 @@ public class AtlasTool extends EditorTool {
         return rest;
     }
 
-    
-    
 }

@@ -48,7 +48,16 @@ public class IsometricCameraManager extends CameraManager {
             ZOOM_OUT,
         };
     }
-    
+
+    @Override
+    public void activate() {
+        placeCam();
+    }
+
+    @Override
+    public void desactivate() {
+    }
+
     private void placeCam(){
         cam.setLocation(Translator.toVector3f(pos));
         cam.lookAt(Translator.toVector3f(target), Vector3f.UNIT_Z);

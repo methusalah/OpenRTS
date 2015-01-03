@@ -15,25 +15,25 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class HeightTool extends EditorTool {
-    enum Operation {RaiseLow, NoiseSmooth, UniformReset}
+public class HeightTool extends Tool {
+    private static final String RAISE_LOW_OP = "raise/low";
+    private static final String NOISE_SMOOTH_OP = "noise/smooth";
+    private static final String UNIFOMR_RESET_OP = "uniform/reset";
     
-    Operation actualOp = Operation.RaiseLow;
-
     double amplitude = 0.2;
     double maintainedElevation;
     
     public HeightTool(ToolManager manager, Pencil selector) {
-        super(manager, selector);
+        super(manager, selector, RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
     }
 
     @Override
     public void primaryAction() {
         ArrayList<Tile> group = pencil.getTiles();
         switch (actualOp){
-            case RaiseLow : raise(group); break;
-            case NoiseSmooth : noise(group); break;
-            case UniformReset : uniform(group); break;
+            case RAISE_LOW_OP : raise(group); break;
+            case NOISE_SMOOTH_OP : noise(group); break;
+            case UNIFOMR_RESET_OP : uniform(group); break;
         }
         manager.updateParcels(group);
     }
@@ -42,9 +42,9 @@ public class HeightTool extends EditorTool {
     public void secondaryAction() {
         ArrayList<Tile> group = pencil.getTiles();
         switch (actualOp){
-            case RaiseLow : low(group); break;
-            case NoiseSmooth : smooth(group); break;
-            case UniformReset : reset(group); break;
+            case RAISE_LOW_OP : low(group); break;
+            case NOISE_SMOOTH_OP : smooth(group); break;
+            case UNIFOMR_RESET_OP : reset(group); break;
         }
         manager.updateParcels(group);
     }
@@ -104,28 +104,4 @@ public class HeightTool extends EditorTool {
     public void toggleSet() {
         LogUtil.logger.info("Height tool has no set.");
     }
-
-    @Override
-    public void toggleOperation() {
-        switch (actualOp){
-            case RaiseLow :
-                actualOp = Operation.NoiseSmooth;
-                LogUtil.logger.info("Atlas tool operation toggled to noise/smooth.");
-                break;
-            case NoiseSmooth :
-                actualOp = Operation.UniformReset;
-                LogUtil.logger.info("Atlas tool operation toggled to uniform/reset.");
-                break;
-            case UniformReset :
-                actualOp = Operation.RaiseLow;
-                LogUtil.logger.info("Atlas tool operation toggled to raise/low.");
-                break;
-        }
-    }
-    
-    
-    
-    
-    
-    
 }

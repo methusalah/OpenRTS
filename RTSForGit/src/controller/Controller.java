@@ -36,7 +36,6 @@ public abstract class Controller implements ReportEventListener {
         this.view = view;
         this.inputManager = inputManager;
         spatialSelector = new SpatialSelector(cam, inputManager, view);
-        spatialSelector.centered = false;
     }
     
     
@@ -49,6 +48,7 @@ public abstract class Controller implements ReportEventListener {
     public void activate(){
         inputInterpreter.registerInputs(inputManager);
         cameraManager.registerInputs(inputManager);
+        cameraManager.activate();
     }
     
     public void addListener(ActionListener listener){

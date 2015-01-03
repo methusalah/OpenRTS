@@ -13,7 +13,7 @@ import model.map.cliff.Cliff;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
-import model.editor.tools.EditorTool;
+import model.editor.tools.Tool;
 import model.editor.tools.RampTool;
 import model.editor.tools.UnitTool;
 import model.battlefield.Battlefield;
@@ -37,7 +37,7 @@ public class ToolManager {
     public RampTool rampTool;
     public UnitTool unitTool;
     
-    public EditorTool actualTool;
+    public Tool actualTool;
     
     double delay = 0;
     long lastAction = 0;

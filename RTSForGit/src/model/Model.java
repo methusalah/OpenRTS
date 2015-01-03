@@ -38,7 +38,7 @@ public class Model {
         parser = new DefParser(lib, CONFIG_PATH);
         
         factory = new MapFactory(lib);
-        setNewEncounter();
+        setNewBattlefield();
 
 //        armyManager.createTestArmy(lib);
     }
@@ -50,17 +50,17 @@ public class Model {
         }
     }
     
-    public void loadEncounter(){
+    public void loadBattlefield(){
         Map loadedMap = factory.load();
         if(loadedMap != null)
             setEncounter(loadedMap);
     }
     
-    public void saveEncounter(){
+    public void saveBattlefield(){
         factory.save(battlefield.map);
     }
     
-    public void setNewEncounter(){
+    public void setNewBattlefield(){
         setEncounter(factory.getNew(128, 128));
     }
     

@@ -11,7 +11,9 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import geometry3D.Point3D;
+import math.Angle;
 import model.Model;
+import tools.LogUtil;
 import view.math.Translator;
 
 public class GroundCameraManager extends CameraManager {
@@ -27,17 +29,26 @@ public class GroundCameraManager extends CameraManager {
     private double maxSpeed = 5;
     private double maxRotSpeed = 100;
     private Point3D pos;
+    private Quaternion rotation;
     private final Model model;
 	
     public GroundCameraManager(Camera cam, Model model){
         super(cam);
         this.model = model;
-        pos = Translator.toPoint3D(cam.getLocation());
+        pos = new Point3D(1, 1, 0);
+        rotation = new Quaternion().fromAngles((float)Angle.RIGHT, 0, (float)Angle.FLAT);
+        cam.setFrustumPerspective(45, (float)cam.getWidth()/cam.getHeight(), 0.01f, 1000);
+        LogUtil.logger.info("frustum near "+cam.getFrustumNear());
+        LogUtil.logger.info("frustum far "+cam.getFrustumFar());
+        LogUtil.logger.info("frustum top "+cam.getFrustumTop());
+        LogUtil.logger.info("frustum bottom "+cam.getFrustumBottom());
+               
+        applyRotationToCam();
         placeCam();
-        setMappaings();
+        setMappings();
     }
     
-    private void setMappaings(){
+    private void setMappings(){
         mappings = new String[]{
             ROTATE_UP,
             ROTATE_DOWN,
@@ -60,6 +71,20 @@ public class GroundCameraManager extends CameraManager {
     }
 
     @Override
+    public void activate() {
+        placeCam();
+        applyRotationToCam();
+//        cam.setFrustumPerspective(50, 1600/850, 0.1f, 100);
+    }
+
+    @Override
+    public void desactivate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
+    @Override
     public void unregisterInputs(InputManager inputManager){
         for(String s : mappings)
             if(inputManager.hasMapping(s))
@@ -74,10 +99,14 @@ public class GroundCameraManager extends CameraManager {
         inputManager.addMapping(ROTATE_LEFT, new MouseAxisTrigger(MouseInput.AXIS_X, true));
         inputManager.addMapping(ROTATE_RIGHT, new MouseAxisTrigger(MouseInput.AXIS_X, false));
         
-        inputManager.addMapping(STRAFE_LEFT, new KeyTrigger(KeyInput.KEY_Q));
-        inputManager.addMapping(STRAFE_RIGHT, new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping(MOVE_FOREWARD, new KeyTrigger(KeyInput.KEY_Z));
-        inputManager.addMapping(MOVE_BACKWARD, new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping(STRAFE_LEFT, new KeyTrigger(KeyInput.KEY_Q),
+                new KeyTrigger(KeyInput.KEY_LEFT));
+        inputManager.addMapping(STRAFE_RIGHT, new KeyTrigger(KeyInput.KEY_D),
+                new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping(MOVE_FOREWARD, new KeyTrigger(KeyInput.KEY_Z),
+                new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping(MOVE_BACKWARD, new KeyTrigger(KeyInput.KEY_S),
+                new KeyTrigger(KeyInput.KEY_DOWN));
         inputManager.addListener(this, mappings);
     }
     
@@ -85,10 +114,10 @@ public class GroundCameraManager extends CameraManager {
     public void onAnalog(String name, float value, float tpf) {
         double velocity = tpf*maxSpeed*1;
         switch(name){
-            case ROTATE_UP : rotateCamera(-value, getLeft()); break;
-            case ROTATE_DOWN : rotateCamera(value, getLeft()); break;
-            case ROTATE_LEFT : rotateCamera(value, Point3D.UNIT_Z); break;
-            case ROTATE_RIGHT : rotateCamera(-value, Point3D.UNIT_Z); break;
+            case ROTATE_UP : changeRotation(-value, getLeft()); break;
+            case ROTATE_DOWN : changeRotation(value, getLeft()); break;
+            case ROTATE_LEFT : changeRotation(value, Point3D.UNIT_Z); break;
+            case ROTATE_RIGHT : changeRotation(-value, Point3D.UNIT_Z); break;
                 
             case STRAFE_LEFT : move(getLeft(), velocity); break;
             case STRAFE_RIGHT : move(getRight(), velocity); break;
@@ -107,7 +136,7 @@ public class GroundCameraManager extends CameraManager {
         
     }
     
-    protected void rotateCamera(float value, Point3D axis){
+    protected void changeRotation(float value, Point3D axis){
         Matrix3f mat = new Matrix3f();
         mat.fromAngleNormalAxis(value, Translator.toVector3f(axis));
 
@@ -119,12 +148,17 @@ public class GroundCameraManager extends CameraManager {
         mat.mult(left, left);
         mat.mult(dir, dir);
 
-        Quaternion q = new Quaternion();
-        q.fromAxes(left, up, dir);
-        q.normalizeLocal();
+        rotation = new Quaternion();
+        rotation.fromAxes(left, up, dir);
+        rotation.normalizeLocal();
 
-        cam.setAxes(q);
+        applyRotationToCam();
     }
+    
+    private void applyRotationToCam(){
+        cam.setAxes(rotation);
+    }
+
     
     private Point3D getLeft(){
         return Translator.toPoint3D(cam.getLeft());

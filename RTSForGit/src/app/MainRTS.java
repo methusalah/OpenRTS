@@ -15,7 +15,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.AppSettings;
 import controller.Controller;
-import controller.battlefield.BattleFieldController;
+import controller.battlefield.BattlefieldController_;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
         Model model;
 	View view;
 	MapRenderer tr;
-	BattleFieldController fieldCtrl;
+	BattlefieldController_ fieldCtrl;
         EditorController editorCtrl;
         GroundController groundCtrl;
         Controller actualCtrl;
@@ -62,7 +62,7 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
                 
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-                fieldCtrl = new BattleFieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+                fieldCtrl = new BattlefieldController_(model, view, niftyDisplay.getNifty(), inputManager, cam);
                 fieldCtrl.addListener(this);
                 editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
                 editorCtrl.addListener(this);
@@ -75,6 +75,8 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
                 view.mapRend.renderTiles();
                 
                 guiViewPort.addProcessor(niftyDisplay);
+                niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
+                niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
                 
 	}
         

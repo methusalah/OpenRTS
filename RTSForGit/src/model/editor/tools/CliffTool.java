@@ -17,32 +17,32 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class CliffTool extends EditorTool {
-    enum Operation {RaiseLow, Flatten}
-    
-    Operation actualOp = Operation.RaiseLow;
+public class CliffTool extends Tool {
+    private static final String RAISE_LOW_OP = "raise/low";
+    private static final String FLATTEN_OP = "flatten";
+
     CliffShapeBuilder actualBuilder;
     
     int maintainedlevel;
 
     public CliffTool(ToolManager manager, Pencil selector) {
-        super(manager, selector);
+        super(manager, selector, RAISE_LOW_OP, FLATTEN_OP);
         actualBuilder = manager.encounter.map.style.cliffShapes.get(0);
     }
 
     @Override
     public void primaryAction() {
         switch (actualOp){
-            case RaiseLow : raise(); break;
-            case Flatten : flatten(); break;
+            case RAISE_LOW_OP : raise(); break;
+            case FLATTEN_OP : flatten(); break;
         }
     }
 
     @Override
     public void secondaryAction() {
         switch (actualOp){
-            case RaiseLow : low(); break;
-            case Flatten : break;
+            case RAISE_LOW_OP : low(); break;
+            case FLATTEN_OP : break;
         }
     }
     
@@ -109,21 +109,6 @@ public class CliffTool extends EditorTool {
         actualBuilder = builders.get(index);
         LogUtil.logger.info("Cliff tool toggled to set "+actualBuilder.getID()+".");
     }
-    
-    @Override
-    public void toggleOperation() {
-        switch (actualOp){
-            case RaiseLow :
-                actualOp = Operation.Flatten;
-                LogUtil.logger.info("Atlas tool operation toggled to flatten.");
-                break;
-            case Flatten :
-                actualOp = Operation.RaiseLow;
-                LogUtil.logger.info("Atlas tool operation toggled to raise/low.");
-                break;
-        }
-    }
-
     
     public void buildShape(Cliff cliff){
         actualBuilder.build(cliff);
