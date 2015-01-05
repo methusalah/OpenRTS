@@ -100,24 +100,26 @@
                 </control>
             </panel>
             <panel id="toolbox" childLayout="vertical" width="180px" style="nifty-panel-simple" height="*">
-                <panel id="toolselection1" childLayout="horizontal" childClip="10" width="*" x="20" y="15" style="nifty-panel-simple" align="left" height="50px">
-                    <control name="button" id="clifftool" childLayout="center" childClip="10" backgroundImage="button/button.png" x="73" width="40px" y="76" label="cliff" align="center" height="40px">
-                      <interact onClick="setCliffTool()"/>
-                    </control>
-                    <control name="button" id="heighttool" childLayout="center" width="40px" label="height" height="40px">
-                      <interact onClick="setHeightTool()"/>
-                    </control>
-                    <control name="button" id="atlastool" childLayout="center" width="40px" label="tex." height="40px">
-                      <interact onClick="setAtlasTool()"/>
-                    </control>
-                    <control name="button" id="ramptool" childLayout="center" width="40px" label="ramp" height="40px">
-                      <interact onClick="setRampTool()"/>
-                    </control>
-                </panel>
-                <panel id="toolselection2" childLayout="horizontal" width="100%" style="nifty-panel-simple" height="50px">
-                    <control name="button" id="unittool" childLayout="center" width="40px" x="46" y="34" label="units" height="40px">
-                      <interact onClick="setUnitTool()"/>
-                    </control>
+                <panel id="toolselection" childLayout="vertical" width="100%" style="nifty-panel-simple" height="100px">
+                    <panel id="toolselectionrow1" childLayout="horizontal" width="100%" align="left" height="50%">
+                        <control name="button" id="clifftool" childLayout="center" childClip="10" backgroundImage="button/button.png" width="40px" label="cliff" align="center" height="40px">
+                          <interact onClick="setCliffTool()"/>
+                        </control>
+                        <control name="button" id="heighttool" childLayout="center" width="40px" label="height" height="40px">
+                          <interact onClick="setHeightTool()"/>
+                        </control>
+                        <control name="button" id="atlastool" childLayout="center" width="40px" label="tex." height="40px">
+                          <interact onClick="setAtlasTool()"/>
+                        </control>
+                        <control name="button" id="ramptool" childLayout="center" width="40px" label="ramp" height="40px">
+                          <interact onClick="setRampTool()"/>
+                        </control>
+                    </panel>
+                    <panel id="toolselectionrow2" childLayout="horizontal" width="100%" align="left" height="50%">
+                        <control name="button" id="unittool" childLayout="center" width="40px" label="units" height="40px">
+                          <interact onClick="setUnitTool()"/>
+                        </control>
+                    </panel>
                 </panel>
                 <panel id="toolop" childLayout="vertical" width="100%" style="nifty-panel-simple" height="101px">
                     <control name="button" id="operation0" childLayout="center" width="80%" align="center" height="30px">
@@ -130,8 +132,117 @@
                       <interact onClick="setOperation(2)"/>
                     </control>
                 </panel>
-                <panel id="GPanel6" childLayout="absolute" width="100%" style="nifty-panel-simple" height="320px"/>
+                <panel id="toolparam" childLayout="absolute" width="100%" height="*">
+                  <panel id="setpanel" childLayout="vertical" x="0" y="0" width="100%" style="nifty-panel-simple" height="100">
+                      <panel id="paramsetrow1" childLayout="horizontal" width="100%" height="50%">
+                          <control name="button" id="set0" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(0)"/>
+                          </control>
+                          <control name="button" id="set1" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(1)"/>
+                          </control>
+                          <control name="button" id="set2" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(2)"/>
+                          </control>
+                          <control name="button" id="set3" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(3)"/>
+                          </control>
+                      </panel>
+                      <panel id="paramsetrow2" childLayout="horizontal" width="100%" height="50%">
+                          <control name="button" id="set4" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(4)"/>
+                          </control>
+                          <control name="button" id="set5" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(5)"/>
+                          </control>
+                          <control name="button" id="set6" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(6)"/>
+                          </control>
+                          <control name="button" id="set7" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(7)"/>
+                          </control>
+                      </panel>
+                  </panel>
+                  <panel id="pencilpanel" childLayout="horizontal" width="100%" x="0" y="100" style="nifty-panel-simple" height="*">
+                      <panel id="penciltype" childLayout="vertical" width="50px" align="center" height="300">
+                          <panel id="pencilshapepanel" childLayout="vertical" width="100%" height="130px">
+                              <control name="button" id="square" childLayout="center" width="40px" label="square" align="left" height="40px">
+                                  <interact onClick="setSquareShape()"/>
+                              </control>
+                              <control name="button" id="diamond" childLayout="center" width="40px" label="diamond" height="40px">
+                                  <interact onClick="setDiamondShape()"/>
+                              </control>
+                              <control name="button" id="circle" childLayout="center" width="40px" label="circle" height="40px">
+                                  <interact onClick="setCircleShape()"/>
+                              </control>
+                          </panel>
+                          <panel id="pencilmodepanel" childLayout="vertical" width="100%" height="130px">
+                              <control name="button" id="rough" childLayout="center" width="40px" label="rough" align="left" height="40px">
+                                  <interact onClick="setRoughMode()"/>
+                              </control>
+                              <control name="button" id="airbrush" childLayout="center" width="40px" label="airbrush" height="40px">
+                                  <interact onClick="setAirbrushMode()"/>
+                              </control>
+                              <control name="button" id="noise" childLayout="center" width="40px" label="noise" height="40px">
+                                  <interact onClick="setNoiseMode()"/>
+                              </control>
+                          </panel>
+                      </panel>
+                      <panel id="sizepanel" childLayout="vertical" width="*" height="200px">
+                          <control name="label" id="sizetext" width="100%" text="Size :" align="left" height="40px" font="aurulent-sans-16.fnt"/>
+                          <control name="verticalSlider" min="1" max="10" initial="2" stepSize="2" id="sizeslider" width="100%" height="*"/>
+                      </panel>
+                      <panel id="strpanel" childLayout="vertical" width="*" height="200px">
+                          <control name="label" id="strtext" width="100%" text="Str. :" align="left" height="40px" font="aurulent-sans-16.fnt"/>
+                          <control name="verticalSlider" id="strslider" width="100%" height="*"/>
+                      </panel>
+                  </panel>
+                </panel>
             </panel>
         </layer>
     </screen>
 </nifty>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

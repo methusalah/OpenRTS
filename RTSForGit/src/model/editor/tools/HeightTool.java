@@ -20,12 +20,22 @@ public class HeightTool extends Tool {
     private static final String NOISE_SMOOTH_OP = "noise/smooth";
     private static final String UNIFOMR_RESET_OP = "uniform/reset";
     
-    double amplitude = 0.2;
+    double amplitude = 0.5;
     double maintainedElevation;
     
-    public HeightTool(ToolManager manager, Pencil selector) {
-        super(manager, selector, RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
+    public HeightTool(ToolManager manager) {
+        super(manager, RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
     }
+    
+    @Override
+    protected void createPencil() {
+        pencil = new Pencil(manager.battlefield.map);
+        pencil.size = 4;
+        pencil.sizeIncrement = 1;
+        pencil.strength = 0.5;
+        pencil.strengthIncrement = 0.01;
+    }
+    
 
     @Override
     public void primaryAction() {
@@ -51,22 +61,22 @@ public class HeightTool extends Tool {
     
     private void raise(ArrayList<Tile> tiles){
         for(Tile t : tiles)
-            t.elevation += amplitude*pencil.getApplicationRatio(t.getPos2D());
+            t.elevation += amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
     }
     
     private void low(ArrayList<Tile> tiles){
         for(Tile t : tiles)
-            t.elevation -= amplitude*pencil.getApplicationRatio(t.getPos2D());
+            t.elevation -= amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
     }
     
     private void uniform(ArrayList<Tile> tiles){
         if(!pencil.maintained){
             pencil.maintain();
-            maintainedElevation = manager.encounter.map.getGroundAltitude(pencil.getPos());
+            maintainedElevation = manager.battlefield.map.getGroundAltitude(pencil.getPos());
         }
         for(Tile t : tiles){
             double diff = maintainedElevation-t.elevation;
-            double attenuatedAmplitude = amplitude*pencil.getApplicationRatio(t.getPos2D());
+            double attenuatedAmplitude = amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
             if(diff > 0)
                 t.elevation += Math.min(diff, attenuatedAmplitude);
             else if(diff < 0)
@@ -75,7 +85,7 @@ public class HeightTool extends Tool {
     }
     private void noise(ArrayList<Tile> tiles){
         for(Tile t : tiles){
-            t.elevation += amplitude*MyRandom.between(-1.0, 1.0)*pencil.getApplicationRatio(t.getPos2D());
+            t.elevation += amplitude*pencil.strength*MyRandom.between(-1.0, 1.0)*pencil.getApplicationRatio(t.getPos2D());
         }
     }
 
@@ -87,7 +97,7 @@ public class HeightTool extends Tool {
             average /= t.get4Neighbors().size();
             
             double diff = average-t.elevation;
-            double attenuatedAmplitude = amplitude*pencil.getApplicationRatio(t.getPos2D());
+            double attenuatedAmplitude = amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
             if(diff > 0)
                 t.elevation += Math.min(diff, attenuatedAmplitude);
             else if(diff < 0)
@@ -98,10 +108,5 @@ public class HeightTool extends Tool {
     private void reset(ArrayList<Tile> tiles){
         for(Tile t : tiles)
             t.elevation = 0;
-    }
-
-    @Override
-    public void toggleSet() {
-        LogUtil.logger.info("Height tool has no set.");
     }
 }

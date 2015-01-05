@@ -14,21 +14,25 @@
     <ActorList Trigger="onDestroyed" ActorLink="TankDestroyedGlow"/>
     <ActorList Trigger="onDestroyed" ActorLink="TankWreck"/>
   </Actor>
+  
   <Actor id="TankMachinegunMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankMachinegun"/>
   </Actor>
+  
   <Actor id="TankCanonMainActor">
     <ActorList Trigger="onShoot" ActorLink="TankCanonAnimation"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash2"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonShockwave"/>
   </Actor>
+  
   <Actor id="TankCanonAnimation">
     <Type value="Animation"/>
     <AnimName value="attack01"/>
     <Speed value="1"/>
     <Cycle value="Once"/>
   </Actor>
+  
   <Actor id="TankMachinegun">
     <Type value="Particle"/>
     <SpritePath value="particles/flame.png"/>
@@ -46,6 +50,7 @@
     <MinLife value="0.2"/>
     <MaxLife value="0.6"/>
   </Actor>
+  
   <Actor id="TankCanonFlash">
     <Type value="Particle"/>
     <SpritePath value="particles/flame.png"/>
@@ -65,6 +70,7 @@
     <MinLife value="0.2"/>
     <MaxLife value="0.6"/>
   </Actor>
+  
   <Actor id="TankCanonFlash2">
     <Type value="Particle"/>
     <SpritePath value="particles/flame.png"/>
@@ -84,6 +90,7 @@
     <MinLife value="0.2"/>
     <MaxLife value="0.6"/>
   </Actor>
+  
   <Actor id="TankCanonShockwave">
     <Type value="Particle"/>
     <SpritePath value="particles/shockwave.png"/>
@@ -100,6 +107,8 @@
     <MinLife value="0.4"/>
     <MaxLife value="0.4"/>
   </Actor>
+  
+  
   
   
   <Actor id="LeftMud">
@@ -121,6 +130,7 @@
     <Gravity value="true"/>
     <StartVariation value="0.1"/>
   </Actor>
+  
   <Actor id="RightMud">
     <Type value="Particle"/>
     <SpritePath value="particles/mudd.png"/>
@@ -140,6 +150,7 @@
     <Gravity value="true"/>
     <StartVariation value="0.1"/>
   </Actor>
+  
   <Actor id="LeftDust">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
@@ -157,6 +168,7 @@
     <StartVariation value="0.1"/>
     <RotationSpeed value="360"/>
   </Actor>
+  
   <Actor id="RightDust">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
@@ -195,6 +207,7 @@
     <MinLife value="1"/>
     <MaxLife value="3"/>
   </Actor>
+  
   <Actor id="TankDestroyedGlow">
     <Type value="Particle"/>
     <SpritePath value="particles/glow01.png"/>
@@ -211,6 +224,7 @@
     <MinLife value="2"/>
     <MaxLife value="2"/>
   </Actor>   
+  
   <Actor id="TankWreck">
       <ActorList Trigger="onDestroyed" ActorLink="TankWreck1"/>
       <ActorList Trigger="onDestroyed" ActorLink="TankWreck2"/>
@@ -218,6 +232,7 @@
       <ActorList Trigger="onDestroyed" ActorLink="TankWreck4"/>
       <ActorList Trigger="onDestroyed" ActorLink="TankWreck5"/>
   </Actor>
+  
   <Actor id="TankWreck1">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece01.mesh.xml"/>
@@ -225,6 +240,7 @@
       <Mass value="1"/>
       <Life value="4"/>
   </Actor>
+  
   <Actor id="TankWreck2">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece02.mesh.xml"/>
@@ -232,6 +248,7 @@
       <Mass value="1"/>
       <Life value="4"/>
   </Actor>
+  
   <Actor id="TankWreck3">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece03.mesh.xml"/>
@@ -246,6 +263,7 @@
       <Mass value="1"/>
       <Life value="4"/>
   </Actor>
+  
   <Actor id="TankWreck5">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece05.mesh.xml"/>
@@ -255,6 +273,9 @@
   </Actor>
 
   
+    
+    
+    
     
         
   <Actor id="Aircraft">
@@ -267,6 +288,7 @@
     <ActorList Trigger="onMove" ActorLink="AdavContrail01"/>    
     <Scale value="1"/>
   </Actor>
+  
   <Actor id="AdavJet01">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
@@ -284,7 +306,8 @@
     <MaxLife value="0.2"/>
     <StartVariation value="0.05"/>
   </Actor>
-    <Actor id="AdavJet02">
+  
+  <Actor id="AdavJet02">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
     <!--<NbCol value="2"/>
@@ -301,7 +324,8 @@
     <MaxLife value="0.2"/>
     <StartVariation value="0.05"/>
   </Actor>
-    <Actor id="AdavJet03">
+  
+  <Actor id="AdavJet03">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
     <!--<NbCol value="2"/>
@@ -318,6 +342,7 @@
     <MaxLife value="0.2"/>
     <StartVariation value="0.05"/>
   </Actor>
+  
   <Actor id="AdavJet04">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
@@ -335,6 +360,7 @@
     <MaxLife value="0.2"/>
     <StartVariation value="0.05"/>
   </Actor>
+  
   <Actor id="AdavContrail01">
     <Type value="Particle"/>
     <SpritePath value="particles/contrail02.png"/>

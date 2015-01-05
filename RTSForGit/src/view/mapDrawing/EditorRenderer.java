@@ -75,7 +75,7 @@ public class EditorRenderer implements ActionListener {
     }
     
     private void BuildCliffPencil(){
-        for(int i=0; i< Pencil.MAX_RADIUS*2*Pencil.MAX_RADIUS*2; i++){
+        for(int i=0; i< Pencil.MAX_SIZE*Pencil.MAX_SIZE; i++){
             Node n = new Node();
             Geometry l1 = new Geometry();
             Line l = new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 1, 0.1f));
@@ -126,7 +126,7 @@ public class EditorRenderer implements ActionListener {
     }
     
     private void BuildHeightPencil(){
-        for(int i=0; i<Pencil.MAX_RADIUS*2*Pencil.MAX_RADIUS*2; i++){
+        for(int i=0; i<Pencil.MAX_SIZE*Pencil.MAX_SIZE; i++){
             Geometry g = new Geometry();
             g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
             g.setMaterial(mm.getColor(ColorRGBA.Orange));
@@ -135,7 +135,7 @@ public class EditorRenderer implements ActionListener {
     }
 
     private void BuildAtlasPencil(){
-        for(int i=0; i<Pencil.MAX_RADIUS*16; i++){
+        for(int i=0; i<Pencil.MAX_SIZE*8; i++){
             Geometry g = new Geometry();
             g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
             g.setMaterial(mm.getColor(ColorRGBA.Orange));
@@ -156,18 +156,18 @@ public class EditorRenderer implements ActionListener {
     }
     
     private void drawCliffPencil() {
-        ArrayList<Tile> tiles = view.model.toolManager.pencil.getTiles();
+        ArrayList<Tile> tiles = view.model.toolManager.cliffTool.pencil.getTiles();
         int index = 0;
         for(Spatial s : CliffPencilNode.getChildren()){
             if(index < tiles.size())
-                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)view.model.toolManager.pencil.getElevation()+0.1f));
+                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)view.model.toolManager.cliffTool.pencil.getElevation()+0.1f));
             else
                 s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
             index++;
         }
     }
     private void drawHeightPencil() {
-        ArrayList<Tile> tiles = view.model.toolManager.pencil.getTiles();
+        ArrayList<Tile> tiles = view.model.toolManager.heightTool.pencil.getTiles();
         int index = 0;
         for(Spatial s : HeightPencilNode.getChildren()){
             if(index < tiles.size()){
@@ -184,20 +184,20 @@ public class EditorRenderer implements ActionListener {
         }
     }
     private void drawAtlasPencil() {
-        Pencil s = view.model.toolManager.pencil;
+        Pencil s = view.model.toolManager.atlasTool.pencil;
         PointRing pr = new PointRing();
-        Point2D center = view.model.toolManager.pencil.getPos();
+        Point2D center = view.model.toolManager.actualTool.pencil.getPos();
         
         if(s.shape == Pencil.Shape.Square ||
                 s.shape == Pencil.Shape.Diamond){
-            for(double i=-s.radius; i<s.radius; i+=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(i, -s.radius));
-            for(double i=-s.radius; i<s.radius; i+=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(s.radius, i));
-            for(double i=s.radius; i>-s.radius; i-=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(i, s.radius));
-            for(double i=s.radius; i>-s.radius; i-=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(-s.radius, i));
+            for(double i=-s.size; i<s.size; i+=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(i, -s.size));
+            for(double i=-s.size; i<s.size; i+=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(s.size, i));
+            for(double i=s.size; i>-s.size; i-=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(i, s.size));
+            for(double i=s.size; i>-s.size; i-=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(-s.size, i));
             if(s.shape == Pencil.Shape.Diamond){
                 PointRing newPR = new PointRing();
                 for(Point2D p : pr)
@@ -205,7 +205,7 @@ public class EditorRenderer implements ActionListener {
                 pr = newPR;
             }
         } else {
-            Point2D revol = center.getAddition(s.radius, 0);
+            Point2D revol = center.getAddition(s.size, 0);
             for(int i=0; i<CIRCLE_PENCIL_SAMPLE_COUNT; i++)
                 pr.add(revol.getRotation(Angle.FLAT*2*i/CIRCLE_PENCIL_SAMPLE_COUNT, center));
         }

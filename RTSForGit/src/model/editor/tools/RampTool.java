@@ -19,10 +19,18 @@ import tools.LogUtil;
 public class RampTool extends Tool{
     private static final String ADD_DELETE_OP = "add/delete";
 
-    public RampTool(ToolManager manager, Pencil selector) {
-        super(manager, selector, ADD_DELETE_OP);
+    public RampTool(ToolManager manager) {
+        super(manager, ADD_DELETE_OP);
     }
 
+    @Override
+    protected void createPencil() {
+        pencil = new Pencil(manager.battlefield.map);
+        pencil.sizeIncrement = 0;
+        pencil.setUniqueMode();
+        pencil.strengthIncrement = 0;
+    }
+    
     @Override
     public void primaryAction() {
         Tile t = pencil.getCenterTile();
@@ -31,7 +39,7 @@ public class RampTool extends Tool{
         } else {
             if(!t.isCliff)
                 return;
-            new Ramp(t, manager.encounter.map);
+            new Ramp(t, manager.battlefield.map);
         }
         
         ArrayList<Tile> changed = new ArrayList<>();
@@ -49,12 +57,7 @@ public class RampTool extends Tool{
     @Override
     public void secondaryAction() {
     }
-
-    @Override
-    public void toggleSet() {
-        LogUtil.logger.info("Unavailable for ramp tool.");
-    }
-
+    
     @Override
     public boolean isAnalog() {
         return false;

@@ -8,14 +8,23 @@ import controller.Controller;
 import controller.battlefield.*;
 import controller.GUI;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.NiftyEventSubscriber;
+import de.lessvoid.nifty.controls.Slider;
+import de.lessvoid.nifty.controls.SliderChangedEvent;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
+import java.awt.Color;
 import java.util.ArrayList;
 import model.Commander;
 import model.Reporter;
 import model.army.data.Unit;
 import model.army.Unity;
+import model.editor.Pencil;
+import static model.editor.Pencil.Shape.Circle;
+import model.editor.tools.AtlasTool;
+import model.editor.tools.CliffTool;
+import model.editor.tools.HeightTool;
 import tools.LogUtil;
 
 /**
@@ -48,6 +57,7 @@ public class EditorGUI extends GUI {
         
         String n = System.getProperty("line.separator");
         
+//        LogUtil.logger.info("value = "+getElement("sizeslider").getAttachedInputControl().getNiftyControl(Slider.class).getValue());
 //        setText("operation2", "pointed : "+ctrl.model.toolManager.pointedSpatialLabel);
 
 //        // update unities
@@ -94,6 +104,128 @@ public class EditorGUI extends GUI {
     public void onEndScreen() {
     }
     
+    private void askRefresh(){
+        toRefresh = true;
+    }
+    private void refresh(){
+        toRefresh = false;
+        
+        drawOperationPanel();
+        drawSetPanel();
+        drawPencilPanel();
+    }
+    
+    private void drawOperationPanel(){
+        changeButtonText("operation0", getOperationName(0));
+        changeButtonText("operation1", getOperationName(1));
+        changeButtonText("operation2", getOperationName(2));
+    }
+    
+    private void drawSetPanel(){
+        getElement("setpanel").hide();
+        if(!ctrl.model.toolManager.actualTool.hasSet())
+            return;
+        getElement("setpanel").show();
+        for(int i=0;i<8; i++){
+            if(i<ctrl.model.toolManager.actualTool.getSet().getCount())
+                setBackground("set"+i, ctrl.model.toolManager.actualTool.getSet().getIcon(i));
+            else
+                getElement("set"+i).hide();
+        }
+    }
+    
+    private void drawPencilPanel(){
+        getElement("pencilpanel").hide();
+        
+        Pencil pencil = ctrl.model.toolManager.actualTool.pencil;
+        
+        if(pencil.sizeIncrement != 0){
+            getElement("pencilpanel").show();
+            
+            switch(pencil.shape){
+                case Circle :
+                    releaseButton("square");
+                    releaseButton("diamond");
+                    maintainButton("circle");
+                    break;
+                case Square :
+                    releaseButton("circle");
+                    releaseButton("diamond");
+                    maintainButton("square");
+                    break;
+                case Diamond :
+                    releaseButton("square");
+                    releaseButton("circle");
+                    maintainButton("diamond");
+                    break;
+            }
+            
+            Slider sizeSlider = getSlider("sizeslider");
+            sizeSlider.setMin((float)pencil.sizeIncrement);
+            sizeSlider.setMax((float)Pencil.MAX_SIZE);
+            sizeSlider.setStepSize((float)pencil.sizeIncrement);
+            sizeSlider.setValue((float)pencil.size);
+            
+            if(pencil.mode == Pencil.Mode.Unique)
+                getElement("pencilmodepanel").hide();
+            else
+                getElement("pencilmodepanel").show();
+            
+            if(pencil.strengthIncrement == 0)
+                getElement("strpanel").hide();
+            else {
+                getElement("strpanel").show();
+                Slider strengthSlider = getSlider("strslider");
+                strengthSlider.setMin(0.1f);
+                strengthSlider.setMax(1);
+                strengthSlider.setStepSize((float)pencil.strengthIncrement);
+                strengthSlider.setValue((float)pencil.strength);
+            }
+        }
+    }
+    
+    private String getOperationName(int index){
+        return ctrl.model.toolManager.actualTool.getOperationName(index);
+    }
+    
+    @NiftyEventSubscriber(pattern=".*slider")
+    public void onSliderChanged(final String id, final SliderChangedEvent event) {
+        switch(id){
+            case "sizeslider" : ctrl.model.toolManager.actualTool.pencil.size = event.getValue(); break;
+            case "strslider" : ctrl.model.toolManager.actualTool.pencil.strength = event.getValue();break;
+        }
+    }
+    
+    private void maintainButton(String id){
+        changeButtonTextColor(id, Color.GREEN);
+    }
+    private void releaseButton(String id){
+        changeButtonTextColor(id, Color.WHITE);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void load(){
         ctrl.model.loadBattlefield();
     }
@@ -125,22 +257,40 @@ public class EditorGUI extends GUI {
         ctrl.model.toolManager.setUnitTool();
         askRefresh();
     }
-    
-    private void askRefresh(){
-        toRefresh = true;
-    }
-    private void refresh(){
-        toRefresh = false;
-        setText("operation0", getOperationName(0));
-        setText("operation1", getOperationName(1));
-        setText("operation2", getOperationName(2));
-    }
-    
-    private String getOperationName(int index){
-        return ctrl.model.toolManager.actualTool.getOperationName(index);
-    }
-    
+
     public void setOperation(String indexString){
         ctrl.model.toolManager.actualTool.setOperation(Integer.parseInt(indexString));
+        askRefresh();
+    }
+    
+    public void setSet(String indexString){
+        if(ctrl.model.toolManager.actualTool.hasSet())
+            ctrl.model.toolManager.actualTool.getSet().set(Integer.parseInt(indexString));
+        askRefresh();
+    }
+    
+    public void setRoughMode(){
+        ctrl.model.toolManager.actualTool.pencil.setRoughMode();
+        askRefresh();
+    }
+    public void setAirbrushMode(){
+        ctrl.model.toolManager.actualTool.pencil.setAirbrushMode();
+        askRefresh();
+    }
+    public void setNoiseMode(){
+        ctrl.model.toolManager.actualTool.pencil.setNoiseMode();
+        askRefresh();
+    }
+    public void setSquareShape(){
+        ctrl.model.toolManager.actualTool.pencil.setSquareShape();
+        askRefresh();
+    }
+    public void setDiamondShape(){
+        ctrl.model.toolManager.actualTool.pencil.setDiamondShape();
+        askRefresh();
+    }
+    public void setCircleShape(){
+        ctrl.model.toolManager.actualTool.pencil.setCircleShape();
+        askRefresh();
     }
 }

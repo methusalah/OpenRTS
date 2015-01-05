@@ -12,7 +12,7 @@ import geometry.Point2D;
 import tools.LogUtil;
 import view.math.Translator;
 
-public class BattlefieldInputInterpreter_ extends InputInterpreter {
+public class BattlefieldInputInterpreter extends InputInterpreter {
     protected final static String SWITCH_CTRL_1 = "ctrl1";
     protected final static String SWITCH_CTRL_2 = "ctrl2";
     protected final static String SWITCH_CTRL_3 = "ctrl3";
@@ -25,7 +25,7 @@ public class BattlefieldInputInterpreter_ extends InputInterpreter {
     public Point2D selectionStartOnMap;
     public Point2D selectionStartOnScreen;
 
-    BattlefieldInputInterpreter_(BattlefieldController_ controller) {
+    BattlefieldInputInterpreter(BattlefieldController controller) {
         super(controller);
         controller.spatialSelector.centered = false;
         setMappings();

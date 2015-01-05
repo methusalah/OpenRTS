@@ -21,13 +21,13 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class BattlefieldGUI_ extends GUI {
+public class BattlefieldGUI extends GUI {
 
     Commander commander;
     Reporter reporter;
     ArrayList<Unity> unities = new ArrayList<>();
     
-    public BattlefieldGUI_(Nifty nifty, Controller controller, Commander commander, Reporter reporter) {
+    public BattlefieldGUI(Nifty nifty, Controller controller, Commander commander, Reporter reporter) {
         super(controller, nifty);
         this.reporter = reporter;
         this.commander = commander;

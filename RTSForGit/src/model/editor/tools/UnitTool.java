@@ -34,12 +34,21 @@ public class UnitTool extends Tool{
     Faction f1 = new Faction(Color.RED);
     Faction f2 = new Faction(Color.GREEN);
 
-    public UnitTool(ToolManager manager, Pencil selector, ArrayList<UnitBuilder> builders) {
-        super(manager, selector, ADD_REMOVE_OP, MOVE_ROTATE_OP);
+    public UnitTool(ToolManager manager, ArrayList<UnitBuilder> builders) {
+        super(manager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
         this.builders = builders;
         actualBuilder = builders.get(0);
         f1.setEnnemy(f2);
     }
+    
+    @Override
+    protected void createPencil() {
+        pencil = new Pencil(manager.battlefield.map);
+        pencil.sizeIncrement = 0;
+        pencil.strengthIncrement = 0;
+        pencil.setUniqueMode();
+    }
+    
 
     @Override
     public void primaryAction() {
@@ -59,7 +68,7 @@ public class UnitTool extends Tool{
     
     private void add(){
         Point2D pos = pencil.getPos();
-        for(Unit u : manager.encounter.armyManager.units)
+        for(Unit u : manager.battlefield.armyManager.units)
             if(u.getPos2D().equals(pos))
                 pos = pos.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
         Faction f = actualBuilder.race.equals("human")? f1 : f2;
@@ -68,7 +77,7 @@ public class UnitTool extends Tool{
     private void remove(){
         Unit toRemove = null;
         if(isValid(manager.pointedSpatialLabel))
-            for(Unit u : manager.encounter.armyManager.units)
+            for(Unit u : manager.battlefield.armyManager.units)
                 if(u.label.matches(manager.pointedSpatialLabel)){
                     toRemove = u;
                     break;
@@ -81,24 +90,21 @@ public class UnitTool extends Tool{
             pencil.maintain();
             actualUnit = null;
             if(isValid(manager.pointedSpatialLabel))
-                for(Unit u : manager.encounter.armyManager.units)
+                for(Unit u : manager.battlefield.armyManager.units)
                     if(u.label.matches(manager.pointedSpatialLabel)){
                         actualUnit = u;
-                        LogUtil.logger.info("maintening "+manager.pointedSpatialLabel);
                         break;
                     }
         }
-        if(actualUnit != null){
-            LogUtil.logger.info("maintened "+actualUnit);
+        if(actualUnit != null)
             actualUnit.mover.setPosition(pencil.getPos());
-        }
     }
     private void rotate(){
         if(!pencil.maintained){
             pencil.maintain();
             actualUnit = null;
             if(isValid(manager.pointedSpatialLabel))
-                for(Unit u : manager.encounter.armyManager.units)
+                for(Unit u : manager.battlefield.armyManager.units)
                     if(u.label.matches(manager.pointedSpatialLabel)){
                         actualUnit = u;
                         break;
@@ -109,16 +115,6 @@ public class UnitTool extends Tool{
     }
     private boolean isValid(String label){
         return label != null && !label.isEmpty();
-    }
-
-    @Override
-    public void toggleSet() {
-        int index = builders.indexOf(actualBuilder)+1;
-        if(index == builders.size())
-            index = 0;
-        actualBuilder = builders.get(index);
-        LogUtil.logger.info("Actual unit set to "+actualBuilder.id);
-        angle = MyRandom.between(Angle.FLAT, -Angle.FLAT);
     }
 
     @Override
@@ -143,8 +139,4 @@ public class UnitTool extends Tool{
         else
             analog = false;
     }
-    
-    
-
-    
 }

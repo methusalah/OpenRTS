@@ -177,7 +177,7 @@ public class EditorInputInterpreter extends InputInterpreter {
     @Override
     public void onAnalog(String name, float value, float tpf) {
         if(analogUnpressed){
-            ctrl.model.toolManager.pencil.release();
+            ctrl.model.toolManager.releasePencils();
             analogUnpressed = false;
         } else switch(name){
             case PRIMARY_ACTION : ctrl.model.toolManager.analogPrimaryAction(); break;
@@ -219,10 +219,10 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case SWITCH_CTRL_1 : ctrl.notifyListeners("CTRL1"); break;
                 case SWITCH_CTRL_2 : ctrl.notifyListeners("CTRL2"); break;
                 case SWITCH_CTRL_3 : ctrl.notifyListeners("CTRL3"); break;
-                case TOGGLE_PENCIL_SHAPE : ctrl.model.toolManager.pencil.toggleShape(); break;
-                case TOGGLE_PENCIL_MODE : ctrl.model.toolManager.pencil.toggleMode(); break;
-                case INC_SELECTOR_RADIUS : ctrl.model.toolManager.pencil.incRadius(); break;
-                case DEC_SELECTOR_RADIUS : ctrl.model.toolManager.pencil.decRadius(); break;
+                case TOGGLE_PENCIL_SHAPE : ctrl.model.toolManager.actualTool.pencil.toggleShape(); break;
+                case TOGGLE_PENCIL_MODE : ctrl.model.toolManager.actualTool.pencil.toggleMode(); break;
+                case INC_SELECTOR_RADIUS : ctrl.model.toolManager.actualTool.pencil.incRadius(); break;
+                case DEC_SELECTOR_RADIUS : ctrl.model.toolManager.actualTool.pencil.decRadius(); break;
                 case SET_CLIFF_TOOL : ctrl.model.toolManager.setCliffTool(); break;
                 case SET_HEIGHT_TOOL : ctrl.model.toolManager.setHeightTool(); break;
                 case SET_ATLAS_TOOL : ctrl.model.toolManager.setAtlasTool(); break;

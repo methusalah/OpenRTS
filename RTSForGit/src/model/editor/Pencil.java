@@ -21,18 +21,25 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class Pencil {
-    public static final int MAX_RADIUS = 6;
+    public static final int MAX_SIZE = 12;
     public enum Shape {Square, Diamond, Circle}
-    public enum Mode {Rough, Airbrush, Noise}
+    public enum Mode {Unique, Rough, Airbrush, Noise}
     
     Map map;
     private Point2D pos = Point2D.ORIGIN;
     public Point2D snappedPos;
     public Shape shape = Shape.Square;
     public Mode mode = Mode.Rough;
-    public double radius = 2;
-    public boolean snapPair = true;
-    public boolean snapGrid = true;
+    
+    public double size = 1;
+    public double sizeIncrement = 1;
+
+    public double strength = 1;
+    public double strengthIncrement = 0.1;
+    
+    public boolean snapPair = false;
+    
+    
     public boolean maintained = false;
 
     public Pencil(Map map) {
@@ -40,22 +47,12 @@ public class Pencil {
     }
     
     public void incRadius(){
-        double increment = 1;
-        if(!snapGrid)
-            increment = 0.25;
-        else if (!snapPair)
-            increment = 0.5;
-        radius = Math.min(MAX_RADIUS, radius+increment);
-        LogUtil.logger.info("Pencil size : "+radius*2);
+        size = Math.min(MAX_SIZE, size+sizeIncrement);
+        LogUtil.logger.info("Pencil size : "+size*2);
     }
     public void decRadius(){
-        double increment = 1;
-        if(!snapGrid)
-            increment = 0.25;
-        else if (!snapPair || radius == 1)
-            increment = 0.5;
-        radius = Math.max(increment, radius-increment);
-        LogUtil.logger.info("Pencil size : "+radius*2);
+        size = Math.max(sizeIncrement, size-sizeIncrement);
+        LogUtil.logger.info("Pencil size : "+size*2);
     }
     
     private void setSquare(){
@@ -76,6 +73,30 @@ public class Pencil {
         return pos;
     }
     
+    public void setSquareShape(){
+        shape = Shape.Square;
+    }
+    
+    public void setDiamondShape(){
+        shape = Shape.Diamond;
+    }
+    
+    public void setCircleShape(){
+        shape = Shape.Circle;
+    }
+    
+    public void setRoughMode(){
+        mode = Mode.Rough;
+    }
+    public void setAirbrushMode(){
+        mode = Mode.Airbrush;
+    }
+    public void setNoiseMode(){
+        mode = Mode.Noise;
+    }
+    public void setUniqueMode(){
+        mode = Mode.Unique;
+    }
     public void toggleShape(){
         switch(shape){
             case Circle : setSquare(); break;
@@ -87,6 +108,8 @@ public class Pencil {
     }
     
     public void toggleMode(){
+        if(mode == Mode.Unique)
+            return;
         switch(mode){
             case Rough : mode = Mode.Airbrush; break;
             case Airbrush : mode = Mode.Noise; break;
@@ -113,7 +136,7 @@ public class Pencil {
         if(snappedPos == null){
             int x = (int)Math.floor(pos.x);
             int y = (int)Math.floor(pos.y);
-            if(radius > 1 && snapPair){
+            if(size > 1 && snapPair){
                 if(x%2 != 0)
                     x--;
                 if(y%2 != 0)
@@ -126,7 +149,7 @@ public class Pencil {
     
     private ArrayList<Tile> getTilesInCircle() {
         ArrayList<Tile> res = new ArrayList<>();
-        BoundingCircle circle = new BoundingCircle(getSnappedPos(), radius);
+        BoundingCircle circle = new BoundingCircle(getSnappedPos(), size/2);
         for(Tile t : map.getTiles()){
             if(circle.contains(t.getPos2D()))
                 res.add(t);
@@ -153,10 +176,10 @@ public class Pencil {
     private Polygon getOrientedQuad(){
         Point2D alignedPos = getSnappedPos().getAddition(1, 1);
         PointRing pr = new PointRing();
-        pr.add(alignedPos.getAddition(-radius, -radius));
-        pr.add(alignedPos.getAddition(radius, -radius));
-        pr.add(alignedPos.getAddition(radius, radius));
-        pr.add(alignedPos.getAddition(-radius, radius));
+        pr.add(alignedPos.getAddition(-size/2, -size/2));
+        pr.add(alignedPos.getAddition(size/2, -size/2));
+        pr.add(alignedPos.getAddition(size/2, size/2));
+        pr.add(alignedPos.getAddition(-size/2, size/2));
         switch(shape){
             case Square : return new Polygon(pr);
             case Diamond : return new Polygon(pr).getRotation(Angle.RIGHT/2, alignedPos);
@@ -179,13 +202,13 @@ public class Pencil {
             case Square :
                 double xDist = Math.abs(p.x-pos.x);
                 double yDist = Math.abs(p.y-pos.y);
-                return (radius-Math.max(xDist, yDist))/radius;
+                return ((size/2)-Math.max(xDist, yDist))/(size/2);
             case Diamond :
                 xDist = Math.abs(p.x-pos.x);
                 yDist = Math.abs(p.y-pos.y);
-                return (radius*1.414-xDist-yDist)/(radius*1.414);
+                return ((size/2)*1.414-xDist-yDist)/((size/2)*1.414);
             case Circle :
-                return (radius-p.getDistance(pos))/radius;
+                return ((size/2)-p.getDistance(pos))/(size/2);
         }
         return 0;
     }
@@ -200,6 +223,7 @@ public class Pencil {
                 double localFalloff = 1/(1+Math.exp(-x));
                 return localFalloff;
             case Noise : return MyRandom.next();
+            case Unique : return 1;
                 default:throw new RuntimeException();
         }
     }

@@ -21,12 +21,12 @@ import view.math.Translator;
  *
  * @author Benoît
  */
-public class BattlefieldController_ extends Controller {
-    public BattlefieldController_(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
+public class BattlefieldController extends Controller {
+    public BattlefieldController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
         super(model, view, inputManager, cam);
         
-        inputInterpreter = new BattlefieldInputInterpreter_(this);
-        gui = new BattlefieldGUI_(nifty, this, model.commander, model.reporter);
+        inputInterpreter = new BattlefieldInputInterpreter(this);
+        gui = new BattlefieldGUI(nifty, this, model.commander, model.reporter);
         
         model.commander.registerListener(this);
         
@@ -36,7 +36,7 @@ public class BattlefieldController_ extends Controller {
     @Override
     public void update(double elapsedTime) {
         // draw selection rectangle
-        Point2D selStart = ((BattlefieldInputInterpreter_)inputInterpreter).selectionStartOnScreen;
+        Point2D selStart = ((BattlefieldInputInterpreter)inputInterpreter).selectionStartOnScreen;
         if(selStart != null){
             Point2D p = Translator.toPoint2D(inputManager.getCursorPosition());
             view.drawSelectionArea(selStart, p);

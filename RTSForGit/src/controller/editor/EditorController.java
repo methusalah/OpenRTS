@@ -45,7 +45,7 @@ public class EditorController extends Controller {
         model.toolManager.pointedSpatialLabel = spatialSelector.getSpatialLabel();
         Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
         if(coord != null && model.battlefield.map.isInBounds(coord)){
-            model.toolManager.pencil.setPos(coord);
+            model.toolManager.updatePencilsPos(coord);
             view.editorRend.drawPencil();
         }
         

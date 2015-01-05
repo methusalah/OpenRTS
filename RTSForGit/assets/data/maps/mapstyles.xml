@@ -4,9 +4,9 @@
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
     
-    <GroundTexture diffuse="grass.png" normal="grassnorm.png" scale="8"/>
-    <GroundTexture diffuse="road.jpg" normal="road_normal.png" scale="32"/>
-    <GroundTexture diffuse="dirt.png" scale="8"/>
-    <GroundTexture diffuse="bitume.jpg" scale="32"/>
+    <GroundTexture diffuse="textures/grass.png" normal="textures/grassnorm.png" scale="8"/>
+    <GroundTexture diffuse="textures/road.jpg" normal="textures/road_normal.png" scale="32"/>
+    <GroundTexture diffuse="textures/dirt.png" scale="8"/>
+    <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
   </MapStyle>
 </catalog>

@@ -4,6 +4,7 @@
  */
 package model.editor.tools;
 
+import model.editor.Set;
 import collections.Map2D;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture2D;
@@ -37,15 +38,24 @@ public class AtlasTool extends Tool {
     Atlas atlas;
     AtlasExplorer explorer;
     
-    int actualLayer = 1;
     int autoLayer;
-    double increment = 20;
+    double increment = 40;
 
     
-    public AtlasTool(ToolManager manager, Pencil selector) {
-        super(manager, selector, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
-        this.atlas = manager.encounter.map.atlas;
-        explorer = new AtlasExplorer(manager.encounter.map);
+    public AtlasTool(ToolManager manager) {
+        super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
+        this.atlas = manager.battlefield.map.atlas;
+        explorer = new AtlasExplorer(manager.battlefield.map);
+        set = new Set(manager.battlefield.map.style.textures.size(), manager.battlefield.map.style.textures);
+    }
+
+    @Override
+    protected void createPencil() {
+        pencil = new Pencil(manager.battlefield.map);
+        pencil.size = 2;
+        pencil.sizeIncrement = 0.25;
+        pencil.strength = 0.5;
+        pencil.strengthIncrement = 0.01;
     }
 
     @Override
@@ -69,30 +79,22 @@ public class AtlasTool extends Tool {
     
     public ArrayList<Point2D> getInvolvedPixels(){
         switch(pencil.shape){
-            case Circle : return explorer.getPixelsInMapSpaceCircle(pencil.getPos(), pencil.radius);
-            case Diamond : return explorer.getPixelsInMapSpaceDiamond(pencil.getPos(), pencil.radius);
-            case Square : return explorer.getPixelsInMapSpaceSquare(pencil.getPos(), pencil.radius);
+            case Circle : return explorer.getPixelsInMapSpaceCircle(pencil.getPos(), pencil.size/2);
+            case Diamond : return explorer.getPixelsInMapSpaceDiamond(pencil.getPos(), pencil.size/2);
+            case Square : return explorer.getPixelsInMapSpaceSquare(pencil.getPos(), pencil.size/2);
                 default:throw new RuntimeException();
         }
     }
 
-    @Override
-    public void toggleSet() {
-        actualLayer++;
-        if(actualLayer > 7)
-            actualLayer = 0;
-        LogUtil.logger.info("Atlas tool toggled to texture "+actualLayer+".");
-    }
-
     private void increment(ArrayList<Point2D> pixels){
         for(Point2D p : pixels)
-            increment(p, actualLayer);
+            increment(p, set.actual);
     }
     
     private void increment(Point2D p, int layer){
         int x = (int)Math.round(p.x);
         int y = (int)Math.round(p.y);
-        double attenuatedInc = increment*pencil.getApplicationRatio(explorer.getInMapSpace(p));
+        double attenuatedInc = increment*pencil.strength*pencil.getApplicationRatio(explorer.getInMapSpace(p));
         
         double valueToDitribute=attenuatedInc;
         ArrayList<DoubleMap> availableLayers = new ArrayList<>();
@@ -122,13 +124,13 @@ public class AtlasTool extends Tool {
     
     private void decrement(ArrayList<Point2D> pixels){
         for(Point2D p : pixels)
-            decrement(p, actualLayer);
+            decrement(p, set.actual);
     }
     
     private void decrement(Point2D p, int layer){
         int x = (int)Math.round(p.x);
         int y = (int)Math.round(p.y);
-        double attenuatedInc = increment*pencil.getApplicationRatio(explorer.getInMapSpace(p));
+        double attenuatedInc = increment*pencil.strength*pencil.getApplicationRatio(explorer.getInMapSpace(p));
         
         double valueToDitribute=attenuatedInc;
         ArrayList<DoubleMap> availableLayers = new ArrayList<>();
@@ -162,7 +164,7 @@ public class AtlasTool extends Tool {
         if(!pencil.maintained){
             pencil.maintain();
             autoLayer = 0;
-            Point2D center = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.encounter.map.width, manager.encounter.map.height);
+            Point2D center = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.battlefield.map.width, manager.battlefield.map.height);
             int centerX = (int)Math.round(center.x);
             int centerY = (int)Math.round(center.y);
             for(DoubleMap l : atlas.layers)
@@ -177,7 +179,7 @@ public class AtlasTool extends Tool {
         for(Point2D p : pixels){
             int x = (int)Math.round(p.x);
             int y = (int)Math.round(p.y);
-            double attenuatedInc = increment*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.encounter.map.width, manager.encounter.map.height).getDivision(atlas.width, atlas.height));
+            double attenuatedInc = increment*pencil.strength*pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.battlefield.map.width, manager.battlefield.map.height).getDivision(atlas.width, atlas.height));
 
             int activeLayerCount = 0;
             for(DoubleMap l : atlas.layers)

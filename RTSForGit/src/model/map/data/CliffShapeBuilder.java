@@ -20,15 +20,22 @@ public class CliffShapeBuilder {
     static final String MANMADE_FACE_LINK = "ManmadeFaceLink";
     static final String TRINKET_LIST = "TrinketList";
     static final String RAMP_TRINKET_LIST = "RampTrinketList";
+    static final String EDITOR_ICON_PATH = "EditorIconPath";
     static final String LINK = "link";
     static final String PROB = "prob";
 
     Definition def;
     BuilderLibrary lib;
+    
+    public String editorIconPath = "textures/editor/defaultcliffshapeicon.png";
             
     public CliffShapeBuilder(Definition def, BuilderLibrary lib){
         this.def = def;
         this.lib = lib;
+        for(DefElement de : def.elements)
+            switch(de.name){
+                case EDITOR_ICON_PATH : editorIconPath = de.getVal();
+            }
     }
     
     public void build(Cliff cliff){
@@ -45,6 +52,7 @@ public class CliffShapeBuilder {
                     if(cliff.tile.ramp != null && MyRandom.next()<de.getDoubleVal(PROB))
                         cliff.trinkets.add(lib.getTrinketBuilder(de.getVal(LINK)).build(cliff));
                     break;
+                case EDITOR_ICON_PATH : editorIconPath = de.getVal();
             }
     }
     

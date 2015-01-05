@@ -67,13 +67,12 @@ public class MapRenderer implements ActionListener {
 	
     public void renderTiles() {
             LogUtil.logger.info("rendering ground");
-            String texturePath = "textures/";
             int index = 0;
             for(String s : view.model.battlefield.map.style.textures){
-                Texture diffuse = am.loadTexture(texturePath+s);
+                Texture diffuse = am.loadTexture(s);
                 Texture normal;
                 if(view.model.battlefield.map.style.normals.get(index) != null)
-                    normal = am.loadTexture(texturePath+view.model.battlefield.map.style.normals.get(index));
+                    normal = am.loadTexture(view.model.battlefield.map.style.normals.get(index));
                 else
                     normal = null;
                 double scale = view.model.battlefield.map.style.scales.get(index);

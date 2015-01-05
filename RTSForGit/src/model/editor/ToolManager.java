@@ -4,6 +4,7 @@
  */
 package model.editor;
 
+import geometry.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,8 +27,7 @@ import tools.LogUtil;
  * @author Benoît
  */
 public class ToolManager {
-    public final Battlefield encounter;
-    public final Pencil pencil;
+    public final Battlefield battlefield;
     
     public String pointedSpatialLabel;
     
@@ -45,55 +45,44 @@ public class ToolManager {
     ArrayList<ActionListener> listeners = new ArrayList<>();
     
     public ToolManager(Battlefield encounter, BuilderLibrary lib) {
-        this.encounter = encounter;
-        pencil = new Pencil(encounter.map);
-        heightTool = new HeightTool(this, pencil);
-        cliffTool = new CliffTool(this, pencil);
-        atlasTool = new AtlasTool(this, pencil);
-        rampTool = new RampTool(this, pencil);
-        unitTool = new UnitTool(this, pencil, lib.getAllUnitBuilders());
+        this.battlefield = encounter;
+        heightTool = new HeightTool(this);
+        cliffTool = new CliffTool(this);
+        atlasTool = new AtlasTool(this);
+        rampTool = new RampTool(this);
+        unitTool = new UnitTool(this, lib.getAllUnitBuilders());
         
         actualTool = cliffTool;
-        pencil.snapPair = true;
     }
     
     public void setCliffTool(){
         actualTool = cliffTool;
-        pencil.snapPair = true;
-        pencil.snapGrid = true;
         LogUtil.logger.info("Cliff tool set.");
         notifyListeners("tool");
     }
     public void setHeightTool(){
         actualTool = heightTool;
-        pencil.snapPair = false;
-        pencil.snapGrid = true;
         LogUtil.logger.info("Height tool set.");
         notifyListeners("tool");
     }
     public void setAtlasTool(){
         actualTool = atlasTool;
-        pencil.snapPair = false;
-        pencil.snapGrid = false;
         LogUtil.logger.info("Atlas tool set.");
         notifyListeners("tool");
     }
     public void setRampTool(){
         actualTool = rampTool;
-        pencil.snapPair = false;
-        pencil.snapGrid = true;
         LogUtil.logger.info("Ramp tool set.");
         notifyListeners("tool");
     }
     public void setUnitTool(){
         actualTool = unitTool;
-        pencil.snapPair = false;
-        pencil.snapGrid = false;
         LogUtil.logger.info("Unit tool set.");
         notifyListeners("tool");
     }
     public void toggleSet(){
-        actualTool.toggleSet();
+        if(actualTool.hasSet())
+            actualTool.getSet().toggle();
     }
     public void toggleOperation(){
         actualTool.toggleOperation();
@@ -131,13 +120,13 @@ public class ToolManager {
         ArrayList<Tile> updatedTiles = new ArrayList<>();
         updatedTiles.addAll(tiles);
         for(Tile t : tiles)
-            for(Tile n : encounter.map.get9Around(t))
+            for(Tile n : battlefield.map.get9Around(t))
                 if(!updatedTiles.contains(n))
                     updatedTiles.add(n);
         
         for(Tile t : updatedTiles){
             boolean diff = false;
-            for(Tile nn : encounter.map.get8Around(t))
+            for(Tile nn : battlefield.map.get8Around(t))
                 if(t.level < nn.level){
                     diff = true;
                     break;
@@ -166,7 +155,7 @@ public class ToolManager {
     }
     
     public void updateParcels(ArrayList<Tile> tiles){
-        encounter.parcelManager.updateParcelsFor(tiles);
+        battlefield.parcelManager.updateParcelsFor(tiles);
         notifyListeners("parcels", tiles);
     }
 
@@ -191,6 +180,13 @@ public class ToolManager {
     }
     public void removeListener(ActionListener l) {
         listeners.remove(l);
+    }
+    
+    public void updatePencilsPos(Point2D pos){
+        actualTool.pencil.setPos(pos);
+    }
+    public void releasePencils(){
+        actualTool.pencil.release();
     }
     
 }

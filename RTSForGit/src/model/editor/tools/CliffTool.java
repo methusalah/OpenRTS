@@ -4,6 +4,7 @@
  */
 package model.editor.tools;
 
+import model.editor.Set;
 import java.util.ArrayList;
 import model.map.Tile;
 import model.map.cliff.Cliff;
@@ -21,14 +22,26 @@ public class CliffTool extends Tool {
     private static final String RAISE_LOW_OP = "raise/low";
     private static final String FLATTEN_OP = "flatten";
 
-    CliffShapeBuilder actualBuilder;
-    
     int maintainedlevel;
 
-    public CliffTool(ToolManager manager, Pencil selector) {
-        super(manager, selector, RAISE_LOW_OP, FLATTEN_OP);
-        actualBuilder = manager.encounter.map.style.cliffShapes.get(0);
+    public CliffTool(ToolManager manager) {
+        super(manager, RAISE_LOW_OP, FLATTEN_OP);
+        ArrayList<String> iconPaths = new ArrayList<>();
+        for(CliffShapeBuilder b : manager.battlefield.map.style.cliffShapes)
+            iconPaths.add(b.editorIconPath);
+        set = new Set(manager.battlefield.map.style.cliffShapes.size(), iconPaths);
     }
+    
+    @Override
+    protected void createPencil() {
+        pencil = new Pencil(manager.battlefield.map);
+        pencil.snapPair = true;
+        pencil.size = 4;
+        pencil.sizeIncrement = 2;
+        pencil.setUniqueMode();
+        pencil.strengthIncrement = 0;
+    }
+
 
     @Override
     public void primaryAction() {
@@ -100,18 +113,8 @@ public class CliffTool extends Tool {
         return false;
     }
 
-    @Override
-    public void toggleSet() {
-        ArrayList<CliffShapeBuilder> builders = manager.encounter.map.style.cliffShapes;
-        int index = builders.indexOf(actualBuilder)+1;
-        if(index == builders.size())
-            index = 0;
-        actualBuilder = builders.get(index);
-        LogUtil.logger.info("Cliff tool toggled to set "+actualBuilder.getID()+".");
-    }
-    
     public void buildShape(Cliff cliff){
-        actualBuilder.build(cliff);
+        manager.battlefield.map.style.cliffShapes.get(set.actual).build(cliff);
     }
 
 
