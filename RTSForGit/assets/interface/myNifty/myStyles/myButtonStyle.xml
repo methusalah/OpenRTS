@@ -4,10 +4,10 @@
   <!-- style for the button background panel -->
   <!-- +++++++++++++++++++++++++++++++++++++ -->
   <style id="myButton#panel">
-    <attributes backgroundImage="button/button.png" imageMode="sprite-resize:100,23,0,2,96,2,2,2,96,2,19,2,96,2,2" paddingLeft="7px" paddingRight="7px" width="100px" height="23px" childLayout="center" visibleToMouse="true" />
+    <attributes margin="1" backgroundImage="button/button.png" imageMode="sprite-resize:100,23,0,2,96,2,2,2,96,2,19,2,96,2,2" paddingLeft="7px" paddingRight="7px" width="100px" height="23px" childLayout="center" visibleToMouse="true" />
     <effect>
-      <onHover name="border" color="#f00f" post="true" />
-      <onCustom name="border" color="#282f" post="true" />
+      <onHover name="border" color="#822f" post="true" />
+      <onCustom name="border" color="#822f" post="true" overlay="true" length="infinite" border="2"/>
       <onFocus name="imageOverlay" filename="button/button.png" imageMode="sprite-resize:100,23,1,2,96,2,2,2,96,2,19,2,96,2,2" post="true" />
       <onEnabled name="renderQuad" startColor="#2228" endColor="#2220" post="true" length="150" />
       <onDisabled name="renderQuad" startColor="#2220" endColor="#2228" post="true" length="150" />

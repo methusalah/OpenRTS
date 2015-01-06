@@ -70,22 +70,14 @@ public abstract class GUIDrawer {
         e.getRenderer(TextRenderer.class).setColor(niftyColor);
     }
     
-    protected void setButtonPanelCustomEffet(String id, boolean val){
-        if(id.equals("set0")){
-                LogUtil.logger.info("set0");
-                
-            Element e = guiCtrl.getElement(id+"#hop");
-            if(e == null)
-                return;
-
-    //            throw new IllegalArgumentException("can't find button '"+id+"'.");
-            LogUtil.logger.info("hop");
-            if(val)
-                e.startEffect(EffectEventId.onCustom);
-            else
-                e.stopEffect(EffectEventId.onCustom);
-        }
-        
+    protected void setButtonCustomEffet(String id, boolean val){
+        Element e = guiCtrl.getElement(id);
+        if(e == null)
+            throw new IllegalArgumentException("can't find button '"+id+"'.");
+        if(val)
+            e.startEffect(EffectEventId.onCustom);
+        else
+            e.stopEffect(EffectEventId.onCustom);
     }
 
     protected void setBackground(String id, String backgroundPath){

@@ -190,14 +190,14 @@ public class EditorRenderer implements ActionListener {
         
         if(s.shape == Pencil.Shape.Square ||
                 s.shape == Pencil.Shape.Diamond){
-            for(double i=-s.size; i<s.size; i+=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(i, -s.size));
-            for(double i=-s.size; i<s.size; i+=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(s.size, i));
-            for(double i=s.size; i>-s.size; i-=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(i, s.size));
-            for(double i=s.size; i>-s.size; i-=QUAD_PENCIL_SAMPLE_LENGTH)
-                pr.add(center.getAddition(-s.size, i));
+            for(double i=-s.size/2; i<s.size/2; i+=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(i, -s.size/2));
+            for(double i=-s.size/2; i<s.size/2; i+=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(s.size/2, i));
+            for(double i=s.size/2; i>-s.size/2; i-=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(i, s.size/2));
+            for(double i=s.size/2; i>-s.size/2; i-=QUAD_PENCIL_SAMPLE_LENGTH)
+                pr.add(center.getAddition(-s.size/2, i));
             if(s.shape == Pencil.Shape.Diamond){
                 PointRing newPR = new PointRing();
                 for(Point2D p : pr)
@@ -205,7 +205,7 @@ public class EditorRenderer implements ActionListener {
                 pr = newPR;
             }
         } else {
-            Point2D revol = center.getAddition(s.size, 0);
+            Point2D revol = center.getAddition(s.size/2, 0);
             for(int i=0; i<CIRCLE_PENCIL_SAMPLE_COUNT; i++)
                 pr.add(revol.getRotation(Angle.FLAT*2*i/CIRCLE_PENCIL_SAMPLE_COUNT, center));
         }

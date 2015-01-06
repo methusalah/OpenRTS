@@ -33,6 +33,13 @@ public class EditorGUIDrawer extends GUIDrawer{
     private static final String UNIT_TOOL_BUTTON_ID = "unittool";
     private static final String SET_PANEL_ID = "setpanel";
     private static final String SET_BUTTON_ID_PREFIX = "set";
+    private static final String SQUARE_BUTTON_ID = "square";
+    private static final String DIAMOND_BUTTON_ID = "diamond";
+    private static final String CIRCLE_BUTTON_ID = "circle";
+    private static final String ROUGH_BUTTON_ID = "rough";
+    private static final String AIRBRUSH_BUTTON_ID = "airbrush";
+    private static final String NOISE_BUTTON_ID = "noise";
+    private static final String _BUTTON_ID = "";
     
 
     public EditorGUIDrawer(GUIController guiCtrl) {
@@ -98,13 +105,10 @@ public class EditorGUIDrawer extends GUIDrawer{
                 if(i < tool.getSet().getCount()){
                     getElement(SET_BUTTON_ID_PREFIX+i).show();
                     setBackground(SET_BUTTON_ID_PREFIX+i, tool.getSet().getIcon(i));
-                    if(tool.getSet().actual == i){
-                        changeButtonText(SET_BUTTON_ID_PREFIX+i, "o");
+                    if(tool.getSet().actual == i)
                         maintainButton(SET_BUTTON_ID_PREFIX+i);
-                    } else {
-                        changeButtonText(SET_BUTTON_ID_PREFIX+i, "");
+                    else
                         releaseButton(SET_BUTTON_ID_PREFIX+i);
-                    }
                 } else
                     getElement(SET_BUTTON_ID_PREFIX+i).hide();
             }
@@ -120,23 +124,34 @@ public class EditorGUIDrawer extends GUIDrawer{
         if(pencil.sizeIncrement != 0){
             getElement("pencilpanel").show();
             
-            switch(pencil.shape){
-                case Circle :
-                    releaseButton("square");
-                    releaseButton("diamond");
-                    maintainButton("circle");
-                    break;
-                case Square :
-                    releaseButton("circle");
-                    releaseButton("diamond");
-                    maintainButton("square");
-                    break;
-                case Diamond :
-                    releaseButton("square");
-                    releaseButton("circle");
-                    maintainButton("diamond");
-                    break;
-            }
+            // shape buttons
+            if(pencil.shape.equals(Circle))
+                maintainButton(CIRCLE_BUTTON_ID);
+            else
+                releaseButton(CIRCLE_BUTTON_ID);
+            if(pencil.shape.equals(Square))
+                maintainButton(SQUARE_BUTTON_ID);
+            else
+                releaseButton(SQUARE_BUTTON_ID);
+            if(pencil.shape.equals(Diamond))
+                maintainButton(DIAMOND_BUTTON_ID);
+            else
+                releaseButton(DIAMOND_BUTTON_ID);
+            
+            // mode buttons
+            if(pencil.mode.equals(Pencil.Mode.Rough))
+                maintainButton(ROUGH_BUTTON_ID);
+            else
+                releaseButton(ROUGH_BUTTON_ID);
+            if(pencil.mode.equals(Pencil.Mode.Airbrush))
+                maintainButton(AIRBRUSH_BUTTON_ID);
+            else
+                releaseButton(AIRBRUSH_BUTTON_ID);
+            if(pencil.mode.equals(Pencil.Mode.Noise))
+                maintainButton(NOISE_BUTTON_ID);
+            else
+                releaseButton(NOISE_BUTTON_ID);
+
             
             Slider sizeSlider = getSlider("sizeslider");
             sizeSlider.setMin((float)pencil.sizeIncrement);
@@ -163,11 +178,11 @@ public class EditorGUIDrawer extends GUIDrawer{
     }
     
     private void maintainButton(String id){
-        setButtonPanelCustomEffet(id, true);
+        setButtonCustomEffet(id, true);
         changeButtonTextColor(id, Color.green);
     }
     private void releaseButton(String id){
-        setButtonPanelCustomEffet(id, true);
+        setButtonCustomEffet(id, false);
         changeButtonTextColor(id, Color.white);
     }
 

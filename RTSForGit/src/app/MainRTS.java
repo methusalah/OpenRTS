@@ -33,8 +33,8 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
 		settings.setBitsPerPixel(32);
-		settings.setWidth(1600);
-		settings.setHeight(850);
+		settings.setWidth(1200);
+		settings.setHeight(800);
 		settings.setTitle("RTS");
 		settings.setVSync(true);
 		Logger.getLogger("").setLevel(Level.INFO);

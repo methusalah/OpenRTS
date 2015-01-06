@@ -2,11 +2,6 @@
 <nifty-controls>
   <controlDefinition style="myButton" name="myButton" controller="de.lessvoid.nifty.controls.button.ButtonControl" inputMapping="de.lessvoid.nifty.input.mapping.MenuInputMapping">
     <panel style="#panel">
-      <panel id="#hop" width="100%" height="100%">
-        <effect>
-          <onCustom name="border" color="#282f" post="true" />
-        </effect>
-      </panel>
       <text id="#text" style="#text" text="$label"/>
     </panel>
   </controlDefinition>
