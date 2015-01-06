@@ -5,6 +5,8 @@
 package controller;
 
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.ListBox;
+import de.lessvoid.nifty.controls.NiftyControl;
 import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
@@ -31,6 +33,10 @@ public abstract class GUIController implements ScreenController {
     
     protected Element getElement(String s){
         return nifty.getCurrentScreen().findElementByName(s);
+    }
+    
+    protected <T extends NiftyControl> T getControl(String id, Class<T> controlClass){
+        return nifty.getCurrentScreen().findNiftyControl(id, controlClass);
     }
 
 }

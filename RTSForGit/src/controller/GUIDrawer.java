@@ -4,6 +4,7 @@
  */
 package controller;
 
+import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.effects.EffectEventId;
 import de.lessvoid.nifty.elements.Element;
@@ -11,6 +12,8 @@ import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import tools.LogUtil;
 
 /**
@@ -78,6 +81,19 @@ public abstract class GUIDrawer {
             e.startEffect(EffectEventId.onCustom);
         else
             e.stopEffect(EffectEventId.onCustom);
+    }
+    
+    protected void fillList(String id, ArrayList<String> strings){
+        ListBox lb = guiCtrl.getControl(id, ListBox.class);
+        List<Integer> selected = lb.getSelectedIndices();
+        int index;
+        if(!selected.isEmpty())
+            index = selected.get(0);
+        else
+            index = 0;
+        lb.clear();
+        lb.addAllItems(strings);
+        lb.selectItemByIndex(index);
     }
 
     protected void setBackground(String id, String backgroundPath){

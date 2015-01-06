@@ -33,7 +33,7 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
 		settings.setBitsPerPixel(32);
-		settings.setWidth(1200);
+		settings.setWidth(1620);
 		settings.setHeight(800);
 		settings.setTitle("RTS");
 		settings.setVSync(true);
@@ -68,6 +68,9 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
                 editorCtrl.addListener(this);
                 groundCtrl = new GroundController(model, view, inputManager, cam);
                 groundCtrl.addListener(this);
+
+                niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
+                niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
                 
                 actualCtrl = editorCtrl;
                 actualCtrl.activate();
@@ -75,8 +78,6 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
                 view.mapRend.renderTiles();
                 
                 guiViewPort.addProcessor(niftyDisplay);
-                niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
-                niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
                 
 	}
         

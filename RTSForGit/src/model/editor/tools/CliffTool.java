@@ -29,7 +29,7 @@ public class CliffTool extends Tool {
         ArrayList<String> iconPaths = new ArrayList<>();
         for(CliffShapeBuilder b : manager.battlefield.map.style.cliffShapes)
             iconPaths.add(b.editorIconPath);
-        set = new Set(manager.battlefield.map.style.cliffShapes.size(), iconPaths);
+        set = new Set(iconPaths, true);
     }
     
     @Override

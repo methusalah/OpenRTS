@@ -31,7 +31,10 @@ public class EditorGUIDrawer extends GUIDrawer{
     private static final String ATLAS_TOOL_BUTTON_ID = "atlastool";
     private static final String RAMP_TOOL_BUTTON_ID = "ramptool";
     private static final String UNIT_TOOL_BUTTON_ID = "unittool";
-    private static final String SET_PANEL_ID = "setpanel";
+    private static final String ICON_SET_PANEL_ID = "iconsetpanel";
+    private static final String LIST_SET_PANEL_ID = "listsetpanel";
+    private static final String SELECTION_LIST_ID = "selectionlist";
+    
     private static final String SET_BUTTON_ID_PREFIX = "set";
     private static final String SQUARE_BUTTON_ID = "square";
     private static final String DIAMOND_BUTTON_ID = "diamond";
@@ -99,22 +102,45 @@ public class EditorGUIDrawer extends GUIDrawer{
     
     private void drawSetPanel(){
         Tool tool = guiCtrl.ctrl.model.toolManager.actualTool;
-        if(tool.hasSet()){
-            getElement(SET_PANEL_ID).show();
-            for(int i=0; i<8; i++){
-                if(i < tool.getSet().getCount()){
-                    getElement(SET_BUTTON_ID_PREFIX+i).show();
-                    setBackground(SET_BUTTON_ID_PREFIX+i, tool.getSet().getIcon(i));
-                    if(tool.getSet().actual == i)
-                        maintainButton(SET_BUTTON_ID_PREFIX+i);
-                    else
-                        releaseButton(SET_BUTTON_ID_PREFIX+i);
-                } else
-                    getElement(SET_BUTTON_ID_PREFIX+i).hide();
-            }
-        } else
-            getElement(SET_PANEL_ID).hide();
+        if(tool.hasSet())
+            if(tool.getSet().hasIcons())
+                drawIconSetPanel();
+            else
+                drawListSetPanel();
+        else {
+            getElement(ICON_SET_PANEL_ID).hide();
+            getElement(LIST_SET_PANEL_ID).hide();
+        }
     }
+    
+    private void drawIconSetPanel(){
+        Tool tool = guiCtrl.ctrl.model.toolManager.actualTool;
+        getElement(ICON_SET_PANEL_ID).show();
+        getElement(LIST_SET_PANEL_ID).hide();
+        for(int i=0; i<8; i++){
+            if(i < tool.getSet().getCount()){
+                getElement(SET_BUTTON_ID_PREFIX+i).show();
+                setBackground(SET_BUTTON_ID_PREFIX+i, tool.getSet().getAsset(i));
+                if(tool.getSet().actual == i)
+                    maintainButton(SET_BUTTON_ID_PREFIX+i);
+                else
+                    releaseButton(SET_BUTTON_ID_PREFIX+i);
+            } else
+                getElement(SET_BUTTON_ID_PREFIX+i).hide();
+        }
+    }
+
+    private void drawListSetPanel(){
+        Tool tool = guiCtrl.ctrl.model.toolManager.actualTool;
+        getElement(LIST_SET_PANEL_ID).show();
+        getElement(ICON_SET_PANEL_ID).hide();
+        fillList(SELECTION_LIST_ID, tool.getSet().getAllAssets());
+        
+    }
+
+    
+    
+    
     
     private void drawPencilPanel(){
         getElement("pencilpanel").hide();

@@ -46,7 +46,7 @@ public class AtlasTool extends Tool {
         super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
         this.atlas = manager.battlefield.map.atlas;
         explorer = new AtlasExplorer(manager.battlefield.map);
-        set = new Set(manager.battlefield.map.style.textures.size(), manager.battlefield.map.style.textures);
+        set = new Set(manager.battlefield.map.style.textures, true);
     }
 
     @Override

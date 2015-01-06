@@ -9,6 +9,7 @@ import controller.battlefield.*;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
+import de.lessvoid.nifty.controls.ListBoxSelectionChangedEvent;
 import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.controls.SliderChangedEvent;
 import de.lessvoid.nifty.elements.Element;
@@ -16,6 +17,7 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import model.Commander;
 import model.Reporter;
 import model.army.data.Unit;
@@ -72,6 +74,16 @@ public class EditorGUIController extends GUIController {
         switch(id){
             case "sizeslider" : ctrl.model.toolManager.actualTool.pencil.size = event.getValue(); break;
             case "strslider" : ctrl.model.toolManager.actualTool.pencil.strength = event.getValue();break;
+        }
+    }
+    
+    @NiftyEventSubscriber(pattern=".*list")
+    public void onListSelectionChanged(final String id, final ListBoxSelectionChangedEvent event) {
+        List<Integer> selectionIndices = event.getSelectionIndices();
+        if(selectionIndices.isEmpty())
+            return;
+        switch(id){
+            case "selectionlist" : ctrl.model.toolManager.actualTool.getSet().set(selectionIndices.get(0)); break;
         }
     }
     

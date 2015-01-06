@@ -14,13 +14,13 @@ import tools.LogUtil;
 public class Set {
     public int count;
     public int actual = 0;
-    ArrayList<String> iconPaths;
+    ArrayList<String> assets;
+    boolean hasIcon;
 
-    public Set(int count, ArrayList<String> iconPaths) {
-        this.count = count;
-        this.iconPaths = iconPaths;
-        if(iconPaths.size()!=count)
-            throw new RuntimeException("set count and icon count must be equals.");
+    public Set(ArrayList<String> assets, boolean hasIcon) {
+        this.assets = assets;
+        this.count = assets.size();
+        this.hasIcon = hasIcon;
     }
     
     public void toggle() {
@@ -37,12 +37,24 @@ public class Set {
         LogUtil.logger.info("toggled to set "+actual+".");
     }
     
-    public String getIcon(int setIndex){
-        return iconPaths.get(setIndex);
+    public void set(String asset){
+        set(assets.indexOf(asset));
+    }
+    
+    public String getAsset(int setIndex){
+        return assets.get(setIndex);
+    }
+    
+    public ArrayList<String> getAllAssets(){
+        return assets;
     }
 
     public int getCount() {
         return count;
+    }
+    
+    public boolean hasIcons(){
+        return hasIcon;
     }
 
     

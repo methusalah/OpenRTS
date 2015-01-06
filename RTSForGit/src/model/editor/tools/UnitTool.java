@@ -13,6 +13,7 @@ import model.army.data.Unit;
 import model.army.data.UnitBuilder;
 import model.editor.ToolManager;
 import model.editor.Pencil;
+import model.editor.Set;
 import model.warfare.Faction;
 import tools.LogUtil;
 
@@ -25,7 +26,6 @@ public class UnitTool extends Tool{
     private static final String MOVE_ROTATE_OP = "move/rotate";
     
     ArrayList<UnitBuilder> builders;
-    UnitBuilder actualBuilder;
     Unit actualUnit;
     boolean analog = false;
     
@@ -37,8 +37,11 @@ public class UnitTool extends Tool{
     public UnitTool(ToolManager manager, ArrayList<UnitBuilder> builders) {
         super(manager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
         this.builders = builders;
-        actualBuilder = builders.get(0);
         f1.setEnnemy(f2);
+        ArrayList<String> builderIDs = new ArrayList<>();
+        for(UnitBuilder b : builders)
+            builderIDs.add(b.id);
+        set = new Set(builderIDs, false);
     }
     
     @Override
@@ -71,8 +74,8 @@ public class UnitTool extends Tool{
         for(Unit u : manager.battlefield.armyManager.units)
             if(u.getPos2D().equals(pos))
                 pos = pos.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
-        Faction f = actualBuilder.race.equals("human")? f1 : f2;
-        actualBuilder.build(f, pos);
+        Faction f = builders.get(set.actual).race.equals("human")? f1 : f2;
+        builders.get(set.actual).build(f, pos);
     }
     private void remove(){
         Unit toRemove = null;
