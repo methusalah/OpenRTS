@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+    <useStyles filename="interface/myNifty/myStyles.xml" />
     <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="interface/myNifty/myControls.xml" />
     <useControls filename="nifty-default-controls.xml" />
     
     <screen id="screen"/>
@@ -86,7 +88,7 @@
    </screen>
   
   
-    <screen id="editor" controller="controller.editor.EditorGUI">
+    <screen id="editor" controller="controller.editor.EditorGUIController">
         <layer id="mainlayer" childLayout="vertical">
             <panel id="menupanel" childLayout="horizontal" width="100%" x="62" y="42" style="nifty-panel-simple" height="50px">
                 <control name="button" id="new" childLayout="center" backgroundImage="button/button.png" x="53" width="80px" y="19" label="New" height="30px">
@@ -135,30 +137,30 @@
                 <panel id="toolparam" childLayout="absolute" width="100%" height="*">
                   <panel id="setpanel" childLayout="vertical" x="0" y="0" width="100%" style="nifty-panel-simple" height="100">
                       <panel id="paramsetrow1" childLayout="horizontal" width="100%" height="50%">
-                          <control name="button" id="set0" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set0" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(0)"/>
                           </control>
-                          <control name="button" id="set1" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set1" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(1)"/>
                           </control>
-                          <control name="button" id="set2" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set2" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(2)"/>
                           </control>
-                          <control name="button" id="set3" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set3" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(3)"/>
                           </control>
                       </panel>
                       <panel id="paramsetrow2" childLayout="horizontal" width="100%" height="50%">
-                          <control name="button" id="set4" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set4" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(4)"/>
                           </control>
-                          <control name="button" id="set5" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set5" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(5)"/>
                           </control>
-                          <control name="button" id="set6" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set6" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(6)"/>
                           </control>
-                          <control name="button" id="set7" backgroundImage="button/button.png" width="40px" height="40px">
+                          <control name="myButton" id="set7" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(7)"/>
                           </control>
                       </panel>

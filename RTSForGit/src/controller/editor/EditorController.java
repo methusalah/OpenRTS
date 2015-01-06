@@ -12,7 +12,7 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
 import controller.Controller;
-import controller.GUI;
+import controller.GUIController;
 import controller.InputInterpreter;
 import controller.SpatialSelector;
 import de.lessvoid.nifty.Nifty;
@@ -32,7 +32,7 @@ public class EditorController extends Controller {
         super(model, view, inputManager, cam);
 
         inputInterpreter = new EditorInputInterpreter(this);
-        gui = new EditorGUI(nifty, this);
+        gui = new EditorGUIController(nifty, this);
 
         model.commander.registerListener(this);
         

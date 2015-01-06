@@ -5,7 +5,7 @@
 package controller.battlefield;
 
 import controller.Controller;
-import controller.GUI;
+import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -21,7 +21,7 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class BattlefieldGUI extends GUI {
+public class BattlefieldGUI extends GUIController {
 
     Commander commander;
     Reporter reporter;

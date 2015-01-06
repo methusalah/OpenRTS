@@ -42,12 +42,15 @@ public abstract class Tool {
         actualOp = operations.get(index);
         LogUtil.logger.info("operation set to "+actualOp);
     }
-    public final String getOperationName(int index){
+    public final String getOperation(int index){
         if(index >= 0 && index < operations.size())
             return operations.get(index);
         return "";
-
     }
+    public String getActualOperation(){
+        return actualOp;
+    }
+    
     public void setOperation(int index){
         if(index >= 0 && index < operations.size())
             actualOp = operations.get(index);

@@ -28,7 +28,7 @@ public abstract class Controller implements ReportEventListener {
     public SpatialSelector spatialSelector;
     public CameraManager cameraManager;
     
-    protected GUI gui;
+    protected GUIController gui;
     ArrayList<ActionListener> listeners = new ArrayList<>();
     
     public Controller(Model model, View view, InputManager inputManager, Camera cam){
