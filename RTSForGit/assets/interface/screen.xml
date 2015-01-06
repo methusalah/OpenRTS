@@ -89,14 +89,17 @@
     <screen id="editor" controller="controller.editor.EditorGUIController">
         <layer id="mainlayer" childLayout="vertical">
             <panel id="menupanel" childLayout="horizontal" width="100%" x="62" y="42" style="nifty-panel-simple" height="50px">
-                <control name="button" id="new" childLayout="center" backgroundImage="button/button.png" x="53" width="80px" y="19" label="New" height="30px">
+                <control name="myButton" id="new" childLayout="center" backgroundImage="button/button.png" x="53" width="80px" y="19" label="New" height="30px">
                   <interact onClick="newMap()"/>
                 </control>
-                <control name="button" id="save" childLayout="center" width="80px" label="Save" height="30px">
+                <control name="myButton" id="save" childLayout="center" width="80px" label="Save" height="30px">
                   <interact onClick="save()"/>
                 </control>
-                <control name="button" id="load" childLayout="center" width="80px" label="Load" height="30px">
+                <control name="myButton" id="load" childLayout="center" width="80px" label="Load" height="30px">
                   <interact onClick="load()"/>
+                </control>
+                <control name="myButton" id="grid" childLayout="center" width="80px" label="Grid" height="30px">
+                  <interact onClick="toggleGrid()"/>
                 </control>
             </panel>
             <panel id="toolbox" childLayout="vertical" width="200px" style="nifty-panel-simple" height="*">

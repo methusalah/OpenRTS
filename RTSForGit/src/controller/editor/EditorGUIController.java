@@ -107,6 +107,10 @@ public class EditorGUIController extends GUIController {
     public void newMap(){
         ctrl.model.setNewBattlefield();
     }
+    
+    public void toggleGrid(){
+        ctrl.view.editorRend.toggleGrid();
+    }
     public void setCliffTool(){
         ctrl.model.toolManager.setCliffTool();
         drawer.askRedraw();
