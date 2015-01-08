@@ -26,7 +26,7 @@ public class BattlefieldController extends Controller {
         super(model, view, inputManager, cam);
         
         inputInterpreter = new BattlefieldInputInterpreter(this);
-        gui = new BattlefieldGUI(nifty, this, model.commander, model.reporter);
+        guiController = new BattlefieldGUI(nifty, this, model.commander, model.reporter);
         
         model.commander.registerListener(this);
         
@@ -52,7 +52,7 @@ public class BattlefieldController extends Controller {
 
     @Override
     public void manageEvent() {
-        gui.update();
+        guiController.update();
     }
     
     private Point2D getViewCenter(){
@@ -63,7 +63,7 @@ public class BattlefieldController extends Controller {
     public void activate() {
         super.activate();
         inputManager.setCursorVisible(true);
-        gui.activate();
+        guiController.activate();
     }
     
     

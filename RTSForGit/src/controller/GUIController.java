@@ -22,6 +22,8 @@ public abstract class GUIController implements ScreenController {
     public Controller ctrl;
     protected Nifty nifty;
     protected GUIDrawer drawer;
+    
+    protected boolean redrawAsked = false;
 
     public GUIController(Controller ctrl, Nifty nifty) {
         this.ctrl = ctrl;
@@ -38,5 +40,10 @@ public abstract class GUIController implements ScreenController {
     protected <T extends NiftyControl> T getControl(String id, Class<T> controlClass){
         return nifty.getCurrentScreen().findNiftyControl(id, controlClass);
     }
+    
+    public void askRedraw(){
+        redrawAsked = true;
+    }
+
 
 }

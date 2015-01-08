@@ -40,7 +40,6 @@ public abstract class Tool {
         if(index >= operations.size())
             index = 0;
         actualOp = operations.get(index);
-        LogUtil.logger.info("operation set to "+actualOp);
     }
     public final String getOperation(int index){
         if(index >= 0 && index < operations.size())
@@ -54,7 +53,6 @@ public abstract class Tool {
     public void setOperation(int index){
         if(index >= 0 && index < operations.size())
             actualOp = operations.get(index);
-        LogUtil.logger.info("operation set to "+actualOp);
     }
     
     public boolean isAnalog(){

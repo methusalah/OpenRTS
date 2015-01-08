@@ -5,16 +5,17 @@
 package model.editor.tools;
 
 import geometry.Point2D;
+import geometry3D.Point3D;
 import java.awt.Color;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
-import model.army.data.Unit;
-import model.army.data.UnitBuilder;
+import model.battlefield.army.components.Unit;
+import model.builders.UnitBuilder;
 import model.editor.ToolManager;
 import model.editor.Pencil;
 import model.editor.Set;
-import model.warfare.Faction;
+import model.battlefield.warfare.Faction;
 import tools.LogUtil;
 
 /**
@@ -27,6 +28,7 @@ public class UnitTool extends Tool{
     
     ArrayList<UnitBuilder> builders;
     Unit actualUnit;
+    Point2D moveOffset;
     boolean analog = false;
     
     double angle = 0;
@@ -40,7 +42,7 @@ public class UnitTool extends Tool{
         f1.setEnnemy(f2);
         ArrayList<String> builderIDs = new ArrayList<>();
         for(UnitBuilder b : builders)
-            builderIDs.add(b.id);
+            builderIDs.add(b.getUIName());
         set = new Set(builderIDs, false);
     }
     
@@ -74,8 +76,8 @@ public class UnitTool extends Tool{
         for(Unit u : manager.battlefield.armyManager.units)
             if(u.getPos2D().equals(pos))
                 pos = pos.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
-        Faction f = builders.get(set.actual).race.equals("human")? f1 : f2;
-        builders.get(set.actual).build(f, pos);
+        Faction f = builders.get(set.actual).hasRace("human")? f1 : f2;
+        builders.get(set.actual).build(f, pos.get3D(0));
     }
     private void remove(){
         Unit toRemove = null;
@@ -96,11 +98,12 @@ public class UnitTool extends Tool{
                 for(Unit u : manager.battlefield.armyManager.units)
                     if(u.label.matches(manager.pointedSpatialLabel)){
                         actualUnit = u;
+                        moveOffset = pencil.getPos().getSubtraction(u.getPos2D());
                         break;
                     }
         }
         if(actualUnit != null)
-            actualUnit.mover.setPosition(pencil.getPos());
+            actualUnit.mover.setPosition(pencil.getPos().getSubtraction(moveOffset));
     }
     private void rotate(){
         if(!pencil.maintained){

@@ -28,11 +28,12 @@ import view.math.Translator;
  */
 public class EditorController extends Controller {
     Point2D screenCoord;
+    
     public EditorController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
         super(model, view, inputManager, cam);
 
         inputInterpreter = new EditorInputInterpreter(this);
-        gui = new EditorGUIController(nifty, this);
+        guiController = new EditorGUIController(nifty, this);
 
         model.commander.registerListener(this);
         
@@ -49,12 +50,11 @@ public class EditorController extends Controller {
             view.editorRend.drawPencil();
         }
         
-        gui.update();
+        guiController.update();
     }
 
     @Override
     public void manageEvent() {
-        gui.update();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class EditorController extends Controller {
         super.activate();
         inputManager.setCursorVisible(true);
         view.rootNode.attachChild(view.editorRend.mainNode);
-        gui.activate();
+        guiController.activate();
     }
 
     @Override

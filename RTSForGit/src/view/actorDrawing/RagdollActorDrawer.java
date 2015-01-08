@@ -13,8 +13,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import geometry.Point2D;
 import math.Angle;
-import model.army.data.actors.MovableActor;
-import model.army.data.actors.RagdollActor;
+import model.battlefield.actors.MovableActor;
+import model.battlefield.actors.RagdollActor;
 import tools.LogUtil;
 import view.math.Translator;
 

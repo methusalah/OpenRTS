@@ -10,8 +10,8 @@ import geometry3D.Point3D;
 import geometry3D.Polygon3D;
 import geometry3D.Triangle3D;
 import java.util.ArrayList;
-import model.map.Map;
-import model.map.Tile;
+import model.battlefield.map.Map;
+import model.battlefield.map.Tile;
 
 
 /**

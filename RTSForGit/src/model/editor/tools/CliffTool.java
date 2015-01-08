@@ -6,9 +6,9 @@ package model.editor.tools;
 
 import model.editor.Set;
 import java.util.ArrayList;
-import model.map.Tile;
-import model.map.cliff.Cliff;
-import model.map.data.CliffShapeBuilder;
+import model.battlefield.map.Tile;
+import model.battlefield.map.cliff.Cliff;
+import model.builders.CliffShapeBuilder;
 import model.editor.ToolManager;
 import model.editor.Pencil;
 import ressources.definitions.BuilderLibrary;

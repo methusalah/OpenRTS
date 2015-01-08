@@ -5,7 +5,7 @@
 package model;
 
 import java.text.DecimalFormat;
-import model.army.data.Unit;
+import model.battlefield.army.components.Unit;
 import tools.LogUtil;
 
 /**

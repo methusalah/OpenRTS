@@ -21,8 +21,8 @@ import com.jme3.shadow.EdgeFilteringMode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import model.lighting.SunLight;
-import model.map.Tile;
+import model.battlefield.lighting.SunLight;
+import model.battlefield.map.Tile;
 import tools.LogUtil;
 import view.math.Translator;
 

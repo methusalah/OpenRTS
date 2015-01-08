@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import model.editor.tools.AtlasTool;
-import model.map.atlas.Atlas;
+import model.battlefield.map.atlas.Atlas;
 
 /**
  *

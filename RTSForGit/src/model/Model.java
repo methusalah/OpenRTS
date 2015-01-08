@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import model.map.Map;
+import model.battlefield.map.Map;
 import model.battlefield.Battlefield;
 import ressources.definitions.BuilderLibrary;
 import model.editor.ToolManager;
-import model.map.MapFactory;
+import model.battlefield.map.MapFactory;
 import ressources.definitions.DefParser;
 import tools.LogUtil;
 

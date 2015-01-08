@@ -13,8 +13,8 @@ import de.lessvoid.nifty.screen.Screen;
 import java.util.ArrayList;
 import model.Commander;
 import model.Reporter;
-import model.army.data.Unit;
-import model.army.Unity;
+import model.battlefield.army.components.Unit;
+import model.battlefield.army.Unity;
 import tools.LogUtil;
 
 /**

@@ -16,8 +16,8 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.VertexBuffer.Type;
 import math.Angle;
-import model.lighting.AmbientLighting;
-import model.lighting.DirectionalLighting;
+import model.battlefield.lighting.AmbientLighting;
+import model.battlefield.lighting.DirectionalLighting;
 import tools.LogUtil;
 
 public class Translator {

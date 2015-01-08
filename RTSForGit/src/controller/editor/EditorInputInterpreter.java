@@ -239,6 +239,7 @@ public class EditorInputInterpreter extends InputInterpreter {
                 case LOAD : ctrl.model.loadBattlefield(); break;
                 case NEW : ctrl.model.setNewBattlefield(); break;
             }
+            ctrl.guiController.askRedraw();
         }
     }
 }

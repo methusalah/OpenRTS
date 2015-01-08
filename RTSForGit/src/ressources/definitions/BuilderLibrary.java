@@ -8,22 +8,22 @@ import geometry.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import math.MyRandom;
-import model.army.ArmyManager;
-import model.army.data.ActorBuilder;
-import model.army.data.EffectBuilder;
-import model.army.data.MoverBuilder;
-import model.army.data.ProjectileBuilder;
-import model.army.data.TurretBuilder;
-import model.army.data.UnitBuilder;
-import model.army.data.WeaponBuilder;
+import model.battlefield.army.ArmyManager;
+import model.builders.ActorBuilder;
+import model.builders.EffectBuilder;
+import model.builders.MoverBuilder;
+import model.builders.ProjectileBuilder;
+import model.builders.TurretBuilder;
+import model.builders.UnitBuilder;
+import model.builders.WeaponBuilder;
 import ressources.definitions.Definition;
-import model.map.Map;
-import model.map.data.CliffShapeBuilder;
-import model.map.data.ManmadeFaceBuilder;
-import model.map.data.MapStyleBuilder;
-import model.map.data.NaturalFaceBuilder;
-import model.map.data.TrinketBuilder;
-import model.warfare.Faction;
+import model.battlefield.map.Map;
+import model.builders.CliffShapeBuilder;
+import model.builders.ManmadeFaceBuilder;
+import model.builders.MapStyleBuilder;
+import model.builders.NaturalFaceBuilder;
+import model.builders.TrinketBuilder;
+import model.battlefield.warfare.Faction;
 import tools.LogUtil;
 
 /**
@@ -101,7 +101,7 @@ public class BuilderLibrary {
     }
 
     private void submitTurret(Definition def){
-        turretBuilders.put(def.id, new TurretBuilder(def));
+        turretBuilders.put(def.id, new TurretBuilder(def, this));
     }
 
     private void submitEffect(Definition def){
@@ -137,11 +137,11 @@ public class BuilderLibrary {
     public void buildUnitFromRace(String race, Faction faction, Point2D pos){
         ArrayList<UnitBuilder> subList = new ArrayList<>();
         for(UnitBuilder ub : unitBuilders.values())
-            if(ub.race.equals(race))
+            if(ub.hasRace(race))
                 subList.add(ub);
         
         int i = (int)Math.floor(MyRandom.next()*subList.size());
-        subList.get(i).build(faction, pos);
+        subList.get(i).build(faction, pos.get3D(0));
     }
     
     public UnitBuilder getUnitBuilder(String id){
@@ -214,6 +214,14 @@ public class BuilderLibrary {
             throw new IllegalArgumentException(ERROR+id);
         return res;
     }
+    
+    public ArrayList<TrinketBuilder> getAllTrinketBuilders(){
+        ArrayList<TrinketBuilder> res = new ArrayList<>();
+        for(TrinketBuilder b : trinketBuilders.values())
+            res.add(b);
+        return res;
+    }
+
     public NaturalFaceBuilder getNaturalFaceBuilder(String id){
         NaturalFaceBuilder res = naturalFaceBuilders.get(id);
         if(res == null)

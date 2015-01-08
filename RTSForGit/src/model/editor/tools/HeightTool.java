@@ -6,7 +6,7 @@ package model.editor.tools;
 
 import java.util.ArrayList;
 import math.MyRandom;
-import model.map.Tile;
+import model.battlefield.map.Tile;
 import model.editor.ToolManager;
 import model.editor.Pencil;
 import tools.LogUtil;

@@ -12,8 +12,8 @@ import geometry.Segment2D;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
-import model.map.Map;
-import model.map.Tile;
+import model.battlefield.map.Map;
+import model.battlefield.map.Tile;
 import tools.LogUtil;
 
 /**
@@ -48,11 +48,9 @@ public class Pencil {
     
     public void incRadius(){
         size = Math.min(MAX_SIZE, size+sizeIncrement);
-        LogUtil.logger.info("Pencil size : "+size*2);
     }
     public void decRadius(){
         size = Math.max(sizeIncrement, size-sizeIncrement);
-        LogUtil.logger.info("Pencil size : "+size*2);
     }
     
     private void setSquare(){
@@ -104,7 +102,6 @@ public class Pencil {
             case Diamond : setCircle(); break;
                 default: throw new RuntimeException();
         }
-        LogUtil.logger.info("Pencil shape : "+shape);
     }
     
     public void toggleMode(){
@@ -116,7 +113,6 @@ public class Pencil {
             case Noise : mode = Mode.Rough; break;
                 default: throw new RuntimeException();
         }
-        LogUtil.logger.info("Pencil mode : "+mode);
     }
     
     public ArrayList<Tile> getTiles(){

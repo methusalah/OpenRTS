@@ -8,9 +8,9 @@ import geometry.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import model.map.Map;
-import model.map.Tile;
-import model.map.cliff.Cliff;
+import model.battlefield.map.Map;
+import model.battlefield.map.Tile;
+import model.battlefield.map.cliff.Cliff;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
@@ -18,7 +18,9 @@ import model.editor.tools.Tool;
 import model.editor.tools.RampTool;
 import model.editor.tools.UnitTool;
 import model.battlefield.Battlefield;
-import model.map.parcel.ParcelManager;
+import model.editor.tools.TrinketTool;
+import model.battlefield.map.Trinket;
+import model.battlefield.map.parcel.ParcelManager;
 import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
 
@@ -36,6 +38,7 @@ public class ToolManager {
     public AtlasTool atlasTool;
     public RampTool rampTool;
     public UnitTool unitTool;
+    public TrinketTool trinketTool;
     
     public Tool actualTool;
     
@@ -51,35 +54,36 @@ public class ToolManager {
         atlasTool = new AtlasTool(this);
         rampTool = new RampTool(this);
         unitTool = new UnitTool(this, lib.getAllUnitBuilders());
+        trinketTool = new TrinketTool(this, lib.getAllTrinketBuilders());
         
         actualTool = cliffTool;
     }
     
     public void setCliffTool(){
         actualTool = cliffTool;
-        LogUtil.logger.info("Cliff tool set.");
         notifyListeners("tool");
     }
     public void setHeightTool(){
         actualTool = heightTool;
-        LogUtil.logger.info("Height tool set.");
         notifyListeners("tool");
     }
     public void setAtlasTool(){
         actualTool = atlasTool;
-        LogUtil.logger.info("Atlas tool set.");
         notifyListeners("tool");
     }
     public void setRampTool(){
         actualTool = rampTool;
-        LogUtil.logger.info("Ramp tool set.");
         notifyListeners("tool");
     }
     public void setUnitTool(){
         actualTool = unitTool;
-        LogUtil.logger.info("Unit tool set.");
         notifyListeners("tool");
     }
+    public void setTrinketTool(){
+        actualTool = trinketTool;
+        notifyListeners("tool");
+    }
+
     public void toggleSet(){
         if(actualTool.hasSet())
             actualTool.getSet().toggle();
@@ -159,12 +163,19 @@ public class ToolManager {
         notifyListeners("parcels", tiles);
     }
 
+    public void updateTrinkets(ArrayList<Trinket> trinkets){
+        notifyListeners("trinkets", trinkets);
+    }
+    public void deleteTrinkets(ArrayList<Trinket> trinkets){
+        notifyListeners("deletetrinkets", trinkets);
+    }
+
     public void updateGroundAtlas(){
         notifyListeners("ground", new ArrayList<Tile>());
     }
     
-    private void notifyListeners(String command, ArrayList<Tile> tiles){
-        ActionEvent event = new ActionEvent(tiles, 0, command);
+    private void notifyListeners(String command, Object o){
+        ActionEvent event = new ActionEvent(o, 0, command);
         for(ActionListener l : listeners)
             l.actionPerformed(event);
     }

@@ -24,27 +24,15 @@ public abstract class GUIDrawer {
     
     protected GUIController guiCtrl;
     
-    boolean toDraw = false;
-
     public GUIDrawer(GUIController guiCtrl) {
         this.guiCtrl = guiCtrl;
-    }
-    
-    public void askRedraw(){
-        toDraw = true;
-    }
-    
-    public void update(){
-        if(toDraw)
-            draw();
-        toDraw = false;
     }
     
     protected Element getElement(String id){
         return guiCtrl.getElement(id);
     }
     
-    protected abstract void draw();
+    public abstract void draw();
     
     protected void changeLabelText(String id, String text){
         Element e = guiCtrl.getElement(id);

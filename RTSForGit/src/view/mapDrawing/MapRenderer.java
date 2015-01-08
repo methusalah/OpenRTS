@@ -7,6 +7,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.math.Quaternion;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
@@ -19,15 +20,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import math.Angle;
-import model.map.cliff.Trinket;
-import model.map.cliff.Cliff;
-import model.map.Tile;
-import static model.map.cliff.Cliff.Type.Corner;
-import static model.map.cliff.Cliff.Type.Orthogonal;
-import static model.map.cliff.Cliff.Type.Salient;
-import model.map.cliff.faces.manmade.ManmadeFace;
-import model.map.cliff.faces.natural.NaturalFace;
-import model.map.parcel.ParcelMesh;
+import model.battlefield.map.Trinket;
+import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.Tile;
+import static model.battlefield.map.cliff.Cliff.Type.Corner;
+import static model.battlefield.map.cliff.Cliff.Type.Orthogonal;
+import static model.battlefield.map.cliff.Cliff.Type.Salient;
+import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
+import model.battlefield.map.cliff.faces.natural.NaturalFace;
+import model.battlefield.map.parcel.ParcelMesh;
 
 import tools.LogUtil;
 import view.View;
@@ -45,6 +46,7 @@ public class MapRenderer implements ActionListener {
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
     private HashMap<Tile, Spatial> tilesSpatial = new HashMap<>();
+    private HashMap<Trinket, Spatial> trinketSpatial = new HashMap<>();
 
     public TerrainSplatTexture groundTexture;
 
@@ -107,11 +109,44 @@ public class MapRenderer implements ActionListener {
             case "parcels" : updateParcelsFor((ArrayList<Tile>)(e.getSource())); break;
             case "tiles" : updateTiles((ArrayList<Tile>)(e.getSource())); break;
             case "ground" : updateGroundTexture(); break;
+            case "trinkets" : updateTrinkets((ArrayList<Trinket>)(e.getSource())); break;
+            case "deletetrinkets" : deleteTrinkets((ArrayList<Trinket>)(e.getSource())); break;
         }
     }
     
     private void updateGroundTexture(){
         groundTexture.getMaterial();
+    }
+    
+    private void updateTrinkets(ArrayList<Trinket> trinkets){
+        updateTrinkets(trinkets, mainNode);
+    }
+    private void updateTrinkets(ArrayList<Trinket> trinkets, Node n){
+        for(Trinket t : trinkets){
+            Spatial s = trinketSpatial.get(t);
+            if(s == null){
+                s = getModel(t.modelPath);
+                s.setName(t.label);
+                if(n == mainNode)
+                    trinketSpatial.put(t, s);
+                n.attachChild(s);
+            }
+            
+            s.setLocalScale(0.002f*(float)t.scaleX, 0.002f*(float)t.scaleY, 0.002f*(float)t.scaleZ);
+            Quaternion q = new Quaternion().fromAngles((float)t.rotX, (float)t.rotY, (float)t.rotZ);
+            s.setLocalRotation(q);
+            if(t.color != null)
+                s.setMaterial(mm.getLightingColor(Translator.toColorRGBA(t.color)));
+            s.setLocalTranslation(Translator.toVector3f(t.pos));
+        }
+        
+        
+    }
+    private void deleteTrinkets(ArrayList<Trinket> trinkets){
+        for(Trinket t : trinkets){
+            mainNode.detachChild(trinketSpatial.get(t));
+            trinketSpatial.remove(t);
+        }
         
     }
     
@@ -166,7 +201,7 @@ public class MapRenderer implements ActionListener {
         g.rotate(0, 0, (float)(t.cliff.angle));
         g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
         n.attachChild(g);
-        attachTrinkets(t);
+        updateTrinkets(t.cliff.trinkets, n);
     }
     
     private void attachManmadeCliff(Tile t){
@@ -194,23 +229,6 @@ public class MapRenderer implements ActionListener {
         s.scale(0.005f);
         s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+0.1f);
         n.attachChild(s);
-    }
-    
-    private void attachTrinkets(Tile t){
-        Node n = (Node)tilesSpatial.get(t);
-        if(n == null)
-            throw new RuntimeException("Can't attach trinkets before face.");
-        
-        for(Trinket trinket : t.cliff.trinkets){
-            Spatial s = getModel(trinket.modelPath);
-            s.scale(0.002f*(float)trinket.scaleX, 0.002f*(float)trinket.scaleY, 0.002f*(float)trinket.scaleZ);
-            s.rotate((float)trinket.rotX, (float)trinket.rotY, (float)trinket.rotZ);
-            if(trinket.color != null)
-                s.setMaterial(mm.getLightingColor(Translator.toColorRGBA(trinket.color)));
-            s.setLocalTranslation(Translator.toVector3f(trinket.pos.getAddition(t.x, t.y, t.level*Tile.STAGE_HEIGHT)));
-            n.attachChild(s);
-        }
-        
     }
     
     private void updateParcelsFor(ArrayList<Tile> tiles){

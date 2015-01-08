@@ -27,14 +27,12 @@ public class Set {
         actual++;
         if(actual > count)
             actual = 0;
-        LogUtil.logger.info("toggled to set "+actual+".");
     }
 
     public void set(int index) {
         if(index < 0 || index >= count)
             throw new IllegalArgumentException("Set "+index+" doesn't exists.");
         actual = index;
-        LogUtil.logger.info("toggled to set "+actual+".");
     }
     
     public void set(String asset){

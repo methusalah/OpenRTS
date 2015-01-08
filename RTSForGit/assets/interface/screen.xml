@@ -122,6 +122,9 @@
                         <control name="myButton" id="unittool" childLayout="center" width="40px" label="units" height="40px">
                           <interact onClick="setUnitTool()"/>
                         </control>
+                        <control name="myButton" id="trinkettool" childLayout="center" width="40px" label="trkts" height="40px">
+                          <interact onClick="setTrincketTool()"/>
+                        </control>
                     </panel>
                 </panel>
                 <panel id="toolop" childLayout="vertical" width="100%" style="nifty-panel-simple" height="105px">

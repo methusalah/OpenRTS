@@ -50,7 +50,7 @@ public class EditorGUIDrawer extends GUIDrawer{
     }
 
     @Override
-    protected void draw() {
+    public void draw() {
         drawToolPanel();
         drawOperationPanel();
         drawSetPanel();

@@ -100,7 +100,6 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        LogUtil.logger.info("switching controller...");
         Controller desiredCtrl;
         switch(e.getActionCommand()){
             case "CTRL1" : desiredCtrl = fieldCtrl; break;
@@ -108,9 +107,7 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
             case "CTRL3" : desiredCtrl = groundCtrl; break;
                 default:throw new IllegalAccessError();
         }
-        
-        if(desiredCtrl == null)
-            return;
+        LogUtil.logger.info("switching controller to "+desiredCtrl.getClass().getSimpleName());
         
         actualCtrl.desactivate();
         actualCtrl = desiredCtrl;

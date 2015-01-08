@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Commander;
 import model.Reporter;
-import model.army.data.Unit;
-import model.army.Unity;
+import model.battlefield.army.components.Unit;
+import model.battlefield.army.Unity;
 import model.editor.Pencil;
 import static model.editor.Pencil.Shape.Circle;
 import model.editor.tools.AtlasTool;
@@ -35,8 +35,6 @@ import tools.LogUtil;
  */
 public class EditorGUIController extends GUIController {
 
-    boolean toRefresh = false;
-    
     public EditorGUIController(Nifty nifty, Controller controller) {
         super(controller, nifty);
         drawer = new EditorGUIDrawer(this);
@@ -45,16 +43,18 @@ public class EditorGUIController extends GUIController {
     @Override
     public void activate(){
         nifty.gotoScreen("editor");
-        drawer.askRedraw();
+        nifty.update();
+        askRedraw();
     }
     
     @Override
     public void update() {
-        if(!nifty.getCurrentScreen().getScreenId().equals("editor")){
-            LogUtil.logger.info("updating editor gui but screen's not ready.");
-            return;
+        if(!nifty.getCurrentScreen().getScreenId().equals("editor"))
+            throw new RuntimeException("updating editor screen but is not current screen.");
+        if(redrawAsked){
+            drawer.draw();
+            redrawAsked = false;
         }
-        drawer.update();
     }
 
     @Override
@@ -113,58 +113,62 @@ public class EditorGUIController extends GUIController {
     }
     public void setCliffTool(){
         ctrl.model.toolManager.setCliffTool();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setHeightTool(){
         ctrl.model.toolManager.setHeightTool();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setAtlasTool(){
         ctrl.model.toolManager.setAtlasTool();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setRampTool(){
         ctrl.model.toolManager.setRampTool();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setUnitTool(){
         ctrl.model.toolManager.setUnitTool();
-        drawer.askRedraw();
+        askRedraw();
+    }
+    public void setTrincketTool(){
+        ctrl.model.toolManager.setTrinketTool();
+        askRedraw();
     }
 
     public void setOperation(String indexString){
         ctrl.model.toolManager.actualTool.setOperation(Integer.parseInt(indexString));
-        drawer.askRedraw();
+        askRedraw();
     }
     
     public void setSet(String indexString){
         if(ctrl.model.toolManager.actualTool.hasSet())
             ctrl.model.toolManager.actualTool.getSet().set(Integer.parseInt(indexString));
-        drawer.askRedraw();
+        askRedraw();
     }
     
     public void setRoughMode(){
         ctrl.model.toolManager.actualTool.pencil.setRoughMode();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setAirbrushMode(){
         ctrl.model.toolManager.actualTool.pencil.setAirbrushMode();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setNoiseMode(){
         ctrl.model.toolManager.actualTool.pencil.setNoiseMode();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setSquareShape(){
         ctrl.model.toolManager.actualTool.pencil.setSquareShape();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setDiamondShape(){
         ctrl.model.toolManager.actualTool.pencil.setDiamondShape();
-        drawer.askRedraw();
+        askRedraw();
     }
     public void setCircleShape(){
         ctrl.model.toolManager.actualTool.pencil.setCircleShape();
-        drawer.askRedraw();
+        askRedraw();
     }
 }

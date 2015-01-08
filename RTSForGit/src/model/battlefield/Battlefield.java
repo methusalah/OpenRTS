@@ -5,12 +5,12 @@
 package model.battlefield;
 
 import java.util.ArrayList;
-import model.army.ArmyManager;
-import model.army.data.Unit;
-import model.lighting.SunLight;
-import model.map.Map;
-import model.map.MapFactory;
-import model.map.parcel.ParcelManager;
+import model.battlefield.army.ArmyManager;
+import model.battlefield.army.components.Unit;
+import model.battlefield.lighting.SunLight;
+import model.battlefield.map.Map;
+import model.battlefield.map.MapFactory;
+import model.battlefield.map.parcel.ParcelManager;
 
 /**
  *

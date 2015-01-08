@@ -12,8 +12,8 @@ import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
 import java.util.ArrayList;
-import model.army.data.actors.MovableActor;
-import model.army.data.actors.ParticleActor;
+import model.battlefield.actors.MovableActor;
+import model.battlefield.actors.ParticleActor;
 import tools.LogUtil;
 import view.math.Translator;
 

@@ -8,11 +8,11 @@ import geometry.AlignedBoundingBox;
 import geometry.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import model.map.Map;
-import model.army.data.Unit;
-import model.army.ArmyManager;
-import model.army.Unity;
-import model.army.motion.pathfinding.FlowField;
+import model.battlefield.map.Map;
+import model.battlefield.army.components.Unit;
+import model.battlefield.army.ArmyManager;
+import model.battlefield.army.Unity;
+import model.battlefield.army.motion.pathfinding.FlowField;
 import tools.LogUtil;
 
 /**
@@ -151,16 +151,16 @@ public class Commander {
         if(visionCenter != null)
             for(Unit u : armyManager.units)
                 if(u.getPos2D().getDistance(visionCenter) < 10){
-                    if(!unitiesInContext.containsKey(u.id))
-                        unitiesInContext.put(u.id, new Unity());
-                    unitiesInContext.get(u.id).add(u);
+                    if(!unitiesInContext.containsKey(u.UIName))
+                        unitiesInContext.put(u.UIName, new Unity());
+                    unitiesInContext.get(u.UIName).add(u);
                 }
         sendReportOrder();
     }
     
     public void selectUnityInContext(Unity unityID){
         unselect();
-        for(Unit u : unitiesInContext.get(unityID.id))
+        for(Unit u : unitiesInContext.get(unityID.UIName))
             select(u);
     }
     
