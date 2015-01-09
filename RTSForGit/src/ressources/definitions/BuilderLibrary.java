@@ -24,6 +24,10 @@ import model.builders.MapStyleBuilder;
 import model.builders.NaturalFaceBuilder;
 import model.builders.TrinketBuilder;
 import model.battlefield.warfare.Faction;
+import model.builders.AnimationActorBuilder;
+import model.builders.ModelActorBuilder;
+import model.builders.ParticleActorBuilder;
+import model.builders.PhysicActorBuilder;
 import tools.LogUtil;
 
 /**
@@ -112,7 +116,17 @@ public class BuilderLibrary {
         projectileBuilders.put(def.id, new ProjectileBuilder(def, this));
     }
     private void submitActor(Definition def){
-        actorBuilders.put(def.id, new ActorBuilder(def, this));
+        ActorBuilder b = null;;
+        switch(def.getElement(ActorBuilder.TYPE).getVal()){
+            case ActorBuilder.TYPE_DEFAULT : b = new ActorBuilder(def, this); break;
+            case ActorBuilder.TYPE_ANIMATION : b = new AnimationActorBuilder(def, this); break;
+            case ActorBuilder.TYPE_PARTICLE : b = new ParticleActorBuilder(def, this); break;
+            case ActorBuilder.TYPE_PHYSIC : b = new PhysicActorBuilder(def, this); break;
+            case ActorBuilder.TYPE_PROJECTILE : b = new ModelActorBuilder(def, this); break;
+            case ActorBuilder.TYPE_UNIT : b = new ModelActorBuilder(def, this); break;
+                default: throw new RuntimeException("Unknown actor type '"+def.getElement(ActorBuilder.TYPE).getVal()+"'.");
+        }
+        actorBuilders.put(def.id, b);
     }
     
     private void submitMapStyle(Definition def){

@@ -30,7 +30,6 @@ public class Definition {
         id = other.id;
         type = other.type;
         elements = new ArrayList<>(other.elements);
-//        update();
     }
     
     public boolean equals(Definition other){
@@ -49,10 +48,13 @@ public class Definition {
     public void updateElements(ArrayList<DefElement> elements){
         this.elements.clear();
         this.elements.addAll(elements);
-        update();
     }
     
-    void update(){
-        
+    public DefElement getElement(String name){
+        for(DefElement de : elements)
+            if(de.name.equals(name))
+                return de;
+        throw new IllegalArgumentException(name+" doesn't exist on the Definition.");
     }
+    
 }

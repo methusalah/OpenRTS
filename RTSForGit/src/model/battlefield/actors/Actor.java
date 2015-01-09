@@ -25,7 +25,6 @@ public class Actor {
     public Actor parent;
     public String trigger;
     public ArrayList<Actor> children = new ArrayList<>();
-    public String id;
     
     public ActorViewElements viewElements = new ActorViewElements();
     boolean acting = false;
