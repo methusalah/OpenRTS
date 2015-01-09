@@ -54,7 +54,7 @@ public class Definition {
         for(DefElement de : elements)
             if(de.name.equals(name))
                 return de;
-        throw new IllegalArgumentException(name+" doesn't exist on the Definition.");
+        return null;
     }
     
 }

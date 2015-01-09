@@ -38,7 +38,7 @@ public class ParticleActorDrawer {
         
         MovableActor ma = (MovableActor)particleActor.getParentModelActor();
         if(ma.viewElements.spatial == null)
-            LogUtil.logger.info("missing spatial from parent actor "+ma.id+" to render particles from "+particleActor.id);
+            LogUtil.logger.info("missing spatial from parent actor "+ma.debbug_id+" to render particles from "+particleActor.debbug_id);
         
         Vector3f emissionPoint;
         Vector3f direction;

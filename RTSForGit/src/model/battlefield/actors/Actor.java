@@ -5,7 +5,9 @@
 package model.battlefield.actors;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.battlefield.army.ArmyManager;
+import model.builders.actors.ActorBuilder;
 import tools.LogUtil;
 import view.actorDrawing.ActorViewElements;
 
@@ -22,20 +24,32 @@ public class Actor {
     protected static final String ON_EXPLODED = "onExploded";
     protected static final String ON_ALL_TIME = "onAllTime";
     
-    public Actor parent;
-    public String trigger;
-    public ArrayList<Actor> children = new ArrayList<>();
+    public final Actor parent;
+    public final String trigger;
+    public final List<Actor> children;
+    public final ArmyManager armyManager;
     
-    public ActorViewElements viewElements = new ActorViewElements();
+    public String debbug_id = "id not configured";
+    
+    public final ActorViewElements viewElements = new ActorViewElements();
     boolean acting = false;
     boolean destroyed = false;
     
-    public ArmyManager armyManager;
-    
-    
-    public Actor(String trigger, Actor parent){
-        this.trigger = trigger;
+
+    public Actor(Actor parent,
+            String trigger,
+            List<String> childrenTriggers,
+            List<ActorBuilder> childrenBuilders,
+            ArmyManager armyManager) {
         this.parent = parent;
+        this.trigger = trigger;            
+        children = new ArrayList<>();
+        int i = 0;
+        for(ActorBuilder b : childrenBuilders){
+            children.add(b.build(childrenTriggers.get(i), this));
+            i++;
+        }
+        this.armyManager = armyManager;
     }
     
     public void onMove(boolean cond){

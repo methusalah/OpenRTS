@@ -19,14 +19,14 @@ import ressources.definitions.BuilderLibrary;
  * @author Benoît
  */
 public class MoverBuilder extends Builder{
-    static final String PATHFINDING_MODE = "PathfindingMode";
-    static final String HEIGHTMAP = "Heightmap";
+    private static final String PATHFINDING_MODE = "PathfindingMode";
+    private static final String HEIGHTMAP = "Heightmap";
     
-    static final String FLY = "Fly";
-    static final String WALK = "Walk";
-    static final String SKY = "Sky";
-    static final String AIR = "Air";
-    static final String GROUND = "Ground";
+    private static final String FLY = "Fly";
+    private static final String WALK = "Walk";
+    private static final String SKY = "Sky";
+    private static final String AIR = "Air";
+    private static final String GROUND = "Ground";
 
     private Mover.PathfindingMode pathfindingMode;
     private Mover.Heightmap heightmap;

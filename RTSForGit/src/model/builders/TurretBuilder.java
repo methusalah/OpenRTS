@@ -17,15 +17,15 @@ import ressources.definitions.Definition;
  * @author Benoît
  */
 public class TurretBuilder extends Builder {
-    static final String SPEED = "Speed";
-    static final String IDLE_SPEED = "IdleSpeed";
-    static final String ON_IDLE = "OnIdle";
-    static final String BONE_NAME = "BoneName";
+    private static final String SPEED = "Speed";
+    private static final String IDLE_SPEED = "IdleSpeed";
+    private static final String ON_IDLE = "OnIdle";
+    private static final String BONE_NAME = "BoneName";
     
-    static final String RESET_ON_MOVE = "ResetOnMove";
-    static final String RESET = "Reset";
-    static final String SPIN = "Spin";
-    static final String HOLD = "Hold";
+    private static final String RESET_ON_MOVE = "ResetOnMove";
+    private static final String RESET = "Reset";
+    private static final String SPIN = "Spin";
+    private static final String HOLD = "Hold";
     
     private double speed;
     private double idleSpeed;

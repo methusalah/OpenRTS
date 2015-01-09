@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import math.Angle;
 import model.battlefield.actors.UnitActor;
 import model.battlefield.army.tacticalAI.TacticalAI;
-import model.builders.ActorBuilder;
+import model.builders.actors.ActorBuilder;
 import model.builders.MoverBuilder;
 import model.builders.TurretBuilder;
 import model.builders.WeaponBuilder;
 import model.battlefield.warfare.Faction;
+import model.builders.actors.ModelActorBuilder;
 import sun.font.EAttribute;
 
 /**
@@ -54,7 +55,7 @@ public class Unit extends Movable {
             int maxHealth,
             double sight,
             Faction faction,
-            ActorBuilder actorBuilder) {
+            ModelActorBuilder actorBuilder) {
         super(radius, separationRadius, speed, mass, pos, moverBuilder);
         this.UIName = UIName;
         this.race = race;

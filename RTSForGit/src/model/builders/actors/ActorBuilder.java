@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.builders;
+package model.builders.actors;
 
 import model.battlefield.actors.Actor;
 import ressources.definitions.BuilderLibrary;
@@ -14,12 +14,13 @@ import math.Angle;
 import model.battlefield.actors.AnimationActor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
-import model.battlefield.actors.RagdollActor;
+import model.battlefield.actors.PhysicActor;
 import model.battlefield.actors.ProjectileActor;
 import model.battlefield.actors.UnitActor;
 import model.battlefield.army.components.Movable;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
+import model.builders.Builder;
 import ressources.definitions.Definition;
 
 /**
@@ -36,46 +37,33 @@ public class ActorBuilder extends Builder{
     public static final String TYPE_DEFAULT = "Default";
     public static final String TYPE_PHYSIC = "Physic";
     
-    static final String ACTOR_LIST = "ActorList";
-    static final String TRIGGER = "Trigger";
-    static final String ACTOR_LINK = "ActorLink";
+    protected static final String ACTOR_LIST = "ActorList";
+    protected static final String TRIGGER = "Trigger";
+    protected static final String ACTOR_LINK = "ActorLink";
 
-    String type;
-    List<String> actorList = new ArrayList<>();
-    String trigger;
+    protected String type;
+    private List<String> childrenActorLinks = new ArrayList<>();
+    protected List<String> childrenTriggers = new ArrayList<>();
     
     public ActorBuilder(Definition def, BuilderLibrary lib){
         super(def, lib);
         for(DefElement de : def.elements)
             switch(de.name){
                 case TYPE : type = de.getVal(); break;
-                case TRIGGER : trigger = de.getVal(); break;
-                case ACTOR_LIST :actorList.add(de.getVal(ACTOR_LINK)); break;
-                default:throw new RuntimeException("'"+de.name+"' element unknown in "+def.id+" actor.");
+                case ACTOR_LIST :
+                    childrenActorLinks.add(de.getVal(ACTOR_LINK));
+                    childrenTriggers.add(de.getVal(TRIGGER));
+                    break;
             }
     }
     
-    public Actor build(){
-        return build("", null, null);
-    }
-    public Actor build(Movable movable){
-        return build("", movable, null);
-    }
     public Actor build(String trigger, Actor parent){
-        return build(trigger, null, parent);
-    }
-    
-    public Actor build(String trigger, Movable movable, Actor parent){
-        Actor res;
-        res = new Actor(trigger, parent);
-
-        res.armyManager = lib.armyManager;
-        return res;
+        return new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.armyManager);
     }
     
     protected List<ActorBuilder> getChildrenBuilders(){
         List<ActorBuilder> res = new ArrayList<>();
-        for(String s : actorList)
+        for(String s : childrenActorLinks)
             res.add(lib.getActorBuilder(s));
         return res;
     }

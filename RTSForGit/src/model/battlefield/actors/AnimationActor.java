@@ -4,6 +4,10 @@
  */
 package model.battlefield.actors;
 
+import java.util.List;
+import model.battlefield.army.ArmyManager;
+import model.builders.actors.ActorBuilder;
+
 /**
  *
  * @author Benoît
@@ -11,14 +15,26 @@ package model.battlefield.actors;
 public class AnimationActor extends Actor {
     public enum Cycle{Once, Loop, Cycle};
     
-    public String animName;
-    public Cycle cycle;
-    public double speed;
+    public final String animName;
+    public final Cycle cycle;
+    public final double speed;
     
     public boolean launched = false;
-    public AnimationActor(String trigger, Actor parent){
-        super(trigger, parent);
+
+    public AnimationActor(Actor parent,
+            String trigger,
+            List<String> childrenTriggers,
+            List<ActorBuilder> childrenBuilders,
+            ArmyManager armyManager,
+            String animName,
+            Cycle cycle,
+            double speed) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager);
+        this.animName = animName;
+        this.cycle = cycle;
+        this.speed = speed;
     }
+    
 
     @Override
     public void act() {

@@ -4,6 +4,7 @@
  */
 package model.builders;
 
+import model.builders.actors.ModelActorBuilder;
 import ressources.definitions.BuilderLibrary;
 import geometry.Point2D;
 import geometry3D.Point3D;
@@ -23,21 +24,21 @@ import model.battlefield.warfare.Faction;
  * @author Benoît
  */
 public class UnitBuilder extends Builder{
-    static final String RADIUS = "Radius";
-    static final String SEPARATION_RADIUS = "SeparationRadius";
-    static final String SPEED = "Speed";
-    static final String MASS = "Mass";
-    static final String MOVER_LINK = "MoverLink";
+    private static final String RADIUS = "Radius";
+    private static final String SEPARATION_RADIUS = "SeparationRadius";
+    private static final String SPEED = "Speed";
+    private static final String MASS = "Mass";
+    private static final String MOVER_LINK = "MoverLink";
     
-    static final String UINAME = "UIName"; 
-    static final String RACE = "Race";
-    static final String MAXHEALTH = "MaxHealth";
-    static final String SIGHT = "Sight";
+    private static final String UINAME = "UIName"; 
+    private static final String RACE = "Race";
+    private static final String MAXHEALTH = "MaxHealth";
+    private static final String SIGHT = "Sight";
     
-    static final String WEAPONLIST = "WeaponList";
-    static final String TURRET_LINK = "TurretLink";
-    static final String WEAPON_LINK = "WeaponLink";
-    static final String ACTOR_LINK = "ActorLink";
+    private static final String WEAPONLIST = "WeaponList";
+    private static final String TURRET_LINK = "TurretLink";
+    private static final String WEAPON_LINK = "WeaponLink";
+    private static final String ACTOR_LINK = "ActorLink";
 
     private String UIName;
     private String race;
@@ -74,7 +75,7 @@ public class UnitBuilder extends Builder{
     }
     
     public Unit build(Faction faction, Point3D pos){
-        Unit res = new Unit(radius, separationRadius, speed, mass, pos, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, sight, faction, lib.getActorBuilder(actorLink));
+        Unit res = new Unit(radius, separationRadius, speed, mass, pos, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, sight, faction, (ModelActorBuilder)lib.getActorBuilder(actorLink));
         
         int i = 0;
         for(String weaponLink : weaponLinks){

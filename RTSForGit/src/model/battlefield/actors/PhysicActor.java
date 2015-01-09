@@ -5,24 +5,42 @@
 package model.battlefield.actors;
 
 import geometry3D.Point3D;
+import java.util.List;
+import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Movable;
+import model.builders.actors.ActorBuilder;
 
 /**
  *
  * @author Benoît
  */
-public class RagdollActor extends ModelActor {
-    public double startLife = 1;
+public class PhysicActor extends ModelActor {
+    public final double startLife;
+    public final double mass;
+    public final String massCenterBone;
+    
+    
     public double life;
-    public double mass = 1;
-    public String massCenterBone;
     public long timer;
-    
     public boolean launched = false;
-    
-    public RagdollActor(String trigger, Actor parent){
-        super(trigger, parent);
+
+    public PhysicActor(String modelPath,
+            double scale,
+            double startLife,
+            double mass,
+            String massCenterBone,
+            Actor parent,
+            String trigger,
+            List<String> childrenTriggers,
+            List<ActorBuilder> childrenBuilders,
+            ArmyManager armyManager) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager, modelPath, scale);
+        this.startLife = startLife;
+        this.mass = mass;
+        this.massCenterBone = massCenterBone;
     }
+
+    
     
     @Override
     public String getType() {

@@ -4,8 +4,11 @@
  */
 package model.battlefield.actors;
 
-import geometry3D.Point3D;
 import java.awt.Color;
+import java.util.List;
+import model.battlefield.army.ArmyManager;
+import model.builders.actors.ActorBuilder;
+import tools.LogUtil;
 
 /**
  *
@@ -14,40 +17,85 @@ import java.awt.Color;
 public class ParticleActor extends Actor {
     public enum Facing{Horizontal, Velocity, Camera}
     
-    public String spritePath;
-    public int nbCol = 1;
-    public int nbRow = 1;
-    public String emissionBone;
-    public String directionBone;
+    public final String spritePath;
+    public final int nbCol;
+    public final int nbRow;
+    public final String emissionBone;
+    public final String directionBone;
     
-    public double velocity = 0;
-    public double fanning = 0;
-    public boolean randomSprite;
-    public int maxCount;
-    public int perSecond;
-    public double duration = Double.MAX_VALUE;
-    public double startSize;
-    public double endSize;
-    public Color startColor;
-    public Color endColor;
-    public double minLife;
-    public double maxLife;
-    public double spinSpeed;
-    public boolean randomAngle;
-    public double rotationSpeed;
-    public boolean gravity = false;
-    public double emissionPointVariation;
-    public Facing facing = Facing.Camera;
-    public boolean add = true;
-    public double startVariation = 0;
+    public final double velocity;
+    public final double fanning;
+    public final boolean randomSprite;
+    public final int maxCount;
+    public final int perSecond;
+    public final double duration;
+    public final double startSize;
+    public final double endSize;
+    public final Color startColor;
+    public final Color endColor;
+    public final double minLife;
+    public final double maxLife;
+    public final double rotationSpeed;
+    public final boolean gravity;
+    public final Facing facing;
+    public final boolean add;
+    public final double startVariation;
     
     public boolean launched = false;
     public long startTime = 0;
-    
-    public ParticleActor(String trigger, Actor parent){
-        super(trigger, parent);
+
+    public ParticleActor(String spritePath,
+            int nbCol,
+            int nbRow,
+            String emissionBone,
+            String directionBone,
+            double velocity,
+            double fanning,
+            boolean randomSprite,
+            int maxCount,
+            int perSecond,
+            double duration,
+            double startSize,
+            double endSize,
+            Color startColor,
+            Color endColor,
+            double minLife,
+            double maxLife,
+            double rotationSpeed,
+            boolean gravity,
+            Facing facing,
+            boolean add,
+            double startVariation,
+            Actor parent,
+            String trigger,
+            List<String> childrenTriggers,            
+            List<ActorBuilder> childrenBuilders,
+            ArmyManager armyManager) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager);
+        this.spritePath = spritePath;
+        this.nbCol = nbCol;
+        this.nbRow = nbRow;
+        this.emissionBone = emissionBone;
+        this.directionBone = directionBone;
+        this.velocity = velocity;
+        this.fanning = fanning;
+        this.randomSprite = randomSprite;
+        this.maxCount = maxCount;
+        this.perSecond = perSecond;
+        this.duration = duration;
+        this.startSize = startSize;
+        this.endSize = endSize;
+        this.startColor = startColor;
+        this.endColor = endColor;
+        this.minLife = minLife;
+        this.maxLife = maxLife;
+        this.rotationSpeed = rotationSpeed;
+        this.gravity = gravity;
+        this.facing = facing;
+        this.add = add;
+        this.startVariation = startVariation;
     }
-    
+
     public ModelActor getParentModelActor(){
         Actor parent = this;
         do {

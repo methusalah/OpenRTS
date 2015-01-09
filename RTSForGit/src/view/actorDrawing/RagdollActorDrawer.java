@@ -14,7 +14,7 @@ import com.jme3.scene.Spatial;
 import geometry.Point2D;
 import math.Angle;
 import model.battlefield.actors.MovableActor;
-import model.battlefield.actors.RagdollActor;
+import model.battlefield.actors.PhysicActor;
 import tools.LogUtil;
 import view.math.Translator;
 
@@ -29,7 +29,7 @@ public class RagdollActorDrawer {
         this.manager = manager;
     }
     
-    protected void draw(RagdollActor actor){
+    protected void draw(PhysicActor actor){
         if(!actor.launched){
             actor.life = actor.startLife;
             manager.modelDrawer.draw(actor);

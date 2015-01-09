@@ -24,24 +24,24 @@ import model.battlefield.army.effects.PersistentEffect;
  * @author Benoît
  */
 public class EffectBuilder extends Builder{
-    static final String TYPE = "Type"; 
-    static final String EFFECT_LINK_LIST = "EffectLinkList";
-    public static final String TYPE_DAMAGE = "Damage";
-    public static final String TYPE_PERSISTENT = "Persistent";
-    public static final String TYPE_LAUNCHER = "Launcher";
-    static final String AMOUNT = "Amount";
-    static final String PERIOD_COUNT = "PeriodCount";
-    static final String PERIOD_DURATION_LIST = "DurationList";
-    static final String PERIOD_RANGE_LIST = "RangeList";
-    static final String PROJECTILE_LINK = "ProjectileLink";
+    private static final String TYPE = "Type"; 
+    private static final String EFFECT_LINK_LIST = "EffectLinkList";
+    private static final String TYPE_DAMAGE = "Damage";
+    private static final String TYPE_PERSISTENT = "Persistent";
+    private static final String TYPE_LAUNCHER = "Launcher";
+    private static final String AMOUNT = "Amount";
+    private static final String PERIOD_COUNT = "PeriodCount";
+    private static final String PERIOD_DURATION_LIST = "DurationList";
+    private static final String PERIOD_RANGE_LIST = "RangeList";
+    private static final String PROJECTILE_LINK = "ProjectileLink";
     
-    String type = null;
-    ArrayList<String> effectLinkList = new ArrayList<>();
-    int amount;
-    int periodCount;
-    ArrayList<Double> durations = new ArrayList<>();
-    ArrayList<Double> ranges = new ArrayList<>();
-    String projectileLink = null;
+    private String type = null;
+    private ArrayList<String> effectLinkList = new ArrayList<>();
+    private int amount;
+    private int periodCount;
+    private ArrayList<Double> durations = new ArrayList<>();
+    private ArrayList<Double> ranges = new ArrayList<>();
+    private String projectileLink = null;
     
     public EffectBuilder(Definition def, BuilderLibrary lib){
         super(def, lib);
@@ -78,7 +78,7 @@ public class EffectBuilder extends Builder{
             case TYPE_LAUNCHER :
                 res = new LauncherEffect(type, amount, periodCount, durations, ranges, projectile, effectBuilders, source, target, targetPoint);
                 break;
-            default : throw new RuntimeException("Unknown effect type (id : "+def.id+").");
+            default : printUnknownValue(TYPE, type); throw new RuntimeException();
         }
         return res;
     }

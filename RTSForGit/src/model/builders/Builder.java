@@ -4,18 +4,18 @@
  */
 package model.builders;
 
-import static model.builders.EffectBuilder.TYPE;
 import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import ressources.definitions.Definition;
+import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
 public class Builder {
-    Definition def;
-    BuilderLibrary lib;
+    protected Definition def;
+    protected BuilderLibrary lib;
     
     public Builder(Definition def, BuilderLibrary lib){
         this.def = def;
@@ -24,5 +24,17 @@ public class Builder {
     
     public String getId(){
         return def.id;
+    }
+    
+    public void printUnknownElement(String elementName){
+        LogUtil.logger.warning("Element '"+elementName+"' unknown in definition '"+getId()+"'.");
+    }
+    
+    public void printUnknownArgument(String elementName, String argumentName){
+        LogUtil.logger.warning("Argument '"+argumentName+"' unknown for element '"+elementName+"' in definition '"+getId()+"'.");
+    }
+
+    public void printUnknownValue(String elementName, String value){
+        LogUtil.logger.warning("value '"+value+"' unknown for element '"+elementName+"' in definition '"+getId()+"'.");
     }
 }

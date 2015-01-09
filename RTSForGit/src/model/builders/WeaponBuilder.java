@@ -19,14 +19,14 @@ import ressources.definitions.Definition;
  * @author Benoît
  */
 public class WeaponBuilder extends Builder{
-    static final String UINAME = "UIName"; 
-    static final String RANGE = "Range";
-    static final String SCAN_RANGE = "ScanRange";
-    static final String PERIOD = "Period"; 
-    static final String EFFECT_LINK = "EffectLink";
-    static final String ACTOR_LINK = "ActorLink";
-    static final String SOURCE_BONE = "SourceBone";
-    static final String DIRECTION_BONE = "DirectionBone";
+    private static final String UINAME = "UIName"; 
+    private static final String RANGE = "Range";
+    private static final String SCAN_RANGE = "ScanRange";
+    private static final String PERIOD = "Period"; 
+    private static final String EFFECT_LINK = "EffectLink";
+    private static final String ACTOR_LINK = "ActorLink";
+    private static final String SOURCE_BONE = "SourceBone";
+    private static final String DIRECTION_BONE = "DirectionBone";
 
     private String UIName;
     private double range;
@@ -55,10 +55,8 @@ public class WeaponBuilder extends Builder{
     public Weapon build(Unit holder, Turret t){
         EffectBuilder effectBuilder = lib.getEffectBuilder(effectLink);
         Actor actor = null;
-        if(actorLink != null){
-            actor = lib.getActorBuilder(actorLink).build();
-            actor.parent = holder.actor;
-        }
+        if(actorLink != null)
+            actor = lib.getActorBuilder(actorLink).build("", holder.actor);
         Weapon res = new Weapon(UIName, range, scanRange, period, effectBuilder, sourceBone, directionBone, holder, actor, t);
         return res;
     }

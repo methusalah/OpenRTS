@@ -6,6 +6,9 @@ package model.battlefield.actors;
 
 import geometry3D.Point3D;
 import java.util.HashMap;
+import java.util.List;
+import model.battlefield.army.ArmyManager;
+import model.builders.actors.ActorBuilder;
 import view.actorDrawing.ActorViewElements;
 
 /**
@@ -13,15 +16,23 @@ import view.actorDrawing.ActorViewElements;
  * @author Benoît
  */
 public class ModelActor extends Actor {
-    public String modelPath;
-    public double scale = 1;
-
+    public final String modelPath;
+    public final double scale;
     
     private HashMap<String, Point3D> boneCoords = new HashMap<>();
-    
-    public ModelActor(String trigger, Actor parent){
-        super(trigger, parent);
+
+    public ModelActor(Actor parent,
+            String trigger,
+            List<String> childrenTriggers,
+            List<ActorBuilder> childrenBuilders,
+            ArmyManager armyManager,
+            String modelPath,
+            double scale) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager);
+        this.modelPath = modelPath;
+        this.scale = scale;
     }
+    
     
     public String getLabel(){
         return "";

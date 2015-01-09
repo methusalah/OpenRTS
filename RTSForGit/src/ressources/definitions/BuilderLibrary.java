@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import math.MyRandom;
 import model.battlefield.army.ArmyManager;
-import model.builders.ActorBuilder;
+import model.builders.actors.ActorBuilder;
 import model.builders.EffectBuilder;
 import model.builders.MoverBuilder;
 import model.builders.ProjectileBuilder;
@@ -24,10 +24,10 @@ import model.builders.MapStyleBuilder;
 import model.builders.NaturalFaceBuilder;
 import model.builders.TrinketBuilder;
 import model.battlefield.warfare.Faction;
-import model.builders.AnimationActorBuilder;
-import model.builders.ModelActorBuilder;
-import model.builders.ParticleActorBuilder;
-import model.builders.PhysicActorBuilder;
+import model.builders.actors.AnimationActorBuilder;
+import model.builders.actors.ModelActorBuilder;
+import model.builders.actors.ParticleActorBuilder;
+import model.builders.actors.PhysicActorBuilder;
 import tools.LogUtil;
 
 /**
@@ -116,15 +116,16 @@ public class BuilderLibrary {
         projectileBuilders.put(def.id, new ProjectileBuilder(def, this));
     }
     private void submitActor(Definition def){
-        ActorBuilder b = null;;
-        switch(def.getElement(ActorBuilder.TYPE).getVal()){
-            case ActorBuilder.TYPE_DEFAULT : b = new ActorBuilder(def, this); break;
+        ActorBuilder b = null;
+        String type = def.getElement(ActorBuilder.TYPE) == null? "": def.getElement(ActorBuilder.TYPE).getVal();
+        switch(type){
             case ActorBuilder.TYPE_ANIMATION : b = new AnimationActorBuilder(def, this); break;
             case ActorBuilder.TYPE_PARTICLE : b = new ParticleActorBuilder(def, this); break;
             case ActorBuilder.TYPE_PHYSIC : b = new PhysicActorBuilder(def, this); break;
             case ActorBuilder.TYPE_PROJECTILE : b = new ModelActorBuilder(def, this); break;
             case ActorBuilder.TYPE_UNIT : b = new ModelActorBuilder(def, this); break;
-                default: throw new RuntimeException("Unknown actor type '"+def.getElement(ActorBuilder.TYPE).getVal()+"'.");
+            case ActorBuilder.TYPE_DEFAULT :
+            default: b = new ActorBuilder(def, this);
         }
         actorBuilders.put(def.id, b);
     }

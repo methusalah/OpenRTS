@@ -5,21 +5,27 @@
 package model.battlefield.actors;
 
 import geometry3D.Point3D;
+import java.util.List;
+import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Movable;
+import model.builders.actors.ActorBuilder;
 
 /**
  *
  * @author Benoît
  */
 public class MovableActor extends ModelActor {
-    Movable movable;
+    final Movable movable;
 
-    
-    public MovableActor(String trigger, Actor parent){
-        super(trigger, parent);
-    }
-    
-    public void setMovable(Movable movable){
+    public MovableActor(Actor parent,
+            String trigger,
+            List<String> childrenTriggers,
+            List<ActorBuilder> childrenBuilders,
+            ArmyManager armyManager,
+            String modelPath,
+            double scale,
+            Movable movable) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager, modelPath, scale);
         this.movable = movable;
         act();
     }

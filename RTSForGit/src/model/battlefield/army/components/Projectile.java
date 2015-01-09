@@ -15,7 +15,8 @@ import math.Angle;
 import math.MyRandom;
 import model.battlefield.actors.ProjectileActor;
 import model.battlefield.army.effects.LauncherEffect;
-import model.builders.ActorBuilder;
+import model.builders.actors.ActorBuilder;
+import model.builders.actors.ModelActorBuilder;
 import model.builders.MoverBuilder;
 import tools.LogUtil;
 
@@ -44,7 +45,7 @@ public class Projectile extends Movable {
             MoverBuilder moverBuilder,
             PrecisionType precisionType,
             double precision,
-            ActorBuilder actorBuilder,
+            ModelActorBuilder actorBuilder,
             Unit target,
             Point3D targetPoint) {
         super(radius, separationRadius, speed, mass, pos, moverBuilder);
@@ -98,7 +99,7 @@ public class Projectile extends Movable {
                 case Other : targetPoint = getOffset(target.getPos(), precision); break;
                 default : throw new RuntimeException("unknown precision type "+precisionType);
             }
-        else if(target != null && precisionType.equals(ProjectileBuilder.PRECISION_CENTER))
+        else if(target != null && precisionType == PrecisionType.Center)
             targetPoint = target.getPos();
     }
     

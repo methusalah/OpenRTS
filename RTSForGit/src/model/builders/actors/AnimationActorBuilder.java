@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.builders;
+package model.builders.actors;
 
 import model.battlefield.actors.Actor;
 import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import model.battlefield.actors.AnimationActor;
 import model.battlefield.army.components.Movable;
+import static model.builders.actors.ActorBuilder.TYPE;
 import ressources.definitions.Definition;
 
 /**
@@ -16,21 +17,24 @@ import ressources.definitions.Definition;
  * @author Benoît
  */
 public class AnimationActorBuilder extends ActorBuilder{
-    static final String ANIMATION_NAME = "AnimName";
-    static final String SPEED = "Speed";
-    static final String CYCLE = "Cycle";
-    static final String CYCLE_ONCE = "Once";
-    static final String CYCLE_LOOP = "Loop";
-    static final String CYCLE_CYCLE = "Cycle";
+    private static final String ANIMATION_NAME = "AnimName";
+    private static final String SPEED = "Speed";
+    private static final String CYCLE = "Cycle";
+    private static final String CYCLE_ONCE = "Once";
+    private static final String CYCLE_LOOP = "Loop";
+    private static final String CYCLE_CYCLE = "Cycle";
     
-    String animationName;
-    double speed;
-    AnimationActor.Cycle cycle;
+    private String animationName;
+    private double speed;
+    private AnimationActor.Cycle cycle;
     
     public AnimationActorBuilder(Definition def, BuilderLibrary lib){
         super(def, lib);
         for(DefElement de : def.elements)
             switch(de.name){
+                case TYPE :
+                case TRIGGER :
+                case ACTOR_LIST : break;
                 case ANIMATION_NAME : animationName = de.getVal(); break;
                 case SPEED : speed = de.getDoubleVal(); break;
                 case CYCLE :
@@ -40,14 +44,12 @@ public class AnimationActorBuilder extends ActorBuilder{
                         case CYCLE_CYCLE : cycle = AnimationActor.Cycle.Cycle; break;
                     }
                     break;
-                default:throw new RuntimeException("'"+de.name+"' element unknown in "+def.id+" actor.");
+                default:printUnknownElement(de.name);
             }        
     }
     
+    @Override
     public Actor build(String trigger, Actor parent){
-        Actor res;
-        res = new AnimationActor(trigger, parent);
-        res.armyManager = lib.armyManager;
-        return res;
+        return new AnimationActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.armyManager, animationName, cycle, speed);
     }
 }
