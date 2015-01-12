@@ -5,6 +5,7 @@
 package model.builders;
 
 import java.util.ArrayList;
+import java.util.List;
 import math.MyRandom;
 import model.battlefield.map.cliff.Cliff;
 import static model.battlefield.map.cliff.Cliff.Type.Orthogonal;
@@ -21,33 +22,28 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class ManmadeFaceBuilder {
-    static final String ORTHOGONAL_LIST = "OrthogonalList";
-    static final String SALIENT_LIST = "SalientList";
-    static final String CORNER_LIST = "CornerList";
-    static final String PATH = "path";
-    static final String WEIGHT = "weight";
+public class ManmadeFaceBuilder extends Builder{
+    private static final String ORTHOGONAL_LIST = "OrthogonalList";
+    private static final String SALIENT_LIST = "SalientList";
+    private static final String CORNER_LIST = "CornerList";
+    private static final String PATH = "path";
+    private static final String WEIGHT = "weight";
 
-    Definition def;
-    BuilderLibrary lib;
+    private List<String> orthos = new ArrayList<>();
+    private List<String> salients = new ArrayList<>();
+    private List<String> corners = new ArrayList<>();
             
-    public ManmadeFaceBuilder(Definition def){
-        this.def = def;
-        this.lib = lib;
-    }
-    
-    public ManmadeFace build(Cliff cliff){
-        ArrayList<String> orthos = new ArrayList<>();
-        ArrayList<String> salients = new ArrayList<>();
-        ArrayList<String> corners = new ArrayList<>();
-        
+    public ManmadeFaceBuilder(Definition def, BuilderLibrary lib){
+        super(def, lib);
         for(DefElement de : def.elements)
             switch(de.name){
                 case ORTHOGONAL_LIST : addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), orthos); break;
                 case SALIENT_LIST : addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), salients); break;
                 case CORNER_LIST : addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), corners); break;
             }
-        
+    }
+    
+    public ManmadeFace build(Cliff cliff){
         int index = 0;
         switch (cliff.type){
             case Orthogonal :
@@ -62,11 +58,11 @@ public class ManmadeFaceBuilder {
                 if(corners.size()>1)
                     index = MyRandom.nextInt(corners.size()-1);
                 return new CornerManmadeFace(corners.get(index));
+                default:throw new RuntimeException();
         }
-        return null;
     }
     
-    private void addWithWheight(String s, int weight, ArrayList<String> list){
+    private void addWithWheight(String s, int weight, List<String> list){
         if(weight<=0 || weight>50){
             LogUtil.logger.warning("Invalid weight ("+weight+") for manmade face "+def.id+". Weight must be between 1 and 50.");
             return;

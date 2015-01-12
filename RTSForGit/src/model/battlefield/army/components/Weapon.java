@@ -12,13 +12,14 @@ import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
 import math.Precision;
+import model.battlefield.army.effects.EffectSource;
 import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-public class Weapon {
+public class Weapon implements EffectSource {
     // final
     public final String UIName;
     public final double range;
@@ -129,8 +130,7 @@ public class Weapon {
             if(actor != null)
                 actor.onShootEvent();
             target.ai.registerAsAttacker(holder);
-            Effect e = effectBuilder.build(holder, target, null);
-            e.setSourcePoint(source, vec);
+            Effect e = effectBuilder.build(this, target, null);
             e.launch();
 
             lastStrikeTime = System.currentTimeMillis();
@@ -181,4 +181,40 @@ public class Weapon {
     public boolean scanning(){
         return !onScan.isEmpty();
     }
+
+    @Override
+    public boolean isStillActiveSource() {
+        return !holder.destroyed();
+    }
+
+    @Override
+    public Point3D getPos() {
+        if(source == null)
+            return holder.getPos();
+        return source;
+    }
+
+    @Override
+    public Point3D getDirection() {
+        if(vec == null)
+            return Point3D.UNIT_Z;
+        return vec;
+    }
+
+    @Override
+    public Unit getUnit() {
+        return holder;
+    }
+
+    @Override
+    public double getYaw() {
+        if(source == null)
+            return holder.mover.yaw;
+        else
+            return vec.getSubtraction(source).get2D().getAngle();
+    }
+    
+    
+    
+    
 }

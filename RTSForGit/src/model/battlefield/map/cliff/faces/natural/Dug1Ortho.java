@@ -6,10 +6,12 @@ package model.battlefield.map.cliff.faces.natural;
 
 import collections.Ring;
 import geometry3D.Point3D;
+import java.awt.Color;
 import java.util.ArrayList;
 import math.MyRandom;
 import model.battlefield.map.Ramp;
 import model.battlefield.map.Tile;
+import model.battlefield.map.cliff.Cliff;
 import static model.battlefield.map.cliff.faces.natural.Dug1.MAX_RIDGE_POS;
 import tools.LogUtil;
 
@@ -21,8 +23,8 @@ public class Dug1Ortho extends Dug1 {
     private final static double RIDGE_PROTRUDE = 0.6;
     private final static double RIDGE_RETREAT = 0.6;
 
-    public Dug1Ortho(NaturalFace face){
-        super(face);
+    public Dug1Ortho(Cliff cliff, double noiseX, double noiseY, double noiseZ, double ridgeDepth, double ridgePos, Color color, String texturePath) {
+        super(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
         buildMesh();
     }
 

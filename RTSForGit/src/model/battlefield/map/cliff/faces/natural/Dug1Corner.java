@@ -9,6 +9,7 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import geometry3D.Polygon3D;
 import geometry3D.Triangle3D;
+import java.awt.Color;
 import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
@@ -25,8 +26,8 @@ public class Dug1Corner extends Dug1 {
     private final static double RIDGE_PROTRUDE = 0;
     private final static double RIDGE_RETREAT = 0.6;
 
-    public Dug1Corner(NaturalFace face){
-        super(face);
+    public Dug1Corner(Cliff cliff, double noiseX, double noiseY, double noiseZ, double ridgeDepth, double ridgePos, Color color, String texturePath) {
+        super(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
         buildMesh();
     }
 

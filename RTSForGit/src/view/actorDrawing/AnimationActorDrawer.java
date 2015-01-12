@@ -29,7 +29,7 @@ public class AnimationActorDrawer {
         }
         channel.setSpeed((float)actor.speed);
         
-        actor.interrupt();
+        actor.stopActing();
     }
 
 }

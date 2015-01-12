@@ -58,7 +58,6 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 
                 model = new Model();
                 view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
-                model.addListener(view);
                 
                 NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 

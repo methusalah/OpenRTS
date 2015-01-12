@@ -16,7 +16,7 @@ import model.battlefield.map.cliff.faces.Face;
  * @author Benoît
  */
 public abstract class ManmadeFace extends Face {
-    public String modelPath;
+    public final String modelPath;
     
     public ManmadeFace(String modelPath){
         this.modelPath = modelPath;

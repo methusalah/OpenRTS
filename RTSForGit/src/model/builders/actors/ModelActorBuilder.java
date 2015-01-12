@@ -60,9 +60,9 @@ public class ModelActorBuilder extends ActorBuilder{
     public Actor build(String trigger, Movable movable, Actor parent){
         Actor res;
         switch(type){
-            case TYPE_DEFAULT : res = new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.armyManager); break;
-            case TYPE_UNIT : res = new UnitActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.armyManager, modelPath, scale, movable); break;
-            case TYPE_PROJECTILE : res = new ProjectileActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.armyManager, modelPath, scale, movable); break;
+            case TYPE_DEFAULT : res = new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool); break;
+            case TYPE_UNIT : res = new UnitActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool, modelPath, scale, movable); break;
+            case TYPE_PROJECTILE : res = new ProjectileActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool, modelPath, scale, movable); break;
             default : printUnknownValue(TYPE, type); throw new RuntimeException();
         }
         res.debbug_id = getId();

@@ -16,8 +16,10 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.HashMap;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.actors.Actor;
+import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.AnimationActor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
@@ -36,7 +38,7 @@ public class ActorDrawingManager implements AnimEventListener {
     AssetManager assetManager;
     MaterialManager materialManager;
     
-    ArmyManager armyManager;
+    ActorPool pool;
     public Node mainNode;
     public PhysicsSpace mainPhysicsSpace;
     
@@ -48,10 +50,10 @@ public class ActorDrawingManager implements AnimEventListener {
     
     HashMap<String, Spatial> models = new HashMap<>();
 
-    public ActorDrawingManager(AssetManager assetManager, MaterialManager materialManager, ArmyManager armyManager){
+    public ActorDrawingManager(AssetManager assetManager, MaterialManager materialManager, ActorPool pool){
         this.assetManager = assetManager;
         this.materialManager = materialManager;
-        this.armyManager = armyManager;
+        this.pool = pool;
         mainNode = new Node();
         
         modelDrawer = new ModelActorDrawer(this);
@@ -62,7 +64,7 @@ public class ActorDrawingManager implements AnimEventListener {
     
     public void render(){
         // first, the spatials attached to interrupted actor are detached
-        for(Actor a : armyManager.grabDeletedActors()){
+        for(Actor a : pool.grabDeletedActors()){
             if(a.viewElements.spatial != null){
                 mainNode.detachChild(a.viewElements.spatial);
             }
@@ -72,7 +74,7 @@ public class ActorDrawingManager implements AnimEventListener {
                 mainNode.detachChild(a.viewElements.selectionCircle);
         }
         
-        for(Actor a : armyManager.getActors()){
+        for(Actor a : pool.getActors()){
             switch (a.getType()){
                 case "default" : break;
                 case "physic" : physicDrawer.draw((PhysicActor)a); break;

@@ -13,6 +13,8 @@ import model.battlefield.army.ArmyManager;
 import model.battlefield.actors.ProjectileActor;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
+import model.battlefield.army.effects.EffectSource;
+import model.battlefield.army.effects.EffectTarget;
 import ressources.definitions.Definition;
 import model.battlefield.army.effects.LauncherEffect;
 import tools.LogUtil;
@@ -59,9 +61,9 @@ public class ProjectileBuilder extends Builder {
             }
     }
     
-    public Projectile build(Point3D pos, Unit target, Point3D targetPoint){
-        Projectile res = new Projectile(radius, separationRadius, speed, mass, pos, lib.getMoverBuilder(moverLink), precisionType, precision, (ModelActorBuilder)lib.getActorBuilder(actorLink), target, targetPoint);
-        lib.armyManager.registerProjectile(res);
+    public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint){
+        Projectile res = new Projectile(radius, separationRadius, speed, mass, source, lib.getMoverBuilder(moverLink), precisionType, precision, (ModelActorBuilder)lib.getActorBuilder(actorLink), target, targetPoint);
+        lib.battlefield.armyManager.registerProjectile(res);
         return res;
     }
 }

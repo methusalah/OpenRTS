@@ -33,7 +33,6 @@ public class UnitBuilder extends Builder{
     private static final String UINAME = "UIName"; 
     private static final String RACE = "Race";
     private static final String MAXHEALTH = "MaxHealth";
-    private static final String SIGHT = "Sight";
     
     private static final String WEAPONLIST = "WeaponList";
     private static final String TURRET_LINK = "TurretLink";
@@ -43,7 +42,6 @@ public class UnitBuilder extends Builder{
     private String UIName;
     private String race;
     private int maxHealth;
-    private double sight;
     private String actorLink;
     private double radius;
     private double separationRadius;
@@ -66,7 +64,6 @@ public class UnitBuilder extends Builder{
                 case UINAME : UIName = de.getVal(); break;
                 case RACE : race = de.getVal(); break;
                 case MAXHEALTH : maxHealth = de.getIntVal(); break;
-                case SIGHT : sight = de.getDoubleVal(); break;
                 case ACTOR_LINK : actorLink = de.getVal(); break;
                 case WEAPONLIST :
                     weaponLinks.add(de.getVal(WEAPON_LINK));
@@ -74,8 +71,8 @@ public class UnitBuilder extends Builder{
             }
     }
     
-    public Unit build(Faction faction, Point3D pos){
-        Unit res = new Unit(radius, separationRadius, speed, mass, pos, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, sight, faction, (ModelActorBuilder)lib.getActorBuilder(actorLink));
+    public Unit build(Faction faction, Point3D pos, double yaw){
+        Unit res = new Unit(radius, separationRadius, speed, mass, pos, yaw, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, faction, (ModelActorBuilder)lib.getActorBuilder(actorLink));
         
         int i = 0;
         for(String weaponLink : weaponLinks){
@@ -87,7 +84,6 @@ public class UnitBuilder extends Builder{
             i++;
         }
         
-        lib.armyManager.registerUnit(res);
         return res;
     }
     

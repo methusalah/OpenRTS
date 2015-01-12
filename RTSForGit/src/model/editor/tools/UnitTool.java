@@ -8,9 +8,12 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import math.Angle;
 import math.MyRandom;
+import model.battlefield.Battlefield;
 import model.battlefield.army.components.Unit;
+import model.battlefield.army.components.UnitPlacement;
 import model.builders.UnitBuilder;
 import model.editor.ToolManager;
 import model.editor.Pencil;
@@ -26,22 +29,16 @@ public class UnitTool extends Tool{
     private static final String ADD_REMOVE_OP = "add/remove";
     private static final String MOVE_ROTATE_OP = "move/rotate";
     
-    ArrayList<UnitBuilder> builders;
     Unit actualUnit;
     Point2D moveOffset;
     boolean analog = false;
     
     double angle = 0;
     
-    Faction f1 = new Faction(Color.RED);
-    Faction f2 = new Faction(Color.GREEN);
-
-    public UnitTool(ToolManager manager, ArrayList<UnitBuilder> builders) {
+    public UnitTool(ToolManager manager) {
         super(manager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
-        this.builders = builders;
-        f1.setEnnemy(f2);
         ArrayList<String> builderIDs = new ArrayList<>();
-        for(UnitBuilder b : builders)
+        for(UnitBuilder b : manager.lib.getAllUnitBuilders())
             builderIDs.add(b.getUIName());
         set = new Set(builderIDs, false);
     }
@@ -72,23 +69,24 @@ public class UnitTool extends Tool{
     }
     
     private void add(){
-        Point2D pos = pencil.getPos();
+        Point2D coord = pencil.getCoord();
         for(Unit u : manager.battlefield.armyManager.units)
-            if(u.getPos2D().equals(pos))
-                pos = pos.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
-        Faction f = builders.get(set.actual).hasRace("human")? f1 : f2;
-        builders.get(set.actual).build(f, pos.get3D(0));
+            if(u.getPos2D().equals(coord))
+                coord = coord.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
+        Faction f = manager.lib.getAllUnitBuilders().get(set.actual).hasRace("human")?
+                manager.battlefield.engagement.factions.get(0) :
+                manager.battlefield.engagement.factions.get(1);
+        
+        UnitPlacement placement = new UnitPlacement(manager.lib.getAllUnitBuilders().get(set.actual).getId(), f.name, coord.get3D(0));
+        manager.battlefield.engagement.addUnit(placement);
     }
     private void remove(){
-        Unit toRemove = null;
         if(isValid(manager.pointedSpatialLabel))
             for(Unit u : manager.battlefield.armyManager.units)
                 if(u.label.matches(manager.pointedSpatialLabel)){
-                    toRemove = u;
+                    manager.battlefield.engagement.removeUnit(u);
                     break;
                 }
-        if(toRemove != null)
-            toRemove.removeFromBattlefield();
     }
     private void move(){
         if(!pencil.maintained){
@@ -98,12 +96,12 @@ public class UnitTool extends Tool{
                 for(Unit u : manager.battlefield.armyManager.units)
                     if(u.label.matches(manager.pointedSpatialLabel)){
                         actualUnit = u;
-                        moveOffset = pencil.getPos().getSubtraction(u.getPos2D());
+                        moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
                         break;
                     }
         }
         if(actualUnit != null)
-            actualUnit.mover.setPosition(pencil.getPos().getSubtraction(moveOffset));
+            manager.battlefield.engagement.setCoord(actualUnit, pencil.getCoord().getSubtraction(moveOffset));
     }
     private void rotate(){
         if(!pencil.maintained){
@@ -117,7 +115,7 @@ public class UnitTool extends Tool{
                     }
         }
         if(actualUnit != null)
-            actualUnit.mover.yaw = pencil.getPos().getSubtraction(actualUnit.getPos2D()).getAngle();
+            manager.battlefield.engagement.setYaw(actualUnit, pencil.getCoord().getSubtraction(actualUnit.getPos2D()).getAngle());
     }
     private boolean isValid(String label){
         return label != null && !label.isEmpty();

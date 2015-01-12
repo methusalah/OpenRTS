@@ -51,12 +51,24 @@ public class Mover {
     public boolean holdPosition = false;
     public boolean tryHold = false;
 
-    public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, Movable movable, Map map, Point3D pos) {
+    public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, Movable movable, Map map, Point3D pos, double yaw) {
         this.heightmap = heightmap;
         this.pathfindingMode = pathfindingMode;
         this.movable = movable;
         this.map = map;
         this.pos = pos;
+        this.yaw = yaw;
+        cm = new CollisionManager(this, map);
+        sm = new SteeringMachine(this);
+        updateElevation();
+    }
+    public Mover(Mover o, Movable movable) {
+        this.heightmap = o.heightmap;
+        this.pathfindingMode = o.pathfindingMode;
+        this.movable = movable;
+        this.map = o.map;
+        this.pos = o.pos;
+        this.yaw = o.yaw;
         cm = new CollisionManager(this, map);
         sm = new SteeringMachine(this);
         updateElevation();

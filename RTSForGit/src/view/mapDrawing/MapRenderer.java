@@ -68,7 +68,7 @@ public class MapRenderer implements ActionListener {
     }
 	
     public void renderTiles() {
-            LogUtil.logger.info("rendering ground");
+            LogUtil.logger.info("rendering ground"+view.model.battlefield.parcelManager.meshes.size()+" "+view.model.battlefield.map.tiles.size());
             int index = 0;
             for(String s : view.model.battlefield.map.style.textures){
                 Texture diffuse = am.loadTexture(s);
@@ -233,10 +233,9 @@ public class MapRenderer implements ActionListener {
     
     private void updateParcelsFor(ArrayList<Tile> tiles){
         for(ParcelMesh parcel : view.model.battlefield.parcelManager.getParcelsFor(tiles)){
-            Geometry g = (Geometry)parcelsSpatial.get(parcel);
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
             TangentBinormalGenerator.generate(jmeMesh);
-            g.setMesh(jmeMesh);
+            ((Geometry)parcelsSpatial.get(parcel)).setMesh(jmeMesh);
         }
     }
 }

@@ -5,10 +5,12 @@
 package model.battlefield.map.cliff.faces.natural;
 
 import geometry3D.Point3D;
+import java.awt.Color;
 import java.util.ArrayList;
 import math.MyRandom;
 import model.battlefield.map.Ramp;
 import model.battlefield.map.Tile;
+import model.battlefield.map.cliff.Cliff;
 import tools.LogUtil;
 
 /**
@@ -21,10 +23,10 @@ public abstract class Dug1 extends NaturalFace {
     private final static double MAX_NOISE = 0.26;
     protected final static double MAX_RIDGE_POS = 0.3;
 
-    public Dug1(NaturalFace o) {
-        super(o);
+    public Dug1(Cliff cliff, double noiseX, double noiseY, double noiseZ, double ridgeDepth, double ridgePos, Color color, String texturePath) {
+        super(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
     }
-    
+
     protected ArrayList<Point3D> getChildProfile(){
         if(childProfile.isEmpty()){
             childProfile = noise(createProfile());

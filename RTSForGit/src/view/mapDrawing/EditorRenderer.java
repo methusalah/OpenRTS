@@ -186,7 +186,7 @@ public class EditorRenderer implements ActionListener {
     private void drawAtlasPencil() {
         Pencil s = view.model.toolManager.atlasTool.pencil;
         PointRing pr = new PointRing();
-        Point2D center = view.model.toolManager.actualTool.pencil.getPos();
+        Point2D center = view.model.toolManager.actualTool.pencil.getCoord();
         
         if(s.shape == Pencil.Shape.Square ||
                 s.shape == Pencil.Shape.Diamond){

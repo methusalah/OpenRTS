@@ -20,9 +20,11 @@ public class Faction {
     
     public ArrayList<Unit> units = new ArrayList<Unit>();
     public Color c;
+    public String name;
     
-    public Faction(Color c){
+    public Faction(Color c, String name){
         this.c = c;
+        this.name = name;
     }
     
     public void setAlly(Faction o){

@@ -8,17 +8,17 @@ import model.battlefield.map.Map;
 import model.battlefield.Battlefield;
 import ressources.definitions.BuilderLibrary;
 import model.editor.ToolManager;
-import model.battlefield.map.MapFactory;
+import model.battlefield.BattlefieldFactory;
 import ressources.definitions.DefParser;
 import tools.LogUtil;
 
 public class Model {
-    public static final String MAP_UPDATED_EVENT = "mapupdatedevent";
+    public static final String BATTLEFIELD_UPDATED_EVENT = "mapupdatedevent";
     static final String CONFIG_PATH = "assets/data";
     public static final String DEFAULT_MAP_PATH = "assets/maps/";
     static final double UPDATE_DELAY = 1000;
     
-    public MapFactory factory;
+    public BattlefieldFactory factory;
     public Battlefield battlefield;
     
     public Commander commander;
@@ -37,7 +37,7 @@ public class Model {
         lib = new BuilderLibrary();
         parser = new DefParser(lib, CONFIG_PATH);
         
-        factory = new MapFactory(lib);
+        factory = new BattlefieldFactory(lib);
         setNewBattlefield();
 
 //        armyManager.createTestArmy(lib);
@@ -51,31 +51,28 @@ public class Model {
     }
     
     public void loadBattlefield(){
-        Map loadedMap = factory.load();
-        if(loadedMap != null)
-            setEncounter(loadedMap);
+        Battlefield loadedBattlefield = factory.load();
+        if(loadedBattlefield != null)
+            setBattlefield(loadedBattlefield);
     }
     
     public void saveBattlefield(){
-        factory.save(battlefield.map);
+        factory.save(battlefield);
     }
     
     public void setNewBattlefield(){
-        setEncounter(factory.getNew(128, 128));
+        setBattlefield(factory.getNew(128, 128));
     }
     
-    private void setEncounter(Map map){
-        battlefield = new Battlefield(map, Battlefield.Instanciation.New);
-        
-        lib.map = battlefield.map;
-        lib.armyManager = battlefield.armyManager;
-        
+    private void setBattlefield(Battlefield battlefield){
+        this.battlefield = battlefield;
+        lib.battlefield = battlefield;
         commander = new Commander(battlefield.armyManager, battlefield.map);
         toolManager = new ToolManager(battlefield, lib);
-        
         LogUtil.logger.info("Reseting view...");
-        notifyListeners(MAP_UPDATED_EVENT);
+        notifyListeners(BATTLEFIELD_UPDATED_EVENT);
         LogUtil.logger.info("Done.");
+        battlefield.engagement.resetEngagement();
     }
     
     public void addListener(ActionListener listener){

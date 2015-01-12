@@ -28,7 +28,7 @@ public class CliffTool extends Tool {
         super(manager, RAISE_LOW_OP, FLATTEN_OP);
         ArrayList<String> iconPaths = new ArrayList<>();
         for(CliffShapeBuilder b : manager.battlefield.map.style.cliffShapes)
-            iconPaths.add(b.editorIconPath);
+            iconPaths.add(b.getIconPath());
         set = new Set(iconPaths, true);
     }
     

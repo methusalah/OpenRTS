@@ -6,6 +6,7 @@ package model.battlefield.actors;
 
 import java.awt.Color;
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 import tools.LogUtil;
@@ -70,8 +71,8 @@ public class ParticleActor extends Actor {
             String trigger,
             List<String> childrenTriggers,            
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager);
+            ActorPool pool) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool);
         this.spritePath = spritePath;
         this.nbCol = nbCol;
         this.nbRow = nbRow;
@@ -116,11 +117,11 @@ public class ParticleActor extends Actor {
     
     public void updateDuration(){
         if(duration == 0)
-            interrupt();
+            stopActing();
         else if(startTime == 0)
             startTime = System.currentTimeMillis();
         else if(duration != Double.MAX_VALUE && startTime+duration < System.currentTimeMillis())
-            interrupt();
+            stopActing();
     }
 
     @Override

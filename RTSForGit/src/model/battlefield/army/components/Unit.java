@@ -9,6 +9,8 @@ import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
 import model.battlefield.actors.UnitActor;
+import model.battlefield.army.effects.EffectSource;
+import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.tacticalAI.TacticalAI;
 import model.builders.actors.ActorBuilder;
 import model.builders.MoverBuilder;
@@ -22,17 +24,15 @@ import sun.font.EAttribute;
  *
  * @author Benoît
  */
-public class Unit extends Movable {
+public class Unit extends Movable implements EffectSource, EffectTarget{
+
     public enum State {MOVING, AIMING, IDLING, DESTROYED, STUCK};
 
     // final data
     public final String UIName;
     public final String race;
     public final int maxHealth;
-    final double sight;
-    
-    final public UnitActor actor;
-
+    public final UnitActor actor;
     public final Arming arming;
     public final TacticalAI ai;
     public final String label = "label"+this.toString();
@@ -49,23 +49,33 @@ public class Unit extends Movable {
             double speed,
             double mass,
             Point3D pos,
+            double yaw,
             MoverBuilder moverBuilder,
             String UIName,
             String race,
             int maxHealth,
-            double sight,
             Faction faction,
             ModelActorBuilder actorBuilder) {
-        super(radius, separationRadius, speed, mass, pos, moverBuilder);
+        super(radius, separationRadius, speed, mass, pos, yaw, moverBuilder);
         this.UIName = UIName;
         this.race = race;
         this.maxHealth = maxHealth;
-        this.sight = sight;
         ai = new TacticalAI(this);
         arming = new Arming(this);
         setFaction(faction);
         health = maxHealth;
         actor = (UnitActor)actorBuilder.build(this);
+    }
+    public Unit(Unit o) {
+        super(o.radius, o.separationRadius, o.speed, o.mass, o.getPos(), o.mover);
+        this.UIName = o.UIName;
+        this.race = o.race;
+        this.maxHealth = o.maxHealth;
+        ai = new TacticalAI(this);
+        arming = new Arming(this);
+        setFaction(o.faction);
+        health = maxHealth;
+        actor = o.actor;
     }
     
     private void setFaction(Faction faction){
@@ -136,31 +146,18 @@ public class Unit extends Movable {
         return res;
     }
     
-//    public boolean isHoldingPosition(){
-//        return ai.holdposition;
-//    }
-    
-    public void damage(int amount) {
-        health -= amount;
-        if(health <= 0)
-            destroy();
-    }
-    
     private void destroy(){
         state = State.DESTROYED;
         actor.onMove(false);
         actor.onAim(false);
         actor.onWait(false);
         actor.onDestroyedEvent();
-        actor.destroy();
+        actor.stopActing();
     }
     
     public void removeFromBattlefield(){
         state = State.DESTROYED;
-        actor.onMove(false);
-        actor.onAim(false);
-        actor.onWait(false);
-        actor.destroy();
+        actor.stopActingAndChildren();
     }
     
     public boolean destroyed(){
@@ -211,4 +208,35 @@ public class Unit extends Movable {
         }
         arming.weapons.add(weaponBuilder.build(this, t));
     }
+    
+    @Override
+    public boolean isStillActiveSource() {
+        return !destroyed();
+    }
+
+    @Override
+    public Point3D getDirection() {
+        throw new RuntimeException("mustn't call this.");
+    }
+
+    @Override
+    public void damage(EffectSource source, int amount) {
+        health -= amount;
+        if(health <= 0)
+            destroy();
+
+        ai.registerAsAttacker(source.getUnit());
+    }
+
+    @Override
+    public Unit getUnit() {
+        return this;
+    }
+
+    @Override
+    public double getYaw() {
+        return mover.yaw;
+    }
+    
+    
 }

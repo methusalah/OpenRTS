@@ -7,7 +7,9 @@ package ressources.definitions;
 import geometry.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import math.MyRandom;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 import model.builders.EffectBuilder;
@@ -24,6 +26,7 @@ import model.builders.MapStyleBuilder;
 import model.builders.NaturalFaceBuilder;
 import model.builders.TrinketBuilder;
 import model.battlefield.warfare.Faction;
+import model.builders.Builder;
 import model.builders.actors.AnimationActorBuilder;
 import model.builders.actors.ModelActorBuilder;
 import model.builders.actors.ParticleActorBuilder;
@@ -52,203 +55,130 @@ public class BuilderLibrary {
     private static final String MANMADE_FACE = "ManmadeFace";
 
 
-    
-    private HashMap<String, UnitBuilder> unitBuilders = new HashMap<>();
-    private HashMap<String, MoverBuilder> moverBuilders = new HashMap<>();
-    private HashMap<String, WeaponBuilder> weaponBuilders = new HashMap<>();
-    private HashMap<String, TurretBuilder> turretBuilders = new HashMap<>();
-    private HashMap<String, EffectBuilder> effectBuilders = new HashMap<>();
-    private HashMap<String, ProjectileBuilder> projectileBuilders = new HashMap<>();
-    private HashMap<String, ActorBuilder> actorBuilders = new HashMap<>();
+    private HashMap<String, HashMap> builders = new HashMap<>();
 
-    private HashMap<String, MapStyleBuilder> mapStyleBuilders = new HashMap<>();
-    private HashMap<String, CliffShapeBuilder> cliffShapeBuilders = new HashMap<>();
-    private HashMap<String, TrinketBuilder> trinketBuilders = new HashMap<>();
-    private HashMap<String, NaturalFaceBuilder> naturalFaceBuilders = new HashMap<>();
-    private HashMap<String, ManmadeFaceBuilder> manmadeFaceBuilders = new HashMap<>();
-
-    public Map map;
-    public ArmyManager armyManager;
+    public Battlefield battlefield;
     
     public BuilderLibrary(){
+        builders.put(UNIT, new HashMap<String, Builder>());
+        builders.put(MOVER, new HashMap<String, Builder>());
+        builders.put(WEAPON, new HashMap<String, Builder>());
+        builders.put(TURRET, new HashMap<String, Builder>());
+        builders.put(EFFECT, new HashMap<String, Builder>());
+        builders.put(PROJECTILE, new HashMap<String, Builder>());
+        builders.put(ACTOR, new HashMap<String, Builder>());
+        builders.put(MAP_STYLE, new HashMap<String, Builder>());
+        builders.put(CLIFF_SHAPE, new HashMap<String, Builder>());
+        builders.put(TRINKET, new HashMap<String, Builder>());
+        builders.put(NATURAL_FACE, new HashMap<String, Builder>());
+        builders.put(MANMADE_FACE, new HashMap<String, Builder>());
     }
     
     
     public void submit(Definition def){
-        switch (def.type){
-            case UNIT : submitUnit(def); break;
-            case MOVER : submitMover(def); break;
-            case WEAPON : submitWeapon(def); break;
-            case TURRET : submitTurret(def); break;
-            case EFFECT : submitEffect(def); break;
-            case PROJECTILE : submitProjectile(def); break;
-            case ACTOR : submitActor(def); break;
-
-            case MAP_STYLE : submitMapStyle(def); break;
-            case CLIFF_SHAPE : submitCliffShape(def); break;
-            case TRINKET : submitTrinket(def); break;
-            case NATURAL_FACE : submitNaturalFace(def); break;
-            case MANMADE_FACE : submitManmadeFace(def); break;
-        }
-    }
-    
-    private void submitUnit(Definition def){
-        unitBuilders.put(def.id, new UnitBuilder(def, this));
-    }
-
-    private void submitMover(Definition def){
-        moverBuilders.put(def.id, new MoverBuilder(def, this));
-    }
-
-    private void submitWeapon(Definition def){
-        weaponBuilders.put(def.id, new WeaponBuilder(def, this));
-    }
-
-    private void submitTurret(Definition def){
-        turretBuilders.put(def.id, new TurretBuilder(def, this));
-    }
-
-    private void submitEffect(Definition def){
-        effectBuilders.put(def.id, new EffectBuilder(def, this));
-    }
-
-    private void submitProjectile(Definition def){
-        projectileBuilders.put(def.id, new ProjectileBuilder(def, this));
-    }
-    private void submitActor(Definition def){
-        ActorBuilder b = null;
-        String type = def.getElement(ActorBuilder.TYPE) == null? "": def.getElement(ActorBuilder.TYPE).getVal();
-        switch(type){
-            case ActorBuilder.TYPE_ANIMATION : b = new AnimationActorBuilder(def, this); break;
-            case ActorBuilder.TYPE_PARTICLE : b = new ParticleActorBuilder(def, this); break;
-            case ActorBuilder.TYPE_PHYSIC : b = new PhysicActorBuilder(def, this); break;
-            case ActorBuilder.TYPE_PROJECTILE : b = new ModelActorBuilder(def, this); break;
-            case ActorBuilder.TYPE_UNIT : b = new ModelActorBuilder(def, this); break;
-            case ActorBuilder.TYPE_DEFAULT :
-            default: b = new ActorBuilder(def, this);
-        }
-        actorBuilders.put(def.id, b);
-    }
-    
-    private void submitMapStyle(Definition def){
-        mapStyleBuilders.put(def.id, new MapStyleBuilder(def, this));
-    }
-    private void submitCliffShape(Definition def){
-        cliffShapeBuilders.put(def.id, new CliffShapeBuilder(def, this));
-    }
-    private void submitTrinket(Definition def){
-        trinketBuilders.put(def.id, new TrinketBuilder(def));
-    }
-    private void submitNaturalFace(Definition def){
-        naturalFaceBuilders.put(def.id, new NaturalFaceBuilder(def));
-    }
-    private void submitManmadeFace(Definition def){
-        manmadeFaceBuilders.put(def.id, new ManmadeFaceBuilder(def));
-    }
-    
-    
-    
-    
-    public void buildUnitFromRace(String race, Faction faction, Point2D pos){
-        ArrayList<UnitBuilder> subList = new ArrayList<>();
-        for(UnitBuilder ub : unitBuilders.values())
-            if(ub.hasRace(race))
-                subList.add(ub);
+        HashMap typed = builders.get(def.type);
+        if(typed == null)
+            throw new RuntimeException("Type '"+def.type+"' is unknown.");
         
-        int i = (int)Math.floor(MyRandom.next()*subList.size());
-        subList.get(i).build(faction, pos.get3D(0));
+        switch (def.type){
+            case UNIT : typed.put(def.id, new UnitBuilder(def, this)); break;
+            case MOVER : typed.put(def.id, new MoverBuilder(def, this)); break;
+            case WEAPON : typed.put(def.id, new WeaponBuilder(def, this)); break;
+            case TURRET : typed.put(def.id, new TurretBuilder(def, this)); break;
+            case EFFECT : typed.put(def.id, new EffectBuilder(def, this)); break;
+            case PROJECTILE : typed.put(def.id, new ProjectileBuilder(def, this)); break;
+            case ACTOR :
+                String actorType = def.getElement(ActorBuilder.TYPE) == null? "": def.getElement(ActorBuilder.TYPE).getVal();
+                switch(actorType){
+                    case ActorBuilder.TYPE_ANIMATION : typed.put(def.id, new AnimationActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_PARTICLE : typed.put(def.id, new ParticleActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_PHYSIC : typed.put(def.id, new PhysicActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_PROJECTILE : typed.put(def.id, new ModelActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_UNIT : typed.put(def.id, new ModelActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_DEFAULT :
+                    default: typed.put(def.id, new ActorBuilder(def, this)); break;
+                }
+                break;
+            case MAP_STYLE : typed.put(def.id, new MapStyleBuilder(def, this)); break;
+            case CLIFF_SHAPE : typed.put(def.id, new CliffShapeBuilder(def, this)); break;
+            case TRINKET : typed.put(def.id, new TrinketBuilder(def, this)); break;
+            case NATURAL_FACE : typed.put(def.id, new NaturalFaceBuilder(def, this)); break;
+            case MANMADE_FACE : typed.put(def.id, new ManmadeFaceBuilder(def, this)); break;
+        }
     }
     
+    private Builder getBuilder(String type, String id){
+        Builder res = ((HashMap<String, Builder>)builders.get(type)).get(id);
+        if(res == null)
+            throw new IllegalArgumentException(ERROR+type+"/"+id);
+        return res;
+    }
     public UnitBuilder getUnitBuilder(String id){
-        UnitBuilder res = unitBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (UnitBuilder)getBuilder(UNIT, id);
     }
-    public ArrayList<UnitBuilder> getAllUnitBuilders(){
-        ArrayList<UnitBuilder> res = new ArrayList<>();
-        for(UnitBuilder ub : unitBuilders.values())
-            res.add(ub);
-        return res;
-    }
-    
     public MoverBuilder getMoverBuilder(String id){
-        MoverBuilder res = moverBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (MoverBuilder)getBuilder(MOVER, id);
     }
     public WeaponBuilder getWeaponBuilder(String id){
-        WeaponBuilder res = weaponBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (WeaponBuilder)getBuilder(WEAPON, id);
     }
     public TurretBuilder getTurretBuilder(String id){
-        TurretBuilder res = turretBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (TurretBuilder)getBuilder(TURRET, id);
     }
     public EffectBuilder getEffectBuilder(String id){
-        EffectBuilder res = effectBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (EffectBuilder)getBuilder(EFFECT, id);
     }
     public ProjectileBuilder getProjectileBuilder(String id){
-        ProjectileBuilder res = projectileBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (ProjectileBuilder)getBuilder(PROJECTILE, id);
     }
     public ActorBuilder getActorBuilder(String id){
-        ActorBuilder res = actorBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (ActorBuilder)getBuilder(ACTOR, id);
     }
-    
-    
-    
     public MapStyleBuilder getMapStyleBuilder(String id){
-        MapStyleBuilder res = mapStyleBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (MapStyleBuilder)getBuilder(MAP_STYLE, id);
     }
     public CliffShapeBuilder getCliffShapeBuilder(String id){
-        CliffShapeBuilder res = cliffShapeBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (CliffShapeBuilder)getBuilder(CLIFF_SHAPE, id);
     }
     public TrinketBuilder getTrinketBuilder(String id){
-        TrinketBuilder res = trinketBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (TrinketBuilder)getBuilder(TRINKET, id);
     }
-    
-    public ArrayList<TrinketBuilder> getAllTrinketBuilders(){
-        ArrayList<TrinketBuilder> res = new ArrayList<>();
-        for(TrinketBuilder b : trinketBuilders.values())
-            res.add(b);
-        return res;
-    }
-
     public NaturalFaceBuilder getNaturalFaceBuilder(String id){
-        NaturalFaceBuilder res = naturalFaceBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
-        return res;
+        return (NaturalFaceBuilder)getBuilder(NATURAL_FACE, id);
     }
     public ManmadeFaceBuilder getManmadeFaceBuilder(String id){
-        ManmadeFaceBuilder res = manmadeFaceBuilders.get(id);
-        if(res == null)
-            throw new IllegalArgumentException(ERROR+id);
+        return (ManmadeFaceBuilder)getBuilder(MANMADE_FACE, id);
+    }
+
+    
+    
+    
+    
+    
+    private List<Builder> getAllBuilders(String type){
+        List<Builder> res = new ArrayList<>();
+        res.addAll(((HashMap<String, Builder>)builders.get(type)).values());
+        if(res.isEmpty())
+            throw new IllegalArgumentException("type '"+type+"' dosen't seem to have any element.");
         return res;
     }
-    
+    /**
+     * wildcard casting from : http://stackoverflow.com/questions/933447/how-do-you-cast-a-list-of-supertypes-to-a-list-of-subtypes
+     * @return 
+     */
+    public List<UnitBuilder> getAllUnitBuilders(){
+        return (List<UnitBuilder>)(List<?>)getAllBuilders(UNIT);
+    }
+    public List<TrinketBuilder> getAllTrinketBuilders(){
+        return (List<TrinketBuilder>)(List<?>)getAllBuilders(TRINKET);
+    }
+    public List<TrinketBuilder> getAllEditableTrinketBuilders(){
+        List<TrinketBuilder> all = (List<TrinketBuilder>)(List<?>)getAllBuilders(TRINKET);
+        List<TrinketBuilder> res = new ArrayList<>();
+        for(TrinketBuilder b : all)
+            if(b.isEditable())
+                res.add(b);
+        return res;
+    }
     
 }

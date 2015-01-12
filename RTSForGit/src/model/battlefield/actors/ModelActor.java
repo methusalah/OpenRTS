@@ -7,6 +7,7 @@ package model.battlefield.actors;
 import geometry3D.Point3D;
 import java.util.HashMap;
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 import view.actorDrawing.ActorViewElements;
@@ -25,10 +26,10 @@ public class ModelActor extends Actor {
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager,
+            ActorPool pool,
             String modelPath,
             double scale) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager);
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool);
         this.modelPath = modelPath;
         this.scale = scale;
     }

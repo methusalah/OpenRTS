@@ -67,7 +67,7 @@ public class Pencil {
         this.pos = pos;
         snappedPos = null;
     }
-    public Point2D getPos(){
+    public Point2D getCoord(){
         return pos;
     }
     

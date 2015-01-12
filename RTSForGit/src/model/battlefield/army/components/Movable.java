@@ -20,12 +20,19 @@ public abstract class Movable {
     final public double mass;
     public final Mover mover;
 
-    public Movable(double radius, double separationRadius, double speed, double mass, Point3D pos, MoverBuilder moverBuilder) {
+    public Movable(double radius, double separationRadius, double speed, double mass, Point3D pos, double yaw, MoverBuilder moverBuilder) {
         this.radius = radius;
         this.separationRadius = separationRadius;
         this.speed = speed;
         this.mass = mass;
-        this.mover = moverBuilder.build(this, pos);
+        this.mover = moverBuilder.build(this, pos, yaw);
+    }
+    public Movable(double radius, double separationRadius, double speed, double mass, Point3D pos, Mover mover) {
+        this.radius = radius;
+        this.separationRadius = separationRadius;
+        this.speed = speed;
+        this.mass = mass;
+        this.mover = new Mover(mover, this);
     }
     
     

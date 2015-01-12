@@ -10,6 +10,7 @@ import geometry.Point2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import model.battlefield.actors.Actor;
+import model.battlefield.army.effects.Effect;
 import ressources.definitions.BuilderLibrary;
 import model.battlefield.map.Map;
 import model.battlefield.army.effects.PersistentEffect;
@@ -24,25 +25,8 @@ public class ArmyManager {
     public ArrayList<Unit> units = new ArrayList<>();
     public ArrayList<Unit> destroyedUnits = new ArrayList<>();
 
-    private ArrayList<PersistentEffect> persistenteffects = new ArrayList<>();
+    public ArrayList<PersistentEffect> persistenteffects = new ArrayList<>();
     public ArrayList<Projectile> projectiles = new ArrayList<>();
-    public ArrayList<Actor> activeActors = new ArrayList<>();
-    public ArrayList<Actor> deletedActors = new ArrayList<>();
-
-    public void createTestArmy(BuilderLibrary lib){
-        Faction f1 = new Faction(Color.RED);
-        Faction f2 = new Faction(Color.GREEN);
-        f1.setEnnemy(f2);
-        
-        for(int y=32; y<40; y+=1)
-            for(int x=16; x<25; x+=1)
-                lib.buildUnitFromRace("human", f1, new Point2D(x, y));
-        for(int y=2; y<15; y+=2)
-            for(int x=44; x<56; x+=2)
-                lib.buildUnitFromRace("alien", f2, new Point2D(x, y));
-        LogUtil.logger.info("count : "+units.size());
-        
-    }
 
     public void update(double elapsedTime) {
         ArrayList<Unit> destroyedThisTurn = new ArrayList<>();
@@ -96,26 +80,22 @@ public class ArmyManager {
     public void registerUnit(Unit unit){
         units.add(unit);
     }
+    public void unregisterUnit(Unit unit){
+        unit.removeFromBattlefield();
+    }
+    
     public void registerProjectile(Projectile projectile){
         projectiles.add(projectile);
     }
-    
-    public void registerActor(Actor actor){
-        activeActors.add(actor);
+    public void unregisterProjectile(Projectile projectile){
+        projectile.removeFromBattlefield();
     }
     
-    public void deleteActor(Actor actor){
-        activeActors.remove(actor);
-        deletedActors.add(actor);
-    }
-    
-    public ArrayList<Actor> grabDeletedActors(){
-        ArrayList<Actor> res = new ArrayList<>(deletedActors);
-        deletedActors.clear();
-        return res;
-    }
-    public ArrayList<Actor> getActors(){
-        ArrayList<Actor> res = new ArrayList<>(activeActors);
-        return res;
+    public void reset(){
+        for(Unit u : units)
+            u.removeFromBattlefield();
+        for(Projectile p : projectiles)
+            p.removeFromBattlefield();
+        persistenteffects.clear();
     }
 }

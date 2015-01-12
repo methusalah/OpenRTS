@@ -58,7 +58,7 @@ public class ActorBuilder extends Builder{
     }
     
     public Actor build(String trigger, Actor parent){
-        return new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.armyManager);
+        return new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool);
     }
     
     protected List<ActorBuilder> getChildrenBuilders(){

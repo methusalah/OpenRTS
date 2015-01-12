@@ -8,6 +8,7 @@ import geometry.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
@@ -21,6 +22,7 @@ import model.battlefield.Battlefield;
 import model.editor.tools.TrinketTool;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.parcel.ParcelManager;
+import model.builders.UnitBuilder;
 import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
 
@@ -30,6 +32,7 @@ import tools.LogUtil;
  */
 public class ToolManager {
     public final Battlefield battlefield;
+    public final BuilderLibrary lib;
     
     public String pointedSpatialLabel;
     
@@ -45,16 +48,17 @@ public class ToolManager {
     double delay = 0;
     long lastAction = 0;
     
-    ArrayList<ActionListener> listeners = new ArrayList<>();
+    List<ActionListener> listeners = new ArrayList<>();
     
-    public ToolManager(Battlefield encounter, BuilderLibrary lib) {
-        this.battlefield = encounter;
+    public ToolManager(Battlefield battlefield, BuilderLibrary lib) {
+        this.battlefield = battlefield;
+        this.lib = lib;
         heightTool = new HeightTool(this);
         cliffTool = new CliffTool(this);
         atlasTool = new AtlasTool(this);
         rampTool = new RampTool(this);
-        unitTool = new UnitTool(this, lib.getAllUnitBuilders());
-        trinketTool = new TrinketTool(this, lib.getAllTrinketBuilders());
+        unitTool = new UnitTool(this);
+        trinketTool = new TrinketTool(this);
         
         actualTool = cliffTool;
     }

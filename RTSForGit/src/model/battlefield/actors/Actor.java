@@ -6,6 +6,7 @@ package model.battlefield.actors;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 import tools.LogUtil;
@@ -27,20 +28,18 @@ public class Actor {
     public final Actor parent;
     public final String trigger;
     public final List<Actor> children;
-    public final ArmyManager armyManager;
+    public final ActorPool pool;
     
     public String debbug_id = "id not configured";
     
     public final ActorViewElements viewElements = new ActorViewElements();
     boolean acting = false;
-    boolean destroyed = false;
-    
 
     public Actor(Actor parent,
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager) {
+            ActorPool pool) {
         this.parent = parent;
         this.trigger = trigger;            
         children = new ArrayList<>();
@@ -49,60 +48,64 @@ public class Actor {
             children.add(b.build(childrenTriggers.get(i), this));
             i++;
         }
-        this.armyManager = armyManager;
+        this.pool = pool;
     }
     
     public void onMove(boolean cond){
         if(cond)
-            activate(ON_MOVE);
+            activateTrigger(ON_MOVE);
         else
-            desactivate(ON_MOVE);
+            desactivateTrigger(ON_MOVE);
     }
     public void onWait(boolean cond){
         if(cond)
-            activate(ON_WAIT);
+            activateTrigger(ON_WAIT);
         else
-            desactivate(ON_WAIT);
+            desactivateTrigger(ON_WAIT);
     }
     public void onAim(boolean cond){
         if(cond)
-            activate(ON_AIM);
+            activateTrigger(ON_AIM);
         else
-            desactivate(ON_AIM);
+            desactivateTrigger(ON_AIM);
     }
     public void onShootEvent(){
-        activate(ON_SHOOT);
+        activateTrigger(ON_SHOOT);
     }
     public void onDestroyedEvent(){
-        activate(ON_DESTROYED);
+        activateTrigger(ON_DESTROYED);
     }
     
-    private void activate(String trigger){
+    private void activateTrigger(String trigger){
         if(this.trigger.equals(trigger))
             act();
         for(Actor a : children)
-            a.activate(trigger);
+            a.activateTrigger(trigger);
     }
     
-    private void desactivate(String trigger){
+    private void desactivateTrigger(String trigger){
         if(this.trigger.equals(trigger))
-            interrupt();
+            stopActing();
         for(Actor a : children)
-            a.desactivate(trigger);
+            a.desactivateTrigger(trigger);
     }
     
     protected void act(){
         if(acting)
             return;
         acting = true;
-        armyManager.registerActor(this);
+        pool.registerActor(this);
     }
     
-    protected void interrupt(){
+    public void stopActing(){
         acting = false;
-        armyManager.deleteActor(this);
-//        for(Actor a : children)
-//            a.interrupt();
+        pool.deleteActor(this);
+    }
+    
+    public void stopActingAndChildren(){
+        stopActing();
+        for(Actor child : children)
+            child.stopActing();
     }
     
     public Actor getParent(){
@@ -111,16 +114,6 @@ public class Actor {
     
     public boolean containsModel(){
         return false;
-    }
-    
-    public void destroy(){
-        interrupt();
-        acting = false;
-        destroyed = true;
-    }
-    
-    public boolean isDestroyed(){
-        return destroyed;
     }
     
     public String getType(){

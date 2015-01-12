@@ -13,7 +13,7 @@ import ressources.definitions.Definition;
  *
  * @author Benoît
  */
-public class MapStyleBuilder {
+public class MapStyleBuilder extends Builder{
     static final String CLIFF_SHAPE_LINK = "CliffShapeLink";
     
     static final String GROUND_TEXTURE = "GroundTexture";
@@ -21,12 +21,8 @@ public class MapStyleBuilder {
     static final String NORMAL = "normal";
     static final String SCALE = "scale";
 
-    Definition def;
-    BuilderLibrary lib;
-            
     public MapStyleBuilder(Definition def, BuilderLibrary lib){
-        this.def = def;
-        this.lib = lib;
+        super(def, lib);
     }
     
     public void build(Map map){

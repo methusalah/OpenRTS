@@ -25,76 +25,57 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class NaturalFaceBuilder {
-    static final String STYLE = "Style";
-    static final String COLOR = "Color";
-    static final String TEXTURE_PATH = "TexturePath";
-    static final String NOISE = "Noise";
-    static final String NOISE_X = "NoiseX";
-    static final String NOISE_Y = "NoiseY";
-    static final String NOISE_Z = "NoiseZ";
-    static final String RIDGE_DEPTH = "RidgeDepth";
-    static final String RIDGE_POSITION = "RidgePosition";
+public class NaturalFaceBuilder extends Builder{
+    private static final String STYLE = "Style";
+    private static final String COLOR = "Color";
+    private static final String TEXTURE_PATH = "TexturePath";
+    private static final String NOISE = "Noise";
+    private static final String NOISE_X = "NoiseX";
+    private static final String NOISE_Y = "NoiseY";
+    private static final String NOISE_Z = "NoiseZ";
+    private static final String RIDGE_DEPTH = "RidgeDepth";
+    private static final String RIDGE_POSITION = "RidgePosition";
 
-    static final String RED = "R";
-    static final String GREEN = "G";
-    static final String BLUE = "B";
+    private static final String RED = "R";
+    private static final String GREEN = "G";
+    private static final String BLUE = "B";
 
-    static final String STYLE_DUG_1 = "dug1";
+    private static final String STYLE_DUG_1 = "dug1";
     
 
-    Definition def;
-    BuilderLibrary lib;
-    
-    double noiseX, noiseY, noiseZ;
-    double ridgeDepth, ridgePos;
-    Color color;
-    String texturePath;
-    String style;
+    private double noiseX, noiseY, noiseZ;
+    private double ridgeDepth, ridgePos;
+    private Color color;
+    private String texturePath;
+    private String style;
 
-    public NaturalFaceBuilder(Definition def){
-        this.def = def;
-        this.lib = lib;
-    }
-    
-    public NaturalFace build(Cliff cliff){
+    public NaturalFaceBuilder(Definition def, BuilderLibrary lib){
+        super(def, lib);
         for(DefElement de : def.elements)
             switch(de.name){
-                case NOISE :
-                    if(!isValidRange(de.getDoubleVal()))
-                        break;
-                    else
-                        noiseX = noiseY = noiseZ = de.getDoubleVal();
+                case NOISE : 
+                    checkRange(de);
+                    noiseX = noiseY = noiseZ = de.getDoubleVal();
                     break;
                 case NOISE_X :
-                    if(!isValidRange(de.getDoubleVal()))
-                        break;
-                    else
-                        noiseX = de.getDoubleVal();
+                    checkRange(de);
+                    noiseX = de.getDoubleVal();
                     break;
                 case NOISE_Y :
-                    if(!isValidRange(de.getDoubleVal()))
-                        break;
-                    else
-                        noiseY = de.getDoubleVal();
+                    checkRange(de);
+                    noiseY = de.getDoubleVal();
                     break;
                 case NOISE_Z :
-                    if(!isValidRange(de.getDoubleVal()))
-                        break;
-                    else
-                        noiseZ = de.getDoubleVal();
+                    checkRange(de);
+                    noiseZ = de.getDoubleVal();
                     break;
                 case RIDGE_DEPTH :
-                    if(!isValidRange(de.getDoubleVal()))
-                        break;
-                    else
-                        ridgeDepth = de.getDoubleVal();
+                    checkRange(de);
+                    ridgeDepth = de.getDoubleVal();
                     break;
                 case RIDGE_POSITION :
-                    if(!isValidRange(de.getDoubleVal()))
-                        break;
-                    else
-                        ridgePos = de.getDoubleVal();
+                    checkRange(de);
+                    ridgePos = de.getDoubleVal();
                     break;
                 case STYLE : style = de.getVal(); break;
                 case COLOR :
@@ -103,26 +84,32 @@ public class NaturalFaceBuilder {
                             de.getIntVal(BLUE));
                     break;
                 case TEXTURE_PATH : texturePath = de.getVal(); break;
-
+                    default:printUnknownElement(de.name);
             }
         if(color == null && texturePath == null){
-            LogUtil.logger.warning("Natural face has no specified color or texture. Applying default color");
+            LogUtil.logger.warning("Natural face '"+getId()+"'has no specified color nor texture. Applying debbuging color.");
             color = Color.ORANGE;
         }
+    }
+    
+    public NaturalFace build(Cliff cliff){
 
-        NaturalFace prototype = new NaturalFace(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
         switch (style){
-            case STYLE_DUG_1 : switch (cliff.type){
-                case Corner : return new Dug1Corner(prototype);
-                case Salient : return new Dug1Salient(prototype);
-                case Orthogonal : return new Dug1Ortho(prototype);
-                    default:return null;
-            }
+            case STYLE_DUG_1 :
+                switch (cliff.type){
+                    case Corner : return new Dug1Corner(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
+                    case Salient : return new Dug1Salient(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
+                    case Orthogonal : return new Dug1Ortho(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
+                        default:throw new RuntimeException();
+                }
+            default:
+                printUnknownValue(STYLE, style);
+                throw new RuntimeException();
         }
-        return null;
     }
         
-    public boolean isValidRange(double val){
+    private boolean checkRange(DefElement de){
+        double val = de.getDoubleVal();
         if(val>1 || val<0){
             LogUtil.logger.warning("Range value ("+val+") incorrect for "+def.id+". Must be between 0 an 1.");
             return false;

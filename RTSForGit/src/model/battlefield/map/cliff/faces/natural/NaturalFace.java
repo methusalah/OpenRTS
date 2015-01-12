@@ -25,11 +25,11 @@ import tools.LogUtil;
 public class NaturalFace extends Face {
     public NaturalFaceMesh mesh;
 
-    Cliff cliff;
-    double noiseX, noiseY, noiseZ;
-    double ridgeDepthRange, ridgePosRange;
-    public Color color;
-    public String texturePath;
+    final Cliff cliff;
+    final double noiseX, noiseY, noiseZ;
+    final double ridgeDepthRange, ridgePosRange;
+    final public Color color;
+    final public String texturePath;
     
     ArrayList<Point3D> parentProfile = new ArrayList<>();
     ArrayList<Point3D> middleProfile = new ArrayList<>();
@@ -45,17 +45,6 @@ public class NaturalFace extends Face {
         this.ridgePosRange = ridgePos;
         this.color = color;
         this.texturePath = texturePath;
-    }
-
-    public NaturalFace(NaturalFace o){
-        this.cliff = o.cliff;
-        this.noiseX = o.noiseX;
-        this.noiseY = o.noiseY;
-        this.noiseZ = o.noiseZ;
-        this.ridgeDepthRange = o.ridgeDepthRange;
-        this.ridgePosRange = o.ridgePosRange;
-        this.color = o.color;
-        this.texturePath = o.texturePath;
     }
 
     @Override

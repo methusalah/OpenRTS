@@ -3,12 +3,12 @@
   <CliffShape id="StdRockyVegyDug">
     <NaturalFaceLink value="StdDug"/>
 
-    <TrinketList link="StdTopRock" prob="0.05"/>
-    <TrinketList link="StdSideRock" prob="0.3"/>
-    <TrinketList link="StdBottomRock" prob="0.5"/>
+    <TrinketList link="StdTopRock" prob="0.2"/>
+    <TrinketList link="StdSideRock" prob="0.6"/>
+    <TrinketList link="StdBottomRock" prob="0.8"/>
 
-    <RampTrinketList link="StdTopRock" prob="0.05"/>
-    <RampTrinketList link="StdBottomRock" prob="0.5"/>
+    <RampTrinketList link="StdTopRock" prob="0.2"/>
+    <RampTrinketList link="StdBottomRock" prob="0.8"/>
 
 <!--    <TrinketList link="StdTopPlant" prob="0.1"/>
     <TrinketList link="StdBottomPlant" prob="0.1"/>

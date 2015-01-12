@@ -5,6 +5,7 @@
 package model.battlefield.actors;
 
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 
@@ -25,11 +26,11 @@ public class AnimationActor extends Actor {
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager,
+            ActorPool pool,
             String animName,
             Cycle cycle,
             double speed) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager);
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool);
         this.animName = animName;
         this.cycle = cycle;
         this.speed = speed;
@@ -44,8 +45,8 @@ public class AnimationActor extends Actor {
 
     
     @Override
-    public void interrupt() {
-        super.interrupt();
+    public void stopActing() {
+        super.stopActing();
         launched = false;
     }
     

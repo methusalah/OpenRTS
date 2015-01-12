@@ -149,7 +149,7 @@ public class ParticleActorBuilder extends ActorBuilder{
                 trigger,
                 childrenTriggers,
                 getChildrenBuilders(), 
-                lib.armyManager);
+                lib.battlefield.actorPool);
         res.debbug_id = getId();
         return res;
     }

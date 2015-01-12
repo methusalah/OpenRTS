@@ -6,6 +6,7 @@ package model.battlefield.actors;
 
 import geometry3D.Point3D;
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Movable;
 import model.builders.actors.ActorBuilder;
@@ -21,11 +22,11 @@ public class MovableActor extends ModelActor {
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager,
+            ActorPool pool,
             String modelPath,
             double scale,
             Movable movable) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager, modelPath, scale);
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale);
         this.movable = movable;
         act();
     }

@@ -37,8 +37,6 @@ public class Map {
     @Element
     public int height;
 
-    public String fileName;
-
     public Map(int width, int height){
         this.width = width;
         this.height = height;

@@ -6,6 +6,7 @@ package model.battlefield.actors;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Movable;
 import model.battlefield.army.components.Projectile;
@@ -23,11 +24,11 @@ public class ProjectileActor extends MovableActor {
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager,
+            ActorPool pool,
             String modelPath,
             double scale,
             Movable movable) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager, modelPath, scale, movable);
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale, movable);
         act();
     }
     

@@ -63,6 +63,7 @@ public class EditorController extends Controller {
         inputManager.setCursorVisible(true);
         view.rootNode.attachChild(view.editorRend.mainNode);
         guiController.activate();
+        model.battlefield.engagement.resetEngagement();
     }
 
     @Override

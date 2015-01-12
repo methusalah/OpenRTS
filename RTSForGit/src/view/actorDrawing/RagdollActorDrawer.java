@@ -82,7 +82,7 @@ public class RagdollActorDrawer {
         } else {
             s.setLocalTranslation(s.getWorldTranslation().add(0, 0, (float)-elapsedTime/3000));
             if(s.getWorldTranslation().z < -1)
-                actor.destroy();
+                actor.stopActing();
         }
     }
 }

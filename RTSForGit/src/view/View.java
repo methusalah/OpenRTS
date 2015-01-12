@@ -44,36 +44,37 @@ public class View implements ActionListener {
 
 
     // Internal ressources
-    public MaterialManager mm;
+    public MaterialManager materialManager;
     public ViewPort vp;
-    public AssetManager am;
+    public AssetManager assetManager;
     public Pointer pointer;
 
     public View(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp, Model m){
         model = m;
+        model.addListener(this);
         this.rootNode = rootNode;
         this.physicsSpace = physicsSpace;
         gui.attachChild(guiNode);
 
-        mm = new MaterialManager(am);
-        this.am = am;
+        materialManager = new MaterialManager(am);
+        this.assetManager = am;
         this.vp = vp;
         pointer = new Pointer();
         
         lightDrawer = new LightDrawer(m.battlefield.sunLight, am, rootNode, vp);
         model.battlefield.sunLight.addListener(lightDrawer);
 
-        mapRend = new MapRenderer(this, mm, am);
+        mapRend = new MapRenderer(this, materialManager, am);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
         model.toolManager.addListener(mapRend);
         
-        editorRend = new EditorRenderer(this, mm);
+        editorRend = new EditorRenderer(this, materialManager);
         rootNode.attachChild(editorRend.mainNode);
         model.toolManager.addListener(editorRend);
         
         
-        actorManager = new ActorDrawingManager(am, mm, model.battlefield.armyManager);
+        actorManager = new ActorDrawingManager(am, materialManager, model.battlefield.actorPool);
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
         
@@ -88,18 +89,18 @@ public class View implements ActionListener {
         model.toolManager.removeListener(mapRend);
         model.toolManager.removeListener(editorRend);
         
-        mapRend = new MapRenderer(this, mm, am);
+        mapRend = new MapRenderer(this, materialManager, assetManager);
         rootNode.attachChild(mapRend.mainNode);
         mapRend.mainPhysicsSpace = physicsSpace;
         model.toolManager.addListener(mapRend);
         mapRend.renderTiles();
         
-        editorRend = new EditorRenderer(this, mm);
+        editorRend = new EditorRenderer(this, materialManager);
         rootNode.attachChild(editorRend.mainNode);
         model.toolManager.addListener(editorRend);
         
         
-        actorManager = new ActorDrawingManager(am, mm, model.battlefield.armyManager);
+        actorManager = new ActorDrawingManager(assetManager, materialManager, model.battlefield.actorPool);
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
     }
@@ -108,19 +109,19 @@ public class View implements ActionListener {
         vp.setBackgroundColor(new ColorRGBA(135f/255f, 206f/255f, 250f/255f, 1));
         Geometry xAxe = new Geometry();
         xAxe.setMesh(new Box(5, 0.1f, 0.1f));
-        xAxe.setMaterial(mm.getColor(ColorRGBA.Brown));
+        xAxe.setMaterial(materialManager.getColor(ColorRGBA.Brown));
         xAxe.setLocalTranslation(5, 0, 0);
         rootNode.attachChild(xAxe);
 
         Geometry zAxe = new Geometry();
         zAxe.setMesh(new Box(0.1f, 0.1f, 5));
-        zAxe.setMaterial(mm.greenMaterial);
+        zAxe.setMaterial(materialManager.greenMaterial);
         zAxe.setLocalTranslation(0, 0, 5);
         rootNode.attachChild(zAxe);
 
         Geometry yAxe = new Geometry();
         yAxe.setMesh(new Box(0.1f, 5, 0.1f));
-        yAxe.setMaterial(mm.redMaterial);
+        yAxe.setMaterial(materialManager.redMaterial);
         yAxe.setLocalTranslation(0, 5, 0);
         rootNode.attachChild(yAxe);
     }
@@ -137,25 +138,25 @@ public class View implements ActionListener {
         Geometry g1 = new Geometry();
         g1.setMesh(new Line(new Vector3f(minX, minY, 0),
                 new Vector3f(maxX, minY, 0)));
-        g1.setMaterial(mm.getColor(ColorRGBA.White));
+        g1.setMaterial(materialManager.getColor(ColorRGBA.White));
         guiNode.attachChild(g1);
 
         Geometry g2 = new Geometry();
         g2.setMesh(new Line(new Vector3f(minX, maxY, 0),
                 new Vector3f(maxX, maxY, 0)));
-        g2.setMaterial(mm.getColor(ColorRGBA.White));
+        g2.setMaterial(materialManager.getColor(ColorRGBA.White));
         guiNode.attachChild(g2);
             
         Geometry g3 = new Geometry();
         g3.setMesh(new Line(new Vector3f(minX, minY, 0),
                 new Vector3f(minX, maxY, 0)));
-        g3.setMaterial(mm.getColor(ColorRGBA.White));
+        g3.setMaterial(materialManager.getColor(ColorRGBA.White));
         guiNode.attachChild(g3);
 
         Geometry g4 = new Geometry();
         g4.setMesh(new Line(new Vector3f(maxX, minY, 0),
                 new Vector3f(maxX, maxY, 0)));
-        g4.setMaterial(mm.getColor(ColorRGBA.White));
+        g4.setMaterial(materialManager.getColor(ColorRGBA.White));
         guiNode.attachChild(g4);
 }
 

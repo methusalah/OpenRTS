@@ -6,6 +6,7 @@ package model.battlefield.actors;
 
 import geometry3D.Point3D;
 import java.util.List;
+import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Movable;
 import model.builders.actors.ActorBuilder;
@@ -33,8 +34,8 @@ public class PhysicActor extends ModelActor {
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
-            ArmyManager armyManager) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, armyManager, modelPath, scale);
+            ActorPool pool) {
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale);
         this.startLife = startLife;
         this.mass = mass;
         this.massCenterBone = massCenterBone;
@@ -59,7 +60,7 @@ public class PhysicActor extends ModelActor {
     }
     
     public void renderingDone(){
-        interrupt();
+        stopActing();
     }
     
     public boolean alive(){

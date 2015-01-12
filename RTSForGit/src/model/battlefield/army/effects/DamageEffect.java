@@ -17,15 +17,16 @@ import model.builders.EffectBuilder;
  * @author Benoît
  */
 public class DamageEffect extends Effect {
+    protected final int amount;
 
-    public DamageEffect(String type, int amount, int periodCount, ArrayList<Double> durations, ArrayList<Double> ranges, Projectile projectile, ArrayList<EffectBuilder> effectBuilders, Unit source, Unit target, Point3D targetPoint) {
-        super(type, amount, periodCount, durations, ranges, projectile, effectBuilders, source, target, targetPoint);
+    public DamageEffect(int amount, ArrayList<EffectBuilder> effectBuilders, EffectSource source, EffectTarget target) {
+        super(effectBuilders, source, target);
+        this.amount = amount;
     }
     
     @Override
     public void launch(){
-        target.damage(amount);
-        target.ai.registerAsAttacker(source);
+        target.damage(source, amount);
     }
     
     

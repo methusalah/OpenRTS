@@ -79,9 +79,9 @@ public class AtlasTool extends Tool {
     
     public ArrayList<Point2D> getInvolvedPixels(){
         switch(pencil.shape){
-            case Circle : return explorer.getPixelsInMapSpaceCircle(pencil.getPos(), pencil.size/2);
-            case Diamond : return explorer.getPixelsInMapSpaceDiamond(pencil.getPos(), pencil.size/2);
-            case Square : return explorer.getPixelsInMapSpaceSquare(pencil.getPos(), pencil.size/2);
+            case Circle : return explorer.getPixelsInMapSpaceCircle(pencil.getCoord(), pencil.size/2);
+            case Diamond : return explorer.getPixelsInMapSpaceDiamond(pencil.getCoord(), pencil.size/2);
+            case Square : return explorer.getPixelsInMapSpaceSquare(pencil.getCoord(), pencil.size/2);
                 default:throw new RuntimeException();
         }
     }
@@ -164,7 +164,7 @@ public class AtlasTool extends Tool {
         if(!pencil.maintained){
             pencil.maintain();
             autoLayer = 0;
-            Point2D center = pencil.getPos().getMult(atlas.width, atlas.height).getDivision(manager.battlefield.map.width, manager.battlefield.map.height);
+            Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height).getDivision(manager.battlefield.map.width, manager.battlefield.map.height);
             int centerX = (int)Math.round(center.x);
             int centerY = (int)Math.round(center.y);
             for(DoubleMap l : atlas.layers)

@@ -51,8 +51,8 @@ public class MoverBuilder extends Builder{
             }
     }
     
-    public Mover build(Movable movable, Point3D pos){
-        Mover res = new Mover(heightmap, pathfindingMode, movable, lib.map, pos);
+    public Mover build(Movable movable, Point3D pos, double yaw){
+        Mover res = new Mover(heightmap, pathfindingMode, movable, lib.battlefield.map, pos, yaw);
         return res;
     }
 }
