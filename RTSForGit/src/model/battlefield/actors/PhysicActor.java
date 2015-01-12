@@ -8,7 +8,7 @@ import geometry3D.Point3D;
 import java.util.List;
 import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import model.builders.actors.ActorBuilder;
 
 /**

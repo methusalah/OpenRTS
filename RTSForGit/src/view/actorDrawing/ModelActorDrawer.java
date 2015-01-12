@@ -19,7 +19,7 @@ import java.util.HashMap;
 import math.Angle;
 import model.battlefield.army.components.Turret;
 import model.battlefield.actors.ModelActor;
-import model.battlefield.actors.MovableActor;
+import model.battlefield.actors.HikerActor;
 import model.battlefield.actors.ProjectileActor;
 import model.battlefield.actors.UnitActor;
 import tools.LogUtil;
@@ -53,7 +53,7 @@ public class ModelActorDrawer {
         }
     }
     
-    protected void draw(MovableActor movableActor){
+    protected void draw(HikerActor movableActor){
         draw((ModelActor)movableActor);
         Spatial s = movableActor.viewElements.spatial;
 
@@ -69,27 +69,27 @@ public class ModelActorDrawer {
             Vector3f w = u.cross(v);
             r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
         } else {
-            r.fromAngles(0, 0, (float)(movableActor.getOrientation()+Angle.RIGHT));
+            r.fromAngles(0, 0, (float)(movableActor.getYaw()+Angle.RIGHT));
         }
         s.setLocalRotation(r);
     }
     
     protected void draw(UnitActor unitActor){
-        draw((MovableActor)unitActor);
+        draw((HikerActor)unitActor);
         orientTurret(unitActor);
         updateBoneCoords(unitActor);
         drawSelectionCircle(unitActor);
     }
     
     protected void draw(ProjectileActor projectileActor){
-        draw((MovableActor)projectileActor);
+        draw((HikerActor)projectileActor);
         updateBoneCoords(projectileActor);
     }
     
     private void drawSelectionCircle(UnitActor unitActor){
         if(unitActor.viewElements.selectionCircle == null){
             Geometry g = new Geometry();
-            g.setMesh(new Circle((float)unitActor.getUnit().getSeparationRadius(), 10));
+            g.setMesh(new Circle((float)unitActor.getUnit().getRadius(), 10));
             g.setMaterial(manager.materialManager.greenMaterial);
             g.rotate((float)Angle.RIGHT, 0, 0);
             Node n = new Node();
@@ -122,7 +122,7 @@ public class ModelActorDrawer {
         }
     }
     
-    private void updateBoneCoords(MovableActor movableActor){
+    private void updateBoneCoords(HikerActor movableActor){
         Skeleton sk = movableActor.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
         for(int i=0; i<sk.getBoneCount(); i++){
             Bone b = sk.getBone(i);
@@ -130,11 +130,11 @@ public class ModelActorDrawer {
         }
     }
     
-    private Point3D getBoneWorldPos(MovableActor actor, String boneName){
-        return getBoneWorldPos(actor, actor.getPos(), actor.getOrientation(), boneName);
+    private Point3D getBoneWorldPos(HikerActor actor, String boneName){
+        return getBoneWorldPos(actor, actor.getPos(), actor.getYaw(), boneName);
     }
 
-    private Point3D getBoneWorldPos(MovableActor actor, int boneIndex){
+    private Point3D getBoneWorldPos(HikerActor actor, int boneIndex){
         return getBoneWorldPos(actor, actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
     }
     

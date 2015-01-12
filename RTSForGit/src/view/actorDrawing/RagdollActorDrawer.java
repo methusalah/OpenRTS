@@ -13,7 +13,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import geometry.Point2D;
 import math.Angle;
-import model.battlefield.actors.MovableActor;
+import model.battlefield.actors.HikerActor;
 import model.battlefield.actors.PhysicActor;
 import tools.LogUtil;
 import view.math.Translator;
@@ -35,7 +35,7 @@ public class RagdollActorDrawer {
             manager.modelDrawer.draw(actor);
 
             Spatial s = actor.viewElements.spatial;
-            MovableActor ma = (MovableActor)actor.getParentModelActor();
+            HikerActor ma = (HikerActor)actor.getParentModelActor();
 
             Vector3f massVec = s.getControl(AnimControl.class).getSkeleton().getBone(actor.massCenterBone).getModelSpacePosition().mult(s.getLocalScale());
             Node massCenter = new Node();
@@ -59,7 +59,7 @@ public class RagdollActorDrawer {
 
             // rotation
             Quaternion r = new Quaternion();
-            r.fromAngles(0, 0, (float)(ma.getOrientation()+Angle.RIGHT));
+            r.fromAngles(0, 0, (float)(ma.getYaw()+Angle.RIGHT));
             control.setPhysicsRotation(r);
 
             control.applyCentralForce(Vector3f.UNIT_Z.mult(40));

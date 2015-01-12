@@ -8,35 +8,39 @@ import geometry3D.Point3D;
 import java.util.List;
 import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import model.builders.actors.ActorBuilder;
 
 /**
  *
  * @author Benoît
  */
-public class MovableActor extends ModelActor {
-    final Movable movable;
+public class HikerActor extends ModelActor {
+    final Hiker hiker;
 
-    public MovableActor(Actor parent,
+    public HikerActor(Actor parent,
             String trigger,
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
             ActorPool pool,
             String modelPath,
             double scale,
-            Movable movable) {
+            Hiker hiker) {
         super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale);
-        this.movable = movable;
+        this.hiker = hiker;
         act();
     }
     
     public Point3D getPos(){
-        return movable.getPos();
+        return hiker.getPos();
     }
     
-    public double getOrientation(){
-        return movable.getOrientation();
+    public double getYaw(){
+        return hiker.getYaw();
+    }
+    
+    public Point3D getDirection(){
+        return hiker.direction;
     }
 
     @Override

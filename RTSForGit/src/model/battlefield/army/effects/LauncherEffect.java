@@ -28,7 +28,7 @@ public class LauncherEffect extends Effect implements ActionListener {
     @Override
     public void launch(){
         if(source.getPos() != null){
-            projectile.mover.pos = source.getPos();
+            projectile.pos = source.getPos();
             projectile.mover.velocity = source.getDirection();
         } else
             projectile.mover.velocity = Point3D.UNIT_Z;

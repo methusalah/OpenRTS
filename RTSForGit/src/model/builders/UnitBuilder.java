@@ -25,7 +25,6 @@ import model.battlefield.warfare.Faction;
  */
 public class UnitBuilder extends Builder{
     private static final String RADIUS = "Radius";
-    private static final String SEPARATION_RADIUS = "SeparationRadius";
     private static final String SPEED = "Speed";
     private static final String MASS = "Mass";
     private static final String MOVER_LINK = "MoverLink";
@@ -44,7 +43,6 @@ public class UnitBuilder extends Builder{
     private int maxHealth;
     private String actorLink;
     private double radius;
-    private double separationRadius;
     private double speed;
     private double mass;
     private String moverLink;
@@ -56,7 +54,6 @@ public class UnitBuilder extends Builder{
         for(DefElement de : def.elements)
             switch(de.name){
                 case RADIUS : radius = de.getDoubleVal(); break;
-                case SEPARATION_RADIUS : separationRadius = de.getDoubleVal(); break;
                 case SPEED : speed = de.getDoubleVal(); break;
                 case MASS : mass = de.getDoubleVal(); break;
                 case MOVER_LINK : moverLink = de.getVal(); break;
@@ -72,7 +69,7 @@ public class UnitBuilder extends Builder{
     }
     
     public Unit build(Faction faction, Point3D pos, double yaw){
-        Unit res = new Unit(radius, separationRadius, speed, mass, pos, yaw, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, faction, (ModelActorBuilder)lib.getActorBuilder(actorLink));
+        Unit res = new Unit(radius, speed, mass, pos, yaw, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, faction, (ModelActorBuilder)lib.getActorBuilder(actorLink));
         
         int i = 0;
         for(String weaponLink : weaponLinks){

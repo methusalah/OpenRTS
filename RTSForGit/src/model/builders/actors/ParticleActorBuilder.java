@@ -10,7 +10,7 @@ import java.awt.Color;
 import ressources.definitions.DefElement;
 import math.Angle;
 import model.battlefield.actors.ParticleActor;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import static model.builders.actors.ActorBuilder.TRIGGER;
 import static model.builders.actors.ActorBuilder.TYPE;
 import ressources.definitions.Definition;

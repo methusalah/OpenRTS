@@ -34,7 +34,6 @@ public class ProjectileBuilder extends Builder {
     private static final String PRECISION_IN_RADIUS = "InRadius";
 
     private double radius = 0;
-    private double separationRadius = 0;
     private double speed;
     private double mass;
     private String moverLink;
@@ -62,7 +61,7 @@ public class ProjectileBuilder extends Builder {
     }
     
     public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint){
-        Projectile res = new Projectile(radius, separationRadius, speed, mass, source, lib.getMoverBuilder(moverLink), precisionType, precision, (ModelActorBuilder)lib.getActorBuilder(actorLink), target, targetPoint);
+        Projectile res = new Projectile(radius, speed, mass, source, lib.getMoverBuilder(moverLink), precisionType, precision, (ModelActorBuilder)lib.getActorBuilder(actorLink), target, targetPoint);
         lib.battlefield.armyManager.registerProjectile(res);
         return res;
     }

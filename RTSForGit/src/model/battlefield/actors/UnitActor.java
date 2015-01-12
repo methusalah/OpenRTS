@@ -9,7 +9,7 @@ import java.util.List;
 import model.Commander;
 import model.battlefield.Battlefield;
 import model.battlefield.army.ArmyManager;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.builders.actors.ActorBuilder;
@@ -18,7 +18,7 @@ import model.builders.actors.ActorBuilder;
  *
  * @author Benoît
  */
-public class UnitActor extends MovableActor {
+public class UnitActor extends HikerActor {
 
     public UnitActor(Actor parent,
             String trigger,
@@ -27,13 +27,13 @@ public class UnitActor extends MovableActor {
             ActorPool pool,
             String modelPath,
             double scale,
-            Movable movable) {
+            Hiker movable) {
         super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale, movable);
         act();
     }
     
     public ArrayList<Turret> getTurrets(){
-        return ((Unit)movable).getTurrets();
+        return ((Unit)hiker).getTurrets();
     }
     
     @Override
@@ -42,7 +42,7 @@ public class UnitActor extends MovableActor {
     }
     
     public Unit getUnit(){
-        return (Unit)movable;
+        return (Unit)hiker;
     }
     
     public boolean isSelectedOn(Commander commander){

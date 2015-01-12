@@ -4,11 +4,13 @@
  */
 package model.battlefield.army.components;
 
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.pathfinding.FlowField;
 import geometry.BoundingCircle;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
+import java.util.List;
 import math.Angle;
 import model.battlefield.map.Map;
 import model.battlefield.army.motion.CollisionManager;
@@ -26,16 +28,14 @@ public class Mover {
     public final Heightmap heightmap;
     public final PathfindingMode pathfindingMode;
 
-    public final Movable movable;
+    public final Hiker hiker;
     final Map map;
     SteeringMachine sm;
     CollisionManager cm;
 
     // variables
-    public Point3D pos = Point3D.ORIGIN;
     public Point3D velocity = Point3D.ORIGIN;
     
-    public double yaw = 0;
     public double desiredYaw = 0;
     
     public boolean hasMoved = false;
@@ -51,32 +51,28 @@ public class Mover {
     public boolean holdPosition = false;
     public boolean tryHold = false;
 
-    public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, Movable movable, Map map, Point3D pos, double yaw) {
+    public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, Hiker movable, Map map) {
         this.heightmap = heightmap;
         this.pathfindingMode = pathfindingMode;
-        this.movable = movable;
+        this.hiker = movable;
         this.map = map;
-        this.pos = pos;
-        this.yaw = yaw;
         cm = new CollisionManager(this, map);
         sm = new SteeringMachine(this);
         updateElevation();
     }
-    public Mover(Mover o, Movable movable) {
+    public Mover(Mover o, Hiker movable) {
         this.heightmap = o.heightmap;
         this.pathfindingMode = o.pathfindingMode;
-        this.movable = movable;
+        this.hiker = movable;
         this.map = o.map;
-        this.pos = o.pos;
-        this.yaw = o.yaw;
         cm = new CollisionManager(this, map);
         sm = new SteeringMachine(this);
         updateElevation();
     }
     
     public void updatePosition(double elapsedTime) {
-        double lastYaw = yaw;
-        Point3D lastPos = new Point3D(pos);
+        double lastYaw = hiker.yaw;
+        Point3D lastPos = new Point3D(hiker.pos);
         
         if(!holdPosition){
             Point3D steering = sm.getSteeringAndReset(elapsedTime);
@@ -84,8 +80,7 @@ public class Mover {
         }
         head(elapsedTime);
         
-        hasMoved = lastYaw != yaw || !lastPos.equals(pos);
-        if(hasMoved)
+        if(hiker.hasMoved(lastPos, lastYaw))
             updateElevation();
         
         if(hasDestination)
@@ -106,12 +101,12 @@ public class Mover {
         if(fly())
             holdPosition = true;
         else {
-            ArrayList<Mover> all = new ArrayList<>();
+            List<Mover> all = new ArrayList<>();
             all.addAll(toAvoid);
             all.addAll(toFlockWith);
             all.addAll(toLetPass);
             for(Mover m : all)
-                if(getBounds().collide(m.getBounds()))
+                if(hiker.collide(m.hiker))
                     return;
             for(Mover m : toFlockWith)
                 if(m.tryHold && !m.holdPosition)
@@ -129,14 +124,10 @@ public class Mover {
             all.addAll(toFlockWith);
             all.addAll(toLetPass);
             for(Mover m : all)
-                if(m.holdPosition && getBounds().collide(m.getBounds()))
+                if(m.holdPosition && hiker.collide(m.hiker))
                     return;
             holdPosition = true;
         }
-    }
-    
-    public double getSpacing(Mover o) {
-        return movable.getRadius()+o.movable.getRadius();
     }
     
     public void setDestination(FlowField ff){
@@ -148,7 +139,7 @@ public class Mover {
     public void setDestinationReached(){
         hasDestination = false;
         for(Mover m : toFlockWith)
-            if(getDistance(m) < getSpacing(m)+3)
+            if(hiker.getDistance(m.hiker) < hiker.getSpacing(m.hiker)+3)
                 m.hasDestination = false;
     }
     
@@ -162,32 +153,20 @@ public class Mover {
         return null;
     }
     
-    public double getDistance(Mover o) {
-        return pos.getDistance(o.pos);
-    }
-
-    public BoundingCircle getBounds() {
-        return new BoundingCircle(new Point2D(pos), movable.getRadius());
-    }
-
     public void head(double elapsedTime) {
         if(!velocity.isOrigin())
             desiredYaw = velocity.get2D().getAngle();
 
-        if(!Angle.areSimilar(desiredYaw, yaw)){
-            double diff = Angle.getOrientedDifference(yaw, desiredYaw);
+        if(!Angle.areSimilar(desiredYaw, hiker.yaw)){
+            double diff = Angle.getOrientedDifference(hiker.yaw, desiredYaw);
             if(diff > 0)
-                yaw += Math.min(diff, movable.getRotSpeed()*elapsedTime);
+                hiker.yaw += Math.min(diff, hiker.getRotSpeed()*elapsedTime);
             else
-                yaw -= Math.min(-diff, movable.getRotSpeed()*elapsedTime);
+                hiker.yaw -= Math.min(-diff, hiker.getRotSpeed()*elapsedTime);
         } else
-            yaw = desiredYaw;
+            hiker.yaw = desiredYaw;
     }
 
-    public Point3D getVectorTo(Mover o) {
-        return o.pos.getSubtraction(pos);
-    }
-    
     // TODO ici le toFlockWith perd son sens quand il ne s'agit que de separation.
     public void separate(){
         sm.applySeparation(toLetPass);
@@ -236,9 +215,9 @@ public class Mover {
     
     private void updateElevation(){
         if(heightmap == Heightmap.GROUND)
-            pos = new Point3D(pos.x, pos.y, map.getGroundAltitude(pos.get2D())+0.25);
+            hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getGroundAltitude(hiker.getCoord())+0.25);
         else if(heightmap == Heightmap.SKY)
-            pos = new Point3D(pos.x, pos.y, map.getTile(pos.get2D()).level+3);
+            hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getTile(hiker.getCoord()).level+3);
             
     }
     
@@ -247,16 +226,12 @@ public class Mover {
     }
     
     public double getSpeed(){
-        return movable.getSpeed();
+        return hiker.getSpeed();
     }
     
-    public Point2D getPos2D(){
-        return new Point2D(pos);
-    }
-    
-    public void setPosition(Point2D p){
+    public void changeCoord(Point2D p){
         velocity = Point3D.ORIGIN;
-        pos = p.get3D(0);
+        hiker.pos = p.get3D(0);
         updateElevation();
     }
 }

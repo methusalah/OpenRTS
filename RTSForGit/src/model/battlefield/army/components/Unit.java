@@ -4,10 +4,12 @@
  */
 package model.battlefield.army.components;
 
+import model.battlefield.abstractComps.Hiker;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
 import math.Angle;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.UnitActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
@@ -24,7 +26,7 @@ import sun.font.EAttribute;
  *
  * @author Benoît
  */
-public class Unit extends Movable implements EffectSource, EffectTarget{
+public class Unit extends Hiker implements EffectSource, EffectTarget{
 
     public enum State {MOVING, AIMING, IDLING, DESTROYED, STUCK};
 
@@ -45,7 +47,6 @@ public class Unit extends Movable implements EffectSource, EffectTarget{
     public boolean selected = false;
 
     public Unit(double radius,
-            double separationRadius,
             double speed,
             double mass,
             Point3D pos,
@@ -56,7 +57,7 @@ public class Unit extends Movable implements EffectSource, EffectTarget{
             int maxHealth,
             Faction faction,
             ModelActorBuilder actorBuilder) {
-        super(radius, separationRadius, speed, mass, pos, yaw, moverBuilder);
+        super(radius, speed, mass, pos, yaw, moverBuilder);
         this.UIName = UIName;
         this.race = race;
         this.maxHealth = maxHealth;
@@ -67,7 +68,7 @@ public class Unit extends Movable implements EffectSource, EffectTarget{
         actor = (UnitActor)actorBuilder.build(this);
     }
     public Unit(Unit o) {
-        super(o.radius, o.separationRadius, o.speed, o.mass, o.getPos(), o.mover);
+        super(o.radius, o.speed, o.mass, o.pos, o.yaw, o.mover);
         this.UIName = o.UIName;
         this.race = o.race;
         this.maxHealth = o.maxHealth;
@@ -168,26 +169,6 @@ public class Unit extends Movable implements EffectSource, EffectTarget{
         return (double)health/maxHealth;
     }
     
-    @Override
-    public Point3D getPos(){
-        return mover.pos;
-    }
-
-    public double getDistance(Unit other){
-        return mover.getDistance(other.mover);
-    }
-    
-    public double getBoundsDistance(Unit other){
-        return getDistance(other)-mover.getSpacing(other.mover);
-    }
-    
-    public Unit getNearest(Unit o1, Unit o2){
-        if(getDistance(o1) < getDistance(o2))
-            return o1;
-        else
-            return o2;
-    }
-    
     public Mover getMover(){
         return mover;
     }
@@ -233,9 +214,9 @@ public class Unit extends Movable implements EffectSource, EffectTarget{
         return this;
     }
 
-    @Override
-    public double getYaw() {
-        return mover.yaw;
+//    @Override
+    public Unit getNearest(Unit o1, Unit o2) {
+        return (Unit)super.getNearest(o1, o2);
     }
     
     

@@ -6,6 +6,7 @@ package model.battlefield.map;
 
 import geometry3D.Point3D;
 import java.awt.Color;
+import model.battlefield.abstractComps.FieldComp;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -14,7 +15,7 @@ import org.simpleframework.xml.Root;
  * @author Benoît
  */
 @Root
-public class Trinket {
+public class Trinket extends FieldComp{
     @Element
     public final boolean editable;
     @Element
@@ -26,30 +27,21 @@ public class Trinket {
     @Element
     public final double scaleZ;
     @Element
-    public final double rotX;
-    @Element
-    public final double rotY;
-    @Element
     public final int colorSerial;
 
     public final Color color;
     public final String label = "label"+this.toString();
-    
-    @Element
-    public Point3D pos;
-    @Element
-    public double rotZ;
 
     public Trinket(boolean editable, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color) {
+        super(pos, rotZ);
         this.editable = editable;
         this.modelPath = modelPath;
         this.pos = pos;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
         this.scaleZ = scaleZ;
-        this.rotX = rotX;
-        this.rotY = rotY;
-        this.rotZ = rotZ;
+        this.roll = rotX;
+        this.pitch = rotY;
         this.color = color;
         if(color != null)
             colorSerial = color.getRGB();
@@ -67,15 +59,15 @@ public class Trinket {
             @Element(name="rotY")double rotY,
             @Element(name="rotZ")double rotZ,
             @Element(name="colorSerial")int colorSerial) {
+        super(pos, rotZ);
         this.editable = editable;
         this.modelPath = modelPath;
         this.pos = pos;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
         this.scaleZ = scaleZ;
-        this.rotX = rotX;
-        this.rotY = rotY;
-        this.rotZ = rotZ;
+        this.roll = rotX;
+        this.pitch = rotY;
         this.colorSerial = colorSerial;
         if(colorSerial == 0)
             color = null;

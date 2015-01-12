@@ -65,10 +65,10 @@ public class Turret {
     
     public void setYaw(double yaw) {
         idle = false;
-        desiredYaw = yaw-holder.getOrientation();
+        desiredYaw = yaw-holder.getYaw();
     }
     
     private void reset(){
-        setYaw(holder.getOrientation());
+        setYaw(holder.getYaw());
     }
 }

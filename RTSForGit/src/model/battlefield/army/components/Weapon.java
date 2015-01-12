@@ -66,7 +66,7 @@ public class Weapon implements EffectSource {
             vec = holder.actor.getBoneCoord(directionBone).getSubtraction(source).getNormalized();
         }else{
             pivot = holder.getPos();
-            vec = Point2D.ORIGIN.getTranslation(holder.getOrientation(), 1).getNormalized().get3D(0);
+            vec = Point2D.ORIGIN.getTranslation(holder.getYaw(), 1).getNormalized().get3D(0);
         }
 
         attacking = false;
@@ -209,7 +209,7 @@ public class Weapon implements EffectSource {
     @Override
     public double getYaw() {
         if(source == null)
-            return holder.mover.yaw;
+            return holder.yaw;
         else
             return vec.getSubtraction(source).get2D().getAngle();
     }

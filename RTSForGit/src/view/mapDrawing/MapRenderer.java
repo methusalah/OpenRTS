@@ -133,7 +133,7 @@ public class MapRenderer implements ActionListener {
             }
             
             s.setLocalScale(0.002f*(float)t.scaleX, 0.002f*(float)t.scaleY, 0.002f*(float)t.scaleZ);
-            Quaternion q = new Quaternion().fromAngles((float)t.rotX, (float)t.rotY, (float)t.rotZ);
+            Quaternion q = new Quaternion().fromAngles((float)t.roll, (float)t.pitch, (float)t.yaw);
             s.setLocalRotation(q);
             if(t.color != null)
                 s.setMaterial(mm.getLightingColor(Translator.toColorRGBA(t.color)));

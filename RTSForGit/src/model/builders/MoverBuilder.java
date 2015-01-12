@@ -8,7 +8,7 @@ import geometry.Point2D;
 import geometry3D.Point3D;
 import ressources.definitions.DefElement;
 import java.util.HashMap;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Mover;
 import ressources.definitions.Definition;
 import model.battlefield.map.Map;
@@ -51,8 +51,8 @@ public class MoverBuilder extends Builder{
             }
     }
     
-    public Mover build(Movable movable, Point3D pos, double yaw){
-        Mover res = new Mover(heightmap, pathfindingMode, movable, lib.battlefield.map, pos, yaw);
+    public Mover build(Hiker movable){
+        Mover res = new Mover(heightmap, pathfindingMode, movable, lib.battlefield.map);
         return res;
     }
 }

@@ -12,7 +12,7 @@ import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
 import java.util.ArrayList;
-import model.battlefield.actors.MovableActor;
+import model.battlefield.actors.HikerActor;
 import model.battlefield.actors.ParticleActor;
 import tools.LogUtil;
 import view.math.Translator;
@@ -36,7 +36,7 @@ public class ParticleActorDrawer {
         if(particleActor.viewElements.particleEmitter == null)
             createEmitter(particleActor);
         
-        MovableActor ma = (MovableActor)particleActor.getParentModelActor();
+        HikerActor ma = (HikerActor)particleActor.getParentModelActor();
         if(ma.viewElements.spatial == null)
             LogUtil.logger.info("missing spatial from parent actor "+ma.debbug_id+" to render particles from "+particleActor.debbug_id);
         
@@ -50,7 +50,7 @@ public class ParticleActorDrawer {
                 direction = new Vector3f(emissionPoint);
         } else {
             emissionPoint = Translator.toVector3f(ma.getPos());
-            direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getOrientation(), 1).get3D(emissionPoint.z));
+            direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getYaw(), 1).get3D(emissionPoint.z));
         }
         direction = direction.subtract(emissionPoint).normalize();
         Vector3f velocity = direction.mult((float)particleActor.velocity);

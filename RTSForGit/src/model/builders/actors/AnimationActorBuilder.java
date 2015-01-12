@@ -8,7 +8,7 @@ import model.battlefield.actors.Actor;
 import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import model.battlefield.actors.AnimationActor;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import static model.builders.actors.ActorBuilder.TYPE;
 import ressources.definitions.Definition;
 

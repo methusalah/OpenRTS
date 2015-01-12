@@ -46,7 +46,7 @@ public class SteeringMachine {
 
     public Point3D getSteeringAndReset(double elapsedTime){
         steering = steering.getTruncation(elapsedTime);
-        steering = steering.getDivision(mover.movable.getMass());
+        steering = steering.getDivision(mover.hiker.getMass());
         Point3D res = new Point3D(steering);
         
         steering = Point3D.ORIGIN;
@@ -83,26 +83,26 @@ public class SteeringMachine {
     }
     
     public void seek(Point3D target){
-        steering = steering.getAddition(target.getSubtraction(mover.pos).getNormalized());
+        steering = steering.getAddition(target.getSubtraction(mover.hiker.pos).getNormalized());
     }
     
     public void seek(Mover m ){
-        seek(m.pos);
+        seek(m.hiker.pos);
     }
     
     private Point3D getFollowFlowFieldForce(){
         Point2D destination = mover.getDestination();
         if(destination == null)
             return Point3D.ORIGIN;
-        else if(mover.getPos2D().getDistance(destination) < DESTINATION_REACH_TOLERANCE){
+        else if(mover.hiker.getCoord().getDistance(destination) < DESTINATION_REACH_TOLERANCE){
             mover.setDestinationReached();
             return Point3D.ORIGIN;
         } else{
             Point2D flatForce;
             if(mover.fly())
-                flatForce = destination.getSubtraction(mover.getPos2D()).getNormalized().getMult(FOLLOW_PATH_FORCE);
+                flatForce = destination.getSubtraction(mover.hiker.getCoord()).getNormalized().getMult(FOLLOW_PATH_FORCE);
             else
-                flatForce = mover.flowfield.getVector(mover.getPos2D()).getMult(FOLLOW_PATH_FORCE);
+                flatForce = mover.flowfield.getVector(mover.hiker.getCoord()).getMult(FOLLOW_PATH_FORCE);
             return new Point3D(flatForce, 0);
         }
     }
@@ -113,10 +113,10 @@ public class SteeringMachine {
             return res;
         
         for(Mover n : neighbors){
-            double neededDistance = n.getSpacing(mover)-n.getDistance(mover);
+            double neededDistance = n.hiker.getSpacing(mover.hiker)-n.hiker.getDistance(mover.hiker);
             if(neededDistance <= 0)
                 continue;
-            Point3D sepVector = n.getVectorTo(mover).getScaled(neededDistance);
+            Point3D sepVector = n.hiker.getVectorTo(mover.hiker).getScaled(neededDistance);
             res = res.getAddition(sepVector);
         }
         if(res.isOrigin())
@@ -133,9 +133,9 @@ public class SteeringMachine {
             return res;
         
         for(Mover n : neighbors)
-            res = res.getAddition(n.pos);
+            res = res.getAddition(n.hiker.pos);
         res = res.getDivision(neighbors.size());
-        res = res.getSubtraction(mover.pos);
+        res = res.getSubtraction(mover.hiker.pos);
         return res.getNormalized().getMult(COHESION_FORCE);
     }
 
@@ -158,14 +158,14 @@ public class SteeringMachine {
         if(mover.velocity.equals(Point3D.ORIGIN))
             return;
         
-        Segment2D anticipation = new Segment2D(mover.getPos2D(), mover.getPos2D().getTranslation(new Point2D(steering).getAngle(), MAX_ANTICIPATION));
+        Segment2D anticipation = new Segment2D(mover.hiker.getCoord(), mover.hiker.getCoord().getTranslation(new Point2D(steering).getAngle(), MAX_ANTICIPATION));
         
         Point2D intersection = null;
         Mover obstacle = null;
         for(Mover m : holdingMovers){
-            Point2D i = anticipation.getIntersectionsWithCircle(m.getPos2D(), mover.getSpacing(m)).get(0);
+            Point2D i = anticipation.getIntersectionsWithCircle(m.hiker.getCoord(), mover.hiker.getSpacing(m.hiker)).get(0);
             if(i != null &&
-                    (intersection == null || i.getDistance(mover.getPos2D()) < intersection.getDistance(mover.getPos2D()))){
+                    (intersection == null || i.getDistance(mover.hiker.getCoord()) < intersection.getDistance(mover.hiker.getCoord()))){
                 intersection = i;
                 obstacle = m;
             }
@@ -174,16 +174,16 @@ public class SteeringMachine {
         if(obstacle == null)
             return;
         // if we are too close, we do not try to avoid and let the constraint manager manage the collision
-        if(obstacle.getDistance(mover) < obstacle.getSpacing(mover)*1.1)
+        if(obstacle.hiker.getDistance(mover.hiker) < obstacle.hiker.getSpacing(mover.hiker)*1.1)
             return;
         
-        double hypotenuse = mover.getPos2D().getDistance(obstacle.getPos2D());
-        double opposé = mover.getSpacing(obstacle);
+        double hypotenuse = mover.hiker.getCoord().getDistance(obstacle.hiker.getCoord());
+        double opposé = mover.hiker.getSpacing(obstacle.hiker);
         
         double adjacent = Math.sqrt(hypotenuse*hypotenuse-opposé*opposé);
         double avoidanceAngle = Math.atan(opposé/adjacent)*1.1;
 
-        Point2D toObstacle = obstacle.getPos2D().getSubtraction(mover.getPos2D()).getNormalized();
+        Point2D toObstacle = obstacle.hiker.getCoord().getSubtraction(mover.hiker.getCoord()).getNormalized();
         
         if(Angle.getOrientedDifference(new Point2D(steering).getAngle(), toObstacle.getAngle()) < 0)
             steering = new Point3D(toObstacle.getRotation(avoidanceAngle), steering.z);

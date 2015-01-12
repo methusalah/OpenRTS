@@ -130,7 +130,7 @@ public class TrinketTool extends Tool{
                     }
         }
         if(actualTrinket != null){
-            actualTrinket.rotZ = pencil.getCoord().getSubtraction(actualTrinket.pos.get2D()).getAngle();
+            actualTrinket.yaw = pencil.getCoord().getSubtraction(actualTrinket.pos.get2D()).getAngle();
             ArrayList<Trinket> toUpdate = new ArrayList<>();
             toUpdate.add(actualTrinket);
             manager.updateTrinkets(toUpdate);            

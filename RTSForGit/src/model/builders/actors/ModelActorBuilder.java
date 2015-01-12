@@ -17,7 +17,7 @@ import model.battlefield.actors.ParticleActor;
 import model.battlefield.actors.PhysicActor;
 import model.battlefield.actors.ProjectileActor;
 import model.battlefield.actors.UnitActor;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
 import static model.builders.actors.ActorBuilder.TRIGGER;
@@ -48,7 +48,7 @@ public class ModelActorBuilder extends ActorBuilder{
             }        
     }
     
-    public Actor build(Movable movable){
+    public Actor build(Hiker movable){
         return build("", movable, null);
     }
 
@@ -57,7 +57,7 @@ public class ModelActorBuilder extends ActorBuilder{
         throw new RuntimeException("Can't create Model actor without a Movable");
     }
     
-    public Actor build(String trigger, Movable movable, Actor parent){
+    public Actor build(String trigger, Hiker movable, Actor parent){
         Actor res;
         switch(type){
             case TYPE_DEFAULT : res = new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool); break;

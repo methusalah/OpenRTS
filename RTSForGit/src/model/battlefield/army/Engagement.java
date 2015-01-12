@@ -69,12 +69,12 @@ public class Engagement {
     
     public void setYaw(Unit u, double yaw){
         getPlacement(u).yaw = yaw;
-        u.mover.yaw = yaw;
+        u.yaw = yaw;
     }
     
     public void setCoord(Unit u, Point2D coord){
         getPlacement(u).pos = coord.get3D(0);
-        u.mover.setPosition(coord);
+        u.mover.changeCoord(coord);
     }
     
     private UnitPlacement getPlacement(Unit u){

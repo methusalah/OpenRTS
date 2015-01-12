@@ -17,7 +17,7 @@ import model.battlefield.actors.ParticleActor;
 import model.battlefield.actors.PhysicActor;
 import model.battlefield.actors.ProjectileActor;
 import model.battlefield.actors.UnitActor;
-import model.battlefield.army.components.Movable;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
 import static model.builders.actors.ActorBuilder.TRIGGER;
@@ -57,7 +57,7 @@ public class PhysicActorBuilder extends ActorBuilder{
             }        
     }
     
-    public Actor build(String trigger, Movable movable, Actor parent){
+    public Actor build(String trigger, Hiker movable, Actor parent){
         return new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool);
     }
 }

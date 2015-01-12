@@ -4,6 +4,7 @@
  */
 package model.battlefield.army.components;
 
+import model.battlefield.abstractComps.Hiker;
 import model.builders.ProjectileBuilder;
 import geometry.Point2D;
 import geometry3D.Point3D;
@@ -26,7 +27,7 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class Projectile extends Movable {
+public class Projectile extends Hiker {
     public enum PrecisionType{Center, InRadius, Other}
     
     private final PrecisionType precisionType;
@@ -40,7 +41,6 @@ public class Projectile extends Movable {
     ArrayList<ActionListener> listeners = new ArrayList<>();
 
     public Projectile(double radius,
-            double separationRadius,
             double speed,
             double mass,
             EffectSource source,
@@ -50,7 +50,7 @@ public class Projectile extends Movable {
             ModelActorBuilder actorBuilder,
             EffectTarget target,
             Point3D targetPoint) {
-        super(radius, separationRadius, speed, mass, source.getPos(), source.getYaw(), moverBuilder);
+        super(radius, speed, mass, source.getPos(), source.getYaw(), moverBuilder);
         this.precisionType = precisionType;
         this.precision = precision;
         this.target = target;
@@ -67,6 +67,8 @@ public class Projectile extends Movable {
         mover.sm.seek(targetPoint);
         
         mover.updatePosition(elapsedTime);
+        if(!mover.velocity.isOrigin())
+            direction = mover.velocity;
         
         if(mover.hasMoved)
             actor.onMove(true);
@@ -76,7 +78,7 @@ public class Projectile extends Movable {
     
     private double lastDist = Double.MAX_VALUE;
     private void testArrival(){
-        double dist = mover.pos.getDistance(targetPoint);
+        double dist = pos.getDistance(targetPoint);
         double tolerance;
         if(targetPoint.equals(target.getPos()))
             tolerance = target.getRadius();
@@ -113,11 +115,6 @@ public class Projectile extends Movable {
         return pos2D.get3D(pos.z);
     }
 
-    @Override
-    public Point3D getPos(){
-        return mover.pos;
-    }
-    
     public void addListener(ActionListener l){
         listeners.add(l);
     }
