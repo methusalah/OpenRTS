@@ -6,7 +6,6 @@ package model.battlefield.actors;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.battlefield.actors.Actor;
 
 /**
  *

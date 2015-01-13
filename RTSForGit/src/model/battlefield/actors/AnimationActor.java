@@ -5,8 +5,6 @@
 package model.battlefield.actors;
 
 import java.util.List;
-import model.battlefield.Battlefield;
-import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 
 /**
@@ -61,13 +59,10 @@ public class AnimationActor extends Actor {
         return (ModelActor)parent;
 
     }
-
+    
     @Override
     public String getType() {
         return "animation";
     }
-    
-    
-    
-    
+
 }

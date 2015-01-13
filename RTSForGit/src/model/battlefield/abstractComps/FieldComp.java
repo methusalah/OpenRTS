@@ -6,7 +6,6 @@ package model.battlefield.abstractComps;
 
 import geometry.Point2D;
 import geometry3D.Point3D;
-import model.battlefield.army.components.Mover;
 
 /**
  *

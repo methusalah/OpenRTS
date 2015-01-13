@@ -17,6 +17,8 @@ import view.actorDrawing.ActorViewElements;
  * @author Benoît
  */
 public class Actor {
+    public final static String TYPE = "Actor";
+    
     protected static final String ON_MOVE = "onMove";
     protected static final String ON_WAIT = "onWait";
     protected static final String ON_AIM = "onAim";
