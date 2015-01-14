@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Mover id="Ground">
+    <PathfindingMode value="Walk"/>
+    <Heightmap value="Ground"/>
+  </Mover>
+  <Mover id="Fly">
+    <PathfindingMode value="Fly"/>
+    <Heightmap value="Sky"/>
+  </Mover>
+  <Mover id="Projectile">
+    <PathfindingMode value="Fly"/>
+    <Heightmap value="Air"/>
+  </Mover>
+</catalog>

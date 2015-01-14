@@ -1,0 +1,12 @@
+Testsuite: org.simpleframework.xml.core.SerializeRandomListOfObjectsTest
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.09 sec
+------------- Standard Output ---------------
+<listArgument>
+   <list class="java.util.ArrayList">
+      <object class="java.lang.String">x</object>
+      <object class="java.lang.Integer">10</object>
+      <object class="java.util.Date">2013-07-08 21:31:14.686 EST</object>
+   </list>
+</listArgument>------------- ---------------- ---------------
+
+Testcase: testSerializeRandomList took 0.088 sec

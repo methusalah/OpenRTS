@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene formatVersion="1.0" upAxis="z" unitsPerMeter="100" unitType="centimeters" minOgreVersion="1.7" ogreMaxVersion="2.6.3" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
+    <nodes>
+        <node name="wallAngle2A">
+            <position x="1100" y="700" z="-4.36419e-006"/>
+            <scale x="1" y="1" z="1"/>
+            <rotation qx="0" qy="0" qz="0.707107" qw="0.707107"/>
+            <entity name="wallAngle2A" castShadows="true" receiveShadows="true" meshFile="wallAngle2A.mesh">
+                <subentities>
+                    <subentity index="0" materialName="NotVisible"/>
+                    <subentity index="1" materialName="MetalA"/>
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>

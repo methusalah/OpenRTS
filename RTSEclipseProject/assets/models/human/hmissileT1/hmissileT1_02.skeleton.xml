@@ -1,0 +1,50 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="BRoot">
+            <position x="3.02115e-006" y="0" z="-4.02396e-007"/>
+            <rotation angle="2.09351">
+                <axis x="0.577056" y="0.577939" z="0.577056"/>
+            </rotation>
+        </bone>
+        <bone id="1" name="BJet01">
+            <position x="143.469" y="-7.46548e-006" z="1.71028e-005"/>
+            <rotation angle="0">
+                <axis x="-0.577595" y="0.577595" z="-0.57686"/>
+            </rotation>
+        </bone>
+        <bone id="2" name="BJetVec01">
+            <position x="3.99872" y="1.49012e-008" z="-3.49246e-010"/>
+            <rotation angle="0.00182698">
+                <axis x="2.43645e-005" y="-0.000264512" z="1"/>
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy>
+        <boneparent bone="BJet01" parent="BRoot"/>
+        <boneparent bone="BJetVec01" parent="BJet01"/>
+    </bonehierarchy>
+    <animations>
+        <animation name="idle" length="0.0333333">
+            <tracks>
+                <track bone="BJetVec01">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="0.00125122" y="-1.49012e-008" z="-3.63798e-012"/>
+                            <rotate angle="0">
+                                <axis x="0.000976562" y="1" z="-2.98023e-008"/>
+                            </rotate>
+                            <scale x="1.00031" y="1" z="1"/>
+                        </keyframe>
+                        <keyframe time="0.0333333">
+                            <translate x="0.00125122" y="-1.49012e-008" z="-3.63798e-012"/>
+                            <rotate angle="0">
+                                <axis x="0.000976562" y="1" z="-2.98023e-008"/>
+                            </rotate>
+                            <scale x="1.00031" y="1" z="1"/>
+                        </keyframe>
+                    </keyframes>
+                </track>
+            </tracks>
+        </animation>
+    </animations>
+</skeleton>

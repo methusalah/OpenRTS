@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<nifty>
+    <useControls filename="nifty-default-controls.xml"/>
+    <useStyles filename="nifty-default-styles.xml"/>
+    <screen id="GScreen0">
+        <layer id="GLayer0" childLayout="absolute">
+            <panel id="pencil" childLayout="vertical" width="242px" x="6" y="5" style="nifty-panel-simple" height="454px">
+                <panel id="sizepanel" childLayout="horizontal" width="100%" height="40px">
+                    <control name="label" id="sizetext" width="40px" text="size :" align="left" height="40px" font="aurulent-sans-16.fnt"/>
+                    <control name="horizontalSlider" id="sizeslider" width="*" height="40px"/>
+                </panel>
+                <panel id="strpanel" childLayout="horizontal" width="100%" height="40px">
+                    <control name="label" id="strtext" width="40px" x="30" y="16" text="str. :" height="40px" font="aurulent-sans-16.fnt"/>
+                    <control name="horizontalSlider" id="strslider" width="*" height="40px"/>
+                </panel>
+                <panel id="pencilshapepanel" childLayout="horizontal" width="100%" x="13" y="4" align="center" height="50px">
+                    <control name="button" id="square" childLayout="center" x="10" width="30%" y="45" label="square" align="left" height="40px"/>
+                    <control name="button" id="diamond" childLayout="center" width="30%" label="diamond" height="40px"/>
+                    <control name="button" id="circle" childLayout="center" width="30%" label="circle" height="40px"/>
+                </panel>
+                <panel id="brushpanel" childLayout="horizontal" width="100%" align="left" height="50px">
+                    <control name="button" id="rough" childLayout="center" x="42" width="30%" y="14" label="rough" align="left" height="40px"/>
+                    <control name="button" id="airbrush" childLayout="center" width="30%" label="airbrush" height="40px"/>
+                    <control name="button" id="noise" childLayout="center" width="30%" label="noise" height="40px"/>
+                </panel>
+            </panel>
+        </layer>
+    </screen>
+</nifty>

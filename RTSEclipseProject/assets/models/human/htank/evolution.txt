@@ -1,0 +1,11 @@
+01
+Première version basique
+
+02
+Recherche de design
+
+03
+A. Première version, test "jambes" Ok
+B. Chenilles avant plus courtes
+C. A partir de la version B, suppression des cylindres, ajout des détails sur les chenilles, ajout d'un arrondi sur les chenilles arrières.
+
