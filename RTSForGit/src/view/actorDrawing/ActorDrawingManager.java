@@ -16,10 +16,9 @@ import java.util.HashMap;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.AnimationActor;
+import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import model.battlefield.actors.PhysicActor;
-import model.battlefield.actors.ProjectileActor;
-import model.battlefield.actors.UnitActor;
 import tools.LogUtil;
 import view.material.MaterialManager;
 
@@ -72,8 +71,7 @@ public class ActorDrawingManager implements AnimEventListener {
             switch (a.getType()){
                 case "default" : break;
                 case "physic" : physicDrawer.draw((PhysicActor)a); break;
-                case "unit" : modelDrawer.draw((UnitActor)a); break;
-                case "projectile" : modelDrawer.draw((ProjectileActor)a); break;
+                case "model" : modelDrawer.draw((ModelActor)a); break;
                 case "animation" : animationDrawer.draw((AnimationActor)a); break;
                 case "particle" : particleDrawer.draw((ParticleActor)a); break;
             }

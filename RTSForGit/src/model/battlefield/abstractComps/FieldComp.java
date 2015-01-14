@@ -12,6 +12,7 @@ import geometry3D.Point3D;
  * @author Benoît
  */
 public class FieldComp {
+    public String modelPath;
     public Point3D pos;
     public Point3D direction;
     public double roll = 0;

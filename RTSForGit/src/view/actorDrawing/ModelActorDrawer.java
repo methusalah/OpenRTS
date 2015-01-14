@@ -15,14 +15,12 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import geometry.Point2D;
 import geometry3D.Point3D;
-import java.util.HashMap;
 import math.Angle;
 import model.battlefield.army.components.Turret;
 import model.battlefield.actors.ModelActor;
-import model.battlefield.actors.HikerActor;
-import model.battlefield.actors.ProjectileActor;
-import model.battlefield.actors.UnitActor;
-import tools.LogUtil;
+import model.battlefield.army.components.Projectile;
+import model.battlefield.army.components.Unit;
+import model.battlefield.map.Trinket;
 import view.math.Translator;
 import view.mesh.Circle;
 
@@ -39,67 +37,81 @@ public class ModelActorDrawer {
         this.manager = manager;
     }
 
-    protected void draw(ModelActor modelActor){
-        if(modelActor.viewElements.spatial == null){
-            Spatial s = manager.buildSpatial(modelActor.modelPath);
-            s.setLocalScale((float)modelActor.scale*DEFAULT_SCALE);
+    protected void draw(ModelActor actor){
+        if(actor.viewElements.spatial == null){
+            Spatial s = manager.buildSpatial(actor.modelPath);
+            s.setLocalScale((float)actor.scaleX*DEFAULT_SCALE,
+                    (float)actor.scaleY*DEFAULT_SCALE,
+                    (float)actor.scaleZ*DEFAULT_SCALE);
             s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-            s.setName(modelActor.getLabel());
-            modelActor.viewElements.spatial = s;
+            s.setName(actor.getLabel());
+            actor.viewElements.spatial = s;
             // We force update here because we need imediatly to have access to bones' absolute position.
             AnimControl animControl = s.getControl(AnimControl.class);
             if(animControl !=  null)
                 animControl.update(0);
         }
-    }
-    
-    protected void draw(HikerActor movableActor){
-        draw((ModelActor)movableActor);
-        Spatial s = movableActor.viewElements.spatial;
-
-        // translation
-        s.setLocalTranslation(Translator.toVector3f(movableActor.getPos()));
         
-        // rotation
-        Quaternion r = new Quaternion();
-        if(movableActor instanceof ProjectileActor){
-            Vector3f u = new Vector3f(0, -1, 0);
-            Vector3f v = Translator.toVector3f(((ProjectileActor)movableActor).getProjectile().mover.velocity).normalize();
-            float real = 1+u.dot(v);
-            Vector3f w = u.cross(v);
-            r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
-        } else {
-            r.fromAngles(0, 0, (float)(movableActor.getYaw()+Angle.RIGHT));
-        }
-        s.setLocalRotation(r);
+        if(actor.getComp() != null)
+            placeOnComp(actor);
+        
     }
     
-    protected void draw(UnitActor unitActor){
-        draw((HikerActor)unitActor);
-        orientTurret(unitActor);
-        updateBoneCoords(unitActor);
-        drawSelectionCircle(unitActor);
+    protected void placeOnComp(ModelActor actor){
+            Spatial s = actor.viewElements.spatial;
+
+            // translation
+            s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
+
+            // rotation
+            Quaternion r = new Quaternion();
+            if(actor.getComp().direction != null){
+                Vector3f u = new Vector3f(0, -1, 0);
+                Vector3f v = Translator.toVector3f(actor.getComp().direction).normalize();
+                float real = 1+u.dot(v);
+                Vector3f w = u.cross(v);
+                r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
+            } else {
+                r.fromAngles(0, 0, (float)(actor.getYaw()+Angle.RIGHT));
+            }
+            s.setLocalRotation(r);
+            
+            if(actor.getComp() instanceof Unit)
+                manageAsUnit(actor);
+            else if(actor.getComp() instanceof Projectile)
+                manageAsUnit(actor);
+            else if(actor.getComp() instanceof Trinket)
+                manageAsTrinket(actor);
     }
     
-    protected void draw(ProjectileActor projectileActor){
-        draw((HikerActor)projectileActor);
-        updateBoneCoords(projectileActor);
+    protected void manageAsUnit(ModelActor actor){
+        orientTurret(actor);
+        updateBoneCoords(actor);
+        drawSelectionCircle(actor);
     }
     
-    private void drawSelectionCircle(UnitActor unitActor){
-        if(unitActor.viewElements.selectionCircle == null){
+    protected void manageAsProjectile(ModelActor actor){
+        updateBoneCoords(actor);
+    }
+
+    protected void manageAsTrinket(ModelActor actor){
+    }
+    
+    private void drawSelectionCircle(ModelActor actor){
+        Unit unit = (Unit)actor.getComp();
+        if(actor.viewElements.selectionCircle == null){
             Geometry g = new Geometry();
-            g.setMesh(new Circle((float)unitActor.getUnit().getRadius(), 10));
+            g.setMesh(new Circle((float)unit.getRadius(), 10));
             g.setMaterial(manager.materialManager.greenMaterial);
             g.rotate((float)Angle.RIGHT, 0, 0);
             Node n = new Node();
             n.attachChild(g);
-            unitActor.viewElements.selectionCircle = n;
+            actor.viewElements.selectionCircle = n;
         }
-        Node n = unitActor.viewElements.selectionCircle;
-        n.setLocalTranslation(Translator.toVector3f(unitActor.getPos().getAddition(0, 0, 0.2)));
+        Node n = actor.viewElements.selectionCircle;
+        n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
-        if(unitActor.isSelected()){
+        if(unit.selected){
             if(!manager.mainNode.hasChild(n))
                 manager.mainNode.attachChild(n);
         } else
@@ -107,8 +119,8 @@ public class ModelActorDrawer {
                 manager.mainNode.detachChild(n);
     }
  
-    private void orientTurret(UnitActor actor) {
-        for(Turret t : actor.getTurrets()){
+    private void orientTurret(ModelActor actor) {
+        for(Turret t : ((Unit)actor.getComp()).getTurrets()){
             Bone turretBone = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(t.boneName);
             if(turretBone == null)
                 throw new RuntimeException("Can't find the bone "+t.boneName+" for turret.");
@@ -122,19 +134,19 @@ public class ModelActorDrawer {
         }
     }
     
-    private void updateBoneCoords(HikerActor movableActor){
-        Skeleton sk = movableActor.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
+    private void updateBoneCoords(ModelActor actor){
+        Skeleton sk = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
         for(int i=0; i<sk.getBoneCount(); i++){
             Bone b = sk.getBone(i);
-            movableActor.setBone(b.getName(), getBoneWorldPos(movableActor, i));
+            actor.setBone(b.getName(), getBoneWorldPos(actor, i));
         }
     }
     
-    private Point3D getBoneWorldPos(HikerActor actor, String boneName){
+    private Point3D getBoneWorldPos(ModelActor actor, String boneName){
         return getBoneWorldPos(actor, actor.getPos(), actor.getYaw(), boneName);
     }
 
-    private Point3D getBoneWorldPos(HikerActor actor, int boneIndex){
+    private Point3D getBoneWorldPos(ModelActor actor, int boneIndex){
         return getBoneWorldPos(actor, actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
     }
     

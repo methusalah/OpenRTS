@@ -116,5 +116,8 @@ public class NaturalFaceBuilder extends Builder{
         } else return true;
 
     }
-    
+
+    @Override
+    public void readFinalizedLibrary() {
+    }
 }

@@ -37,4 +37,8 @@ public class MapStyleBuilder extends Builder{
                     break;
             }
     }
+
+    @Override
+    public void readFinalizedLibrary() {
+    }
 }

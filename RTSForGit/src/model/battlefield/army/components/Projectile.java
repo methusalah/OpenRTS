@@ -5,23 +5,18 @@
 package model.battlefield.army.components;
 
 import model.battlefield.abstractComps.Hiker;
-import model.builders.ProjectileBuilder;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.EventListener;
 import math.Angle;
 import math.MyRandom;
-import model.battlefield.actors.ProjectileActor;
+import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
-import model.battlefield.army.effects.LauncherEffect;
-import model.builders.actors.ActorBuilder;
 import model.builders.actors.ModelActorBuilder;
 import model.builders.MoverBuilder;
-import tools.LogUtil;
 
 /**
  *
@@ -32,7 +27,7 @@ public class Projectile extends Hiker {
     
     private final PrecisionType precisionType;
     private final double precision;
-    private final ProjectileActor actor;
+    private final ModelActor actor;
     private final EffectTarget target;
     public final String label = "label"+this.toString();
     
@@ -55,7 +50,7 @@ public class Projectile extends Hiker {
         this.precision = precision;
         this.target = target;
         this.targetPoint = targetPoint;
-        actor = (ProjectileActor)actorBuilder.build(this);
+        actor = actorBuilder.build(this);
         updateTargetPoint();
     }
     

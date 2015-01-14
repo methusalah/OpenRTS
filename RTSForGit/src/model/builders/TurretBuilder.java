@@ -52,7 +52,10 @@ public class TurretBuilder extends Builder {
     }
     
     public Turret build(Unit holder){
-        Turret res = new Turret(speed, idleSpeed, onIdle, boneName, holder);
-        return res;
+        return new Turret(speed, idleSpeed, onIdle, boneName, holder);
+    }
+
+    @Override
+    public void readFinalizedLibrary() {
     }
 }

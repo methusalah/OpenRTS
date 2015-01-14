@@ -17,6 +17,7 @@ import static model.battlefield.map.cliff.Cliff.Type.Corner;
 import static model.battlefield.map.cliff.Cliff.Type.Orthogonal;
 import static model.battlefield.map.cliff.Cliff.Type.Salient;
 import model.battlefield.map.Trinket;
+import model.builders.actors.ModelActorBuilder;
 import ressources.definitions.BuilderLibrary;
 import ressources.definitions.DefElement;
 import ressources.definitions.Definition;
@@ -29,6 +30,7 @@ public class TrinketBuilder extends Builder{
     private static final String EDITABLE = "Editable";
     private static final String MODEL_LIST = "ModelList";
     private static final String COLOR = "Color";
+    private static final String ACTOR_LINK = "ActorLink";
 
     private static final String ROTATION_X = "RotationX";
     private static final String ROTATION_Y = "RotationY";
@@ -50,8 +52,11 @@ public class TrinketBuilder extends Builder{
     private static final String GREEN = "G";
     private static final String BLUE = "B";
 
+    
     private boolean editable = true;
     private List<String> modelPaths = new ArrayList<>();
+    private String actorBuilderID = "StdTrinket";
+    private ModelActorBuilder actorBuilder;
     
     private double minPosX = 0;
     private double maxPosX = 0;
@@ -82,6 +87,7 @@ public class TrinketBuilder extends Builder{
             switch(de.name){
                 case EDITABLE : editable = de.getBoolVal(); break;
                 case MODEL_LIST : modelPaths.add(de.getVal()); break;
+                case ACTOR_LINK : actorBuilderID = de.getVal(); break;
                 case ROTATION_X :
                     minRotX = de.getDoubleVal(MIN);
                     maxRotX = de.getDoubleVal(MAX);
@@ -148,7 +154,7 @@ public class TrinketBuilder extends Builder{
             i = MyRandom.nextInt(modelPaths.size()-1);
         String randomModelPath = modelPaths.get(i);
         
-        return new Trinket(editable, randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color);
+        return new Trinket(editable, randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
     }
     
     public Trinket build(Cliff cliff){
@@ -178,6 +184,11 @@ public class TrinketBuilder extends Builder{
     
     public boolean isEditable(){
         return editable;
+    }
+
+    @Override
+    public void readFinalizedLibrary(){
+        actorBuilder = (ModelActorBuilder)lib.getActorBuilder(actorBuilderID);
     }
 
 }

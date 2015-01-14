@@ -7,24 +7,6 @@
     <ScanRange value="7"/>
     <Period value="5"/>
   </Weapon>
-  <Weapon id="TankCanon">
-    <UIName value="Canon"/>
-    <EffectLink value="StdDamage"/>
-    <Range value="5"/>
-    <ScanRange value="7"/>
-    <Period value="1.8"/>
-    <ActorLink value="TankCanonMainActor"/>
-    <SourceBone value="BMuzzle01"/>
-    <DirectionBone value="BMuzzleVec01"/>
-  </Weapon>
-  <Weapon id="TankMachinegun">
-    <UIName value="Machinegun"/>
-    <EffectLink value="StdDamage"/>
-    <Range value="3"/>
-    <ScanRange value="3"/>
-    <Period value="0.5"/>
-    <ActorLink value="TankMachinegunMainActor"/>
-  </Weapon>
   <Weapon id="MeleeWeapon">
     <UIName value="attaque au corps a corps"/>
     <EffectLink value="StdDamage"/>

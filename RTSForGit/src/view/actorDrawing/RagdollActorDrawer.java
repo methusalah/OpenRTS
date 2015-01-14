@@ -5,7 +5,6 @@
 package view.actorDrawing;
 
 import com.jme3.animation.AnimControl;
-import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -13,9 +12,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import geometry.Point2D;
 import math.Angle;
-import model.battlefield.actors.HikerActor;
+import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.PhysicActor;
-import tools.LogUtil;
 import view.math.Translator;
 
 /**
@@ -35,7 +33,7 @@ public class RagdollActorDrawer {
             manager.modelDrawer.draw(actor);
 
             Spatial s = actor.viewElements.spatial;
-            HikerActor ma = (HikerActor)actor.getParentModelActor();
+            ModelActor ma = actor.getParentModelActor();
 
             Vector3f massVec = s.getControl(AnimControl.class).getSkeleton().getBone(actor.massCenterBone).getModelSpacePosition().mult(s.getLocalScale());
             Node massCenter = new Node();

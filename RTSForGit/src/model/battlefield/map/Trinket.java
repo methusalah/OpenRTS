@@ -7,6 +7,8 @@ package model.battlefield.map;
 import geometry3D.Point3D;
 import java.awt.Color;
 import model.battlefield.abstractComps.FieldComp;
+import model.battlefield.actors.ModelActor;
+import model.builders.actors.ModelActorBuilder;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -28,11 +30,13 @@ public class Trinket extends FieldComp{
     public final double scaleZ;
     @Element
     public final int colorSerial;
+    
+    private ModelActor actor;
 
     public final Color color;
     public final String label = "label"+this.toString();
 
-    public Trinket(boolean editable, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color) {
+    public Trinket(boolean editable, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
         super(pos, rotZ);
         this.editable = editable;
         this.modelPath = modelPath;
@@ -47,6 +51,8 @@ public class Trinket extends FieldComp{
             colorSerial = color.getRGB();
         else
             colorSerial = 0;
+        actor = actorBuilder.build(this);
+        
     }
     
     public Trinket(@Element(name="editable")boolean editable,

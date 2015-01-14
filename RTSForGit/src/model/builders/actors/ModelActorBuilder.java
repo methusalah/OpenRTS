@@ -6,20 +6,9 @@ package model.builders.actors;
 
 import model.battlefield.actors.Actor;
 import ressources.definitions.BuilderLibrary;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import ressources.definitions.DefElement;
-import math.Angle;
-import model.battlefield.actors.AnimationActor;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.ModelActor;
-import model.battlefield.actors.ParticleActor;
-import model.battlefield.actors.PhysicActor;
-import model.battlefield.actors.ProjectileActor;
-import model.battlefield.actors.UnitActor;
-import model.battlefield.abstractComps.Hiker;
-import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
 import static model.builders.actors.ActorBuilder.TRIGGER;
 import static model.builders.actors.ActorBuilder.TYPE;
 import ressources.definitions.Definition;
@@ -48,23 +37,18 @@ public class ModelActorBuilder extends ActorBuilder{
             }        
     }
     
-    public Actor build(Hiker movable){
-        return build("", movable, null);
+    public ModelActor build(FieldComp comp){
+        return build("", comp, null);
     }
 
     @Override
-    public Actor build(String trigger, Actor parent) {
+    public ModelActor build(String trigger, Actor parent) {
         throw new RuntimeException("Can't create Model actor without a Movable");
     }
     
-    public Actor build(String trigger, Hiker movable, Actor parent){
-        Actor res;
-        switch(type){
-            case TYPE_DEFAULT : res = new Actor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool); break;
-            case TYPE_UNIT : res = new UnitActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool, modelPath, scale, movable); break;
-            case TYPE_PROJECTILE : res = new ProjectileActor(parent, trigger, childrenTriggers, getChildrenBuilders(), lib.battlefield.actorPool, modelPath, scale, movable); break;
-            default : printUnknownValue(TYPE, type); throw new RuntimeException();
-        }
+    public ModelActor build(String trigger, FieldComp comp, Actor parent){
+        readFinalizedLibrary();
+        ModelActor res = new ModelActor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, modelPath, scale, comp);
         res.debbug_id = getId();
         return res;
         

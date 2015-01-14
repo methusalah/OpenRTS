@@ -12,7 +12,7 @@ import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
 import java.util.ArrayList;
-import model.battlefield.actors.HikerActor;
+import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import tools.LogUtil;
 import view.math.Translator;
@@ -29,23 +29,23 @@ public class ParticleActorDrawer {
         this.manager = manager;
     }
     
-    protected void draw(ParticleActor particleActor){
-        if(particleActor.launched)
+    protected void draw(ParticleActor actor){
+        if(actor.launched)
             return;
         
-        if(particleActor.viewElements.particleEmitter == null)
-            createEmitter(particleActor);
+        if(actor.viewElements.particleEmitter == null)
+            createEmitter(actor);
         
-        HikerActor ma = (HikerActor)particleActor.getParentModelActor();
+        ModelActor ma = actor.getParentModelActor();
         if(ma.viewElements.spatial == null)
-            LogUtil.logger.info("missing spatial from parent actor "+ma.debbug_id+" to render particles from "+particleActor.debbug_id);
+            LogUtil.logger.info("missing spatial from parent actor "+ma.debbug_id+" to render particles from "+actor.debbug_id);
         
         Vector3f emissionPoint;
         Vector3f direction;
-        if(particleActor.emissionBone != null){
-            emissionPoint = Translator.toVector3f(ma.getBoneCoord(particleActor.emissionBone));
-            if(particleActor.directionBone != null)
-                direction = Translator.toVector3f(ma.getBoneCoord(particleActor.directionBone));
+        if(actor.emissionBone != null){
+            emissionPoint = Translator.toVector3f(ma.getBoneCoord(actor.emissionBone));
+            if(actor.directionBone != null)
+                direction = Translator.toVector3f(ma.getBoneCoord(actor.directionBone));
             else
                 direction = new Vector3f(emissionPoint);
         } else {
@@ -53,27 +53,27 @@ public class ParticleActorDrawer {
             direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getYaw(), 1).get3D(emissionPoint.z));
         }
         direction = direction.subtract(emissionPoint).normalize();
-        Vector3f velocity = direction.mult((float)particleActor.velocity);
+        Vector3f velocity = direction.mult((float)actor.velocity);
 
         
         
         
-        ParticleEmitter pe = particleActor.viewElements.particleEmitter;
+        ParticleEmitter pe = actor.viewElements.particleEmitter;
         pe.getParticleInfluencer().setInitialVelocity(velocity);
-        pe.getParticleInfluencer().setVelocityVariation((float)particleActor.fanning);
-        if(particleActor.facing == ParticleActor.Facing.Velocity)
+        pe.getParticleInfluencer().setVelocityVariation((float)actor.fanning);
+        if(actor.facing == ParticleActor.Facing.Velocity)
             pe.setFaceNormal(direction);
         
         if(pe.getParticlesPerSec() == 0)
-            pe.setParticlesPerSec(particleActor.perSecond);
+            pe.setParticlesPerSec(actor.perSecond);
 
         Vector3f pos = pe.getWorldTranslation();
         pe.setLocalTranslation(emissionPoint);
         
-        if(particleActor.duration == 0)
+        if(actor.duration == 0)
             pe.emitAllParticles();
 
-        particleActor.updateDuration();
+        actor.updateDuration();
         
         
         // trick to interpolate position of the particles when emitter moves between two frames

@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
-  <Unit id="humantank">
-    <UIName value="Tank de la mort"/>
-    <Race value="human"/>
-    <Radius value="0.8"/>
-    <SeparationRadius value="0.8"/>
-    <Speed value="4"/>
-    <Mass value="1"/>
-    <MaxHealth value="120"/>
-    <Sight value="10"/>
-    <MoverLink value="Ground"/>
-    <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>
-    <WeaponList WeaponLink="TankMachinegun"/>
-    <ActorLink value="Tank"/>
-  </Unit>
   <Unit id="Marine">
     <UIName value="Marine Le Pen"/>
     <Race value="human"/>

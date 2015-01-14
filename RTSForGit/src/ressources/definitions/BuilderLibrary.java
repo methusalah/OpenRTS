@@ -58,7 +58,7 @@ public class BuilderLibrary {
     private HashMap<String, HashMap> builders = new HashMap<>();
 
     public Battlefield battlefield;
-    
+
     public BuilderLibrary(){
         builders.put(UNIT, new HashMap<String, Builder>());
         builders.put(MOVER, new HashMap<String, Builder>());
@@ -72,6 +72,12 @@ public class BuilderLibrary {
         builders.put(TRINKET, new HashMap<String, Builder>());
         builders.put(NATURAL_FACE, new HashMap<String, Builder>());
         builders.put(MANMADE_FACE, new HashMap<String, Builder>());
+    }
+    
+    private void finalizeBuilders(){
+        for(HashMap<String, Builder> map : builders.values())
+            for(Builder b : map.values())
+                b.readFinalizedLibrary();
     }
     
     
@@ -93,10 +99,8 @@ public class BuilderLibrary {
                     case ActorBuilder.TYPE_ANIMATION : typed.put(def.id, new AnimationActorBuilder(def, this)); break;
                     case ActorBuilder.TYPE_PARTICLE : typed.put(def.id, new ParticleActorBuilder(def, this)); break;
                     case ActorBuilder.TYPE_PHYSIC : typed.put(def.id, new PhysicActorBuilder(def, this)); break;
-                    case ActorBuilder.TYPE_PROJECTILE : typed.put(def.id, new ModelActorBuilder(def, this)); break;
-                    case ActorBuilder.TYPE_UNIT : typed.put(def.id, new ModelActorBuilder(def, this)); break;
-                    case ActorBuilder.TYPE_DEFAULT :
-                    default: typed.put(def.id, new ActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_MODEL : typed.put(def.id, new ModelActorBuilder(def, this)); break;
+                        default: typed.put(def.id, new ActorBuilder(def, this));
                 }
                 break;
             case MAP_STYLE : typed.put(def.id, new MapStyleBuilder(def, this)); break;
@@ -105,6 +109,7 @@ public class BuilderLibrary {
             case NATURAL_FACE : typed.put(def.id, new NaturalFaceBuilder(def, this)); break;
             case MANMADE_FACE : typed.put(def.id, new ManmadeFaceBuilder(def, this)); break;
         }
+        finalizeBuilders();
     }
     
     private Builder getBuilder(String type, String id){

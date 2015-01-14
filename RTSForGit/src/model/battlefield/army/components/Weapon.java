@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import math.Angle;
 import math.Precision;
 import model.battlefield.army.effects.EffectSource;
+import model.builders.actors.ActorBuilder;
 import tools.LogUtil;
 
 /**
@@ -45,7 +46,7 @@ public class Weapon implements EffectSource {
     protected ArrayList<Unit> onScan = new ArrayList<>();
     protected ArrayList<Unit> atRange = new ArrayList<>();
 
-    public Weapon(String UIName, double range, double scanRange, double period, EffectBuilder effectBuilder, String sourceBone, String directionBone, Unit holder, Actor actor, Turret turret) {
+    public Weapon(String UIName, double range, double scanRange, double period, EffectBuilder effectBuilder, String sourceBone, String directionBone, Unit holder, ActorBuilder actorBuilder, Turret turret) {
         this.UIName = UIName;
         this.range = range;
         this.scanRange = scanRange;
@@ -54,7 +55,7 @@ public class Weapon implements EffectSource {
         this.sourceBone = sourceBone;
         this.directionBone = directionBone;
         this.holder = holder;
-        this.actor = actor;
+        this.actor = actorBuilder.build("", holder.actor);
         this.turret = turret;
     }
 

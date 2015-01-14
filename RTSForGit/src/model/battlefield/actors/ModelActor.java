@@ -8,6 +8,7 @@ import geometry3D.Point3D;
 import java.util.HashMap;
 import java.util.List;
 import model.battlefield.Battlefield;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 import view.actorDrawing.ActorViewElements;
@@ -18,8 +19,11 @@ import view.actorDrawing.ActorViewElements;
  */
 public class ModelActor extends Actor {
     public final String modelPath;
-    public final double scale;
-    
+    public final double scaleX;
+    public final double scaleY;
+    public final double scaleZ;
+    final FieldComp comp;
+
     private HashMap<String, Point3D> boneCoords = new HashMap<>();
 
     public ModelActor(Actor parent,
@@ -28,10 +32,14 @@ public class ModelActor extends Actor {
             List<ActorBuilder> childrenBuilders,
             ActorPool pool,
             String modelPath,
-            double scale) {
+            double scale,
+            FieldComp comp) {
         super(parent, trigger, childrenTriggers, childrenBuilders, pool);
         this.modelPath = modelPath;
-        this.scale = scale;
+        this.scaleX = scale;
+        this.scaleY = scale;
+        this.scaleZ = scale;
+        this.comp = comp;
     }
     
     
@@ -64,7 +72,19 @@ public class ModelActor extends Actor {
         return "model";
     }
     
+    public FieldComp getComp(){
+        return comp;
+    }
     
+    public Point3D getPos(){
+        return comp.getPos();
+    }
     
+    public double getYaw(){
+        return comp.getYaw();
+    }
     
+    public Point3D getDirection(){
+        return comp.direction;
+    }
 }

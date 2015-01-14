@@ -55,4 +55,8 @@ public class MoverBuilder extends Builder{
         Mover res = new Mover(heightmap, pathfindingMode, movable, lib.battlefield.map);
         return res;
     }
+
+    @Override
+    public void readFinalizedLibrary() {
+    }
 }

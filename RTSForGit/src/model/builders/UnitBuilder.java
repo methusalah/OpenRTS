@@ -6,16 +6,11 @@ package model.builders;
 
 import model.builders.actors.ModelActorBuilder;
 import ressources.definitions.BuilderLibrary;
-import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
+import java.util.List;
 import ressources.definitions.DefElement;
-import java.util.HashMap;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.actors.UnitActor;
-import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
-import model.battlefield.army.components.Weapon;
 import ressources.definitions.Definition;
 import model.battlefield.warfare.Faction;
 
@@ -41,13 +36,17 @@ public class UnitBuilder extends Builder{
     private String UIName;
     private String race;
     private int maxHealth;
-    private String actorLink;
+    private String actorBuilderID;
+    private ModelActorBuilder actorBuilder;
     private double radius;
     private double speed;
     private double mass;
-    private String moverLink;
-    private ArrayList<String> weaponLinks = new ArrayList<>();
-    private ArrayList<String> turretLinks = new ArrayList<>();
+    private String moverBuilderID;
+    private MoverBuilder moverBuilder;
+    private List<String> weaponBuildersID = new ArrayList<>();
+    private List<WeaponBuilder> weaponBuilders = new ArrayList<>();
+    private List<String> turretBuildersID = new ArrayList<>();
+    private List<TurretBuilder> turretBuilders = new ArrayList<>();
     
     public UnitBuilder(Definition def, BuilderLibrary lib){
         super(def, lib);
@@ -56,27 +55,26 @@ public class UnitBuilder extends Builder{
                 case RADIUS : radius = de.getDoubleVal(); break;
                 case SPEED : speed = de.getDoubleVal(); break;
                 case MASS : mass = de.getDoubleVal(); break;
-                case MOVER_LINK : moverLink = de.getVal(); break;
+                case MOVER_LINK : moverBuilderID = de.getVal(); break;
                     
                 case UINAME : UIName = de.getVal(); break;
                 case RACE : race = de.getVal(); break;
                 case MAXHEALTH : maxHealth = de.getIntVal(); break;
-                case ACTOR_LINK : actorLink = de.getVal(); break;
+                case ACTOR_LINK : actorBuilderID = de.getVal(); break;
                 case WEAPONLIST :
-                    weaponLinks.add(de.getVal(WEAPON_LINK));
-                    turretLinks.add(de.getVal(TURRET_LINK));
+                    weaponBuildersID.add(de.getVal(WEAPON_LINK));
+                    turretBuildersID.add(de.getVal(TURRET_LINK));
             }
     }
     
     public Unit build(Faction faction, Point3D pos, double yaw){
-        Unit res = new Unit(radius, speed, mass, pos, yaw, lib.getMoverBuilder(moverLink), UIName, race, maxHealth, faction, (ModelActorBuilder)lib.getActorBuilder(actorLink));
+        Unit res = new Unit(radius, speed, mass, pos, yaw, moverBuilder, UIName, race, maxHealth, faction, actorBuilder);
         
         int i = 0;
-        for(String weaponLink : weaponLinks){
-            WeaponBuilder wb = lib.getWeaponBuilder(weaponLink);
+        for(WeaponBuilder wb : weaponBuilders){
             TurretBuilder tb = null;
-            if(turretLinks.get(i) != null)
-                tb = lib.getTurretBuilder(turretLinks.get(i));
+            if(turretBuilders.get(i) != null)
+                tb = turretBuilders.get(i);
             res.addWeapon(wb, tb);
             i++;
         }
@@ -90,5 +88,15 @@ public class UnitBuilder extends Builder{
     
     public String getUIName(){
         return UIName;
+    }
+
+    @Override
+    public void readFinalizedLibrary() {
+        actorBuilder = (ModelActorBuilder)lib.getActorBuilder(actorBuilderID);
+        moverBuilder = lib.getMoverBuilder(moverBuilderID);
+        for(String s : weaponBuildersID)
+            weaponBuilders.add(lib.getWeaponBuilder(s));
+        for(String s : turretBuildersID)
+            turretBuilders.add(lib.getTurretBuilder(s));
     }
 }

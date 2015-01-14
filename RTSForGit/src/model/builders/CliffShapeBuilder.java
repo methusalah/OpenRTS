@@ -26,12 +26,15 @@ public class CliffShapeBuilder extends Builder{
     private static final String LINK = "link";
     private static final String PROB = "prob";
 
-
     private NaturalFaceBuilder naturalFaceBuilder = null;
+    private String naturalFaceBuilderID;
     private ManmadeFaceBuilder manmadeFaceBuilder = null;
+    private String manmadeFaceBuilderID;
     private List<TrinketBuilder> trinketBuilders = new ArrayList<>();
+    private List<String> trinketBuildersID = new ArrayList<>();
     private List<Double> trinketProbs = new ArrayList<>();
     private List<TrinketBuilder> rampTrinketBuilders = new ArrayList<>();
+    private List<String> rampTrinketBuildersID = new ArrayList<>();
     private List<Double> rampTrinketProbs = new ArrayList<>();
     private String editorIconPath = "textures/editor/defaultcliffshapeicon.png";
             
@@ -39,14 +42,14 @@ public class CliffShapeBuilder extends Builder{
         super(def, lib);
         for(DefElement de : def.elements)
             switch(de.name){
-                case NATURAL_FACE_LINK : naturalFaceBuilder = lib.getNaturalFaceBuilder(de.getVal()); break;
-                case MANMADE_FACE_LINK : manmadeFaceBuilder = lib.getManmadeFaceBuilder(de.getVal()); break;
+                case NATURAL_FACE_LINK : naturalFaceBuilderID = de.getVal(); break;
+                case MANMADE_FACE_LINK : manmadeFaceBuilderID = de.getVal(); break;
                 case TRINKET_LIST :
-                    trinketBuilders.add(lib.getTrinketBuilder(de.getVal(LINK)));
+                    trinketBuildersID.add(de.getVal(LINK));
                     trinketProbs.add(de.getDoubleVal(PROB));
                     break;
                 case RAMP_TRINKET_LIST :
-                    rampTrinketBuilders.add(lib.getTrinketBuilder(de.getVal(LINK)));
+                    rampTrinketBuildersID.add(de.getVal(LINK));
                     rampTrinketProbs.add(de.getDoubleVal(PROB));
                     break;
                 case EDITOR_ICON_PATH : editorIconPath = de.getVal();
@@ -82,4 +85,13 @@ public class CliffShapeBuilder extends Builder{
         return editorIconPath;
     }
 
+    @Override
+    public void readFinalizedLibrary() {
+        naturalFaceBuilder = lib.getNaturalFaceBuilder(naturalFaceBuilderID);
+        manmadeFaceBuilder = lib.getManmadeFaceBuilder(manmadeFaceBuilderID);
+        for(String s : trinketBuildersID)
+            trinketBuilders.add(lib.getTrinketBuilder(s));
+        for(String s : rampTrinketBuildersID)
+            rampTrinketBuilders.add(lib.getTrinketBuilder(s));
+    }
 }

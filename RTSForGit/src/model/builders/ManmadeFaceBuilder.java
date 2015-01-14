@@ -70,5 +70,8 @@ public class ManmadeFaceBuilder extends Builder{
         for(int i=0; i<weight; i++)
             list.add(s);
     }
-    
+
+    @Override
+    public void readFinalizedLibrary() {
+    }
 }

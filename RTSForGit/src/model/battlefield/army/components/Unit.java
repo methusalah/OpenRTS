@@ -8,19 +8,15 @@ import model.battlefield.abstractComps.Hiker;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import java.util.ArrayList;
-import math.Angle;
-import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.actors.UnitActor;
+import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.tacticalAI.TacticalAI;
-import model.builders.actors.ActorBuilder;
 import model.builders.MoverBuilder;
 import model.builders.TurretBuilder;
 import model.builders.WeaponBuilder;
 import model.battlefield.warfare.Faction;
 import model.builders.actors.ModelActorBuilder;
-import sun.font.EAttribute;
 
 /**
  *
@@ -34,7 +30,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
     public final String UIName;
     public final String race;
     public final int maxHealth;
-    public final UnitActor actor;
+    public final ModelActor actor;
     public final Arming arming;
     public final TacticalAI ai;
     public final String label = "label"+this.toString();
@@ -65,7 +61,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
         arming = new Arming(this);
         setFaction(faction);
         health = maxHealth;
-        actor = (UnitActor)actorBuilder.build(this);
+        actor = actorBuilder.build(this);
     }
     public Unit(Unit o) {
         super(o.radius, o.speed, o.mass, o.pos, o.yaw, o.mover);

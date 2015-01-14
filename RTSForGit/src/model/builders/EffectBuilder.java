@@ -38,7 +38,8 @@ public class EffectBuilder extends Builder{
     private static final String PROJECTILE_LINK = "ProjectileLink";
     
     private String type = null;
-    private ArrayList<String> effectLinkList = new ArrayList<>();
+    private ArrayList<String> effectBuildersID = new ArrayList<>();
+    private ArrayList<EffectBuilder> effectBuilders = new ArrayList<>();
     private int amount;
     private int periodCount;
     private ArrayList<Double> durations = new ArrayList<>();
@@ -50,7 +51,7 @@ public class EffectBuilder extends Builder{
         for(DefElement de : def.elements)
             switch(de.name){
                 case TYPE : type = de.getVal(); break;
-                case EFFECT_LINK_LIST : effectLinkList.add(de.getVal()); break;
+                case EFFECT_LINK_LIST : effectBuildersID.add(de.getVal()); break;
                 case AMOUNT : amount = de.getIntVal(); break;
                 case PERIOD_COUNT : periodCount = de.getIntVal(); break;
                 case PERIOD_DURATION_LIST : durations.add(de.getDoubleVal()*1000); break;
@@ -60,10 +61,6 @@ public class EffectBuilder extends Builder{
     }
     
     public Effect build(EffectSource source, EffectTarget target, Point3D targetPoint){
-        ArrayList<EffectBuilder> effectBuilders = new ArrayList<>();
-        for(String s : effectLinkList)
-            effectBuilders.add(lib.getEffectBuilder(s));
-        
         Projectile projectile = null;
         if(projectileLink != null)
             projectile = lib.getProjectileBuilder(projectileLink).build(source, target, targetPoint);
@@ -84,4 +81,12 @@ public class EffectBuilder extends Builder{
         }
         return res;
     }
+
+    @Override
+    public void readFinalizedLibrary() {
+        for(String s : effectBuildersID)
+            effectBuilders.add(lib.getEffectBuilder(s));
+    }
+    
+    
 }

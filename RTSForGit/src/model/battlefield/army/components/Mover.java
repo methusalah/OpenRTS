@@ -80,7 +80,8 @@ public class Mover {
         }
         head(elapsedTime);
         
-        if(hiker.hasMoved(lastPos, lastYaw))
+        hasMoved = hiker.hasMoved(lastPos, lastYaw);
+        if(hasMoved)
             updateElevation();
         
         if(hasDestination)

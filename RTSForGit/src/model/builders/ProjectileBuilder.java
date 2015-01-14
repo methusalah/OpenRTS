@@ -5,19 +5,13 @@
 package model.builders;
 
 import model.builders.actors.ModelActorBuilder;
-import geometry.Point2D;
 import ressources.definitions.BuilderLibrary;
 import geometry3D.Point3D;
 import ressources.definitions.DefElement;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.actors.ProjectileActor;
 import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import ressources.definitions.Definition;
-import model.battlefield.army.effects.LauncherEffect;
-import tools.LogUtil;
 
 /**
  *
@@ -37,7 +31,9 @@ public class ProjectileBuilder extends Builder {
     private double speed;
     private double mass;
     private String moverLink;
+    private MoverBuilder moverBuilder;
     private String actorLink;
+    private ModelActorBuilder actorBuilder;
     private Projectile.PrecisionType precisionType;
     private double precision;
     
@@ -61,8 +57,16 @@ public class ProjectileBuilder extends Builder {
     }
     
     public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint){
-        Projectile res = new Projectile(radius, speed, mass, source, lib.getMoverBuilder(moverLink), precisionType, precision, (ModelActorBuilder)lib.getActorBuilder(actorLink), target, targetPoint);
+        Projectile res = new Projectile(radius, speed, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
         lib.battlefield.armyManager.registerProjectile(res);
         return res;
     }
+
+    @Override
+    public void readFinalizedLibrary() {
+        moverBuilder = lib.getMoverBuilder(moverLink);
+        actorBuilder = (ModelActorBuilder)lib.getActorBuilder(actorLink);
+    }
+    
+    
 }

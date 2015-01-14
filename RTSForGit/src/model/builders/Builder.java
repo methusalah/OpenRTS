@@ -13,14 +13,16 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class Builder {
+public abstract class Builder {
     protected Definition def;
     protected BuilderLibrary lib;
     
     public Builder(Definition def, BuilderLibrary lib){
         this.def = def;
         this.lib = lib;
-    }    
+    }
+    
+    public abstract void readFinalizedLibrary();
     
     public String getId(){
         return def.id;

@@ -35,7 +35,7 @@ public class PhysicActor extends ModelActor {
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
             ActorPool pool) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale);
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale, null);
         this.startLife = startLife;
         this.mass = mass;
         this.massCenterBone = massCenterBone;

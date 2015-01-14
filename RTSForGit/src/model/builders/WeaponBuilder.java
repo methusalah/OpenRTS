@@ -12,6 +12,7 @@ import model.battlefield.actors.Actor;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.Weapon;
+import model.builders.actors.ActorBuilder;
 import ressources.definitions.Definition;
 
 /**
@@ -32,8 +33,10 @@ public class WeaponBuilder extends Builder{
     private double range;
     private double scanRange;
     private double period;
-    private String effectLink;
-    private String actorLink = null;
+    private String effectBuilderID;
+    private EffectBuilder effectBuilder;
+    private String actorBuilderID = null;
+    private ActorBuilder actorBuilder;
     private String sourceBone;
     private String directionBone;
     
@@ -45,19 +48,25 @@ public class WeaponBuilder extends Builder{
                 case RANGE : range = de.getDoubleVal(); break;
                 case SCAN_RANGE : scanRange = de.getDoubleVal(); break;
                 case PERIOD : period = de.getDoubleVal(); break;
-                case EFFECT_LINK : effectLink = de.getVal(); break;
-                case ACTOR_LINK : actorLink = de.getVal(); break;
+                case EFFECT_LINK : effectBuilderID = de.getVal(); break;
+                case ACTOR_LINK : actorBuilderID = de.getVal(); break;
                 case SOURCE_BONE : sourceBone = de.getVal(); break;
                 case DIRECTION_BONE : directionBone = de.getVal(); break;
             }
     }
     
     public Weapon build(Unit holder, Turret t){
-        EffectBuilder effectBuilder = lib.getEffectBuilder(effectLink);
-        Actor actor = null;
-        if(actorLink != null)
-            actor = lib.getActorBuilder(actorLink).build("", holder.actor);
-        Weapon res = new Weapon(UIName, range, scanRange, period, effectBuilder, sourceBone, directionBone, holder, actor, t);
+        Weapon res = new Weapon(UIName, range, scanRange, period, effectBuilder, sourceBone, directionBone, holder, actorBuilder, t);
         return res;
     }
+
+    @Override
+    public void readFinalizedLibrary() {
+        effectBuilder = lib.getEffectBuilder(effectBuilderID);
+        if(actorBuilderID == null)
+            actorBuilder = null;
+        actorBuilder = lib.getActorBuilder(actorBuilderID);
+    }
+    
+    
 }
