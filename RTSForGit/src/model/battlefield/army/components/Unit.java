@@ -33,7 +33,6 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
     public final ModelActor actor;
     public final Arming arming;
     public final TacticalAI ai;
-    public final String label = "label"+this.toString();
     
     // variables
     public Faction faction;

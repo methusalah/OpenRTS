@@ -35,8 +35,8 @@ public class WeaponBuilder extends Builder{
     private double period;
     private String effectBuilderID;
     private EffectBuilder effectBuilder;
-    private String actorBuilderID = null;
-    private ActorBuilder actorBuilder;
+    private String actorBuilderID = "";
+    private ActorBuilder actorBuilder = null;
     private String sourceBone;
     private String directionBone;
     
@@ -63,9 +63,8 @@ public class WeaponBuilder extends Builder{
     @Override
     public void readFinalizedLibrary() {
         effectBuilder = lib.getEffectBuilder(effectBuilderID);
-        if(actorBuilderID == null)
-            actorBuilder = null;
-        actorBuilder = lib.getActorBuilder(actorBuilderID);
+        if(!actorBuilderID.isEmpty())
+            actorBuilder = lib.getActorBuilder(actorBuilderID);
     }
     
     

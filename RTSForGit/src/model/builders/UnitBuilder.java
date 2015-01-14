@@ -64,6 +64,7 @@ public class UnitBuilder extends Builder{
                 case WEAPONLIST :
                     weaponBuildersID.add(de.getVal(WEAPON_LINK));
                     turretBuildersID.add(de.getVal(TURRET_LINK));
+                    break;
             }
     }
     
@@ -94,9 +95,14 @@ public class UnitBuilder extends Builder{
     public void readFinalizedLibrary() {
         actorBuilder = (ModelActorBuilder)lib.getActorBuilder(actorBuilderID);
         moverBuilder = lib.getMoverBuilder(moverBuilderID);
-        for(String s : weaponBuildersID)
+        int i = 0;
+        for(String s : weaponBuildersID){
             weaponBuilders.add(lib.getWeaponBuilder(s));
-        for(String s : turretBuildersID)
-            turretBuilders.add(lib.getTurretBuilder(s));
+            if(turretBuildersID.get(i) == null)
+                turretBuilders.add(null);
+            else
+                turretBuilders.add(lib.getTurretBuilder(turretBuildersID.get(i)));
+            i++;
+        }
     }
 }

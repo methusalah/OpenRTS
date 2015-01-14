@@ -26,6 +26,6 @@
     <EffectLink value="StdLauncher"/>
     <Range value="6"/>
     <ScanRange value="8"/>
-    <Period value="0.225"/>
+    <Period value="0.5"/>
   </Weapon>
 </catalog>

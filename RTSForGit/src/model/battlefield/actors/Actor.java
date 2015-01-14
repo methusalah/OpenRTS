@@ -6,10 +6,7 @@ package model.battlefield.actors;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.battlefield.Battlefield;
-import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
-import tools.LogUtil;
 import view.actorDrawing.ActorViewElements;
 
 /**

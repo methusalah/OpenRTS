@@ -55,7 +55,10 @@ public class Weapon implements EffectSource {
         this.sourceBone = sourceBone;
         this.directionBone = directionBone;
         this.holder = holder;
-        this.actor = actorBuilder.build("", holder.actor);
+        if(actorBuilder != null)
+            this.actor = actorBuilder.build("", holder.actor);
+        else
+            this.actor = null;
         this.turret = turret;
     }
 

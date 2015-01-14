@@ -46,7 +46,6 @@ public class MapRenderer implements ActionListener {
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
     private HashMap<Tile, Spatial> tilesSpatial = new HashMap<>();
-    private HashMap<Trinket, Spatial> trinketSpatial = new HashMap<>();
 
     public TerrainSplatTexture groundTexture;
 
@@ -109,45 +108,11 @@ public class MapRenderer implements ActionListener {
             case "parcels" : updateParcelsFor((ArrayList<Tile>)(e.getSource())); break;
             case "tiles" : updateTiles((ArrayList<Tile>)(e.getSource())); break;
             case "ground" : updateGroundTexture(); break;
-            case "trinkets" : updateTrinkets((ArrayList<Trinket>)(e.getSource())); break;
-            case "deletetrinkets" : deleteTrinkets((ArrayList<Trinket>)(e.getSource())); break;
         }
     }
     
     private void updateGroundTexture(){
         groundTexture.getMaterial();
-    }
-    
-    private void updateTrinkets(ArrayList<Trinket> trinkets){
-        updateTrinkets(trinkets, mainNode);
-    }
-    private void updateTrinkets(ArrayList<Trinket> trinkets, Node n){
-        for(Trinket t : trinkets){
-            Spatial s = trinketSpatial.get(t);
-            if(s == null){
-                s = getModel(t.modelPath);
-                s.setName(t.label);
-                if(n == mainNode)
-                    trinketSpatial.put(t, s);
-                n.attachChild(s);
-            }
-            
-            s.setLocalScale(0.002f*(float)t.scaleX, 0.002f*(float)t.scaleY, 0.002f*(float)t.scaleZ);
-            Quaternion q = new Quaternion().fromAngles((float)t.roll, (float)t.pitch, (float)t.yaw);
-            s.setLocalRotation(q);
-            if(t.color != null)
-                s.setMaterial(mm.getLightingColor(Translator.toColorRGBA(t.color)));
-            s.setLocalTranslation(Translator.toVector3f(t.pos));
-        }
-        
-        
-    }
-    private void deleteTrinkets(ArrayList<Trinket> trinkets){
-        for(Trinket t : trinkets){
-            mainNode.detachChild(trinketSpatial.get(t));
-            trinketSpatial.remove(t);
-        }
-        
     }
     
     private void updateTiles(List<Tile> tiles){
@@ -201,7 +166,6 @@ public class MapRenderer implements ActionListener {
         g.rotate(0, 0, (float)(t.cliff.angle));
         g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
         n.attachChild(g);
-        updateTrinkets(t.cliff.trinkets, n);
     }
     
     private void attachManmadeCliff(Tile t){

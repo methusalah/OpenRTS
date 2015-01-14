@@ -4,13 +4,10 @@
  */
 package ressources.definitions;
 
-import geometry.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import math.MyRandom;
 import model.battlefield.Battlefield;
-import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
 import model.builders.EffectBuilder;
 import model.builders.MoverBuilder;
@@ -18,14 +15,11 @@ import model.builders.ProjectileBuilder;
 import model.builders.TurretBuilder;
 import model.builders.UnitBuilder;
 import model.builders.WeaponBuilder;
-import ressources.definitions.Definition;
-import model.battlefield.map.Map;
 import model.builders.CliffShapeBuilder;
 import model.builders.ManmadeFaceBuilder;
 import model.builders.MapStyleBuilder;
 import model.builders.NaturalFaceBuilder;
 import model.builders.TrinketBuilder;
-import model.battlefield.warfare.Faction;
 import model.builders.Builder;
 import model.builders.actors.AnimationActorBuilder;
 import model.builders.actors.ModelActorBuilder;
@@ -74,7 +68,8 @@ public class BuilderLibrary {
         builders.put(MANMADE_FACE, new HashMap<String, Builder>());
     }
     
-    private void finalizeBuilders(){
+    public void buildLinks(){
+        LogUtil.logger.info("buildings links...");
         for(HashMap<String, Builder> map : builders.values())
             for(Builder b : map.values())
                 b.readFinalizedLibrary();
@@ -109,7 +104,6 @@ public class BuilderLibrary {
             case NATURAL_FACE : typed.put(def.id, new NaturalFaceBuilder(def, this)); break;
             case MANMADE_FACE : typed.put(def.id, new ManmadeFaceBuilder(def, this)); break;
         }
-        finalizeBuilders();
     }
     
     private Builder getBuilder(String type, String id){

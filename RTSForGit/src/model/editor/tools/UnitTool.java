@@ -5,13 +5,9 @@
 package model.editor.tools;
 
 import geometry.Point2D;
-import geometry3D.Point3D;
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
 import math.Angle;
 import math.MyRandom;
-import model.battlefield.Battlefield;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.UnitPlacement;
 import model.builders.UnitBuilder;
@@ -19,7 +15,6 @@ import model.editor.ToolManager;
 import model.editor.Pencil;
 import model.editor.Set;
 import model.battlefield.warfare.Faction;
-import tools.LogUtil;
 
 /**
  *

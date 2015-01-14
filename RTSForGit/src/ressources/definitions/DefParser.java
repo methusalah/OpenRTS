@@ -96,8 +96,9 @@ public class DefParser {
             } catch (XMLStreamException e) {
                 e.printStackTrace();
             }
-//        if(!filesToRead.isEmpty())
-//            lib.linkPrototypes();
+        if(!filesToRead.isEmpty())
+            lib.buildLinks();
+        
     }
     
     private Definition parseEvent(XMLEvent event, Definition def){

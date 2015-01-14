@@ -5,13 +5,11 @@
 package model.battlefield.actors;
 
 import geometry3D.Point3D;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
-import model.battlefield.Battlefield;
 import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.army.ArmyManager;
 import model.builders.actors.ActorBuilder;
-import view.actorDrawing.ActorViewElements;
 
 /**
  *
@@ -22,6 +20,7 @@ public class ModelActor extends Actor {
     public final double scaleX;
     public final double scaleY;
     public final double scaleZ;
+    public final Color color;
     final FieldComp comp;
 
     private HashMap<String, Point3D> boneCoords = new HashMap<>();
@@ -32,14 +31,19 @@ public class ModelActor extends Actor {
             List<ActorBuilder> childrenBuilders,
             ActorPool pool,
             String modelPath,
-            double scale,
+            double scaleX,
+            double scaleY,
+            double scaleZ,
+            Color color,
             FieldComp comp) {
         super(parent, trigger, childrenTriggers, childrenBuilders, pool);
         this.modelPath = modelPath;
-        this.scaleX = scale;
-        this.scaleY = scale;
-        this.scaleZ = scale;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.scaleZ = scaleZ;
+        this.color = color;
         this.comp = comp;
+        act();
     }
     
     

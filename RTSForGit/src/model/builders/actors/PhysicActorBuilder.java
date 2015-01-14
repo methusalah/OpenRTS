@@ -47,7 +47,6 @@ public class PhysicActorBuilder extends ActorBuilder{
     }
     
     public Actor build(String trigger, Hiker movable, Actor parent){
-        readFinalizedLibrary();
         return new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
     }
 }

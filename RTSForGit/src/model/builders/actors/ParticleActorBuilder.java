@@ -123,7 +123,6 @@ public class ParticleActorBuilder extends ActorBuilder{
     
     @Override
     public Actor build(String trigger, Actor parent){
-        readFinalizedLibrary();
         Actor res = new ParticleActor(spritePath,
                 nbCol,
                 nbRow,

@@ -50,7 +50,6 @@ public class AnimationActorBuilder extends ActorBuilder{
     
     @Override
     public Actor build(String trigger, Actor parent){
-        readFinalizedLibrary();
         return new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, animationName, cycle, speed);
     }
 }

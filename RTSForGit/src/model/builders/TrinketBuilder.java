@@ -153,7 +153,6 @@ public class TrinketBuilder extends Builder{
         if(modelPaths.size()>1)
             i = MyRandom.nextInt(modelPaths.size()-1);
         String randomModelPath = modelPaths.get(i);
-        
         return new Trinket(editable, randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
     }
     

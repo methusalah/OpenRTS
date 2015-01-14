@@ -12,6 +12,7 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.material.Material;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import java.awt.Color;
 import java.util.HashMap;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
@@ -29,7 +30,7 @@ import view.material.MaterialManager;
 public class ActorDrawingManager implements AnimEventListener {
 
     AssetManager assetManager;
-    MaterialManager materialManager;
+    public MaterialManager materialManager;
     
     ActorPool pool;
     public Node mainNode;

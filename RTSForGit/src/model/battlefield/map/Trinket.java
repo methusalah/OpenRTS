@@ -11,29 +11,16 @@ import model.battlefield.actors.ModelActor;
 import model.builders.actors.ModelActorBuilder;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-@Root
 public class Trinket extends FieldComp{
-    @Element
     public final boolean editable;
-    @Element
-    public final String modelPath;
-    @Element
-    public final double scaleX;
-    @Element
-    public final double scaleY;
-    @Element
-    public final double scaleZ;
-    @Element
-    public final int colorSerial;
-    
     private ModelActor actor;
-
-    public final Color color;
+    
     public final String label = "label"+this.toString();
 
     public Trinket(boolean editable, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
@@ -47,39 +34,7 @@ public class Trinket extends FieldComp{
         this.roll = rotX;
         this.pitch = rotY;
         this.color = color;
-        if(color != null)
-            colorSerial = color.getRGB();
-        else
-            colorSerial = 0;
         actor = actorBuilder.build(this);
         
     }
-    
-    public Trinket(@Element(name="editable")boolean editable,
-            @Element(name="modelPath")String modelPath,
-            @Element(name="pos")Point3D pos,
-            @Element(name="scaleX")double scaleX,
-            @Element(name="scaleY")double scaleY,
-            @Element(name="scaleZ")double scaleZ,
-            @Element(name="rotX")double rotX,
-            @Element(name="rotY")double rotY,
-            @Element(name="rotZ")double rotZ,
-            @Element(name="colorSerial")int colorSerial) {
-        super(pos, rotZ);
-        this.editable = editable;
-        this.modelPath = modelPath;
-        this.pos = pos;
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
-        this.scaleZ = scaleZ;
-        this.roll = rotX;
-        this.pitch = rotY;
-        this.colorSerial = colorSerial;
-        if(colorSerial == 0)
-            color = null;
-        else 
-            color = new Color(colorSerial, true);
-    }
-    
-
 }

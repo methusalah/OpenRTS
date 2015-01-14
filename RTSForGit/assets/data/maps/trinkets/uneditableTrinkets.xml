@@ -2,8 +2,8 @@
 <catalog>
     <Trinket id="StdTopRock">
         <Editable value="false"/>
-        <ModelList value="models/env/exterior01/rockA.mesh.xml"/>
-        <ModelList value="models/env/exterior01/rockA.mesh.xml"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <Color R="76" G="63" B="44"/>
         <RotationX min="0" max="360"/>
         <RotationY min="0" max="360"/>
@@ -19,7 +19,7 @@
     </Trinket>
     <Trinket id="StdSideRock">
         <Editable value="false"/>
-        <ModelList value="models/env/exterior01/rockA.mesh.xml"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <Color R="76" G="63" B="44"/>
         <RotationX min="0" max="360"/>
         <RotationY min="0" max="360"/>
@@ -35,7 +35,7 @@
     </Trinket>
     <Trinket id="StdBottomRock">
         <Editable value="false"/>
-        <ModelList value="models/env/exterior01/rockA.mesh.xml"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <Color R="76" G="63" B="44"/>
         <RotationX min="0" max="360"/>
         <RotationY min="0" max="360"/>
@@ -55,7 +55,7 @@
     
     <Trinket id="StdTopPlant">
         <Editable value="false"/>
-        <ModelList value="models/env/exterior01/GrassB.mesh.xml"/>
+        <ModelList value="env/exterior01/GrassB.mesh.xml"/>
         <RotationX min="0" max="0"/>
         <RotationY min="0" max="0"/>
         <RotationZ min="0" max="360"/>
@@ -70,7 +70,7 @@
     </Trinket>
     <Trinket id="StdBottomPlant">
         <Editable value="false"/>
-        <ModelList value="models/env/exterior01/GrassB.mesh.xml"/>
+        <ModelList value="env/exterior01/GrassB.mesh.xml"/>
         <RotationX min="0" max="0"/>
         <RotationY min="0" max="0"/>
         <RotationZ min="0" max="360"/>

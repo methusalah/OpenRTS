@@ -11,6 +11,7 @@ import java.util.List;
 import ressources.definitions.DefElement;
 import model.builders.Builder;
 import ressources.definitions.Definition;
+import tools.LogUtil;
 
 /**
  *
@@ -53,6 +54,8 @@ public class ActorBuilder extends Builder{
     public void readFinalizedLibrary() {
         for(String s : childrenActorBuildersID)
             childrenActorBuilders.add(lib.getActorBuilder(s));
+        if(childrenActorBuilders.size() != childrenTriggers.size())
+            LogUtil.logger.info("fuck "+def.id);
     }
 
     

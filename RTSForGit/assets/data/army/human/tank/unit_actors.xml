@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
   <Actor id="Tank">
-    <Type value="Unit"/>
+    <Type value="Model"/>
     <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <Scale value="1"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>

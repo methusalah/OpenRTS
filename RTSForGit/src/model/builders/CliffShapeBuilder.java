@@ -27,9 +27,9 @@ public class CliffShapeBuilder extends Builder{
     private static final String PROB = "prob";
 
     private NaturalFaceBuilder naturalFaceBuilder = null;
-    private String naturalFaceBuilderID;
+    private String naturalFaceBuilderID = "";
     private ManmadeFaceBuilder manmadeFaceBuilder = null;
-    private String manmadeFaceBuilderID;
+    private String manmadeFaceBuilderID = "";
     private List<TrinketBuilder> trinketBuilders = new ArrayList<>();
     private List<String> trinketBuildersID = new ArrayList<>();
     private List<Double> trinketProbs = new ArrayList<>();
@@ -87,8 +87,10 @@ public class CliffShapeBuilder extends Builder{
 
     @Override
     public void readFinalizedLibrary() {
-        naturalFaceBuilder = lib.getNaturalFaceBuilder(naturalFaceBuilderID);
-        manmadeFaceBuilder = lib.getManmadeFaceBuilder(manmadeFaceBuilderID);
+        if(!naturalFaceBuilderID.isEmpty())
+            naturalFaceBuilder = lib.getNaturalFaceBuilder(naturalFaceBuilderID);
+        if(!manmadeFaceBuilderID.isEmpty())
+            manmadeFaceBuilder = lib.getManmadeFaceBuilder(manmadeFaceBuilderID);
         for(String s : trinketBuildersID)
             trinketBuilders.add(lib.getTrinketBuilder(s));
         for(String s : rampTrinketBuildersID)

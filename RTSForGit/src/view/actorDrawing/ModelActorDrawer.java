@@ -40,6 +40,10 @@ public class ModelActorDrawer {
     protected void draw(ModelActor actor){
         if(actor.viewElements.spatial == null){
             Spatial s = manager.buildSpatial(actor.modelPath);
+            
+            if(actor.color != null)
+                s.setMaterial(manager.materialManager.getLightingColor(Translator.toColorRGBA(actor.color)));
+            
             s.setLocalScale((float)actor.scaleX*DEFAULT_SCALE,
                     (float)actor.scaleY*DEFAULT_SCALE,
                     (float)actor.scaleZ*DEFAULT_SCALE);
@@ -53,12 +57,13 @@ public class ModelActorDrawer {
         }
         
         if(actor.getComp() != null)
-            placeOnComp(actor);
+            drawAsComp(actor);
         
     }
     
-    protected void placeOnComp(ModelActor actor){
+    protected void drawAsComp(ModelActor actor){
             Spatial s = actor.viewElements.spatial;
+            s.setName(actor.getComp().label);
 
             // translation
             s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
@@ -77,24 +82,24 @@ public class ModelActorDrawer {
             s.setLocalRotation(r);
             
             if(actor.getComp() instanceof Unit)
-                manageAsUnit(actor);
+                drawAsUnit(actor);
             else if(actor.getComp() instanceof Projectile)
-                manageAsUnit(actor);
+                drawAsProjectile(actor);
             else if(actor.getComp() instanceof Trinket)
-                manageAsTrinket(actor);
+                drawAsTrinket(actor);
     }
     
-    protected void manageAsUnit(ModelActor actor){
+    protected void drawAsUnit(ModelActor actor){
         orientTurret(actor);
         updateBoneCoords(actor);
         drawSelectionCircle(actor);
     }
     
-    protected void manageAsProjectile(ModelActor actor){
+    protected void drawAsProjectile(ModelActor actor){
         updateBoneCoords(actor);
     }
 
-    protected void manageAsTrinket(ModelActor actor){
+    protected void drawAsTrinket(ModelActor actor){
     }
     
     private void drawSelectionCircle(ModelActor actor){

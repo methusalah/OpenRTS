@@ -4,11 +4,7 @@
  */
 package model.battlefield.actors;
 
-import geometry3D.Point3D;
 import java.util.List;
-import model.battlefield.Battlefield;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.abstractComps.Hiker;
 import model.builders.actors.ActorBuilder;
 
 /**
@@ -35,7 +31,7 @@ public class PhysicActor extends ModelActor {
             List<String> childrenTriggers,
             List<ActorBuilder> childrenBuilders,
             ActorPool pool) {
-        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale, null);
+        super(parent, trigger, childrenTriggers, childrenBuilders, pool, modelPath, scale, scale, scale, null, null);
         this.startLife = startLife;
         this.mass = mass;
         this.massCenterBone = massCenterBone;
