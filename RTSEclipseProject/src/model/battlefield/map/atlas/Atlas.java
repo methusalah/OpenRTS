@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+
+import tools.LogUtil;
 
 /**
  *
@@ -20,25 +23,31 @@ import org.simpleframework.xml.Root;
 @Root
 public class Atlas {
     private static int LAYER_COUNT = 8;
-     
-    @Element
-    public int width, height;
+    private static int RESOLUTION_RATIO = 8;
     
+    @Element
+    private int mapWidth, mapHeight;
+
+    public int width, height;
     public List<DoubleMap> layers = new ArrayList<>();
     List<ByteBuffer> buffers = new ArrayList<>();
     
     public boolean toUpdate = false;
 
-    public Atlas(@Element(name="width")int width, @Element(name="height")int height) {
-        this.width = width;
-        this.height = height;
+    public Atlas(@Element(name="mapWidth")int mapWidth, @Element(name="mapHeight")int mapHeight) {
+    	this.mapWidth = mapWidth;
+    	this.mapHeight = mapHeight;
+    	
+    	
+        width = mapWidth*RESOLUTION_RATIO;
+        height = mapHeight*RESOLUTION_RATIO;
     }
     
     public void finalize(){
         for(int i=0; i<LAYER_COUNT; i++){
             DoubleMap layer = new DoubleMap(width, height);
             for(int x=0; x<width; x++)
-                for(int y=0; y<width; y++)
+                for(int y=0; y<height; y++)
                     if(i == 0)
                         layer.set(x, y, 255d);
                     else

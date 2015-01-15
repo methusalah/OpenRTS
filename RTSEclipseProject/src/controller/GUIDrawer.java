@@ -71,7 +71,7 @@ public abstract class GUIDrawer {
             e.stopEffect(EffectEventId.onCustom);
     }
     
-    protected void fillList(String id, ArrayList<String> strings){
+    protected void fillList(String id, List<String> strings){
         ListBox lb = guiCtrl.getControl(id, ListBox.class);
         List<Integer> selected = lb.getSelectedIndices();
         int index;

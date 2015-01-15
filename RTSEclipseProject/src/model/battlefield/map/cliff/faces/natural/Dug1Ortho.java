@@ -6,12 +6,14 @@ package model.battlefield.map.cliff.faces.natural;
 
 import collections.Ring;
 import geometry3D.Point3D;
+
 import java.awt.Color;
 import java.util.ArrayList;
+
 import math.MyRandom;
-import model.battlefield.map.Ramp;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Ramp;
 import static model.battlefield.map.cliff.faces.natural.Dug1.MAX_RIDGE_POS;
 import tools.LogUtil;
 

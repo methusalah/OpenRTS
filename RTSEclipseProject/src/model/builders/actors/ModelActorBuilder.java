@@ -65,7 +65,6 @@ public class ModelActorBuilder extends ActorBuilder{
         if(comp.color != null)
             localColor = comp.color;
         
-        LogUtil.logger.info(def.id+"/"+type+" generate a model actor with model "+localModelPath+" (builder modelpath : "+modelPath+")");
         double localScaleX = scaleX*comp.scaleX;
         double localScaleY = scaleY*comp.scaleY;
         double localScaleZ = scaleZ*comp.scaleZ;

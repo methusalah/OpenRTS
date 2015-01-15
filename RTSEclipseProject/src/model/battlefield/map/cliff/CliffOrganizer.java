@@ -4,18 +4,12 @@
  */
 package model.battlefield.map.cliff;
 
-import model.battlefield.map.cliff.faces.natural.NaturalFace;
-import model.battlefield.map.cliff.faces.natural.Dug1Corner;
-import model.battlefield.map.cliff.faces.natural.Dug1Ortho;
-import model.battlefield.map.cliff.faces.natural.Dug1Salient;
-import geometry.Point2D;
 import math.Angle;
 import model.battlefield.map.Tile;
-import static model.battlefield.map.Tile.STAGE_HEIGHT;
 import tools.LogUtil;
 
 /**
- *
+ * Warning : this class is full of monstrous spiders and mysterious shadows in every corner. Proceed at your own risks.
  * @author Benoît
  */
 public class CliffOrganizer {
@@ -37,25 +31,25 @@ public class CliffOrganizer {
             return;
         }
         
-        switch(c.getConnectedCliffs()){
+        switch(c.getConnexionConfiguration()){
             // orthogonal
             case "ns" :
                 if(e.level>w.level){
                         c.angle = Angle.FLAT;
-                        c.setParent(s.cliff);
+                        c.link(s, n);
                 } else {
                         c.angle = 0;
-                        c.setParent(n.cliff);
+                        c.link(n, s);
                 }
                 c.type = Cliff.Type.Orthogonal;
                 break;
             case "ew" :
                 if(n.level>s.level){
                         c.angle = -Angle.RIGHT;
-                        c.setParent(e.cliff);
+                        c.link(e, w);
                 } else {
                         c.angle = Angle.RIGHT;
-                        c.setParent(w.cliff);
+                        c.link(w, e);
                 }
                 c.type = Cliff.Type.Orthogonal;
                 break;
@@ -65,40 +59,40 @@ public class CliffOrganizer {
             case "sw" :
                 c.angle = 0;
                 if(w.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
-                        c.setParent(w.cliff);
+                        c.link(w, s);
                         c.type = Cliff.Type.Salient;
                 } else {
-                        c.setParent(s.cliff);
+                        c.link(s, w);
                         c.type = Cliff.Type.Corner;
                 }
                 break;
             case "se" :
                 c.angle = Angle.RIGHT;
                 if(s.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
-                        c.setParent(s.cliff);
+                        c.link(s, e);
                         c.type = Cliff.Type.Salient;
                 } else {
-                        c.setParent(e.cliff);
+                        c.link(e, s);
                         c.type = Cliff.Type.Corner;
                 }
                 break;
             case "ne" :
                 c.angle = Angle.FLAT;
                 if(e.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
-                        c.setParent(e.cliff);
+                        c.link(e, n);
                         c.type = Cliff.Type.Salient;
                 } else {
-                        c.setParent(n.cliff);
+                        c.link(n, e);
                         c.type = Cliff.Type.Corner;
                 }
                 break;
             case "nw" :
                 c.angle = -Angle.RIGHT;
                 if(n.getNeighborsMaxLevel()>t.getNeighborsMaxLevel()){
-                        c.setParent(n.cliff);
+                        c.link(n, w);
                         c.type = Cliff.Type.Salient;
                 } else {
-                        c.setParent(w.cliff);
+                        c.link(w, n);
                         c.type = Cliff.Type.Corner;
                 }
                 break;
@@ -110,14 +104,14 @@ public class CliffOrganizer {
                         c.angle = Angle.FLAT;
                 } else {
                         c.angle = 0;
-                        c.setParent(n.cliff);
+                        c.link(n, null);
                 }
                 c.type = Cliff.Type.Orthogonal;
                 break;
             case "s" :
                 if(e.level>w.level){
                         c.angle = Angle.FLAT;
-                        c.setParent(s.cliff);
+                        c.link(s, null);
                 } else {
                         c.angle = 0;
                 }
@@ -126,7 +120,7 @@ public class CliffOrganizer {
             case "e" :
                 if(n.level>s.level){
                         c.angle = -Angle.RIGHT;
-                        c.setParent(e.cliff);
+                        c.link(e, null);
                 } else {
                         c.angle = Angle.RIGHT;
                 }
@@ -137,11 +131,11 @@ public class CliffOrganizer {
                         c.angle = -Angle.RIGHT;
                 } else {
                         c.angle = Angle.RIGHT;
-                        c.setParent(w.cliff);
+                        c.link(w, null);
                 }
                 c.type = Cliff.Type.Orthogonal;
                 break;
-            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.tile.getPos2D()+" : "+c.getConnectedCliffs());
+            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.tile.getPos2D()+" : "+c.getConnexionConfiguration());
                 c.type = Cliff.Type.Bugged;
         }
     }

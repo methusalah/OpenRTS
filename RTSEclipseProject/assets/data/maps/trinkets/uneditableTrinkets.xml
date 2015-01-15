@@ -13,9 +13,7 @@
         <PositionY min="0" max="1"/>
         <PositionZ min="1.2" max="1.8"/>
 
-        <ScaleX min="0.7" max="1.2"/>
-        <ScaleY min="0.7" max="1.2"/>
-        <ScaleZ min="0.7" max="1.2"/>
+        <Scale min="0.5" max="0.9"/>
     </Trinket>
     <Trinket id="StdSideRock">
         <Editable value="false"/>

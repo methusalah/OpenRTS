@@ -3,13 +3,18 @@ package model.battlefield.map;
 import geometry.Point2D;
 import geometry3D.Point3D;
 import geometry3D.Triangle3D;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import math.Angle;
 import model.battlefield.map.atlas.Atlas;
+import model.battlefield.map.cliff.Ramp;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
 import tools.LogUtil;
 
 
@@ -40,7 +45,7 @@ public class Map {
     public Map(int width, int height){
         this.width = width;
         this.height = height;
-        atlas = new Atlas(1024, 1024);
+        atlas = new Atlas(width, height);
         atlas.finalize();
         tiles = new ArrayList<>(width*height);
     }

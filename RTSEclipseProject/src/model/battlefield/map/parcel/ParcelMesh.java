@@ -31,11 +31,11 @@ import tools.LogUtil;
  */
 public class ParcelMesh extends MyMesh {
     
-    ParcelManager pm;
+    ParcelManager manager;
     HashMap<Tile, ArrayList<Triangle3D>> tiles = new HashMap<>();
     
     public ParcelMesh(ParcelManager pm){
-        this.pm = pm;
+        this.manager = pm;
     }
     public void add(Tile t){
         tiles.put(t, new ArrayList<Triangle3D>());
@@ -53,7 +53,7 @@ public class ParcelMesh extends MyMesh {
                     tiles.get(t).addAll(getTileGround(t));
             return tiles.get(t);
         } else {
-            for(ParcelMesh mesh : pm.meshes)
+            for(ParcelMesh mesh : manager.meshes)
                 if(mesh.tiles.containsKey(t))
                     return mesh.getGroundTriangles(t);
         }
@@ -124,7 +124,8 @@ public class ParcelMesh extends MyMesh {
     }
     
     public void compute(){
-        double texScale = 1d/128d;
+        double xScale = 1.0/manager.map.width;
+        double yScale = 1.0/manager.map.height;
         
         for(Tile tile : tiles.keySet()){
             for(Triangle3D t : getGroundTriangles(tile)){
@@ -173,9 +174,9 @@ public class ParcelMesh extends MyMesh {
                 else
                     normals.add(normal3.getNormalized());
 
-                textCoord.add(t.a.get2D().getMult(texScale));
-                textCoord.add(t.b.get2D().getMult(texScale));
-                textCoord.add(t.c.get2D().getMult(texScale));
+                textCoord.add(t.a.get2D().getMult(xScale, yScale));
+                textCoord.add(t.b.get2D().getMult(xScale, yScale));
+                textCoord.add(t.c.get2D().getMult(xScale, yScale));
             }
         }
     }

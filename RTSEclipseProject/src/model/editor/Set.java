@@ -5,6 +5,8 @@
 package model.editor;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import tools.LogUtil;
 
 /**
@@ -14,10 +16,10 @@ import tools.LogUtil;
 public class Set {
     public int count;
     public int actual = 0;
-    ArrayList<String> assets;
+    List<String> assets;
     boolean hasIcon;
 
-    public Set(ArrayList<String> assets, boolean hasIcon) {
+    public Set(List<String> assets, boolean hasIcon) {
         this.assets = assets;
         this.count = assets.size();
         this.hasIcon = hasIcon;
@@ -43,7 +45,7 @@ public class Set {
         return assets.get(setIndex);
     }
     
-    public ArrayList<String> getAllAssets(){
+    public List<String> getAllAssets(){
         return assets;
     }
 

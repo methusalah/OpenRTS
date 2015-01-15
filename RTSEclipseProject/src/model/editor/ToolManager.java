@@ -139,14 +139,11 @@ public class ToolManager {
                     diff = true;
                     break;
                 }
-            if(/*!t.isCliff() &&*/ diff)
-                t.setCliff();
-            if(t.isCliff()){
-                if(!diff)
-                    t.unsetCliff();
-                else if(t.cliff.type == Cliff.Type.Bugged)
-                    t.cliff.type = null;
-            }
+            if(t.isCliff)
+            	t.unsetCliff();
+            
+            if(diff)
+            	t.setCliff();
         }
 
         for(Tile t : updatedTiles){

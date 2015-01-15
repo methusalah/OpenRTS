@@ -5,9 +5,10 @@
 package model.editor.tools;
 
 import java.util.ArrayList;
-import model.battlefield.map.Ramp;
+
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Ramp;
 import model.editor.ToolManager;
 import model.editor.Pencil;
 import tools.LogUtil;

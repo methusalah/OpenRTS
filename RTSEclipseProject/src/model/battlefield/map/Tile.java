@@ -5,10 +5,14 @@ import geometry.BoundingShape;
 import geometry.Point2D;
 import geometry.Segment2D;
 import geometry3D.Point3D;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import math.MyRandom;
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Ramp;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Transient;
@@ -124,6 +128,7 @@ public class Tile {
         }
     }
     public void unsetCliff(){
+    	cliff.removeFromBattlefield();
         cliff = null;
         isCliff = false;
     }

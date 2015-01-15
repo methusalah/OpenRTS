@@ -116,7 +116,7 @@ public class TrinketBuilder extends Builder{
 
                 case SCALE :
                     minScaleX = minScaleY = minScaleZ = de.getDoubleVal(MIN);
-                    maxScaleX = maxScaleY = maxScaleZ = de.getDoubleVal(MIN);
+                    maxScaleX = maxScaleY = maxScaleZ = de.getDoubleVal(MAX);
                     break;
                 case SCALE_X :
                     minScaleX = de.getDoubleVal(MIN);

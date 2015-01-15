@@ -5,12 +5,14 @@
 package model.battlefield.map.cliff.faces.natural;
 
 import geometry3D.Point3D;
+
 import java.awt.Color;
 import java.util.ArrayList;
+
 import math.MyRandom;
-import model.battlefield.map.Ramp;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Ramp;
 import tools.LogUtil;
 
 /**

@@ -5,6 +5,8 @@
 package model.battlefield.map;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import model.builders.CliffShapeBuilder;
 
 /**
@@ -12,9 +14,9 @@ import model.builders.CliffShapeBuilder;
  * @author Benoît
  */
 public class MapStyle {
-    public ArrayList<CliffShapeBuilder> cliffShapes = new ArrayList<>();
+    public List<CliffShapeBuilder> cliffShapeBuilders = new ArrayList<>();
     
-    public ArrayList<String> textures = new ArrayList<>();
-    public ArrayList<String> normals = new ArrayList<>();
-    public ArrayList<Double> scales = new ArrayList<>();
+    public List<String> textures = new ArrayList<>();
+    public List<String> normals = new ArrayList<>();
+    public List<Double> scales = new ArrayList<>();
 }

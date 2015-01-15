@@ -5,21 +5,27 @@
 package model.battlefield;
 
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Ramp;
+
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import math.MyRandom;
 import model.Model;
 import model.battlefield.map.Map;
-import model.battlefield.map.Ramp;
 import model.battlefield.map.Tile;
+import model.builders.MapStyleBuilder;
+
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+
 import ressources.Image;
 import ressources.ImageReader;
 import ressources.definitions.BuilderLibrary;
@@ -40,14 +46,15 @@ public class BattlefieldFactory {
     
     public Battlefield getNew(int width, int height){
         LogUtil.logger.info("Creating new battlefield...");
-        Map m = new Map(width, height);
-        for(int y=0; y<height; y++)
-            for(int x=0; x<width; x++)
-                m.tiles.add(new Tile(x, y, m));
+        MapStyleBuilder styleBuilder = lib.getMapStyleBuilder("StdMapStyle");
+        Map m = new Map(styleBuilder.width, styleBuilder.height);
+        styleBuilder.build(m);
 
+        for(int y=0; y<m.height; y++)
+            for(int x=0; x<m.width; x++)
+                m.tiles.add(new Tile(x, y, m));
         LogUtil.logger.info("   map builders");
-        m.mapStyleID = "StdMapStyle";
-        lib.getMapStyleBuilder(m.mapStyleID).build(m);
+        
 
         LogUtil.logger.info("   map's tiles' links");
         linkTiles(m);

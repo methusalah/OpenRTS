@@ -17,6 +17,9 @@ public class Model {
     static final String CONFIG_PATH = "assets/data";
     public static final String DEFAULT_MAP_PATH = "assets/maps/";
     static final double UPDATE_DELAY = 1000;
+	private static final int DEFAULT_WIDTH = 64;
+	private static final int DEFAULT_HEIGHT = 32;
+    
     
     public BattlefieldFactory factory;
     public Battlefield battlefield;
@@ -61,7 +64,7 @@ public class Model {
     }
     
     public void setNewBattlefield(){
-        setBattlefield(factory.getNew(128, 128));
+        setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
     }
     
     private void setBattlefield(Battlefield battlefield){

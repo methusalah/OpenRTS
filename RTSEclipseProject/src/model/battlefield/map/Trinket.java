@@ -35,6 +35,9 @@ public class Trinket extends FieldComp{
         this.pitch = rotY;
         this.color = color;
         actor = actorBuilder.build(this);
-        
+    }
+    
+    public void removeFromBattlefield(){
+    	actor.stopActingAndChildren();
     }
 }

@@ -1,7 +1,10 @@
 package model.battlefield.map.cliff;
 
 import model.battlefield.map.Trinket;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import math.Angle;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
@@ -12,8 +15,10 @@ import model.battlefield.map.cliff.faces.Face;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.Dug1Ortho;
 import model.battlefield.map.cliff.faces.natural.Dug1Salient;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+
 import tools.LogUtil;
 
 public class Cliff {
@@ -22,7 +27,7 @@ public class Cliff {
     public Type type;
     
     public Face face;
-    public ArrayList<Trinket> trinkets = new ArrayList<>();
+    public List<Trinket> trinkets = new ArrayList<>();
 
     public Tile tile;
     public Tile parent;
@@ -37,7 +42,7 @@ public class Cliff {
         CliffOrganizer.organize(this);
     }
     
-    public String getConnectedCliffs(){
+    public String getConnexionConfiguration(){
         String res = new String();
         if(isNeighborCliff(tile.n))
             res = res.concat("n");
@@ -64,9 +69,14 @@ public class Cliff {
         return false;
     }
     
-    public void setParent(Cliff o){
-        parent = o.tile;
-        o.child = this.tile;
+    public void link(Tile parent, Tile child){
+    	this.parent = parent;
+    	if(parent != null)
+    		parent.cliff.child = tile;
+    	
+    	this.child = child;
+    	if(child != null)
+    		child.cliff.parent = tile;
     }
     
     public ArrayList<Tile> getUpperGrounds(){
@@ -75,7 +85,15 @@ public class Cliff {
             if(n.level>tile.level)
                 res.add(n);
         return res;
-        
+    }
+    
+    public void removeFromBattlefield(){
+    	for(Trinket t : trinkets)
+    		t.removeFromBattlefield();
+    	if(parent != null)
+    		parent.cliff.child = null;
+    	if(child != null)
+    		child.cliff.parent = null;
     }
     
 }

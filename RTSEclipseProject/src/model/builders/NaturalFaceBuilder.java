@@ -93,7 +93,6 @@ public class NaturalFaceBuilder extends Builder{
     }
     
     public NaturalFace build(Cliff cliff){
-
         switch (style){
             case STYLE_DUG_1 :
                 switch (cliff.type){

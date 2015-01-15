@@ -2,14 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.battlefield.map;
+package model.battlefield.map.cliff;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import math.Angle;
+import model.battlefield.map.Map;
+import model.battlefield.map.Tile;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
 import tools.LogUtil;
 
 /**

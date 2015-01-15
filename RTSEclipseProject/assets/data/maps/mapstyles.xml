@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
   <MapStyle id="StdMapStyle">
+  	<Width value="64"/>
+  	<Height value="32"/>
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
+    
+    
     
     <GroundTexture diffuse="textures/grass.png" normal="textures/grassnorm.png" scale="8"/>
     <GroundTexture diffuse="textures/road.jpg" normal="textures/road_normal.png" scale="32"/>
