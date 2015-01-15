@@ -1,5 +1,0 @@
-Material White Color : Common/MatDefs/Misc/Unshaded.j3md {
-     MaterialParameters {
-         Color : 1 1 1 1
-     }
-}

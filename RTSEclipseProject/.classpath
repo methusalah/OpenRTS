@@ -2,15 +2,45 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jMonkeyAvril/jMonkeyEngine3.jar" sourcepath="lib/jMonkeyAvril/source">
-		<attributes>
-			<attribute name="javadoc_location" value="http://hub.jmonkeyengine.org/javadoc/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/simple-xml-2.7.1/jar/simple-xml-2.7.1.jar" sourcepath="lib/simple-xml-2.7.1/src">
 		<attributes>
 			<attribute name="javadoc_location" value="http://simple.sourceforge.net/download/stream/doc/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-core.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GeometryEclipseProject"/>
+	<classpathentry kind="lib" path="lib/jmonkey/eventbus.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/j-ogg-oggd.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/j-ogg-vorbisd.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jbullet.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-android.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-blender.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet-natives-android.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet-natives.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-desktop.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-effects.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-ios.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-jbullet.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-jogg.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-jogl.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-lwjgl.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-networking.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-niftygui.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-openal-soft-natives-android.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-plugins.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-terrain.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-testdata.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/lwjgl.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/nifty-default-controls-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/nifty-default-controls.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/nifty-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/nifty-style-black.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/nifty.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/stack-alloc.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/vecmath.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/xmlpull-xpp3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

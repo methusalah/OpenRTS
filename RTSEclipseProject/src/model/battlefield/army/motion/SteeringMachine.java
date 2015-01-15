@@ -178,10 +178,10 @@ public class SteeringMachine {
             return;
         
         double hypotenuse = mover.hiker.getCoord().getDistance(obstacle.hiker.getCoord());
-        double opposé = mover.hiker.getSpacing(obstacle.hiker);
+        double oppose = mover.hiker.getSpacing(obstacle.hiker);
         
-        double adjacent = Math.sqrt(hypotenuse*hypotenuse-opposé*opposé);
-        double avoidanceAngle = Math.atan(opposé/adjacent)*1.1;
+        double adjacent = Math.sqrt(hypotenuse*hypotenuse-oppose*oppose);
+        double avoidanceAngle = Math.atan(oppose/adjacent)*1.1;
 
         Point2D toObstacle = obstacle.hiker.getCoord().getSubtraction(mover.hiker.getCoord()).getNormalized();
         
