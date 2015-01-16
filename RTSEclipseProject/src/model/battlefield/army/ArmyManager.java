@@ -97,5 +97,6 @@ public class ArmyManager {
         for(Projectile p : projectiles)
             p.removeFromBattlefield();
         persistenteffects.clear();
+        update(0);
     }
 }

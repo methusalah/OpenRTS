@@ -28,6 +28,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 
     // final data
     public final String UIName;
+    public final String builderID;
     public final String race;
     public final int maxHealth;
     public final ModelActor actor;
@@ -48,12 +49,14 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
             double yaw,
             MoverBuilder moverBuilder,
             String UIName,
+            String BuilderID,
             String race,
             int maxHealth,
             Faction faction,
             ModelActorBuilder actorBuilder) {
         super(radius, speed, mass, pos, yaw, moverBuilder);
         this.UIName = UIName;
+        this.builderID = BuilderID;
         this.race = race;
         this.maxHealth = maxHealth;
         ai = new TacticalAI(this);
@@ -64,9 +67,10 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
     }
     public Unit(Unit o) {
         super(o.radius, o.speed, o.mass, o.pos, o.yaw, o.mover);
-        this.UIName = o.UIName;
-        this.race = o.race;
-        this.maxHealth = o.maxHealth;
+        UIName = o.UIName;
+        builderID = o.builderID;
+        race = o.race;
+        maxHealth = o.maxHealth;
         ai = new TacticalAI(this);
         arming = new Arming(this);
         setFaction(o.faction);

@@ -13,6 +13,7 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+
 import geometry.Point2D;
 import geometry3D.Point3D;
 import math.Angle;
@@ -21,6 +22,7 @@ import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
 import model.battlefield.map.Trinket;
+import tools.LogUtil;
 import view.math.Translator;
 import view.mesh.Circle;
 
@@ -54,7 +56,8 @@ public class ModelActorDrawer {
             AnimControl animControl = s.getControl(AnimControl.class);
             if(animControl !=  null)
                 animControl.update(0);
-        }
+        } else
+	        	
         
         if(actor.getComp() != null)
             drawAsComp(actor);
@@ -143,6 +146,7 @@ public class ModelActorDrawer {
         Skeleton sk = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
         for(int i=0; i<sk.getBoneCount(); i++){
             Bone b = sk.getBone(i);
+        	LogUtil.logger.info("bone "+b.getName());
             actor.setBone(b.getName(), getBoneWorldPos(actor, i));
         }
     }

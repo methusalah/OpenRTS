@@ -19,13 +19,13 @@ import tools.LogUtil;
  */
 public class Trinket extends FieldComp{
     public final boolean editable;
-    private ModelActor actor;
+    private final ModelActor actor;
+    public final String builderID;
     
-    public final String label = "label"+this.toString();
-
-    public Trinket(boolean editable, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
+    public Trinket(boolean editable, String builderID, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
         super(pos, rotZ);
         this.editable = editable;
+        this.builderID = builderID;
         this.modelPath = modelPath;
         this.pos = pos;
         this.scaleX = scaleX;

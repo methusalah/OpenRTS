@@ -30,6 +30,7 @@ public abstract class Hiker extends FieldComp{
         this.speed = speed;
         this.mass = mass;
         this.mover = moverBuilder.build(this);
+        mover.desiredYaw = yaw;
     }
     public Hiker(double radius, double speed, double mass, Point3D pos, double yaw, Mover mover) {
         super(pos, yaw);
@@ -37,6 +38,7 @@ public abstract class Hiker extends FieldComp{
         this.speed = speed;
         this.mass = mass;
         this.mover = new Mover(mover, this);
+        mover.desiredYaw = yaw;
     }
     
     

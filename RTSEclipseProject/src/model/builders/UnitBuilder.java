@@ -69,7 +69,7 @@ public class UnitBuilder extends Builder{
     }
     
     public Unit build(Faction faction, Point3D pos, double yaw){
-        Unit res = new Unit(radius, speed, mass, pos, yaw, moverBuilder, UIName, race, maxHealth, faction, actorBuilder);
+        Unit res = new Unit(radius, speed, mass, pos, yaw, moverBuilder, UIName, getId(), race, maxHealth, faction, actorBuilder);
         
         int i = 0;
         for(WeaponBuilder wb : weaponBuilders){

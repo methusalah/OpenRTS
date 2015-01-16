@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+
+import javax.management.RuntimeErrorException;
+
 import model.battlefield.map.Map;
 import model.battlefield.Battlefield;
 import ressources.definitions.BuilderLibrary;
@@ -21,7 +24,7 @@ public class Model {
 	private static final int DEFAULT_HEIGHT = 32;
     
     
-    public BattlefieldFactory factory;
+    public final BattlefieldFactory factory;
     public Battlefield battlefield;
     
     public Commander commander;
@@ -29,8 +32,8 @@ public class Model {
     public ToolManager toolManager;
     
 
-    public BuilderLibrary lib;
-    DefParser parser;
+    public final BuilderLibrary lib;
+    final DefParser parser;
     File confFile;
     double nextUpdate = 0;
     
@@ -69,13 +72,13 @@ public class Model {
     
     private void setBattlefield(Battlefield battlefield){
         this.battlefield = battlefield;
-        lib.battlefield = battlefield;
         commander = new Commander(battlefield.armyManager, battlefield.map);
         toolManager = new ToolManager(battlefield, lib);
         LogUtil.logger.info("Reseting view...");
         notifyListeners(BATTLEFIELD_UPDATED_EVENT);
         LogUtil.logger.info("Done.");
-        battlefield.engagement.resetEngagement();
+        if(lib.battlefield != battlefield)
+        	throw new RuntimeException("strange !");
     }
     
     public void addListener(ActionListener listener){

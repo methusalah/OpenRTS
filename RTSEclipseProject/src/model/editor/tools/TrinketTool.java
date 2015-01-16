@@ -76,9 +76,6 @@ public class TrinketTool extends Tool{
         
         Trinket t = manager.lib.getAllEditableTrinketBuilders().get(set.actual).build(pos.get3D(manager.battlefield.map.getGroundAltitude(pos)));
         manager.battlefield.map.trinkets.add(t);
-        ArrayList<Trinket> toUpdate = new ArrayList<>();
-        toUpdate.add(t);
-        manager.updateTrinkets(toUpdate);
     }
     private void remove(){
         Trinket toRemove = null;
@@ -89,10 +86,8 @@ public class TrinketTool extends Tool{
                     break;
                 }
         if(toRemove != null){
-            manager.battlefield.map.trinkets.add(toRemove);
-            ArrayList<Trinket> toUpdate = new ArrayList<>();
-            toUpdate.add(toRemove);
-            manager.deleteTrinkets(toUpdate);            
+            manager.battlefield.map.trinkets.remove(toRemove);
+            toRemove.removeFromBattlefield();
         }
     }
     private void move(){
@@ -113,9 +108,6 @@ public class TrinketTool extends Tool{
             Point2D newPos = pencil.getCoord().getSubtraction(moveOffset);
             double z = manager.battlefield.map.getGroundAltitude(newPos)+elevation;
             actualTrinket.pos = newPos.get3D(z);
-            ArrayList<Trinket> toUpdate = new ArrayList<>();
-            toUpdate.add(actualTrinket);
-            manager.updateTrinkets(toUpdate);            
         }
     }
     private void rotate(){
@@ -129,12 +121,8 @@ public class TrinketTool extends Tool{
                         break;
                     }
         }
-        if(actualTrinket != null){
+        if(actualTrinket != null)
             actualTrinket.yaw = pencil.getCoord().getSubtraction(actualTrinket.pos.get2D()).getAngle();
-            ArrayList<Trinket> toUpdate = new ArrayList<>();
-            toUpdate.add(actualTrinket);
-            manager.updateTrinkets(toUpdate);            
-        }
     }
     private boolean isValid(String label){
         return label != null && !label.isEmpty();

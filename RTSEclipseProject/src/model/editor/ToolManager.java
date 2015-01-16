@@ -164,13 +164,6 @@ public class ToolManager {
         notifyListeners("parcels", tiles);
     }
 
-    public void updateTrinkets(ArrayList<Trinket> trinkets){
-        notifyListeners("trinkets", trinkets);
-    }
-    public void deleteTrinkets(ArrayList<Trinket> trinkets){
-        notifyListeners("deletetrinkets", trinkets);
-    }
-
     public void updateGroundAtlas(){
         notifyListeners("ground", new ArrayList<Tile>());
     }

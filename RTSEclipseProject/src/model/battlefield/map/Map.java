@@ -15,6 +15,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
 
 
@@ -31,6 +32,8 @@ public class Map {
     @ElementList
     public List<Ramp> ramps = new ArrayList<>();
     @ElementList
+    public List<SerializableTrinket> serializableTrinkets = new ArrayList<>();
+    
     public List<Trinket> trinkets = new ArrayList<>();
     
 
@@ -252,5 +255,17 @@ public class Map {
         int y = (int)Math.floor((double)ref/width);
         int x = (int)Math.round((double)ref%width);
         return getTile(x, y);
+    }
+    
+    public void saveTrinkets(){
+    	serializableTrinkets.clear();
+    	for(Trinket t : trinkets)
+    		serializableTrinkets.add(new SerializableTrinket(t));
+    }
+    
+    public void resetTrinkets(BuilderLibrary lib){
+    	trinkets.clear();
+    	for(SerializableTrinket st : serializableTrinkets)
+    		trinkets.add(st.getTrinket(lib));
     }
 }

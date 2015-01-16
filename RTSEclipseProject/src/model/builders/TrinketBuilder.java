@@ -137,6 +137,12 @@ public class TrinketBuilder extends Builder{
                     break;
             }
     }
+
+    public Trinket build(Point3D pos, double yaw, String modelPath, double scaleX, double scaleY, double scaleZ){
+        return new Trinket(editable, getId(), modelPath, pos, scaleX, scaleY, scaleZ, 0, 0, yaw, color, actorBuilder);
+    	
+    }
+
     
     public Trinket build(Point3D position){
         Point3D offsetPos = new Point3D(MyRandom.between(minPosX, maxPosX),
@@ -153,7 +159,7 @@ public class TrinketBuilder extends Builder{
         if(modelPaths.size()>1)
             i = MyRandom.nextInt(modelPaths.size()-1);
         String randomModelPath = modelPaths.get(i);
-        return new Trinket(editable, randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
+        return new Trinket(editable, getId(), randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
     }
     
     public Trinket build(Cliff cliff){

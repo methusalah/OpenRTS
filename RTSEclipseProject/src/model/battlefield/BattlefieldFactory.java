@@ -21,6 +21,7 @@ import math.MyRandom;
 import model.Model;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
+import model.battlefield.map.Trinket;
 import model.builders.MapStyleBuilder;
 
 import org.simpleframework.xml.Serializer;
@@ -60,6 +61,7 @@ public class BattlefieldFactory {
         linkTiles(m);
         
         Battlefield res = new Battlefield(m, lib);
+        lib.battlefield = res;
 
         LogUtil.logger.info("Loading done.");
         return res;
@@ -113,9 +115,12 @@ public class BattlefieldFactory {
                 lib.getCliffShapeBuilder(t.cliffShapeID).build(t.cliff);
         }
 
+        lib.battlefield = res;
         res.buildParcels();
         res.engagement.battlefield = res;
         res.engagement.lib = lib;
+        res.map.resetTrinkets(lib);
+        res.engagement.resetEngagement();
         
         LogUtil.logger.info("   texture atlas");
         res.map.atlas.loadFromFile(res.fileName);
@@ -135,34 +140,36 @@ public class BattlefieldFactory {
     }
 
     public void save(Battlefield battlefield) {
-            Serializer serializer = new Persister();
-            try {
-                if(battlefield.fileName != null) {
-                    LogUtil.logger.info("Saving battlefield overwriting "+battlefield.fileName+"...");
+    	battlefield.engagement.saveEngagement();
+    	battlefield.map.saveTrinkets();
+        Serializer serializer = new Persister();
+        try {
+            if(battlefield.fileName != null) {
+                LogUtil.logger.info("Saving battlefield overwriting "+battlefield.fileName+"...");
+                serializer.write(battlefield, new File(battlefield.fileName));
+            } else {
+                final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
+                fc.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*."+BATTLEFIELD_FILE_EXTENSION+")", BATTLEFIELD_FILE_EXTENSION);
+                fc.addChoosableFileFilter(filter);
+                int returnVal = fc.showSaveDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File f = fc.getSelectedFile();
+                    int i = f.getName().lastIndexOf('.');
+                    if(i == 0 || !f.getName().substring(i+1).equals(BATTLEFIELD_FILE_EXTENSION))
+                        f = new File(f.toString() + "."+BATTLEFIELD_FILE_EXTENSION);
+                    
+                    battlefield.fileName = f.getCanonicalPath();
+                    LogUtil.logger.info("Saving map as "+battlefield.fileName+"...");
                     serializer.write(battlefield, new File(battlefield.fileName));
-                } else {
-                    final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
-                    fc.setAcceptAllFileFilterUsed(false);
-                    FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*."+BATTLEFIELD_FILE_EXTENSION+")", BATTLEFIELD_FILE_EXTENSION);
-                    fc.addChoosableFileFilter(filter);
-                    int returnVal = fc.showSaveDialog(null);
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File f = fc.getSelectedFile();
-                        int i = f.getName().lastIndexOf('.');
-                        if(i == 0 || !f.getName().substring(i+1).equals(BATTLEFIELD_FILE_EXTENSION))
-                            f = new File(f.toString() + "."+BATTLEFIELD_FILE_EXTENSION);
-                        
-                        battlefield.fileName = f.getCanonicalPath();
-                        LogUtil.logger.info("Saving map as "+battlefield.fileName+"...");
-                        serializer.write(battlefield, new File(battlefield.fileName));
-                    }					
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);
+                }					
             }
-            LogUtil.logger.info("Saving texture atlas...");
-            battlefield.map.atlas.saveToFile(battlefield.fileName);
-            LogUtil.logger.info("Done.");
+        } catch (Exception ex) {
+            Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LogUtil.logger.info("Saving texture atlas...");
+        battlefield.map.atlas.saveToFile(battlefield.fileName);
+        LogUtil.logger.info("Done.");
     }
     
     private void linkTiles(Map map){

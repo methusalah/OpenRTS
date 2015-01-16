@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import math.Angle;
 import math.MyRandom;
 import model.battlefield.army.components.Unit;
-import model.battlefield.army.components.UnitPlacement;
+import model.battlefield.army.components.SerializableUnit;
 import model.builders.UnitBuilder;
 import model.editor.ToolManager;
 import model.editor.Pencil;
@@ -72,8 +72,7 @@ public class UnitTool extends Tool{
                 manager.battlefield.engagement.factions.get(0) :
                 manager.battlefield.engagement.factions.get(1);
         
-        UnitPlacement placement = new UnitPlacement(manager.lib.getAllUnitBuilders().get(set.actual).getId(), f.name, coord.get3D(0));
-        manager.battlefield.engagement.addUnit(placement);
+        manager.battlefield.engagement.addUnit(manager.lib.getAllUnitBuilders().get(set.actual).build(f, coord.get3D(0), MyRandom.between(-Angle.FLAT, Angle.FLAT)));
     }
     private void remove(){
         if(isValid(manager.pointedSpatialLabel))
@@ -96,7 +95,7 @@ public class UnitTool extends Tool{
                     }
         }
         if(actualUnit != null)
-            manager.battlefield.engagement.setCoord(actualUnit, pencil.getCoord().getSubtraction(moveOffset));
+        	actualUnit.mover.changeCoord(pencil.getCoord().getSubtraction(moveOffset));
     }
     private void rotate(){
         if(!pencil.maintained){
@@ -110,7 +109,7 @@ public class UnitTool extends Tool{
                     }
         }
         if(actualUnit != null)
-            manager.battlefield.engagement.setYaw(actualUnit, pencil.getCoord().getSubtraction(actualUnit.getPos2D()).getAngle());
+        	actualUnit.yaw = pencil.getCoord().getSubtraction(actualUnit.getPos2D()).getAngle();
     }
     private boolean isValid(String label){
         return label != null && !label.isEmpty();
