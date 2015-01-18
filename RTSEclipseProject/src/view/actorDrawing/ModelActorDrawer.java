@@ -13,6 +13,7 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Line;
 
 import geometry.Point2D;
 import geometry3D.Point3D;
@@ -56,7 +57,7 @@ public class ModelActorDrawer {
             AnimControl animControl = s.getControl(AnimControl.class);
             if(animControl !=  null)
                 animControl.update(0);
-        } else
+        }
 	        	
         
         if(actor.getComp() != null)
@@ -74,15 +75,47 @@ public class ModelActorDrawer {
             // rotation
             Quaternion r = new Quaternion();
             if(actor.getComp().direction != null){
-                Vector3f u = new Vector3f(0, -1, 0);
-                Vector3f v = Translator.toVector3f(actor.getComp().direction).normalize();
-                float real = 1+u.dot(v);
-                Vector3f w = u.cross(v);
-                r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
+            	Point3D pu = actor.getComp().upDirection;
+            	Point3D pv = actor.getComp().direction;
+            	Vector3f u = new Vector3f(0, -1, 0);
+                Vector3f v = Translator.toVector3f(pv).normalize();
+            	if(pu != null){
+            		u = Translator.toVector3f(pu).normalize();
+	            	r.lookAt(v, u);
+	            	double angle = Math.acos(pu.getDotProduct(pv)/(pu.getNorm()*pv.getNorm()));
+	            	r = r.mult(new Quaternion().fromAngles(-(float)angle, 0, 0));
+            	} else {
+	                float real = 1+u.dot(v);
+	                Vector3f w = u.cross(v);
+	                r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
+            	}
+            	
             } else {
                 r.fromAngles(0, 0, (float)(actor.getYaw()+Angle.RIGHT));
             }
             s.setLocalRotation(r);
+            
+//            if(manager.mainNode.getChild("debbug1") != null)
+//            	manager.mainNode.detachChildNamed("debbug1");
+//            if(manager.mainNode.getChild("debbug2") != null)
+//            	manager.mainNode.detachChildNamed("debbug2");
+//            
+//        	Geometry g = new Geometry("debbug1");
+//        	Vector3f start = Translator.toVector3f(actor.getComp().getPos());
+//        	Vector3f end = Translator.toVector3f(actor.getComp().upDirection).add(start);
+//        	
+//        	g.setMesh(new Line(start, end));
+//        	g.setMaterial(manager.materialManager.redMaterial);
+//        	manager.mainNode.attachChild(g);
+//
+//        	Geometry g2 = new Geometry("debbug2");
+//        	Vector3f start2 = Translator.toVector3f(actor.getComp().getPos());
+//        	Vector3f end2 = Translator.toVector3f(actor.getComp().direction).add(start2);
+//        	
+//        	g2.setMesh(new Line(start2, end2));
+//        	g2.setMaterial(manager.materialManager.redMaterial);
+//        	manager.mainNode.attachChild(g2);
+            	
             
             if(actor.getComp() instanceof Unit)
                 drawAsUnit(actor);
@@ -146,7 +179,6 @@ public class ModelActorDrawer {
         Skeleton sk = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
         for(int i=0; i<sk.getBoneCount(); i++){
             Bone b = sk.getBone(i);
-        	LogUtil.logger.info("bone "+b.getName());
             actor.setBone(b.getName(), getBoneWorldPos(actor, i));
         }
     }

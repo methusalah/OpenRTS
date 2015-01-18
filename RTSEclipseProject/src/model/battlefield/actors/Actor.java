@@ -6,6 +6,7 @@ package model.battlefield.actors;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import model.builders.actors.ActorBuilder;
 import view.actorDrawing.ActorViewElements;
 
@@ -117,6 +118,11 @@ public class Actor {
     
     public String getType(){
         return "default";
+    }
+    
+    @Override
+    public String toString() {
+    	return "("+getClass().getSimpleName()+")"+debbug_id;
     }
     
 //    public boolean isActing(){

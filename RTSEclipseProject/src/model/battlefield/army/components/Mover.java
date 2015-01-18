@@ -215,11 +215,12 @@ public class Mover {
     }
     
     private void updateElevation(){
-        if(heightmap == Heightmap.GROUND)
-            hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getGroundAltitude(hiker.getCoord())+0.25);
-        else if(heightmap == Heightmap.SKY)
+        if(heightmap == Heightmap.GROUND){
+            hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getGroundAltitude(hiker.getCoord()));
+            hiker.upDirection = map.getTerrainNormal(hiker.getCoord());
+            hiker.direction = Point2D.ORIGIN.getTranslation(hiker.yaw, 1).get3D(0);
+        } else if(heightmap == Heightmap.SKY)
             hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getTile(hiker.getCoord()).level+3);
-            
     }
     
     public boolean fly(){

@@ -99,6 +99,7 @@ public class NaturalFaceBuilder extends Builder{
                     case Corner : return new Dug1Corner(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
                     case Salient : return new Dug1Salient(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
                     case Orthogonal : return new Dug1Ortho(cliff, noiseX, noiseY, noiseZ, ridgeDepth, ridgePos, color, texturePath);
+                    case Bugged : return null;
                     case Border : return null;
                         default:throw new RuntimeException();
                 }

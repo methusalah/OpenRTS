@@ -5,9 +5,12 @@
 package model.battlefield.actors;
 
 import geometry3D.Point3D;
+
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
+
+import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
 import model.builders.actors.ActorBuilder;
 
@@ -70,6 +73,13 @@ public class ModelActor extends Actor {
     public boolean hasBone(){
         return !boneCoords.isEmpty();
     }
+    public boolean hasBone(String boneName){
+        return boneCoords.get(boneName) != null;
+    }
+    public void debbugWriteBoneNames(){
+    	LogUtil.logger.info(""+boneCoords.keySet());
+    }
+    
 
     @Override
     public String getType() {

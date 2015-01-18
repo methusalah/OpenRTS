@@ -90,9 +90,9 @@ public class Cliff {
     public void removeFromBattlefield(){
     	for(Trinket t : trinkets)
     		t.removeFromBattlefield();
-    	if(parent != null)
+    	if(parent != null && parent.cliff != null)
     		parent.cliff.child = null;
-    	if(child != null)
+    	if(child != null && child.cliff != null)
     		child.cliff.parent = null;
     }
     

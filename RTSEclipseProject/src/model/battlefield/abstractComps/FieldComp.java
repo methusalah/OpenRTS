@@ -16,6 +16,7 @@ public class FieldComp {
     public String modelPath = "";
     public Point3D pos;
     public Point3D direction;
+    public Point3D upDirection;
     public double scaleX = 1;
     public double scaleY = 1;
     public double scaleZ = 1;

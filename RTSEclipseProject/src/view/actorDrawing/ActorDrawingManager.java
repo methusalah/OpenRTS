@@ -68,15 +68,17 @@ public class ActorDrawingManager implements AnimEventListener {
                 mainNode.detachChild(a.viewElements.selectionCircle);
         }
         
-        for(Actor a : pool.getActors()){
+        for(Actor a : pool.getActors())
             switch (a.getType()){
-                case "default" : break;
+            	case "model" : modelDrawer.draw((ModelActor)a); break;
+            }
+
+        for(Actor a : pool.getActors())
+            switch (a.getType()){
                 case "physic" : physicDrawer.draw((PhysicActor)a); break;
-                case "model" : modelDrawer.draw((ModelActor)a); break;
                 case "animation" : animationDrawer.draw((AnimationActor)a); break;
                 case "particle" : particleDrawer.draw((ParticleActor)a); break;
             }
-        }
     }
     
     protected Spatial buildSpatial(String modelPath){

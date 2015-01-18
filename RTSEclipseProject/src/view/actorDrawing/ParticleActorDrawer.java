@@ -11,7 +11,10 @@ import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
+
 import java.util.ArrayList;
+
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import tools.LogUtil;
@@ -38,11 +41,16 @@ public class ParticleActorDrawer {
         
         ModelActor ma = actor.getParentModelActor();
         if(ma.viewElements.spatial == null)
-            LogUtil.logger.info("missing spatial from parent actor "+ma.debbug_id+" to render particles from "+actor.debbug_id);
+            LogUtil.logger.info(actor+" parent misses spatial for "+ma);
         
         Vector3f emissionPoint;
         Vector3f direction;
         if(actor.emissionBone != null){
+            if(!ma.hasBone(actor.emissionBone)){
+                LogUtil.logger.info(actor+" misses bone "+actor.emissionBone+" in "+ma);
+                return;
+            }
+        	
             emissionPoint = Translator.toVector3f(ma.getBoneCoord(actor.emissionBone));
             if(actor.directionBone != null)
                 direction = Translator.toVector3f(ma.getBoneCoord(actor.directionBone));

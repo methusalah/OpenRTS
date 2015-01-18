@@ -87,6 +87,27 @@ public class Map {
 
         return tr.getElevated(pos).z;
     }
+    public Point3D getTerrainNormal(Point2D pos) {
+        Tile t = getTile(pos);
+        if(t.n==null || t.s==null || t.e==null || t.w== null)
+            return Point3D.UNIT_Z;
+
+        Point2D tPos2D = new Point2D(t.x, t.y);
+        Point2D tnePos2D = new Point2D(t.e.n.x, t.e.n.y);
+
+        Point3D nw = t.n.getPos();
+        Point3D ne = t.n.e.getPos();
+        Point3D sw = t.getPos();
+        Point3D se = t.e.getPos();
+        Triangle3D tr;
+
+        if(Angle.getTurn(tPos2D, tnePos2D, pos) == Angle.CLOCKWISE)
+            tr = new Triangle3D(sw, se, ne);
+        else
+            tr = new Triangle3D(sw, ne, nw);
+
+        return tr.normal;
+    }
 
     public boolean isBlocked(int x, int y) {
         if(getTile(x, y).isBlocked())
