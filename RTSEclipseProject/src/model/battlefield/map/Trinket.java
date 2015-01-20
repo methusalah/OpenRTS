@@ -22,8 +22,8 @@ public class Trinket extends FieldComp{
     private final ModelActor actor;
     public final String builderID;
     
-    public Trinket(boolean editable, String builderID, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
-        super(pos, rotZ);
+    public Trinket(boolean editable, double radius, String builderID, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
+        super(pos, rotZ, radius);
         this.editable = editable;
         this.builderID = builderID;
         this.modelPath = modelPath;

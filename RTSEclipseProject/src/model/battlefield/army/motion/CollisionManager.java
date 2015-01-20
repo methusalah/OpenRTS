@@ -4,13 +4,17 @@
  */
 package model.battlefield.army.motion;
 
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
 import geometry.AlignedBoundingBox;
 import geometry.BoundingCircle;
 import geometry.BoundingShape;
 import geometry.Point2D;
 import geometry3D.Point3D;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import math.Angle;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
@@ -31,8 +35,8 @@ public class CollisionManager {
     
     Mover mover;
     Map map;
-    ArrayList<BoundingShape> obstacles = new ArrayList<>();
-    ArrayList<BoundingShape> blockers = new ArrayList<>();
+    ArrayList<BoundingShape> solidShapes = new ArrayList<>();
+    ArrayList<BoundingShape> blockingShapes = new ArrayList<>();
     
     
     double tolerance = ADAPT_TOLERANCE;
@@ -43,14 +47,14 @@ public class CollisionManager {
         this.map = map;
     }
     
-    public void applySteering(Point3D steering, double elapsedTime, ArrayList<Mover> holdingNeighbours) {
+    public void applySteering(Point3D steering, double elapsedTime, List<FieldComp> blockers) {
         double traveledDistance = mover.getSpeed()*elapsedTime;
         if(traveledDistance < 0.001)
             LogUtil.logger.info("very short traveled distance...");
         
             
-        updateBlockers(holdingNeighbours);
-        updateObstacles();
+        updateBlockingShapes(blockers);
+        updateSolidShapes();
 
         // if mover is already colliding something, we separate it
         if(!mover.fly() && willCollide(Point3D.ORIGIN)){
@@ -82,24 +86,11 @@ public class CollisionManager {
         }
     }
     
-    private void brake(double elapsedTime) {
-        try {
-            Point3D brakeForce = mover.velocity.getNegation().getMult(BRAKING_RATIO);
-            brakeForce.getTruncation(elapsedTime);
-            mover.velocity = mover.velocity.getAddition(brakeForce);
-        } catch(RuntimeException e){
-            LogUtil.logger.info("erreur dans le brake : "+mover.velocity+" ; elapsed time : "+elapsedTime);
-        }
-        
-        if(mover.velocity.getNorm()<0.01)
-            mover.velocity = Point3D.ORIGIN;
-    }
-    
     private Point3D adaptVelocity(Point3D velocity){
-        if(willCollideObstacles(velocity))
+        if(willCollideSolidShapes(velocity))
             return findNearestDirection(velocity);
         
-        if(willCollideBlockers(velocity))
+        if(willCollideBlockingShapes(velocity))
             if(tolerance == ADAPT_TOLERANCE)
                 return findNearestDirection(velocity);
             else
@@ -120,8 +111,8 @@ public class CollisionManager {
         Point3D fleeingVector = Point3D.ORIGIN;
         BoundingShape shape = mover.hiker.getBounds();
         ArrayList<BoundingShape> allObstacles = new ArrayList<>();
-        allObstacles.addAll(obstacles);
-        allObstacles.addAll(blockers);
+        allObstacles.addAll(solidShapes);
+        allObstacles.addAll(blockingShapes);
         for(BoundingShape s : allObstacles)
             if(shape.collide(s))
                 fleeingVector = fleeingVector.getAddition(shape.getCenter().getSubtraction(s.getCenter()).get3D(0));
@@ -171,8 +162,8 @@ public class CollisionManager {
         }
     }
     
-    private void updateObstacles(){
-        obstacles.clear();
+    private void updateSolidShapes(){
+        solidShapes.clear();
         for(int x = -2; x<3; x++)
             for(int y = -2; y<3; y++){
                 Point2D tilePos = mover.hiker.getCoord().getAddition(x, y);
@@ -180,31 +171,31 @@ public class CollisionManager {
                     continue;
                 Tile t = map.getTile(tilePos);
                 if(t.isBlocked())
-                    obstacles.add(t.getBounds());
+                    solidShapes.add(t.getBounds());
             }
     }
     
-    private void updateBlockers(ArrayList<Mover> holdingUnits){
-        blockers.clear();
-        for(Mover m : holdingUnits)
-            if(mover.hiker.getDistance(m.hiker)<mover.hiker.getSpacing(m.hiker)+1)
-                blockers.add(m.hiker.getBounds());
+    private void updateBlockingShapes(List<FieldComp> blockers){
+        blockingShapes.clear();
+        for(FieldComp m : blockers)
+            if(mover.hiker.getDistance(m)<mover.hiker.getSpacing(m)+1)
+            	blockingShapes.add(m.getBounds());
     }
     
     
     private boolean willCollide(Point3D velocity){
-        return willCollideBlockers(velocity) || willCollideObstacles(velocity);
+        return willCollideBlockingShapes(velocity) || willCollideSolidShapes(velocity);
     }
-    private boolean willCollideObstacles(Point3D velocity){
+    private boolean willCollideSolidShapes(Point3D velocity){
         BoundingShape futurShape = getFuturShape(velocity);
         if(!map.isInBounds(((BoundingCircle)futurShape).center))
             return true;
-        return futurShape.collide(obstacles);
+        return futurShape.collide(solidShapes);
     }
 
-    private boolean willCollideBlockers(Point3D velocity) {
+    private boolean willCollideBlockingShapes(Point3D velocity) {
         BoundingShape futurShape = getFuturShape(velocity);
-        return futurShape.collide(blockers);
+        return futurShape.collide(blockingShapes);
     }
     
     private BoundingShape getFuturShape(Point3D velocity){

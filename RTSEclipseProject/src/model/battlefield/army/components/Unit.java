@@ -4,10 +4,14 @@
  */
 package model.battlefield.army.components;
 
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.abstractComps.Hiker;
 import geometry.Point2D;
 import geometry3D.Point3D;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
@@ -121,28 +125,31 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
     
     private void findNearbyMovers() {
         mover.toFlockWith.clear();
-        mover.toLetPass.clear();
-        mover.toAvoid.clear();
         for(Unit u : group)
             if(u != this)
                 mover.toFlockWith.add(u.getMover());
+        
+        mover.toLetPass.clear();
         for(Unit u : faction.units)
             if(u != this &&
                     getBoundsDistance(u) <= 0
                     && u.mover.heightmap.equals(mover.heightmap))
                 mover.toLetPass.add(u.mover);
-        mover.toAvoid = getHoldingNeighbors();
+
+        mover.toAvoid.clear();
+        mover.toAvoid = getBlockers();
+        mover.addTrinketsToAvoidingList();
     }
     
-    private ArrayList<Mover> getHoldingNeighbors(){
-        ArrayList<Mover> res = new ArrayList<>();
+    private List<FieldComp> getBlockers(){
+        List<FieldComp> res = new ArrayList<>();
         for(Faction f : faction.enemies)
             for(Unit u : f.units)
-                res.add(u.mover);
+                res.add(u);
         
         for(Unit u : faction.units)
             if(u != this && u.mover.holdPosition)
-                res.add(u.mover);
+                res.add(u);
         return res;
     }
     

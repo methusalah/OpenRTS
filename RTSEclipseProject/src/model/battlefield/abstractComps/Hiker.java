@@ -19,22 +19,19 @@ import model.builders.MoverBuilder;
  * @author Benoît
  */
 public abstract class Hiker extends FieldComp{
-    protected final double radius;
     public final double speed;
     public final double mass;
     public final Mover mover;
 
     public Hiker(double radius, double speed, double mass, Point3D pos, double yaw, MoverBuilder moverBuilder) {
-        super(pos, yaw);
-        this.radius = radius;
+        super(pos, yaw, radius);
         this.speed = speed;
         this.mass = mass;
         this.mover = moverBuilder.build(this);
         mover.desiredYaw = yaw;
     }
     public Hiker(double radius, double speed, double mass, Point3D pos, double yaw, Mover mover) {
-        super(pos, yaw);
-        this.radius = radius;
+        super(pos, yaw, radius);
         this.speed = speed;
         this.mass = mass;
         this.mover = new Mover(mover, this);
@@ -54,10 +51,6 @@ public abstract class Hiker extends FieldComp{
         return Angle.toRadians(360);
     }
 
-    public double getRadius() {
-        return radius;
-    }
-
     public double getMass() {
         return mass;
     }
@@ -66,19 +59,4 @@ public abstract class Hiker extends FieldComp{
         return lastYaw != yaw || !lastPos.equals(pos);
     }
     
-    public BoundingCircle getBounds() {
-        return new BoundingCircle(new Point2D(pos), radius);
-    }
-    
-    public double getSpacing(Hiker o) {
-        return radius+o.radius;
-    }
-    public double getBoundsDistance(Hiker o){
-        List<Hiker> l = new ArrayList<>();
-        return getDistance(o)-getSpacing(o);
-    }
-
-    public boolean collide(Hiker o){
-        return getBounds().collide(o.getBounds());
-    }
 }

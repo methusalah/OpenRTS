@@ -28,6 +28,7 @@ import ressources.definitions.Definition;
  */
 public class TrinketBuilder extends Builder{
     private static final String EDITABLE = "Editable";
+    private static final String RADIUS = "Radius";
     private static final String MODEL_LIST = "ModelList";
     private static final String COLOR = "Color";
     private static final String ACTOR_LINK = "ActorLink";
@@ -54,6 +55,7 @@ public class TrinketBuilder extends Builder{
 
     
     private boolean editable = true;
+    private double radius = 0;
     private List<String> modelPaths = new ArrayList<>();
     private String actorBuilderID = "StdTrinket";
     private ModelActorBuilder actorBuilder;
@@ -85,7 +87,8 @@ public class TrinketBuilder extends Builder{
         super(def, lib);
         for(DefElement de : def.elements)
             switch(de.name){
-                case EDITABLE : editable = de.getBoolVal(); break;
+	            case EDITABLE : editable = de.getBoolVal(); break;
+	            case RADIUS : radius = de.getDoubleVal(); break;
                 case MODEL_LIST : modelPaths.add(de.getVal()); break;
                 case ACTOR_LINK : actorBuilderID = de.getVal(); break;
                 case ROTATION_X :
@@ -139,7 +142,7 @@ public class TrinketBuilder extends Builder{
     }
 
     public Trinket build(Point3D pos, double yaw, String modelPath, double scaleX, double scaleY, double scaleZ){
-        return new Trinket(editable, getId(), modelPath, pos, scaleX, scaleY, scaleZ, 0, 0, yaw, color, actorBuilder);
+        return new Trinket(editable, radius, getId(), modelPath, pos, scaleX, scaleY, scaleZ, 0, 0, yaw, color, actorBuilder);
     	
     }
 
@@ -159,7 +162,7 @@ public class TrinketBuilder extends Builder{
         if(modelPaths.size()>1)
             i = MyRandom.nextInt(modelPaths.size()-1);
         String randomModelPath = modelPaths.get(i);
-        return new Trinket(editable, getId(), randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
+        return new Trinket(editable, radius, getId(), randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
     }
     
     public Trinket build(Cliff cliff){

@@ -44,6 +44,7 @@ public class Tile {
     public boolean elevatedForCliff = false;
     public Cliff cliff;
     public Ramp ramp;
+    public boolean hasBlockingTrinket = false;
 
     public Tile(int x, int y, Map map){
         this.map = map;
@@ -83,7 +84,7 @@ public class Tile {
     }
 
     public boolean isBlocked(){
-        return isCliff();
+        return isCliff() || hasBlockingTrinket;
     }
 
     public boolean isCliff(){

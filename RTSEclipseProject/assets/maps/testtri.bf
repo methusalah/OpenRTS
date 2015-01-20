@@ -62,7 +62,7 @@
             <x>7</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-2.426014379742374E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -70,7 +70,7 @@
             <x>8</x>
             <y>0</y>
             <level>0</level>
-            <elevation>2.6313685926535784E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -78,7 +78,7 @@
             <x>9</x>
             <y>0</y>
             <level>0</level>
-            <elevation>0.0014762276426795358</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -86,7 +86,7 @@
             <x>10</x>
             <y>0</y>
             <level>0</level>
-            <elevation>0.005339828280280237</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -94,7 +94,7 @@
             <x>11</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.018974451418590832</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -102,7 +102,7 @@
             <x>12</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.015629933174999028</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -110,7 +110,7 @@
             <x>13</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.03002264147565955</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -118,7 +118,7 @@
             <x>14</x>
             <y>0</y>
             <level>0</level>
-            <elevation>0.020608628471248013</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -126,7 +126,7 @@
             <x>15</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.04774560067660658</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -134,7 +134,7 @@
             <x>16</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.0024271098206583843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -142,7 +142,7 @@
             <x>17</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.013151791092045891</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -150,7 +150,7 @@
             <x>18</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.030940294149869478</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -158,7 +158,7 @@
             <x>19</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.026110474131365</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -166,7 +166,7 @@
             <x>20</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.012963442053369797</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -174,7 +174,7 @@
             <x>21</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.06061199984591454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -182,7 +182,7 @@
             <x>22</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.11225186143871572</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -190,7 +190,7 @@
             <x>23</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.10347396309924797</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -198,7 +198,7 @@
             <x>24</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.10493093837591257</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -206,7 +206,7 @@
             <x>25</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.17666835966222608</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -214,7 +214,7 @@
             <x>26</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.37854781531947473</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -222,7 +222,7 @@
             <x>27</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.5833397035907179</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -230,7 +230,7 @@
             <x>28</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.6685953639985837</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -238,7 +238,7 @@
             <x>29</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.6023955959277247</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -246,7 +246,7 @@
             <x>30</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.4025657597064733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -254,7 +254,7 @@
             <x>31</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.21846405508220926</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -262,7 +262,7 @@
             <x>32</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.13575269451608976</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -270,7 +270,7 @@
             <x>33</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.12373173428379877</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -278,7 +278,7 @@
             <x>34</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.1390149798725705</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -286,7 +286,7 @@
             <x>35</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.1515086853569413</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -294,7 +294,7 @@
             <x>36</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.15214060430488788</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -302,7 +302,7 @@
             <x>37</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.17140459300951683</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -310,7 +310,7 @@
             <x>38</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.22007830951847665</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -318,7 +318,7 @@
             <x>39</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.29469854903354925</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -326,7 +326,7 @@
             <x>40</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.36321150096562255</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -334,7 +334,7 @@
             <x>41</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.3876680808092624</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -342,7 +342,7 @@
             <x>42</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.32681773634303574</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -350,7 +350,7 @@
             <x>43</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.20734464850785383</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -358,7 +358,7 @@
             <x>44</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.10293113136672928</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -366,7 +366,7 @@
             <x>45</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.038284127947202214</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -374,7 +374,7 @@
             <x>46</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.004149646782075838</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -382,7 +382,7 @@
             <x>47</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-8.797913854435126E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -390,7 +390,7 @@
             <x>48</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.0010834421954669887</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -398,7 +398,7 @@
             <x>49</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.0024964970058727084</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -406,7 +406,7 @@
             <x>50</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.0051807234488766415</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -414,7 +414,7 @@
             <x>51</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.004443310447391759</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -422,7 +422,7 @@
             <x>52</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.0027796554524306123</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -430,7 +430,7 @@
             <x>53</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-0.001417771884325632</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -438,7 +438,7 @@
             <x>54</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-6.4404028115848E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -446,7 +446,7 @@
             <x>55</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-2.712219434856126E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -454,7 +454,7 @@
             <x>56</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-1.084687285357091E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -462,7 +462,7 @@
             <x>57</x>
             <y>0</y>
             <level>0</level>
-            <elevation>-4.067159635536259E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -550,7 +550,7 @@
             <x>4</x>
             <y>1</y>
             <level>0</level>
-            <elevation>1.1449582562055222E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -558,7 +558,7 @@
             <x>5</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-3.1470112867926345E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -566,7 +566,7 @@
             <x>6</x>
             <y>1</y>
             <level>0</level>
-            <elevation>8.548213827602669E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -574,7 +574,7 @@
             <x>7</x>
             <y>1</y>
             <level>0</level>
-            <elevation>0.001592053366126252</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -582,7 +582,7 @@
             <x>8</x>
             <y>1</y>
             <level>0</level>
-            <elevation>0.0011107726237875027</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -590,7 +590,7 @@
             <x>9</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.01813495278862853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -598,7 +598,7 @@
             <x>10</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.03704100655371143</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -606,7 +606,7 @@
             <x>11</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.010043549870860115</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -614,7 +614,7 @@
             <x>12</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.1434750188116808</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -622,7 +622,7 @@
             <x>13</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.10461349633995744</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -630,7 +630,7 @@
             <x>14</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.08573362783699894</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -638,7 +638,7 @@
             <x>15</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.17166830297171312</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -646,7 +646,7 @@
             <x>16</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.09743891900056442</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -654,7 +654,7 @@
             <x>17</x>
             <y>1</y>
             <level>0</level>
-            <elevation>0.018852984710563413</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -662,7 +662,7 @@
             <x>18</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.15603865808116235</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -670,7 +670,7 @@
             <x>19</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.012669061855475755</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -678,7 +678,7 @@
             <x>20</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.16626338086264852</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -686,7 +686,7 @@
             <x>21</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.259364603525385</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -694,7 +694,7 @@
             <x>22</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.3423887657104587</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -702,7 +702,7 @@
             <x>23</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.3988708670201792</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -710,7 +710,7 @@
             <x>24</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.4198505239888698</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -718,7 +718,7 @@
             <x>25</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.5622270036459325</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -726,7 +726,7 @@
             <x>26</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.8454607317731759</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -734,7 +734,7 @@
             <x>27</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-1.0443263287349323</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -742,7 +742,7 @@
             <x>28</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-1.1516923529406364</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -750,7 +750,7 @@
             <x>29</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-1.165360646466079</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -758,7 +758,7 @@
             <x>30</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.9868789672721451</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -766,7 +766,7 @@
             <x>31</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.683686096521439</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -774,7 +774,7 @@
             <x>32</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.5346511701687373</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -782,7 +782,7 @@
             <x>33</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.5584119215961578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -790,7 +790,7 @@
             <x>34</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.6442598534312565</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -798,7 +798,7 @@
             <x>35</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.6766500882630548</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -806,7 +806,7 @@
             <x>36</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.6541373486687264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -814,7 +814,7 @@
             <x>37</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.6877739778353967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -822,7 +822,7 @@
             <x>38</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.8203374795915495</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -830,7 +830,7 @@
             <x>39</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.9906980204416638</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -838,7 +838,7 @@
             <x>40</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-1.1164969532764588</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -846,7 +846,7 @@
             <x>41</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-1.0867937140465793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -854,7 +854,7 @@
             <x>42</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.9156518525834947</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -862,7 +862,7 @@
             <x>43</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.6479605262610206</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -870,7 +870,7 @@
             <x>44</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.3521979686693541</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -878,7 +878,7 @@
             <x>45</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.14879271765343208</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -886,7 +886,7 @@
             <x>46</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.0567635976946949</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -894,7 +894,7 @@
             <x>47</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.013889545247133608</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -902,7 +902,7 @@
             <x>48</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.010616708122927459</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -910,7 +910,7 @@
             <x>49</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.014330593891100772</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -918,7 +918,7 @@
             <x>50</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.01755029193192953</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -926,7 +926,7 @@
             <x>51</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.012818299652262643</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -934,7 +934,7 @@
             <x>52</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.007214505405263454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -942,7 +942,7 @@
             <x>53</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.0033931540397124033</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -950,7 +950,7 @@
             <x>54</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-0.0014433955426765158</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -958,7 +958,7 @@
             <x>55</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-5.647402636065786E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -966,7 +966,7 @@
             <x>56</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-2.0734219416406854E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -974,7 +974,7 @@
             <x>57</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-7.26100629451306E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -982,7 +982,7 @@
             <x>58</x>
             <y>1</y>
             <level>0</level>
-            <elevation>-2.0804169565100855E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1054,7 +1054,7 @@
             <x>3</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-2.646635765011882E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1062,7 +1062,7 @@
             <x>4</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-7.785087861065937E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1070,7 +1070,7 @@
             <x>5</x>
             <y>2</y>
             <level>0</level>
-            <elevation>7.912491137903687E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1078,7 +1078,7 @@
             <x>6</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.001324948672539115</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1086,7 +1086,7 @@
             <x>7</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.005373973480707597</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1094,7 +1094,7 @@
             <x>8</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.02009712513375982</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1102,7 +1102,7 @@
             <x>9</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.048300966103384566</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1110,7 +1110,7 @@
             <x>10</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.16574414812110383</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1118,7 +1118,7 @@
             <x>11</x>
             <y>2</y>
             <level>0</level>
-            <elevation>0.03003234255142917</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1126,7 +1126,7 @@
             <x>12</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.25257763544135103</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1134,7 +1134,7 @@
             <x>13</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.2348482592329579</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1142,7 +1142,7 @@
             <x>14</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.5172461884377638</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1150,7 +1150,7 @@
             <x>15</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.5358069661204986</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1158,7 +1158,7 @@
             <x>16</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.3974728830991889</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1166,7 +1166,7 @@
             <x>17</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.09204612943430295</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1174,7 +1174,7 @@
             <x>18</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.4520159343622613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1182,7 +1182,7 @@
             <x>19</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.5689591612500126</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1190,7 +1190,7 @@
             <x>20</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.5741716187951542</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1198,7 +1198,7 @@
             <x>21</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.5529500458687737</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1206,7 +1206,7 @@
             <x>22</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.7027947395198784</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1214,7 +1214,7 @@
             <x>23</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.9251979995795641</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1222,7 +1222,7 @@
             <x>24</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.0013700888151416</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1230,7 +1230,7 @@
             <x>25</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.2610231368065015</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1238,7 +1238,7 @@
             <x>26</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.6779791427203206</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1246,7 +1246,7 @@
             <x>27</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.7494130241369799</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1254,7 +1254,7 @@
             <x>28</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.7587223345712615</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1262,7 +1262,7 @@
             <x>29</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.7492512137602485</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1270,7 +1270,7 @@
             <x>30</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.6747793580318096</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1278,7 +1278,7 @@
             <x>31</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.470346408505443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1286,7 +1286,7 @@
             <x>32</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.4660376588095443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1294,7 +1294,7 @@
             <x>33</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.6492273321378779</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1302,7 +1302,7 @@
             <x>34</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.8085646756907936</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1310,7 +1310,7 @@
             <x>35</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.8441006115346568</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1318,7 +1318,7 @@
             <x>36</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.8225197687401136</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1326,7 +1326,7 @@
             <x>37</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.7739197959335273</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1334,7 +1334,7 @@
             <x>38</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.8342639950478048</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1342,7 +1342,7 @@
             <x>39</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-2.0413799768949192</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1350,7 +1350,7 @@
             <x>40</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-2.1378569616994687</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1358,7 +1358,7 @@
             <x>41</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.9670520100885456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1366,7 +1366,7 @@
             <x>42</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.7130659004375597</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1374,7 +1374,7 @@
             <x>43</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.3958485455041174</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1382,7 +1382,7 @@
             <x>44</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.939573586318954</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1390,7 +1390,7 @@
             <x>45</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.486311049306935</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1398,7 +1398,7 @@
             <x>46</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.2226794478669979</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1406,7 +1406,7 @@
             <x>47</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.1122392175479684</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1414,7 +1414,7 @@
             <x>48</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.061556885725166446</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1422,7 +1422,7 @@
             <x>49</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.05744919610841913</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1430,7 +1430,7 @@
             <x>50</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.055954465809331944</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1438,7 +1438,7 @@
             <x>51</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.03592660424994779</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1446,7 +1446,7 @@
             <x>52</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.018747147034554844</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1454,7 +1454,7 @@
             <x>53</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.008365832558086107</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1462,7 +1462,7 @@
             <x>54</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.0034633935210760802</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1470,7 +1470,7 @@
             <x>55</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-0.0012883119773054032</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1478,7 +1478,7 @@
             <x>56</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-4.223429696649069E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1486,7 +1486,7 @@
             <x>57</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-1.3849726868071232E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1494,7 +1494,7 @@
             <x>58</x>
             <y>2</y>
             <level>0</level>
-            <elevation>-4.351511219350403E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1558,7 +1558,7 @@
             <x>2</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.2716868833427095E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1566,7 +1566,7 @@
             <x>3</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.0016042122864997955</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1574,7 +1574,7 @@
             <x>4</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.002069943736217137</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1582,7 +1582,7 @@
             <x>5</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.005561217515525787</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1590,7 +1590,7 @@
             <x>6</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.024728819780864844</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1598,7 +1598,7 @@
             <x>7</x>
             <y>3</y>
             <level>0</level>
-            <elevation>0.015462487633834565</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1606,7 +1606,7 @@
             <x>8</x>
             <y>3</y>
             <level>0</level>
-            <elevation>0.02500288903845742</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1614,7 +1614,7 @@
             <x>9</x>
             <y>3</y>
             <level>0</level>
-            <elevation>0.07026270253784216</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1622,7 +1622,7 @@
             <x>10</x>
             <y>3</y>
             <level>0</level>
-            <elevation>0.03645212893429268</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1630,7 +1630,7 @@
             <x>11</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.02865423988874577</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1638,7 +1638,7 @@
             <x>12</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.15203901815522894</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1646,7 +1646,7 @@
             <x>13</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.5405772432667643</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1654,7 +1654,7 @@
             <x>14</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.4642237041550168</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1662,7 +1662,7 @@
             <x>15</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.616530702535016</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1670,7 +1670,7 @@
             <x>16</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.7013340787552464</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1678,7 +1678,7 @@
             <x>17</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1686,7 +1686,7 @@
             <x>18</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1694,7 +1694,7 @@
             <x>19</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.7031762975117106</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1702,7 +1702,7 @@
             <x>20</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.7276443833220536</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1710,7 +1710,7 @@
             <x>21</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.779196230297001</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1718,7 +1718,7 @@
             <x>22</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.9906421469207171</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1726,7 +1726,7 @@
             <x>23</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-1.4080546215911895</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1734,7 +1734,7 @@
             <x>24</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.2747526251753434</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1742,7 +1742,7 @@
             <x>25</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.660026533428664</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1750,7 +1750,7 @@
             <x>26</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.8945691050059903</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1758,7 +1758,7 @@
             <x>27</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.88430876991187</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1766,7 +1766,7 @@
             <x>28</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.8297626138094643</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1774,7 +1774,7 @@
             <x>29</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.644386669665007</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1782,7 +1782,7 @@
             <x>30</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.600243233722141</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1790,7 +1790,7 @@
             <x>31</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.512860741471495</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1798,7 +1798,7 @@
             <x>32</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.675270231329871</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1806,7 +1806,7 @@
             <x>33</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.93362847980589</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1814,7 +1814,7 @@
             <x>34</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.04648139812765</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1822,7 +1822,7 @@
             <x>35</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.085989802698367</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1830,7 +1830,7 @@
             <x>36</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.2081907645445344</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1838,7 +1838,7 @@
             <x>37</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.1378308914282345</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1846,7 +1846,7 @@
             <x>38</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.995776660453738</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1854,7 +1854,7 @@
             <x>39</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.0877307129928613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1862,7 +1862,7 @@
             <x>40</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.192942905814582</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1870,7 +1870,7 @@
             <x>41</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-3.094020401784965</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1878,7 +1878,7 @@
             <x>42</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.901971138302964</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1886,7 +1886,7 @@
             <x>43</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.539795503100906</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1894,7 +1894,7 @@
             <x>44</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-1.912616169571415</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1902,7 +1902,7 @@
             <x>45</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-1.2417622265370198</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1910,7 +1910,7 @@
             <x>46</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.7261960435722629</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1918,7 +1918,7 @@
             <x>47</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.43214833542562886</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1926,7 +1926,7 @@
             <x>48</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.2867641647968366</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1934,7 +1934,7 @@
             <x>49</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.20375529509020937</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1942,7 +1942,7 @@
             <x>50</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.13487880622153933</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1950,7 +1950,7 @@
             <x>51</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.07434035254489904</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1958,7 +1958,7 @@
             <x>52</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.034883336338820195</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1966,7 +1966,7 @@
             <x>53</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.01496436901504015</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1974,7 +1974,7 @@
             <x>54</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.005884856691814324</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1982,7 +1982,7 @@
             <x>55</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-0.0018452755175391742</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1990,7 +1990,7 @@
             <x>56</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-4.7816835091947355E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -1998,7 +1998,7 @@
             <x>57</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-1.0229991562594613E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2006,7 +2006,7 @@
             <x>58</x>
             <y>3</y>
             <level>0</level>
-            <elevation>-2.3487134636337456E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2062,7 +2062,7 @@
             <x>1</x>
             <y>4</y>
             <level>0</level>
-            <elevation>2.4059344433954117E-5</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2070,7 +2070,7 @@
             <x>2</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.0021081628274171697</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2078,7 +2078,7 @@
             <x>3</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.0025036617336901537</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2086,7 +2086,7 @@
             <x>4</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.007389998218300405</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2094,7 +2094,7 @@
             <x>5</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.005792659141290239</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2102,7 +2102,7 @@
             <x>6</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.07130389935347024</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2110,7 +2110,7 @@
             <x>7</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.04456337134557571</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2118,7 +2118,7 @@
             <x>8</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.1264360833225873</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2126,7 +2126,7 @@
             <x>9</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.12883007700996435</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2134,7 +2134,7 @@
             <x>10</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.1252165590570132</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2142,7 +2142,7 @@
             <x>11</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.0016657896630236368</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2150,7 +2150,7 @@
             <x>12</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.398111519594272</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2158,7 +2158,7 @@
             <x>13</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.7032157009898734</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2166,7 +2166,7 @@
             <x>14</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.6745410188411777</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2174,7 +2174,7 @@
             <x>15</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.6660260472774343</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2182,7 +2182,7 @@
             <x>16</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.6909414603780991</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2190,7 +2190,7 @@
             <x>17</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2198,7 +2198,7 @@
             <x>18</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2206,7 +2206,7 @@
             <x>19</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.7032959182848101</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2214,7 +2214,7 @@
             <x>20</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.7154718328532084</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2222,7 +2222,7 @@
             <x>21</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.9304833348861785</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2230,7 +2230,7 @@
             <x>22</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-1.4717571408522092</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2238,7 +2238,7 @@
             <x>23</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-2.6542494013098645</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2246,7 +2246,7 @@
             <x>24</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-3.413760029124736</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2254,7 +2254,7 @@
             <x>25</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-3.849021241399737</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2262,7 +2262,7 @@
             <x>26</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.0989150870289786</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2270,7 +2270,7 @@
             <x>27</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.2471012434589195</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2278,7 +2278,7 @@
             <x>28</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.145964645870144</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2286,7 +2286,7 @@
             <x>29</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.0867012917065635</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2294,7 +2294,7 @@
             <x>30</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-3.9896942279631222</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2302,7 +2302,7 @@
             <x>31</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-3.9372695292227626</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2310,7 +2310,7 @@
             <x>32</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.109359914858273</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2318,7 +2318,7 @@
             <x>33</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.2663830934058256</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2326,7 +2326,7 @@
             <x>34</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.265739103104041</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2334,7 +2334,7 @@
             <x>35</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.216842922205638</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2342,7 +2342,7 @@
             <x>36</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.417683614969758</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2350,7 +2350,7 @@
             <x>37</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.436944338136774</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2358,7 +2358,7 @@
             <x>38</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.251430718228225</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2366,7 +2366,7 @@
             <x>39</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.25338897703433</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2374,7 +2374,7 @@
             <x>40</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.3479317007388465</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2382,7 +2382,7 @@
             <x>41</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.370955732081417</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2390,7 +2390,7 @@
             <x>42</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-4.109431560944819</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2398,7 +2398,7 @@
             <x>43</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-3.5815271892370895</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2406,7 +2406,7 @@
             <x>44</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-2.9062323956404916</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2414,7 +2414,7 @@
             <x>45</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-2.233403053802207</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2422,7 +2422,7 @@
             <x>46</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-1.5806967539345358</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2430,7 +2430,7 @@
             <x>47</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-1.0531317770934316</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2438,7 +2438,7 @@
             <x>48</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.6720453066245522</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2446,7 +2446,7 @@
             <x>49</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.41007601013385886</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2454,7 +2454,7 @@
             <x>50</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.22423676923945754</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2462,7 +2462,7 @@
             <x>51</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.10422993322335056</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2470,7 +2470,7 @@
             <x>52</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.04007328338611353</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2478,7 +2478,7 @@
             <x>53</x>
             <y>4</y>
             <level>0</level>
-            <elevation>-0.01005003483264967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2486,7 +2486,7 @@
             <x>54</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.001492660348822816</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2494,7 +2494,7 @@
             <x>55</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.0035408729731399124</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2502,7 +2502,7 @@
             <x>56</x>
             <y>4</y>
             <level>0</level>
-            <elevation>0.002456244136868838</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2510,7 +2510,7 @@
             <x>57</x>
             <y>4</y>
             <level>0</level>
-            <elevation>9.07945156032239E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2518,7 +2518,7 @@
             <x>58</x>
             <y>4</y>
             <level>0</level>
-            <elevation>3.1882883009876626E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2566,7 +2566,7 @@
             <x>0</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-4.3253693474242715E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2574,7 +2574,7 @@
             <x>1</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.0014974411147454353</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2582,7 +2582,7 @@
             <x>2</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.006709883318334012</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2590,7 +2590,7 @@
             <x>3</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.0017325751873418075</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2598,7 +2598,7 @@
             <x>4</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.06962033164432307</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2606,7 +2606,7 @@
             <x>5</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.08774296114434253</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2614,7 +2614,7 @@
             <x>6</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.0733750344720928</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2622,7 +2622,7 @@
             <x>7</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.09927312481630068</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2630,7 +2630,7 @@
             <x>8</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.2444192513497558</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2638,7 +2638,7 @@
             <x>9</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.07272514698553326</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2646,7 +2646,7 @@
             <x>10</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.011894044858027584</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2654,7 +2654,7 @@
             <x>11</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.13843581663362833</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2662,7 +2662,7 @@
             <x>12</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.41892240013089443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2670,7 +2670,7 @@
             <x>13</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2678,7 +2678,7 @@
             <x>14</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.7027481452762208</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2686,7 +2686,7 @@
             <x>15</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.6820910073554445</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2694,7 +2694,7 @@
             <x>16</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.6547556227196956</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2702,7 +2702,7 @@
             <x>17</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.7013580780167676</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2710,7 +2710,7 @@
             <x>18</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2718,7 +2718,7 @@
             <x>19</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.7027687818559746</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2726,7 +2726,7 @@
             <x>20</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.6999133126366125</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2734,7 +2734,7 @@
             <x>21</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.7840821838880869</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2742,7 +2742,7 @@
             <x>22</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-1.3491798413638332</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2750,7 +2750,7 @@
             <x>23</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-2.446536700732338</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2758,7 +2758,7 @@
             <x>24</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-3.5687792232921045</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2766,7 +2766,7 @@
             <x>25</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-3.988428551318591</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2774,7 +2774,7 @@
             <x>26</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-4.196738104197328</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2782,7 +2782,7 @@
             <x>27</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-4.711914211267942</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2790,7 +2790,7 @@
             <x>28</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-4.59359010848258</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2798,7 +2798,7 @@
             <x>29</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.0595739466645275</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2806,7 +2806,7 @@
             <x>30</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.152123047463069</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2814,7 +2814,7 @@
             <x>31</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.426444097761157</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2822,7 +2822,7 @@
             <x>32</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.786087859426703</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2830,7 +2830,7 @@
             <x>33</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.890228697611111</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2838,7 +2838,7 @@
             <x>34</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.831303548130113</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2846,7 +2846,7 @@
             <x>35</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.703908420356684</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2854,7 +2854,7 @@
             <x>36</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.849860533621976</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2862,7 +2862,7 @@
             <x>37</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.789718719875851</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2870,7 +2870,7 @@
             <x>38</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.538110895673877</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2878,7 +2878,7 @@
             <x>39</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.455534167716504</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2886,7 +2886,7 @@
             <x>40</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.480622954764762</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2894,7 +2894,7 @@
             <x>41</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.464670964470943</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2902,7 +2902,7 @@
             <x>42</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-5.112184007368351</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2910,7 +2910,7 @@
             <x>43</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-4.5243804835490895</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2918,7 +2918,7 @@
             <x>44</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-3.8644084009452446</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2926,7 +2926,7 @@
             <x>45</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-3.1667989926365006</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2934,7 +2934,7 @@
             <x>46</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-2.2877502490814097</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2942,7 +2942,7 @@
             <x>47</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-1.5475286484737574</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2950,7 +2950,7 @@
             <x>48</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.9780394558392305</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2958,7 +2958,7 @@
             <x>49</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.5499041002495609</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2966,7 +2966,7 @@
             <x>50</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.24998044723440693</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2974,7 +2974,7 @@
             <x>51</x>
             <y>5</y>
             <level>0</level>
-            <elevation>-0.0744650999777312</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2982,7 +2982,7 @@
             <x>52</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.011239753620111249</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2990,7 +2990,7 @@
             <x>53</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.038840528712187676</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -2998,7 +2998,7 @@
             <x>54</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.03844729358222681</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3006,7 +3006,7 @@
             <x>55</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.02449831419177629</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3014,7 +3014,7 @@
             <x>56</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.012095510073500168</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3022,7 +3022,7 @@
             <x>57</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.003512113509958613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3030,7 +3030,7 @@
             <x>58</x>
             <y>5</y>
             <level>0</level>
-            <elevation>0.0010291337832919925</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3078,7 +3078,7 @@
             <x>0</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-8.271848527012836E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3086,7 +3086,7 @@
             <x>1</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.0015586469224541945</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3094,7 +3094,7 @@
             <x>2</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.016942952382700036</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3102,7 +3102,7 @@
             <x>3</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.05363683442907365</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3110,7 +3110,7 @@
             <x>4</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.019379834858846413</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3118,7 +3118,7 @@
             <x>5</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.14620060508827315</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3126,7 +3126,7 @@
             <x>6</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.081953816531627</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3134,7 +3134,7 @@
             <x>7</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.03155428599821981</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3142,7 +3142,7 @@
             <x>8</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.06630137520299974</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3150,7 +3150,7 @@
             <x>9</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.046557571193155796</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3158,7 +3158,7 @@
             <x>10</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.44688749678512263</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3166,7 +3166,7 @@
             <x>11</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.2380180540165255</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3174,7 +3174,7 @@
             <x>12</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.612225046855697</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3182,7 +3182,7 @@
             <x>13</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.11082093354797998</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3190,7 +3190,7 @@
             <x>14</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.49995238652197604</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3198,7 +3198,7 @@
             <x>15</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.6664488766237922</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3206,7 +3206,7 @@
             <x>16</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.544631945128471</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3214,7 +3214,7 @@
             <x>17</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.6139045769845443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3222,7 +3222,7 @@
             <x>18</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.6973535174614808</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3230,7 +3230,7 @@
             <x>19</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.687990662340515</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3238,7 +3238,7 @@
             <x>20</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.668474137790004</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3246,7 +3246,7 @@
             <x>21</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.6200165627591478</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3254,7 +3254,7 @@
             <x>22</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.7088155539687201</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3262,7 +3262,7 @@
             <x>23</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-1.534686609768438</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3270,7 +3270,7 @@
             <x>24</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-2.3925363489750535</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3278,7 +3278,7 @@
             <x>25</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-3.462670040508246</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3286,7 +3286,7 @@
             <x>26</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-3.79058442171668</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3294,7 +3294,7 @@
             <x>27</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-4.761072647412235</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3302,7 +3302,7 @@
             <x>28</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-4.750186535261414</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3310,7 +3310,7 @@
             <x>29</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-5.159143091478143</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3318,7 +3318,7 @@
             <x>30</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-5.642507751538565</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3326,7 +3326,7 @@
             <x>31</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.221060146597891</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3334,7 +3334,7 @@
             <x>32</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.533495167568221</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3342,7 +3342,7 @@
             <x>33</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.785263410405856</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3350,7 +3350,7 @@
             <x>34</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.840241881716673</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3358,7 +3358,7 @@
             <x>35</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.756876888164276</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3366,7 +3366,7 @@
             <x>36</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.686830909942266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3374,7 +3374,7 @@
             <x>37</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.42705411086361</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3382,7 +3382,7 @@
             <x>38</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.162041908757729</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3390,7 +3390,7 @@
             <x>39</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.140163454250225</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3398,7 +3398,7 @@
             <x>40</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.203995233452495</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3406,7 +3406,7 @@
             <x>41</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-6.179495716431761</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3414,7 +3414,7 @@
             <x>42</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-5.971467176418271</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3422,7 +3422,7 @@
             <x>43</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-5.420512127824097</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3430,7 +3430,7 @@
             <x>44</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-4.696252131498397</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3438,7 +3438,7 @@
             <x>45</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-3.8587128515977103</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3446,7 +3446,7 @@
             <x>46</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-2.7011083088279806</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3454,7 +3454,7 @@
             <x>47</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-1.8231500865065362</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3462,7 +3462,7 @@
             <x>48</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-1.1303030768160527</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3470,7 +3470,7 @@
             <x>49</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.5499391421962091</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3478,7 +3478,7 @@
             <x>50</x>
             <y>6</y>
             <level>0</level>
-            <elevation>-0.13353598554681098</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3486,7 +3486,7 @@
             <x>51</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.08455428823350278</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3494,7 +3494,7 @@
             <x>52</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.16517822710066835</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3502,7 +3502,7 @@
             <x>53</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.1594310706129803</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3510,7 +3510,7 @@
             <x>54</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.12412057925452522</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3518,7 +3518,7 @@
             <x>55</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.07044240030136395</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3526,7 +3526,7 @@
             <x>56</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.03230681874444902</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3534,7 +3534,7 @@
             <x>57</x>
             <y>6</y>
             <level>0</level>
-            <elevation>0.0042520040835659035</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3542,7 +3542,7 @@
             <x>58</x>
             <y>6</y>
             <level>0</level>
-            <elevation>2.855927931105905E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3590,7 +3590,7 @@
             <x>0</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.00315779156558313</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3598,7 +3598,7 @@
             <x>1</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.0029841242137253476</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3606,7 +3606,7 @@
             <x>2</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.008917407992352371</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3614,7 +3614,7 @@
             <x>3</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.0976028548315181</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3622,7 +3622,7 @@
             <x>4</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.11751670095559552</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3630,7 +3630,7 @@
             <x>5</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.06232499372116054</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3638,7 +3638,7 @@
             <x>6</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.05108721188672613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3646,7 +3646,7 @@
             <x>7</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.0015036168099251982</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3654,7 +3654,7 @@
             <x>8</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.2851148038734658</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3662,7 +3662,7 @@
             <x>9</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.3816310029674463</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3670,7 +3670,7 @@
             <x>10</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.5515490791793335</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3678,7 +3678,7 @@
             <x>11</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.9163413888671444</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3686,7 +3686,7 @@
             <x>12</x>
             <y>7</y>
             <level>0</level>
-            <elevation>1.163523825782145</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3694,7 +3694,7 @@
             <x>13</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.8750264019373908</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3702,7 +3702,7 @@
             <x>14</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.4004554199623393</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3710,7 +3710,7 @@
             <x>15</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.02783009053334439</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3718,7 +3718,7 @@
             <x>16</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.2360600924207036</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3726,7 +3726,7 @@
             <x>17</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.465872832347922</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3734,7 +3734,7 @@
             <x>18</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.6186382854333599</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3742,7 +3742,7 @@
             <x>19</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.5769757510955326</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3750,7 +3750,7 @@
             <x>20</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.5018835284088944</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3758,7 +3758,7 @@
             <x>21</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.42696193812054034</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3766,7 +3766,7 @@
             <x>22</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.46026504239877447</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3774,7 +3774,7 @@
             <x>23</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.5738770084633529</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3782,7 +3782,7 @@
             <x>24</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-1.0228644221602046</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3790,7 +3790,7 @@
             <x>25</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-1.8610324603159327</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3798,7 +3798,7 @@
             <x>26</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-2.5200443128365206</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3806,7 +3806,7 @@
             <x>27</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-3.22071660791529</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3814,7 +3814,7 @@
             <x>28</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-4.2533813317051</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3822,7 +3822,7 @@
             <x>29</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-4.207544848225436</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3830,7 +3830,7 @@
             <x>30</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-4.841427143026746</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3838,7 +3838,7 @@
             <x>31</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-5.740608759423168</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3846,7 +3846,7 @@
             <x>32</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-5.98158852599035</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3854,7 +3854,7 @@
             <x>33</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.260343669479569</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3862,7 +3862,7 @@
             <x>34</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.372878504585691</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3870,7 +3870,7 @@
             <x>35</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.413645919031278</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3878,7 +3878,7 @@
             <x>36</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.314392091510704</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3886,7 +3886,7 @@
             <x>37</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.005456601573429</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3894,7 +3894,7 @@
             <x>38</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-5.860299284011168</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3902,7 +3902,7 @@
             <x>39</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-5.9534971696635</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3910,7 +3910,7 @@
             <x>40</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.233699002065929</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3918,7 +3918,7 @@
             <x>41</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.313387175783225</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3926,7 +3926,7 @@
             <x>42</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-6.172712883862718</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3934,7 +3934,7 @@
             <x>43</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-5.694650842832641</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3942,7 +3942,7 @@
             <x>44</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-4.926291992763348</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3950,7 +3950,7 @@
             <x>45</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-3.9718648022244656</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3958,7 +3958,7 @@
             <x>46</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-2.732280413512246</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3966,7 +3966,7 @@
             <x>47</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-1.752117104856346</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3974,7 +3974,7 @@
             <x>48</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.9366540350530892</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3982,7 +3982,7 @@
             <x>49</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.27161686198920754</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3990,7 +3990,7 @@
             <x>50</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.22516309994787456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -3998,7 +3998,7 @@
             <x>51</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.41574836996730746</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4006,7 +4006,7 @@
             <x>52</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.4513974355523111</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4014,7 +4014,7 @@
             <x>53</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.35817611225192164</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4022,7 +4022,7 @@
             <x>54</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.27418447117228867</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4030,7 +4030,7 @@
             <x>55</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.13156086152843616</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4038,7 +4038,7 @@
             <x>56</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.05388263816448417</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4046,7 +4046,7 @@
             <x>57</x>
             <y>7</y>
             <level>0</level>
-            <elevation>-0.019096508713254606</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4054,7 +4054,7 @@
             <x>58</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.0017501924256474036</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4062,7 +4062,7 @@
             <x>59</x>
             <y>7</y>
             <level>0</level>
-            <elevation>0.0020313246163942526</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4102,7 +4102,7 @@
             <x>0</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.004915080257776208</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4110,7 +4110,7 @@
             <x>1</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.02337076126460515</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4118,7 +4118,7 @@
             <x>2</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.09809963527710486</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4126,7 +4126,7 @@
             <x>3</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.026681883373575518</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4134,7 +4134,7 @@
             <x>4</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.14901004785320524</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4142,7 +4142,7 @@
             <x>5</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.020641533111642088</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4150,7 +4150,7 @@
             <x>6</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.04185855336118439</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4158,7 +4158,7 @@
             <x>7</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.2197198933323169</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4166,7 +4166,7 @@
             <x>8</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.4152974692076434</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4174,7 +4174,7 @@
             <x>9</x>
             <y>8</y>
             <level>0</level>
-            <elevation>1.0670187654130194</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4182,7 +4182,7 @@
             <x>10</x>
             <y>8</y>
             <level>0</level>
-            <elevation>1.3105602688550706</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4190,7 +4190,7 @@
             <x>11</x>
             <y>8</y>
             <level>0</level>
-            <elevation>1.4937884276390199</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4198,7 +4198,7 @@
             <x>12</x>
             <y>8</y>
             <level>0</level>
-            <elevation>1.3819292949190214</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4206,7 +4206,7 @@
             <x>13</x>
             <y>8</y>
             <level>0</level>
-            <elevation>1.3819292949190214</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4214,7 +4214,7 @@
             <x>14</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.9293567129625355</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4222,7 +4222,7 @@
             <x>15</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.42951934085476234</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4230,7 +4230,7 @@
             <x>16</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.13455178602163756</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4238,7 +4238,7 @@
             <x>17</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.09263499322755789</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4246,7 +4246,7 @@
             <x>18</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4254,7 +4254,7 @@
             <x>19</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4262,7 +4262,7 @@
             <x>20</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.308752447010204</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4270,7 +4270,7 @@
             <x>21</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.308752447010204</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4278,7 +4278,7 @@
             <x>22</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.308752447010204</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4286,7 +4286,7 @@
             <x>23</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.4382296228285928</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4294,7 +4294,7 @@
             <x>24</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.403627504681899</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4302,7 +4302,7 @@
             <x>25</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.46096907655432595</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4310,7 +4310,7 @@
             <x>26</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.5378685717554996</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4318,7 +4318,7 @@
             <x>27</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-1.478680917546109</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4326,7 +4326,7 @@
             <x>28</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-2.1598592456251664</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4334,7 +4334,7 @@
             <x>29</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-2.733705587268421</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4342,7 +4342,7 @@
             <x>30</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-3.330100083481545</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4350,7 +4350,7 @@
             <x>31</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-4.1181327694850065</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4358,7 +4358,7 @@
             <x>32</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-4.628028646795064</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4366,7 +4366,7 @@
             <x>33</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-4.886762143633314</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4374,7 +4374,7 @@
             <x>34</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.028969897601057</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4382,7 +4382,7 @@
             <x>35</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.178449094520723</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4390,7 +4390,7 @@
             <x>36</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.329032719627805</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4398,7 +4398,7 @@
             <x>37</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.195048785861352</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4406,7 +4406,7 @@
             <x>38</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.1630041474810815</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4414,7 +4414,7 @@
             <x>39</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.279574846903061</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4422,7 +4422,7 @@
             <x>40</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.672129714517622</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4430,7 +4430,7 @@
             <x>41</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.773933894394984</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4438,7 +4438,7 @@
             <x>42</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.550208053427109</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4446,7 +4446,7 @@
             <x>43</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-5.077979523830655</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4454,7 +4454,7 @@
             <x>44</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-4.251612404230809</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4462,7 +4462,7 @@
             <x>45</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-3.3909299169073397</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4470,7 +4470,7 @@
             <x>46</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-2.3130368138671407</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4478,7 +4478,7 @@
             <x>47</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-1.2825596595559783</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4486,7 +4486,7 @@
             <x>48</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.27549085020314984</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4494,7 +4494,7 @@
             <x>49</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.4130423507971566</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4502,7 +4502,7 @@
             <x>50</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.9616296789103868</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4510,7 +4510,7 @@
             <x>51</x>
             <y>8</y>
             <level>0</level>
-            <elevation>1.0329649327714263</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4518,7 +4518,7 @@
             <x>52</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.8946912482377828</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4526,7 +4526,7 @@
             <x>53</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.5788648576052557</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4534,7 +4534,7 @@
             <x>54</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.5073320082594107</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4542,7 +4542,7 @@
             <x>55</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.3776248087035695</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4550,7 +4550,7 @@
             <x>56</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.12849553018927706</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4558,7 +4558,7 @@
             <x>57</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.059304290322280094</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4566,7 +4566,7 @@
             <x>58</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.012162020414417881</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4574,7 +4574,7 @@
             <x>59</x>
             <y>8</y>
             <level>0</level>
-            <elevation>0.0023630773719921167</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4582,7 +4582,7 @@
             <x>60</x>
             <y>8</y>
             <level>0</level>
-            <elevation>-0.0023441741311057114</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4614,7 +4614,7 @@
             <x>0</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.003320060318432408</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4622,7 +4622,7 @@
             <x>1</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.0066924654825422075</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4630,7 +4630,7 @@
             <x>2</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.04156171057081629</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4638,7 +4638,7 @@
             <x>3</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.021834611793754927</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4646,7 +4646,7 @@
             <x>4</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.2663287974961396</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4654,7 +4654,7 @@
             <x>5</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.1688518379018379</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4662,7 +4662,7 @@
             <x>6</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.2606222674322765</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4670,7 +4670,7 @@
             <x>7</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.7236123198284102</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4678,7 +4678,7 @@
             <x>8</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.0255271689614303</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4686,7 +4686,7 @@
             <x>9</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.8657483956158578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4694,7 +4694,7 @@
             <x>10</x>
             <y>9</y>
             <level>0</level>
-            <elevation>2.0833355047445177</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4702,7 +4702,7 @@
             <x>11</x>
             <y>9</y>
             <level>0</level>
-            <elevation>2.018663539699669</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4710,7 +4710,7 @@
             <x>12</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.4353997647465098</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4718,7 +4718,7 @@
             <x>13</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.5632111615293134</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4726,7 +4726,7 @@
             <x>14</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.1898813731095241</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4734,7 +4734,7 @@
             <x>15</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.6784807439023807</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4742,7 +4742,7 @@
             <x>16</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4750,7 +4750,7 @@
             <x>17</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4758,7 +4758,7 @@
             <x>18</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4766,7 +4766,7 @@
             <x>19</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4774,7 +4774,7 @@
             <x>20</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.13530335225976955</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4782,7 +4782,7 @@
             <x>21</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.308752447010204</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4790,7 +4790,7 @@
             <x>22</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.32090308802394013</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4798,7 +4798,7 @@
             <x>23</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.43193986053002686</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4806,7 +4806,7 @@
             <x>24</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.308752447010204</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4814,7 +4814,7 @@
             <x>25</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.38747639961201086</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4822,7 +4822,7 @@
             <x>26</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.4607609676471997</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4830,7 +4830,7 @@
             <x>27</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.46379371061937885</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4838,7 +4838,7 @@
             <x>28</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.7629691670677134</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4846,7 +4846,7 @@
             <x>29</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-1.377171223566821</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4854,7 +4854,7 @@
             <x>30</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-1.5991161768107567</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4862,7 +4862,7 @@
             <x>31</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-2.2166136023881235</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4870,7 +4870,7 @@
             <x>32</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-2.680420313604016</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4878,7 +4878,7 @@
             <x>33</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-3.0670320195505667</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4886,7 +4886,7 @@
             <x>34</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-3.4772792059731983</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4894,7 +4894,7 @@
             <x>35</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-3.74494888503038</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4902,7 +4902,7 @@
             <x>36</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.035963017918918</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4910,7 +4910,7 @@
             <x>37</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.091400350077843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4918,7 +4918,7 @@
             <x>38</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.036540590660239</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4926,7 +4926,7 @@
             <x>39</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.1841772395514365</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4934,7 +4934,7 @@
             <x>40</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.517635858985405</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4942,7 +4942,7 @@
             <x>41</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.587941966817524</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4950,7 +4950,7 @@
             <x>42</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-4.3473039641221725</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4958,7 +4958,7 @@
             <x>43</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-3.9053985705536114</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4966,7 +4966,7 @@
             <x>44</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-3.069712769479663</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4974,7 +4974,7 @@
             <x>45</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-2.162495768055557</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4982,7 +4982,7 @@
             <x>46</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-1.096721656779412</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4990,7 +4990,7 @@
             <x>47</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.047232261192789456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -4998,7 +4998,7 @@
             <x>48</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.0229431533656625</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5006,7 +5006,7 @@
             <x>49</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.8144721094530718</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5014,7 +5014,7 @@
             <x>50</x>
             <y>9</y>
             <level>0</level>
-            <elevation>2.2187817737972124</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5022,7 +5022,7 @@
             <x>51</x>
             <y>9</y>
             <level>0</level>
-            <elevation>2.168838937606283</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5030,7 +5030,7 @@
             <x>52</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.8218335386569051</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5038,7 +5038,7 @@
             <x>53</x>
             <y>9</y>
             <level>0</level>
-            <elevation>1.289345359407061</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5046,7 +5046,7 @@
             <x>54</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.8603962350119307</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5054,7 +5054,7 @@
             <x>55</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.6829449982406282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5062,7 +5062,7 @@
             <x>56</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.14731749241668424</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5070,7 +5070,7 @@
             <x>57</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.03865178515502469</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5078,7 +5078,7 @@
             <x>58</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.04758479209245775</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5086,7 +5086,7 @@
             <x>59</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.00761950106145258</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5094,7 +5094,7 @@
             <x>60</x>
             <y>9</y>
             <level>0</level>
-            <elevation>-0.008916327653369773</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5102,7 +5102,7 @@
             <x>61</x>
             <y>9</y>
             <level>0</level>
-            <elevation>0.0019290199421915484</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5126,7 +5126,7 @@
             <x>0</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.004962645471703029</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5134,7 +5134,7 @@
             <x>1</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.028904407280852085</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5142,7 +5142,7 @@
             <x>2</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.16596244368360985</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5150,7 +5150,7 @@
             <x>3</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.02390521870627392</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5158,7 +5158,7 @@
             <x>4</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.19702927062323558</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5166,7 +5166,7 @@
             <x>5</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.1741240411567834</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5174,7 +5174,7 @@
             <x>6</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.3136504126702719</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5182,7 +5182,7 @@
             <x>7</x>
             <y>10</y>
             <level>0</level>
-            <elevation>1.2046090775138267</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5190,7 +5190,7 @@
             <x>8</x>
             <y>10</y>
             <level>0</level>
-            <elevation>1.9059286391586046</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5198,7 +5198,7 @@
             <x>9</x>
             <y>10</y>
             <level>0</level>
-            <elevation>2.3943620891697615</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5206,7 +5206,7 @@
             <x>10</x>
             <y>10</y>
             <level>0</level>
-            <elevation>2.7759862820176555</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5214,7 +5214,7 @@
             <x>11</x>
             <y>10</y>
             <level>0</level>
-            <elevation>2.136650276949348</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5222,7 +5222,7 @@
             <x>12</x>
             <y>10</y>
             <level>0</level>
-            <elevation>1.5107105269347691</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5230,7 +5230,7 @@
             <x>13</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.23962640790350578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5238,7 +5238,7 @@
             <x>14</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.13706042976964672</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5246,7 +5246,7 @@
             <x>15</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.28258311875115266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5254,7 +5254,7 @@
             <x>16</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5262,7 +5262,7 @@
             <x>17</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5270,7 +5270,7 @@
             <x>18</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.16125146118738817</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5278,7 +5278,7 @@
             <x>19</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5286,7 +5286,7 @@
             <x>20</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.143762881926077</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5294,7 +5294,7 @@
             <x>21</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.10850474085856836</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5302,7 +5302,7 @@
             <x>22</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.04232878777723425</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5310,7 +5310,7 @@
             <x>23</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.15709822625103495</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5318,7 +5318,7 @@
             <x>24</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.4393406385115217</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5326,7 +5326,7 @@
             <x>25</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.4393406385115217</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5334,7 +5334,7 @@
             <x>26</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.4389524348729767</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5342,7 +5342,7 @@
             <x>27</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.35104954276420414</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5350,7 +5350,7 @@
             <x>28</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.45541584888388853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5358,7 +5358,7 @@
             <x>29</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.6121237928862209</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5366,7 +5366,7 @@
             <x>30</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.6171642452233015</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5374,7 +5374,7 @@
             <x>31</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.47169988969031285</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5382,7 +5382,7 @@
             <x>32</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.8500629978440172</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5390,7 +5390,7 @@
             <x>33</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-1.2825406397246104</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5398,7 +5398,7 @@
             <x>34</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-1.8077888195243867</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5406,7 +5406,7 @@
             <x>35</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-2.17053606878527</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5414,7 +5414,7 @@
             <x>36</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-2.351722956246761</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5422,7 +5422,7 @@
             <x>37</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-2.479687871295303</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5430,7 +5430,7 @@
             <x>38</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-2.657363105848541</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5438,7 +5438,7 @@
             <x>39</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-2.8760063587974627</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5446,7 +5446,7 @@
             <x>40</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-3.176271969168921</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5454,7 +5454,7 @@
             <x>41</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-3.223733155958432</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5462,7 +5462,7 @@
             <x>42</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-3.019459194559587</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5470,7 +5470,7 @@
             <x>43</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-2.5529482669724355</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5478,7 +5478,7 @@
             <x>44</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-1.8350998085523822</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5486,7 +5486,7 @@
             <x>45</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.7689805997404636</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5494,7 +5494,7 @@
             <x>46</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.3772922697923481</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5502,7 +5502,7 @@
             <x>47</x>
             <y>10</y>
             <level>0</level>
-            <elevation>1.5379966000267127</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5510,7 +5510,7 @@
             <x>48</x>
             <y>10</y>
             <level>0</level>
-            <elevation>2.619893992897019</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5518,7 +5518,7 @@
             <x>49</x>
             <y>10</y>
             <level>0</level>
-            <elevation>3.5555851977708253</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5526,7 +5526,7 @@
             <x>50</x>
             <y>10</y>
             <level>0</level>
-            <elevation>3.9137630364933718</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5534,7 +5534,7 @@
             <x>51</x>
             <y>10</y>
             <level>0</level>
-            <elevation>3.4540527558522505</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5542,7 +5542,7 @@
             <x>52</x>
             <y>10</y>
             <level>0</level>
-            <elevation>2.95060661613338</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5550,7 +5550,7 @@
             <x>53</x>
             <y>10</y>
             <level>0</level>
-            <elevation>2.19730801352671</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5558,7 +5558,7 @@
             <x>54</x>
             <y>10</y>
             <level>0</level>
-            <elevation>1.549525580063968</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5566,7 +5566,7 @@
             <x>55</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.9933734665045837</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5574,7 +5574,7 @@
             <x>56</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.4840183959015867</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5582,7 +5582,7 @@
             <x>57</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.3880465630454098</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5590,7 +5590,7 @@
             <x>58</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.029557801138502558</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5598,7 +5598,7 @@
             <x>59</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.0035319503685435384</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5606,7 +5606,7 @@
             <x>60</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.01311582699306997</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5614,7 +5614,7 @@
             <x>61</x>
             <y>10</y>
             <level>0</level>
-            <elevation>0.004564830388920634</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5622,7 +5622,7 @@
             <x>62</x>
             <y>10</y>
             <level>0</level>
-            <elevation>-0.0016595718817614866</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5638,7 +5638,7 @@
             <x>0</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.015490606280017388</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5646,7 +5646,7 @@
             <x>1</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.04029452267575132</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5654,7 +5654,7 @@
             <x>2</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.036791593223945734</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5662,7 +5662,7 @@
             <x>3</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.07628031732525387</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5670,7 +5670,7 @@
             <x>4</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.025906639851332167</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5678,7 +5678,7 @@
             <x>5</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.21825209345234992</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5686,7 +5686,7 @@
             <x>6</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.8954851980507633</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5694,7 +5694,7 @@
             <x>7</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.8307968485614632</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5702,7 +5702,7 @@
             <x>8</x>
             <y>11</y>
             <level>0</level>
-            <elevation>2.4682018561754266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5710,7 +5710,7 @@
             <x>9</x>
             <y>11</y>
             <level>0</level>
-            <elevation>2.801117385165129</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5718,7 +5718,7 @@
             <x>10</x>
             <y>11</y>
             <level>0</level>
-            <elevation>3.0158384206537163</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5726,7 +5726,7 @@
             <x>11</x>
             <y>11</y>
             <level>0</level>
-            <elevation>2.465783588374309</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5734,7 +5734,7 @@
             <x>12</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.8086418801958555</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5742,7 +5742,7 @@
             <x>13</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.16249839917866793</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5750,7 +5750,7 @@
             <x>14</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.5509674836146081</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5758,7 +5758,7 @@
             <x>15</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.5533759459558338</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5766,7 +5766,7 @@
             <x>16</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.25167371188219967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5774,7 +5774,7 @@
             <x>17</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5782,7 +5782,7 @@
             <x>18</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.17145327338272082</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5790,7 +5790,7 @@
             <x>19</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.3550203993701034</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5798,7 +5798,7 @@
             <x>20</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.7112677031071033</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5806,7 +5806,7 @@
             <x>21</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.758152906859635</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5814,7 +5814,7 @@
             <x>22</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.302184678474266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5822,7 +5822,7 @@
             <x>23</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.359771958906012</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5830,7 +5830,7 @@
             <x>24</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.8796936558400972</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5838,7 +5838,7 @@
             <x>25</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.2348940192521872</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5846,7 +5846,7 @@
             <x>26</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.04347302513032346</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5854,7 +5854,7 @@
             <x>27</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.36787750974924005</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5862,7 +5862,7 @@
             <x>28</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.422807109732236</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5870,7 +5870,7 @@
             <x>29</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.3886276028446822</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5878,7 +5878,7 @@
             <x>30</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.490924021998286</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5886,7 +5886,7 @@
             <x>31</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.5079488003950345</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5894,7 +5894,7 @@
             <x>32</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.6093756520832087</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5902,7 +5902,7 @@
             <x>33</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.6909382839161246</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5910,7 +5910,7 @@
             <x>34</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.7213841699445401</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5918,7 +5918,7 @@
             <x>35</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.051663592264454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5926,7 +5926,7 @@
             <x>36</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.8239453914573381</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5934,7 +5934,7 @@
             <x>37</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.7208409241345498</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5942,7 +5942,7 @@
             <x>38</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.2287383503911486</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5950,7 +5950,7 @@
             <x>39</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.4727366025995852</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5958,7 +5958,7 @@
             <x>40</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.7593767531776354</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5966,7 +5966,7 @@
             <x>41</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.8410987484021932</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5974,7 +5974,7 @@
             <x>42</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.7258493740948502</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5982,7 +5982,7 @@
             <x>43</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-1.2550022680806325</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5990,7 +5990,7 @@
             <x>44</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.4919733943046205</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -5998,7 +5998,7 @@
             <x>45</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.5693399968401883</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6006,7 +6006,7 @@
             <x>46</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.8285990986051748</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6014,7 +6014,7 @@
             <x>47</x>
             <y>11</y>
             <level>0</level>
-            <elevation>3.1661998385876213</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6022,7 +6022,7 @@
             <x>48</x>
             <y>11</y>
             <level>0</level>
-            <elevation>4.345517289049264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6030,7 +6030,7 @@
             <x>49</x>
             <y>11</y>
             <level>0</level>
-            <elevation>5.040795127053311</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6038,7 +6038,7 @@
             <x>50</x>
             <y>11</y>
             <level>0</level>
-            <elevation>5.157470154548975</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6046,7 +6046,7 @@
             <x>51</x>
             <y>11</y>
             <level>0</level>
-            <elevation>4.553295601425274</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6054,7 +6054,7 @@
             <x>52</x>
             <y>11</y>
             <level>0</level>
-            <elevation>3.9942194586627933</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6062,7 +6062,7 @@
             <x>53</x>
             <y>11</y>
             <level>0</level>
-            <elevation>2.967164185710159</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6070,7 +6070,7 @@
             <x>54</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.9562610668542268</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6078,7 +6078,7 @@
             <x>55</x>
             <y>11</y>
             <level>0</level>
-            <elevation>1.1078925112644136</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6086,7 +6086,7 @@
             <x>56</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.49042013710943544</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6094,7 +6094,7 @@
             <x>57</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.25406473833127197</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6102,7 +6102,7 @@
             <x>58</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.019502818638447154</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6110,7 +6110,7 @@
             <x>59</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.06858970562706973</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6118,7 +6118,7 @@
             <x>60</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.0032111281234697333</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6126,7 +6126,7 @@
             <x>61</x>
             <y>11</y>
             <level>0</level>
-            <elevation>-0.02118803801418647</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6134,7 +6134,7 @@
             <x>62</x>
             <y>11</y>
             <level>0</level>
-            <elevation>0.0012007586446566752</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6150,7 +6150,7 @@
             <x>0</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.01595950071953807</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6158,7 +6158,7 @@
             <x>1</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.017740265829314966</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6166,7 +6166,7 @@
             <x>2</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.17455953072529737</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6174,7 +6174,7 @@
             <x>3</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.013388023022717252</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6182,7 +6182,7 @@
             <x>4</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.28132606059260834</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6190,7 +6190,7 @@
             <x>5</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.5868261929795282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6198,7 +6198,7 @@
             <x>6</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.222997577801849</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6206,7 +6206,7 @@
             <x>7</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.101262272740913</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6214,7 +6214,7 @@
             <x>8</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.757449120594046</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6222,7 +6222,7 @@
             <x>9</x>
             <y>12</y>
             <level>0</level>
-            <elevation>3.0162288115687166</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6230,7 +6230,7 @@
             <x>10</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.757391842764813</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6238,7 +6238,7 @@
             <x>11</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.190086330054957</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6246,7 +6246,7 @@
             <x>12</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.33682806422563</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6254,7 +6254,7 @@
             <x>13</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.782755823156675</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6262,7 +6262,7 @@
             <x>14</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.118466426255282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6270,7 +6270,7 @@
             <x>15</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.14697872808222168</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6278,7 +6278,7 @@
             <x>16</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.27672712978185204</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6286,7 +6286,7 @@
             <x>17</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.47947996050468467</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6294,7 +6294,7 @@
             <x>18</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.019048514429975</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6302,7 +6302,7 @@
             <x>19</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.203109127094346</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6310,7 +6310,7 @@
             <x>20</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.8857452891890347</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6318,7 +6318,7 @@
             <x>21</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.376672099542748</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6326,7 +6326,7 @@
             <x>22</x>
             <y>12</y>
             <level>0</level>
-            <elevation>3.127778938442658</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6334,7 +6334,7 @@
             <x>23</x>
             <y>12</y>
             <level>0</level>
-            <elevation>3.0522323896945074</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6342,7 +6342,7 @@
             <x>24</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.849548062220054</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6350,7 +6350,7 @@
             <x>25</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.469942031595992</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6358,7 +6358,7 @@
             <x>26</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.9742541432853713</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6366,7 +6366,7 @@
             <x>27</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.3351958673933066</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6374,7 +6374,7 @@
             <x>28</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.7624888321911453</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6382,7 +6382,7 @@
             <x>29</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.0708679162500846</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6390,7 +6390,7 @@
             <x>30</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.4192905874273191</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6398,7 +6398,7 @@
             <x>31</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.4035141220542616</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6406,7 +6406,7 @@
             <x>32</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.32650004831694435</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6414,7 +6414,7 @@
             <x>33</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.64919615233578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6422,7 +6422,7 @@
             <x>34</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.6928936136097317</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6430,7 +6430,7 @@
             <x>35</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.8099004467159653</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6438,7 +6438,7 @@
             <x>36</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.7456552050395292</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6446,7 +6446,7 @@
             <x>37</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.7063725906793684</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6454,7 +6454,7 @@
             <x>38</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6462,7 +6462,7 @@
             <x>39</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.7090600122265747</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6470,7 +6470,7 @@
             <x>40</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.7163915904674028</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6478,7 +6478,7 @@
             <x>41</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.6170692833477881</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6486,7 +6486,7 @@
             <x>42</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.6967245231016188</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6494,7 +6494,7 @@
             <x>43</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.3084313251957398</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6502,7 +6502,7 @@
             <x>44</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.4827347171718181</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6510,7 +6510,7 @@
             <x>45</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.6532198494399934</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6518,7 +6518,7 @@
             <x>46</x>
             <y>12</y>
             <level>0</level>
-            <elevation>3.0288389475079374</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6526,7 +6526,7 @@
             <x>47</x>
             <y>12</y>
             <level>0</level>
-            <elevation>4.3230688279741125</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6534,7 +6534,7 @@
             <x>48</x>
             <y>12</y>
             <level>0</level>
-            <elevation>5.397437721050572</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6542,7 +6542,7 @@
             <x>49</x>
             <y>12</y>
             <level>0</level>
-            <elevation>6.06300235884774</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6550,7 +6550,7 @@
             <x>50</x>
             <y>12</y>
             <level>0</level>
-            <elevation>5.854821165525579</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6558,7 +6558,7 @@
             <x>51</x>
             <y>12</y>
             <level>0</level>
-            <elevation>5.226024625143896</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6566,7 +6566,7 @@
             <x>52</x>
             <y>12</y>
             <level>0</level>
-            <elevation>4.232793543773924</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6574,7 +6574,7 @@
             <x>53</x>
             <y>12</y>
             <level>0</level>
-            <elevation>3.3977634833373314</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6582,7 +6582,7 @@
             <x>54</x>
             <y>12</y>
             <level>0</level>
-            <elevation>2.1467266026372176</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6590,7 +6590,7 @@
             <x>55</x>
             <y>12</y>
             <level>0</level>
-            <elevation>1.1391392856729248</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6598,7 +6598,7 @@
             <x>56</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.7187362398223344</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6606,7 +6606,7 @@
             <x>57</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.30802072786061574</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6614,7 +6614,7 @@
             <x>58</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.0028238613982316633</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6622,7 +6622,7 @@
             <x>59</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.12131419001568</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6630,7 +6630,7 @@
             <x>60</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.009138999440221108</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6638,7 +6638,7 @@
             <x>61</x>
             <y>12</y>
             <level>0</level>
-            <elevation>0.00864341986584468</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6646,7 +6646,7 @@
             <x>62</x>
             <y>12</y>
             <level>0</level>
-            <elevation>-0.0010267858059523802</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6662,7 +6662,7 @@
             <x>0</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.0024566123707280554</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6670,7 +6670,7 @@
             <x>1</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.02154179304635594</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6678,7 +6678,7 @@
             <x>2</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.008416827514847276</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6686,7 +6686,7 @@
             <x>3</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.18653946593183837</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6694,7 +6694,7 @@
             <x>4</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.2026019461955322</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6702,7 +6702,7 @@
             <x>5</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.7339255143627473</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6710,7 +6710,7 @@
             <x>6</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.4914997193758557</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6718,7 +6718,7 @@
             <x>7</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.363226220538736</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6726,7 +6726,7 @@
             <x>8</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.240113902583866</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6734,7 +6734,7 @@
             <x>9</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.113738232905413</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6742,7 +6742,7 @@
             <x>10</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.176643406193937</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6750,7 +6750,7 @@
             <x>11</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.4096797722874317</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6758,7 +6758,7 @@
             <x>12</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.4057809687540892</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6766,7 +6766,7 @@
             <x>13</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.3644573475287465</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6774,7 +6774,7 @@
             <x>14</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.3367935519797873</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6782,7 +6782,7 @@
             <x>15</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.8550506589140063</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6790,7 +6790,7 @@
             <x>16</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.3847438416063058</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6798,7 +6798,7 @@
             <x>17</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.882152725266117</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6806,7 +6806,7 @@
             <x>18</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.3347324039342072</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6814,7 +6814,7 @@
             <x>19</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.6741893018889207</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6822,7 +6822,7 @@
             <x>20</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.062008317997948</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6830,7 +6830,7 @@
             <x>21</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.465555178323397</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6838,7 +6838,7 @@
             <x>22</x>
             <y>13</y>
             <level>0</level>
-            <elevation>4.045913715411441</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6846,7 +6846,7 @@
             <x>23</x>
             <y>13</y>
             <level>0</level>
-            <elevation>4.369050951005025</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6854,7 +6854,7 @@
             <x>24</x>
             <y>13</y>
             <level>0</level>
-            <elevation>4.364536677354535</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6862,7 +6862,7 @@
             <x>25</x>
             <y>13</y>
             <level>0</level>
-            <elevation>4.226722510599842</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6870,7 +6870,7 @@
             <x>26</x>
             <y>13</y>
             <level>0</level>
-            <elevation>4.002339792626026</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6878,7 +6878,7 @@
             <x>27</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.5045619490972557</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6886,7 +6886,7 @@
             <x>28</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.920008844858722</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6894,7 +6894,7 @@
             <x>29</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.26182220031174</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6902,7 +6902,7 @@
             <x>30</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.45997750580402</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6910,7 +6910,7 @@
             <x>31</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.1113362301155618</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6918,7 +6918,7 @@
             <x>32</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.35608573320547293</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6926,7 +6926,7 @@
             <x>33</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.541297477892652</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6934,7 +6934,7 @@
             <x>34</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.469733750883521</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6942,7 +6942,7 @@
             <x>35</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.6909066480622971</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6950,7 +6950,7 @@
             <x>36</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.7214161099620829</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6958,7 +6958,7 @@
             <x>37</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.7072404584664069</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6966,7 +6966,7 @@
             <x>38</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.7032639617920963</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6974,7 +6974,7 @@
             <x>39</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6982,7 +6982,7 @@
             <x>40</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6990,7 +6990,7 @@
             <x>41</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.4440402286253521</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -6998,7 +6998,7 @@
             <x>42</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.24451276219044263</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7006,7 +7006,7 @@
             <x>43</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.196769375611771</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7014,7 +7014,7 @@
             <x>44</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.1392014921615314</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7022,7 +7022,7 @@
             <x>45</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.5139253235861276</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7030,7 +7030,7 @@
             <x>46</x>
             <y>13</y>
             <level>0</level>
-            <elevation>4.0934103805210915</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7038,7 +7038,7 @@
             <x>47</x>
             <y>13</y>
             <level>0</level>
-            <elevation>5.458458715656937</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7046,7 +7046,7 @@
             <x>48</x>
             <y>13</y>
             <level>0</level>
-            <elevation>6.5029383496005515</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7054,7 +7054,7 @@
             <x>49</x>
             <y>13</y>
             <level>0</level>
-            <elevation>6.341918207749418</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7062,7 +7062,7 @@
             <x>50</x>
             <y>13</y>
             <level>0</level>
-            <elevation>6.070067908535709</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7070,7 +7070,7 @@
             <x>51</x>
             <y>13</y>
             <level>0</level>
-            <elevation>5.104764313235864</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7078,7 +7078,7 @@
             <x>52</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.9826607212230742</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7086,7 +7086,7 @@
             <x>53</x>
             <y>13</y>
             <level>0</level>
-            <elevation>3.045577902822237</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7094,7 +7094,7 @@
             <x>54</x>
             <y>13</y>
             <level>0</level>
-            <elevation>2.1099864226944502</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7102,7 +7102,7 @@
             <x>55</x>
             <y>13</y>
             <level>0</level>
-            <elevation>1.2451793635457733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7110,7 +7110,7 @@
             <x>56</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.39135901650700733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7118,7 +7118,7 @@
             <x>57</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.26684537831035476</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7126,7 +7126,7 @@
             <x>58</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.13625260097865843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7134,7 +7134,7 @@
             <x>59</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.074359492253164</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7142,7 +7142,7 @@
             <x>60</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.08828308758636806</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7150,7 +7150,7 @@
             <x>61</x>
             <y>13</y>
             <level>0</level>
-            <elevation>-0.0281561940441233</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7158,7 +7158,7 @@
             <x>62</x>
             <y>13</y>
             <level>0</level>
-            <elevation>0.004974878412814898</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7174,7 +7174,7 @@
             <x>0</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.0076877500461881125</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7182,7 +7182,7 @@
             <x>1</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.015811758741804485</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7190,7 +7190,7 @@
             <x>2</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.0064063561378860275</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7198,7 +7198,7 @@
             <x>3</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.22485215796280297</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7206,7 +7206,7 @@
             <x>4</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.5325755626196005</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7214,7 +7214,7 @@
             <x>5</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.8437328590267175</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7222,7 +7222,7 @@
             <x>6</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.5765301200625201</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7230,7 +7230,7 @@
             <x>7</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.2763334362348564</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7238,7 +7238,7 @@
             <x>8</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.670755163511859</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7246,7 +7246,7 @@
             <x>9</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.5300564481017656</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7254,7 +7254,7 @@
             <x>10</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.8511639581211992</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7262,7 +7262,7 @@
             <x>11</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.538760195685426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7270,7 +7270,7 @@
             <x>12</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.538760195685426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7278,7 +7278,7 @@
             <x>13</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.305304789904339</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7286,7 +7286,7 @@
             <x>14</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.50260734857984</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7294,7 +7294,7 @@
             <x>15</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.299749003560753</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7302,7 +7302,7 @@
             <x>16</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.816474222864013</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7310,7 +7310,7 @@
             <x>17</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.2379614385219417</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7318,7 +7318,7 @@
             <x>18</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.5856906937716393</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7326,7 +7326,7 @@
             <x>19</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.9389979615211757</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7334,7 +7334,7 @@
             <x>20</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.878410233407138</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7342,7 +7342,7 @@
             <x>21</x>
             <y>14</y>
             <level>0</level>
-            <elevation>4.239183199767991</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7350,7 +7350,7 @@
             <x>22</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.202955029961216</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7358,7 +7358,7 @@
             <x>23</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.73065223757141</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7366,7 +7366,7 @@
             <x>24</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.661567079365601</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7374,7 +7374,7 @@
             <x>25</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.738667116049498</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7382,7 +7382,7 @@
             <x>26</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.907313880123176</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7390,7 +7390,7 @@
             <x>27</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.371728120117364</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7398,7 +7398,7 @@
             <x>28</x>
             <y>14</y>
             <level>0</level>
-            <elevation>4.781769056332282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7406,7 +7406,7 @@
             <x>29</x>
             <y>14</y>
             <level>0</level>
-            <elevation>4.300628456352612</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7414,7 +7414,7 @@
             <x>30</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.773127129352097</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7422,7 +7422,7 @@
             <x>31</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.2569839726691368</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7430,7 +7430,7 @@
             <x>32</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.527373924058781</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7438,7 +7438,7 @@
             <x>33</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.5307092226385393</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7446,7 +7446,7 @@
             <x>34</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.36979414034374836</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7454,7 +7454,7 @@
             <x>35</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.6738289127516669</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7462,7 +7462,7 @@
             <x>36</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.6981694317395714</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7470,7 +7470,7 @@
             <x>37</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.7019229764680419</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7478,7 +7478,7 @@
             <x>38</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.7031688449352738</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7486,7 +7486,7 @@
             <x>39</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.7031112948955042</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7494,7 +7494,7 @@
             <x>40</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.7032641178107873</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7502,7 +7502,7 @@
             <x>41</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7510,7 +7510,7 @@
             <x>42</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.19131649124375733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7518,7 +7518,7 @@
             <x>43</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.43396884325124385</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7526,7 +7526,7 @@
             <x>44</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.577866887633267</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7534,7 +7534,7 @@
             <x>45</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.00349544095812</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7542,7 +7542,7 @@
             <x>46</x>
             <y>14</y>
             <level>0</level>
-            <elevation>4.732090209816188</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7550,7 +7550,7 @@
             <x>47</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.841096406854378</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7558,7 +7558,7 @@
             <x>48</x>
             <y>14</y>
             <level>0</level>
-            <elevation>6.321759440280802</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7566,7 +7566,7 @@
             <x>49</x>
             <y>14</y>
             <level>0</level>
-            <elevation>6.121023227521707</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7574,7 +7574,7 @@
             <x>50</x>
             <y>14</y>
             <level>0</level>
-            <elevation>5.184147685532386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7582,7 +7582,7 @@
             <x>51</x>
             <y>14</y>
             <level>0</level>
-            <elevation>4.2261651601382795</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7590,7 +7590,7 @@
             <x>52</x>
             <y>14</y>
             <level>0</level>
-            <elevation>3.29365885255163</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7598,7 +7598,7 @@
             <x>53</x>
             <y>14</y>
             <level>0</level>
-            <elevation>2.6156611728116994</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7606,7 +7606,7 @@
             <x>54</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.988771882008875</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7614,7 +7614,7 @@
             <x>55</x>
             <y>14</y>
             <level>0</level>
-            <elevation>1.381504670664646</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7622,7 +7622,7 @@
             <x>56</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.7746704820382848</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7630,7 +7630,7 @@
             <x>57</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.3268203512610496</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7638,7 +7638,7 @@
             <x>58</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.1131453317546703</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7646,7 +7646,7 @@
             <x>59</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.05460001079443534</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7654,7 +7654,7 @@
             <x>60</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.010106136684318645</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7662,7 +7662,7 @@
             <x>61</x>
             <y>14</y>
             <level>0</level>
-            <elevation>-0.019619681683797956</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7670,7 +7670,7 @@
             <x>62</x>
             <y>14</y>
             <level>0</level>
-            <elevation>0.0020806922346093193</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7686,7 +7686,7 @@
             <x>0</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.011867052824333103</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7694,7 +7694,7 @@
             <x>1</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.05904470798934238</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7702,7 +7702,7 @@
             <x>2</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.24655610317188667</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7710,7 +7710,7 @@
             <x>3</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.47631311426074424</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7718,7 +7718,7 @@
             <x>4</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.6877806867229311</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7726,7 +7726,7 @@
             <x>5</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.0227302343793165</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7734,7 +7734,7 @@
             <x>6</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.464504942100627</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7742,7 +7742,7 @@
             <x>7</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.846646934020398</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7750,7 +7750,7 @@
             <x>8</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.9760646812508271</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7758,7 +7758,7 @@
             <x>9</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.733190056547158</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7766,7 +7766,7 @@
             <x>10</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.538760195685426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7774,7 +7774,7 @@
             <x>11</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.538760195685426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7782,7 +7782,7 @@
             <x>12</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.4310256675233526</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7790,7 +7790,7 @@
             <x>13</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.821448236463877</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7798,7 +7798,7 @@
             <x>14</x>
             <y>15</y>
             <level>0</level>
-            <elevation>3.029946513488383</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7806,7 +7806,7 @@
             <x>15</x>
             <y>15</y>
             <level>0</level>
-            <elevation>3.7872531006774053</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7814,7 +7814,7 @@
             <x>16</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.178804178728537</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7822,7 +7822,7 @@
             <x>17</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.479085796260128</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7830,7 +7830,7 @@
             <x>18</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.758143277228735</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7838,7 +7838,7 @@
             <x>19</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.6132377944129015</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7846,7 +7846,7 @@
             <x>20</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.64283907109366</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7854,7 +7854,7 @@
             <x>21</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.782174906572235</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7862,7 +7862,7 @@
             <x>22</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.311040559888861</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7870,7 +7870,7 @@
             <x>23</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.818540962303237</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7878,7 +7878,7 @@
             <x>24</x>
             <y>15</y>
             <level>0</level>
-            <elevation>6.295533225359438</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7886,7 +7886,7 @@
             <x>25</x>
             <y>15</y>
             <level>0</level>
-            <elevation>6.908170203382451</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7894,7 +7894,7 @@
             <x>26</x>
             <y>15</y>
             <level>0</level>
-            <elevation>7.149660627460861</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7902,7 +7902,7 @@
             <x>27</x>
             <y>15</y>
             <level>0</level>
-            <elevation>7.237585075970477</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7910,7 +7910,7 @@
             <x>28</x>
             <y>15</y>
             <level>0</level>
-            <elevation>6.417054934136978</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7918,7 +7918,7 @@
             <x>29</x>
             <y>15</y>
             <level>0</level>
-            <elevation>6.1712891676537085</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7926,7 +7926,7 @@
             <x>30</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.751091432360744</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7934,7 +7934,7 @@
             <x>31</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.112198151531899</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7942,7 +7942,7 @@
             <x>32</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.395445605713839</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7950,7 +7950,7 @@
             <x>33</x>
             <y>15</y>
             <level>0</level>
-            <elevation>3.517829365842454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7958,7 +7958,7 @@
             <x>34</x>
             <y>15</y>
             <level>0</level>
-            <elevation>2.533310899057416</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7966,7 +7966,7 @@
             <x>35</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.2398494767761792</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7974,7 +7974,7 @@
             <x>36</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.6955097277764933</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7982,7 +7982,7 @@
             <x>37</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.6929915962672629</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7990,7 +7990,7 @@
             <x>38</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.6991607461194241</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -7998,7 +7998,7 @@
             <x>39</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.7016396517470171</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8006,7 +8006,7 @@
             <x>40</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.7022979430927219</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8014,7 +8014,7 @@
             <x>41</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8022,7 +8022,7 @@
             <x>42</x>
             <y>15</y>
             <level>0</level>
-            <elevation>-0.4086442520012565</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8030,7 +8030,7 @@
             <x>43</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.562173322926924</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8038,7 +8038,7 @@
             <x>44</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.6749045456930691</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8046,7 +8046,7 @@
             <x>45</x>
             <y>15</y>
             <level>0</level>
-            <elevation>3.010605123894528</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8054,7 +8054,7 @@
             <x>46</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.563900969041052</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8062,7 +8062,7 @@
             <x>47</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.384677808710662</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8070,7 +8070,7 @@
             <x>48</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.336951323746503</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8078,7 +8078,7 @@
             <x>49</x>
             <y>15</y>
             <level>0</level>
-            <elevation>5.054143757066765</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8086,7 +8086,7 @@
             <x>50</x>
             <y>15</y>
             <level>0</level>
-            <elevation>4.010248626523297</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8094,7 +8094,7 @@
             <x>51</x>
             <y>15</y>
             <level>0</level>
-            <elevation>3.08698334951824</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8102,7 +8102,7 @@
             <x>52</x>
             <y>15</y>
             <level>0</level>
-            <elevation>2.3501483560334657</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8110,7 +8110,7 @@
             <x>53</x>
             <y>15</y>
             <level>0</level>
-            <elevation>2.1692535543722578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8118,7 +8118,7 @@
             <x>54</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.8988541566765198</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8126,7 +8126,7 @@
             <x>55</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.5381478337164298</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8134,7 +8134,7 @@
             <x>56</x>
             <y>15</y>
             <level>0</level>
-            <elevation>1.1100600001022576</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8142,7 +8142,7 @@
             <x>57</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.6756085770946509</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8150,7 +8150,7 @@
             <x>58</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.34013409304790154</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8158,7 +8158,7 @@
             <x>59</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.08854875023382246</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8166,7 +8166,7 @@
             <x>60</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.03093279948750898</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8174,7 +8174,7 @@
             <x>61</x>
             <y>15</y>
             <level>0</level>
-            <elevation>0.00673556416559957</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8198,7 +8198,7 @@
             <x>0</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.0323040162789455</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8206,7 +8206,7 @@
             <x>1</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.13802179454373642</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8214,7 +8214,7 @@
             <x>2</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.41751530050686925</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8222,7 +8222,7 @@
             <x>3</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.6847588353339095</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8230,7 +8230,7 @@
             <x>4</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.8251672953330282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8238,7 +8238,7 @@
             <x>5</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.0432932462040592</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8246,7 +8246,7 @@
             <x>6</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.2702436592263182</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8254,7 +8254,7 @@
             <x>7</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.3988723544082244</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8262,7 +8262,7 @@
             <x>8</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.238158086312208</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8270,7 +8270,7 @@
             <x>9</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.3080956571395739</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8278,7 +8278,7 @@
             <x>10</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.278227664108077</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8286,7 +8286,7 @@
             <x>11</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.6314294556623374</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8294,7 +8294,7 @@
             <x>12</x>
             <y>16</y>
             <level>0</level>
-            <elevation>2.686780288918914</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8302,7 +8302,7 @@
             <x>13</x>
             <y>16</y>
             <level>0</level>
-            <elevation>3.740331726647466</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8310,7 +8310,7 @@
             <x>14</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.797541214518942</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8318,7 +8318,7 @@
             <x>15</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.456236471026491</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8326,7 +8326,7 @@
             <x>16</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.531690810106863</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8334,7 +8334,7 @@
             <x>17</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.412090728565582</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8342,7 +8342,7 @@
             <x>18</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.133043243656934</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8350,7 +8350,7 @@
             <x>19</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.793925081373053</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8358,7 +8358,7 @@
             <x>20</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.297274196120848</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8366,7 +8366,7 @@
             <x>21</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.117365364496965</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8374,7 +8374,7 @@
             <x>22</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.337326111012421</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8382,7 +8382,7 @@
             <x>23</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.806109219998618</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8390,7 +8390,7 @@
             <x>24</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.690763633567305</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8398,7 +8398,7 @@
             <x>25</x>
             <y>16</y>
             <level>0</level>
-            <elevation>6.7091638030799166</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8406,7 +8406,7 @@
             <x>26</x>
             <y>16</y>
             <level>0</level>
-            <elevation>7.106896338284508</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8414,7 +8414,7 @@
             <x>27</x>
             <y>16</y>
             <level>0</level>
-            <elevation>7.150878659832271</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8422,7 +8422,7 @@
             <x>28</x>
             <y>16</y>
             <level>0</level>
-            <elevation>7.369942912864541</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8430,7 +8430,7 @@
             <x>29</x>
             <y>16</y>
             <level>0</level>
-            <elevation>7.3851213188826295</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8438,7 +8438,7 @@
             <x>30</x>
             <y>16</y>
             <level>0</level>
-            <elevation>7.121110771163087</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8446,7 +8446,7 @@
             <x>31</x>
             <y>16</y>
             <level>0</level>
-            <elevation>6.428655283057431</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8454,7 +8454,7 @@
             <x>32</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.818682434322739</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8462,7 +8462,7 @@
             <x>33</x>
             <y>16</y>
             <level>0</level>
-            <elevation>5.224043359091831</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8470,7 +8470,7 @@
             <x>34</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.3589274414472285</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8478,7 +8478,7 @@
             <x>35</x>
             <y>16</y>
             <level>0</level>
-            <elevation>2.6943883923440035</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8486,7 +8486,7 @@
             <x>36</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.0492621938510514</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8494,7 +8494,7 @@
             <x>37</x>
             <y>16</y>
             <level>0</level>
-            <elevation>-0.5777978924980699</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8502,7 +8502,7 @@
             <x>38</x>
             <y>16</y>
             <level>0</level>
-            <elevation>-0.6988428915281429</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8510,7 +8510,7 @@
             <x>39</x>
             <y>16</y>
             <level>0</level>
-            <elevation>-0.6953178056794957</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8518,7 +8518,7 @@
             <x>40</x>
             <y>16</y>
             <level>0</level>
-            <elevation>-0.694247742778177</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8526,7 +8526,7 @@
             <x>41</x>
             <y>16</y>
             <level>0</level>
-            <elevation>-0.7031225429154905</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8534,7 +8534,7 @@
             <x>42</x>
             <y>16</y>
             <level>0</level>
-            <elevation>-0.7030274091681725</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8542,7 +8542,7 @@
             <x>43</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.20696869239616517</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8550,7 +8550,7 @@
             <x>44</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.3868157827426606</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8558,7 +8558,7 @@
             <x>45</x>
             <y>16</y>
             <level>0</level>
-            <elevation>2.707211584224752</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8566,7 +8566,7 @@
             <x>46</x>
             <y>16</y>
             <level>0</level>
-            <elevation>3.92979579499667</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8574,7 +8574,7 @@
             <x>47</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.464933391072971</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8582,7 +8582,7 @@
             <x>48</x>
             <y>16</y>
             <level>0</level>
-            <elevation>4.256032898905171</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8590,7 +8590,7 @@
             <x>49</x>
             <y>16</y>
             <level>0</level>
-            <elevation>3.5857435199711976</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8598,7 +8598,7 @@
             <x>50</x>
             <y>16</y>
             <level>0</level>
-            <elevation>2.7070373076179606</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8606,7 +8606,7 @@
             <x>51</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.7977197875140236</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8614,7 +8614,7 @@
             <x>52</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.6671314604163388</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8622,7 +8622,7 @@
             <x>53</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.858625084771163</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8630,7 +8630,7 @@
             <x>54</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.8991694124430134</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8638,7 +8638,7 @@
             <x>55</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.7621725074222963</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8646,7 +8646,7 @@
             <x>56</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.4831805793641837</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8654,7 +8654,7 @@
             <x>57</x>
             <y>16</y>
             <level>0</level>
-            <elevation>1.0338277888550582</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8662,7 +8662,7 @@
             <x>58</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.5936976372421138</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8670,7 +8670,7 @@
             <x>59</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.2372504510502818</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8678,7 +8678,7 @@
             <x>60</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.0475642452318092</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8686,7 +8686,7 @@
             <x>61</x>
             <y>16</y>
             <level>0</level>
-            <elevation>0.007771031036346812</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8710,7 +8710,7 @@
             <x>0</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.04755235119737283</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8718,7 +8718,7 @@
             <x>1</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.22248123511911072</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8726,7 +8726,7 @@
             <x>2</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.5265653104854472</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8734,7 +8734,7 @@
             <x>3</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.7028487189487063</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8742,7 +8742,7 @@
             <x>4</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.835158619787794</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8750,7 +8750,7 @@
             <x>5</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.9106408300899739</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8758,7 +8758,7 @@
             <x>6</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.9074858594000004</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8766,7 +8766,7 @@
             <x>7</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.8627751904469232</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8774,7 +8774,7 @@
             <x>8</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.8204825713080979</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8782,7 +8782,7 @@
             <x>9</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.0073208042586848</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8790,7 +8790,7 @@
             <x>10</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.2563987220013773</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8798,7 +8798,7 @@
             <x>11</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.3381285583998443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8806,7 +8806,7 @@
             <x>12</x>
             <y>17</y>
             <level>0</level>
-            <elevation>4.122679535263891</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8814,7 +8814,7 @@
             <x>13</x>
             <y>17</y>
             <level>0</level>
-            <elevation>5.459584306270796</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8822,7 +8822,7 @@
             <x>14</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.673584194444038</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8830,7 +8830,7 @@
             <x>15</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.964099333451276</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8838,7 +8838,7 @@
             <x>16</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.886221279052873</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8846,7 +8846,7 @@
             <x>17</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.221659788267782</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8854,7 +8854,7 @@
             <x>18</x>
             <y>17</y>
             <level>0</level>
-            <elevation>5.355646277791242</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8862,7 +8862,7 @@
             <x>19</x>
             <y>17</y>
             <level>0</level>
-            <elevation>4.303651261776678</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8870,7 +8870,7 @@
             <x>20</x>
             <y>17</y>
             <level>0</level>
-            <elevation>3.493275288877383</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8878,7 +8878,7 @@
             <x>21</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.9415547093412266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8886,7 +8886,7 @@
             <x>22</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.851097448825747</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8894,7 +8894,7 @@
             <x>23</x>
             <y>17</y>
             <level>0</level>
-            <elevation>3.2793504311388864</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8902,7 +8902,7 @@
             <x>24</x>
             <y>17</y>
             <level>0</level>
-            <elevation>4.12038403806505</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8910,7 +8910,7 @@
             <x>25</x>
             <y>17</y>
             <level>0</level>
-            <elevation>5.26849746636251</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8918,7 +8918,7 @@
             <x>26</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.0566571641502325</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8926,7 +8926,7 @@
             <x>27</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.6159545236779</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8934,7 +8934,7 @@
             <x>28</x>
             <y>17</y>
             <level>0</level>
-            <elevation>7.243237373077604</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8942,7 +8942,7 @@
             <x>29</x>
             <y>17</y>
             <level>0</level>
-            <elevation>7.629309105300264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8950,7 +8950,7 @@
             <x>30</x>
             <y>17</y>
             <level>0</level>
-            <elevation>7.7774806332792314</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8958,7 +8958,7 @@
             <x>31</x>
             <y>17</y>
             <level>0</level>
-            <elevation>7.4390661203883175</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8966,7 +8966,7 @@
             <x>32</x>
             <y>17</y>
             <level>0</level>
-            <elevation>7.058938475176348</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8974,7 +8974,7 @@
             <x>33</x>
             <y>17</y>
             <level>0</level>
-            <elevation>6.424621087176363</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8982,7 +8982,7 @@
             <x>34</x>
             <y>17</y>
             <level>0</level>
-            <elevation>5.433934555845454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8990,7 +8990,7 @@
             <x>35</x>
             <y>17</y>
             <level>0</level>
-            <elevation>3.7303938808758876</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -8998,7 +8998,7 @@
             <x>36</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.2433477715476946</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9006,7 +9006,7 @@
             <x>37</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.9841911854979746</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9014,7 +9014,7 @@
             <x>38</x>
             <y>17</y>
             <level>0</level>
-            <elevation>-0.17991669193799034</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9022,7 +9022,7 @@
             <x>39</x>
             <y>17</y>
             <level>0</level>
-            <elevation>-0.686540936664646</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9030,7 +9030,7 @@
             <x>40</x>
             <y>17</y>
             <level>0</level>
-            <elevation>-0.6734848941167202</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9038,7 +9038,7 @@
             <x>41</x>
             <y>17</y>
             <level>0</level>
-            <elevation>-0.6840677229693843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9046,7 +9046,7 @@
             <x>42</x>
             <y>17</y>
             <level>0</level>
-            <elevation>-0.621722161628707</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9054,7 +9054,7 @@
             <x>43</x>
             <y>17</y>
             <level>0</level>
-            <elevation>-0.3609194677085257</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9062,7 +9062,7 @@
             <x>44</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.6988905924420228</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9070,7 +9070,7 @@
             <x>45</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.747707840958037</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9078,7 +9078,7 @@
             <x>46</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.806915897454756</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9086,7 +9086,7 @@
             <x>47</x>
             <y>17</y>
             <level>0</level>
-            <elevation>3.269204119720294</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9094,7 +9094,7 @@
             <x>48</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.9924113971473925</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9102,7 +9102,7 @@
             <x>49</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.312960676160532</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9110,7 +9110,7 @@
             <x>50</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.4491613998070367</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9118,7 +9118,7 @@
             <x>51</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.9929775813267168</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9126,7 +9126,7 @@
             <x>52</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.2427472628978442</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9134,7 +9134,7 @@
             <x>53</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.7192653064623769</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9142,7 +9142,7 @@
             <x>54</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.06063771020559</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9150,7 +9150,7 @@
             <x>55</x>
             <y>17</y>
             <level>0</level>
-            <elevation>2.1318793525900728</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9158,7 +9158,7 @@
             <x>56</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.9119655059578937</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9166,7 +9166,7 @@
             <x>57</x>
             <y>17</y>
             <level>0</level>
-            <elevation>1.4168617544994333</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9174,7 +9174,7 @@
             <x>58</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.8550750927752264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9182,7 +9182,7 @@
             <x>59</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.3730390908895007</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9190,7 +9190,7 @@
             <x>60</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.09141572211480027</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9198,7 +9198,7 @@
             <x>61</x>
             <y>17</y>
             <level>0</level>
-            <elevation>0.01401947685825283</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9222,7 +9222,7 @@
             <x>0</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.05136158529581159</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9230,7 +9230,7 @@
             <x>1</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.23254105970394115</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9238,7 +9238,7 @@
             <x>2</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.48861451983042203</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9246,7 +9246,7 @@
             <x>3</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.6475874023254918</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9254,7 +9254,7 @@
             <x>4</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.7092631043340848</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9262,7 +9262,7 @@
             <x>5</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.6409494042226908</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9270,7 +9270,7 @@
             <x>6</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.5040465743040476</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9278,7 +9278,7 @@
             <x>7</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.3523986277275639</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9286,7 +9286,7 @@
             <x>8</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.2007907293253721</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9294,7 +9294,7 @@
             <x>9</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.6782130327390699</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9302,7 +9302,7 @@
             <x>10</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.6099008735555058</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9310,7 +9310,7 @@
             <x>11</x>
             <y>18</y>
             <level>0</level>
-            <elevation>3.597015484004578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9318,7 +9318,7 @@
             <x>12</x>
             <y>18</y>
             <level>0</level>
-            <elevation>5.633472159756944</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9326,7 +9326,7 @@
             <x>13</x>
             <y>18</y>
             <level>0</level>
-            <elevation>7.009484596834302</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9334,7 +9334,7 @@
             <x>14</x>
             <y>18</y>
             <level>0</level>
-            <elevation>7.843372516623971</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9342,7 +9342,7 @@
             <x>15</x>
             <y>18</y>
             <level>0</level>
-            <elevation>8.03126919201327</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9350,7 +9350,7 @@
             <x>16</x>
             <y>18</y>
             <level>0</level>
-            <elevation>6.989230343309563</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9358,7 +9358,7 @@
             <x>17</x>
             <y>18</y>
             <level>0</level>
-            <elevation>5.788671247938392</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9366,7 +9366,7 @@
             <x>18</x>
             <y>18</y>
             <level>0</level>
-            <elevation>4.582478784386921</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9374,7 +9374,7 @@
             <x>19</x>
             <y>18</y>
             <level>0</level>
-            <elevation>3.4014682962909593</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9382,7 +9382,7 @@
             <x>20</x>
             <y>18</y>
             <level>0</level>
-            <elevation>2.489295306463219</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9390,7 +9390,7 @@
             <x>21</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.7742024260932086</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9398,7 +9398,7 @@
             <x>22</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.4929787136430843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9406,7 +9406,7 @@
             <x>23</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.562396404043588</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9414,7 +9414,7 @@
             <x>24</x>
             <y>18</y>
             <level>0</level>
-            <elevation>2.237133010737269</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9422,7 +9422,7 @@
             <x>25</x>
             <y>18</y>
             <level>0</level>
-            <elevation>3.1732593849564164</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9430,7 +9430,7 @@
             <x>26</x>
             <y>18</y>
             <level>0</level>
-            <elevation>4.166128719597718</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9438,7 +9438,7 @@
             <x>27</x>
             <y>18</y>
             <level>0</level>
-            <elevation>5.115134503597264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9446,7 +9446,7 @@
             <x>28</x>
             <y>18</y>
             <level>0</level>
-            <elevation>5.85530752510536</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9454,7 +9454,7 @@
             <x>29</x>
             <y>18</y>
             <level>0</level>
-            <elevation>6.433677273471999</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9462,7 +9462,7 @@
             <x>30</x>
             <y>18</y>
             <level>0</level>
-            <elevation>6.847722585953454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9470,7 +9470,7 @@
             <x>31</x>
             <y>18</y>
             <level>0</level>
-            <elevation>7.075700650778742</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9478,7 +9478,7 @@
             <x>32</x>
             <y>18</y>
             <level>0</level>
-            <elevation>7.134504040118857</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9486,7 +9486,7 @@
             <x>33</x>
             <y>18</y>
             <level>0</level>
-            <elevation>6.680925124480769</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9494,7 +9494,7 @@
             <x>34</x>
             <y>18</y>
             <level>0</level>
-            <elevation>5.689601867599114</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9502,7 +9502,7 @@
             <x>35</x>
             <y>18</y>
             <level>0</level>
-            <elevation>4.388061807826123</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9510,7 +9510,7 @@
             <x>36</x>
             <y>18</y>
             <level>0</level>
-            <elevation>3.0154114049230705</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9518,7 +9518,7 @@
             <x>37</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.9217675900869253</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9526,7 +9526,7 @@
             <x>38</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.016752878960146</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9534,7 +9534,7 @@
             <x>39</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.024501461854973858</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9542,7 +9542,7 @@
             <x>40</x>
             <y>18</y>
             <level>0</level>
-            <elevation>-0.623322742581751</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9550,7 +9550,7 @@
             <x>41</x>
             <y>18</y>
             <level>0</level>
-            <elevation>-0.6348048582749843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9558,7 +9558,7 @@
             <x>42</x>
             <y>18</y>
             <level>0</level>
-            <elevation>-0.6195323140223926</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9566,7 +9566,7 @@
             <x>43</x>
             <y>18</y>
             <level>0</level>
-            <elevation>-0.5903400622187996</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9574,7 +9574,7 @@
             <x>44</x>
             <y>18</y>
             <level>0</level>
-            <elevation>-0.3131182208523612</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9582,7 +9582,7 @@
             <x>45</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.6018830756630779</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9590,7 +9590,7 @@
             <x>46</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.3655669287574104</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9598,7 +9598,7 @@
             <x>47</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.7888839020387783</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9606,7 +9606,7 @@
             <x>48</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.6893365408290417</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9614,7 +9614,7 @@
             <x>49</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.229327927597322</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9622,7 +9622,7 @@
             <x>50</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.6591568388259976</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9630,7 +9630,7 @@
             <x>51</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.5570028282034546</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9638,7 +9638,7 @@
             <x>52</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.0810220765309384</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9646,7 +9646,7 @@
             <x>53</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.7226424514491012</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9654,7 +9654,7 @@
             <x>54</x>
             <y>18</y>
             <level>0</level>
-            <elevation>2.3981319339438034</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9662,7 +9662,7 @@
             <x>55</x>
             <y>18</y>
             <level>0</level>
-            <elevation>2.5666281567994083</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9670,7 +9670,7 @@
             <x>56</x>
             <y>18</y>
             <level>0</level>
-            <elevation>2.4807774036135344</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9678,7 +9678,7 @@
             <x>57</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.8361977884443819</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9686,7 +9686,7 @@
             <x>58</x>
             <y>18</y>
             <level>0</level>
-            <elevation>1.1062226328471976</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9694,7 +9694,7 @@
             <x>59</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.4816143555713756</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9702,7 +9702,7 @@
             <x>60</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.13139484186887995</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9710,7 +9710,7 @@
             <x>61</x>
             <y>18</y>
             <level>0</level>
-            <elevation>0.02048707155312192</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9734,7 +9734,7 @@
             <x>0</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.03947369138665917</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9742,7 +9742,7 @@
             <x>1</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.17543896322911956</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9750,7 +9750,7 @@
             <x>2</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.37361354743459263</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9758,7 +9758,7 @@
             <x>3</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.47535967736611945</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9766,7 +9766,7 @@
             <x>4</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.46697017177185257</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9774,7 +9774,7 @@
             <x>5</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.23277943940777157</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9782,7 +9782,7 @@
             <x>6</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.27904240401175107</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9790,7 +9790,7 @@
             <x>7</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.2687959182801239</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9798,7 +9798,7 @@
             <x>8</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.3231575851956776</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9806,7 +9806,7 @@
             <x>9</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.8002071210288245</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9814,7 +9814,7 @@
             <x>10</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.5626554133093484</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9822,7 +9822,7 @@
             <x>11</x>
             <y>19</y>
             <level>0</level>
-            <elevation>4.549830969280971</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9830,7 +9830,7 @@
             <x>12</x>
             <y>19</y>
             <level>0</level>
-            <elevation>6.709527654705621</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9838,7 +9838,7 @@
             <x>13</x>
             <y>19</y>
             <level>0</level>
-            <elevation>7.824349237894251</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9846,7 +9846,7 @@
             <x>14</x>
             <y>19</y>
             <level>0</level>
-            <elevation>8.217316397871194</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9854,7 +9854,7 @@
             <x>15</x>
             <y>19</y>
             <level>0</level>
-            <elevation>7.706951832024558</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9862,7 +9862,7 @@
             <x>16</x>
             <y>19</y>
             <level>0</level>
-            <elevation>6.431176422725229</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9870,7 +9870,7 @@
             <x>17</x>
             <y>19</y>
             <level>0</level>
-            <elevation>4.707626966987282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9878,7 +9878,7 @@
             <x>18</x>
             <y>19</y>
             <level>0</level>
-            <elevation>3.3595551399849652</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9886,7 +9886,7 @@
             <x>19</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.2335988892921104</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9894,7 +9894,7 @@
             <x>20</x>
             <y>19</y>
             <level>0</level>
-            <elevation>1.4482846195852763</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9902,7 +9902,7 @@
             <x>21</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.932223612075797</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9910,7 +9910,7 @@
             <x>22</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.6537678200402997</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9918,7 +9918,7 @@
             <x>23</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.7042026552128244</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9926,7 +9926,7 @@
             <x>24</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.9706915860730939</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9934,7 +9934,7 @@
             <x>25</x>
             <y>19</y>
             <level>0</level>
-            <elevation>1.4734664807838715</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9942,7 +9942,7 @@
             <x>26</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.2826772047766153</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9950,7 +9950,7 @@
             <x>27</x>
             <y>19</y>
             <level>0</level>
-            <elevation>3.08780077023584</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9958,7 +9958,7 @@
             <x>28</x>
             <y>19</y>
             <level>0</level>
-            <elevation>3.780330910380369</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9966,7 +9966,7 @@
             <x>29</x>
             <y>19</y>
             <level>0</level>
-            <elevation>4.4048568638519345</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9974,7 +9974,7 @@
             <x>30</x>
             <y>19</y>
             <level>0</level>
-            <elevation>4.9869242111097964</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9982,7 +9982,7 @@
             <x>31</x>
             <y>19</y>
             <level>0</level>
-            <elevation>5.517257623225773</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9990,7 +9990,7 @@
             <x>32</x>
             <y>19</y>
             <level>0</level>
-            <elevation>5.8918370428707965</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -9998,7 +9998,7 @@
             <x>33</x>
             <y>19</y>
             <level>0</level>
-            <elevation>5.864429239697048</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10006,7 +10006,7 @@
             <x>34</x>
             <y>19</y>
             <level>0</level>
-            <elevation>5.2946535144509586</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10014,7 +10014,7 @@
             <x>35</x>
             <y>19</y>
             <level>0</level>
-            <elevation>4.402756849043795</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10022,7 +10022,7 @@
             <x>36</x>
             <y>19</y>
             <level>0</level>
-            <elevation>3.4749791077753733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10030,7 +10030,7 @@
             <x>37</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.428453297845861</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10038,7 +10038,7 @@
             <x>38</x>
             <y>19</y>
             <level>0</level>
-            <elevation>1.6529357183387623</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10046,7 +10046,7 @@
             <x>39</x>
             <y>19</y>
             <level>0</level>
-            <elevation>1.0271129886239259</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10054,7 +10054,7 @@
             <x>40</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.2658705302045808</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10062,7 +10062,7 @@
             <x>41</x>
             <y>19</y>
             <level>0</level>
-            <elevation>-0.5585428849501539</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10070,7 +10070,7 @@
             <x>42</x>
             <y>19</y>
             <level>0</level>
-            <elevation>-0.6312621739670795</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10078,7 +10078,7 @@
             <x>43</x>
             <y>19</y>
             <level>0</level>
-            <elevation>-0.6493327304660393</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10086,7 +10086,7 @@
             <x>44</x>
             <y>19</y>
             <level>0</level>
-            <elevation>-0.7016682578428922</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10094,7 +10094,7 @@
             <x>45</x>
             <y>19</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10102,7 +10102,7 @@
             <x>46</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.14418301377846832</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10110,7 +10110,7 @@
             <x>47</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.6557711931475628</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10118,7 +10118,7 @@
             <x>48</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.7434812278221558</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10126,7 +10126,7 @@
             <x>49</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.475295164108483</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10134,7 +10134,7 @@
             <x>50</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.25605571693496654</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10142,7 +10142,7 @@
             <x>51</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.31826171235574163</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10150,7 +10150,7 @@
             <x>52</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.8296479846895266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10158,7 +10158,7 @@
             <x>53</x>
             <y>19</y>
             <level>0</level>
-            <elevation>1.7868067690207101</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10166,7 +10166,7 @@
             <x>54</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.444126131985759</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10174,7 +10174,7 @@
             <x>55</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.841932410961967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10182,7 +10182,7 @@
             <x>56</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.670487235861324</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10190,7 +10190,7 @@
             <x>57</x>
             <y>19</y>
             <level>0</level>
-            <elevation>2.2103002013176565</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10198,7 +10198,7 @@
             <x>58</x>
             <y>19</y>
             <level>0</level>
-            <elevation>1.3373375224973316</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10206,7 +10206,7 @@
             <x>59</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.5872834126883736</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10214,7 +10214,7 @@
             <x>60</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.16410770874920572</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10222,7 +10222,7 @@
             <x>61</x>
             <y>19</y>
             <level>0</level>
-            <elevation>0.02874044173969313</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10246,7 +10246,7 @@
             <x>0</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.02091356913575996</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10254,7 +10254,7 @@
             <x>1</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.10444834560917579</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10262,7 +10262,7 @@
             <x>2</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.21037220025298228</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10270,7 +10270,7 @@
             <x>3</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.20579479840973863</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10278,7 +10278,7 @@
             <x>4</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10286,7 +10286,7 @@
             <x>5</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.17577028220834862</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10294,7 +10294,7 @@
             <x>6</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.16859736275881293</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10302,7 +10302,7 @@
             <x>7</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.16129886465571153</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10310,7 +10310,7 @@
             <x>8</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10318,7 +10318,7 @@
             <x>9</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.3539451652023586</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10326,7 +10326,7 @@
             <x>10</x>
             <y>20</y>
             <level>0</level>
-            <elevation>3.12931922700097</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10334,7 +10334,7 @@
             <x>11</x>
             <y>20</y>
             <level>0</level>
-            <elevation>5.068565387072732</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10342,7 +10342,7 @@
             <x>12</x>
             <y>20</y>
             <level>0</level>
-            <elevation>6.595523422293565</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10350,7 +10350,7 @@
             <x>13</x>
             <y>20</y>
             <level>0</level>
-            <elevation>7.581482803099497</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10358,7 +10358,7 @@
             <x>14</x>
             <y>20</y>
             <level>0</level>
-            <elevation>7.675106528818751</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10366,7 +10366,7 @@
             <x>15</x>
             <y>20</y>
             <level>0</level>
-            <elevation>6.67925329724932</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10374,7 +10374,7 @@
             <x>16</x>
             <y>20</y>
             <level>0</level>
-            <elevation>4.85030199442247</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10382,7 +10382,7 @@
             <x>17</x>
             <y>20</y>
             <level>0</level>
-            <elevation>3.2596072390019355</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10390,7 +10390,7 @@
             <x>18</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.9145159192735484</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10398,7 +10398,7 @@
             <x>19</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.227980373069962</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10406,7 +10406,7 @@
             <x>20</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.7168157655523087</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10414,7 +10414,7 @@
             <x>21</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.4573397431577666</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10422,7 +10422,7 @@
             <x>22</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.292941045581752</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10430,7 +10430,7 @@
             <x>23</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.23654844710281364</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10438,7 +10438,7 @@
             <x>24</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.3158766197629279</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10446,7 +10446,7 @@
             <x>25</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.5455567053446054</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10454,7 +10454,7 @@
             <x>26</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.9163257975416236</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10462,7 +10462,7 @@
             <x>27</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.3863093634479766</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10470,7 +10470,7 @@
             <x>28</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.8409497772521108</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10478,7 +10478,7 @@
             <x>29</x>
             <y>20</y>
             <level>0</level>
-            <elevation>2.3730852763861936</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10486,7 +10486,7 @@
             <x>30</x>
             <y>20</y>
             <level>0</level>
-            <elevation>3.072195248689787</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10494,7 +10494,7 @@
             <x>31</x>
             <y>20</y>
             <level>0</level>
-            <elevation>3.628958053590566</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10502,7 +10502,7 @@
             <x>32</x>
             <y>20</y>
             <level>0</level>
-            <elevation>4.024941241518193</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10510,7 +10510,7 @@
             <x>33</x>
             <y>20</y>
             <level>0</level>
-            <elevation>4.216173229999377</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10518,7 +10518,7 @@
             <x>34</x>
             <y>20</y>
             <level>0</level>
-            <elevation>4.125360991515647</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10526,7 +10526,7 @@
             <x>35</x>
             <y>20</y>
             <level>0</level>
-            <elevation>3.6860305063315155</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10534,7 +10534,7 @@
             <x>36</x>
             <y>20</y>
             <level>0</level>
-            <elevation>3.170226746249603</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10542,7 +10542,7 @@
             <x>37</x>
             <y>20</y>
             <level>0</level>
-            <elevation>2.4918455808650135</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10550,7 +10550,7 @@
             <x>38</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.8681384033332848</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10558,7 +10558,7 @@
             <x>39</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.5956371936851688</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10566,7 +10566,7 @@
             <x>40</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.9226799004643462</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10574,7 +10574,7 @@
             <x>41</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.10623823978482326</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10582,7 +10582,7 @@
             <x>42</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.6081084222742074</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10590,7 +10590,7 @@
             <x>43</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.6740604278353862</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10598,7 +10598,7 @@
             <x>44</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.6968661680108365</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10606,7 +10606,7 @@
             <x>45</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.703235616358171</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10614,7 +10614,7 @@
             <x>46</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10622,7 +10622,7 @@
             <x>47</x>
             <y>20</y>
             <level>0</level>
-            <elevation>-0.09435265787726593</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10630,7 +10630,7 @@
             <x>48</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.1610330137292403</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10638,7 +10638,7 @@
             <x>49</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.1274281310970267</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10646,7 +10646,7 @@
             <x>50</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.0839917429822768</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10654,7 +10654,7 @@
             <x>51</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.2641575562775433</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10662,7 +10662,7 @@
             <x>52</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.8781182081030712</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10670,7 +10670,7 @@
             <x>53</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.7193214856077872</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10678,7 +10678,7 @@
             <x>54</x>
             <y>20</y>
             <level>0</level>
-            <elevation>2.328388364354417</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10686,7 +10686,7 @@
             <x>55</x>
             <y>20</y>
             <level>0</level>
-            <elevation>2.758865355618675</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10694,7 +10694,7 @@
             <x>56</x>
             <y>20</y>
             <level>0</level>
-            <elevation>2.9104546743311297</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10702,7 +10702,7 @@
             <x>57</x>
             <y>20</y>
             <level>0</level>
-            <elevation>2.142118486682685</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10710,7 +10710,7 @@
             <x>58</x>
             <y>20</y>
             <level>0</level>
-            <elevation>1.4641641531411351</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10718,7 +10718,7 @@
             <x>59</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.6864585914029421</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10726,7 +10726,7 @@
             <x>60</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.1967720403943851</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10734,7 +10734,7 @@
             <x>61</x>
             <y>20</y>
             <level>0</level>
-            <elevation>0.03363689867498115</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10758,7 +10758,7 @@
             <x>0</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.010082178702748617</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10766,7 +10766,7 @@
             <x>1</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.06440012317101433</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10774,7 +10774,7 @@
             <x>2</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10782,7 +10782,7 @@
             <x>3</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10790,7 +10790,7 @@
             <x>4</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10798,7 +10798,7 @@
             <x>5</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.15640960132433274</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10806,7 +10806,7 @@
             <x>6</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.15761372429236625</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10814,7 +10814,7 @@
             <x>7</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.16149908998532203</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10822,7 +10822,7 @@
             <x>8</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.7772728397083905</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10830,7 +10830,7 @@
             <x>9</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.105431325634841</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10838,7 +10838,7 @@
             <x>10</x>
             <y>21</y>
             <level>0</level>
-            <elevation>3.3619419088318665</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10846,7 +10846,7 @@
             <x>11</x>
             <y>21</y>
             <level>0</level>
-            <elevation>4.785223058393088</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10854,7 +10854,7 @@
             <x>12</x>
             <y>21</y>
             <level>0</level>
-            <elevation>5.966718931793186</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10862,7 +10862,7 @@
             <x>13</x>
             <y>21</y>
             <level>0</level>
-            <elevation>6.438148224888096</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10870,7 +10870,7 @@
             <x>14</x>
             <y>21</y>
             <level>0</level>
-            <elevation>5.977602140208086</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10878,7 +10878,7 @@
             <x>15</x>
             <y>21</y>
             <level>0</level>
-            <elevation>4.562438378866165</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10886,7 +10886,7 @@
             <x>16</x>
             <y>21</y>
             <level>0</level>
-            <elevation>3.0488069458513265</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10894,7 +10894,7 @@
             <x>17</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.6515939991415618</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10902,7 +10902,7 @@
             <x>18</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.8354684800089301</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10910,7 +10910,7 @@
             <x>19</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.49284614956314665</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10918,7 +10918,7 @@
             <x>20</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.3749541768206089</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10926,7 +10926,7 @@
             <x>21</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.27918232599658366</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10934,7 +10934,7 @@
             <x>22</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.15364045537644896</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10942,7 +10942,7 @@
             <x>23</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.043461153650414586</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10950,7 +10950,7 @@
             <x>24</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.021510562903575805</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10958,7 +10958,7 @@
             <x>25</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.1455200299050288</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10966,7 +10966,7 @@
             <x>26</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.24703808258832993</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10974,7 +10974,7 @@
             <x>27</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.45841692896686964</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10982,7 +10982,7 @@
             <x>28</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.7494191451029726</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10990,7 +10990,7 @@
             <x>29</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.1148337895751863</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -10998,7 +10998,7 @@
             <x>30</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.5413231601344741</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11006,7 +11006,7 @@
             <x>31</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.9409230195882339</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11014,7 +11014,7 @@
             <x>32</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.3093116384717627</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11022,7 +11022,7 @@
             <x>33</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.61679350072737</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11030,7 +11030,7 @@
             <x>34</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.6910734370776628</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11038,7 +11038,7 @@
             <x>35</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.522231018523596</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11046,7 +11046,7 @@
             <x>36</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.2367302050322144</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11054,7 +11054,7 @@
             <x>37</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.88357806318624</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11062,7 +11062,7 @@
             <x>38</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.5444814346777664</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11070,7 +11070,7 @@
             <x>39</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.1206997439522053</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11078,7 +11078,7 @@
             <x>40</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.6599060480524983</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11086,7 +11086,7 @@
             <x>41</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11094,7 +11094,7 @@
             <x>42</x>
             <y>21</y>
             <level>0</level>
-            <elevation>-0.6601641722480558</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11102,7 +11102,7 @@
             <x>43</x>
             <y>21</y>
             <level>0</level>
-            <elevation>-0.6803428708344407</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11110,7 +11110,7 @@
             <x>44</x>
             <y>21</y>
             <level>0</level>
-            <elevation>-0.6934782618925932</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11118,7 +11118,7 @@
             <x>45</x>
             <y>21</y>
             <level>0</level>
-            <elevation>-0.702319975727461</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11126,7 +11126,7 @@
             <x>46</x>
             <y>21</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11134,7 +11134,7 @@
             <x>47</x>
             <y>21</y>
             <level>0</level>
-            <elevation>-0.3837363913281872</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11142,7 +11142,7 @@
             <x>48</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.017179627151750962</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11150,7 +11150,7 @@
             <x>49</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.07284086135664226</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11158,7 +11158,7 @@
             <x>50</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.0975677303967754</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11166,7 +11166,7 @@
             <x>51</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.1603678362947066</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11174,7 +11174,7 @@
             <x>52</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.5923993644097677</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11182,7 +11182,7 @@
             <x>53</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.510841310461117</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11190,7 +11190,7 @@
             <x>54</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.9338781440504447</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11198,7 +11198,7 @@
             <x>55</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.5206569835091748</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11206,7 +11206,7 @@
             <x>56</x>
             <y>21</y>
             <level>0</level>
-            <elevation>2.3163235469823236</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11214,7 +11214,7 @@
             <x>57</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.9823470022936323</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11222,7 +11222,7 @@
             <x>58</x>
             <y>21</y>
             <level>0</level>
-            <elevation>1.4295832822147967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11230,7 +11230,7 @@
             <x>59</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.7074677659508382</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11238,7 +11238,7 @@
             <x>60</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.2147290308470416</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11246,7 +11246,7 @@
             <x>61</x>
             <y>21</y>
             <level>0</level>
-            <elevation>0.03618383563591786</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11270,7 +11270,7 @@
             <x>0</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.0036947579713939977</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11278,7 +11278,7 @@
             <x>1</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.06963962737217004</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11286,7 +11286,7 @@
             <x>2</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11294,7 +11294,7 @@
             <x>3</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11302,7 +11302,7 @@
             <x>4</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11310,7 +11310,7 @@
             <x>5</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11318,7 +11318,7 @@
             <x>6</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11326,7 +11326,7 @@
             <x>7</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.5190231687254525</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11334,7 +11334,7 @@
             <x>8</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.3321821829880354</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11342,7 +11342,7 @@
             <x>9</x>
             <y>22</y>
             <level>0</level>
-            <elevation>2.387724322472019</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11350,7 +11350,7 @@
             <x>10</x>
             <y>22</y>
             <level>0</level>
-            <elevation>3.310168620418646</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11358,7 +11358,7 @@
             <x>11</x>
             <y>22</y>
             <level>0</level>
-            <elevation>4.051933875775904</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11366,7 +11366,7 @@
             <x>12</x>
             <y>22</y>
             <level>0</level>
-            <elevation>4.671080323124363</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11374,7 +11374,7 @@
             <x>13</x>
             <y>22</y>
             <level>0</level>
-            <elevation>4.662533401732014</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11382,7 +11382,7 @@
             <x>14</x>
             <y>22</y>
             <level>0</level>
-            <elevation>3.7603593550754533</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11390,7 +11390,7 @@
             <x>15</x>
             <y>22</y>
             <level>0</level>
-            <elevation>2.4360394689949554</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11398,7 +11398,7 @@
             <x>16</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.3550739547471577</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11406,7 +11406,7 @@
             <x>17</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.6940849550953201</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11414,7 +11414,7 @@
             <x>18</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.3974579879453785</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11422,7 +11422,7 @@
             <x>19</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.22554161647954715</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11430,7 +11430,7 @@
             <x>20</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.19059596407397567</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11438,7 +11438,7 @@
             <x>21</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.135545686287106</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11446,7 +11446,7 @@
             <x>22</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.053070485687555485</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11454,7 +11454,7 @@
             <x>23</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.1453912059264415</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11462,7 +11462,7 @@
             <x>24</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.129684107526099</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11470,7 +11470,7 @@
             <x>25</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.05266000606736393</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11478,7 +11478,7 @@
             <x>26</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.06797228854702264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11486,7 +11486,7 @@
             <x>27</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.09506543386063572</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11494,7 +11494,7 @@
             <x>28</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.21034910462096862</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11502,7 +11502,7 @@
             <x>29</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.3971507925595491</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11510,7 +11510,7 @@
             <x>30</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.6815389909984906</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11518,7 +11518,7 @@
             <x>31</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.9280384892105095</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11526,7 +11526,7 @@
             <x>32</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.1490958080087885</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11534,7 +11534,7 @@
             <x>33</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.3365993915064711</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11542,7 +11542,7 @@
             <x>34</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.4384787576358578</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11550,7 +11550,7 @@
             <x>35</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.3927803530370622</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11558,7 +11558,7 @@
             <x>36</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.2699430115841301</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11566,7 +11566,7 @@
             <x>37</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.131497324965654</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11574,7 +11574,7 @@
             <x>38</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.9130316607989308</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11582,7 +11582,7 @@
             <x>39</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.5989804340748398</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11590,7 +11590,7 @@
             <x>40</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.24079728601796535</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11598,7 +11598,7 @@
             <x>41</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11606,7 +11606,7 @@
             <x>42</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.6019843427697854</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11614,7 +11614,7 @@
             <x>43</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.6786465132474242</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11622,7 +11622,7 @@
             <x>44</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.6943840329976346</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11630,7 +11630,7 @@
             <x>45</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.7012804467795808</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11638,7 +11638,7 @@
             <x>46</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11646,7 +11646,7 @@
             <x>47</x>
             <y>22</y>
             <level>0</level>
-            <elevation>-0.3258898523611668</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11654,7 +11654,7 @@
             <x>48</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.21116646141772397</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11662,7 +11662,7 @@
             <x>49</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.29356158647309555</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11670,7 +11670,7 @@
             <x>50</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.23477479081582733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11678,7 +11678,7 @@
             <x>51</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.29816898795788754</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11686,7 +11686,7 @@
             <x>52</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.49696677736779266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11694,7 +11694,7 @@
             <x>53</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.124148500127291</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11702,7 +11702,7 @@
             <x>54</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.639166932727039</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11710,7 +11710,7 @@
             <x>55</x>
             <y>22</y>
             <level>0</level>
-            <elevation>2.060342022001248</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11718,7 +11718,7 @@
             <x>56</x>
             <y>22</y>
             <level>0</level>
-            <elevation>2.157344501327294</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11726,7 +11726,7 @@
             <x>57</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.6180920897879187</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11734,7 +11734,7 @@
             <x>58</x>
             <y>22</y>
             <level>0</level>
-            <elevation>1.1818545306026997</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11742,7 +11742,7 @@
             <x>59</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.6270692161627264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11750,7 +11750,7 @@
             <x>60</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.20392002205857274</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11758,7 +11758,7 @@
             <x>61</x>
             <y>22</y>
             <level>0</level>
-            <elevation>0.03984350331455949</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11782,7 +11782,7 @@
             <x>0</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.004388673449905309</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11790,7 +11790,7 @@
             <x>1</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.050774067917676476</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11798,7 +11798,7 @@
             <x>2</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11806,7 +11806,7 @@
             <x>3</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11814,7 +11814,7 @@
             <x>4</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11822,7 +11822,7 @@
             <x>5</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11830,7 +11830,7 @@
             <x>6</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.24958482734660214</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11838,7 +11838,7 @@
             <x>7</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.7861483492892263</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11846,7 +11846,7 @@
             <x>8</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.3984440410083097</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11854,7 +11854,7 @@
             <x>9</x>
             <y>23</y>
             <level>0</level>
-            <elevation>2.121615624901275</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11862,7 +11862,7 @@
             <x>10</x>
             <y>23</y>
             <level>0</level>
-            <elevation>2.827470781930819</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11870,7 +11870,7 @@
             <x>11</x>
             <y>23</y>
             <level>0</level>
-            <elevation>3.1851118646744343</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11878,7 +11878,7 @@
             <x>12</x>
             <y>23</y>
             <level>0</level>
-            <elevation>3.2512709921018534</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11886,7 +11886,7 @@
             <x>13</x>
             <y>23</y>
             <level>0</level>
-            <elevation>2.878940097272323</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11894,7 +11894,7 @@
             <x>14</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.9590889552960566</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11902,7 +11902,7 @@
             <x>15</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.046929000013008</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11910,7 +11910,7 @@
             <x>16</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.43216938921815334</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11918,7 +11918,7 @@
             <x>17</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.31705162731615505</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11926,7 +11926,7 @@
             <x>18</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.22616865241377265</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11934,7 +11934,7 @@
             <x>19</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.12229962508784427</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11942,7 +11942,7 @@
             <x>20</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.06042230707265677</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11950,7 +11950,7 @@
             <x>21</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.08370382511513474</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11958,7 +11958,7 @@
             <x>22</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.1122992021200336</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11966,7 +11966,7 @@
             <x>23</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.06197063803431148</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11974,7 +11974,7 @@
             <x>24</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.2537875783925109</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11982,7 +11982,7 @@
             <x>25</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.03569724013651001</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11990,7 +11990,7 @@
             <x>26</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.1013510452519487</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -11998,7 +11998,7 @@
             <x>27</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.008300239986249978</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12006,7 +12006,7 @@
             <x>28</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.03747394774050089</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12014,7 +12014,7 @@
             <x>29</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.07341422052728466</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12022,7 +12022,7 @@
             <x>30</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.22089827811021762</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12030,7 +12030,7 @@
             <x>31</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.3668837434451711</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12038,7 +12038,7 @@
             <x>32</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.47765233608428465</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12046,7 +12046,7 @@
             <x>33</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.5776266935291512</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12054,7 +12054,7 @@
             <x>34</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.6112347409593151</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12062,7 +12062,7 @@
             <x>35</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.6187593761651363</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12070,7 +12070,7 @@
             <x>36</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.5990193046130783</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12078,7 +12078,7 @@
             <x>37</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.5511615319208173</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12086,7 +12086,7 @@
             <x>38</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.2978880715824539</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12094,7 +12094,7 @@
             <x>39</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.1975442181339686</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12102,7 +12102,7 @@
             <x>40</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12110,7 +12110,7 @@
             <x>41</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12118,7 +12118,7 @@
             <x>42</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.14103819136723972</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12126,7 +12126,7 @@
             <x>43</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.6413667313749244</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12134,7 +12134,7 @@
             <x>44</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.701021289854454</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12142,7 +12142,7 @@
             <x>45</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12150,7 +12150,7 @@
             <x>46</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12158,7 +12158,7 @@
             <x>47</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.2950796601166251</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12166,7 +12166,7 @@
             <x>48</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.3428495066424363</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12174,7 +12174,7 @@
             <x>49</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.4850485395261973</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12182,7 +12182,7 @@
             <x>50</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.38485208081723027</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12190,7 +12190,7 @@
             <x>51</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.4076495775861637</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12198,7 +12198,7 @@
             <x>52</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.7808127977257506</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12206,7 +12206,7 @@
             <x>53</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.8740612822332613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12214,7 +12214,7 @@
             <x>54</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.2992166010629718</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12222,7 +12222,7 @@
             <x>55</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.4466761939895445</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12230,7 +12230,7 @@
             <x>56</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.5282344010123268</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12238,7 +12238,7 @@
             <x>57</x>
             <y>23</y>
             <level>0</level>
-            <elevation>1.3464873049178268</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12246,7 +12246,7 @@
             <x>58</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.9201607416362397</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12254,7 +12254,7 @@
             <x>59</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.45729486049088597</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12262,7 +12262,7 @@
             <x>60</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.17813316858154984</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12270,7 +12270,7 @@
             <x>61</x>
             <y>23</y>
             <level>0</level>
-            <elevation>0.0367870981425806</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12278,7 +12278,7 @@
             <x>62</x>
             <y>23</y>
             <level>0</level>
-            <elevation>-0.0015152110298218518</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12294,7 +12294,7 @@
             <x>0</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.011989010720319382</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12302,7 +12302,7 @@
             <x>1</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.004301122854429773</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12310,7 +12310,7 @@
             <x>2</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.020079226152492705</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12318,7 +12318,7 @@
             <x>3</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.31866162254269986</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12326,7 +12326,7 @@
             <x>4</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12334,7 +12334,7 @@
             <x>5</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12342,7 +12342,7 @@
             <x>6</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.44503346874671645</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12350,7 +12350,7 @@
             <x>7</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.7050872757622171</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12358,7 +12358,7 @@
             <x>8</x>
             <y>24</y>
             <level>0</level>
-            <elevation>1.2222609526426054</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12366,7 +12366,7 @@
             <x>9</x>
             <y>24</y>
             <level>0</level>
-            <elevation>1.7588367916513754</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12374,7 +12374,7 @@
             <x>10</x>
             <y>24</y>
             <level>0</level>
-            <elevation>2.2010743308522613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12382,7 +12382,7 @@
             <x>11</x>
             <y>24</y>
             <level>0</level>
-            <elevation>2.2847436294674908</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12390,7 +12390,7 @@
             <x>12</x>
             <y>24</y>
             <level>0</level>
-            <elevation>2.090023337739279</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12398,7 +12398,7 @@
             <x>13</x>
             <y>24</y>
             <level>0</level>
-            <elevation>1.6480625641898383</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12406,7 +12406,7 @@
             <x>14</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.960374040517082</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12414,7 +12414,7 @@
             <x>15</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.4519259017002072</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12422,7 +12422,7 @@
             <x>16</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.256341060558734</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12430,7 +12430,7 @@
             <x>17</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.16635316021891894</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12438,7 +12438,7 @@
             <x>18</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.09041928118640394</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12446,7 +12446,7 @@
             <x>19</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.02510954764170725</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12454,7 +12454,7 @@
             <x>20</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.014153311426538173</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12462,7 +12462,7 @@
             <x>21</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.09741238271266459</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12470,7 +12470,7 @@
             <x>22</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.17940866162981484</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12478,7 +12478,7 @@
             <x>23</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.17103967825149924</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12486,7 +12486,7 @@
             <x>24</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.17247736356905666</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12494,7 +12494,7 @@
             <x>25</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.03254415258491076</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12502,7 +12502,7 @@
             <x>26</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.034589380979052564</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12510,7 +12510,7 @@
             <x>27</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.1701712849423191</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12518,7 +12518,7 @@
             <x>28</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.18626648713307248</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12526,7 +12526,7 @@
             <x>29</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.026696725735420923</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12534,7 +12534,7 @@
             <x>30</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.060301459896778924</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12542,7 +12542,7 @@
             <x>31</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.10237649144771072</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12550,7 +12550,7 @@
             <x>32</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.13558823420121052</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12558,7 +12558,7 @@
             <x>33</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.15639628963978308</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12566,7 +12566,7 @@
             <x>34</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.19351443272415214</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12574,7 +12574,7 @@
             <x>35</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.17469118496558358</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12582,7 +12582,7 @@
             <x>36</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.1447559634876391</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12590,7 +12590,7 @@
             <x>37</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.12638026961716367</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12598,7 +12598,7 @@
             <x>38</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.17367226966778937</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12606,7 +12606,7 @@
             <x>39</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12614,7 +12614,7 @@
             <x>40</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12622,7 +12622,7 @@
             <x>41</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12630,7 +12630,7 @@
             <x>42</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12638,7 +12638,7 @@
             <x>43</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.5393851807534665</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12646,7 +12646,7 @@
             <x>44</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.6832472050556034</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12654,7 +12654,7 @@
             <x>45</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12662,7 +12662,7 @@
             <x>46</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12670,7 +12670,7 @@
             <x>47</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.31654686342864097</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12678,7 +12678,7 @@
             <x>48</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.7377422372845672</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12686,7 +12686,7 @@
             <x>49</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.8069863449278053</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12694,7 +12694,7 @@
             <x>50</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.5779732380791364</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12702,7 +12702,7 @@
             <x>51</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.4462260090616216</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12710,7 +12710,7 @@
             <x>52</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.612628789053152</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12718,7 +12718,7 @@
             <x>53</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.606734651804033</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12726,7 +12726,7 @@
             <x>54</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.8126441201858906</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12734,7 +12734,7 @@
             <x>55</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.9648537535705752</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12742,7 +12742,7 @@
             <x>56</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.9763050253863084</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12750,7 +12750,7 @@
             <x>57</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.6863817760328803</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12758,7 +12758,7 @@
             <x>58</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.3838292794906549</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12766,7 +12766,7 @@
             <x>59</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.2533604465195762</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12774,7 +12774,7 @@
             <x>60</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.09487848353240176</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12782,7 +12782,7 @@
             <x>61</x>
             <y>24</y>
             <level>0</level>
-            <elevation>0.002239837861487426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12790,7 +12790,7 @@
             <x>62</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-0.0032498070654426456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12798,7 +12798,7 @@
             <x>63</x>
             <y>24</y>
             <level>0</level>
-            <elevation>-8.189315820875629E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12806,7 +12806,7 @@
             <x>0</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.004757965011083456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12814,7 +12814,7 @@
             <x>1</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.04049272064729681</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12822,7 +12822,7 @@
             <x>2</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.15272396654315967</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12830,7 +12830,7 @@
             <x>3</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.1829021819009832</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12838,7 +12838,7 @@
             <x>4</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.10601941888811836</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12846,7 +12846,7 @@
             <x>5</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.18167954435305075</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12854,7 +12854,7 @@
             <x>6</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.5785765392745372</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12862,7 +12862,7 @@
             <x>7</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.7040531902294137</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12870,7 +12870,7 @@
             <x>8</x>
             <y>25</y>
             <level>0</level>
-            <elevation>1.020918727998881</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12878,7 +12878,7 @@
             <x>9</x>
             <y>25</y>
             <level>0</level>
-            <elevation>1.3247046172442818</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12886,7 +12886,7 @@
             <x>10</x>
             <y>25</y>
             <level>0</level>
-            <elevation>1.479488337560782</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12894,7 +12894,7 @@
             <x>11</x>
             <y>25</y>
             <level>0</level>
-            <elevation>1.418430515854702</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12902,7 +12902,7 @@
             <x>12</x>
             <y>25</y>
             <level>0</level>
-            <elevation>1.1815593473675645</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12910,7 +12910,7 @@
             <x>13</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.8030550236904519</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12918,7 +12918,7 @@
             <x>14</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.4714680699212334</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12926,7 +12926,7 @@
             <x>15</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.22504496233965776</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12934,7 +12934,7 @@
             <x>16</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.10321875099112443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12942,7 +12942,7 @@
             <x>17</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.047729266067400425</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12950,7 +12950,7 @@
             <x>18</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.0016312704619988114</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12958,7 +12958,7 @@
             <x>19</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.014703294561389482</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12966,7 +12966,7 @@
             <x>20</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.00711537370219284</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12974,7 +12974,7 @@
             <x>21</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.025509288356666906</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12982,7 +12982,7 @@
             <x>22</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.06838051037475555</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12990,7 +12990,7 @@
             <x>23</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.06260874237002773</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -12998,7 +12998,7 @@
             <x>24</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.029234285006599837</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13006,7 +13006,7 @@
             <x>25</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.12779913214559796</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13014,7 +13014,7 @@
             <x>26</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.4926291620538228</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13022,7 +13022,7 @@
             <x>27</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.21644047111352743</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13030,7 +13030,7 @@
             <x>28</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.1929323539014213</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13038,7 +13038,7 @@
             <x>29</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.019783991916057175</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13046,7 +13046,7 @@
             <x>30</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.031070051328222832</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13054,7 +13054,7 @@
             <x>31</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.010382861871826026</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13062,7 +13062,7 @@
             <x>32</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.03124517747457983</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13070,7 +13070,7 @@
             <x>33</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.0547763123857436</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13078,7 +13078,7 @@
             <x>34</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.07003921748998321</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13086,7 +13086,7 @@
             <x>35</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.044932842315512804</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13094,7 +13094,7 @@
             <x>36</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.06877235354189226</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13102,7 +13102,7 @@
             <x>37</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.09419971722743947</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13110,7 +13110,7 @@
             <x>38</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.03058932605678846</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13118,7 +13118,7 @@
             <x>39</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13126,7 +13126,7 @@
             <x>40</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13134,7 +13134,7 @@
             <x>41</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13142,7 +13142,7 @@
             <x>42</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13150,7 +13150,7 @@
             <x>43</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.07288080474174748</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13158,7 +13158,7 @@
             <x>44</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.6372131864480963</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13166,7 +13166,7 @@
             <x>45</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13174,7 +13174,7 @@
             <x>46</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13182,7 +13182,7 @@
             <x>47</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.3474210365117138</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13190,7 +13190,7 @@
             <x>48</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.35726786684402734</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13198,7 +13198,7 @@
             <x>49</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.5044272302151951</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13206,7 +13206,7 @@
             <x>50</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.3326296922274914</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13214,7 +13214,7 @@
             <x>51</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.41281302092937994</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13222,7 +13222,7 @@
             <x>52</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.342365643187874</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13230,7 +13230,7 @@
             <x>53</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.3405140760312072</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13238,7 +13238,7 @@
             <x>54</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.8591462918174669</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13246,7 +13246,7 @@
             <x>55</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.5556324818531021</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13254,7 +13254,7 @@
             <x>56</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.5129749281700124</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13262,7 +13262,7 @@
             <x>57</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.5129528729882575</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13270,7 +13270,7 @@
             <x>58</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.28726377831556443</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13278,7 +13278,7 @@
             <x>59</x>
             <y>25</y>
             <level>0</level>
-            <elevation>0.1922447503637228</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13286,7 +13286,7 @@
             <x>60</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.14379643319000573</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13294,7 +13294,7 @@
             <x>61</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.007825735746446485</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13302,7 +13302,7 @@
             <x>62</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.01798155066172863</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13310,7 +13310,7 @@
             <x>63</x>
             <y>25</y>
             <level>0</level>
-            <elevation>-0.0017249864520896205</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13318,7 +13318,7 @@
             <x>0</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.01469594715777486</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13326,7 +13326,7 @@
             <x>1</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.06594986395463266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13334,7 +13334,7 @@
             <x>2</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.17958964519674475</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13342,7 +13342,7 @@
             <x>3</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.04707371510618556</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13350,7 +13350,7 @@
             <x>4</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.3024108966607407</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13358,7 +13358,7 @@
             <x>5</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.042439256029373484</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13366,7 +13366,7 @@
             <x>6</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.891381030463951</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13374,7 +13374,7 @@
             <x>7</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.7423340757505476</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13382,7 +13382,7 @@
             <x>8</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.8272486976893969</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13390,7 +13390,7 @@
             <x>9</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.9279922509119929</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13398,7 +13398,7 @@
             <x>10</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.9245968260534227</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13406,7 +13406,7 @@
             <x>11</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.7722132207078334</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13414,7 +13414,7 @@
             <x>12</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.511982597053847</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13422,7 +13422,7 @@
             <x>13</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.3397478554913739</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13430,7 +13430,7 @@
             <x>14</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.20006068185215198</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13438,7 +13438,7 @@
             <x>15</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.04879734279256227</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13446,7 +13446,7 @@
             <x>16</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.007587326994229385</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13454,7 +13454,7 @@
             <x>17</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.02519727713447441</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13462,7 +13462,7 @@
             <x>18</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.03839689998573161</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13470,7 +13470,7 @@
             <x>19</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.031739667047658154</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13478,7 +13478,7 @@
             <x>20</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.00869027136269478</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13486,7 +13486,7 @@
             <x>21</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.01601694554689617</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13494,7 +13494,7 @@
             <x>22</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.027317006732793823</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13502,7 +13502,7 @@
             <x>23</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.03212078144852605</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13510,7 +13510,7 @@
             <x>24</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.2124757641205327</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13518,7 +13518,7 @@
             <x>25</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.05542398910240787</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13526,7 +13526,7 @@
             <x>26</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.09819626012563569</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13534,7 +13534,7 @@
             <x>27</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.10217546115866173</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13542,7 +13542,7 @@
             <x>28</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.020086128738409703</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13550,7 +13550,7 @@
             <x>29</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.08151559546611402</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13558,7 +13558,7 @@
             <x>30</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.03719994876907335</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13566,7 +13566,7 @@
             <x>31</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.011299274088833758</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13574,7 +13574,7 @@
             <x>32</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.01465219274341388</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13582,7 +13582,7 @@
             <x>33</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02053858377234591</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13590,7 +13590,7 @@
             <x>34</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.04859070228735174</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13598,7 +13598,7 @@
             <x>35</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.05468674941716248</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13606,7 +13606,7 @@
             <x>36</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.06661151557010253</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13614,7 +13614,7 @@
             <x>37</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.07714771631389516</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13622,7 +13622,7 @@
             <x>38</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02595626361408527</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13630,7 +13630,7 @@
             <x>39</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13638,7 +13638,7 @@
             <x>40</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13646,7 +13646,7 @@
             <x>41</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13654,7 +13654,7 @@
             <x>42</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13662,7 +13662,7 @@
             <x>43</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13670,7 +13670,7 @@
             <x>44</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.49452308799467953</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13678,7 +13678,7 @@
             <x>45</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13686,7 +13686,7 @@
             <x>46</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.7032647552353853</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13694,7 +13694,7 @@
             <x>47</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.3998035066427439</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13702,7 +13702,7 @@
             <x>48</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.38922732015037426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13710,7 +13710,7 @@
             <x>49</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.26377902796271024</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13718,7 +13718,7 @@
             <x>50</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.3653157072429415</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13726,7 +13726,7 @@
             <x>51</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.08279169834731887</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13734,7 +13734,7 @@
             <x>52</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.01809415249059186</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13742,7 +13742,7 @@
             <x>53</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.15993358842195585</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13750,7 +13750,7 @@
             <x>54</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.5037178498703205</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13758,7 +13758,7 @@
             <x>55</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.2980504578634522</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13766,7 +13766,7 @@
             <x>56</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.23075808921461444</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13774,7 +13774,7 @@
             <x>57</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.14001426629369426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13782,7 +13782,7 @@
             <x>58</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.20751595316016544</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13790,7 +13790,7 @@
             <x>59</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.1498353518360161</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13798,7 +13798,7 @@
             <x>60</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.0427982059564805</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13806,7 +13806,7 @@
             <x>61</x>
             <y>26</y>
             <level>0</level>
-            <elevation>-0.010671866767473996</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13814,7 +13814,7 @@
             <x>62</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.003139047693761973</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13822,7 +13822,7 @@
             <x>63</x>
             <y>26</y>
             <level>0</level>
-            <elevation>0.002157559717870115</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13830,7 +13830,7 @@
             <x>0</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.001622023241003546</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13838,7 +13838,7 @@
             <x>1</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.00903868335204939</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13846,7 +13846,7 @@
             <x>2</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.002065909408790468</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13854,7 +13854,7 @@
             <x>3</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.13939061610974104</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13862,7 +13862,7 @@
             <x>4</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.1841597380420922</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13870,7 +13870,7 @@
             <x>5</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.21799726869240382</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13878,7 +13878,7 @@
             <x>6</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.429534076068292</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13886,7 +13886,7 @@
             <x>7</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.5478123660862426</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13894,7 +13894,7 @@
             <x>8</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.6177497360961665</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13902,7 +13902,7 @@
             <x>9</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.6351643137815807</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13910,7 +13910,7 @@
             <x>10</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.5568898267237172</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13918,7 +13918,7 @@
             <x>11</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.34562911456775613</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13926,7 +13926,7 @@
             <x>12</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.16695658725352447</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13934,7 +13934,7 @@
             <x>13</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.1027792419601753</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13942,7 +13942,7 @@
             <x>14</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.04770107161743946</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13950,7 +13950,7 @@
             <x>15</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.01694504621506457</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13958,7 +13958,7 @@
             <x>16</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.05607963143532857</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13966,7 +13966,7 @@
             <x>17</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.05626703303969008</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13974,7 +13974,7 @@
             <x>18</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.05087349658354393</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13982,7 +13982,7 @@
             <x>19</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.03403919216813544</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13990,7 +13990,7 @@
             <x>20</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.007022481790692415</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -13998,7 +13998,7 @@
             <x>21</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.015785242578474603</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14006,7 +14006,7 @@
             <x>22</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.026198383386659536</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14014,7 +14014,7 @@
             <x>23</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.011041007035366585</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14022,7 +14022,7 @@
             <x>24</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.08956064727969337</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14030,7 +14030,7 @@
             <x>25</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.27231500178374574</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14038,7 +14038,7 @@
             <x>26</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.30293907136032544</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14046,7 +14046,7 @@
             <x>27</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.06954718646472247</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14054,7 +14054,7 @@
             <x>28</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.3389377620629336</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14062,7 +14062,7 @@
             <x>29</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.09957467332830514</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14070,7 +14070,7 @@
             <x>30</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.09724928442481821</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14078,7 +14078,7 @@
             <x>31</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.05444856809932685</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14086,7 +14086,7 @@
             <x>32</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.002038535578001585</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14094,7 +14094,7 @@
             <x>33</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02733387162257496</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14102,7 +14102,7 @@
             <x>34</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.048214666220289276</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14110,7 +14110,7 @@
             <x>35</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.05094017817866161</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14118,7 +14118,7 @@
             <x>36</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.05340527594215524</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14126,7 +14126,7 @@
             <x>37</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.04822966213097159</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14134,7 +14134,7 @@
             <x>38</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14142,7 +14142,7 @@
             <x>39</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14150,7 +14150,7 @@
             <x>40</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14158,7 +14158,7 @@
             <x>41</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14166,7 +14166,7 @@
             <x>42</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14174,7 +14174,7 @@
             <x>43</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14182,7 +14182,7 @@
             <x>44</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.13662655195174497</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14190,7 +14190,7 @@
             <x>45</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.6433940758032458</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14198,7 +14198,7 @@
             <x>46</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.6922465175706175</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14206,7 +14206,7 @@
             <x>47</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.3930050642201919</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14214,7 +14214,7 @@
             <x>48</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.3210988906779339</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14222,7 +14222,7 @@
             <x>49</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.1560911933080326</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14230,7 +14230,7 @@
             <x>50</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.23374754107559068</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14238,7 +14238,7 @@
             <x>51</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.18119985372072347</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14246,7 +14246,7 @@
             <x>52</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.17316591300757392</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14254,7 +14254,7 @@
             <x>53</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.2778814867563368</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14262,7 +14262,7 @@
             <x>54</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.20213623064834252</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14270,7 +14270,7 @@
             <x>55</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.023662869100551643</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14278,7 +14278,7 @@
             <x>56</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.06610213309396011</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14286,7 +14286,7 @@
             <x>57</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.08237321444728607</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14294,7 +14294,7 @@
             <x>58</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.1075309263536492</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14302,7 +14302,7 @@
             <x>59</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.09656295398118758</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14310,7 +14310,7 @@
             <x>60</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.05068327256523528</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14318,7 +14318,7 @@
             <x>61</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.04206046039022031</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14326,7 +14326,7 @@
             <x>62</x>
             <y>27</y>
             <level>0</level>
-            <elevation>0.0069263372370173115</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14334,7 +14334,7 @@
             <x>63</x>
             <y>27</y>
             <level>0</level>
-            <elevation>-0.00463375671808552</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14350,7 +14350,7 @@
             <x>1</x>
             <y>28</y>
             <level>0</level>
-            <elevation>4.029271482904849E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14358,7 +14358,7 @@
             <x>2</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.007677927008235414</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14366,7 +14366,7 @@
             <x>3</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.12265116042594884</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14374,7 +14374,7 @@
             <x>4</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.1369400415686754</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14382,7 +14382,7 @@
             <x>5</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.19738603463174953</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14390,7 +14390,7 @@
             <x>6</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.3086989884539461</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14398,7 +14398,7 @@
             <x>7</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.4016315764299643</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14406,7 +14406,7 @@
             <x>8</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.44485065815020675</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14414,7 +14414,7 @@
             <x>9</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.43519181986930233</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14422,7 +14422,7 @@
             <x>10</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.33494881785280345</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14430,7 +14430,7 @@
             <x>11</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.16552971272775316</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14438,7 +14438,7 @@
             <x>12</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.06898451975458497</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14446,7 +14446,7 @@
             <x>13</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.017340163659405897</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14454,7 +14454,7 @@
             <x>14</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.049560270366817843</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14462,7 +14462,7 @@
             <x>15</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.02285042112146673</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14470,7 +14470,7 @@
             <x>16</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.07941412227547551</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14478,7 +14478,7 @@
             <x>17</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.06378633099984848</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14486,7 +14486,7 @@
             <x>18</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.04797926310592416</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14494,7 +14494,7 @@
             <x>19</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.027015107388414946</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14502,7 +14502,7 @@
             <x>20</x>
             <y>28</y>
             <level>0</level>
-            <elevation>1.9652201926647923E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14510,7 +14510,7 @@
             <x>21</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.024517157387290683</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14518,7 +14518,7 @@
             <x>22</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.04429466954868573</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14526,7 +14526,7 @@
             <x>23</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.03815570559896429</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14534,7 +14534,7 @@
             <x>24</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.01689236490265253</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14542,7 +14542,7 @@
             <x>25</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.1818024830383361</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14550,7 +14550,7 @@
             <x>26</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.4103340933330653</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14558,7 +14558,7 @@
             <x>27</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.24314612108938216</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14566,7 +14566,7 @@
             <x>28</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.0933643841999928</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14574,7 +14574,7 @@
             <x>29</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.15563194094899574</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14582,7 +14582,7 @@
             <x>30</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.06090946846926207</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14590,7 +14590,7 @@
             <x>31</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.03395658037387202</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14598,7 +14598,7 @@
             <x>32</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.013773796889274638</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14606,7 +14606,7 @@
             <x>33</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.011800071841225897</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14614,7 +14614,7 @@
             <x>34</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02249128348613389</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14622,7 +14622,7 @@
             <x>35</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.01749993454757244</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14630,7 +14630,7 @@
             <x>36</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.016749328162816757</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14638,7 +14638,7 @@
             <x>37</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.01739161567714214</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14646,7 +14646,7 @@
             <x>38</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14654,7 +14654,7 @@
             <x>39</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14662,7 +14662,7 @@
             <x>40</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14670,7 +14670,7 @@
             <x>41</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14678,7 +14678,7 @@
             <x>42</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14686,7 +14686,7 @@
             <x>43</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14694,7 +14694,7 @@
             <x>44</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.005978390255266575</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14702,7 +14702,7 @@
             <x>45</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.21887284675670682</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14710,7 +14710,7 @@
             <x>46</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.3585087936631948</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14718,7 +14718,7 @@
             <x>47</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.2656851543539234</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14726,7 +14726,7 @@
             <x>48</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.09027071641779186</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14734,7 +14734,7 @@
             <x>49</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.09430290674198888</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14742,7 +14742,7 @@
             <x>50</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.138786253570029</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14750,7 +14750,7 @@
             <x>51</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.13131502959183788</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14758,7 +14758,7 @@
             <x>52</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.12821862041642046</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14766,7 +14766,7 @@
             <x>53</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.13272467403399132</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14774,7 +14774,7 @@
             <x>54</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.08881972935832816</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14782,7 +14782,7 @@
             <x>55</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.019757309296995852</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14790,7 +14790,7 @@
             <x>56</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.02224605430430217</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14798,7 +14798,7 @@
             <x>57</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.03522094982989159</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14806,7 +14806,7 @@
             <x>58</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.05053300190683282</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14814,7 +14814,7 @@
             <x>59</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.060835241541576275</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14822,7 +14822,7 @@
             <x>60</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.05341449793581952</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14830,7 +14830,7 @@
             <x>61</x>
             <y>28</y>
             <level>0</level>
-            <elevation>8.6133404870215E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14838,7 +14838,7 @@
             <x>62</x>
             <y>28</y>
             <level>0</level>
-            <elevation>-0.010494246275143981</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14846,7 +14846,7 @@
             <x>63</x>
             <y>28</y>
             <level>0</level>
-            <elevation>0.003382393298323422</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14870,7 +14870,7 @@
             <x>2</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.01265276738806128</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14878,7 +14878,7 @@
             <x>3</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.0024715795331019383</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14886,7 +14886,7 @@
             <x>4</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.06243863160297387</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14894,7 +14894,7 @@
             <x>5</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.12805072838190174</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14902,7 +14902,7 @@
             <x>6</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.20624426668577867</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14910,7 +14910,7 @@
             <x>7</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.2820253601594805</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14918,7 +14918,7 @@
             <x>8</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.31364316856646085</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14926,7 +14926,7 @@
             <x>9</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.28687581267985013</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14934,7 +14934,7 @@
             <x>10</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.19293743778719036</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14942,7 +14942,7 @@
             <x>11</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.07647352221980465</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14950,7 +14950,7 @@
             <x>12</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.056686447271213025</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14958,7 +14958,7 @@
             <x>13</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.08174078500746638</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14966,7 +14966,7 @@
             <x>14</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.14247028170082462</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14974,7 +14974,7 @@
             <x>15</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.011334799205831116</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14982,7 +14982,7 @@
             <x>16</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.07166929887466363</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14990,7 +14990,7 @@
             <x>17</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.049002589354331015</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -14998,7 +14998,7 @@
             <x>18</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.034417844538864914</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15006,7 +15006,7 @@
             <x>19</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.015593252116055441</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15014,7 +15014,7 @@
             <x>20</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.00879996639419572</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15022,7 +15022,7 @@
             <x>21</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.03779219540273592</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15030,7 +15030,7 @@
             <x>22</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.0687933931056885</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15038,7 +15038,7 @@
             <x>23</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.08037210638019489</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15046,7 +15046,7 @@
             <x>24</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.055087044740621344</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15054,7 +15054,7 @@
             <x>25</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.09636397489260477</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15062,7 +15062,7 @@
             <x>26</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.21668571837480194</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15070,7 +15070,7 @@
             <x>27</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.22819669796289596</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15078,7 +15078,7 @@
             <x>28</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.22128309316207181</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15086,7 +15086,7 @@
             <x>29</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.12491786030334728</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15094,7 +15094,7 @@
             <x>30</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.016278275348355888</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15102,7 +15102,7 @@
             <x>31</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.10253765591687046</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15110,7 +15110,7 @@
             <x>32</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.006828728217307907</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15118,7 +15118,7 @@
             <x>33</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.01896699238082733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15126,7 +15126,7 @@
             <x>34</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-4.6281048996165385E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15134,7 +15134,7 @@
             <x>35</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.018190345007052685</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15142,7 +15142,7 @@
             <x>36</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.011687028669744774</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15150,7 +15150,7 @@
             <x>37</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.0013995373405149662</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15158,7 +15158,7 @@
             <x>38</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.00718576938263456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15166,7 +15166,7 @@
             <x>39</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.014762686005817646</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15174,7 +15174,7 @@
             <x>40</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15182,7 +15182,7 @@
             <x>41</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15190,7 +15190,7 @@
             <x>42</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15198,7 +15198,7 @@
             <x>43</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02450146185497386</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15206,7 +15206,7 @@
             <x>44</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.019016396035924896</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15214,7 +15214,7 @@
             <x>45</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.005662457722917114</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15222,7 +15222,7 @@
             <x>46</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.03600795935595897</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15230,7 +15230,7 @@
             <x>47</x>
             <y>29</y>
             <level>0</level>
-            <elevation>-0.015532460423197326</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15238,7 +15238,7 @@
             <x>48</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02393645763129385</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15246,7 +15246,7 @@
             <x>49</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.0662701734822043</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15254,7 +15254,7 @@
             <x>50</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.07112048352964752</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15262,7 +15262,7 @@
             <x>51</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.0776710411944328</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15270,7 +15270,7 @@
             <x>52</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.07807721359992349</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15278,7 +15278,7 @@
             <x>53</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.06869664863744801</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15286,7 +15286,7 @@
             <x>54</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.041088487710392405</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15294,7 +15294,7 @@
             <x>55</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.01320337128439943</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15302,7 +15302,7 @@
             <x>56</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.00953494668346289</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15310,7 +15310,7 @@
             <x>57</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.011745014128954841</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15318,7 +15318,7 @@
             <x>58</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02065994406372844</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15326,7 +15326,7 @@
             <x>59</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.023736428818318382</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15334,7 +15334,7 @@
             <x>60</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.02087053018858698</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15342,7 +15342,7 @@
             <x>61</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.007908300393398581</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15350,7 +15350,7 @@
             <x>62</x>
             <y>29</y>
             <level>0</level>
-            <elevation>0.008318538836252685</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15390,7 +15390,7 @@
             <x>3</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0026720775139474195</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15398,7 +15398,7 @@
             <x>4</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.011815885581611563</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15406,7 +15406,7 @@
             <x>5</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.04016024197702655</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15414,7 +15414,7 @@
             <x>6</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0996191062497635</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15422,7 +15422,7 @@
             <x>7</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.1495438746296472</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15430,7 +15430,7 @@
             <x>8</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.16879105171763814</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15438,7 +15438,7 @@
             <x>9</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.14092584935565866</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15446,7 +15446,7 @@
             <x>10</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.07345159839630327</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15454,7 +15454,7 @@
             <x>11</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.009133330519435079</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15462,7 +15462,7 @@
             <x>12</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.02691580640947826</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15470,7 +15470,7 @@
             <x>13</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.09681594251844129</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15478,7 +15478,7 @@
             <x>14</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.1429674902567094</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15486,7 +15486,7 @@
             <x>15</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.06791749313912523</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15494,7 +15494,7 @@
             <x>16</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.028523287608230634</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15502,7 +15502,7 @@
             <x>17</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.010922327186649894</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15510,7 +15510,7 @@
             <x>18</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.01594234466977337</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15518,7 +15518,7 @@
             <x>19</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.005472098718922546</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15526,7 +15526,7 @@
             <x>20</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.012804400270835929</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15534,7 +15534,7 @@
             <x>21</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.037509345132706456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15542,7 +15542,7 @@
             <x>22</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.06565834857315592</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15550,7 +15550,7 @@
             <x>23</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.05852093038554484</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15558,7 +15558,7 @@
             <x>24</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.010653553080835189</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15566,7 +15566,7 @@
             <x>25</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.06454075610281909</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15574,7 +15574,7 @@
             <x>26</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.11985926182314638</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15582,7 +15582,7 @@
             <x>27</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.12488955332994914</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15590,7 +15590,7 @@
             <x>28</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0697606304789059</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15598,7 +15598,7 @@
             <x>29</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.005241824090135218</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15606,7 +15606,7 @@
             <x>30</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.0674229245896799</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15614,7 +15614,7 @@
             <x>31</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.19805214808198696</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15622,7 +15622,7 @@
             <x>32</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.1535847092222784</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15630,7 +15630,7 @@
             <x>33</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.044934875957616555</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15638,7 +15638,7 @@
             <x>34</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.0022899169084333246</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15646,7 +15646,7 @@
             <x>35</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.018839351828951724</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15654,7 +15654,7 @@
             <x>36</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.017109179318388963</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15662,7 +15662,7 @@
             <x>37</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.008375299942067376</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15670,7 +15670,7 @@
             <x>38</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-2.5064862419462114E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15678,7 +15678,7 @@
             <x>39</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0034642206373193736</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15686,7 +15686,7 @@
             <x>40</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0037222467216721762</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15694,7 +15694,7 @@
             <x>41</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0018127185902223127</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15702,7 +15702,7 @@
             <x>42</x>
             <y>30</y>
             <level>0</level>
-            <elevation>-0.0011136615021203836</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15710,7 +15710,7 @@
             <x>43</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.002881036451069874</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15718,7 +15718,7 @@
             <x>44</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.011605637364712172</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15726,7 +15726,7 @@
             <x>45</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.025658344325425145</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15734,7 +15734,7 @@
             <x>46</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.033809220042731875</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15742,7 +15742,7 @@
             <x>47</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.041798935865502145</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15750,7 +15750,7 @@
             <x>48</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.030604681026961844</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15758,7 +15758,7 @@
             <x>49</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.027961646023918006</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15766,7 +15766,7 @@
             <x>50</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.03063436003724577</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15774,7 +15774,7 @@
             <x>51</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.04070841180294881</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15782,7 +15782,7 @@
             <x>52</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0433015121177432</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15790,7 +15790,7 @@
             <x>53</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.03405418730544031</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15798,7 +15798,7 @@
             <x>54</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.018419402773551266</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15806,7 +15806,7 @@
             <x>55</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0040031165044559225</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15814,7 +15814,7 @@
             <x>56</x>
             <y>30</y>
             <level>0</level>
-            <elevation>8.883048209504781E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15822,7 +15822,7 @@
             <x>57</x>
             <y>30</y>
             <level>0</level>
-            <elevation>4.6875308306117787E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15830,7 +15830,7 @@
             <x>58</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.004476473112450797</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15838,7 +15838,7 @@
             <x>59</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.005215741209137233</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15846,7 +15846,7 @@
             <x>60</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.006777352406263492</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15854,7 +15854,7 @@
             <x>61</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.0043755083023787385</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15862,7 +15862,7 @@
             <x>62</x>
             <y>30</y>
             <level>0</level>
-            <elevation>0.002475334334076298</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15910,7 +15910,7 @@
             <x>4</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.0018798450019768302</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15918,7 +15918,7 @@
             <x>5</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.00897976002899831</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15926,7 +15926,7 @@
             <x>6</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.022122129965264557</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15934,7 +15934,7 @@
             <x>7</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.038417298203655456</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15942,7 +15942,7 @@
             <x>8</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.04473834336830132</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15950,7 +15950,7 @@
             <x>9</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.03458493462884313</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15958,7 +15958,7 @@
             <x>10</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.012017181979451905</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15966,7 +15966,7 @@
             <x>11</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.0031800412920858804</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15974,7 +15974,7 @@
             <x>12</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.012641377609010485</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15982,7 +15982,7 @@
             <x>13</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.07070242660977494</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15990,7 +15990,7 @@
             <x>14</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.14674091703654465</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -15998,7 +15998,7 @@
             <x>15</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.03873264171038806</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16006,7 +16006,7 @@
             <x>16</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.13257980261050892</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16014,7 +16014,7 @@
             <x>17</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.00195916645180452</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16022,7 +16022,7 @@
             <x>18</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.007034611152457827</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16030,7 +16030,7 @@
             <x>19</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.003157198360697302</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16038,7 +16038,7 @@
             <x>20</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.012081515754269532</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16046,7 +16046,7 @@
             <x>21</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.03378243628409806</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16054,7 +16054,7 @@
             <x>22</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.04305777128378264</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16062,7 +16062,7 @@
             <x>23</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.03226798634235555</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16070,7 +16070,7 @@
             <x>24</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.0011361233366945127</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16078,7 +16078,7 @@
             <x>25</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.04632990943327428</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16086,7 +16086,7 @@
             <x>26</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.06282478481994695</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16094,7 +16094,7 @@
             <x>27</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.022285183203420215</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16102,7 +16102,7 @@
             <x>28</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.020556315152555585</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16110,7 +16110,7 @@
             <x>29</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.001131897873440993</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16118,7 +16118,7 @@
             <x>30</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.0024312937223690025</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16126,7 +16126,7 @@
             <x>31</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.0758487036302279</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16134,7 +16134,7 @@
             <x>32</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.01280212377667217</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16142,7 +16142,7 @@
             <x>33</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.06757835352736292</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16150,7 +16150,7 @@
             <x>34</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.01456627349414733</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16158,7 +16158,7 @@
             <x>35</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.008990523679471873</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16166,7 +16166,7 @@
             <x>36</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.013205705434483796</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16174,7 +16174,7 @@
             <x>37</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.008578610765319846</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16182,7 +16182,7 @@
             <x>38</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.002821930909335444</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16190,7 +16190,7 @@
             <x>39</x>
             <y>31</y>
             <level>0</level>
-            <elevation>3.634666615081345E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16198,7 +16198,7 @@
             <x>40</x>
             <y>31</y>
             <level>0</level>
-            <elevation>5.405704265797445E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16206,7 +16206,7 @@
             <x>41</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.002464002103441077</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16214,7 +16214,7 @@
             <x>42</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.0027990312482210934</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16222,7 +16222,7 @@
             <x>43</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.004819430139101818</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16230,7 +16230,7 @@
             <x>44</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.004693767131405751</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16238,7 +16238,7 @@
             <x>45</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.007295094168606897</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16246,7 +16246,7 @@
             <x>46</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.017111850124644737</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16254,7 +16254,7 @@
             <x>47</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.020822558120779915</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16262,7 +16262,7 @@
             <x>48</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.01641813635878039</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16270,7 +16270,7 @@
             <x>49</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.013828551799292535</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16278,7 +16278,7 @@
             <x>50</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.017621432053338177</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16286,7 +16286,7 @@
             <x>51</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.027093552549742727</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16294,7 +16294,7 @@
             <x>52</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.028087710545198027</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16302,7 +16302,7 @@
             <x>53</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.021669195663943274</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16310,7 +16310,7 @@
             <x>54</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.010986434143062083</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16318,7 +16318,7 @@
             <x>55</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.0014257331850725686</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16326,7 +16326,7 @@
             <x>56</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-9.729090719644302E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16334,7 +16334,7 @@
             <x>57</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-0.00284590266808637</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16342,7 +16342,7 @@
             <x>58</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-3.695830170682502E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16350,7 +16350,7 @@
             <x>59</x>
             <y>31</y>
             <level>0</level>
-            <elevation>-3.5245694173921104E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16358,7 +16358,7 @@
             <x>60</x>
             <y>31</y>
             <level>0</level>
-            <elevation>0.002255313846766955</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16366,7 +16366,7 @@
             <x>61</x>
             <y>31</y>
             <level>0</level>
-            <elevation>3.4104607577658397E-4</elevation>
+            <elevation>0.0</elevation>
             <isCliff>false</isCliff>
             <cliffShapeID></cliffShapeID>
          </tile>
@@ -16390,185 +16390,1108 @@
       <ramps class="java.util.ArrayList"/>
       <serializableTrinkets class="java.util.ArrayList">
          <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>33.867610931396484</x>
+               <y>17.695350646972656</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>190.06998466315923</yaw>
+            <scaleX>0.7200468779911501</scaleX>
+            <scaleY>1.0896894892237527</scaleY>
+            <scaleZ>1.1181923867844312</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>33.10360336303711</x>
+               <y>17.60376739501953</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>288.0710273984922</yaw>
+            <scaleX>0.9305999107673653</scaleX>
+            <scaleY>1.1629134801678753</scaleY>
+            <scaleZ>1.2127685313622865</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.42767333984375</x>
+               <y>17.558046340942383</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>226.69069814333648</yaw>
+            <scaleX>0.8245894987820424</scaleX>
+            <scaleY>1.0441067615101751</scaleY>
+            <scaleZ>1.3369676194057825</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>31.605051040649414</x>
+               <y>17.558046340942383</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>191.5015235939482</yaw>
+            <scaleX>0.7257784911813381</scaleX>
+            <scaleY>1.1320309365204402</scaleY>
+            <scaleZ>0.8215733037764325</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>30.853126525878906</x>
+               <y>17.421722412109375</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>323.7048344335257</yaw>
+            <scaleX>1.3187516804808466</scaleX>
+            <scaleY>0.9152731552710844</scaleY>
+            <scaleZ>0.9618369232016091</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>30.2497615814209</x>
+               <y>17.3768253326416</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>117.83446174392991</yaw>
+            <scaleX>1.3340962761677169</scaleX>
+            <scaleY>1.1563101996310625</scaleY>
+            <scaleZ>0.7482856177580335</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.6002254486084</x>
+               <y>17.309194564819336</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>7.631514905740078</yaw>
+            <scaleX>1.1137318324124341</scaleX>
+            <scaleY>1.384113120871353</scaleY>
+            <scaleZ>1.0932697394954651</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.928024291992188</x>
+               <y>17.197513580322266</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>201.4207448262397</yaw>
+            <scaleX>1.0970624913665308</scaleX>
+            <scaleY>0.9783762190569711</scaleY>
+            <scaleZ>1.1283000808718078</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>27.969646453857422</x>
+               <y>17.06471061706543</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>243.4311611809563</yaw>
+            <scaleX>1.2758668513073204</scaleX>
+            <scaleY>0.8220875353122408</scaleY>
+            <scaleZ>1.3945912763061292</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>26.51451873779297</x>
+               <y>16.802383422851562</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>112.46045964848857</yaw>
+            <scaleX>0.75258476617377</scaleX>
+            <scaleY>0.986167918820049</scaleY>
+            <scaleZ>0.8742364602896379</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>25.86756706237793</x>
+               <y>16.673093795776367</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>268.0737145998458</yaw>
+            <scaleX>0.8744436971178825</scaleX>
+            <scaleY>1.0443275474296951</scaleY>
+            <scaleZ>1.0054431217262656</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>24.93045997619629</x>
+               <y>16.333425521850586</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>270.41274550370593</yaw>
+            <scaleX>0.7557385012723615</scaleX>
+            <scaleY>1.137459901163043</scaleY>
+            <scaleZ>0.9397670786491179</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>24.209590911865234</x>
+               <y>15.577844619750977</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.834174484772535</yaw>
+            <scaleX>0.7181025944669454</scaleX>
+            <scaleY>0.7002560139874993</scaleY>
+            <scaleZ>1.0257379819147965</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>23.321754455566406</x>
+               <y>14.654768943786621</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>55.17496308605281</yaw>
+            <scaleX>1.0467680036795297</scaleX>
+            <scaleY>1.3230841564038434</scaleY>
+            <scaleZ>0.7093334838009929</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>23.46251106262207</x>
+               <y>13.379215240478516</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>13.962323942498088</yaw>
+            <scaleX>1.259761167146698</scaleX>
+            <scaleY>0.9628476132182835</scaleY>
+            <scaleZ>0.8867711711774708</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>23.34075927734375</x>
+               <y>12.467249870300293</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>55.502905880565415</yaw>
+            <scaleX>1.2690337719479363</scaleX>
+            <scaleY>0.7520166631866341</scaleY>
+            <scaleZ>0.998863631350952</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>24.331403732299805</x>
+               <y>10.796926498413086</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>114.91199878872702</yaw>
+            <scaleX>0.7250978930611272</scaleX>
+            <scaleY>1.0444470160169903</scaleY>
+            <scaleZ>1.2656102994188703</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>24.55517578125</x>
+               <y>10.120136260986328</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>36.63214772629569</yaw>
+            <scaleX>1.36534888747003</scaleX>
+            <scaleY>1.3092490481058734</scaleY>
+            <scaleZ>1.318997388745089</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>25.246551513671875</x>
+               <y>9.641122817993164</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>293.6374718462347</yaw>
+            <scaleX>1.014121896124574</scaleX>
+            <scaleY>0.7779686683873637</scaleY>
+            <scaleZ>1.056843791068422</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>33.6460075378418</x>
+               <y>13.878305435180664</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>107.7421541893682</yaw>
+            <scaleX>1.1724956438434426</scaleX>
+            <scaleY>0.7794788695406349</scaleY>
+            <scaleZ>1.3858088359053613</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.92567825317383</x>
+               <y>13.913480758666992</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>265.29692271808847</yaw>
+            <scaleX>0.8250622645060368</scaleX>
+            <scaleY>1.0205230437214026</scaleY>
+            <scaleZ>1.1765036249553291</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.04434585571289</x>
+               <y>14.072576522827148</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>88.56959711564515</yaw>
+            <scaleX>0.74761376917131</scaleX>
+            <scaleY>1.0741528696172535</scaleY>
+            <scaleZ>1.0574489454001503</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>30.66897201538086</x>
+               <y>13.669451713562012</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>282.3971803392714</yaw>
+            <scaleX>0.7265130087372598</scaleX>
+            <scaleY>0.9486750634928546</scaleY>
+            <scaleZ>1.081706305540362</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.98296356201172</x>
+               <y>13.65229606628418</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>332.53896213116985</yaw>
+            <scaleX>0.7769754382280583</scaleX>
+            <scaleY>1.235248677854882</scaleY>
+            <scaleZ>1.119831073449778</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.71158790588379</x>
+               <y>13.194957733154297</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>311.94665976441206</yaw>
+            <scaleX>0.8901825074105616</scaleX>
+            <scaleY>1.1056995924559843</scaleY>
+            <scaleZ>0.7274273670649138</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.571264266967773</x>
+               <y>12.882577896118164</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>146.2763194421329</yaw>
+            <scaleX>0.8162188395665151</scaleX>
+            <scaleY>1.041286375152505</scaleY>
+            <scaleZ>1.3051900119883795</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.512699127197266</x>
+               <y>12.498747825622559</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>64.15580721759699</yaw>
+            <scaleX>0.8613731615577502</scaleX>
+            <scaleY>1.389850554060424</scaleY>
+            <scaleZ>1.34093088938257</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.492036819458008</x>
+               <y>11.974557876586914</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>12.969791199092953</yaw>
+            <scaleX>0.9436458523994936</scaleX>
+            <scaleY>0.8452597451132557</scaleY>
+            <scaleZ>0.9172461613936143</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.70470428466797</x>
+               <y>11.794769287109375</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>286.86359830767015</yaw>
+            <scaleX>1.0670452068863923</scaleX>
+            <scaleY>0.8457412181980992</scaleY>
+            <scaleZ>1.1527432891964107</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.222414016723633</x>
+               <y>11.22861099243164</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>206.02732232495805</yaw>
+            <scaleX>0.9753862838820179</scaleX>
+            <scaleY>1.2522467050259647</scaleY>
+            <scaleZ>1.192422957765566</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.87850570678711</x>
+               <y>10.865463256835938</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>17.0256379272835</yaw>
+            <scaleX>0.9075288973522174</scaleX>
+            <scaleY>1.1688113985139594</scaleY>
+            <scaleZ>0.8196543086791112</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>30.80788803100586</x>
+               <y>10.46021842956543</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>291.7725695410009</yaw>
+            <scaleX>1.217209883637628</scaleX>
+            <scaleY>1.2791143566018843</scaleY>
+            <scaleZ>0.983152828763951</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.63656997680664</x>
+               <y>10.302005767822266</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>109.75133391210046</yaw>
+            <scaleX>0.9741031236864108</scaleX>
+            <scaleY>1.1843428885989533</scaleY>
+            <scaleZ>1.084950551799603</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>33.761444091796875</x>
+               <y>11.171939849853516</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>153.05217080148722</yaw>
+            <scaleX>1.3350883874267896</scaleX>
+            <scaleY>1.3486265826420256</scaleY>
+            <scaleZ>0.915265361811164</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>34.349544525146484</x>
+               <y>12.187755584716797</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>80.62538591671832</yaw>
+            <scaleX>0.9431602049342321</scaleX>
+            <scaleY>1.1198242400973093</scaleY>
+            <scaleZ>1.3297782291880258</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>34.21150207519531</x>
+               <y>13.244926452636719</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>82.76636650693065</yaw>
+            <scaleX>1.1112681295630784</scaleX>
+            <scaleY>1.3849843691131858</scaleY>
+            <scaleZ>1.10371020644298</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>31.743297576904297</x>
+               <y>13.514917373657227</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>213.1196304199112</yaw>
+            <scaleX>0.8918663126926442</scaleX>
+            <scaleY>0.9033412829054455</scaleY>
+            <scaleZ>1.1489683666450918</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>31.15793800354004</x>
+               <y>13.178190231323242</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>246.26943404847833</yaw>
+            <scaleX>1.3590436427511898</scaleX>
+            <scaleY>1.2129047715690253</scaleY>
+            <scaleZ>0.7898011689232753</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>30.789691925048828</x>
+               <y>12.931329727172852</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>265.1463836845062</yaw>
+            <scaleX>0.7193801320333242</scaleX>
+            <scaleY>0.8652041029789251</scaleY>
+            <scaleZ>1.2675554960211652</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.055240631103516</x>
+               <y>12.882575988769531</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>218.72987861192914</yaw>
+            <scaleX>1.1654944197813548</scaleX>
+            <scaleY>1.394241650682435</scaleY>
+            <scaleZ>0.8675831886852011</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.6787109375</x>
+               <y>12.785400390625</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>63.20018449714865</yaw>
+            <scaleX>0.9620253958559568</scaleX>
+            <scaleY>1.2677714569645504</scaleY>
+            <scaleZ>0.8692312929128573</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>31.836891174316406</x>
+               <y>12.483101844787598</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>177.93261096049628</yaw>
+            <scaleX>0.8834700807899433</scaleX>
+            <scaleY>0.7772698991761007</scaleY>
+            <scaleZ>1.149067682838364</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>30.436126708984375</x>
+               <y>12.801656723022461</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>235.68326608574884</yaw>
+            <scaleX>1.1164783817016333</scaleX>
+            <scaleY>0.78539693185395</scaleY>
+            <scaleZ>0.914688275580453</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.963428497314453</x>
+               <y>12.996786117553711</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>40.31028917724656</yaw>
+            <scaleX>0.9418290968481207</scaleX>
+            <scaleY>1.1074361741345498</scaleY>
+            <scaleZ>1.3786375192108464</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>31.60976219177246</x>
+               <y>12.065569877624512</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>326.1374637833283</yaw>
+            <scaleX>1.1991175448760911</scaleX>
+            <scaleY>1.1970302896907432</scaleY>
+            <scaleZ>0.8517523140521148</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>32.13314437866211</x>
+               <y>11.974557876586914</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>299.4974136298859</yaw>
+            <scaleX>1.1745370205893613</scaleX>
+            <scaleY>0.7639003510654627</scaleY>
+            <scaleZ>0.9700114285733871</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>26.732839584350586</x>
+               <y>17.85732078552246</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>30.063028448224603</yaw>
+            <scaleX>0.7252179582659504</scaleX>
+            <scaleY>0.7561342585167701</scaleY>
+            <scaleZ>1.2868412780461638</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>25.58464241027832</x>
+               <y>17.85732078552246</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>69.32293281707153</yaw>
+            <scaleX>0.7963318796069103</scaleX>
+            <scaleY>1.2137668715935463</scaleY>
+            <scaleZ>1.1273376492880103</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>24.267101287841797</x>
+               <y>17.489866256713867</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>164.2701588361156</yaw>
+            <scaleX>0.9026228332918388</scaleX>
+            <scaleY>1.0825296689694277</scaleY>
+            <scaleZ>1.0610238933514802</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>23.056224822998047</x>
+               <y>17.153026580810547</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>339.43430662914506</yaw>
+            <scaleX>1.3853277684546956</scaleX>
+            <scaleY>0.821687152617359</scaleY>
+            <scaleZ>1.3212547488272137</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>22.624622344970703</x>
+               <y>16.630165100097656</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>104.38244084738905</yaw>
+            <scaleX>0.9507897035834255</scaleX>
+            <scaleY>0.9683064465683044</scaleY>
+            <scaleZ>1.0271255816054012</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>21.744430541992188</x>
+               <y>15.637568473815918</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>129.8415967577971</yaw>
+            <scaleX>0.8546458743508791</scaleX>
+            <scaleY>0.9335934716473344</scaleY>
+            <scaleZ>1.1655464101686532</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>31.44413185119629</x>
+               <y>20.213722229003906</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>13.920613816373715</yaw>
+            <scaleX>1.1385304055223358</scaleX>
+            <scaleY>0.9432180706880843</scaleY>
+            <scaleZ>0.8162167034608154</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.885534286499023</x>
+               <y>20.51384925842285</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>54.37416872923884</yaw>
+            <scaleX>1.337871631932454</scaleX>
+            <scaleY>0.7727269064528031</scaleY>
+            <scaleZ>1.3481981378904573</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.001848220825195</x>
+               <y>20.84748649597168</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>267.69085841443365</yaw>
+            <scaleX>1.0291186300867061</scaleX>
+            <scaleY>1.2656345139958876</scaleY>
+            <scaleZ>1.0326359415008213</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>27.08949089050293</x>
+               <y>20.106178283691406</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>41.76807572673057</yaw>
+            <scaleX>1.032206860166152</scaleX>
+            <scaleY>0.9078136803915112</scaleY>
+            <scaleZ>0.8785467865579398</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.654132843017578</x>
+               <y>19.65613555908203</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>193.96089135042385</yaw>
+            <scaleX>1.0374423218928839</scaleX>
+            <scaleY>1.1532203591450827</scaleY>
+            <scaleZ>1.182600620409204</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>28.957950592041016</x>
+               <y>19.603952407836914</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>351.8891841613931</yaw>
+            <scaleX>1.0924246979830583</scaleX>
+            <scaleY>0.8771268522745643</scaleY>
+            <scaleZ>0.9595423354508865</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>29.91242218017578</x>
+               <y>19.551944732666016</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>65.73143123275847</yaw>
+            <scaleX>0.784181192712607</scaleX>
+            <scaleY>1.2765289505741277</scaleY>
+            <scaleZ>1.0895268878708118</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>21.957904815673828</x>
+               <y>14.20522689819336</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>334.1088279819675</yaw>
+            <scaleX>0.9753916678436594</scaleX>
+            <scaleY>1.1890839572558032</scaleY>
+            <scaleZ>0.7691019873467849</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>21.09531593322754</x>
+               <y>12.761561393737793</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>263.5259775766583</yaw>
+            <scaleX>0.9311841352532066</scaleX>
+            <scaleY>1.1905918941129636</scaleY>
+            <scaleZ>1.1324527512283307</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>21.72022819519043</x>
+               <y>11.03695297241211</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>141.3749068285317</yaw>
+            <scaleX>1.2746753666176547</scaleX>
+            <scaleY>1.0667534889833787</scaleY>
+            <scaleZ>1.1487477460397657</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>22.564666748046875</x>
+               <y>9.353670120239258</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>243.38092510140683</yaw>
+            <scaleX>0.8408324722448682</scaleX>
+            <scaleY>1.0797077857156905</scaleY>
+            <scaleZ>0.7763899998718938</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>21.915237426757812</x>
+               <y>8.880014419555664</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>28.97550595632365</yaw>
+            <scaleX>0.8567318220803057</scaleX>
+            <scaleY>1.0178878412132917</scaleY>
+            <scaleZ>1.16124121047274</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>20.842395782470703</x>
+               <y>8.934199333190918</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>267.59593359818103</yaw>
+            <scaleX>0.9216696382556467</scaleX>
+            <scaleY>1.142803962526762</scaleY>
+            <scaleZ>0.8949317351899156</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>20.653650283813477</x>
+               <y>8.737632751464844</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>68.91373130266389</yaw>
+            <scaleX>1.011921045685642</scaleX>
+            <scaleY>0.8875215336674026</scaleY>
+            <scaleZ>1.1752568906584457</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>23.021923065185547</x>
+               <y>7.481548309326172</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>16.404359305810175</yaw>
+            <scaleX>0.9403569286364429</scaleX>
+            <scaleY>1.028204588086514</scaleY>
+            <scaleZ>0.9768474702184664</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Tree</builderID>
+            <pos>
+               <x>24.18393325805664</x>
+               <y>8.525951385498047</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>312.3653299484804</yaw>
+            <scaleX>1.1361285268109336</scaleX>
+            <scaleY>0.9913595611732318</scaleY>
+            <scaleZ>1.296204573261997</scaleZ>
+            <modelPath>env/exterior01/treeA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>16.707256317138672</x>
-               <y>7.485740661621094</y>
-               <z>-0.27271492000346687</z>
+               <x>34.867088317871094</x>
+               <y>11.015890121459961</y>
+               <z>0.0</z>
             </pos>
-            <yaw>-1.1917324374076763</yaw>
-            <scaleX>0.7067040371236324</scaleX>
-            <scaleY>1.1690513185185591</scaleY>
-            <scaleZ>1.0186348168882107</scaleZ>
+            <yaw>298.70238248501374</yaw>
+            <scaleX>1.2070380744909104</scaleX>
+            <scaleY>1.312072707920168</scaleY>
+            <scaleZ>1.398738148791634</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>14.838491439819336</x>
-               <y>4.213483810424805</y>
-               <z>-0.7032647552353853</z>
+               <x>35.74951934814453</x>
+               <y>11.49893856048584</y>
+               <z>0.0</z>
             </pos>
-            <yaw>-0.22563978183867173</yaw>
-            <scaleX>1.1508703872145778</scaleX>
-            <scaleY>0.9858801296783039</scaleY>
-            <scaleZ>0.7888802090565672</scaleZ>
+            <yaw>296.01708634285967</yaw>
+            <scaleX>1.392965295735288</scaleX>
+            <scaleY>1.2796099571991242</scaleY>
+            <scaleZ>0.9842277057782376</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>16.16737461090088</x>
-               <y>6.9768877029418945</y>
-               <z>-0.4902565933104855</z>
+               <x>36.78105926513672</x>
+               <y>11.329049110412598</y>
+               <z>0.0</z>
             </pos>
-            <yaw>31.51894159915969</yaw>
-            <scaleX>1.2803614315397231</scaleX>
-            <scaleY>0.8719309896108016</scaleY>
-            <scaleZ>0.910344824833766</scaleZ>
+            <yaw>199.1239145532532</yaw>
+            <scaleX>1.3546442781705113</scaleX>
+            <scaleY>1.2432806367280587</scaleY>
+            <scaleZ>0.7662399601987475</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>15.330580711364746</x>
-               <y>7.19000244140625</y>
-               <z>-0.056661565646844186</z>
+               <x>37.237571716308594</x>
+               <y>10.933269500732422</y>
+               <z>0.0</z>
             </pos>
-            <yaw>181.63374488465388</yaw>
-            <scaleX>1.3884844716491145</scaleX>
-            <scaleY>1.1588299088377145</scaleY>
-            <scaleZ>1.0993133025082258</scaleZ>
+            <yaw>315.74110553617396</yaw>
+            <scaleX>0.7634790657917535</scaleX>
+            <scaleY>1.1764980769690592</scaleY>
+            <scaleZ>0.8342205920018947</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>20.982450485229492</x>
-               <y>5.613687515258789</y>
-               <z>-0.6567894714728512</z>
+               <x>37.90309524536133</x>
+               <y>10.668939590454102</y>
+               <z>0.0</z>
             </pos>
-            <yaw>2.604816287494419</yaw>
-            <scaleX>1.1230345871058063</scaleX>
-            <scaleY>0.7478475759186675</scaleY>
-            <scaleZ>0.7404389436662847</scaleZ>
+            <yaw>134.24625753301873</yaw>
+            <scaleX>1.2309290885127075</scaleX>
+            <scaleY>1.0835071295578995</scaleY>
+            <scaleZ>0.8989559030402496</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>24.20566177368164</x>
-               <y>4.651556015014648</y>
-               <z>-3.6081507725294797</z>
+               <x>39.51755142211914</x>
+               <y>10.250114440917969</y>
+               <z>0.0</z>
             </pos>
-            <yaw>2.9845901680310822</yaw>
-            <scaleX>1.120801275113406</scaleX>
-            <scaleY>1.366625925543979</scaleY>
-            <scaleZ>1.2083928051631934</scaleZ>
+            <yaw>62.5837820991566</yaw>
+            <scaleX>1.2827586259121446</scaleX>
+            <scaleY>1.3336290548529224</scaleY>
+            <scaleZ>1.3526425269091886</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>19.791738510131836</x>
-               <y>9.54606819152832</y>
-               <z>0.13935006550010817</z>
+               <x>40.095436096191406</x>
+               <y>9.671964645385742</y>
+               <z>0.0</z>
             </pos>
-            <yaw>2.6758788617212437</yaw>
-            <scaleX>0.792808644187329</scaleX>
-            <scaleY>1.3473222691237927</scaleY>
-            <scaleZ>1.3307852424918063</scaleZ>
+            <yaw>291.625191244973</yaw>
+            <scaleX>0.7516658830792601</scaleX>
+            <scaleY>1.318351499666551</scaleY>
+            <scaleZ>0.8624511912250988</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>40.89004135131836</x>
-               <y>13.706583023071289</y>
-               <z>-0.6557078569428693</z>
+               <x>41.758201599121094</x>
+               <y>9.671964645385742</y>
+               <z>0.0</z>
             </pos>
-            <yaw>201.35349006511825</yaw>
-            <scaleX>0.9649023309550153</scaleX>
-            <scaleY>1.0492577477400233</scaleY>
-            <scaleZ>0.9577474599666662</scaleZ>
+            <yaw>242.84380749507295</yaw>
+            <scaleX>1.2761818129764726</scaleX>
+            <scaleY>0.9098502344100783</scaleY>
+            <scaleZ>0.9565197461158517</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>42.020896911621094</x>
-               <y>14.56450080871582</y>
-               <z>-0.29371109888427943</z>
+               <x>42.058475494384766</x>
+               <y>9.747391700744629</y>
+               <z>0.0</z>
             </pos>
-            <yaw>94.57836827435031</yaw>
-            <scaleX>1.0303502858958735</scaleX>
-            <scaleY>1.3649207283472724</scaleY>
-            <scaleZ>0.9494292168761508</scaleZ>
+            <yaw>348.65325619958986</yaw>
+            <scaleX>1.36915376252006</scaleX>
+            <scaleY>1.140757360944848</scaleY>
+            <scaleZ>0.9475581621444191</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>36.68589401245117</x>
-               <y>16.14266586303711</y>
-               <z>0.15610464225301124</z>
+               <x>42.98858642578125</x>
+               <y>9.93896484375</y>
+               <z>0.0</z>
             </pos>
-            <yaw>2.702870531255173</yaw>
-            <scaleX>1.2377381814619606</scaleX>
-            <scaleY>0.940313378121375</scaleY>
-            <scaleZ>1.3511823835608716</scaleZ>
+            <yaw>71.75979935647722</yaw>
+            <scaleX>1.0605176887993037</scaleX>
+            <scaleY>0.9815820447639163</scaleY>
+            <scaleZ>0.9489489056277652</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>35.66246795654297</x>
-               <y>14.865964889526367</y>
-               <z>-0.302727336530998</z>
+               <x>40.854000091552734</x>
+               <y>10.094085693359375</y>
+               <z>0.0</z>
             </pos>
-            <yaw>269.03361077893584</yaw>
-            <scaleX>1.349440024817559</scaleX>
-            <scaleY>0.8324717467644185</scaleY>
-            <scaleZ>1.1760792973537366</scaleZ>
+            <yaw>249.39868843473678</yaw>
+            <scaleX>0.7767054674901547</scaleX>
+            <scaleY>1.0982099873760494</scaleY>
+            <scaleZ>1.1357257829851788</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>35.82325744628906</x>
-               <y>6.40561580657959</y>
-               <z>-6.548143943270738</z>
+               <x>38.87124252319336</x>
+               <y>10.171584129333496</y>
+               <z>0.0</z>
             </pos>
-            <yaw>317.7525603569157</yaw>
-            <scaleX>0.7769711935028267</scaleX>
-            <scaleY>1.3494224224440394</scaleY>
-            <scaleZ>1.2086473143360557</scaleZ>
+            <yaw>329.92802762656686</yaw>
+            <scaleX>0.7087455901762667</scaleX>
+            <scaleY>1.0121061397370472</scaleY>
+            <scaleZ>0.7752141254538433</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>38.68507385253906</x>
-               <y>6.403410911560059</y>
-               <z>-6.071750335618012</z>
+               <x>38.11380386352539</x>
+               <y>9.881539344787598</y>
+               <z>0.0</z>
             </pos>
-            <yaw>206.98491150179325</yaw>
-            <scaleX>0.7929040214004001</scaleX>
-            <scaleY>0.910582749353668</scaleY>
-            <scaleZ>1.101990409011683</scaleZ>
+            <yaw>319.2866738451439</yaw>
+            <scaleX>1.178675906276969</scaleX>
+            <scaleY>0.9322734984186651</scaleY>
+            <scaleZ>1.1896530199438218</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
          <serializableTrinket>
             <builderID>Rock</builderID>
             <pos>
-               <x>32.237688064575195</x>
-               <y>5.270240783691406</y>
-               <z>-6.047910102477125</z>
+               <x>24.914552688598633</x>
+               <y>8.702146530151367</y>
+               <z>0.0</z>
             </pos>
-            <yaw>39.67360695814594</yaw>
-            <scaleX>0.9651038621993728</scaleX>
-            <scaleY>0.7506059207066319</scaleY>
-            <scaleZ>0.8028109016453652</scaleZ>
+            <yaw>117.86623009160735</yaw>
+            <scaleX>0.783212409406747</scaleX>
+            <scaleY>1.1973962680746826</scaleY>
+            <scaleZ>0.8780788660859188</scaleZ>
+            <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Rock</builderID>
+            <pos>
+               <x>23.450225830078125</x>
+               <y>8.061663627624512</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>99.46027950107903</yaw>
+            <scaleX>1.08619012529781</scaleX>
+            <scaleY>0.8508949630282533</scaleY>
+            <scaleZ>0.9712604684744404</scaleZ>
+            <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Rock</builderID>
+            <pos>
+               <x>24.39179229736328</x>
+               <y>15.974893569946289</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>315.8991820686344</yaw>
+            <scaleX>1.1044686751854729</scaleX>
+            <scaleY>1.2664168383226164</scaleY>
+            <scaleZ>1.3226555294426354</scaleZ>
+            <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
+         </serializableTrinket>
+         <serializableTrinket>
+            <builderID>Rock</builderID>
+            <pos>
+               <x>27.248432159423828</x>
+               <y>17.722490310668945</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>219.31577280451032</yaw>
+            <scaleX>1.3733512367003646</scaleX>
+            <scaleY>1.355753866550795</scaleY>
+            <scaleZ>0.763177588245211</scaleZ>
             <modelPath>env/exterior01/rockA.mesh.xml</modelPath>
          </serializableTrinket>
       </serializableTrinkets>
@@ -16580,6 +17503,57 @@
       <height>32</height>
    </map>
    <engagement>
-      <initialEngagement class="java.util.ArrayList"/>
+      <initialEngagement class="java.util.ArrayList">
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>39.426551818847656</x>
+               <y>17.48063850402832</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.6265752786513294</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>38.82020568847656</x>
+               <y>20.30034637451172</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-0.19789258238671348</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>43.305625915527344</x>
+               <y>20.687461853027344</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.6562077388377214</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>43.32136535644531</x>
+               <y>17.907014846801758</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.850183951560304</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>42.893558502197266</x>
+               <y>15.240363121032715</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-3.0321416797600818</yaw>
+         </serializableUnit>
+      </initialEngagement>
    </engagement>
 </battlefield>

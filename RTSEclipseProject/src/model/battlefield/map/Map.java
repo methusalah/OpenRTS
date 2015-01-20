@@ -289,4 +289,17 @@ public class Map {
     	for(SerializableTrinket st : serializableTrinkets)
     		trinkets.add(st.getTrinket(lib));
     }
+    
+    public void prepareForBattle(){
+    	for(Tile t : tiles)
+    		t.hasBlockingTrinket = false;
+    	for(Trinket t : trinkets){
+    		if(t.getRadius() != 0)
+    			for(Tile n : get9Around(getTile(t.getCoord()))){
+    				if(n.getPos2D().getAddition(0.5, 0.5).getDistance(t.getCoord()) < t.getRadius()+0.3)
+    					n.hasBlockingTrinket = true;
+    			}
+    	}
+    	
+    }
 }

@@ -9,7 +9,7 @@
     <Mass value="1"/>
     <MaxHealth value="120"/>
     <Sight value="10"/>
-    <MoverLink value="Ground"/>
+    <MoverLink value="GroundProne"/>
     <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>
     <WeaponList WeaponLink="TankMachinegun"/>
     <ActorLink value="Tank"/>

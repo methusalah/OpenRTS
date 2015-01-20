@@ -4,15 +4,19 @@
  */
 package model.battlefield.army.components;
 
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.pathfinding.FlowField;
 import geometry.BoundingCircle;
 import geometry.Point2D;
 import geometry3D.Point3D;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import math.Angle;
 import model.battlefield.map.Map;
+import model.battlefield.map.Trinket;
 import model.battlefield.army.motion.CollisionManager;
 import model.battlefield.army.motion.SteeringMachine;
 
@@ -23,26 +27,29 @@ import model.battlefield.army.motion.SteeringMachine;
 public class Mover {
     public enum Heightmap {SKY, AIR, GROUND};
     public enum PathfindingMode {FLY, WALK};
+    public enum StandingMode {STAND, PRONE};
 
     // final 
     public final Heightmap heightmap;
     public final PathfindingMode pathfindingMode;
+    public final StandingMode standingMode;
 
     public final Hiker hiker;
     final Map map;
-    SteeringMachine sm;
-    CollisionManager cm;
+    final SteeringMachine sm;
+    final CollisionManager cm;
 
     // variables
     public Point3D velocity = Point3D.ORIGIN;
     
     public double desiredYaw = 0;
+    Point3D desiredUp = Point3D.UNIT_Z;
     
     public boolean hasMoved = false;
     
-    public ArrayList<Mover> toAvoid = new ArrayList<>();
-    public ArrayList<Mover> toFlockWith = new ArrayList<>();
-    public ArrayList<Mover> toLetPass = new ArrayList<>();
+    public List<FieldComp> toAvoid = new ArrayList<>();
+    public List<Mover> toFlockWith = new ArrayList<>();
+    public List<Mover> toLetPass = new ArrayList<>();
     
     
     public FlowField flowfield;
@@ -51,9 +58,10 @@ public class Mover {
     public boolean holdPosition = false;
     public boolean tryHold = false;
 
-    public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, Hiker movable, Map map) {
+    public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, StandingMode standingMode, Hiker movable, Map map) {
         this.heightmap = heightmap;
         this.pathfindingMode = pathfindingMode;
+        this.standingMode = standingMode;
         this.hiker = movable;
         this.map = map;
         cm = new CollisionManager(this, map);
@@ -63,6 +71,7 @@ public class Mover {
     public Mover(Mover o, Hiker movable) {
         this.heightmap = o.heightmap;
         this.pathfindingMode = o.pathfindingMode;
+        this.standingMode = o.standingMode;
         this.hiker = movable;
         this.map = o.map;
         cm = new CollisionManager(this, map);
@@ -102,8 +111,10 @@ public class Mover {
         if(fly())
             holdPosition = true;
         else {
+            for(FieldComp f : toAvoid)
+                if(hiker.collide(f))
+                    return;
             List<Mover> all = new ArrayList<>();
-            all.addAll(toAvoid);
             all.addAll(toFlockWith);
             all.addAll(toLetPass);
             for(Mover m : all)
@@ -120,8 +131,10 @@ public class Mover {
         if(fly())
             holdPosition = true;
         else {
+            for(FieldComp f : toAvoid)
+                if(hiker.collide(f))
+                    return;
             ArrayList<Mover> all = new ArrayList<>();
-            all.addAll(toAvoid);
             all.addAll(toFlockWith);
             all.addAll(toLetPass);
             for(Mover m : all)
@@ -184,23 +197,23 @@ public class Mover {
         separate();
         sm.seek(target);
 
-        ArrayList<Mover> toAvoidExceptTarget = new ArrayList<>(toAvoid);
+        List<FieldComp> toAvoidExceptTarget = new ArrayList<>(toAvoid);
         toAvoidExceptTarget.remove(target);
-        sm.avoidHoldingUnits(toAvoidExceptTarget);
+        sm.avoidBlockers(toAvoidExceptTarget);
     }
 
     public void seek(Point3D position){
         flock();
         separate();
         sm.seek(position);
-        sm.avoidHoldingUnits(toAvoid);
+        sm.avoidBlockers(toAvoid);
     }
     
     public void followPath() {
         flock();
         separate();
         sm.proceedToDestination();
-        sm.avoidHoldingUnits(toAvoid);
+        sm.avoidBlockers(toAvoid);
     }
     
 
@@ -209,15 +222,19 @@ public class Mover {
         separate();
         sm.proceedToDestination();
 
-        ArrayList<Mover> toAvoidExceptTarget = new ArrayList<>(toAvoid);
+        List<FieldComp> toAvoidExceptTarget = new ArrayList<>(toAvoid);
         toAvoidExceptTarget.remove(target);
-        sm.avoidHoldingUnits(toAvoidExceptTarget);
+        sm.avoidBlockers(toAvoidExceptTarget);
     }
     
     private void updateElevation(){
         if(heightmap == Heightmap.GROUND){
             hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getGroundAltitude(hiker.getCoord()));
-            hiker.upDirection = map.getTerrainNormal(hiker.getCoord());
+            if(standingMode == StandingMode.PRONE){
+	            desiredUp = map.getTerrainNormal(hiker.getCoord());
+	            if(!hiker.upDirection.equals(desiredUp))
+	            	hiker.upDirection = hiker.upDirection.getAddition(desiredUp).getNormalized();
+            }
             hiker.direction = Point2D.ORIGIN.getTranslation(hiker.yaw, 1).get3D(0);
         } else if(heightmap == Heightmap.SKY)
             hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getTile(hiker.getCoord()).level+3);
@@ -235,5 +252,11 @@ public class Mover {
         velocity = Point3D.ORIGIN;
         hiker.pos = p.get3D(0);
         updateElevation();
+    }
+    
+    public void addTrinketsToAvoidingList(){
+    	for(Trinket t : map.trinkets)
+    		if(t.getRadius() != 0)
+    			toAvoid.add(t);
     }
 }

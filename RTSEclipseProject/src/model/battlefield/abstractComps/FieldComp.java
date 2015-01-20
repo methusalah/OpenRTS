@@ -4,8 +4,10 @@
  */
 package model.battlefield.abstractComps;
 
+import geometry.BoundingCircle;
 import geometry.Point2D;
 import geometry3D.Point3D;
+
 import java.awt.Color;
 
 /**
@@ -16,7 +18,8 @@ public class FieldComp {
     public String modelPath = "";
     public Point3D pos;
     public Point3D direction;
-    public Point3D upDirection;
+    public Point3D upDirection = Point3D.UNIT_Z;
+    protected final double radius;
     public double scaleX = 1;
     public double scaleY = 1;
     public double scaleZ = 1;
@@ -27,9 +30,10 @@ public class FieldComp {
     public final String label = "label"+this.toString();
 
 
-    public FieldComp(Point3D pos, double yaw) {
+    public FieldComp(Point3D pos, double yaw, double radius) {
         this.pos = pos;
         this.yaw = yaw;
+        this.radius = radius;
     }
     
     
@@ -42,6 +46,10 @@ public class FieldComp {
     
     public double getYaw(){
         return yaw;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
     public double getDistance(FieldComp o) {
@@ -58,5 +66,21 @@ public class FieldComp {
         else
             return o2;
     }
+    
+    public BoundingCircle getBounds() {
+        return new BoundingCircle(new Point2D(pos), radius);
+    }
+    
+    public double getSpacing(FieldComp o) {
+        return radius+o.radius;
+    }
+    public double getBoundsDistance(FieldComp o){
+        return getDistance(o)-getSpacing(o);
+    }
+
+    public boolean collide(FieldComp o){
+        return getBounds().collide(o.getBounds());
+    }
+    
     
 }

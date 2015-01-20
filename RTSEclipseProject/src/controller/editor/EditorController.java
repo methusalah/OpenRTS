@@ -69,6 +69,7 @@ public class EditorController extends Controller {
     @Override
     public void desactivate() {
     	model.battlefield.engagement.saveEngagement();
+    	model.battlefield.map.prepareForBattle();
         super.desactivate();
         view.rootNode.detachChild(view.editorRend.mainNode);
     }
