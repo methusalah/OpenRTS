@@ -90,6 +90,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
     }
     
     public void update(double elapsedTime){
+    	boolean aiming, moving;
+    	
         if(destroyed())
             return;
         findNearbyMovers();
@@ -97,18 +99,18 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
         
         ai.update();
 
-        actor.onAim(arming.isAiming());
+        aiming = arming.isAiming();
+        actor.onAim(aiming);
         
         mover.updatePosition(elapsedTime);
         
-        if(mover.hasMoved){
-            actor.onMove(true);
-            actor.onWait(false);
-        }else{
-            actor.onMove(false);
-            actor.onWait(true);
-        }
-        arming.updateTurrets(elapsedTime);
+        moving = mover.hasMoved;
+        actor.onMove(moving);
+
+        arming.updateTurrets(elapsedTime, moving);
+
+        actor.onWait(!aiming && !moving);
+        
     }
     
     protected boolean isMoving(){

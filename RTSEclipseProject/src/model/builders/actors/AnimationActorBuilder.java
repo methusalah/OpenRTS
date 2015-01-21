@@ -50,6 +50,8 @@ public class AnimationActorBuilder extends ActorBuilder{
     
     @Override
     public Actor build(String trigger, Actor parent){
-        return new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, animationName, cycle, speed);
+    	Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, animationName, cycle, speed);
+    	res.debbug_id = getId();
+        return res;
     }
 }

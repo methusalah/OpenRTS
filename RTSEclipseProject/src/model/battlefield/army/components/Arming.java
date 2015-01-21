@@ -37,9 +37,9 @@ public class Arming {
         aiming = false;
     }
     
-    protected void updateTurrets(double elapsedTime){
+    protected void updateTurrets(double elapsedTime, boolean holderIsMoving){
         for(Turret t : turrets)
-            t.update(elapsedTime, holder.isMoving());
+            t.update(elapsedTime, holderIsMoving);
     }
     
     public boolean isAiming(){

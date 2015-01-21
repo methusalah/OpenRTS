@@ -103,7 +103,7 @@
     <StartSize value="0.1"/>
     <EndSize value="0.7"/>
     <StartColor R="255" G="255" B="0" A="180"/>
-    <EndColor R="255" G="0" B="0" A="255"/>
+    <EndColor R="255" G="0" B="0" A="0"/>
     <MinLife value="0.4"/>
     <MaxLife value="0.4"/>
   </Actor>

@@ -146,10 +146,12 @@ public class Pencil {
     private ArrayList<Tile> getTilesInCircle() {
         ArrayList<Tile> res = new ArrayList<>();
         BoundingCircle circle = new BoundingCircle(getSnappedPos(), size/2);
-        for(Tile t : map.getTiles()){
-            if(circle.contains(t.getPos2D()))
-                res.add(t);
-        }
+        for(int x=-(int)size; x < (int)size; x++)
+            for(int y=-(int)size; y < (int)size; y++){
+            	Point2D p = new Point2D(x, y).getAddition(circle.center);
+	            if(map.isInBounds(p) && circle.contains(p))
+	                res.add(map.getTile(p));
+            }
         return res;
     }
 

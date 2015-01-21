@@ -5,10 +5,12 @@
 package model.editor;
 
 import geometry.Point2D;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
@@ -22,6 +24,7 @@ import model.battlefield.Battlefield;
 import model.editor.tools.TrinketTool;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.parcel.ParcelManager;
+import model.battlefield.map.parcel.ParcelMesh;
 import model.builders.UnitBuilder;
 import ressources.definitions.BuilderLibrary;
 import tools.LogUtil;
@@ -160,8 +163,8 @@ public class ToolManager {
     }
     
     public void updateParcels(ArrayList<Tile> tiles){
-        battlefield.parcelManager.updateParcelsFor(tiles);
-        notifyListeners("parcels", tiles);
+        List<ParcelMesh> toUpdate = battlefield.parcelManager.updateParcelsFor(tiles);
+        notifyListeners("parcels", toUpdate);
     }
 
     public void updateGroundAtlas(){

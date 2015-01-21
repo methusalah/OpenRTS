@@ -7,9 +7,12 @@ package model.battlefield.army.components;
 import model.battlefield.abstractComps.Hiker;
 import geometry.Point2D;
 import geometry3D.Point3D;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import tools.LogUtil;
 import math.Angle;
 import math.MyRandom;
 import model.battlefield.actors.ModelActor;
@@ -51,6 +54,8 @@ public class Projectile extends Hiker {
         this.target = target;
         this.targetPoint = targetPoint;
         actor = actorBuilder.build(this);
+        mover.velocity = source.getDirection();
+        upDirection = null;
         updateTargetPoint();
     }
     
@@ -62,8 +67,6 @@ public class Projectile extends Hiker {
         mover.sm.seek(targetPoint);
         
         mover.updatePosition(elapsedTime);
-        if(!mover.velocity.isOrigin())
-            direction = mover.velocity;
         
         if(mover.hasMoved)
             actor.onMove(true);

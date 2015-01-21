@@ -5,9 +5,12 @@
 package model.battlefield.army.effects;
 
 import geometry3D.Point3D;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import tools.LogUtil;
 import model.builders.EffectBuilder;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
@@ -27,13 +30,6 @@ public class LauncherEffect extends Effect implements ActionListener {
     
     @Override
     public void launch(){
-        if(source.getPos() != null){
-            projectile.pos = source.getPos();
-            projectile.mover.velocity = source.getDirection();
-        } else
-            projectile.mover.velocity = Point3D.UNIT_Z;
-        
-            
     }
     
     @Override

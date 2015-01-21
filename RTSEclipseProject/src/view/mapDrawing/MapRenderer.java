@@ -105,7 +105,7 @@ public class MapRenderer implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()){
-            case "parcels" : updateParcelsFor((ArrayList<Tile>)(e.getSource())); break;
+            case "parcels" : updateParcelsFor((ArrayList<ParcelMesh>)(e.getSource())); break;
             case "tiles" : updateTiles((ArrayList<Tile>)(e.getSource())); break;
             case "ground" : updateGroundTexture(); break;
         }
@@ -195,8 +195,8 @@ public class MapRenderer implements ActionListener {
         n.attachChild(s);
     }
     
-    private void updateParcelsFor(ArrayList<Tile> tiles){
-        for(ParcelMesh parcel : view.model.battlefield.parcelManager.getParcelsFor(tiles)){
+    private void updateParcelsFor(List<ParcelMesh> toUpdate){
+        for(ParcelMesh parcel : toUpdate){
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
             TangentBinormalGenerator.generate(jmeMesh);
             ((Geometry)parcelsSpatial.get(parcel)).setMesh(jmeMesh);

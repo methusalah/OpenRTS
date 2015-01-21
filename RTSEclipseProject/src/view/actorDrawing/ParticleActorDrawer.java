@@ -96,6 +96,7 @@ public class ParticleActorDrawer {
         }
         pe.setUserData("lastPos", pos.clone());
         pe.setUserData("lastTime", System.currentTimeMillis());
+
     }
     
     private void createEmitter(ParticleActor actor){

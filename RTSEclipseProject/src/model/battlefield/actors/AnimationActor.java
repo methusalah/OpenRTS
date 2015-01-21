@@ -37,7 +37,8 @@ public class AnimationActor extends Actor {
 
     @Override
     public void act() {
-        launched = false;
+    	if(!acting)
+    		launched = false;
         super.act();
     }
 
@@ -45,7 +46,6 @@ public class AnimationActor extends Actor {
     @Override
     public void stopActing() {
         super.stopActing();
-        launched = false;
     }
     
     public ModelActor getParentModelActor(){

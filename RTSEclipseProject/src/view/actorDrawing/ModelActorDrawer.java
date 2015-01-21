@@ -192,13 +192,19 @@ public class ModelActorDrawer {
     }
     
     private Point3D getBoneWorldPos(ModelActor actor, Point3D actorPos, double actorYaw, String boneName){
-        Vector3f modelSpacePos = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
-        Point2D p2D = Translator.toPoint2D(modelSpacePos);
-        p2D = p2D.getRotation(actorYaw+Angle.RIGHT);
-        Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
-        p3D = p3D.getAddition(actorPos);
-        return p3D;
-        
+    	Spatial s = actor.viewElements.spatial;
+        Vector3f modelSpacePos = s.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
+        Quaternion q = actor.viewElements.spatial.getLocalRotation();
+        modelSpacePos = q.mult(modelSpacePos);
+        modelSpacePos.multLocal(s.getLocalScale());
+        modelSpacePos = modelSpacePos.add(s.getLocalTranslation());
+//        float scale
+//        Point2D p2D = Translator.toPoint2D(modelSpacePos);
+//        p2D = p2D.getRotation(actorYaw+Angle.RIGHT);
+//        Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
+//        p3D = p3D.getAddition(actorPos);
+//        return p3D;
+        return Translator.toPoint3D(modelSpacePos);
     }
 
 }

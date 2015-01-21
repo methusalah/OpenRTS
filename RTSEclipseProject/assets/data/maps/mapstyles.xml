@@ -2,7 +2,7 @@
 <catalog>
   <MapStyle id="StdMapStyle">
   	<Width value="64"/>
-  	<Height value="32"/>
+  	<Height value="64"/>
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
     

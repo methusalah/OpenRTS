@@ -70,9 +70,11 @@ public class Actor {
             desactivateTrigger(ON_AIM);
     }
     public void onShootEvent(){
+        desactivateTrigger(ON_SHOOT);
         activateTrigger(ON_SHOOT);
     }
     public void onDestroyedEvent(){
+        desactivateTrigger(ON_DESTROYED);
         activateTrigger(ON_DESTROYED);
     }
     

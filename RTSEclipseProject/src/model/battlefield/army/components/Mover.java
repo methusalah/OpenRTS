@@ -236,8 +236,14 @@ public class Mover {
 	            	hiker.upDirection = hiker.upDirection.getAddition(desiredUp).getNormalized();
             }
             hiker.direction = Point2D.ORIGIN.getTranslation(hiker.yaw, 1).get3D(0);
-        } else if(heightmap == Heightmap.SKY)
+        } else if(heightmap == Heightmap.SKY){
             hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getTile(hiker.getCoord()).level+3);
+            hiker.upDirection = Point3D.UNIT_Z;
+        } else {
+            if(!velocity.isOrigin())
+                hiker.direction = velocity;
+            hiker.upDirection = null;
+        }
     }
     
     public boolean fly(){

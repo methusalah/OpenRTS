@@ -36,9 +36,9 @@ public class Weapon implements EffectSource {
     protected final Turret turret;
 
     // variables
-    Point3D pivot;
-    Point3D source;
-    Point3D vec;
+    Point3D turretPivot;
+    Point3D sourcePoint;
+    Point3D directionVector;
     private Unit target;
     public double lastStrikeTime = 0;
     boolean attacking = false;
@@ -65,12 +65,12 @@ public class Weapon implements EffectSource {
     
     public void update(ArrayList<Unit> enemiesNearby){
         if(sourceBone != null && holder.actor.hasBone()){
-            pivot = holder.actor.getBoneCoord(turret.boneName);
-            source = holder.actor.getBoneCoord(sourceBone);
-            vec = holder.actor.getBoneCoord(directionBone).getSubtraction(source).getNormalized();
-        }else{
-            pivot = holder.getPos();
-            vec = Point2D.ORIGIN.getTranslation(holder.getYaw(), 1).getNormalized().get3D(0);
+            turretPivot = holder.actor.getBoneCoord(turret.boneName);
+            sourcePoint = holder.actor.getBoneCoord(sourceBone);
+            directionVector = holder.actor.getBoneCoord(directionBone).getSubtraction(sourcePoint).getNormalized();
+        }else {
+            sourcePoint = turretPivot = holder.getPos();
+            directionVector = Point3D.UNIT_Z; //Point2D.ORIGIN.getTranslation(holder.getYaw(), 1).get3D(0);
         }
 
         attacking = false;
@@ -124,7 +124,7 @@ public class Weapon implements EffectSource {
 //        if(!holder.getMover().holdPosition)
 //           ready = false;
         
-        if(Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5))
+        if(turret != null && Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5))
             ready = false;
         
         if(lastStrikeTime+1000*period > System.currentTimeMillis())
@@ -150,11 +150,11 @@ public class Weapon implements EffectSource {
     }
     
     private double getTargetAngle(){
-        return target.getPos2D().getSubtraction(pivot.get2D()).getAngle();
+        return target.getPos2D().getSubtraction(turretPivot.get2D()).getAngle();
     }
     
     private double getAngle(){
-        return vec.get2D().getAngle();
+        return directionVector.get2D().getAngle();
     }
     
     
@@ -193,16 +193,12 @@ public class Weapon implements EffectSource {
 
     @Override
     public Point3D getPos() {
-        if(source == null)
-            return holder.getPos();
-        return source;
+        return sourcePoint;
     }
 
     @Override
     public Point3D getDirection() {
-        if(vec == null)
-            return Point3D.UNIT_Z;
-        return vec;
+        return directionVector;
     }
 
     @Override
@@ -212,10 +208,10 @@ public class Weapon implements EffectSource {
 
     @Override
     public double getYaw() {
-        if(source == null)
+        if(sourcePoint == null)
             return holder.yaw;
         else
-            return vec.getSubtraction(source).get2D().getAngle();
+            return directionVector.getSubtraction(sourcePoint).get2D().getAngle();
     }
     
     

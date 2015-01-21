@@ -7,13 +7,16 @@ package view.actorDrawing;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
+import com.jme3.animation.LoopMode;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.material.Material;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+
 import java.awt.Color;
 import java.util.HashMap;
+
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.AnimationActor;
@@ -108,6 +111,7 @@ public class ActorDrawingManager implements AnimEventListener {
 
     @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
+//    	LogUtil.logger.info("anim changed to "+animName);
     }
 
 }
