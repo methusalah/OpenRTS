@@ -104,7 +104,13 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
     private boolean endSelection() {
         boolean selectionSuccess = false;
-        Point2D selectionEndOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
+        Point2D selectionEndOnScreen = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+        double maxX = Math.max(selectionEndOnScreen.x, selectionStartOnScreen.x);
+        double minX = Math.min(selectionEndOnScreen.x, selectionStartOnScreen.x);
+        double maxY = Math.max(selectionEndOnScreen.y, selectionStartOnScreen.y);
+        double minY = Math.min(selectionEndOnScreen.y, selectionStartOnScreen.y);
+        selectionStartOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode, new Point2D(minX, minY));
+        Point2D selectionEndOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode, new Point2D(maxX, maxY));
         if(selectionStartOnMap != null && selectionEndOnMap != null &&
                 selectionStartOnMap.getDistance(selectionEndOnMap) > 1){
             ctrl.model.commander.select(selectionStartOnMap, selectionEndOnMap);

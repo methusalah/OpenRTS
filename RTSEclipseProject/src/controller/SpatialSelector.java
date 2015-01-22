@@ -2,6 +2,7 @@ package controller;
 
 import geometry.Point2D;
 import view.View;
+import view.math.Translator;
 
 import com.jme3.input.InputManager;
 import com.jme3.math.Ray;
@@ -39,7 +40,15 @@ public class SpatialSelector {
 			r = getCameraRay();
 		else 
 			r = getMouseRay();
-                return view.pointer.getPointedCoord(n, r);
+        return view.pointer.getPointedCoord(n, r);
+	}
+	
+	public Point2D getCoord(Node n, Point2D screenCoord) {
+		Vector3f origin = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 0f);
+		Vector3f direction = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 1f);
+		direction.subtractLocal(origin).normalizeLocal();
+		Ray r = new Ray(origin, direction);
+        return view.pointer.getPointedCoord(n, r);
 	}
 	
 	private Ray getMouseRay(){
