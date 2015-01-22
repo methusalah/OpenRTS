@@ -5,7 +5,10 @@
 package model.editor.tools;
 
 import geometry.Point2D;
+import geometry3D.Point3D;
+
 import java.util.ArrayList;
+
 import math.Angle;
 import math.MyRandom;
 import model.battlefield.army.components.Unit;
@@ -108,8 +111,10 @@ public class UnitTool extends Tool{
                         break;
                     }
         }
-        if(actualUnit != null)
+        if(actualUnit != null){
         	actualUnit.yaw = pencil.getCoord().getSubtraction(actualUnit.getPos2D()).getAngle();
+        	actualUnit.direction = Point3D.UNIT_X.getRotationAroundZ(actualUnit.yaw);
+        }
     }
     private boolean isValid(String label){
         return label != null && !label.isEmpty();
