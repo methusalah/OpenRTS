@@ -22,6 +22,8 @@ import view.math.Translator;
  * @author Benoît
  */
 public class BattlefieldController extends Controller {
+	private boolean paused = false;
+	
     public BattlefieldController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
         super(model, view, inputManager, cam);
         
@@ -47,7 +49,8 @@ public class BattlefieldController extends Controller {
         model.commander.updateSelectables(getViewCenter());
         
         // udpdate army
-        model.battlefield.armyManager.update(elapsedTime);
+        if(!paused)
+        	model.battlefield.armyManager.update(elapsedTime);
     }
 
     @Override
@@ -57,6 +60,10 @@ public class BattlefieldController extends Controller {
     
     private Point2D getViewCenter(){
         return spatialSelector.getCoord(view.rootNode);
+    }
+    
+    public void togglePause(){
+    	paused = !paused;
     }
 
     @Override

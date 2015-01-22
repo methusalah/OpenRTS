@@ -21,6 +21,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
     protected final static String ACTION = "action";
     protected final static String MOVE_ATTACK = "moveattack";
     protected final static String HOLD = "hold";
+    protected final static String PAUSE = "pause";
 	
     public Point2D selectionStartOnMap;
     public Point2D selectionStartOnScreen;
@@ -41,6 +42,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
             ACTION,
             MOVE_ATTACK,
             HOLD,
+            PAUSE,
         };
     }
     
@@ -53,6 +55,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
         inputManager.addMapping(ACTION, new MouseButtonTrigger(1));
         inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
+        inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
 
         inputManager.addListener(this, mappings);
         
@@ -87,6 +90,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
                 case ACTION : ctrl.model.commander.act(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord()); break;
                 case MOVE_ATTACK : ctrl.model.commander.setMoveAttack(); break;
                 case HOLD : ctrl.model.commander.orderHold(); break;
+                case PAUSE : ((BattlefieldController)ctrl).togglePause(); break;
             }
         else
             if(name.equals(SELECT))
