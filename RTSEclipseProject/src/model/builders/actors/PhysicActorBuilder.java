@@ -12,6 +12,7 @@ import model.battlefield.abstractComps.Hiker;
 import static model.builders.actors.ActorBuilder.TRIGGER;
 import static model.builders.actors.ActorBuilder.TYPE;
 import ressources.definitions.Definition;
+import tools.LogUtil;
 
 /**
  *
@@ -47,6 +48,9 @@ public class PhysicActorBuilder extends ActorBuilder{
     }
     
     public Actor build(String trigger, Hiker movable, Actor parent){
-        return new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
+    	Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
+    	res.debbug_id = getId();
+    	LogUtil.logger.info("physic actor created : "+res.debbug_id);
+    	return res;
     }
 }

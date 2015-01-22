@@ -46,7 +46,12 @@ public class ModelActor extends Actor {
         this.scaleZ = scaleZ;
         this.color = color;
         this.comp = comp;
-        act();
+    }
+    
+    @Override
+    public void act() {
+    	// TODO Auto-generated method stub
+    	super.act();
     }
     
     

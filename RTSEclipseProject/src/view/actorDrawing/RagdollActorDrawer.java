@@ -10,10 +10,12 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+
 import geometry.Point2D;
 import math.Angle;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.PhysicActor;
+import tools.LogUtil;
 import view.math.Translator;
 
 /**
@@ -29,6 +31,7 @@ public class RagdollActorDrawer {
     
     protected void draw(PhysicActor actor){
         if(!actor.launched){
+            LogUtil.logger.info("physic actor creation "+actor.debbug_id);
             actor.life = actor.startLife;
             manager.modelDrawer.draw(actor);
 
@@ -65,6 +68,7 @@ public class RagdollActorDrawer {
             actor.viewElements.spatial = massCenter;
         }
 
+        LogUtil.logger.info("physic actor alive "+actor.debbug_id);
         Spatial s = actor.viewElements.spatial;
         double elapsedTime = System.currentTimeMillis()-actor.timer;
         actor.timer = System.currentTimeMillis();

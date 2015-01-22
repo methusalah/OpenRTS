@@ -5,6 +5,8 @@
 package model.battlefield.actors;
 
 import java.util.List;
+
+import tools.LogUtil;
 import model.builders.actors.ActorBuilder;
 
 /**
@@ -35,6 +37,7 @@ public class PhysicActor extends ModelActor {
         this.startLife = startLife;
         this.mass = mass;
         this.massCenterBone = massCenterBone;
+        LogUtil.logger.info("physic actor created");
     }
 
     
