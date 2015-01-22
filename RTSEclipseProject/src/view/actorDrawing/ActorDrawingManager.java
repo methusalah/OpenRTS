@@ -62,9 +62,8 @@ public class ActorDrawingManager implements AnimEventListener {
     public void render(){
         // first, the spatials attached to interrupted actor are detached
         for(Actor a : pool.grabDeletedActors()){
-            if(a.viewElements.spatial != null){
+            if(a.viewElements.spatial != null)
                 mainNode.detachChild(a.viewElements.spatial);
-            }
             if(a.viewElements.particleEmitter != null)
                 a.viewElements.particleEmitter.setParticlesPerSec(0);
             if(a.viewElements.selectionCircle != null)

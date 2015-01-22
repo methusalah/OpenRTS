@@ -13,6 +13,7 @@ import com.jme3.scene.Spatial;
 
 import geometry.Point2D;
 import math.Angle;
+import math.MyRandom;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.PhysicActor;
 import tools.LogUtil;
@@ -31,7 +32,6 @@ public class RagdollActorDrawer {
     
     protected void draw(PhysicActor actor){
         if(!actor.launched){
-            LogUtil.logger.info("physic actor creation "+actor.debbug_id);
             actor.life = actor.startLife;
             manager.modelDrawer.draw(actor);
 
@@ -45,7 +45,7 @@ public class RagdollActorDrawer {
             massCenter.attachChild(s);
             s.setLocalTranslation(massVec.negate());
 
-            RigidBodyControl control = new RigidBodyControl((float)actor.mass*10);
+            RigidBodyControl control = new RigidBodyControl((float)actor.mass*100);
             massCenter.addControl(control);
             manager.mainPhysicsSpace.add(control);
 
@@ -54,8 +54,7 @@ public class RagdollActorDrawer {
             double massVecLength = massVec.length();
             double massVecAngle = new Point2D(massVec.x, massVec.y).getAngle();
             Point2D unitPos2D = ma.getPos().get2D().getTranslation(massVecAngle, massVecLength);
-            control.setPhysicsLocation(Translator.toVector3f(unitPos2D.get3D(ma.getPos().z)));
-
+            control.setPhysicsLocation(Translator.toVector3f(unitPos2D.get3D(ma.getPos().z+0.1)));
 
 
             // rotation
@@ -63,12 +62,12 @@ public class RagdollActorDrawer {
             r.fromAngles(0, 0, (float)(ma.getYaw()+Angle.RIGHT));
             control.setPhysicsRotation(r);
 
-            control.applyCentralForce(Vector3f.UNIT_Z.mult(40));
+//            control.applyCentralForce(new Vector3f((float)MyRandom.next(), (float)MyRandom.next(), 1).mult(1000));
+            control.applyCentralForce(massVec.multLocal((float)MyRandom.next()*0.5f, (float)MyRandom.next()*0.5f, 1).mult(1000));
             actor.launched = true;
             actor.viewElements.spatial = massCenter;
         }
 
-        LogUtil.logger.info("physic actor alive "+actor.debbug_id);
         Spatial s = actor.viewElements.spatial;
         double elapsedTime = System.currentTimeMillis()-actor.timer;
         actor.timer = System.currentTimeMillis();

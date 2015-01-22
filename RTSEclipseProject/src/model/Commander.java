@@ -6,8 +6,11 @@ package model;
 
 import geometry.AlignedBoundingBox;
 import geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import model.battlefield.map.Map;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.ArmyManager;
@@ -58,6 +61,14 @@ public class Commander {
         sendReportOrder();
     }
     
+    public void select(List<Unit> units){
+    	unselect();
+    	for(Unit u : units)
+    		select(u);
+    	moveAttack = false;
+    	sendReportOrder();
+    	
+    }
     public void select(Point2D corner1, Point2D corner2) {
         unselect();
         AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);

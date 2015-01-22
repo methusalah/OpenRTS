@@ -47,7 +47,9 @@ public class ActorBuilder extends Builder{
     }
     
     public Actor build(String trigger, Actor parent){
-        return new Actor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
+    	Actor res = new Actor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
+    	res.debbug_id = getId();
+    	return res;
     }
 
     @Override

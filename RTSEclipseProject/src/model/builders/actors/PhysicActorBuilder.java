@@ -47,10 +47,13 @@ public class PhysicActorBuilder extends ActorBuilder{
             }        
     }
     
+    @Override
+    public Actor build(String trigger, Actor parent) {
+    	return build(trigger, null, parent);
+    }
     public Actor build(String trigger, Hiker movable, Actor parent){
     	Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
     	res.debbug_id = getId();
-    	LogUtil.logger.info("physic actor created : "+res.debbug_id);
     	return res;
     }
 }

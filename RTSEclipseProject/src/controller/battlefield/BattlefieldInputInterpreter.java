@@ -1,13 +1,20 @@
 package controller.battlefield;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.battlefield.army.components.Unit;
 import view.View;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+
 import controller.InputInterpreter;
+import geometry.AlignedBoundingBox;
 import geometry.Point2D;
 import tools.LogUtil;
 import view.math.Translator;
@@ -23,8 +30,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
     protected final static String HOLD = "hold";
     protected final static String PAUSE = "pause";
 	
-    public Point2D selectionStartOnMap;
-    public Point2D selectionStartOnScreen;
+    public Point2D selectionStart;
 
     BattlefieldInputInterpreter(BattlefieldController controller) {
         super(controller);
@@ -102,25 +108,19 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
     }
 
     private void beginSelection() {
-        selectionStartOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
-        selectionStartOnScreen = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+        selectionStart = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
     }
 
     private boolean endSelection() {
-        boolean selectionSuccess = false;
-        Point2D selectionEndOnScreen = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-        double maxX = Math.max(selectionEndOnScreen.x, selectionStartOnScreen.x);
-        double minX = Math.min(selectionEndOnScreen.x, selectionStartOnScreen.x);
-        double maxY = Math.max(selectionEndOnScreen.y, selectionStartOnScreen.y);
-        double minY = Math.min(selectionEndOnScreen.y, selectionStartOnScreen.y);
-        selectionStartOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode, new Point2D(minX, minY));
-        Point2D selectionEndOnMap = ctrl.spatialSelector.getCoord(ctrl.view.rootNode, new Point2D(maxX, maxY));
-        if(selectionStartOnMap != null && selectionEndOnMap != null &&
-                selectionStartOnMap.getDistance(selectionEndOnMap) > 1){
-            ctrl.model.commander.select(selectionStartOnMap, selectionEndOnMap);
-            selectionSuccess = true;
-        }
-        selectionStartOnScreen = null;
-        return selectionSuccess;
+        Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+        AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
+        
+        List<Unit> inSelection = new ArrayList<>();
+        for(Unit u : ctrl.model.battlefield.armyManager.units)
+        	if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos())))
+        		inSelection.add(u);
+		ctrl.model.commander.select(inSelection);
+		selectionStart = null;
+		return !inSelection.isEmpty();
     }
 }

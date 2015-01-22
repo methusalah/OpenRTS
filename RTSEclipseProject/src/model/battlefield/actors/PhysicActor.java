@@ -37,7 +37,6 @@ public class PhysicActor extends ModelActor {
         this.startLife = startLife;
         this.mass = mass;
         this.massCenterBone = massCenterBone;
-        LogUtil.logger.info("physic actor created");
     }
 
     
@@ -56,10 +55,6 @@ public class PhysicActor extends ModelActor {
             
         } while(!parent.containsModel());
         return (ModelActor)parent;
-    }
-    
-    public void renderingDone(){
-        stopActing();
     }
     
     public boolean alive(){

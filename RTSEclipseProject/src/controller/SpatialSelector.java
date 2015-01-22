@@ -1,6 +1,7 @@
 package controller;
 
 import geometry.Point2D;
+import geometry3D.Point3D;
 import view.View;
 import view.math.Translator;
 
@@ -49,6 +50,12 @@ public class SpatialSelector {
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
         return view.pointer.getPointedCoord(n, r);
+	}
+	
+	public Point2D getScreenCoord(Point3D pos){
+    	Vector3f vPos = Translator.toVector3f(pos);
+    	Vector3f screenCoord = cam.getScreenCoordinates(vPos);
+    	return Translator.toPoint3D(screenCoord).get2D();
 	}
 	
 	private Ray getMouseRay(){

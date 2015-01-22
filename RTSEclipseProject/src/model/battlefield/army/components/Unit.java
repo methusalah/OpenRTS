@@ -210,6 +210,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 
     @Override
     public void damage(EffectSource source, int amount) {
+    	if(destroyed())
+    		return;
         health -= amount;
         if(health <= 0)
             destroy();

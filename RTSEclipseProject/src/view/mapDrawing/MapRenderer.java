@@ -5,14 +5,15 @@ import com.jme3.asset.AssetManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Quaternion;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.util.TangentBinormalGenerator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import static model.battlefield.map.cliff.Cliff.Type.Salient;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcel.ParcelMesh;
-
 import tools.LogUtil;
 import view.View;
 import view.jme.TerrainSplatTexture;
@@ -88,10 +88,10 @@ public class MapRenderer implements ActionListener {
                 TangentBinormalGenerator.generate(jmeMesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(groundTexture.getMaterial());
-//                g.addControl(new RigidBodyControl(0));
+                g.addControl(new RigidBodyControl(0));
                 parcelsSpatial.put(mesh, g);
                 castAndReceiveNode.attachChild(g);
-//                mainPhysicsSpace.add(g);
+                mainPhysicsSpace.add(g);
             }
             updateTiles(view.model.battlefield.map.tiles);
     }

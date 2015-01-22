@@ -195,14 +195,14 @@
     <SpritePath value="particles/explosion01.png"/>
     <NbCol value="7"/>
     <NbRow value="7"/>    
-    <Velocity value="2"/>
+    <Velocity value="5"/>
     <Fanning value="1"/>
     <Duration value="250"/>
     <MaxCount value="100"/>
     <PerSecond value="200"/>
     <StartSize value="0.1"/>
     <EndSize value="0.2"/>
-    <StartColor R="255" G="255" B="0" A="220"/>
+    <StartColor R="255" G="255" B="0" A="255"/>
     <EndColor R="100" G="0" B="0" A="128"/>
     <MinLife value="1"/>
     <MaxLife value="3"/>

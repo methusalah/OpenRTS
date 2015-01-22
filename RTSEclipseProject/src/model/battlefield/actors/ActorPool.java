@@ -7,6 +7,7 @@ package model.battlefield.actors;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.builders.actors.ActorBuilder;
 import tools.LogUtil;
 
 /**
@@ -19,10 +20,14 @@ public class ActorPool {
     public List<Actor> deletedActors = new ArrayList<>();
     
     public void registerActor(Actor actor){
+//    	if(actor instanceof PhysicActor)
+//    		LogUtil.logger.info("register actor"+actor.getType()+" of id "+actor.debbug_id+" class "+actor.getClass().getSimpleName());	
         activeActors.add(actor);
     }
     
     public void deleteActor(Actor actor){
+//    	if(actor instanceof PhysicActor)
+//    		LogUtil.logger.info("unregister actor"+actor.getType()+" of id "+actor.debbug_id+" class "+actor.getClass().getSimpleName());	
         activeActors.remove(actor);
         deletedActors.add(actor);
     }
