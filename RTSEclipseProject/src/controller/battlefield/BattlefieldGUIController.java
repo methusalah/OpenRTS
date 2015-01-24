@@ -21,16 +21,11 @@ import tools.LogUtil;
  *
  * @author Benoît
  */
-public class BattlefieldGUI extends GUIController {
-
-    Commander commander;
-    Reporter reporter;
+public class BattlefieldGUIController extends GUIController {
     ArrayList<Unity> unities = new ArrayList<>();
     
-    public BattlefieldGUI(Nifty nifty, Controller controller, Commander commander, Reporter reporter) {
+    public BattlefieldGUIController(Nifty nifty, Controller controller) {
         super(controller, nifty);
-        this.reporter = reporter;
-        this.commander = commander;
     }
     
     @Override
@@ -39,7 +34,7 @@ public class BattlefieldGUI extends GUIController {
     }
     
     public void selectAll(){
-        commander.selectAll();
+        ctrl.model.commander.selectAll();
     }
 
     @Override
@@ -49,7 +44,7 @@ public class BattlefieldGUI extends GUIController {
         String n = System.getProperty("line.separator");
 
         // update unities
-        unities = commander.getUnitiesInContext();
+        unities = ctrl.model.commander.getUnitiesInContext();
         // Unity selectors
         for(int i=0; i<5; i++){
             if(i > unities.size()-1){
@@ -66,8 +61,8 @@ public class BattlefieldGUI extends GUIController {
         }
         
         // update info
-        if(commander.selection.size() == 1){
-            Unit u = commander.selection.get(0);
+        if(ctrl.model.commander.selection.size() == 1){
+            Unit u = ctrl.model.commander.selection.get(0);
             getElement("unitName").getRenderer(TextRenderer.class).setText(Reporter.getName(u));
             getElement("unitHealth").getRenderer(TextRenderer.class).setText(Reporter.getHealth(u));
             getElement("unitState").getRenderer(TextRenderer.class).setText(Reporter.getState(u));
@@ -94,6 +89,6 @@ public class BattlefieldGUI extends GUIController {
     
     public void select(String s){
         int index = Integer.parseInt(s);
-        commander.selectUnityInContext(unities.get(index));
+        ctrl.model.commander.selectUnityInContext(unities.get(index));
     }
 }

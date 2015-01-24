@@ -44,6 +44,10 @@ public class SpatialSelector {
         return view.pointer.getPointedCoord(n, r);
 	}
 	
+	public Point2D getCenterViewCoord(Node n) {
+        return view.pointer.getPointedCoord(n, getCameraRay());
+	}
+	
 	public Point2D getCoord(Node n, Point2D screenCoord) {
 		Vector3f origin = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 0f);
 		Vector3f direction = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 1f);

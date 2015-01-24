@@ -4,10 +4,13 @@
  */
 package model.builders.actors;
 
+import math.MyRandom;
 import model.battlefield.actors.Actor;
 import ressources.definitions.BuilderLibrary;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import ressources.definitions.DefElement;
 import model.builders.Builder;
 import ressources.definitions.Definition;
@@ -27,12 +30,14 @@ public class ActorBuilder extends Builder{
     
     protected static final String ACTOR_LIST = "ActorList";
     protected static final String TRIGGER = "Trigger";
+    protected static final String PROB = "Prob";
     protected static final String ACTOR_LINK = "ActorLink";
 
     protected String type;
     private List<String> childrenActorBuildersID = new ArrayList<>();
     protected List<ActorBuilder> childrenActorBuilders = new ArrayList<>();
     protected List<String> childrenTriggers = new ArrayList<>();
+    protected List<Double> childrenProbs = new ArrayList<>();
     
     public ActorBuilder(Definition def, BuilderLibrary lib){
         super(def, lib);
@@ -42,12 +47,29 @@ public class ActorBuilder extends Builder{
                 case ACTOR_LIST :
                     childrenActorBuildersID.add(de.getVal(ACTOR_LINK));
                     childrenTriggers.add(de.getVal(TRIGGER));
+                    if(de.getVal(PROB) != null)
+                    	childrenProbs.add(de.getDoubleVal(PROB));
+                    else
+                    	childrenProbs.add(1d);
                     break;
             }
     }
     
     public Actor build(String trigger, Actor parent){
-    	Actor res = new Actor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool);
+        List<ActorBuilder> localChildrenActorBuilders = new ArrayList<>();
+        List<String> localChildrenTriggers = new ArrayList<>();
+        
+        int i = 0;
+        for(ActorBuilder b : childrenActorBuilders){
+        	if(MyRandom.next() < childrenProbs.get(i)){
+        		localChildrenActorBuilders.add(b);
+        		localChildrenTriggers.add(childrenTriggers.get(i));
+        	}
+        	
+        	i++;
+        }
+    	
+    	Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, lib.battlefield.actorPool);
     	res.debbug_id = getId();
     	return res;
     }

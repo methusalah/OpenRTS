@@ -22,13 +22,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainRTS extends MySimpleApplication implements ActionListener{
-        Model model;
+    Model model;
 	View view;
 	MapRenderer tr;
 	BattlefieldController fieldCtrl;
-        EditorController editorCtrl;
-        GroundController groundCtrl;
-        Controller actualCtrl;
+    EditorController editorCtrl;
+    GroundController groundCtrl;
+    Controller actualCtrl;
 
 	public static void main(String[] args) {
 		AppSettings settings = new AppSettings(true);
@@ -47,47 +47,46 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 		app.start();
 	}
         
-        @Override
+    @Override
 	public void simpleInitApp() {
-                bulletAppState = new BulletAppState();
-                stateManager.attach(bulletAppState);
-                bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
+		bulletAppState = new BulletAppState();
+		stateManager.attach(bulletAppState);
+		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
 
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-                model = new Model();
-                view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
-                
-                NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+        model = new Model();
+        view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
+        
+        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-                fieldCtrl = new BattlefieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
-                fieldCtrl.addListener(this);
-                editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
-                editorCtrl.addListener(this);
-                groundCtrl = new GroundController(model, view, inputManager, cam);
-                groundCtrl.addListener(this);
+        fieldCtrl = new BattlefieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+        fieldCtrl.addListener(this);
+        editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+        editorCtrl.addListener(this);
+        groundCtrl = new GroundController(model, view, inputManager, cam);
+        groundCtrl.addListener(this);
 
-                niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
-                niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
-                
-                actualCtrl = editorCtrl;
-                actualCtrl.activate();
-		
-                view.mapRend.renderTiles();
-                
-                guiViewPort.addProcessor(niftyDisplay);
-                
+        niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
+        niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
+        
+        actualCtrl = editorCtrl;
+        actualCtrl.activate();
+
+        view.mapRend.renderTiles();
+        
+        guiViewPort.addProcessor(niftyDisplay);
 	}
         
-        @Override
-        public void simpleUpdate(float tpf) {
-            float maxedTPF = Math.min(tpf, 0.1f);
-            view.actorManager.render();
-            actualCtrl.update(maxedTPF);
-            
-            model.updateConfigs();
-        }
+    @Override
+    public void simpleUpdate(float tpf) {
+        float maxedTPF = Math.min(tpf, 0.1f);
+        view.actorManager.render();
+        actualCtrl.update(maxedTPF);
+        
+        model.updateConfigs();
+    }
 
 	@Override
 	public void destroy() {

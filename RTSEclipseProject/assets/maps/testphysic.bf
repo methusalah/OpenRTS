@@ -32783,11 +32783,11 @@
    <engagement>
       <initialEngagement class="java.util.ArrayList">
          <serializableUnit>
-            <builderID>humantank</builderID>
-            <factionName>1</factionName>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
             <pos>
-               <x>32.805747985839844</x>
-               <y>39.06327819824219</y>
+               <x>25.53525733947754</x>
+               <y>41.131187438964844</y>
                <z>0.0</z>
             </pos>
             <yaw>1.452339032199852</yaw>
@@ -32796,18 +32796,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>28.739179611206055</x>
-               <y>39.208763122558594</y>
-               <z>0.0</z>
-            </pos>
-            <yaw>2.522369812907792</yaw>
-         </serializableUnit>
-         <serializableUnit>
-            <builderID>BigAlien</builderID>
-            <factionName>2</factionName>
-            <pos>
-               <x>29.574678421020508</x>
-               <y>41.51485824584961</y>
+               <x>25.4538243627051</x>
+               <y>41.073147191773955</y>
                <z>0.0</z>
             </pos>
             <yaw>-0.0199642342699633</yaw>
@@ -32816,8 +32806,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>31.302133560180664</x>
-               <y>43.17469024658203</y>
+               <x>28.966732025146484</x>
+               <y>38.52095413208008</y>
                <z>0.0</z>
             </pos>
             <yaw>3.0528548080071785</yaw>
@@ -32826,8 +32816,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>32.34103012084961</x>
-               <y>43.38013458251953</y>
+               <x>31.094636917114258</x>
+               <y>38.50822067260742</y>
                <z>0.0</z>
             </pos>
             <yaw>2.2438765482733674</yaw>
@@ -32836,8 +32826,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>33.985939025878906</x>
-               <y>43.6198844909668</y>
+               <x>33.45893096923828</x>
+               <y>38.31439208984375</y>
                <z>0.0</z>
             </pos>
             <yaw>3.0625554219638156</yaw>
@@ -32846,8 +32836,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>35.210235595703125</x>
-               <y>42.85978698730469</y>
+               <x>35.50640106201172</x>
+               <y>38.880367279052734</y>
                <z>0.0</z>
             </pos>
             <yaw>-1.708034097751032</yaw>
@@ -32856,8 +32846,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>36.30947494506836</x>
-               <y>41.61802673339844</y>
+               <x>37.19602966308594</x>
+               <y>39.76571273803711</y>
                <z>0.0</z>
             </pos>
             <yaw>-2.6716491715877253</yaw>
@@ -32866,8 +32856,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>36.55853271484375</x>
-               <y>39.44158172607422</y>
+               <x>37.57596206665039</x>
+               <y>41.63481903076172</y>
                <z>0.0</z>
             </pos>
             <yaw>1.527805002893654</yaw>
@@ -32876,8 +32866,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>36.70699691772461</x>
-               <y>37.911865234375</y>
+               <x>34.87290954589844</x>
+               <y>43.70017623901367</y>
                <z>0.0</z>
             </pos>
             <yaw>2.8248149992874483</yaw>
@@ -32886,8 +32876,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>36.040496826171875</x>
-               <y>36.75883865356445</y>
+               <x>31.656566619873047</x>
+               <y>43.98571014404297</y>
                <z>0.0</z>
             </pos>
             <yaw>-2.9498723837356158</yaw>
@@ -32896,8 +32886,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>34.126407623291016</x>
-               <y>35.787147521972656</y>
+               <x>29.26394271850586</x>
+               <y>44.2142219543457</y>
                <z>0.0</z>
             </pos>
             <yaw>1.2042062633473316</yaw>
@@ -32906,8 +32896,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>32.23155975341797</x>
-               <y>34.9608268737793</y>
+               <x>27.486024856567383</x>
+               <y>43.30176544189453</y>
                <z>0.0</z>
             </pos>
             <yaw>2.2097390580401592</yaw>
@@ -32916,8 +32906,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>30.694345474243164</x>
-               <y>35.478851318359375</y>
+               <x>27.007047653198242</x>
+               <y>39.67782974243164</y>
                <z>0.0</z>
             </pos>
             <yaw>-2.785039840971494</yaw>
@@ -32926,8 +32916,8 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>29.43008804321289</x>
-               <y>37.00938034057617</y>
+               <x>26.41657066345215</x>
+               <y>38.098365783691406</y>
                <z>0.0</z>
             </pos>
             <yaw>-0.5762617402147718</yaw>
@@ -32936,11 +32926,441 @@
             <builderID>BigAlien</builderID>
             <factionName>2</factionName>
             <pos>
-               <x>29.105281829833984</x>
-               <y>37.58464813232422</y>
+               <x>26.553218841552734</x>
+               <y>36.86992263793945</y>
                <z>0.0</z>
             </pos>
             <yaw>-0.9274685728416081</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>29.971622467041016</x>
+               <y>35.628807067871094</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>3.1019246513821592</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>31.869853973388672</x>
+               <y>35.454444885253906</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>0.3892140442257004</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>33.82046890258789</x>
+               <y>35.06119918823242</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-0.15089358205843073</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>35.59428024291992</x>
+               <y>35.106693267822266</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.831131179663451</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>37.43421173095703</x>
+               <y>35.56047439575195</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>0.5169325346655378</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>39.0001106262207</x>
+               <y>36.54199981689453</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.2069246579282966</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>40.478485107421875</x>
+               <y>39.37822341918945</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.704792578535077</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>40.944679260253906</x>
+               <y>41.414588928222656</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.179097450927163</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>39.724517822265625</x>
+               <y>43.598411560058594</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.9149096939386725</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>38.27310562133789</x>
+               <y>44.15129089355469</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.6799626269629382</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>35.815982818603516</x>
+               <y>45.03400421142578</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>0.7328811389324588</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>33.781455993652344</x>
+               <y>45.07723617553711</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>0.6842099907829833</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>30.688615798950195</x>
+               <y>45.05529022216797</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.5857565972183003</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>27.706222534179688</x>
+               <y>44.90012741088867</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.1322623203761593</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>26.182159423828125</x>
+               <y>44.15128707885742</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.1874930216267483</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>25.36798667907715</x>
+               <y>43.598411560058594</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.8702350139163482</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>24.807456970214844</x>
+               <y>42.125030517578125</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.364210454938711</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>24.674718856811523</x>
+               <y>40.290496826171875</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.46568198459201</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>24.89455795288086</x>
+               <y>37.94913864135742</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.935731678374439</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>25.377460479736328</x>
+               <y>36.30821990966797</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.7184995877188864</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>26.531452178955078</x>
+               <y>34.94210433959961</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.4650696401121819</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>28.310245513916016</x>
+               <y>34.64823913574219</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>0.34185264027586015</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>28.786243438720703</x>
+               <y>35.503318786621094</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.713631048353352</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>30.130949020385742</x>
+               <y>36.519832611083984</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.2439428447108796</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>31.842256546020508</x>
+               <y>36.40250015258789</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.823492438254418</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>34.05120849609375</x>
+               <y>36.37053680419922</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.3189599191166126</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>35.71220397949219</x>
+               <y>36.63860321044922</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.7776340501463292</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>36.85857391357422</x>
+               <y>37.655609130859375</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-0.2493783886238461</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>38.205955505371094</x>
+               <y>38.50822448730469</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-0.20135891085378965</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>38.692169189453125</x>
+               <y>39.02996063232422</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.5512286350378082</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>34.95046615600586</x>
+               <y>41.329498291015625</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.8179918686302914</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>32.339725494384766</x>
+               <y>42.74638748168945</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.7085590725953512</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>29.282493591308594</x>
+               <y>42.72800827026367</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-0.9720509757487412</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>27.199947357177734</x>
+               <y>42.286067962646484</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>1.4111234332594842</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>29.039705276489258</x>
+               <y>40.244415283203125</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.415301382013099</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>30.96286964416504</x>
+               <y>39.70745849609375</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-0.486457437848538</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>BigAlien</builderID>
+            <factionName>2</factionName>
+            <pos>
+               <x>33.336891174316406</x>
+               <y>39.53477478027344</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.0811212572991176</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>27.898761749267578</x>
+               <y>37.278865814208984</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-2.159630473603305</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>30.554914474487305</x>
+               <y>41.964378356933594</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.5465426723581635</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>33.52608108520508</x>
+               <y>41.04967498779297</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>2.825196625123784</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>36.517669677734375</x>
+               <y>42.65349197387695</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>0.20073945571020735</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>37.99812316894531</x>
+               <y>37.1633186340332</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.2093053304048393</yaw>
+         </serializableUnit>
+         <serializableUnit>
+            <builderID>humantank</builderID>
+            <factionName>1</factionName>
+            <pos>
+               <x>34.626258850097656</x>
+               <y>37.47687911987305</y>
+               <z>0.0</z>
+            </pos>
+            <yaw>-1.7797377648274026</yaw>
          </serializableUnit>
       </initialEngagement>
    </engagement>

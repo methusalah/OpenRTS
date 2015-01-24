@@ -10,12 +10,18 @@ import com.jme3.animation.AnimEventListener;
 import com.jme3.animation.LoopMode;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
@@ -24,6 +30,7 @@ import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import model.battlefield.actors.PhysicActor;
 import tools.LogUtil;
+import view.View;
 import view.material.MaterialManager;
 
 /**
@@ -46,6 +53,9 @@ public class ActorDrawingManager implements AnimEventListener {
     
     
     HashMap<String, Spatial> models = new HashMap<>();
+    
+    List<ParticleEmitter> dyingEmitters = new ArrayList<>();
+    List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 
     public ActorDrawingManager(AssetManager assetManager, MaterialManager materialManager, ActorPool pool){
         this.assetManager = assetManager;
@@ -64,11 +74,20 @@ public class ActorDrawingManager implements AnimEventListener {
         for(Actor a : pool.grabDeletedActors()){
             if(a.viewElements.spatial != null)
                 mainNode.detachChild(a.viewElements.spatial);
-            if(a.viewElements.particleEmitter != null)
-                a.viewElements.particleEmitter.setParticlesPerSec(0);
+            if(a.viewElements.particleEmitter != null){
+            	a.viewElements.particleEmitter.setParticlesPerSec(0);
+                dyingEmitters.add(a.viewElements.particleEmitter);
+            }
             if(a.viewElements.selectionCircle != null)
                 mainNode.detachChild(a.viewElements.selectionCircle);
         }
+        List<ParticleEmitter> deleted = new ArrayList<>();
+    	for(ParticleEmitter pe : dyingEmitters)
+    		if(pe.getNumVisibleParticles() == 0){
+    			mainNode.detachChild(pe);
+    			deleted.add(pe);
+    		}
+    	dyingEmitters.removeAll(deleted);
         
         for(Actor a : pool.getActors())
             switch (a.getType()){
@@ -82,6 +101,32 @@ public class ActorDrawingManager implements AnimEventListener {
                 case "particle" : particleDrawer.draw((ParticleActor)a); break;
             }
     }
+    
+    public void pause(boolean val){
+    	setEmmitersEnable(mainNode, val);
+    	if(val){
+    		pausedPhysics.clear();
+	    	Iterator<PhysicsRigidBody> i = mainPhysicsSpace.getRigidBodyList().iterator();
+	    	while(i.hasNext()){
+	    		PhysicsRigidBody rb = i.next();
+	    		mainPhysicsSpace.remove(rb);
+	    		pausedPhysics.add(rb);
+	    	}
+    	} else {
+    		for(PhysicsRigidBody rb : pausedPhysics)
+    			mainPhysicsSpace.add(rb);
+    	}
+    	
+	}
+
+    public void setEmmitersEnable(Spatial s, boolean val){
+    	if(s instanceof ParticleEmitter)
+    		((ParticleEmitter)s).setEnabled(!val);
+    	if(s instanceof Node)
+	        for(Spatial child : ((Node)s).getChildren())
+	        	setEmmitersEnable(child, val);
+    }
+    
     
     protected Spatial buildSpatial(String modelPath){
         if(!models.containsKey(modelPath))

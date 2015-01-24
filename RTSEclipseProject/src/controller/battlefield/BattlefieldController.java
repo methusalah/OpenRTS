@@ -28,7 +28,7 @@ public class BattlefieldController extends Controller {
         super(model, view, inputManager, cam);
         
         inputInterpreter = new BattlefieldInputInterpreter(this);
-        guiController = new BattlefieldGUI(nifty, this, model.commander, model.reporter);
+        guiController = new BattlefieldGUIController(nifty, this);
         
         model.commander.registerListener(this);
         
@@ -46,7 +46,8 @@ public class BattlefieldController extends Controller {
             view.guiNode.detachAllChildren();   
         
         // update selectables
-        model.commander.updateSelectables(getViewCenter());
+        model.commander.updateSelectables(spatialSelector.getCenterViewCoord(view.rootNode));
+        guiController.update();
         
         // udpdate army
         if(!paused)
@@ -58,12 +59,9 @@ public class BattlefieldController extends Controller {
         guiController.update();
     }
     
-    private Point2D getViewCenter(){
-        return spatialSelector.getCoord(view.rootNode);
-    }
-    
     public void togglePause(){
     	paused = !paused;
+		view.actorManager.pause(paused);
     }
 
     @Override
