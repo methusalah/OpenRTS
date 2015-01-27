@@ -158,7 +158,7 @@ public class TrinketBuilder extends Builder{
         double rotY = MyRandom.between(minRotY, maxRotY);
         double rotZ = MyRandom.between(minRotZ, maxRotZ);
         double scaleX, scaleY, scaleZ;
-        if(Double.isNaN(minScaleX)){
+        if(Double.isNaN(minScale)){
 	        scaleX = MyRandom.between(minScaleX, maxScaleX);
 	        scaleY = MyRandom.between(minScaleY, maxScaleY);
 	        scaleZ = MyRandom.between(minScaleZ, maxScaleZ);
