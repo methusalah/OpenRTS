@@ -67,6 +67,9 @@ public class TrinketBuilder extends Builder{
     private double minPosZ = 0;
     private double maxPosZ = 0;
     
+    
+    private double minScale = Double.NaN;
+    private double maxScale = Double.NaN;
     private double minScaleX = 1;
     private double maxScaleX = 1;
     private double minScaleY = 1;
@@ -118,8 +121,8 @@ public class TrinketBuilder extends Builder{
                     break;
 
                 case SCALE :
-                    minScaleX = minScaleY = minScaleZ = de.getDoubleVal(MIN);
-                    maxScaleX = maxScaleY = maxScaleZ = de.getDoubleVal(MAX);
+                    minScale = de.getDoubleVal(MIN);
+                    maxScale = de.getDoubleVal(MAX);
                     break;
                 case SCALE_X :
                     minScaleX = de.getDoubleVal(MIN);
@@ -154,9 +157,14 @@ public class TrinketBuilder extends Builder{
         double rotX = MyRandom.between(minRotX, maxRotX);
         double rotY = MyRandom.between(minRotY, maxRotY);
         double rotZ = MyRandom.between(minRotZ, maxRotZ);
-        double scaleX = MyRandom.between(minScaleX, maxScaleX);
-        double scaleY = MyRandom.between(minScaleY, maxScaleY);
-        double scaleZ = MyRandom.between(minScaleZ, maxScaleZ);
+        double scaleX, scaleY, scaleZ;
+        if(Double.isNaN(minScaleX)){
+	        scaleX = MyRandom.between(minScaleX, maxScaleX);
+	        scaleY = MyRandom.between(minScaleY, maxScaleY);
+	        scaleZ = MyRandom.between(minScaleZ, maxScaleZ);
+        } else
+        	scaleX = scaleY = scaleZ = MyRandom.between(minScale, maxScale);
+        	
 
         int i = 0;
         if(modelPaths.size()>1)
