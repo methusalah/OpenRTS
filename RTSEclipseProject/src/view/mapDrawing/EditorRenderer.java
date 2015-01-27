@@ -160,7 +160,7 @@ public class EditorRenderer implements ActionListener {
         int index = 0;
         for(Spatial s : CliffPencilNode.getChildren()){
             if(index < tiles.size())
-                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)view.model.toolManager.cliffTool.pencil.getElevation()+0.1f));
+                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getCoord(), (float)view.model.toolManager.cliffTool.pencil.getElevation()+0.1f));
             else
                 s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
             index++;

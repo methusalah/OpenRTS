@@ -9,6 +9,7 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Quaternion;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
@@ -88,6 +89,8 @@ public class MapRenderer implements ActionListener {
                 TangentBinormalGenerator.generate(jmeMesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(groundTexture.getMaterial());
+                g.setQueueBucket(Bucket.Transparent);
+                
                 g.addControl(new RigidBodyControl(0));
                 parcelsSpatial.put(mesh, g);
                 castAndReceiveNode.attachChild(g);
@@ -118,15 +121,15 @@ public class MapRenderer implements ActionListener {
     private void updateTiles(List<Tile> tiles){
         for(Tile t : tiles){
             freeTileNode(t);
-            if(t.isCliff()){
-                if(t.cliff.type == Cliff.Type.Bugged)
+            for(Cliff c : t.getCliffs()){
+                if(c.type == Cliff.Type.Bugged)
                     attachBuggedCliff(t);
-                else if(t.cliff.face == null)
+                else if(c.face == null)
                     continue;
-                else if(t.cliff.face.getType().equals("natural"))
-                    attachNaturalCliff(t);
-                else if(t.cliff.face.getType().equals("manmade"))
-                    attachManmadeCliff(t);
+                else if(c.face.getType().equals("natural"))
+                    attachNaturalCliff(t, c);
+                else if(c.face.getType().equals("manmade"))
+                    attachManmadeCliff(t, c);
             }
         }
     }
@@ -150,12 +153,12 @@ public class MapRenderer implements ActionListener {
         castAndReceiveNode.attachChild(n);
     }
     
-    private void attachNaturalCliff(Tile t){
+    private void attachNaturalCliff(Tile t, Cliff c){
         Node n = new Node();
         tilesSpatial.put(t, n);
         castAndReceiveNode.attachChild(n);
 
-        NaturalFace face = (NaturalFace)(t.cliff.face);
+        NaturalFace face = (NaturalFace)(c.face);
         Geometry g = new Geometry();
         g.setMesh(Translator.toJMEMesh(face.mesh));
         if(face.color != null)
@@ -163,31 +166,31 @@ public class MapRenderer implements ActionListener {
         else
             g.setMaterial(mm.getLightingTexture(face.texturePath));
 //            g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
-        g.rotate(0, 0, (float)(t.cliff.angle));
+        g.rotate(0, 0, (float)(c.angle));
         g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
         n.attachChild(g);
     }
     
-    private void attachManmadeCliff(Tile t){
+    private void attachManmadeCliff(Tile t, Cliff c){
         Node n = new Node();
         tilesSpatial.put(t, n);
         castAndReceiveNode.attachChild(n);
 
-        ManmadeFace face = (ManmadeFace)(t.cliff.face);
+        ManmadeFace face = (ManmadeFace)(c.face);
         Spatial s = getModel(face.modelPath);
         if(s == null){
             LogUtil.logger.warning("Can't find model "+face.modelPath);
             return;
         }
-        switch (t.cliff.type){
+        switch (c.type){
             case Orthogonal : 
-                s.rotate(0, 0, (float) (t.cliff.angle+Angle.RIGHT));
+                s.rotate(0, 0, (float) (c.angle+Angle.RIGHT));
                 break;
             case Salient : 
-                s.rotate(0, 0, (float)(t.cliff.angle+Angle.RIGHT));
+                s.rotate(0, 0, (float)(c.angle+Angle.RIGHT));
                 break;
             case Corner : 
-                s.rotate(0, 0, (float)(t.cliff.angle));
+                s.rotate(0, 0, (float)(c.angle));
                 break;
         }
         s.scale(0.005f);

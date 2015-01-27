@@ -6,13 +6,16 @@ package view.jme;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 import com.jme3.texture.plugins.AWTLoader;
+
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+
 import model.editor.tools.AtlasTool;
 import model.battlefield.map.atlas.Atlas;
 
@@ -57,6 +60,7 @@ public class TerrainSplatTexture {
         mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.width, atlas.height, atlas.getBuffer(0))));
         mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.width, atlas.height, atlas.getBuffer(1))));
 //        mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
+        mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
         for(int i=0; i<12; i++){
             if(diffuseMaps.size()>i){

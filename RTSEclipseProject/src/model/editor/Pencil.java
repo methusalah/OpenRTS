@@ -161,7 +161,7 @@ public class Pencil {
         for(Tile t : map.getTiles()){
             boolean inside = true;
             for(Segment2D s: p.getEdges())
-                if(Angle.getTurn(s.getStart(), s.getEnd(), t.getPos2D().getAddition(0.5, 0.5)) != Angle.COUNTERCLOCKWISE){
+                if(Angle.getTurn(s.getStart(), s.getEnd(), t.getCoord().getAddition(0.5, 0.5)) != Angle.COUNTERCLOCKWISE){
                     inside = false;
                     break;
                 }

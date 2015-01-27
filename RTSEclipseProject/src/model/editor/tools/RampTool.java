@@ -38,7 +38,7 @@ public class RampTool extends Tool{
         if(t.ramp != null){
             t.ramp.grow(t);
         } else {
-            if(!t.isCliff)
+            if(!t.isCliff())
                 return;
             new Ramp(t, manager.battlefield.map);
         }
@@ -49,7 +49,7 @@ public class RampTool extends Tool{
             for(Tile n : t1.get8Neighbors()){
                 if(!changed.contains(n))
                     changed.add(n);
-                if(n.isCliff)
+                if(n.isCliff())
                     n.unsetCliff();
             }
         manager.updateTiles(changed);

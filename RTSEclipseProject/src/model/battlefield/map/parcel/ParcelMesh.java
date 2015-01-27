@@ -15,9 +15,13 @@ import geometry3D.Triangle3D;
 import geometry3D.MyMesh;
 import geometry3D.Point3D;
 import geometry3D.Polygon3D;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.management.RuntimeErrorException;
+
 import math.Angle;
 import math.MyRandom;
 import model.battlefield.map.Tile;
@@ -78,12 +82,13 @@ public class ParcelMesh extends MyMesh {
         Point2D ne = new Point2D(0.5, 0.5);
         Point2D nw = new Point2D(-0.5, 0.5);
         
-        ArrayList<Polygon3D> polygons = new ArrayList<>();
-        for(Ring<Point3D> ring : t.getGrounds()){
+        List<Polygon3D> polygons = new ArrayList<>();
+        List<Ring<Point3D>> groundRings = new ArrayList<>();
+        groundRings.add(t.getLowerCliff().face.getLowerGround());
+        groundRings.add(t.getUpperCliff().face.getUpperGround());
+        for(Ring<Point3D> ring : groundRings){
             Ring<Point3D> elevatedRing = new Ring<>();
             for(Point3D p : ring){
-            	// warning ici on test une cliff au hasard
-                p = p.get2D().getRotation(t.getCliff(1).angle).get3D(p.z);
                 if(p.get2D().equals(sw))
                     p = p.getAddition(0, 0, t.getZ());
                 else if(p.get2D().equals(se))

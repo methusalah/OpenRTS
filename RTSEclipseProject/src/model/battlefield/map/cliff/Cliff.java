@@ -54,6 +54,8 @@ public class Cliff {
             res = res.concat("e");
         if(isNeighborCliff(tile.w))
             res = res.concat("w");
+        if(res.isEmpty())
+        	LogUtil.logger.info("asking connexion conf but no connexion for cliff at "+tile.getCoord());
         return res;
     }
     

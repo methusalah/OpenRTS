@@ -40,10 +40,10 @@ public class GridMesh extends MyMesh {
             normals.add(Point3D.UNIT_Z);
             normals.add(Point3D.UNIT_Z);
 
-            textCoord.add(t.getPos2D());
-            textCoord.add(t.n.getPos2D());
-            textCoord.add(t.n.e.getPos2D());
-            textCoord.add(t.e.getPos2D());
+            textCoord.add(t.getCoord());
+            textCoord.add(t.n.getCoord());
+            textCoord.add(t.n.e.getCoord());
+            textCoord.add(t.e.getCoord());
 
             indices.add(index);
             indices.add(index+2);

@@ -48,28 +48,29 @@ public class Dug1Salient extends Dug1 {
     }
 
     @Override
-    public ArrayList<Ring<Point3D>> getGrounds() {
-        Point3D sw = new Point3D(-0.5, -0.5, 0);
+    public Ring<Point3D> getLowerGround() {
         Point3D se = new Point3D(0.5, -0.5, 0);
         Point3D ne = new Point3D(0.5, 0.5, 0);
         Point3D nw = new Point3D(-0.5, 0.5, 0);
 
-        Ring<Point3D> lowerPoints = new Ring<>();
-        Ring<Point3D> upperPoints = new Ring<>();
+        Ring<Point3D> res = new Ring<>();
 
-        lowerPoints.add(se);
-        lowerPoints.add(ne);
-        lowerPoints.add(nw);
+        res.add(se);
+        res.add(ne);
+        res.add(nw);
         for(int i=0; i<NB_VERTEX_COL; i++)
-            lowerPoints.add(grid[i][0]);
+            res.add(grid[i][0]);
+        return getRotation(res);
+    }
+    
+    @Override
+    public Ring<Point3D> getUpperGround() {
+        Point3D sw = new Point3D(-0.5, -0.5, 0);
 
-        upperPoints.add(sw);
+        Ring<Point3D> res = new Ring<>();
+        res.add(sw);
         for(int i=NB_VERTEX_COL-1; i>=0; i--)
-            upperPoints.add(grid[i][NB_VERTEX_ROWS-1]);
-        
-        ArrayList<Ring<Point3D>> res = new ArrayList<>();
-        res.add(lowerPoints);
-        res.add(upperPoints);
-        return res;
+            res.add(grid[i][NB_VERTEX_ROWS-1]);
+        return getRotation(res);
     }
 }

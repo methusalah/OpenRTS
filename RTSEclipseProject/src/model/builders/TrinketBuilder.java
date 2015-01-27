@@ -189,12 +189,12 @@ public class TrinketBuilder extends Builder{
                 res.pos = res.pos.getRotationAroundZ(Angle.RIGHT*posY);
                 break;
         }
-        if(cliff.tile.ramp != null){
-            double ratio = cliff.tile.ramp.getCliffSlopeRate(cliff.tile);
+        if(cliff.getTile().ramp != null){
+            double ratio = cliff.getTile().ramp.getCliffSlopeRate(cliff.getTile());
             res.pos = res.pos.getAddition(0, 0, -Tile.STAGE_HEIGHT*ratio*res.pos.z/Tile.STAGE_HEIGHT);
         }
         res.pos = res.pos.getRotationAroundZ(cliff.angle, new Point2D(0.5, 0.5));
-        res.pos = res.pos.getAddition(cliff.tile.x, cliff.tile.y, cliff.tile.level*Tile.STAGE_HEIGHT);
+        res.pos = res.pos.getAddition(cliff.getTile().x, cliff.getTile().y, cliff.getTile().level*Tile.STAGE_HEIGHT);
         return res;
     }
     

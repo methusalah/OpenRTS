@@ -57,14 +57,14 @@ public class CliffShapeBuilder extends Builder{
     }
     
     public void build(Cliff cliff){
-        cliff.tile.cliffShapeID = def.id;
+        cliff.getTile().cliffShapeID = def.id;
         if(naturalFaceBuilder != null)
             cliff.face = naturalFaceBuilder.build(cliff);
         else
             cliff.face = manmadeFaceBuilder.build(cliff);
         int i = 0;
         cliff.trinkets.clear();
-        if(cliff.tile.ramp == null){
+        if(cliff.getTile().ramp == null){
             for(TrinketBuilder tb : trinketBuilders)
                 if(MyRandom.next()<trinketProbs.get(i))
                     cliff.trinkets.add(tb.build(cliff));

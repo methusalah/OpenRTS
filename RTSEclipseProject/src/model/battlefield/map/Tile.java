@@ -20,6 +20,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Transient;
 
+import tools.LogUtil;
 import collections.Ring;
 
 @Root
@@ -41,8 +42,6 @@ public class Tile {
     public int level;
     @Element
     public double elevation = 0;
-    @Element
-    public boolean isCliff = false;
     @Element(required=false)
     public String cliffShapeID = "";
 
@@ -64,13 +63,11 @@ public class Tile {
             @Element(name="y") int y,
             @Element(name="level") int level,
             @Element(name="elevation") double elevation,
-            @Element(name="isCliff") boolean isCliff,
             @Element(name="cliffShapeID") String cliffShapeID){
         this.x = x;
         this.y = y;
         this.level = level;
         this.elevation = elevation;
-        this.isCliff = isCliff;
         this.cliffShapeID = cliffShapeID;
     }
 
@@ -104,16 +101,16 @@ public class Tile {
         return new Point3D(x, y, getZ());
     }
 
-    public Point2D getPos2D() {
+    public Point2D getCoord() {
         return new Point2D(x, y);
     }
     
     public BoundingShape getBounds() {
         ArrayList<Point2D> points = new ArrayList<>();
-        points.add(getPos2D());
-        points.add(getPos2D().getAddition(1, 0));
-        points.add(getPos2D().getAddition(1, 1));
-        points.add(getPos2D().getAddition(0, 1));
+        points.add(getCoord());
+        points.add(getCoord().getAddition(1, 0));
+        points.add(getCoord().getAddition(1, 1));
+        points.add(getCoord().getAddition(0, 1));
         return new AlignedBoundingBox(points);
     }
     
@@ -133,8 +130,9 @@ public class Tile {
         if(ramp != null && ramp.getCliffSlopeRate(this) == 1)
             return;
         for(int level = minLevel; level <= maxLevel; level++)
-        	if(getCliff(level) != null)
+        	if(getCliff(level) == null)
         		setCliff(level, new Cliff(this, level));
+        
     }
     
     public Cliff getCliff(int level){
@@ -188,7 +186,7 @@ public class Tile {
     	for(int i = 0; i<3; i++)
     		if(getCliff(i) != null)
     			return getCliff(i);
-    	throw new RuntimeException("can't find lower cliff if there is no cliff on the tile");
+    	throw new RuntimeException("Tile as no cliff "+this);
     }
     public Cliff getUpperCliff(){
     	Cliff res = getLowerCliff();
@@ -196,5 +194,13 @@ public class Tile {
     		if(getCliff(i) != null)
     			res = getCliff(i);
     	return res;
+    }
+    public List<Cliff> getCliffs(){
+    	List<Cliff> res = new ArrayList<>();
+    	for(int i = 0; i<3; i++)
+    		if(getCliff(i) != null)
+    			res.add(getCliff(i));
+    	return res;
+    	
     }
 }

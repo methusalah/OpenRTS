@@ -61,12 +61,12 @@ public class HeightTool extends Tool {
     
     private void raise(ArrayList<Tile> tiles){
         for(Tile t : tiles)
-            t.elevation += amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
+            t.elevation += amplitude*pencil.strength*pencil.getApplicationRatio(t.getCoord());
     }
     
     private void low(ArrayList<Tile> tiles){
         for(Tile t : tiles)
-            t.elevation -= amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
+            t.elevation -= amplitude*pencil.strength*pencil.getApplicationRatio(t.getCoord());
     }
     
     private void uniform(ArrayList<Tile> tiles){
@@ -76,7 +76,7 @@ public class HeightTool extends Tool {
         }
         for(Tile t : tiles){
             double diff = maintainedElevation-t.elevation;
-            double attenuatedAmplitude = amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
+            double attenuatedAmplitude = amplitude*pencil.strength*pencil.getApplicationRatio(t.getCoord());
             if(diff > 0)
                 t.elevation += Math.min(diff, attenuatedAmplitude);
             else if(diff < 0)
@@ -85,7 +85,7 @@ public class HeightTool extends Tool {
     }
     private void noise(ArrayList<Tile> tiles){
         for(Tile t : tiles){
-            t.elevation += amplitude*pencil.strength*MyRandom.between(-1.0, 1.0)*pencil.getApplicationRatio(t.getPos2D());
+            t.elevation += amplitude*pencil.strength*MyRandom.between(-1.0, 1.0)*pencil.getApplicationRatio(t.getCoord());
         }
     }
 
@@ -97,7 +97,7 @@ public class HeightTool extends Tool {
             average /= t.get4Neighbors().size();
             
             double diff = average-t.elevation;
-            double attenuatedAmplitude = amplitude*pencil.strength*pencil.getApplicationRatio(t.getPos2D());
+            double attenuatedAmplitude = amplitude*pencil.strength*pencil.getApplicationRatio(t.getCoord());
             if(diff > 0)
                 t.elevation += Math.min(diff, attenuatedAmplitude);
             else if(diff < 0)

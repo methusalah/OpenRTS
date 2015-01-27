@@ -106,10 +106,10 @@ public class CliffTool extends Tool {
     
 
     private boolean leadsToDoubleCliff(Tile t, int level){
-        for(Tile n : t.get8Neighbors())
-            if(//n.isCliff() &&
-                    (level > n.level+1 || level < n.level-1))
-                return true;
+//        for(Tile n : t.get8Neighbors())
+//            if(//n.isCliff() &&
+//                    (level > n.level+1 || level < n.level-1))
+//                return true;
         return false;
     }
 

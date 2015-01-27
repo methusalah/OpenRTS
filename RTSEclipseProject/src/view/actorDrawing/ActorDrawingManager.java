@@ -77,6 +77,7 @@ public class ActorDrawingManager implements AnimEventListener {
             if(a.viewElements.particleEmitter != null){
             	a.viewElements.particleEmitter.setParticlesPerSec(0);
                 dyingEmitters.add(a.viewElements.particleEmitter);
+                a.viewElements.particleEmitter = null;                
             }
             if(a.viewElements.selectionCircle != null)
                 mainNode.detachChild(a.viewElements.selectionCircle);

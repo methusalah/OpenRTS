@@ -4,11 +4,7 @@
  */
 package model.battlefield.army.effects;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
 import java.util.ArrayList;
-import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
 import model.builders.EffectBuilder;
 
 

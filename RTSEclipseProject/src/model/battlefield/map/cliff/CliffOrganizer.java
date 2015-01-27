@@ -135,7 +135,7 @@ public class CliffOrganizer {
                 }
                 c.type = Cliff.Type.Orthogonal;
                 break;
-            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.getTile().getPos2D()+" : "+c.getConnexionConfiguration());
+            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.getTile().getCoord()+" : "+c.getConnexionConfiguration());
                 c.type = Cliff.Type.Bugged;
         }
     }

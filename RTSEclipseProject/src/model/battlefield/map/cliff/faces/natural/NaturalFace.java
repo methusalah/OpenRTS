@@ -4,28 +4,19 @@
  */
 package model.battlefield.map.cliff.faces.natural;
 
-import collections.Ring;
-import geometry.Point2D;
 import geometry3D.Point3D;
-import geometry3D.Polygon3D;
 import java.awt.Color;
 import java.util.ArrayList;
-import math.Angle;
-import math.MyRandom;
-import model.battlefield.map.Tile;
-import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.Face;
-import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
-public class NaturalFace extends Face {
+public abstract class NaturalFace extends Face {
     public NaturalFaceMesh mesh;
 
-    final Cliff cliff;
     final double noiseX, noiseY, noiseZ;
     final double ridgeDepthRange, ridgePosRange;
     final public Color color;
@@ -37,7 +28,7 @@ public class NaturalFace extends Face {
     Point3D[][] grid;
     
     public NaturalFace(Cliff cliff, double noiseX, double noiseY, double noiseZ, double ridgeDepth, double ridgePos, Color color, String texturePath){
-        this.cliff = cliff;
+        super(cliff);
         this.noiseX = noiseX;
         this.noiseY = noiseY;
         this.noiseZ = noiseZ;
@@ -67,10 +58,5 @@ public class NaturalFace extends Face {
             return (NaturalFace)(cliff.getChild().face);
         else
             return null;
-    }
-
-    @Override
-    public ArrayList<Ring<Point3D>> getGrounds() {
-        throw new UnsupportedOperationException("Can't be launched form this mother class.");
     }
 }

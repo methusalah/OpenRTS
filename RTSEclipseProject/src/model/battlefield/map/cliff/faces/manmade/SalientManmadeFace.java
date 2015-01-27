@@ -21,32 +21,27 @@ public class SalientManmadeFace extends ManmadeFace {
     }
 
     @Override
-    public ArrayList<Ring<Point3D>> getGrounds() {
-        Point3D sw = new Point3D(-0.5, -0.5, 0);
+    public Ring<Point3D> getLowerGround() {
         Point3D se = new Point3D(0.5, -0.5, 0);
         Point3D ne = new Point3D(0.5, 0.5, 0);
         Point3D nw = new Point3D(-0.5, 0.5, 0);
 
-        Ring<Point3D> lowerPoints = new Ring<>();
-        Ring<Point3D> upperPoints = new Ring<>();
+        Ring<Point3D> res = new Ring<>();
+        res.add(se.getAddition(-0.5, 0, 0));
+        res.add(se);
+        res.add(ne);
+        res.add(nw);
+        res.add(nw.getAddition(0, -0.5, 0));
+        return getRotation(res);
+    }
+    @Override
+    public Ring<Point3D> getUpperGround() {
+        Point3D sw = new Point3D(-0.5, -0.5, 0);
 
-        lowerPoints.add(se.getAddition(-0.5, 0, 0));
-        lowerPoints.add(se);
-        lowerPoints.add(ne);
-        lowerPoints.add(nw);
-        lowerPoints.add(nw.getAddition(0, -0.5, 0));
-//        lowerPoints.add(se);
-//        lowerPoints.add(ne);
-//        lowerPoints.add(nw);
-//        lowerPoints.add(sw.getAddition(0, 0, -Tile.STAGE_HEIGHT));
-
-        upperPoints.add(sw);
-        upperPoints.add(sw.getAddition(0.01, 0, 0));
-        upperPoints.add(sw.getAddition(0, 0.01, 0));
-
-        ArrayList<Ring<Point3D>> res = new ArrayList<>();
-        res.add(lowerPoints);
-        res.add(upperPoints);
-        return res;
+        Ring<Point3D> res = new Ring<>();
+        res.add(sw);
+        res.add(sw.getAddition(0.01, 0, 0));
+        res.add(sw.getAddition(0, 0.01, 0));
+        return getRotation(res);
     }
 }

@@ -136,27 +136,27 @@ public class ToolManager {
                     updatedTiles.add(n);
         
         for(Tile t : updatedTiles){
-            boolean diff = false;
-            for(Tile nn : battlefield.map.get8Around(t))
-                if(t.level < nn.level){
-                    diff = true;
-                    break;
-                }
-            if(t.isCliff)
+        	int minLevel = t.level;
+        	int maxLevel = t.level;
+            for(Tile n : battlefield.map.get8Around(t)){
+            	minLevel = Math.min(minLevel, n.level);
+            	maxLevel = Math.max(maxLevel, n.level);
+            }
+            if(t.isCliff())
             	t.unsetCliff();
             
-            if(diff)
-            	t.setCliff();
+            if(minLevel != maxLevel)
+            	t.setCliff(minLevel, maxLevel);
         }
 
         for(Tile t : updatedTiles){
             t.correctElevation();
-            if(t.isCliff())
-                t.cliff.connect();
+            for(Cliff c : t.getCliffs())
+            	c.connect();
         }
         for(Tile t : updatedTiles){
-            if(t.isCliff())
-                cliffTool.buildShape(t.cliff);
+            for(Cliff c : t.getCliffs())
+                cliffTool.buildShape(c);
         }
         notifyListeners("tiles", updatedTiles);
         updateParcels(tiles);

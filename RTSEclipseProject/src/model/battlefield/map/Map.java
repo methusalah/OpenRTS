@@ -296,7 +296,7 @@ public class Map {
     	for(Trinket t : trinkets){
     		if(t.getRadius() != 0)
     			for(Tile n : get9Around(getTile(t.getCoord()))){
-    				if(n.getPos2D().getAddition(0.5, 0.5).getDistance(t.getCoord()) < t.getRadius()+0.3)
+    				if(n.getCoord().getAddition(0.5, 0.5).getDistance(t.getCoord()) < t.getRadius()+0.3)
     					n.hasBlockingTrinket = true;
     			}
     	}

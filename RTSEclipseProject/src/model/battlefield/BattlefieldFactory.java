@@ -98,21 +98,28 @@ public class BattlefieldFactory {
         for(Ramp r : res.map.ramps)
             r.connect(res.map);
         
-        for(Tile t : res.map.tiles)
-            if(t.isCliff)
-                t.setCliff();
+        for(Tile t : res.map.tiles){
+        	int minLevel = t.level;
+        	int maxLevel = t.level;
+            for(Tile n : res.map.get8Around(t)){
+            	minLevel = Math.min(minLevel, n.level);
+            	maxLevel = Math.max(maxLevel, t.level);
+            }
+            if(minLevel != maxLevel)
+            	t.setCliff(minLevel, maxLevel);
+        }
         
         LogUtil.logger.info("   cliffs' connexions");
         for(Tile t : res.map.tiles){
             t.correctElevation();
-            if(t.isCliff)
-                t.cliff.connect();
+            for(Cliff c : t.getCliffs())
+            	c.connect();
         }
 
         LogUtil.logger.info("   cliffs' shapes");
         for(Tile t : res.map.tiles){
-            if(t.isCliff)
-                lib.getCliffShapeBuilder(t.cliffShapeID).build(t.cliff);
+            for(Cliff c : t.getCliffs())
+                lib.getCliffShapeBuilder(t.cliffShapeID).build(c);
         }
 
         lib.battlefield = res;
