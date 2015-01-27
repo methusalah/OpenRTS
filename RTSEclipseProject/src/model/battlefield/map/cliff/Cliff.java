@@ -29,13 +29,15 @@ public class Cliff {
     public Face face;
     public List<Trinket> trinkets = new ArrayList<>();
 
-    public Tile tile;
-    public Tile parent;
-    public Tile child;
+    private final Tile tile;
+    public final int level;
+    private Tile parentTile;
+    private Tile childTile;
     public double angle = 0;
     
-    public Cliff(Tile t) {
+    public Cliff(Tile t, int level) {
         this.tile = t;
+        this.level = level;
     }
     
     public void connect(){
@@ -59,24 +61,24 @@ public class Cliff {
         if(t == null ||
                 !t.isCliff() ||
                 t.level != tile.level ||
-                t.cliff.type == Type.Bugged)
+                t.getCliff(level).type == Type.Bugged)
             return false;
         
         for(Tile n1 : getUpperGrounds())
-            for(Tile n2 : t.cliff.getUpperGrounds())
+            for(Tile n2 : t.getCliff(level).getUpperGrounds())
                 if(n1 == n2)
                     return true;
         return false;
     }
     
     public void link(Tile parent, Tile child){
-    	this.parent = parent;
+    	this.parentTile = parent;
     	if(parent != null)
-    		parent.cliff.child = tile;
+    		getParent().childTile = tile;
     	
-    	this.child = child;
+    	this.childTile = child;
     	if(child != null)
-    		child.cliff.parent = tile;
+    		getChild().parentTile = tile;
     }
     
     public ArrayList<Tile> getUpperGrounds(){
@@ -90,10 +92,30 @@ public class Cliff {
     public void removeFromBattlefield(){
     	for(Trinket t : trinkets)
     		t.removeFromBattlefield();
-    	if(parent != null && parent.cliff != null)
-    		parent.cliff.child = null;
-    	if(child != null && child.cliff != null)
-    		child.cliff.parent = null;
+    	if(parentTile != null && parentTile.getCliff(level) != null)
+    		getParent().childTile = null;
+    	if(childTile != null && childTile.getCliff(level) != null)
+    		getChild().parentTile = null;
+    }
+    
+    public Cliff getParent(){
+    	return parentTile.getCliff(level);
+    }
+    
+    public Cliff getChild(){
+    	return childTile.getCliff(level);
+    }
+    
+    public boolean hasParent(){
+    	return parentTile != null;
+    }
+    
+    public boolean hasChild(){
+    	return childTile != null;
+    }
+    
+    public Tile getTile(){
+    	return tile;
     }
     
 }

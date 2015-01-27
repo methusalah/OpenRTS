@@ -15,11 +15,11 @@ import tools.LogUtil;
 public class CliffOrganizer {
     
     public static void organize(Cliff c){
-        Tile t = c.tile;
-        Tile n = c.tile.n;
-        Tile s = c.tile.s;
-        Tile e = c.tile.e;
-        Tile w = c.tile.w;
+        Tile t = c.getTile();
+        Tile n = c.getTile().n;
+        Tile s = c.getTile().s;
+        Tile e = c.getTile().e;
+        Tile w = c.getTile().w;
 
         if(n == null || s == null || e == null || w == null){
             c.type = Cliff.Type.Border;
@@ -135,7 +135,7 @@ public class CliffOrganizer {
                 }
                 c.type = Cliff.Type.Orthogonal;
                 break;
-            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.tile.getPos2D()+" : "+c.getConnexionConfiguration());
+            default : LogUtil.logger.info("Cliff neighboring is strange at "+c.getTile().getPos2D()+" : "+c.getConnexionConfiguration());
                 c.type = Cliff.Type.Bugged;
         }
     }

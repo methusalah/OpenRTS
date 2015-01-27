@@ -53,18 +53,18 @@ public class NaturalFace extends Face {
     }
     
     protected NaturalFace getParentFace(){
-        if(cliff.parent != null &&
-                cliff.parent.cliff != null &&
-                cliff.parent.cliff.face instanceof NaturalFace)
-            return (NaturalFace)(cliff.parent.cliff.face);
+        if(cliff.hasParent() &&
+                cliff.getParent() != null &&
+                cliff.getParent().face instanceof NaturalFace)
+            return (NaturalFace)(cliff.getParent().face);
         else
             return null;
     }
     protected NaturalFace getChildFace(){
-        if(cliff.child != null &&
-                cliff.child.cliff != null &&
-                cliff.child.cliff.face instanceof NaturalFace)
-            return (NaturalFace)(cliff.child.cliff.face);
+        if(cliff.hasChild() &&
+                cliff.getChild() != null &&
+                cliff.getChild().face instanceof NaturalFace)
+            return (NaturalFace)(cliff.getChild().face);
         else
             return null;
     }

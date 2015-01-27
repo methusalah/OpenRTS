@@ -8,6 +8,9 @@ import geometry3D.Point3D;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 import math.MyRandom;
 import model.battlefield.map.cliff.Cliff;
@@ -16,6 +19,8 @@ import model.battlefield.map.cliff.Ramp;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Transient;
+
+import collections.Ring;
 
 @Root
 public class Tile {
@@ -42,7 +47,9 @@ public class Tile {
     public String cliffShapeID = "";
 
     public boolean elevatedForCliff = false;
-    public Cliff cliff;
+    private Cliff cliff0;
+    private Cliff cliff1;
+    private Cliff cliff2;
     public Ramp ramp;
     public boolean hasBlockingTrinket = false;
 
@@ -88,7 +95,9 @@ public class Tile {
     }
 
     public boolean isCliff(){
-        return cliff != null;
+        return cliff0 != null ||
+        		cliff1 != null ||
+        		cliff2 != null;
     }
 
     public Point3D getPos(){
@@ -120,18 +129,38 @@ public class Tile {
         return map.get9Around(this);
     }
     
-    public void setCliff(){
+    public void setCliff(int minLevel, int maxLevel){
         if(ramp != null && ramp.getCliffSlopeRate(this) == 1)
             return;
-        if(!isCliff()){
-            cliff = new Cliff(this);
-            isCliff = true;
-        }
+        for(int level = minLevel; level <= maxLevel; level++)
+        	if(getCliff(level) != null)
+        		setCliff(level, new Cliff(this, level));
     }
+    
+    public Cliff getCliff(int level){
+    	switch(level){
+		case 0 : return cliff0; 
+		case 1 : return cliff1; 
+		case 2 : return cliff2;
+		default : throw new IllegalArgumentException(level +" is not valid cliff level ");
+    	}
+    }
+    
+    private void setCliff(int level, Cliff cliff){
+    	switch(level){
+		case 0 : cliff0 = cliff; break;
+		case 1 : cliff1 = cliff; break;
+		case 2 : cliff2 = cliff; break;
+		default : throw new IllegalArgumentException(level +" is not valid cliff level ");
+    	}
+    }
+    
     public void unsetCliff(){
-    	cliff.removeFromBattlefield();
-        cliff = null;
-        isCliff = false;
+    	for(int level = 0; level<3; level++)
+    		if(getCliff(level) != null){
+    			getCliff(level).removeFromBattlefield();
+    			setCliff(level, null);
+    		}
     }
     
     public void correctElevation(){
@@ -153,5 +182,19 @@ public class Tile {
             return (level+1)*STAGE_HEIGHT+elevation;
         else
             return level*STAGE_HEIGHT+elevation;
+    }
+    
+    public Cliff getLowerCliff(){
+    	for(int i = 0; i<3; i++)
+    		if(getCliff(i) != null)
+    			return getCliff(i);
+    	throw new RuntimeException("can't find lower cliff if there is no cliff on the tile");
+    }
+    public Cliff getUpperCliff(){
+    	Cliff res = getLowerCliff();
+    	for(int i = res.level+1; i<3; i++)
+    		if(getCliff(i) != null)
+    			res = getCliff(i);
+    	return res;
     }
 }

@@ -73,19 +73,17 @@ public class ParcelMesh extends MyMesh {
     }
     
     private ArrayList<Triangle3D> getCliffGrounds(Tile t){
-        if(t.cliff.face == null)
-            return new ArrayList<>();
-
         Point2D sw = new Point2D(-0.5, -0.5);
         Point2D se = new Point2D(0.5, -0.5);
         Point2D ne = new Point2D(0.5, 0.5);
         Point2D nw = new Point2D(-0.5, 0.5);
         
         ArrayList<Polygon3D> polygons = new ArrayList<>();
-        for(Ring<Point3D> ring : t.cliff.face.getGrounds()){
+        for(Ring<Point3D> ring : t.getGrounds()){
             Ring<Point3D> elevatedRing = new Ring<>();
             for(Point3D p : ring){
-                p = p.get2D().getRotation(t.cliff.angle).get3D(p.z);
+            	// warning ici on test une cliff au hasard
+                p = p.get2D().getRotation(t.getCliff(1).angle).get3D(p.z);
                 if(p.get2D().equals(sw))
                     p = p.getAddition(0, 0, t.getZ());
                 else if(p.get2D().equals(se))
