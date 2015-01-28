@@ -16,8 +16,8 @@ import model.battlefield.map.cliff.Cliff;
  */
 public class OrthogonalManmadeFace extends ManmadeFace {
 
-    public OrthogonalManmadeFace(String modelPath) {
-        super(modelPath);
+    public OrthogonalManmadeFace(Cliff cliff, String modelPath) {
+        super(cliff, modelPath);
     }
     
     @Override

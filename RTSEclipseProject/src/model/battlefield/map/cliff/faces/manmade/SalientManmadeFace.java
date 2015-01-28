@@ -16,8 +16,8 @@ import model.battlefield.map.cliff.Cliff;
  */
 public class SalientManmadeFace extends ManmadeFace {
 
-    public SalientManmadeFace(String modelPath) {
-        super(modelPath);
+    public SalientManmadeFace(Cliff cliff, String modelPath) {
+        super(cliff, modelPath);
     }
 
     @Override

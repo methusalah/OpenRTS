@@ -180,8 +180,12 @@ public class Tile {
     }
     
     public double getZ(){
-        if(elevatedForCliff)
-            return (level+1)*STAGE_HEIGHT+elevation;
+    	if(hasCliff())
+    		if(elevatedForCliff)
+    			return (getUpperCliff().level+1)*STAGE_HEIGHT+elevation;
+    		else
+    			return (getLowerCliff().level)*STAGE_HEIGHT+elevation;
+    			
         else
             return level*STAGE_HEIGHT+elevation;
     }

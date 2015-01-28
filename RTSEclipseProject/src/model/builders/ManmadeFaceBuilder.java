@@ -49,15 +49,15 @@ public class ManmadeFaceBuilder extends Builder{
             case Orthogonal :
                 if(orthos.size()>1)
                     index = MyRandom.nextInt(orthos.size()-1);
-                return new OrthogonalManmadeFace(orthos.get(index));
+                return new OrthogonalManmadeFace(cliff, orthos.get(index));
             case Salient :
                 if(salients.size()>1)
                     index = MyRandom.nextInt(salients.size()-1);
-                return new SalientManmadeFace(salients.get(index));
+                return new SalientManmadeFace(cliff, salients.get(index));
             case Corner :
                 if(corners.size()>1)
                     index = MyRandom.nextInt(corners.size()-1);
-                return new CornerManmadeFace(corners.get(index));
+                return new CornerManmadeFace(cliff, corners.get(index));
             case Border :
             case Bugged : return null;
                 default:throw new RuntimeException();

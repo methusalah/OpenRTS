@@ -22,9 +22,6 @@ public abstract class Face {
     public Face(Cliff cliff) {
     	this.cliff = cliff;
 	}
-    public Face() {
-    	this.cliff = null;
-	}
     public abstract Ring<Point3D> getLowerGround();
     public abstract Ring<Point3D> getUpperGround();
     public Ring<Point3D> getRotation(Ring<Point3D> ground){

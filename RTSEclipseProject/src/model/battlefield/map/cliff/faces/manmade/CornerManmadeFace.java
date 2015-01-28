@@ -16,8 +16,8 @@ import model.battlefield.map.cliff.Cliff;
  */
 public class CornerManmadeFace extends ManmadeFace {
 
-    public CornerManmadeFace(String modelPath) {
-        super(modelPath);
+    public CornerManmadeFace(Cliff cliff, String modelPath) {
+        super(cliff, modelPath);
     }
     
     @Override

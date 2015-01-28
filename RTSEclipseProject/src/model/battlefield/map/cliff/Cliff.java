@@ -5,20 +5,9 @@ import model.battlefield.map.Trinket;
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
 import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.cliff.CliffOrganizer;
-import static model.battlefield.map.Tile.STAGE_HEIGHT;
-import model.battlefield.map.cliff.faces.natural.Dug1Corner;
 import model.battlefield.map.cliff.faces.Face;
-import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
-import model.battlefield.map.cliff.faces.natural.Dug1Ortho;
-import model.battlefield.map.cliff.faces.natural.Dug1Salient;
-
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-
 import tools.LogUtil;
 
 public class Cliff {
@@ -55,14 +44,14 @@ public class Cliff {
         if(isNeighborCliff(tile.w))
             res = res.concat("w");
         if(res.isEmpty())
-        	LogUtil.logger.info("asking connexion conf but no connexion for cliff at "+tile.getCoord());
+        	LogUtil.logger.warning("asking connexion conf but no connexion for cliff at "+tile.getCoord());
         return res;
     }
     
     private boolean isNeighborCliff(Tile t){
         if(t == null ||
                 !t.hasCliffOnLevel(level) ||
-                t.level != tile.level ||
+//                t.level != tile.level ||
                 t.getCliff(level).type == Type.Bugged)
             return false;
         

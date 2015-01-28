@@ -89,11 +89,7 @@ public class CliffTool extends Tool {
     
     private void changeLevel(){
         ArrayList<Tile> group = pencil.getTiles();
-        for(Tile t : group)
-            if(leadsToDoubleCliff(t, maintainedlevel)){
-                LogUtil.logger.info("double cliff detected");
-                return;
-            }
+        
         ArrayList<Tile> toUpdate = new ArrayList<>();
         for(Tile t : group){
             t.level = maintainedlevel;
@@ -104,14 +100,6 @@ public class CliffTool extends Tool {
         manager.updateTiles(group);
     }
     
-
-    private boolean leadsToDoubleCliff(Tile t, int level){
-//        for(Tile n : t.get8Neighbors())
-//            if(//n.isCliff() &&
-//                    (level > n.level+1 || level < n.level-1))
-//                return true;
-        return false;
-    }
 
     public void buildShape(Cliff cliff){
         manager.battlefield.map.style.cliffShapeBuilders.get(set.actual).build(cliff);

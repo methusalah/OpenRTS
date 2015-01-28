@@ -82,38 +82,9 @@ public class ParcelMesh extends MyMesh {
     			t.getUpperCliff().type == Type.Bugged)
     		return new ArrayList<Triangle3D>();
     	
-        Point2D sw = new Point2D(-0.5, -0.5);
-        Point2D se = new Point2D(0.5, -0.5);
-        Point2D ne = new Point2D(0.5, 0.5);
-        Point2D nw = new Point2D(-0.5, 0.5);
-        
         List<Polygon3D> polygons = new ArrayList<>();
-        List<Ring<Point3D>> groundRings = new ArrayList<>();
-        groundRings.add(t.getLowerCliff().face.getLowerGround());
-        groundRings.add(t.getUpperCliff().face.getUpperGround());
-        for(Ring<Point3D> ring : groundRings){
-            Ring<Point3D> elevatedRing = new Ring<>();
-            for(Point3D p : ring){
-                if(p.get2D().equals(sw))
-                    p = p.getAddition(0, 0, t.getZ());
-                else if(p.get2D().equals(se))
-                    p = p.getAddition(0, 0, t.e.getZ());
-                else if(p.get2D().equals(ne))
-                    p = p.getAddition(0, 0, t.n.e.getZ());
-                else if(p.get2D().equals(nw))
-                    p = p.getAddition(0, 0, t.n.getZ());
-                else
-                    p = p.getAddition(0, 0, t.level*Tile.STAGE_HEIGHT);
-                    
-                elevatedRing.add(p);
-            }
-            try {
-                if(!elevatedRing.isEmpty())
-                    polygons.add(new Polygon3D(elevatedRing));
-            } catch (Exception e) {
-                LogUtil.logger.info("can't generate cliff ground at "+t+" because "+e);
-            }
-        }
+        polygons.add(getGroundPolygon(t, t.getLowerCliff(), t.getLowerCliff().face.getLowerGround()));
+        polygons.add(getGroundPolygon(t, t.getUpperCliff(), t.getUpperCliff().face.getUpperGround()));
 
         ArrayList<Triangle3D> res = new ArrayList<>();
         for(Polygon3D p : polygons){
@@ -122,6 +93,37 @@ public class ParcelMesh extends MyMesh {
         }
         
         return res;
+    }
+    
+    private Polygon3D getGroundPolygon(Tile t, Cliff c, Ring<Point3D> groundPoints){
+        Point2D sw = new Point2D(-0.5, -0.5);
+        Point2D se = new Point2D(0.5, -0.5);
+        Point2D ne = new Point2D(0.5, 0.5);
+        Point2D nw = new Point2D(-0.5, 0.5);
+        Ring<Point3D> elevatedRing = new Ring<>();
+        for(Point3D p : groundPoints){
+            if(p.get2D().equals(sw))
+                p = p.getAddition(0, 0, t.getZ());
+            else if(p.get2D().equals(se))
+                p = p.getAddition(0, 0, t.e.getZ());
+            else if(p.get2D().equals(ne))
+                p = p.getAddition(0, 0, t.n.e.getZ());
+            else if(p.get2D().equals(nw))
+                p = p.getAddition(0, 0, t.n.getZ());
+            else
+                p = p.getAddition(0, 0, c.level*Tile.STAGE_HEIGHT);
+            elevatedRing.add(p);
+        }
+        if(elevatedRing.isEmpty())
+        	LogUtil.logger.warning("ground is empty");
+    	Polygon3D res = null;
+        try {
+                res = new Polygon3D(elevatedRing);
+        } catch (Exception e) {
+            LogUtil.logger.info("can't generate cliff ground at "+t+" because "+e);
+        }
+        return res;
+    	
     }
     
     private ArrayList<Triangle3D> getNearbyTriangles(Tile t){
