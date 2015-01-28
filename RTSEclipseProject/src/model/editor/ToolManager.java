@@ -139,10 +139,9 @@ public class ToolManager {
         	int minLevel = t.level;
         	int maxLevel = t.level;
             for(Tile n : battlefield.map.get8Around(t)){
-            	minLevel = Math.min(minLevel, n.level);
             	maxLevel = Math.max(maxLevel, n.level);
             }
-            if(t.isCliff())
+            if(t.hasCliff())
             	t.unsetCliff();
             
             if(minLevel != maxLevel)

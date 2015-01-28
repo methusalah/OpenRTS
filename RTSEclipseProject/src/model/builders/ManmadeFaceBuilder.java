@@ -58,7 +58,8 @@ public class ManmadeFaceBuilder extends Builder{
                 if(corners.size()>1)
                     index = MyRandom.nextInt(corners.size()-1);
                 return new CornerManmadeFace(corners.get(index));
-            case Border : return null;
+            case Border :
+            case Bugged : return null;
                 default:throw new RuntimeException();
         }
     }

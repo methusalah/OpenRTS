@@ -39,7 +39,7 @@ public class Ramp {
     public Ramp(Tile t, Map map){
         this.map = map;
         map.ramps.add(this);
-        if(!t.isCliff())
+        if(!t.hasCliff())
             throw new IllegalArgumentException("Ramp must be first created on a cliff.");
         angle = t.getLowerCliff().angle;
         level = t.getNeighborsMaxLevel();

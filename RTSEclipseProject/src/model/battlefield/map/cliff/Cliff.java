@@ -61,7 +61,7 @@ public class Cliff {
     
     private boolean isNeighborCliff(Tile t){
         if(t == null ||
-                !t.isCliff() ||
+                !t.hasCliffOnLevel(level) ||
                 t.level != tile.level ||
                 t.getCliff(level).type == Type.Bugged)
             return false;

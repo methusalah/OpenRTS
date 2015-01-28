@@ -167,7 +167,7 @@ public class MapRenderer implements ActionListener {
             g.setMaterial(mm.getLightingTexture(face.texturePath));
 //            g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
         g.rotate(0, 0, (float)(c.angle));
-        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT));
+        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT));
         n.attachChild(g);
     }
     
@@ -194,7 +194,7 @@ public class MapRenderer implements ActionListener {
                 break;
         }
         s.scale(0.005f);
-        s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+0.1f);
+        s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT)+0.1f);
         n.attachChild(s);
     }
     

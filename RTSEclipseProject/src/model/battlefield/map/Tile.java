@@ -88,13 +88,17 @@ public class Tile {
     }
 
     public boolean isBlocked(){
-        return isCliff() || hasBlockingTrinket;
+        return hasCliff() || hasBlockingTrinket;
     }
 
-    public boolean isCliff(){
-        return cliff0 != null ||
-        		cliff1 != null ||
-        		cliff2 != null;
+    public boolean hasCliff(){
+    	for(int i = 0; i<3; i++)
+    		if(hasCliffOnLevel(i))
+    			return true;
+    	return false;
+    }
+    public boolean hasCliffOnLevel(int level){
+        return getCliff(level) != null;
     }
 
     public Point3D getPos(){
@@ -129,7 +133,7 @@ public class Tile {
     public void setCliff(int minLevel, int maxLevel){
         if(ramp != null && ramp.getCliffSlopeRate(this) == 1)
             return;
-        for(int level = minLevel; level <= maxLevel; level++)
+        for(int level = minLevel; level < maxLevel; level++)
         	if(getCliff(level) == null)
         		setCliff(level, new Cliff(this, level));
         
@@ -165,7 +169,7 @@ public class Tile {
         if(elevatedForCliff)
             elevatedForCliff = false;
         
-        if(isCliff() &&
+        if(hasCliff() &&
                 (w!=null && w.level > level ||
                 s!=null && s.level > level ||
                 w!=null && w.s!=null && w.s.level > level))

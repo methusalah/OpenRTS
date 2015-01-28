@@ -5,6 +5,7 @@
 package model.battlefield.map.parcel;
 
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Cliff.Type;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import collections.PointRing;
 import collections.Ring;
@@ -51,7 +52,7 @@ public class ParcelMesh extends MyMesh {
 
         if(tiles.containsKey(t)){
             if(tiles.get(t).isEmpty())
-                if(t.isCliff())
+                if(t.hasCliff())
                     tiles.get(t).addAll(getCliffGrounds(t));
                 else
                     tiles.get(t).addAll(getTileGround(t));
@@ -77,6 +78,10 @@ public class ParcelMesh extends MyMesh {
     }
     
     private ArrayList<Triangle3D> getCliffGrounds(Tile t){
+    	if(t.getLowerCliff().type == Type.Bugged ||
+    			t.getUpperCliff().type == Type.Bugged)
+    		return new ArrayList<Triangle3D>();
+    	
         Point2D sw = new Point2D(-0.5, -0.5);
         Point2D se = new Point2D(0.5, -0.5);
         Point2D ne = new Point2D(0.5, 0.5);
@@ -115,6 +120,7 @@ public class ParcelMesh extends MyMesh {
             Triangulator triangulator = new Triangulator(p.getTranslation(t.getPos().x+0.5, t.getPos().y+0.5, 0));
             res.addAll(triangulator.getTriangles());
         }
+        
         return res;
     }
     

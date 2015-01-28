@@ -263,7 +263,7 @@ public class Map {
     public ArrayList<Tile> getTilesWithCliff(){
         ArrayList<Tile> res = new ArrayList<>();
         for(Tile t : getTiles())
-            if(t.isCliff())
+            if(t.hasCliff())
                 res.add(t);
         return res;
     }
