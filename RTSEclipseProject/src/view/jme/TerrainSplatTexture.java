@@ -60,7 +60,7 @@ public class TerrainSplatTexture {
         mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.width, atlas.height, atlas.getBuffer(0))));
         mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.width, atlas.height, atlas.getBuffer(1))));
 //        mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
-        mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+//        mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
         for(int i=0; i<12; i++){
             if(diffuseMaps.size()>i){

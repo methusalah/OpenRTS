@@ -28,8 +28,8 @@ public class CornerManmadeFace extends ManmadeFace {
 
         Ring<Point3D> res = new Ring<>();
         res.add(sw);
-        res.add(se.getAddition(0, 0, -Tile.STAGE_HEIGHT));
-        res.add(nw.getAddition(0, 0, -Tile.STAGE_HEIGHT));
+        res.add(se.getAddition(-0.1, 0, 0));
+        res.add(nw.getAddition(0, -0.1, 0));
         return getRotation(res);
     }
     @Override

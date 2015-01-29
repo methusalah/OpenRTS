@@ -94,7 +94,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
                         ctrl.model.commander.select(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord());
                     break;
                 case ACTION : ctrl.model.commander.act(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord()); break;
-                case MOVE_ATTACK : ctrl.model.commander.setMoveAttack(); break;
+                case MOVE_ATTACK : ctrl.model.commander.setMoveAttack(); LogUtil.logger.info("move attack");break;
                 case HOLD : ctrl.model.commander.orderHold(); break;
                 case PAUSE : ((BattlefieldController)ctrl).togglePause(); break;
             }

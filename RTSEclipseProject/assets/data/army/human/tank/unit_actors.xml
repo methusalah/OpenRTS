@@ -113,8 +113,8 @@
     <StartColor R="255" G="255" B="255" A="200"/>
     <EndColor R="255" G="255" B="255" A="100"/>
     <StartVariation value="0.6"/>
-    <MinLife value="0.4"/>
-    <MaxLife value="0.4"/>
+    <MinLife value="0.8"/>
+    <MaxLife value="0.8"/>
   </Actor>
   
   <Actor id="TankDestroyedGlow">

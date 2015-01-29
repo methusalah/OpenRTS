@@ -83,8 +83,11 @@ public class ParcelMesh extends MyMesh {
     		return new ArrayList<Triangle3D>();
     	
         List<Polygon3D> polygons = new ArrayList<>();
-        polygons.add(getGroundPolygon(t, t.getLowerCliff(), t.getLowerCliff().face.getLowerGround()));
-        polygons.add(getGroundPolygon(t, t.getUpperCliff(), t.getUpperCliff().face.getUpperGround()));
+        if(t.getLowerCliff().face != null)
+        	polygons.add(getGroundPolygon(t, t.getLowerCliff(), t.getLowerCliff().face.getLowerGround()));
+        for(Cliff c : t.getCliffs())
+        	if(t.getUpperCliff().face != null)
+        		polygons.add(getGroundPolygon(t, c, c.face.getUpperGround()));
 
         ArrayList<Triangle3D> res = new ArrayList<>();
         for(Polygon3D p : polygons){

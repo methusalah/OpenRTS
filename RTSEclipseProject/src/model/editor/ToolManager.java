@@ -149,7 +149,6 @@ public class ToolManager {
         }
 
         for(Tile t : updatedTiles){
-            t.correctElevation();
             for(Cliff c : t.getCliffs())
             	c.connect();
         }

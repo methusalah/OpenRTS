@@ -29,10 +29,7 @@ public class Tile {
 
     public Map map;
 
-    public Tile n;
-    public Tile s;
-    public Tile e;
-    public Tile w;
+    public Tile n, s, e, w;
 
     @Element
     public int x;
@@ -45,10 +42,11 @@ public class Tile {
     @Element(required=false)
     public String cliffShapeID = "";
 
-    public boolean elevatedForCliff = false;
     private Cliff cliff0;
     private Cliff cliff1;
     private Cliff cliff2;
+    private int modifiedLevel = 0;
+    
     public Ramp ramp;
     public boolean hasBlockingTrinket = false;
 
@@ -136,6 +134,7 @@ public class Tile {
         for(int level = minLevel; level < maxLevel; level++)
         	if(getCliff(level) == null)
         		setCliff(level, new Cliff(this, level));
+        modifyLevel();
         
     }
     
@@ -163,31 +162,27 @@ public class Tile {
     			getCliff(level).removeFromBattlefield();
     			setCliff(level, null);
     		}
+    	modifyLevel();
     }
     
-    public void correctElevation(){
-        if(elevatedForCliff)
-            elevatedForCliff = false;
-        
-        if(hasCliff() &&
-                (w!=null && w.level > level ||
-                s!=null && s.level > level ||
-                w!=null && w.s!=null && w.s.level > level))
-            elevatedForCliff = true;
-        if(elevatedForCliff && ramp != null)
-            elevation = -Tile.STAGE_HEIGHT*ramp.getSlopeRate(this);
-
+    public void modifyLevel(){
+    	modifiedLevel = 0;
+        for(int i = 0; i<3; i++){
+        	Cliff c = getCliff(i);
+        	if(c == null || w == null || s == null || w.s == null)
+        		continue;
+        	if(w.level > c.level ||
+    				s.level > c.level ||
+                    w.s.level > c.level)
+        		modifiedLevel = c.level+1;
+        }
     }
     
     public double getZ(){
-    	if(hasCliff())
-    		if(elevatedForCliff)
-    			return (getUpperCliff().level+1)*STAGE_HEIGHT+elevation;
-    		else
-    			return (getLowerCliff().level)*STAGE_HEIGHT+elevation;
-    			
-        else
-            return level*STAGE_HEIGHT+elevation;
+    	if(modifiedLevel != 0)
+    		return modifiedLevel*STAGE_HEIGHT+elevation;
+    	else
+    		return level*STAGE_HEIGHT+elevation;
     }
     
     public Cliff getLowerCliff(){

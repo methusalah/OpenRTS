@@ -46,7 +46,7 @@ public class MapRenderer implements ActionListener {
     private HashMap<String, Spatial> models = new HashMap<>();
 
     private HashMap<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
-    private HashMap<Tile, Spatial> tilesSpatial = new HashMap<>();
+    private HashMap<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
     public TerrainSplatTexture groundTexture;
 
@@ -89,7 +89,7 @@ public class MapRenderer implements ActionListener {
                 TangentBinormalGenerator.generate(jmeMesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(groundTexture.getMaterial());
-                g.setQueueBucket(Bucket.Transparent);
+//                g.setQueueBucket(Bucket.Transparent);
                 
                 g.addControl(new RigidBodyControl(0));
                 parcelsSpatial.put(mesh, g);
@@ -123,39 +123,41 @@ public class MapRenderer implements ActionListener {
             freeTileNode(t);
             for(Cliff c : t.getCliffs()){
                 if(c.type == Cliff.Type.Bugged)
-                    attachBuggedCliff(t);
+                    attachBuggedCliff(c);
                 else if(c.face == null)
                     continue;
                 else if(c.face.getType().equals("natural"))
-                    attachNaturalCliff(t, c);
+                    attachNaturalCliff(c);
                 else if(c.face.getType().equals("manmade"))
-                    attachManmadeCliff(t, c);
+                    attachManmadeCliff(c);
             }
         }
     }
     
     private void freeTileNode(Tile t){
-        Node n = (Node)tilesSpatial.get(t);
-        if(n != null)
-            castAndReceiveNode.detachChild(n);
-        tilesSpatial.remove(t);
+    	if(tilesSpatial.get(t) == null)
+    		tilesSpatial.put(t, new ArrayList<>());
+    	List<Spatial> nodes = tilesSpatial.get(t);
+    	for(Spatial s : nodes)
+            castAndReceiveNode.detachChild((Node)s);
+        tilesSpatial.get(t).clear();
     }
     
-    private void attachBuggedCliff(Tile t){
+    private void attachBuggedCliff(Cliff c){
         Geometry g = new Geometry();
         g.setMesh(new Box(0.5f, 0.5f, 1));
         g.setMaterial(mm.redMaterial);
-        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(t.level*Tile.STAGE_HEIGHT)+1);
+        g.setLocalTranslation(c.getTile().x+0.5f, c.getTile().y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT)+1);
         
         Node n = new Node();
         n.attachChild(g);
-        tilesSpatial.put(t, n);
+        tilesSpatial.get(c.getTile()).add(n);
         castAndReceiveNode.attachChild(n);
     }
     
-    private void attachNaturalCliff(Tile t, Cliff c){
+    private void attachNaturalCliff(Cliff c){
         Node n = new Node();
-        tilesSpatial.put(t, n);
+        tilesSpatial.get(c.getTile()).add(n);
         castAndReceiveNode.attachChild(n);
 
         NaturalFace face = (NaturalFace)(c.face);
@@ -167,13 +169,13 @@ public class MapRenderer implements ActionListener {
             g.setMaterial(mm.getLightingTexture(face.texturePath));
 //            g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
         g.rotate(0, 0, (float)(c.angle));
-        g.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT));
+        g.setLocalTranslation(c.getTile().x+0.5f, c.getTile().y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT));
         n.attachChild(g);
     }
     
-    private void attachManmadeCliff(Tile t, Cliff c){
+    private void attachManmadeCliff(Cliff c){
         Node n = new Node();
-        tilesSpatial.put(t, n);
+        tilesSpatial.get(c.getTile()).add(n);
         castAndReceiveNode.attachChild(n);
 
         ManmadeFace face = (ManmadeFace)(c.face);
@@ -194,7 +196,7 @@ public class MapRenderer implements ActionListener {
                 break;
         }
         s.scale(0.005f);
-        s.setLocalTranslation(t.x+0.5f, t.y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT)+0.1f);
+        s.setLocalTranslation(c.getTile().x+0.5f, c.getTile().y+0.5f, (float)(c.level*Tile.STAGE_HEIGHT)+0.1f);
         n.attachChild(s);
     }
     

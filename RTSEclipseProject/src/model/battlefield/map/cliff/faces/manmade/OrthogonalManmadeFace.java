@@ -30,8 +30,8 @@ public class OrthogonalManmadeFace extends ManmadeFace {
         Ring<Point3D> res = new Ring<>();
         res.add(se);
         res.add(ne);
-        res.add(nw.getAddition(0, 0, -Tile.STAGE_HEIGHT));
-        res.add(sw.getAddition(0, 0, -Tile.STAGE_HEIGHT));
+        res.add(nw.getAddition(0.1, 0, 0));
+        res.add(sw.getAddition(0.1, 0, 0));
         return getRotation(res);
     }
     @Override

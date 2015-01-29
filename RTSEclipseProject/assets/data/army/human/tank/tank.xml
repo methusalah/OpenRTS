@@ -11,7 +11,7 @@
     <Sight value="10"/>
     <MoverLink value="GroundProne"/>
     <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>
-    <WeaponList WeaponLink="TankMachinegun"/>
+<!--     <WeaponList WeaponLink="TankMachinegun"/> -->
     <ActorLink value="Tank"/>
   </Unit>
   <Weapon id="TankCanon">
