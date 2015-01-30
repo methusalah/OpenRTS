@@ -61,7 +61,7 @@ public class View implements ActionListener {
         this.vp = vp;
         pointer = new Pointer();
         
-        lightDrawer = new LightDrawer(m.battlefield.sunLight, am, rootNode, vp);
+        lightDrawer = new LightDrawer(this, am, rootNode, vp);
         model.battlefield.sunLight.addListener(lightDrawer);
 
         mapRend = new MapRenderer(this, materialManager, am);
@@ -99,6 +99,9 @@ public class View implements ActionListener {
         rootNode.attachChild(editorRend.mainNode);
         model.toolManager.addListener(editorRend);
         
+        lightDrawer.reset();
+        lightDrawer.updateLights();
+        model.battlefield.sunLight.addListener(lightDrawer);
         
         actorManager = new ActorDrawingManager(assetManager, materialManager, model.battlefield.actorPool);
         rootNode.attachChild(actorManager.mainNode);

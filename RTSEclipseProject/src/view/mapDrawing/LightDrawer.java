@@ -18,12 +18,15 @@ import com.jme3.shadow.CompareMode;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import model.battlefield.lighting.SunLight;
 import model.battlefield.map.Tile;
 import tools.LogUtil;
+import view.View;
 import view.math.Translator;
 
 /**
@@ -32,36 +35,29 @@ import view.math.Translator;
  */
 public class LightDrawer implements ActionListener {
     
-    SunLight sunLight;
+    View view;
     Node rootNode;
     
     AmbientLight al;
     DirectionalLight sun;
     DirectionalLight shadowCaster;
     DirectionalLightShadowRenderer sr;
+    DirectionalLightShadowFilter sf;
 
-    public LightDrawer(SunLight sunLight, AssetManager am, Node rootNode, ViewPort vp) {
-        this.sunLight = sunLight;
+    public LightDrawer(View view, AssetManager am, Node rootNode, ViewPort vp) {
+        this.view = view;
         this.rootNode = rootNode;
-        al = Translator.toJMELight(sunLight.ambient);
-        sun = Translator.toJMELight(sunLight.sun);
-        shadowCaster = Translator.toJMELight(sunLight.shadowCaster);
-                
-        rootNode.addLight(al);
-        rootNode.addLight(sun);
-        rootNode.addLight(shadowCaster);
 
+        
         FilterPostProcessor fpp = new FilterPostProcessor(am);
 
         int SHADOWMAP_SIZE = 4096;
         sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
-        sr.setLight(shadowCaster);
         sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-        sr.setShadowIntensity((float)sunLight.shadowCaster.intensity);
+        sr.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
         vp.addProcessor(sr);
 
-        DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
-        sf.setLight(shadowCaster);
+        sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
         sf.setEnabled(true);
         sf.setShadowZExtend(SHADOWMAP_SIZE);
 //        fpp.addFilter(sf);
@@ -75,8 +71,25 @@ public class LightDrawer implements ActionListener {
         fpp.addFilter(bloom);
         vp.addProcessor(fpp);
         
+        reset ();
         updateLights();
         
+    }
+    
+    public void reset(){
+    	rootNode.removeLight(al);
+    	rootNode.removeLight(sun);
+    	rootNode.removeLight(shadowCaster);
+    	
+        al = Translator.toJMELight(view.model.battlefield.sunLight.ambient);
+        sun = Translator.toJMELight(view.model.battlefield.sunLight.sun);
+        shadowCaster = Translator.toJMELight(view.model.battlefield.sunLight.shadowCaster);
+        sr.setLight(shadowCaster);
+        sf.setLight(shadowCaster);
+                
+        rootNode.addLight(al);
+        rootNode.addLight(sun);
+        rootNode.addLight(shadowCaster);
     }
     
     
@@ -89,12 +102,12 @@ public class LightDrawer implements ActionListener {
         }
     }
 
-    private void updateLights(){
-        Translator.toJMELight(al, sunLight.ambient);
-        Translator.toJMELight(sun, sunLight.sun);
-        Translator.toJMELight(shadowCaster, sunLight.shadowCaster);
+    public void updateLights(){
+        Translator.toJMELight(al, view.model.battlefield.sunLight.ambient);
+        Translator.toJMELight(sun, view.model.battlefield.sunLight.sun);
+        Translator.toJMELight(shadowCaster, view.model.battlefield.sunLight.shadowCaster);
         shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-        sr.setShadowIntensity((float)sunLight.shadowCaster.intensity);
+        sr.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
         
     }
 
