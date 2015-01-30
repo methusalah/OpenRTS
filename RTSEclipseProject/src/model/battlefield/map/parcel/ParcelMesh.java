@@ -105,17 +105,19 @@ public class ParcelMesh extends MyMesh {
         Point2D nw = new Point2D(-0.5, 0.5);
         Ring<Point3D> elevatedRing = new Ring<>();
         for(Point3D p : groundPoints){
+        	double elevation;
             if(p.get2D().equals(sw))
-                p = p.getAddition(0, 0, t.getZ());
+            	elevation = getElevation(t, c);
             else if(p.get2D().equals(se))
-                p = p.getAddition(0, 0, t.e.getZ());
+            	elevation = getElevation(t.e, c);
             else if(p.get2D().equals(ne))
-                p = p.getAddition(0, 0, t.n.e.getZ());
+            	elevation = getElevation(t.n.e, c);
             else if(p.get2D().equals(nw))
-                p = p.getAddition(0, 0, t.n.getZ());
+            	elevation = getElevation(t.n, c);
             else
-                p = p.getAddition(0, 0, c.level*Tile.STAGE_HEIGHT);
-            elevatedRing.add(p);
+            	elevation = c.level*Tile.STAGE_HEIGHT;
+            
+            elevatedRing.add(p.getAddition(0, 0, elevation));
         }
         if(elevatedRing.isEmpty())
         	LogUtil.logger.warning("ground is empty");
@@ -127,6 +129,13 @@ public class ParcelMesh extends MyMesh {
         }
         return res;
     	
+    }
+    
+    private double getElevation(Tile t, Cliff c){
+    	if(t.getModifiedLevel() > c.level+1)
+    		return (c.level+1)*Tile.STAGE_HEIGHT;
+    	else
+    		return t.getZ();
     }
     
     private ArrayList<Triangle3D> getNearbyTriangles(Tile t){

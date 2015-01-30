@@ -179,5 +179,8 @@ public class BuilderLibrary {
                 res.add(b);
         return res;
     }
+    public List<MapStyleBuilder> getAllMapStyleBuilders(){
+        return (List<MapStyleBuilder>)(List<?>)getAllBuilders(MAP_STYLE);
+    }
     
 }

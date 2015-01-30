@@ -67,8 +67,9 @@ public class BattlefieldFactory {
         return res;
     }
     
+    
+    
     public Battlefield load(){
-        Battlefield res = null;
         final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
         fc.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*."+BATTLEFIELD_FILE_EXTENSION+")", BATTLEFIELD_FILE_EXTENSION);
@@ -76,13 +77,27 @@ public class BattlefieldFactory {
         int returnVal = fc.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
-                try {
-                    LogUtil.logger.info("Loading battlefield "+f.getCanonicalPath()+"...");
-                    res = load(f);
-                } catch (Exception e1) {
-                        e1.printStackTrace();
-                }
+                return load(f);
         }
+        return null;
+    }
+    
+    public Battlefield load(String fname) {
+        return load(new File(fname));
+    }
+
+    public Battlefield load(File file) {
+        Battlefield res = null;
+
+        try {
+            LogUtil.logger.info("Loading battlefield "+file.getCanonicalPath()+"...");
+            Serializer serializer = new Persister();
+            res = serializer.read(Battlefield.class, file);
+            res.fileName = file.getCanonicalPath();
+        } catch (Exception e1) {
+                e1.printStackTrace();
+        }
+        
         if(res == null){
             LogUtil.logger.info("Load failed");
             return null;
@@ -133,18 +148,7 @@ public class BattlefieldFactory {
         LogUtil.logger.info("   texture atlas");
         res.map.atlas.loadFromFile(res.fileName);
         LogUtil.logger.info("Loading done.");
-        return res;
-    }
-    
-    public Battlefield load(String fname) throws Exception {
-        return load(new File(fname));
-    }
-
-    public static Battlefield load(File file) throws Exception {
-        Serializer serializer = new Persister();
-        Battlefield b = serializer.read(Battlefield.class, file);
-        b.fileName = file.getCanonicalPath();
-        return b;
+        return res; 
     }
 
     public void save(Battlefield battlefield) {

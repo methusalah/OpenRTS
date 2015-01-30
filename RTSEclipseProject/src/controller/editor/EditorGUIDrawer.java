@@ -7,7 +7,12 @@ package controller.editor;
 import controller.GUIController;
 import controller.GUIDrawer;
 import de.lessvoid.nifty.controls.Slider;
+
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.builders.MapStyleBuilder;
 import model.editor.Pencil;
 import static model.editor.Pencil.Shape.Circle;
 import static model.editor.Pencil.Shape.Diamond;
@@ -34,6 +39,7 @@ public class EditorGUIDrawer extends GUIDrawer{
     private static final String ICON_SET_PANEL_ID = "iconsetpanel";
     private static final String LIST_SET_PANEL_ID = "listsetpanel";
     private static final String SELECTION_LIST_ID = "selectionlist";
+    private static final String DROPDOWN_STYLE_ID = "mapstyledropdown";
     
     private static final String SET_BUTTON_ID_PREFIX = "set";
     private static final String SQUARE_BUTTON_ID = "square";
@@ -55,6 +61,7 @@ public class EditorGUIDrawer extends GUIDrawer{
         drawOperationPanel();
         drawSetPanel();
         drawPencilPanel();
+        drawMapStyleDropDown();
     }
     
     private void drawToolPanel(){
@@ -135,7 +142,17 @@ public class EditorGUIDrawer extends GUIDrawer{
         getElement(LIST_SET_PANEL_ID).show();
         getElement(ICON_SET_PANEL_ID).hide();
         fillList(SELECTION_LIST_ID, tool.getSet().getAllAssets());
-        
+    }
+    
+    private void drawMapStyleDropDown(){
+    	List<MapStyleBuilder> builders = guiCtrl.ctrl.model.lib.getAllMapStyleBuilders();
+    	List<String> ids = new ArrayList<>();
+    	for(MapStyleBuilder b : builders)
+    		ids.add(b.getId());
+    	int selIndex = ids.indexOf(guiCtrl.ctrl.model.battlefield.map.mapStyleID);
+        LogUtil.logger.info("map id "+ guiCtrl.ctrl.model.battlefield.map.mapStyleID);
+        LogUtil.logger.info(" index "+ selIndex+" "+ids.get(selIndex));
+        fillDropDown(DROPDOWN_STYLE_ID, ids, selIndex);
     }
 
     

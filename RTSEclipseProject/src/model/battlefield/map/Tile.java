@@ -185,6 +185,13 @@ public class Tile {
     		return level*STAGE_HEIGHT+elevation;
     }
     
+    public int getModifiedLevel(){
+    	if(modifiedLevel != 0)
+    		return modifiedLevel;
+    	else
+    		return level;
+    }
+    
     public Cliff getLowerCliff(){
     	for(int i = 0; i<3; i++)
     		if(getCliff(i) != null)

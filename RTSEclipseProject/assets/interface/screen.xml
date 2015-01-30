@@ -101,6 +101,8 @@
                 <control name="myButton" id="grid" childLayout="center" width="80px" label="Grid" height="30px">
                   <interact onClick="toggleGrid()"/>
                 </control>
+                <control name="dropDown" id="mapstyledropdown" displayItems="6" width="200px" height="40px"/>
+                
             </panel>
             <panel id="toolbox" childLayout="vertical" width="200px" style="nifty-panel-simple" height="*">
                 <panel id="toolselection" childLayout="vertical" width="100%" style="nifty-panel-simple" height="100px">

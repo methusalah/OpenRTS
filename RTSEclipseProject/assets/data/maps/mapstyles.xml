@@ -14,4 +14,17 @@
     <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
 <!-- 	<GroundTexture diffuse="textures/trans.png" scale="1"/> -->
   </MapStyle>
+
+  <MapStyle id="AnotherMapStyle">
+  	<Width value="64"/>
+  	<Height value="64"/>
+    <CliffShapeLink value="StdManmade"/>
+    <CliffShapeLink value="StdRockyVegyDug"/>
+
+    <GroundTexture diffuse="textures/road.jpg" normal="textures/grassnorm.png" scale="8"/>
+    <GroundTexture diffuse="textures/grass.png" normal="textures/road_normal.png" scale="32"/>
+    <GroundTexture diffuse="textures/dirt.png" scale="8"/>
+    <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
+<!-- 	<GroundTexture diffuse="textures/trans.png" scale="1"/> -->
+  </MapStyle>
 </catalog>

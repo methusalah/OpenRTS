@@ -81,6 +81,13 @@ public class Model {
         	throw new RuntimeException("strange !");
     }
     
+    public void reload(){
+    	saveBattlefield();
+        Battlefield loadedBattlefield = factory.load(battlefield.fileName);
+        if(loadedBattlefield != null)
+            setBattlefield(loadedBattlefield);
+    }
+    
     public void addListener(ActionListener listener){
         listeners.add(listener);
     }

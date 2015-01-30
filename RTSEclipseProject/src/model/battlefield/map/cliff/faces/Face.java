@@ -24,6 +24,7 @@ public abstract class Face {
 	}
     public abstract Ring<Point3D> getLowerGround();
     public abstract Ring<Point3D> getUpperGround();
+    
     public Ring<Point3D> getRotation(Ring<Point3D> ground){
     	Ring<Point3D> res = new Ring<>();
     	for(Point3D p : ground)

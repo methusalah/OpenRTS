@@ -4,6 +4,7 @@
  */
 package controller;
 
+import de.lessvoid.nifty.controls.DropDown;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.effects.EffectEventId;
@@ -11,9 +12,11 @@ import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
 import tools.LogUtil;
 
 /**
@@ -82,6 +85,15 @@ public abstract class GUIDrawer {
         lb.clear();
         lb.addAllItems(strings);
         lb.selectItemByIndex(index);
+    }
+
+    protected void fillDropDown(String id, List<String> strings, int index){
+        DropDown dd = guiCtrl.getControl(id, DropDown.class);
+        dd.disable();
+        dd.clear();
+        dd.addAllItems(strings);
+        dd.selectItemByIndex(index);
+        dd.enable();
     }
 
     protected void setBackground(String id, String backgroundPath){
