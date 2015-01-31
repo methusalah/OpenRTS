@@ -76,7 +76,12 @@ public class EditorGUIController extends GUIController {
     @NiftyEventSubscriber(pattern=".*slider")
     public void onSliderChanged(final String id, final SliderChangedEvent event) {
         switch(id){
-            case "sizeslider" : ctrl.model.toolManager.actualTool.pencil.size = event.getValue(); break;
+            case "sizeslider" :
+            	if(event.getValue() < ctrl.model.toolManager.actualTool.pencil.size)
+            		ctrl.model.toolManager.actualTool.pencil.decRadius();
+            	else if(event.getValue() > ctrl.model.toolManager.actualTool.pencil.size)
+            		ctrl.model.toolManager.actualTool.pencil.incRadius();
+        		break;
             case "strslider" : ctrl.model.toolManager.actualTool.pencil.strength = event.getValue();break;
         }
     }

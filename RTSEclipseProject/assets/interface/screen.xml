@@ -201,7 +201,7 @@
                       </panel>
                       <panel id="sizepanel" childLayout="vertical" width="*" height="200px">
                           <control name="label" id="sizetext" width="100%" text="Size :" align="left" height="40px" font="aurulent-sans-16.fnt"/>
-                          <control name="verticalSlider" min="1" max="10" initial="2" stepSize="2" id="sizeslider" width="100%" height="*"/>
+                          <control name="verticalSlider" min="1" max="10" initial="2" stepSize="2" buttonStepSize="1" id="sizeslider" width="100%" height="*"/>
                       </panel>
                       <panel id="strpanel" childLayout="vertical" width="*" height="200px">
                           <control name="label" id="strtext" width="100%" text="Str. :" align="left" height="40px" font="aurulent-sans-16.fnt"/>

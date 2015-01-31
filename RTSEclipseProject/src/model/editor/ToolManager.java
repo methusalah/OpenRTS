@@ -127,8 +127,8 @@ public class ToolManager {
     }
 
     
-    public void updateTiles(ArrayList<Tile> tiles){
-        ArrayList<Tile> updatedTiles = new ArrayList<>();
+    public void updateTiles(List<Tile> tiles){
+        List<Tile> updatedTiles = new ArrayList<>();
         updatedTiles.addAll(tiles);
         for(Tile t : tiles)
             for(Tile n : battlefield.map.get9Around(t))
@@ -160,7 +160,7 @@ public class ToolManager {
         updateParcels(tiles);
     }
     
-    public void updateParcels(ArrayList<Tile> tiles){
+    public void updateParcels(List<Tile> tiles){
         List<ParcelMesh> toUpdate = battlefield.parcelManager.updateParcelsFor(tiles);
         notifyListeners("parcels", toUpdate);
     }
@@ -190,6 +190,7 @@ public class ToolManager {
     
     public void updatePencilsPos(Point2D pos){
         actualTool.pencil.setPos(pos);
+//        updateTiles(actualTool.pencil.getTiles());
     }
     public void releasePencils(){
         actualTool.pencil.release();

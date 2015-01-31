@@ -5,6 +5,7 @@
 package view.mapDrawing;
 
 import collections.PointRing;
+
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
@@ -15,13 +16,17 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 import com.jme3.scene.shape.Quad;
+
 import geometry.Point2D;
 import geometry.Polygon;
 import geometry3D.Point3D;
 import geometry3D.PolygonExtruder;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+
 import math.Angle;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
@@ -156,7 +161,7 @@ public class EditorRenderer implements ActionListener {
     }
     
     private void drawCliffPencil() {
-        ArrayList<Tile> tiles = view.model.toolManager.cliffTool.pencil.getTiles();
+        List<Tile> tiles = view.model.toolManager.cliffTool.pencil.getTiles();
         int index = 0;
         for(Spatial s : CliffPencilNode.getChildren()){
             if(index < tiles.size())
@@ -167,12 +172,12 @@ public class EditorRenderer implements ActionListener {
         }
     }
     private void drawHeightPencil() {
-        ArrayList<Tile> tiles = view.model.toolManager.heightTool.pencil.getTiles();
+        List<Tile> nodes = view.model.toolManager.heightTool.pencil.getNodes();
         int index = 0;
         for(Spatial s : HeightPencilNode.getChildren()){
-            if(index < tiles.size()){
-                Point3D start = tiles.get(index).getPos();
-                Point3D end = tiles.get(index).getPos().getAddition(0, 0, 0.5);
+            if(index < nodes.size()){
+                Point3D start = nodes.get(index).getPos();
+                Point3D end = nodes.get(index).getPos().getAddition(0, 0, 0.5);
                 Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
                 l.setLineWidth(PENCIL_THICKNESS);
                 ((Geometry)s).setMesh(l);

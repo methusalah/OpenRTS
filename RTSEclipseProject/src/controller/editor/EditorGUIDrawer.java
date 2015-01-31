@@ -150,8 +150,6 @@ public class EditorGUIDrawer extends GUIDrawer{
     	for(MapStyleBuilder b : builders)
     		ids.add(b.getId());
     	int selIndex = ids.indexOf(guiCtrl.ctrl.model.battlefield.map.mapStyleID);
-        LogUtil.logger.info("map id "+ guiCtrl.ctrl.model.battlefield.map.mapStyleID);
-        LogUtil.logger.info(" index "+ selIndex+" "+ids.get(selIndex));
         fillDropDown(DROPDOWN_STYLE_ID, ids, selIndex);
     }
 
@@ -197,9 +195,9 @@ public class EditorGUIDrawer extends GUIDrawer{
 
             
             Slider sizeSlider = getSlider("sizeslider");
-            sizeSlider.setMin((float)pencil.sizeIncrement);
+            sizeSlider.setMin(1);//(float)pencil.sizeIncrement);
             sizeSlider.setMax((float)Pencil.MAX_SIZE);
-            sizeSlider.setStepSize((float)pencil.sizeIncrement);
+            sizeSlider.setStepSize(1);//(float)pencil.sizeIncrement);
             sizeSlider.setValue((float)pencil.size);
             
             if(pencil.mode == Pencil.Mode.Unique)

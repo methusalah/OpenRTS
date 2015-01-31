@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+
 import math.Angle;
 import model.battlefield.map.Tile;
 import tools.LogUtil;
@@ -136,7 +138,10 @@ public class SunLight {
     public void decRed(){
         if(lastAction+delay<System.currentTimeMillis()){
             lastAction = System.currentTimeMillis();
-            for(Lighting l : actualLights)
+            List<Lighting> colored = new ArrayList<>();
+            colored.add(sun);
+            colored.add(ambient);
+            for(Lighting l : colored)
                 if(l.color.getRed()-colorIncrement>=0)
                     l.color = new Color(l.color.getRed()-colorIncrement, l.color.getGreen(), l.color.getBlue());
         }
@@ -145,7 +150,10 @@ public class SunLight {
     public void decGreen(){
         if(lastAction+delay<System.currentTimeMillis()){
             lastAction = System.currentTimeMillis();
-            for(Lighting l : actualLights)
+            List<Lighting> colored = new ArrayList<>();
+            colored.add(sun);
+            colored.add(ambient);
+            for(Lighting l : colored)
                 if(l.color.getGreen()-colorIncrement>=0)
                     l.color = new Color(l.color.getRed(), l.color.getGreen()-colorIncrement, l.color.getBlue());
         }
@@ -154,7 +162,10 @@ public class SunLight {
     public void decBlue(){
         if(lastAction+delay<System.currentTimeMillis()){
             lastAction = System.currentTimeMillis();
-            for(Lighting l : actualLights)
+            List<Lighting> colored = new ArrayList<>();
+            colored.add(sun);
+            colored.add(ambient);
+            for(Lighting l : colored)
                 if(l.color.getBlue()-colorIncrement>=0)
                     l.color = new Color(l.color.getRed(), l.color.getGreen(), l.color.getBlue()-colorIncrement);
         }

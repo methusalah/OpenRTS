@@ -5,7 +5,10 @@
 package model.editor.tools;
 
 import model.editor.Set;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.builders.CliffShapeBuilder;
@@ -88,9 +91,9 @@ public class CliffTool extends Tool {
     }
     
     private void changeLevel(){
-        ArrayList<Tile> group = pencil.getTiles();
+        List<Tile> group = pencil.getTiles();
         
-        ArrayList<Tile> toUpdate = new ArrayList<>();
+        List<Tile> toUpdate = new ArrayList<>();
         for(Tile t : group){
             t.level = maintainedlevel;
             if(t.ramp != null)

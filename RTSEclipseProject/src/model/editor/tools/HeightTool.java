@@ -5,6 +5,8 @@
 package model.editor.tools;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import math.MyRandom;
 import model.battlefield.map.Tile;
 import model.editor.ToolManager;
@@ -39,7 +41,7 @@ public class HeightTool extends Tool {
 
     @Override
     public void primaryAction() {
-        ArrayList<Tile> group = pencil.getTiles();
+        List<Tile> group = pencil.getNodes();
         switch (actualOp){
             case RAISE_LOW_OP : raise(group); break;
             case NOISE_SMOOTH_OP : noise(group); break;
@@ -50,7 +52,7 @@ public class HeightTool extends Tool {
 
     @Override
     public void secondaryAction() {
-        ArrayList<Tile> group = pencil.getTiles();
+        List<Tile> group = pencil.getNodes();
         switch (actualOp){
             case RAISE_LOW_OP : low(group); break;
             case NOISE_SMOOTH_OP : smooth(group); break;
@@ -59,17 +61,17 @@ public class HeightTool extends Tool {
         manager.updateParcels(group);
     }
     
-    private void raise(ArrayList<Tile> tiles){
+    private void raise(List<Tile> tiles){
         for(Tile t : tiles)
             t.elevation += amplitude*pencil.strength*pencil.getApplicationRatio(t.getCoord());
     }
     
-    private void low(ArrayList<Tile> tiles){
+    private void low(List<Tile> tiles){
         for(Tile t : tiles)
             t.elevation -= amplitude*pencil.strength*pencil.getApplicationRatio(t.getCoord());
     }
     
-    private void uniform(ArrayList<Tile> tiles){
+    private void uniform(List<Tile> tiles){
         if(!pencil.maintained){
             pencil.maintain();
             maintainedElevation = manager.battlefield.map.getGroundAltitude(pencil.getCoord());
@@ -83,13 +85,13 @@ public class HeightTool extends Tool {
                 t.elevation += Math.max(diff, -attenuatedAmplitude);
         }
     }
-    private void noise(ArrayList<Tile> tiles){
+    private void noise(List<Tile> tiles){
         for(Tile t : tiles){
             t.elevation += amplitude*pencil.strength*MyRandom.between(-1.0, 1.0)*pencil.getApplicationRatio(t.getCoord());
         }
     }
 
-    private void smooth(ArrayList<Tile> tiles){
+    private void smooth(List<Tile> tiles){
         for(Tile t : tiles){
             double average = 0;
             for(Tile n : t.get4Neighbors())
@@ -105,7 +107,7 @@ public class HeightTool extends Tool {
         }
     }
     
-    private void reset(ArrayList<Tile> tiles){
+    private void reset(List<Tile> tiles){
         for(Tile t : tiles)
             t.elevation = 0;
     }

@@ -9,7 +9,10 @@ import geometry.BoundingCircle;
 import geometry.Point2D;
 import geometry.Polygon;
 import geometry.Segment2D;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import math.Angle;
 import math.MyRandom;
 import model.battlefield.map.Map;
@@ -27,7 +30,8 @@ public class Pencil {
     
     Map map;
     private Point2D pos = Point2D.ORIGIN;
-    public Point2D snappedPos;
+    public Point2D containerTilePos;
+    public Point2D nearestTilePos;
     public Shape shape = Shape.Square;
     public Mode mode = Mode.Rough;
     
@@ -47,10 +51,13 @@ public class Pencil {
     }
     
     public void incRadius(){
-        size = Math.min(MAX_SIZE, size+sizeIncrement);
+    	if(size<sizeIncrement)
+    		size = sizeIncrement;
+    	else
+    		size = Math.min(MAX_SIZE, size+sizeIncrement);
     }
     public void decRadius(){
-        size = Math.max(sizeIncrement, size-sizeIncrement);
+        size = Math.max(1, size-sizeIncrement);
     }
     
     private void setSquare(){
@@ -65,7 +72,8 @@ public class Pencil {
     
     public void setPos(Point2D pos){
         this.pos = pos;
-        snappedPos = null;
+        containerTilePos = null;
+        nearestTilePos = null;
     }
     public Point2D getCoord(){
         return pos;
@@ -104,6 +112,8 @@ public class Pencil {
         }
     }
     
+    
+    
     public void toggleMode(){
         if(mode == Mode.Unique)
             return;
@@ -115,21 +125,33 @@ public class Pencil {
         }
     }
     
-    public ArrayList<Tile> getTiles(){
+    
+    
+    
+    public List<Tile> getTiles(){
         switch(shape){
-            case Circle : return getTilesInCircle();
+            case Circle : return getInCircle(getContainerTilePos());
             case Diamond : 
-            case Square : return getTilesInQuad();
+            case Square : return getInQuad(getContainerTilePos());
+                default: throw new RuntimeException();
+        }
+    }
+
+    public List<Tile> getNodes(){
+        switch(shape){
+            case Circle : return getInCircle(getNearestTilePos());
+            case Diamond : 
+            case Square : return getInQuad(getNearestTilePos());
                 default: throw new RuntimeException();
         }
     }
     
     public Tile getCenterTile(){
-        return map.getTile(getSnappedPos());
+        return map.getTile(getContainerTilePos());
     }
     
-    private Point2D getSnappedPos(){
-        if(snappedPos == null){
+    private Point2D getContainerTilePos(){
+        if(containerTilePos == null){
             int x = (int)Math.floor(pos.x);
             int y = (int)Math.floor(pos.y);
             if(size > 1 && snapPair){
@@ -138,49 +160,65 @@ public class Pencil {
                 if(y%2 != 0)
                     y--;
             }
-            snappedPos = new Point2D(x, y);
+            containerTilePos = new Point2D(x, y);
         }
-        return snappedPos;
+        return containerTilePos;
     }
     
-    private ArrayList<Tile> getTilesInCircle() {
-        ArrayList<Tile> res = new ArrayList<>();
-        BoundingCircle circle = new BoundingCircle(getSnappedPos(), size/2);
+    private Point2D getNearestTilePos(){
+    	if(nearestTilePos == null){
+            int x = (int)Math.round(pos.x);
+            int y = (int)Math.round(pos.y);
+            nearestTilePos = new Point2D(x, y);
+    	}
+    	return nearestTilePos;
+    	
+    }
+    
+    private List<Tile> getInCircle(Point2D center) {
+        List<Tile> res = new ArrayList<>();
+        if(size > 1 && snapPair)
+        	center = center.getAddition(0.5, 0.5);
+        
+        BoundingCircle circle = new BoundingCircle(center, (size/2)+0.01);
+        
         for(int x=-(int)size; x < (int)size; x++)
             for(int y=-(int)size; y < (int)size; y++){
-            	Point2D p = new Point2D(x, y).getAddition(circle.center);
-	            if(map.isInBounds(p) && circle.contains(p))
+            	Point2D p = new Point2D(x, y).getAddition(center);
+	            if(map.isInBounds(p) && circle.contains(map.getTile(p).getCoord()))
 	                res.add(map.getTile(p));
             }
         return res;
     }
 
-    private ArrayList<Tile> getTilesInQuad() {
-        ArrayList<Tile> res = new ArrayList<>();
-        Polygon p = getOrientedQuad();
-        for(Tile t : map.getTiles()){
-            boolean inside = true;
-            for(Segment2D s: p.getEdges())
-                if(Angle.getTurn(s.getStart(), s.getEnd(), t.getCoord().getAddition(0.5, 0.5)) != Angle.COUNTERCLOCKWISE){
-                    inside = false;
-                    break;
-                }
-            if(inside)
-                res.add(t);
-        }
+    private List<Tile> getInQuad(Point2D center) {
+        List<Tile> res = new ArrayList<>();
+        if(size > 1 && snapPair)
+        	center = center.getAddition(0.5, 0.5);
+
+        Polygon quad = getOrientedQuad(center);
+        
+//        map.getTile(center).elevation+=0.001;
+        
+        for(int x=-(int)size; x < (int)size; x++)
+            for(int y=-(int)size; y < (int)size; y++){
+            	Point2D p = new Point2D(x, y).getAddition(center);
+	            if(map.isInBounds(p) && quad.contains(map.getTile(p).getCoord()))
+	                res.add(map.getTile(p));
+            }
         return res;
     }
 
-    private Polygon getOrientedQuad(){
-        Point2D alignedPos = getSnappedPos().getAddition(1, 1);
+    private Polygon getOrientedQuad(Point2D center){
         PointRing pr = new PointRing();
-        pr.add(alignedPos.getAddition(-size/2, -size/2));
-        pr.add(alignedPos.getAddition(size/2, -size/2));
-        pr.add(alignedPos.getAddition(size/2, size/2));
-        pr.add(alignedPos.getAddition(-size/2, size/2));
+        double halfSide = (size/2)-0.01;
+        pr.add(center.getAddition(-halfSide, -halfSide));
+        pr.add(center.getAddition(halfSide, -halfSide));
+        pr.add(center.getAddition(halfSide, halfSide));
+        pr.add(center.getAddition(-halfSide, halfSide));
         switch(shape){
             case Square : return new Polygon(pr);
-            case Diamond : return new Polygon(pr).getRotation(Angle.RIGHT/2, alignedPos);
+            case Diamond : return new Polygon(pr).getRotation(Angle.RIGHT/2, center);
                 default: throw new RuntimeException();
         }
     }
@@ -192,7 +230,7 @@ public class Pencil {
     }
     
     public double getElevation(){
-        return map.getTile(getSnappedPos()).getZ();
+        return map.getTile(getContainerTilePos()).getZ();
     }
     
     private double getEccentricity(Point2D p){
