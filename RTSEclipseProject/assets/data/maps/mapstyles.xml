@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
   <MapStyle id="StdMapStyle">
-  	<Width value="64"/>
-  	<Height value="64"/>
+  	<Width value="80"/>
+  	<Height value="80"/>
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
     
@@ -16,8 +16,8 @@
   </MapStyle>
 
   <MapStyle id="AnotherMapStyle">
-  	<Width value="64"/>
-  	<Height value="64"/>
+  	<Width value="256"/>
+  	<Height value="256"/>
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
 

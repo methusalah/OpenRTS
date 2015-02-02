@@ -7,13 +7,10 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.Quaternion;
 import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
-import com.jme3.util.TangentBinormalGenerator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,17 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import math.Angle;
-import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.Tile;
-import static model.battlefield.map.cliff.Cliff.Type.Corner;
-import static model.battlefield.map.cliff.Cliff.Type.Orthogonal;
-import static model.battlefield.map.cliff.Cliff.Type.Salient;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcel.ParcelMesh;
 import tools.LogUtil;
 import view.View;
+import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.Translator;
@@ -86,7 +80,7 @@ public class MapRenderer implements ActionListener {
             for(ParcelMesh mesh : view.model.battlefield.parcelManager.meshes){
                 Geometry g = new Geometry();
                 Mesh jmeMesh = Translator.toJMEMesh(mesh);
-                TangentBinormalGenerator.generate(jmeMesh);
+                SilentTangentBinormalGenerator.generate(jmeMesh);
                 g.setMesh(jmeMesh);
                 g.setMaterial(groundTexture.getMaterial());
 //                g.setQueueBucket(Bucket.Transparent);
@@ -203,7 +197,7 @@ public class MapRenderer implements ActionListener {
     private void updateParcelsFor(List<ParcelMesh> toUpdate){
         for(ParcelMesh parcel : toUpdate){
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
-            TangentBinormalGenerator.generate(jmeMesh);
+            SilentTangentBinormalGenerator.generate(jmeMesh);
             ((Geometry)parcelsSpatial.get(parcel)).setMesh(jmeMesh);
         }
     }

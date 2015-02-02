@@ -19,7 +19,7 @@
     <EffectLink value="StdDamage"/>
     <Range value="5"/>
     <ScanRange value="7"/>
-    <Period value="1.8"/>
+    <Period value="1.2"/>
     <ActorLink value="TankCanonMainActor"/>
     <SourceBone value="BMuzzle01"/>
     <DirectionBone value="BMuzzleVec01"/>

@@ -88,10 +88,14 @@ public class Cliff {
     }
     
     public Cliff getParent(){
+    	if(parentTile == null)
+    		return null;
     	return parentTile.getCliff(level);
     }
     
     public Cliff getChild(){
+    	if(childTile == null)
+    		return null;
     	return childTile.getCliff(level);
     }
     

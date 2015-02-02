@@ -9,9 +9,12 @@ import geometry3D.MyMesh;
 import geometry3D.Point3D;
 import geometry3D.Polygon3D;
 import geometry3D.Triangle3D;
+
 import java.util.ArrayList;
+
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
+import model.battlefield.map.parcel.ParcelMesh;
 
 
 /**
@@ -21,11 +24,11 @@ import model.battlefield.map.Tile;
 public class GridMesh extends MyMesh {
 
     static final double Z_OFFSET = 0.1;
-    Map map;
+    ParcelMesh parcelMesh;
 
-    public GridMesh(Map map) {
-        this.map = map;
-        for(Tile t : map.getTiles()){
+    public GridMesh(ParcelMesh parcelMesh) {
+    	this.parcelMesh = parcelMesh;
+        for(Tile t : parcelMesh.getTiles()){
             if(t.n == null || t.e == null)
                 continue;
             
@@ -56,7 +59,7 @@ public class GridMesh extends MyMesh {
     
     public void update(){
         vertices.clear();
-        for(Tile t : map.getTiles()){
+        for(Tile t : parcelMesh.getTiles()){
             if(t.n == null || t.e == null)
                 continue;
             vertices.add(t.getPos().getAddition(0, 0, Z_OFFSET));

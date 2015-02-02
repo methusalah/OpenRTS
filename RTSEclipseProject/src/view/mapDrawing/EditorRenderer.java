@@ -25,11 +25,13 @@ import geometry3D.PolygonExtruder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import math.Angle;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
+import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.Pencil;
 import tools.LogUtil;
 import view.View;
@@ -53,21 +55,28 @@ public class EditorRenderer implements ActionListener {
     public Node CliffPencilNode = new Node();
     public Node HeightPencilNode = new Node();
     public Node AtlasPencilNode = new Node();
-    private Geometry gridGeom;
-    private GridMesh gridMesh;
+    private HashMap<ParcelMesh, GridMesh> gridMeshes = new HashMap<>();
+    private HashMap<ParcelMesh, Geometry> gridGeoms = new HashMap<>();
+    
 
     public EditorRenderer(View view, MaterialManager mm) {
         this.view = view;
         this.mm = mm;
                 
-        gridMesh = new GridMesh(view.model.battlefield.map);
-        gridGeom = new Geometry();
-        gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
-        Material mat = mm.getColor(ColorRGBA.Black);
-        mat.getAdditionalRenderState().setWireframe(true);
-        gridGeom.setMaterial(mat);
+        for(ParcelMesh parcel : view.model.battlefield.parcelManager.meshes){
+        	GridMesh grid = new GridMesh(parcel);
+        	gridMeshes.put(parcel, grid);
 
-        gridNode.attachChild(gridGeom);
+            Geometry g = new Geometry();
+            g.setMesh(Translator.toJMEMesh(grid));
+            Material mat = mm.getColor(ColorRGBA.Black);
+            mat.getAdditionalRenderState().setWireframe(true);
+            g.setMaterial(mat);
+            gridNode.attachChild(g);
+            gridGeoms.put(parcel, g);
+        }
+        
+        
         mainNode.attachChild(gridNode);
         
         mainNode.attachChild(CliffPencilNode);
@@ -172,12 +181,12 @@ public class EditorRenderer implements ActionListener {
         }
     }
     private void drawHeightPencil() {
-        List<Tile> nodes = view.model.toolManager.heightTool.pencil.getNodes();
+        List<Tile> tiles = view.model.toolManager.heightTool.pencil.getNodes();
         int index = 0;
         for(Spatial s : HeightPencilNode.getChildren()){
-            if(index < nodes.size()){
-                Point3D start = nodes.get(index).getPos();
-                Point3D end = nodes.get(index).getPos().getAddition(0, 0, 0.5);
+            if(index < tiles.size()){
+                Point3D start = tiles.get(index).getPos();
+                Point3D end = tiles.get(index).getPos().getAddition(0, 0, 0.5);
                 Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
                 l.setLineWidth(PENCIL_THICKNESS);
                 ((Geometry)s).setMesh(l);
@@ -270,11 +279,12 @@ public class EditorRenderer implements ActionListener {
                     hideAtlasPencil();
                 break;
             case "parcels" : 
-                ArrayList<Tile> updated = (ArrayList<Tile>)(e.getSource());
-                if(!updated.isEmpty()){
-                    gridMesh.update();
-                    gridGeom.setMesh(Translator.toJMEMesh(gridMesh));
-                }
+            	List<ParcelMesh> updatedParcels = (List<ParcelMesh>)(e.getSource());
+            	for(ParcelMesh parcel : updatedParcels){
+            		GridMesh m = gridMeshes.get(parcel); 
+            		m.update();
+            		gridGeoms.get(parcel).setMesh(Translator.toJMEMesh(m));
+            	}
                 break;
         }
     }

@@ -55,12 +55,13 @@ public class LightDrawer implements ActionListener {
         sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
         sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
         sr.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
-        vp.addProcessor(sr);
+//        vp.addProcessor(sr);
 
         sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
         sf.setEnabled(true);
+        sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
         sf.setShadowZExtend(SHADOWMAP_SIZE);
-//        fpp.addFilter(sf);
+        fpp.addFilter(sf);
 
 
         // Ambiant occlusion filter
@@ -108,6 +109,7 @@ public class LightDrawer implements ActionListener {
         Translator.toJMELight(shadowCaster, view.model.battlefield.sunLight.shadowCaster);
         shadowCaster.setColor(ColorRGBA.Blue.mult(0));
         sr.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
+        sf.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
         
     }
 

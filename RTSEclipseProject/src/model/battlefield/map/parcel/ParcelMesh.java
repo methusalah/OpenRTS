@@ -37,7 +37,7 @@ import tools.LogUtil;
 public class ParcelMesh extends MyMesh {
     
     ParcelManager manager;
-    HashMap<Tile, ArrayList<Triangle3D>> tiles = new HashMap<>();
+    HashMap<Tile, List<Triangle3D>> tiles = new HashMap<>();
     
     public ParcelMesh(ParcelManager pm){
         this.manager = pm;
@@ -46,7 +46,7 @@ public class ParcelMesh extends MyMesh {
         tiles.put(t, new ArrayList<Triangle3D>());
     }
     
-    private ArrayList<Triangle3D> getGroundTriangles(Tile t){
+    private List<Triangle3D> getGroundTriangles(Tile t){
         if(t.e == null || t.n == null)
             return new ArrayList<>();
 
@@ -58,9 +58,9 @@ public class ParcelMesh extends MyMesh {
                     tiles.get(t).addAll(getTileGround(t));
             return tiles.get(t);
         } else {
-            for(ParcelMesh mesh : manager.meshes)
-                if(mesh.tiles.containsKey(t))
-                    return mesh.getGroundTriangles(t);
+            for(ParcelMesh n : manager.getNeighbors(this))
+                if(n.tiles.containsKey(t))
+                    return n.getGroundTriangles(t);
         }
         throw new RuntimeException("strange");
     }
@@ -138,8 +138,8 @@ public class ParcelMesh extends MyMesh {
     		return t.getZ();
     }
     
-    private ArrayList<Triangle3D> getNearbyTriangles(Tile t){
-        ArrayList<Triangle3D> res = new ArrayList<>();
+    private List<Triangle3D> getNearbyTriangles(Tile t){
+        List<Triangle3D> res = new ArrayList<>();
         for(Tile n : t.get9Neighbors())
 //            if(!neib.isCliff())
                 res.addAll(getGroundTriangles(n));
@@ -211,5 +211,12 @@ public class ParcelMesh extends MyMesh {
         indices.clear();
         for(Tile t : tiles.keySet())
             tiles.get(t).clear();
+    }
+    
+    public List<Tile> getTiles(){
+    	List<Tile> res = new ArrayList<>();
+    	for(Tile t : tiles.keySet())
+    		res.add(t);
+    	return res;
     }
 }

@@ -126,16 +126,11 @@ public class ToolManager {
             actualTool.secondaryAction();
     }
 
-    
+    long timer = 0;
     public void updateTiles(List<Tile> tiles){
-        List<Tile> updatedTiles = new ArrayList<>();
-        updatedTiles.addAll(tiles);
-        for(Tile t : tiles)
-            for(Tile n : battlefield.map.get9Around(t))
-                if(!updatedTiles.contains(n))
-                    updatedTiles.add(n);
+        List<Tile> extended = getExtendedZone(tiles);
         
-        for(Tile t : updatedTiles){
+        for(Tile t : extended){
         	int minLevel = t.level;
         	int maxLevel = t.level;
             for(Tile n : battlefield.map.get8Around(t)){
@@ -148,21 +143,35 @@ public class ToolManager {
             	t.setCliff(minLevel, maxLevel);
         }
 
-        for(Tile t : updatedTiles){
+        for(Tile t : extended){
             for(Cliff c : t.getCliffs())
             	c.connect();
         }
-        for(Tile t : updatedTiles){
+        for(Tile t : extended){
             for(Cliff c : t.getCliffs())
                 cliffTool.buildShape(c);
         }
-        notifyListeners("tiles", updatedTiles);
-        updateParcels(tiles);
+        notifyListeners("tiles", extended);
+        updateParcelsForExtended(tiles);
     }
     
-    public void updateParcels(List<Tile> tiles){
+    public void updateParcelsForExtended(List<Tile> tiles){
         List<ParcelMesh> toUpdate = battlefield.parcelManager.updateParcelsFor(tiles);
         notifyListeners("parcels", toUpdate);
+    }
+
+    public void updateParcels(List<Tile> tiles){
+    	updateParcelsForExtended(getExtendedZone(tiles));
+    }
+    
+    private List<Tile> getExtendedZone(List<Tile> tiles){
+        List<Tile> res = new ArrayList<>();
+        res.addAll(tiles);
+        for(Tile t : tiles)
+            for(Tile n : battlefield.map.get8Around(t))
+                if(!res.contains(n))
+                    res.add(n);
+        return res;
     }
 
     public void updateGroundAtlas(){

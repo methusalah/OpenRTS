@@ -77,8 +77,6 @@ public class Model {
         LogUtil.logger.info("Reseting view...");
         notifyListeners(BATTLEFIELD_UPDATED_EVENT);
         LogUtil.logger.info("Done.");
-        if(lib.battlefield != battlefield)
-        	throw new RuntimeException("strange !");
     }
     
     public void reload(){

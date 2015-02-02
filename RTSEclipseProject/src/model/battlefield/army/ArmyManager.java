@@ -23,8 +23,6 @@ import tools.LogUtil;
  */
 public class ArmyManager {
     public ArrayList<Unit> units = new ArrayList<>();
-    public ArrayList<Unit> destroyedUnits = new ArrayList<>();
-
     public ArrayList<PersistentEffect> persistenteffects = new ArrayList<>();
     public ArrayList<Projectile> projectiles = new ArrayList<>();
 
@@ -39,7 +37,6 @@ public class ArmyManager {
             }
         }
         units.removeAll(destroyedThisTurn);
-        destroyedUnits.addAll(destroyedThisTurn);
         
         // update persistent effects
         ArrayList<PersistentEffect> terminated = new ArrayList<>();
@@ -59,20 +56,8 @@ public class ArmyManager {
                 p.update(elapsedTime);
         projectiles.removeAll(arrived);
         
-//        ArrayList<Actor> safeList = new ArrayList<>();
-//        safeList.addAll(activeActors);
-//        for(Actor a : safeList)
-//            if(a.isDestroyed() && ! a.isActing())
-//                deleteActor(a);
     }
 
-    public ArrayList<Unit> getUnits(){
-        ArrayList<Unit> res = new ArrayList<>();
-        res.addAll(units);
-        res.addAll(destroyedUnits);
-        return res;
-    }
-    
     public void addPersistentEffect(PersistentEffect eff){
         persistenteffects.add(eff);
     }
@@ -82,6 +67,7 @@ public class ArmyManager {
     }
     public void unregisterUnit(Unit unit){
         unit.removeFromBattlefield();
+        units.remove(unit);
     }
     
     public void registerProjectile(Projectile projectile){

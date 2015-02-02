@@ -58,46 +58,51 @@ public abstract class Dug1 extends NaturalFace {
     private ArrayList<Point3D> noise(ArrayList<Point3D> profile){
         ArrayList<Point3D> res = new ArrayList<>();
         for(Point3D v : profile)
-            res.add(v.getAddition((MyRandom.next()-0.5)*MAX_NOISE*noiseX,
-                    (MyRandom.next()-0.5)*MAX_NOISE*noiseY,
-                    (MyRandom.next()-0.5)*(MAX_NOISE/10)*noiseZ));
+        	if(profile.indexOf(v)==0)
+        		res.add(v);
+    		else
+	            res.add(v.getAddition((MyRandom.next()-0.5)*MAX_NOISE*noiseX,
+	                    (MyRandom.next()-0.5)*MAX_NOISE*noiseY,
+	                    (MyRandom.next()-0.5)*(MAX_NOISE/10)*noiseZ));
         return res;
     }
     
     protected void buildProfiles(){
         // compute pinch ratios for ramps
         double parentPinch = 0, middlePinch = 0, childPinch = 0;
-//        if(cliff.tile.ramp != null){
-//            Ramp r = cliff.tile.ramp;
-//            double slope = r.getCliffSlopeRate(cliff.tile);
-//            if(cliff.parent == null){
-//                parentPinch = 1;
-//                middlePinch = (slope+1)/2;
-//                childPinch = slope;
-//            } else {
-//                double parentSlope = r.getCliffSlopeRate(cliff.parent);
-//                 if(cliff.parent.ramp != cliff.tile.ramp)
-//                     parentSlope = -0.1;
-//                if(parentSlope >= slope){
-//                    parentPinch = parentSlope;
-//                    middlePinch = (slope+parentSlope)/2;
-//                    childPinch = slope;
-//                } else {
-//                    if(cliff.child == null){
-//                        parentPinch = slope;
-//                        middlePinch = (slope+1)/2;
-//                        childPinch = 1;
-//                    } else {
-//                        double childSlope = r.getCliffSlopeRate(cliff.child);
-//                        if(cliff.child.ramp != cliff.tile.ramp)
-//                            childSlope = 0;
-//                        parentPinch = slope;
-//                        middlePinch = (slope+childSlope)/2;
-//                        childPinch = childSlope;
-//                    }
-//                }
-//            }
-//        }
+        Ramp r = cliff.getTile().ramp;
+        if(r != null){
+            double slope = r.getCliffSlopeRate(cliff.getTile());
+            Tile parentTile = cliff.getParent() == null? null : cliff.getParent().getTile();
+            if(parentTile == null){
+                parentPinch = 0.99;
+                middlePinch = (slope+1)/2;
+                childPinch = slope;
+            } else {
+                double parentSlope = r.getCliffSlopeRate(parentTile);
+                 if(parentTile.ramp != r)
+                     parentSlope = -0.1;
+                if(parentSlope >= slope){
+                    parentPinch = parentSlope;
+                    middlePinch = (slope+parentSlope)/2;
+                    childPinch = slope;
+                } else {
+                	Tile childTile = cliff.getChild() == null? null : cliff.getChild().getTile(); 
+                    if(childTile == null){
+                        parentPinch = slope;
+                        middlePinch = (slope+1)/2;
+                        childPinch = 0.99;
+                    } else {
+                        double childSlope = r.getCliffSlopeRate(childTile);
+                        if(childTile.ramp != r)
+                            childSlope = 0;
+                        parentPinch = slope;
+                        middlePinch = (slope+childSlope)/2;
+                        childPinch = childSlope;
+                    }
+                }
+            }
+        }
         
         // elevating profiles according to ground elevation
         double parentZ = 0;//cliff.parent != null? cliff.parent.elevation : cliff.tile.elevation;

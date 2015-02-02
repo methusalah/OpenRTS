@@ -20,22 +20,23 @@ public class ParcelManager {
     private static final int RESOLUTION = 10;
     
     Map map;
-    public ArrayList<ParcelMesh> meshes = new ArrayList<>();
+    public List<ParcelMesh> meshes = new ArrayList<>();
+    private int widthJump;
     
     public ParcelManager(Map map){
         this.map = map;
+        widthJump = (int)(Math.ceil((double)map.width/RESOLUTION));
         createParcelMeshes();
-        
     }
     
     private void createParcelMeshes(){
-        int nbParcel = (int)(Math.ceil((double)map.width/RESOLUTION)*Math.ceil((double)map.height/RESOLUTION));
+        int nbParcel = widthJump*(int)Math.ceil((double)map.height/RESOLUTION);
         for(int i=0; i<nbParcel; i++)
             meshes.add(new ParcelMesh(this));
         
         for(int i=0; i<map.width; i++)
             for(int j=0; j<map.height; j++){
-                int index = (int)(Math.floor(j/RESOLUTION)*Math.ceil((double)map.width/RESOLUTION)+Math.floor(i/RESOLUTION));
+                int index = (int)(Math.floor(j/RESOLUTION)*widthJump+Math.floor(i/RESOLUTION));
                 meshes.get(index).add(map.getTile(i, j));
             }
         
@@ -45,12 +46,11 @@ public class ParcelManager {
     
     public List<ParcelMesh> getParcelsFor(List<Tile> tiles){
         List<ParcelMesh> res = new ArrayList<>();
-        for(Tile t : tiles)
-            for(Tile n : t.get9Neighbors()){
-                int index = (int)(Math.floor((n.y)/RESOLUTION)*Math.ceil((double)map.width/RESOLUTION)+Math.floor((n.x)/RESOLUTION));
-                if(!res.contains(meshes.get(index)))
-                    res.add(meshes.get(index));
-            }
+        for(Tile t : tiles){
+            int index = (int)(Math.floor((t.y)/RESOLUTION)*widthJump+Math.floor((t.x)/RESOLUTION));
+            if(!res.contains(meshes.get(index)))
+                res.add(meshes.get(index));
+        }
         return res;
     }
     
@@ -61,6 +61,32 @@ public class ParcelManager {
         for(ParcelMesh mesh : meshes)
             mesh.compute();
         return meshes;
+    }
+    
+    public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh){
+    	List<ParcelMesh> res = new ArrayList<>();
+    	int index = meshes.indexOf(parcelMesh);
+    	if(index+1 < meshes.size())
+    		res.add(meshes.get(index+1));
+    	
+    	if(index+widthJump-1 < meshes.size())
+    		res.add(meshes.get(index+widthJump-1));
+    	if(index+widthJump < meshes.size())
+    		res.add(meshes.get(index+widthJump));
+    	if(index+widthJump+1 < meshes.size())
+    		res.add(meshes.get(index+widthJump+1));
+
+    	if(index-1 >= 0)
+    		res.add(meshes.get(index-1));
+    	
+    	if(index-widthJump-1 >= 0)
+    		res.add(meshes.get(index-widthJump-1));
+    	if(index-widthJump >= 0)
+    		res.add(meshes.get(index-widthJump));
+    	if(index-widthJump+1 >= 0)
+    		res.add(meshes.get(index-widthJump+1));
+    	
+    	return res;
     }
 
     
