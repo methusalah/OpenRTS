@@ -16,13 +16,13 @@ import model.battlefield.army.components.Unit;
  * @author Benoît
  */
 public abstract class Effect {
-    protected final ArrayList<EffectBuilder> effectBuilders;
+    protected final ArrayList<EffectBuilder> childEffectBuilders;
     
     public final EffectSource source;
     public final EffectTarget target;
 
-    public Effect(ArrayList<EffectBuilder> effectBuilders, EffectSource source, EffectTarget target) {
-        this.effectBuilders = effectBuilders;
+    public Effect(ArrayList<EffectBuilder> childEffectBuilders, EffectSource source, EffectTarget target) {
+        this.childEffectBuilders = childEffectBuilders;
         this.source = source;
         this.target = target;
     }

@@ -34,7 +34,7 @@ public class LauncherEffect extends Effect implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(EffectBuilder eb : effectBuilders)
+        for(EffectBuilder eb : childEffectBuilders)
             eb.build(source, target, null).launch();
     }
 

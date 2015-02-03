@@ -55,9 +55,9 @@ public class PersistentEffect extends Effect {
         if(!source.isStillActiveSource())
             terminated = true;
         if(!terminated && lastPeriod+currentPeriodDuration < System.currentTimeMillis()){
-            effectBuilders.get(effectIndex).build(source, target, null).launch();
+            childEffectBuilders.get(effectIndex).build(source, target, null).launch();
             
-            if(++effectIndex >= effectBuilders.size())
+            if(++effectIndex >= childEffectBuilders.size())
                 effectIndex = 0;
             if(++periodIndex >= durations.size())
                 periodIndex = 0;

@@ -198,7 +198,10 @@ public class MapRenderer implements ActionListener {
         for(ParcelMesh parcel : toUpdate){
             Mesh jmeMesh = Translator.toJMEMesh(parcel);
             SilentTangentBinormalGenerator.generate(jmeMesh);
-            ((Geometry)parcelsSpatial.get(parcel)).setMesh(jmeMesh);
+            Geometry g = ((Geometry)parcelsSpatial.get(parcel));
+            g.setMesh(jmeMesh);
+            mainPhysicsSpace.remove(g);
+            mainPhysicsSpace.add(g);
         }
     }
 }

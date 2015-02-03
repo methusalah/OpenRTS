@@ -18,7 +18,7 @@
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-blender.jar"/>
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet-natives-android.jar"/>
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet-natives.jar"/>
-	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet.jar"/>
+	<classpathentry kind="lib" path="lib/jmonkey/jME3-bullet.jar" sourcepath="lib/jmonkey/jMonkeyEngine3-sources.zip"/>
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-desktop.jar"/>
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-effects.jar"/>
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-ios.jar"/>
