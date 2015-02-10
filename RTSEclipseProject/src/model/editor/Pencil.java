@@ -203,7 +203,7 @@ public class Pencil {
         for(int x=-(int)size; x < (int)size; x++)
             for(int y=-(int)size; y < (int)size; y++){
             	Point2D p = new Point2D(x, y).getAddition(center);
-	            if(map.isInBounds(p) && quad.contains(map.getTile(p).getCoord()))
+	            if(map.isInBounds(p) && quad.hasInside(map.getTile(p).getCoord()))
 	                res.add(map.getTile(p));
             }
         return res;

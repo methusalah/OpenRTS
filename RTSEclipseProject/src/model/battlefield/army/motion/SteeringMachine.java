@@ -6,8 +6,10 @@ package model.battlefield.army.motion;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
+import geometry.Circle2D;
 import geometry.Point2D;
 import geometry.Segment2D;
+import geometry.intersection.Intersection;
 import geometry3D.Point3D;
 
 import java.util.ArrayList;
@@ -165,10 +167,11 @@ public class SteeringMachine {
         Point2D intersection = null;
         FieldComp obstacle = null;
         for(FieldComp m : blockers){
-            Point2D i = anticipation.getIntersectionsWithCircle(m.getCoord(), mover.hiker.getSpacing(m)).get(0);
-            if(i != null &&
-                    (intersection == null || i.getDistance(mover.hiker.getCoord()) < intersection.getDistance(mover.hiker.getCoord()))){
-                intersection = i;
+        	Intersection i = anticipation.getIntersection(new Circle2D(m.getCoord(), mover.hiker.getSpacing(m))); 
+             
+            if(i.exist() &&
+                    (intersection == null || i.getAll().get(0).getDistance(mover.hiker.getCoord()) < intersection.getDistance(mover.hiker.getCoord()))){
+                intersection = i.getAll().get(0);
                 obstacle = m;
             }
         }
