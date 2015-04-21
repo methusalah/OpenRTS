@@ -33,4 +33,4 @@ Please note that all your contributions will fall under the OpenRTS licence and 
 If you see bugs (and you will probably see many), please search for existing issues to avoid duplicates. Then open your issue with a little test case.
 
 # Licence
-OpenRTS is released under the Apache Licence. See Licence file.# Draaxben
+OpenRTS is released under the MIT Licence. See Licence file.
