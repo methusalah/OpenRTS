@@ -1,3 +1,5 @@
+Please note : the repository is not yet set up. Please wait a couple of days and it should be ok.
+
 ![please report broken links](http://s12.postimg.org/uvml3cmvx/code118.png)
 
 # What is OpenRTS ?
