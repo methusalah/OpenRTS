@@ -11,7 +11,7 @@ The project also wants to be a pool of RTS ressources, giving access to a large 
 
 But OpenRTS is under developpement. There is a long way to go and a huge and growing TODO list. We will be glad to receive any of your contributions !
 
-Watch a <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">short prez video</a>
+Watch a <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">short prez video</a>.
 
 # How to set up ?
 Just clone the repository into Eclipse and run ! The engine is set by defaut with a test dataset and some exemple maps you can load.
@@ -29,7 +29,7 @@ We've got a gazillion of issues you can work on right now, and we will be happy 
 ### Ressources
 OpenRTS wants to provide it's own complete and workable dataset to allow immediate RTS creation.
 
-We are glad to welcome all your creations : models, sounds, maps, particle sprites, army data... And if your contribution respects the current [low poly art style](https://fr.pinterest.com/search/pins/?q=low%20poly), it's only better !
+We are glad to welcome all your creations : models, sounds, maps, particle sprites, army data... And if your contribution respects the current <a href="https://fr.pinterest.com/search/pins/?q=low%20poly" target="_blank">low poly art style</a>, it's only better !
 
 Please note that all your contributions will fall under the OpenRTS licence and will become public and free-to-use, as the engine itself.
 
