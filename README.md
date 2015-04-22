@@ -3,11 +3,11 @@
 # What is OpenRTS ?
 OpenRTS is a 3D real-time strategy game engine coded in java 1.7, powered by jMonkeyEngine 3 and open-source.
 
-Open RTS intend to support any kind of gameplay, design and control, provinding it's own editor and a versatile data structure.
+OpenRTS intend to support any kind of common real-time strategy gameplay, design and control, provinding it's own editor and a versatile data structure.
 
 The project also wants to be a pool of RTS ressources, giving access to a large and free-to-use set of maps, models, sounds, armies data and gameplays.
 
-But OpenRTS is under developpement. There is a long way to go and a huge and growing TODO list. So we will be glad to receive any of your contributions !
+But OpenRTS is under developpement. There is a long way to go and a huge and growing TODO list. We will be glad to receive any of your contributions !
 
 # How to set up ?
 Just clone the repository into Eclipse and run ! The engine is set by defaut with a test dataset and some exemple maps you can load.
@@ -20,7 +20,7 @@ Just clone the repository into Eclipse and run ! The engine is set by defaut wit
 You want to participate and make OpenRTS a fully functionnal game engine ? The more the merrier !
 
 ### GitHub issues
-We've got a gazillion of issues you can work on and we will be happy to add your request for new features
+We've got a gazillion of issues you can work on right now, and we will be happy to add your requested features to the list. 
 
 ### Ressources
 OpenRTS wants to provide it's own complete and workable dataset to allow immediate RTS creation.
