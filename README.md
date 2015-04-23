@@ -18,6 +18,10 @@ Just clone the repository into Eclipse and run ! The engine is set by defaut wit
 - **F2** : Game Mode (static iso camera)
 - **F3** : First Person view (for testing purpose)
 
+# Need Help ?
+First, you may want to take a look at the <a href="https://github.com/methusalah/OpenRTS/wiki" target="_blank">wiki</a>.
+Do not hesitate to write to us at openRTS.team@gmail.com
+
 # How to contribute ?
 You want to participate and make OpenRTS a fully functionnal game engine ? The more the merrier !
 
