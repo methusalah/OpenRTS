@@ -1,0 +1,223 @@
+package model.battlefield.army.components;
+
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.math.Precision;
+
+import java.util.ArrayList;
+
+import model.battlefield.actors.Actor;
+import model.battlefield.army.effects.Effect;
+import model.battlefield.army.effects.EffectSource;
+import model.builders.EffectBuilder;
+import model.builders.actors.ActorBuilder;
+
+/**
+ * Weapons have two roles :
+ *  - find and acquire the best available target
+ *  - launch the chain of effects whenever it is possible
+ *  
+ * For now, weapons choose themselves the best target for aggression only. This may change
+ * if weapon become responsible to cast beneficial effects to allies. 
+ *  
+ * It is defined by XML and is only instanciated by associate builder.
+ * 
+ */
+public class Weapon implements EffectSource {
+    // final
+    public final String UIName;
+    public final double range;
+    public final double scanRange;
+    public final double period;
+    public final EffectBuilder effectBuilder;
+    public final String sourceBone;
+    public final String directionBone;
+    public final boolean allowMovement = false;
+    final Unit holder;
+    final Actor actor;
+
+    protected final Turret turret;
+
+    // variables
+    Point3D turretPivot;
+    Point3D sourcePoint;
+    Point3D directionVector;
+    private Unit target;
+    public double lastStrikeTime = 0;
+    boolean attacking = false;
+    
+    protected ArrayList<Unit> onScan = new ArrayList<>();
+    protected ArrayList<Unit> atRange = new ArrayList<>();
+
+    public Weapon(String UIName, double range, double scanRange, double period, EffectBuilder effectBuilder, String sourceBone, String directionBone, Unit holder, ActorBuilder actorBuilder, Turret turret) {
+        this.UIName = UIName;
+        this.range = range;
+        this.scanRange = scanRange;
+        this.period = period;
+        this.effectBuilder = effectBuilder;
+        this.sourceBone = sourceBone;
+        this.directionBone = directionBone;
+        this.holder = holder;
+        if(actorBuilder != null)
+            this.actor = actorBuilder.build("", holder.actor);
+        else
+            this.actor = null;
+        this.turret = turret;
+    }
+
+    
+    public void update(ArrayList<Unit> enemiesNearby){
+        if(sourceBone != null && holder.actor.hasBone()){
+            turretPivot = holder.actor.getBoneCoord(turret.boneName);
+            sourcePoint = holder.actor.getBoneCoord(sourceBone);
+            directionVector = holder.actor.getBoneCoord(directionBone).getSubtraction(sourcePoint).getNormalized();
+        }else {
+            sourcePoint = turretPivot = holder.getPos();
+            directionVector = Point3D.UNIT_Z; //Point2D.ORIGIN.getTranslation(holder.getYaw(), 1).get3D(0);
+        }
+
+        attacking = false;
+        onScan.clear();
+        atRange.clear();
+        for(Unit u : enemiesNearby){
+            if(isAtRange(u))
+                atRange.add(u);
+            if(isAtScanRange(u))
+                onScan.add(u);
+        }
+        chooseTarget();
+    }
+    
+    private void chooseTarget(){
+        target = null;
+        // search best target at range
+        for(Unit u : atRange)
+            if(target == null)
+                target = u;
+            else {
+                double healthDiff = u.getHealthRate()-target.getHealthRate();
+                if(healthDiff < 0 ||
+                        healthDiff < Precision.APPROX && holder.getDistance(u) < holder.getDistance(target))
+                    target = u;
+            }
+        // if no target found, search best target on scan
+        if(target == null)
+            for(Unit u : onScan)
+                target = target==null? u : holder.getNearest(u, target);
+    }
+    
+    public void attack(Unit specificTarget){
+        if(!isAtRange(specificTarget))
+            throw new RuntimeException("specific target not in range");
+        target = specificTarget;
+        attack();
+    }
+    
+    public void attack(){
+        attacking = true;
+        if(target == null)
+            throw new RuntimeException("no target");
+        if(!isAtRange(target))
+            throw new RuntimeException("target not at range");
+        
+//        holder.getMover().tryToHoldPositionHardly();
+        setDesiredYaw();
+        
+        boolean ready = true;
+//        if(!holder.getMover().holdPosition)
+//           ready = false;
+        
+        if(turret != null && Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5))
+            ready = false;
+        
+        if(lastStrikeTime+1000*period > System.currentTimeMillis())
+            ready = false;
+        
+        if(ready){
+            if(actor != null)
+                actor.onShootEvent();
+            target.ai.registerAsAttacker(holder);
+            Effect e = effectBuilder.build(this, target, null);
+            e.launch();
+
+            lastStrikeTime = System.currentTimeMillis();
+        }
+    }
+    
+    private void setDesiredYaw(){
+        double desiredYaw = getTargetAngle();
+        if(turret != null)
+            turret.setYaw(desiredYaw);
+        else
+            holder.setYaw(desiredYaw);
+    }
+    
+    private double getTargetAngle(){
+        return target.getPos2D().getSubtraction(turretPivot.get2D()).getAngle();
+    }
+    
+    private double getAngle(){
+        return directionVector.get2D().getAngle();
+    }
+    
+    
+    public boolean hasTargetAtRange(Unit specificTarget){
+        return isAtRange(specificTarget);
+    }
+    
+    private boolean isAtRange(Unit u){
+        return u.getBoundsDistance(holder) <= range;
+    }
+    
+    private boolean isAtScanRange(Unit u){
+        return u.getBoundsDistance(holder) <= scanRange;
+    }
+    
+    public boolean isAttacking(){
+        return attacking;
+    }
+    
+    public Unit getTarget(){
+        return target;
+    }
+    
+    public boolean acquiring(){
+        return !atRange.isEmpty();
+    }
+    
+    public boolean scanning(){
+        return !onScan.isEmpty();
+    }
+
+    @Override
+    public boolean isStillActiveSource() {
+        return !holder.destroyed();
+    }
+
+    @Override
+    public Point3D getPos() {
+        return sourcePoint;
+    }
+
+    @Override
+    public Point3D getDirection() {
+        return directionVector;
+    }
+
+    @Override
+    public Unit getUnit() {
+        return holder;
+    }
+
+    @Override
+    public double getYaw() {
+        if(sourcePoint == null)
+            return holder.yaw;
+        else
+            return directionVector.getSubtraction(sourcePoint).get2D().getAngle();
+    }
+    
+    
+    
+    
+}
