@@ -9,7 +9,7 @@ The project also wants to be a pool of RTS ressources, giving access to a large 
 
 But OpenRTS is under developpement. There is a long way to go and a huge and growing TODO list. We will be glad to receive any of your contributions !
 
-Watch a <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">short prez video</a>.
+Watch <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">the engine in action !</a>
 
 # How to set up ?
 Just clone the repository into Eclipse and run ! The engine is set by defaut with a test dataset and some exemple maps you can load.
