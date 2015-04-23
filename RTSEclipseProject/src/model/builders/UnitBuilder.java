@@ -4,15 +4,17 @@
  */
 package model.builders;
 
-import model.builders.actors.ModelActorBuilder;
-import ressources.definitions.BuilderLibrary;
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 import java.util.ArrayList;
 import java.util.List;
-import ressources.definitions.DefElement;
+
 import model.battlefield.army.components.Unit;
-import ressources.definitions.Definition;
 import model.battlefield.warfare.Faction;
+import model.builders.actors.ModelActorBuilder;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

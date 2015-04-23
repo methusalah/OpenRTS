@@ -1,32 +1,26 @@
 package view;
 
-import view.material.MaterialManager;
+import geometry.geom2d.Point2D;
 
-import com.jme3.asset.AssetManager;
-import com.jme3.bullet.PhysicsSpace;
-import com.jme3.light.AmbientLight;
-import com.jme3.light.DirectionalLight;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.BloomFilter;
-import com.jme3.post.ssao.SSAOFilter;
-import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
-import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Line;
-import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.shadow.DirectionalLightShadowRenderer;
-import geometry.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
+
 import model.Model;
 import view.actorDrawing.ActorDrawingManager;
 import view.mapDrawing.EditorRenderer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapRenderer;
+import view.material.MaterialManager;
+
+import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.ViewPort;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
+import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Line;
 
 public class View implements ActionListener {
 

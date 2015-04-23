@@ -4,6 +4,14 @@
  */
 package view.actorDrawing;
 
+import geometry.tools.LogUtil;
+
+import java.util.ArrayList;
+
+import model.battlefield.actors.ModelActor;
+import model.battlefield.actors.ParticleActor;
+import view.math.Translator;
+
 import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
@@ -11,14 +19,6 @@ import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
-
-import java.util.ArrayList;
-
-import model.battlefield.actors.Actor;
-import model.battlefield.actors.ModelActor;
-import model.battlefield.actors.ParticleActor;
-import tools.LogUtil;
-import view.math.Translator;
 
 /**
  *

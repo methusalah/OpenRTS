@@ -1,25 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.battlefield;
 
-import app.AzertyFlyByCamera;
-import com.jme3.input.FlyByCamera;
-import com.jme3.input.InputManager;
-import com.jme3.renderer.Camera;
-import controller.Controller;
-import controller.cameraManagement.IsometricCameraManager;
-import controller.SpatialSelector;
-import de.lessvoid.nifty.Nifty;
-import geometry.Point2D;
+import geometry.geom2d.Point2D;
 import model.Model;
 import view.View;
 import view.math.Translator;
 
+import com.jme3.input.InputManager;
+import com.jme3.renderer.Camera;
+
+import controller.Controller;
+import controller.cameraManagement.IsometricCameraManager;
+import de.lessvoid.nifty.Nifty;
+
 /**
  *
- * @author Benoît
  */
 public class BattlefieldController extends Controller {
 	private boolean paused = false;

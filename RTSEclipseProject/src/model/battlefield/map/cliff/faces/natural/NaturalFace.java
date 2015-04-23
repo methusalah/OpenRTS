@@ -1,18 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff.faces.natural;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 import java.awt.Color;
 import java.util.ArrayList;
+
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.Face;
 
 /**
- *
- * @author Benoît
+ * A face that creates a mesh procedurally as its shape. 
+ * 
  */
 public abstract class NaturalFace extends Face {
     public NaturalFaceMesh mesh;

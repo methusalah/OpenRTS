@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.map.Map;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
-import ressources.definitions.Definition;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

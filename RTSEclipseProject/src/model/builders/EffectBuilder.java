@@ -4,22 +4,20 @@
  */
 package model.builders;
 
-import ressources.definitions.BuilderLibrary;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 import java.util.ArrayList;
-import ressources.definitions.DefElement;
-import java.util.HashMap;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.army.effects.Effect;
+
 import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
-import ressources.definitions.Definition;
 import model.battlefield.army.effects.DamageEffect;
+import model.battlefield.army.effects.Effect;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.effects.LauncherEffect;
 import model.battlefield.army.effects.PersistentEffect;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

@@ -4,17 +4,17 @@
  */
 package model.builders.actors;
 
-import math.MyRandom;
-import model.battlefield.actors.Actor;
-import ressources.definitions.BuilderLibrary;
+import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ressources.definitions.DefElement;
+import model.battlefield.actors.Actor;
 import model.builders.Builder;
-import ressources.definitions.Definition;
-import tools.LogUtil;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

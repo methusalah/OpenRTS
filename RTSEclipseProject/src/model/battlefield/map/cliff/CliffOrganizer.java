@@ -1,16 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff;
 
-import math.Angle;
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
 /**
  * Warning : this class is full of monstrous spiders and mysterious shadows in every corner. Proceed at your own risks.
- * @author Benoît
+ * 
+ * Compute magically the shape and angle of a cliff, according to its neighborhood.
+ * 
+ * Don't touch anything or it will explode !
+ * 
  */
 public class CliffOrganizer {
     

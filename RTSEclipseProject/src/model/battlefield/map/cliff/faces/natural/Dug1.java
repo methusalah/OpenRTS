@@ -1,24 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff.faces.natural;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+import geometry.math.MyRandom;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
-import math.MyRandom;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
-import tools.LogUtil;
 
-/**
- *
- * @author Benoît
- */
 public abstract class Dug1 extends NaturalFace {
     public final static int NB_VERTEX_ROWS = 13;
     public final static int NB_VERTEX_COL = 3;

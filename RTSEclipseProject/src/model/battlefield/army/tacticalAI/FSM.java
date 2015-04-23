@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.tacticalAI;
 
 import java.util.ArrayList;
+
 import model.battlefield.army.components.Unit;
 
 /**
- *
- * @author Benoît
+ * A simple Final State Machine for the Tactical AI states
+ * 
  */
 public class FSM {
     protected ArrayList<String> states = new ArrayList<>();

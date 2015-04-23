@@ -31,6 +31,8 @@
  */
 package view.jme;
 
+import java.io.IOException;
+
 import com.jme3.bounding.BoundingBox;
 import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
@@ -55,12 +57,9 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
 import com.jme3.util.TempVars;
-import java.io.IOException;
-import tools.LogUtil;
 
 /**
  * <code>ParticleEmitter</code> is a special kind of geometry which simulates

@@ -5,14 +5,9 @@
 package controller;
 
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.NiftyControl;
-import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.elements.render.ImageRenderer;
-import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.ScreenController;
-import java.awt.Color;
 
 /**
  *

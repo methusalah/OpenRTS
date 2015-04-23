@@ -1,19 +1,17 @@
 package model;
 
+import geometry.tools.LogUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.management.RuntimeErrorException;
-
-import model.battlefield.map.Map;
 import model.battlefield.Battlefield;
-import ressources.definitions.BuilderLibrary;
-import model.editor.ToolManager;
 import model.battlefield.BattlefieldFactory;
-import ressources.definitions.DefParser;
-import tools.LogUtil;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefParser;
+import model.editor.ToolManager;
 
 public class Model {
     public static final String BATTLEFIELD_UPDATED_EVENT = "mapupdatedevent";
@@ -45,8 +43,6 @@ public class Model {
         
         factory = new BattlefieldFactory(lib);
         setNewBattlefield();
-
-//        armyManager.createTestArmy(lib);
     }
     
     public void updateConfigs() {

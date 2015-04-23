@@ -1,18 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.abstractComps;
 
-import geometry.BoundingCircle;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.BoundingCircle;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 
 import java.awt.Color;
 
 /**
- *
- * @author Benoît
+ * A basic abstract entity, containing all needed attributes and methods to set a static object on the battlefield 
+ * 
  */
 public class FieldComp {
     public String modelPath = "";

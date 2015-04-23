@@ -4,14 +4,14 @@
  */
 package model.builders;
 
-import model.builders.actors.ModelActorBuilder;
-import ressources.definitions.BuilderLibrary;
-import geometry3D.Point3D;
-import ressources.definitions.DefElement;
+import geometry.geom3d.Point3D;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
-import ressources.definitions.Definition;
+import model.builders.actors.ModelActorBuilder;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

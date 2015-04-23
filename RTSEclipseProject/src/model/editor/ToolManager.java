@@ -4,30 +4,25 @@
  */
 package model.editor;
 
-import geometry.Point2D;
+import geometry.geom2d.Point2D;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.battlefield.map.Map;
+import model.battlefield.Battlefield;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.parcel.ParcelMesh;
+import model.builders.definitions.BuilderLibrary;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
-import model.editor.tools.Tool;
 import model.editor.tools.RampTool;
-import model.editor.tools.UnitTool;
-import model.battlefield.Battlefield;
+import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
-import model.battlefield.map.Trinket;
-import model.battlefield.map.parcel.ParcelManager;
-import model.battlefield.map.parcel.ParcelMesh;
-import model.builders.UnitBuilder;
-import ressources.definitions.BuilderLibrary;
-import tools.LogUtil;
+import model.editor.tools.UnitTool;
 
 /**
  *

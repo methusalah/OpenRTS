@@ -4,13 +4,12 @@
  */
 package model.builders;
 
-import ressources.definitions.DefElement;
-import java.util.HashMap;
-import math.Angle;
+import geometry.math.Angle;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.Definition;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

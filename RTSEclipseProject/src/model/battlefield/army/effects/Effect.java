@@ -1,19 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.effects;
 
-import model.builders.EffectBuilder;
-import geometry.Point2D;
-import geometry3D.Point3D;
 import java.util.ArrayList;
-import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
+
+import model.builders.EffectBuilder;
 
 /**
- *
- * @author Benoît
+ * Abstract class that defines the basic structure of effets.
+ * 
+ * The role of effects is to create interaction between battlefield components.
+ * 
+ * source and target are, for example, units, buildings, players... and implements the EffectSource
+ * and EffectTarget interfaces.
+ * 
+ * On launch, effects may have different behaviors, and may also launch children effects 
+ * 
  */
 public abstract class Effect {
     protected final ArrayList<EffectBuilder> childEffectBuilders;

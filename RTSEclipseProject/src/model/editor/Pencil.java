@@ -4,20 +4,18 @@
  */
 package model.editor;
 
-import collections.PointRing;
-import geometry.BoundingCircle;
-import geometry.Point2D;
-import geometry.Polygon;
-import geometry.Segment2D;
+import geometry.collections.PointRing;
+import geometry.geom2d.BoundingCircle;
+import geometry.geom2d.Point2D;
+import geometry.geom2d.Polygon;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
-import math.MyRandom;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
 /**
  *

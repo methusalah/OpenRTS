@@ -1,25 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield;
 
-import java.util.ArrayList;
-import model.battlefield.actors.Actor;
+import model.battlefield.actors.ActorPool;
 import model.battlefield.army.ArmyManager;
-import model.battlefield.army.components.Unit;
+import model.battlefield.army.Engagement;
 import model.battlefield.lighting.SunLight;
 import model.battlefield.map.Map;
 import model.battlefield.map.parcel.ParcelManager;
-import model.battlefield.actors.ActorPool;
-import model.battlefield.army.Engagement;
+import model.builders.definitions.BuilderLibrary;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-import ressources.definitions.BuilderLibrary;
 
 /**
- *
- * @author bedu
+ * This class simply contains all necessary elements to set a complete battlefield : 
+ * - a map and a parcel manager
+ * - an army engagement and a manager
+ * - a sunlight
+ * - a pool of playing actors
+ * 
  */
 @Root
 public class Battlefield {

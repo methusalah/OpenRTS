@@ -4,20 +4,19 @@
  */
 package model.editor.tools;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 
-import math.Angle;
-import math.MyRandom;
 import model.battlefield.army.components.Unit;
-import model.battlefield.army.components.SerializableUnit;
+import model.battlefield.warfare.Faction;
 import model.builders.UnitBuilder;
-import model.editor.ToolManager;
 import model.editor.Pencil;
 import model.editor.Set;
-import model.battlefield.warfare.Faction;
+import model.editor.ToolManager;
 
 /**
  *

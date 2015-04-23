@@ -1,24 +1,27 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
-import model.battlefield.army.effects.Effect;
-import model.builders.EffectBuilder;
-import model.battlefield.actors.Actor;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.math.Precision;
+
 import java.util.ArrayList;
-import math.Angle;
-import math.Precision;
+
+import model.battlefield.actors.Actor;
+import model.battlefield.army.effects.Effect;
 import model.battlefield.army.effects.EffectSource;
+import model.builders.EffectBuilder;
 import model.builders.actors.ActorBuilder;
-import tools.LogUtil;
 
 /**
- *
- * @author Benoît
+ * Weapons have two roles :
+ *  - find and acquire the best available target
+ *  - launch the chain of effects whenever it is possible
+ *  
+ * For now, weapons choose themselves the best target for aggression only. This may change
+ * if weapon become responsible to cast beneficial effects to allies. 
+ *  
+ * It is defined by XML and is only instanciated by associate builder.
+ * 
  */
 public class Weapon implements EffectSource {
     // final

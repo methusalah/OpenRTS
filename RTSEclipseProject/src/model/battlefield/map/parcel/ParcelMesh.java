@@ -1,38 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.parcel;
 
-import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.cliff.Cliff.Type;
-import model.battlefield.map.cliff.faces.natural.NaturalFace;
-import collections.PointRing;
-import collections.Ring;
-import geometry.Point2D;
-import geometry.Polygon;
-import geometry.algorithm.Triangulator;
-import geometry3D.Triangle3D;
-import geometry3D.MyMesh;
-import geometry3D.Point3D;
-import geometry3D.Polygon3D;
+import geometry.collections.Ring;
+import geometry.geom2d.Point2D;
+import geometry.geom2d.algorithm.Triangulator;
+import geometry.geom3d.MyMesh;
+import geometry.geom3d.Point3D;
+import geometry.geom3d.Polygon3D;
+import geometry.geom3d.Triangle3D;
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
-import math.Angle;
-import math.MyRandom;
 import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.faces.natural.Dug1Corner;
-import tools.LogUtil;
+import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Cliff.Type;
 
 
 /**
- *
- * @author Benoît
+ * Creates a mesh from a grid of tiles and smooth the normals at each node.
+ * 
+ * ParcelMesh also work with the parcel manager to get neighboring parcels, 
+ * to smooth the normals at frontiers.
+ *  
  */
 public class ParcelMesh extends MyMesh {
     
@@ -173,13 +165,13 @@ public class ParcelMesh extends MyMesh {
                     if(shared.size() == 3)
                         continue;
                     if(shared.contains(t.a))
-                        normal1 = normal1.getAddition(n.normal);//.getMult(0.35));
+                        normal1 = normal1.getAddition(n.normal);
 
                     if(shared.contains(t.b))
-                        normal2 = normal2.getAddition(n.normal);//.getMult(0.35));
+                        normal2 = normal2.getAddition(n.normal);
 
                     if(shared.contains(t.c))
-                        normal3 = normal3.getAddition(n.normal);//.getMult(0.35));
+                        normal3 = normal3.getAddition(n.normal);
                 }
 
                 if(normal1.isOrigin())

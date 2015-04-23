@@ -1,25 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.motion;
+
+import geometry.geom2d.Circle2D;
+import geometry.geom2d.Point2D;
+import geometry.geom2d.Segment2D;
+import geometry.geom2d.intersection.Intersection;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+
+import java.util.List;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
-import geometry.Circle2D;
-import geometry.Point2D;
-import geometry.Segment2D;
-import geometry.intersection.Intersection;
-import geometry3D.Point3D;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import math.Angle;
-import tools.LogUtil;
 
 /**
- *
+ * Compute the best motion according to given orders, environment and inner parameters.
+ * 
+ * Each mover has it's own steering machine to compute motion.
+ * 
+ * Before each frame, the steering machine receive many orders to apply, with many goals.
+ * For example, a mover may want to proceed to its destination, to separate with
+ * neighbors and to avoid a nearly obstacle at the same time. Each goal has a force and
+ * the steering machine finds the vector resulting of these goals, forces, mover's mass
+ * and elapsed time since last frame.
+ * 
+ * Mover's speed is applied by the collision manager which may want to apply brake. 
+ *  
  * @author Benoît
  */
 public class SteeringMachine {

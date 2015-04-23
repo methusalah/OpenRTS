@@ -1,31 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.tools.LogUtil;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.Battlefield;
-import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.SerializableUnit;
+import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
+import model.builders.definitions.BuilderLibrary;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-import ressources.definitions.BuilderLibrary;
-import tools.LogUtil;
-
 /**
- *
- * @author Benoît
- */
+ * Stores units and factions, and provide a serializable version of the initial situation
+ */ 
 @Root
 public class Engagement {
     public Battlefield battlefield;

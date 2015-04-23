@@ -4,17 +4,18 @@
  */
 package controller;
 
-import com.jme3.input.InputManager;
-import com.jme3.renderer.Camera;
-import controller.cameraManagement.CameraManager;
-import de.lessvoid.nifty.Nifty;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import model.Model;
 import model.ReportEventListener;
-import tools.LogUtil;
 import view.View;
+
+import com.jme3.input.InputManager;
+import com.jme3.renderer.Camera;
+
+import controller.cameraManagement.CameraManager;
 
 /**
  *

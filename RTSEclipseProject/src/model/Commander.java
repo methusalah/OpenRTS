@@ -4,19 +4,18 @@
  */
 package model;
 
-import geometry.AlignedBoundingBox;
-import geometry.Point2D;
+import geometry.geom2d.AlignedBoundingBox;
+import geometry.geom2d.Point2D;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.battlefield.map.Map;
-import model.battlefield.army.components.Unit;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.Unity;
+import model.battlefield.army.components.Unit;
 import model.battlefield.army.motion.pathfinding.FlowField;
-import tools.LogUtil;
+import model.battlefield.map.Map;
 
 /**
  *

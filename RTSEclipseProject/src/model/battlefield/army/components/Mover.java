@@ -1,28 +1,36 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
-import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.abstractComps.Hiker;
-import model.battlefield.army.motion.pathfinding.FlowField;
-import geometry.BoundingCircle;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
-import model.battlefield.map.Map;
-import model.battlefield.map.Trinket;
+import model.battlefield.abstractComps.FieldComp;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.CollisionManager;
 import model.battlefield.army.motion.SteeringMachine;
+import model.battlefield.army.motion.pathfinding.FlowField;
+import model.battlefield.map.Map;
+import model.battlefield.map.Trinket;
 
 /**
- *
- * @author Benoît
+ * Mover is module to connect to hiker to create motion and placement.
+ * 
+ * The mover knows the map, is supplied with neighbors at each frame and provide movement methods.
+ * It computes movement accordingly to these three elements and apply it to the hiker.
+ * 
+ * It is also responsible to compute hiker elevation, and to decide when it has arrived to
+ * destination. There is a difference between the states "destination reached" and "post found".
+ * When a mover has reached its destination, it waits for its group arrival before considering its
+ * position as a post. This way, in large groups, movers won't fight eternally to regain their
+ * arrival point.
+ * 
+ * One mover is associated with one hiker.
+ * 
+ * It is defined by XML and is only instanciated by associate builder.
+ * 
  */
 public class Mover {
     public enum Heightmap {SKY, AIR, GROUND};
@@ -181,15 +189,12 @@ public class Mover {
             hiker.yaw = desiredYaw;
     }
 
-    // TODO ici le toFlockWith perd son sens quand il ne s'agit que de separation.
     public void separate(){
         sm.applySeparation(toLetPass);
     }
     
     public void flock(){
         sm.applySeparation(toFlockWith);
-//        sm.applyCohesion(neighbors);
-//        sm.applyAlignment(neighbors);
     }
     
     public void seek(Mover target){
@@ -229,9 +234,9 @@ public class Mover {
     
     private void updateElevation(){
         if(heightmap == Heightmap.GROUND){
-            hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getGroundAltitude(hiker.getCoord()));
+            hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getAltitudeAt(hiker.getCoord()));
             if(standingMode == StandingMode.PRONE){
-	            desiredUp = map.getTerrainNormal(hiker.getCoord());
+	            desiredUp = map.getNormalVectorAt(hiker.getCoord());
 	            if(!hiker.upDirection.equals(desiredUp))
 	            	hiker.upDirection = hiker.upDirection.getAddition(desiredUp).getNormalized();
             }

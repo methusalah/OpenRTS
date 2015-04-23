@@ -1,28 +1,37 @@
 package model.battlefield.map;
 
-import geometry.AlignedBoundingBox;
-import geometry.BoundingShape;
-import geometry.Point2D;
-import geometry.Segment2D;
-import geometry3D.Point3D;
+import geometry.geom2d.AlignedBoundingBox;
+import geometry.geom2d.BoundingShape;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
-import math.MyRandom;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Transient;
 
-import tools.LogUtil;
-import collections.Ring;
-
+/**
+ * Base element of the map.
+ * 
+ * Contains two informations : 
+ *  - height for relief
+ *  - level for cliffs
+ * 
+ * The cliffs and ramps themselves are also stored in tiles.
+ *  
+ * Tiles would be used in the future to store any field comp that is over
+ * them, to find nearby field comp without searching all the list (quad tree).
+ * 
+ * Important note : a tile is placed by its lower left coordinate. This has many
+ * non-intuitive consequents and must be kept in mind. for example, tiles at the east
+ * side of a plateau will have thier coord at the upper ground, when tiles at the
+ * west will have their coord at the lower ground. 
+ * 
+ */
 @Root
 public class Tile {
     public static final double STAGE_HEIGHT = 2;

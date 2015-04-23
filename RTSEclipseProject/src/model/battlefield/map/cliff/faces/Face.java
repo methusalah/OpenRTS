@@ -1,20 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff.faces;
 
-import collections.Ring;
-import geometry3D.Point3D;
-
-import java.util.ArrayList;
-
-import model.battlefield.map.Trinket;
+import geometry.collections.Ring;
+import geometry.geom3d.Point3D;
 import model.battlefield.map.cliff.Cliff;
 
 /**
- *
- * @author Benoît
+ * Abstract class that defines the base element for all type of Faces
+ * 
+ * A face build three elements :
+ *  - the lower ground shape
+ *  - the upper ground shape
+ *  - its own shape
+ * 
  */
 public abstract class Face {
     final protected Cliff cliff;

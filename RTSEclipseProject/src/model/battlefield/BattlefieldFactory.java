@@ -1,40 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield;
 
-import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.cliff.Ramp;
+import geometry.tools.LogUtil;
 
-import java.awt.Color;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import math.MyRandom;
 import model.Model;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
-import model.battlefield.map.Trinket;
+import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.cliff.Ramp;
 import model.builders.MapStyleBuilder;
+import model.builders.definitions.BuilderLibrary;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import ressources.Image;
-import ressources.ImageReader;
-import ressources.definitions.BuilderLibrary;
-import tools.LogUtil;
-
 /**
- *
- * @author Benoît
+ * this class serializes and deserializes a battlefield into and from files
+ * everything is translated in and from XML format,
+ * except for the texture atlas of the ground (buffer array)
+ * 
  */
 public class BattlefieldFactory {
     private static final String BATTLEFIELD_FILE_EXTENSION = "bf";

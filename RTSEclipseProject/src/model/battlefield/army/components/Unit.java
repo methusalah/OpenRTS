@@ -1,30 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
-import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.abstractComps.Hiker;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.battlefield.abstractComps.FieldComp;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.tacticalAI.TacticalAI;
+import model.battlefield.warfare.Faction;
 import model.builders.MoverBuilder;
 import model.builders.TurretBuilder;
 import model.builders.WeaponBuilder;
-import model.battlefield.warfare.Faction;
 import model.builders.actors.ModelActorBuilder;
 
 /**
- *
- * @author Benoît
+ * A special Hicker that can move freely on the battle field and interact with other
+ * 
+ * The role of this class is to put in common three subsystems :
+ *  - a mover to achieve motion over the battlefield and trhought other units
+ *  - a tactical AI to take decisions
+ *  - an arming to launch effects
+ * 
+ * It uses a model actor to be drawn on the view.
+ * 
+ * It is defined by XML and is only instanciated by associate builder.
+ *  
  */
 public class Unit extends Hiker implements EffectSource, EffectTarget{
 

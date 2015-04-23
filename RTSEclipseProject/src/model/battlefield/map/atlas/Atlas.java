@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.atlas;
 
 import java.io.FileInputStream;
@@ -14,11 +10,15 @@ import java.util.List;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import tools.LogUtil;
-
 /**
- *
- * @author Benoît
+ * Stores and manage layers of texture to paint on the ground.
+ * 
+ * Atlas itself doesn't know the textures, and provides only alpha channels used
+ * by the view to draw and blend textures on a multiple material.
+ * 
+ * This class contains also methods for serialization/deserialization by Byte, has the data may
+ * be huge in a more common XML format.
+ * 
  */
 @Root
 public class Atlas {
@@ -43,7 +43,8 @@ public class Atlas {
         height = mapHeight*RESOLUTION_RATIO;
     }
     
-    public void finalize(){
+    @Override
+	public void finalize(){
         for(int i=0; i<LAYER_COUNT; i++){
             DoubleMap layer = new DoubleMap(width, height);
             for(int x=0; x<width; x++)

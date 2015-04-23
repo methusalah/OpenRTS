@@ -1,23 +1,21 @@
 package controller.battlefield;
 
+import geometry.geom2d.AlignedBoundingBox;
+import geometry.geom2d.Point2D;
+import geometry.tools.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.army.components.Unit;
-import view.View;
+import view.math.Translator;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 
 import controller.InputInterpreter;
-import geometry.AlignedBoundingBox;
-import geometry.Point2D;
-import tools.LogUtil;
-import view.math.Translator;
 
 public class BattlefieldInputInterpreter extends InputInterpreter {
     protected final static String SWITCH_CTRL_1 = "ctrl1";

@@ -1,20 +1,16 @@
 package controller.cameraManagement;
 
-import controller.battlefield.*;
-import tools.LogUtil;
+import geometry.geom3d.Point3D;
+import model.Model;
+import view.math.Translator;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
-import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import geometry3D.Point3D;
-import model.Model;
-import view.math.Translator;
 
 public class IsometricCameraManager extends CameraManager {
     protected final static String STRAFE_NORTH = "strafenorth";

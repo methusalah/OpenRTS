@@ -4,10 +4,9 @@
  */
 package model.builders;
 
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
-import ressources.definitions.Definition;
-import tools.LogUtil;
+import geometry.tools.LogUtil;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.Definition;
 
 /**
  *

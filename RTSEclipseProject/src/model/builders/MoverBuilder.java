@@ -4,18 +4,12 @@
  */
 package model.builders;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
-import ressources.definitions.DefElement;
-
-import java.util.HashMap;
-
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Mover;
 import model.battlefield.army.components.Mover.StandingMode;
-import ressources.definitions.Definition;
-import model.battlefield.map.Map;
-import ressources.definitions.BuilderLibrary;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

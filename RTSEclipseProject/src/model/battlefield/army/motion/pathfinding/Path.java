@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.motion.pathfinding;
 
-import geometry.Point2D;
+import geometry.geom2d.Point2D;
+
 import java.util.ArrayList;
 
 /**
  *
- * @author Benoît
  */
 public class Path extends ArrayList<Point2D>{
     

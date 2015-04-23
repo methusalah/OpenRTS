@@ -4,13 +4,12 @@
  */
 package model.editor.tools;
 
-import model.editor.Set;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import model.editor.ToolManager;
+
 import model.editor.Pencil;
-import tools.LogUtil;
+import model.editor.Set;
+import model.editor.ToolManager;
 
 /**
  *

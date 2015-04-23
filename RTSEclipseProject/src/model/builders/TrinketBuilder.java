@@ -4,23 +4,22 @@
  */
 package model.builders;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import math.Angle;
-import math.MyRandom;
+
 import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.Cliff;
-import static model.battlefield.map.cliff.Cliff.Type.Corner;
-import static model.battlefield.map.cliff.Cliff.Type.Orthogonal;
-import static model.battlefield.map.cliff.Cliff.Type.Salient;
 import model.battlefield.map.Trinket;
+import model.battlefield.map.cliff.Cliff;
 import model.builders.actors.ModelActorBuilder;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
-import ressources.definitions.Definition;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

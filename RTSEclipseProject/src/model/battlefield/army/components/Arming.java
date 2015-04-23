@@ -1,14 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author Benoît
+ * Set of weapons and turrets of a unit.
+ * 
+ * the role of this class is mainly to manage all weapons as one.
+ * 
  */
 public class Arming {
     Unit holder;

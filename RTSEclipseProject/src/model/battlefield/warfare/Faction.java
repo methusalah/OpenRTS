@@ -1,16 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.warfare;
 
 import java.awt.Color;
 import java.util.ArrayList;
+
 import model.battlefield.army.components.Unit;
 
 /**
- *
- * @author Benoît
+ * Very simple class to hold armies and their relations  
+ * 
  */
 public class Faction {
     

@@ -4,22 +4,18 @@
  */
 package model.builders;
 
-import collections.Ring;
-import geometry3D.Point3D;
+import geometry.tools.LogUtil;
+
 import java.awt.Color;
-import java.util.ArrayList;
-import model.battlefield.actors.ParticleActor;
+
 import model.battlefield.map.cliff.Cliff;
-import static model.battlefield.map.cliff.Cliff.Type.Corner;
 import model.battlefield.map.cliff.faces.natural.Dug1Corner;
-import model.battlefield.map.cliff.faces.Face;
-import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.cliff.faces.natural.Dug1Ortho;
 import model.battlefield.map.cliff.faces.natural.Dug1Salient;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
-import ressources.definitions.Definition;
-import tools.LogUtil;
+import model.battlefield.map.cliff.faces.natural.NaturalFace;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

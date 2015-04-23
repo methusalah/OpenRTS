@@ -4,18 +4,13 @@ package view.material;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
-import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
-import com.jme3.texture.Texture2D;
-import com.jme3.texture.plugins.AWTLoader;
-import model.battlefield.map.atlas.Atlas;
 
 public class MaterialManager {
 	AssetManager assetManager;
@@ -208,7 +203,7 @@ public class MaterialManager {
     	// gradient blue
     	for (int i = 0; i < 4; i++) {
     		gradientMaterial.add(new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md"));
-    		gradientMaterial.get(i).setColor("Color", new ColorRGBA((float)(i*30)/255f, (float)(i*30)/255f, (float)(i*85)/255f, 1));
+    		gradientMaterial.get(i).setColor("Color", new ColorRGBA(i*30/255f, i*30/255f, i*85/255f, 1));
     	}
 	}
 }

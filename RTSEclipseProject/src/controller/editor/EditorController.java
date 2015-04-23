@@ -4,23 +4,16 @@
  */
 package controller.editor;
 
-import controller.cameraManagement.IsometricCameraManager;
-import controller.battlefield.*;
-import app.AzertyFlyByCamera;
-import com.jme3.input.FlyByCamera;
+import geometry.geom2d.Point2D;
+import model.Model;
+import view.View;
+
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Spatial;
+
 import controller.Controller;
-import controller.GUIController;
-import controller.InputInterpreter;
-import controller.SpatialSelector;
+import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
-import geometry.Point2D;
-import model.Model;
-import model.ReportEventListener;
-import view.View;
-import view.math.Translator;
 
 /**
  *

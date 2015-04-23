@@ -4,6 +4,16 @@
  */
 package view.actorDrawing;
 
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import model.battlefield.actors.ModelActor;
+import model.battlefield.army.components.Projectile;
+import model.battlefield.army.components.Turret;
+import model.battlefield.army.components.Unit;
+import model.battlefield.map.Trinket;
+import view.math.Translator;
+import view.mesh.Circle;
+
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.Bone;
 import com.jme3.animation.Skeleton;
@@ -13,19 +23,6 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Line;
-
-import geometry.Point2D;
-import geometry3D.Point3D;
-import math.Angle;
-import model.battlefield.army.components.Turret;
-import model.battlefield.actors.ModelActor;
-import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
-import model.battlefield.map.Trinket;
-import tools.LogUtil;
-import view.math.Translator;
-import view.mesh.Circle;
 
 /**
  *

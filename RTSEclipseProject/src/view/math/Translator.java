@@ -1,24 +1,22 @@
 package view.math;
 
-import com.jme3.light.AmbientLight;
-import com.jme3.light.DirectionalLight;
-import geometry.Point2D;
-import geometry3D.MyMesh;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.MyMesh;
+import geometry.geom3d.Point3D;
 
 import java.awt.Color;
 
+import model.battlefield.lighting.AmbientLighting;
+import model.battlefield.lighting.DirectionalLighting;
+
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.VertexBuffer.Type;
-import math.Angle;
-import model.battlefield.lighting.AmbientLighting;
-import model.battlefield.lighting.DirectionalLighting;
-import tools.LogUtil;
 
 public class Translator {
 
@@ -35,10 +33,10 @@ public class Translator {
 	}
 
 	public static ColorRGBA toColorRGBA(Color color) {
-		float r = (float)color.getRed()/255f;
-		float g = (float)color.getGreen()/255f;
-		float b = (float)color.getBlue()/255f;
-		float a = (float)color.getAlpha()/255f;
+		float r = color.getRed()/255f;
+		float g = color.getGreen()/255f;
+		float b = color.getBlue()/255f;
+		float a = color.getAlpha()/255f;
 		return new ColorRGBA(r, g, b, a);
 	}
 

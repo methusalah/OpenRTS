@@ -1,19 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff.faces.manmade;
 
-import collections.Ring;
-import geometry3D.Point3D;
-import java.util.ArrayList;
-import model.battlefield.map.Tile;
+import geometry.collections.Ring;
+import geometry.geom3d.Point3D;
 import model.battlefield.map.cliff.Cliff;
 
-/**
- *
- * @author Benoît
- */
 public class OrthogonalManmadeFace extends ManmadeFace {
 
     public OrthogonalManmadeFace(Cliff cliff, String modelPath) {

@@ -4,30 +4,24 @@
  */
 package view.mapDrawing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import view.View;
+import view.math.Translator;
+
 import com.jme3.asset.AssetManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
-import com.jme3.shadow.CompareMode;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import model.battlefield.lighting.SunLight;
-import model.battlefield.map.Tile;
-import tools.LogUtil;
-import view.View;
-import view.math.Translator;
 
 /**
  *

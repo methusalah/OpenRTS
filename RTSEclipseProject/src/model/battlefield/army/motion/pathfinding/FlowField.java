@@ -1,18 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.motion.pathfinding;
 
-import geometry.Point2D;
+import geometry.geom2d.Point2D;
+
 import java.util.ArrayList;
+
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
 /**
- *
- * @author Benoît
+ * a flow field is a table of vectors put on a tiled map full of obstacles.
+ * 
+ * each vector is computed to give the ideal direction to a goal.
+ * 
  */
 public class FlowField {
     private static final double OBSTACLE_CHECK_DIST = 30;

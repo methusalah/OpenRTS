@@ -4,17 +4,15 @@
  */
 package model.builders.actors;
 
-import model.battlefield.actors.Actor;
-import ressources.definitions.BuilderLibrary;
+import geometry.math.Angle;
+
 import java.awt.Color;
-import ressources.definitions.DefElement;
-import math.Angle;
+
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.ParticleActor;
-import model.battlefield.abstractComps.Hiker;
-import static model.builders.actors.ActorBuilder.TRIGGER;
-import static model.builders.actors.ActorBuilder.TYPE;
-import ressources.definitions.Definition;
-import tools.LogUtil;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

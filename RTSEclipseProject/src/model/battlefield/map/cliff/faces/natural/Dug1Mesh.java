@@ -1,21 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff.faces.natural;
 
-import model.battlefield.map.cliff.faces.natural.NaturalFace;
-import geometry.Point2D;
-import geometry3D.MyMesh;
-import geometry3D.Point3D;
-import geometry3D.Triangle3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.geom3d.Triangle3D;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
-/**
- *
- * @author Benoît
- */
 public class Dug1Mesh extends NaturalFaceMesh {
     
     public Dug1Mesh(Point3D[][] grid){

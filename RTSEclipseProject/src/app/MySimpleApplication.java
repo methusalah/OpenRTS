@@ -42,7 +42,8 @@ public abstract class MySimpleApplication extends Application implements Physics
     BulletAppState bulletAppState;
     
     private class AppActionListener implements ActionListener {
-        public void onAction(String name, boolean value, float tpf) {
+        @Override
+		public void onAction(String name, boolean value, float tpf) {
             if (!value)
                 return;
 
@@ -211,7 +212,8 @@ public abstract class MySimpleApplication extends Application implements Physics
     public void simplePhysicsUpdate(float tpf){
     }
 
-    public void physicsTick(PhysicsSpace space, float f) {
+    @Override
+	public void physicsTick(PhysicsSpace space, float f) {
         simplePhysicsUpdate(f);
     }
 

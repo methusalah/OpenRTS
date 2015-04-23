@@ -1,6 +1,12 @@
 package controller.cameraManagement;
 
 
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
+import model.Model;
+import view.math.Translator;
+
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -10,11 +16,6 @@ import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import geometry3D.Point3D;
-import math.Angle;
-import model.Model;
-import tools.LogUtil;
-import view.math.Translator;
 
 public class GroundCameraManager extends CameraManager {
     protected final static String ROTATE_LEFT = "rotateleft";
@@ -64,7 +65,7 @@ public class GroundCameraManager extends CameraManager {
     
     private void placeCam(){
         if(model.battlefield.map.isInBounds(pos.get2D()))
-            pos.z = model.battlefield.map.getGroundAltitude(pos.get2D())+0.5;
+            pos.z = model.battlefield.map.getAltitudeAt(pos.get2D())+0.5;
         else
             pos.z = 0;
         cam.setLocation(Translator.toVector3f(pos));

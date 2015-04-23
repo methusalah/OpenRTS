@@ -1,22 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.actors;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+import geometry.tools.LogUtil;
 
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 
-import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
 import model.builders.actors.ActorBuilder;
 
 /**
- *
- * @author Benoît
+ * Contains the path to a model to draw.
+ * 
+ * This actor also hold the model bone coordinates given by the view. These coordinates may be usefull in the model.
+ * IE : Only the view knows where is the canon muzzle bone where the projectile needs to appear.
+ * 
  */
 public class ModelActor extends Actor {
     public final String modelPath;

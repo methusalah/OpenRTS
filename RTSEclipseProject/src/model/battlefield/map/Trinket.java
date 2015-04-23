@@ -1,21 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 import java.awt.Color;
+
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.ModelActor;
 import model.builders.actors.ModelActorBuilder;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-import tools.LogUtil;
 
 /**
- *
- * @author Benoît
+ * Specialized static field comp with a model actor.
  */
 public class Trinket extends FieldComp{
     public final boolean editable;

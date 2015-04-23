@@ -4,17 +4,12 @@
  */
 package view.actorDrawing;
 
-import tools.LogUtil;
+import model.battlefield.actors.AnimationActor;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.LoopMode;
 import com.jme3.scene.Spatial;
-
-import model.battlefield.actors.AnimationActor;
-import static model.battlefield.actors.AnimationActor.Cycle.Cycle;
-import static model.battlefield.actors.AnimationActor.Cycle.Loop;
-import static model.battlefield.actors.AnimationActor.Cycle.Once;
 
 /**
  *

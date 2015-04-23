@@ -1,26 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff.faces.natural;
 
-import collections.Ring;
-import geometry3D.Point3D;
+import geometry.collections.Ring;
+import geometry.geom3d.Point3D;
+import geometry.math.MyRandom;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
-import math.MyRandom;
-import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.cliff.Ramp;
-import static model.battlefield.map.cliff.faces.natural.Dug1.MAX_RIDGE_POS;
-import tools.LogUtil;
 
-/**
- *
- * @author Benoît
- */
 public class Dug1Ortho extends Dug1 {
     private final static double RIDGE_PROTRUDE = 0.6;
     private final static double RIDGE_RETREAT = 0.6;
@@ -59,7 +46,8 @@ public class Dug1Ortho extends Dug1 {
             res.add(grid[i][0]);
         return getRotation(res);
     }
-    public Ring<Point3D> getUpperGround() {
+    @Override
+	public Ring<Point3D> getUpperGround() {
         Point3D sw = new Point3D(-0.5, -0.5, 0);
         Point3D nw = new Point3D(-0.5, 0.5, 0);
 

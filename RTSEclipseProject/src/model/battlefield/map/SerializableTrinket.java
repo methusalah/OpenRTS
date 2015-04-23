@@ -1,13 +1,10 @@
 package model.battlefield.map;
 
-import geometry3D.Point3D;
-
-import java.util.List;
+import geometry.geom3d.Point3D;
+import model.builders.definitions.BuilderLibrary;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-
-import ressources.definitions.BuilderLibrary;
 
 @Root
 public class SerializableTrinket {

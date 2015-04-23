@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.actors;
 
 import java.util.List;
+
 import model.builders.actors.ActorBuilder;
 
 /**
- *
- * @author Benoît
+ * Can play a named animation of the first Model Actor parent it finds. 
+ * 
  */
 public class AnimationActor extends Actor {
     public enum Cycle{Once, Loop, Cycle};

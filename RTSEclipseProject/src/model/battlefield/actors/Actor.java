@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.actors;
 
 import java.util.ArrayList;
@@ -11,8 +7,15 @@ import model.builders.actors.ActorBuilder;
 import view.actorDrawing.ActorViewElements;
 
 /**
- *
- * @author Benoît
+ * Actors are visual representations. If you want to draw something on the view, you simply
+ * instanciate an Actor and ask it to play.
+ * 
+ * An Actor is sensitive to a trigger. When it receives that trigger, it can play once or continuously. 
+ * 
+ * An Actor may have children. When it receive a trigger, it send it to all its children.
+ * 
+ * Actors play and stop according to the trigger they receive, by registering themselves into the actor pool
+ * 
  */
 public class Actor {
     public final static String TYPE = "Actor";

@@ -1,33 +1,42 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.motion;
 
-import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.army.components.Mover;
-import geometry.AlignedBoundingBox;
-import geometry.BoundingCircle;
-import geometry.BoundingShape;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.BoundingCircle;
+import geometry.geom2d.BoundingShape;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
+import model.battlefield.abstractComps.FieldComp;
+import model.battlefield.army.components.Mover;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
 /**
- *
+ * Ensure that motions are done without critical collisions
+ * 
+ * Whenever a mover decide to move, it must ask permission to the collision manager.
+ * 
+ * Some collisions are allowed (flocking movers, immaterial trinkets like grass).
+ * 
+ * There is three types of forbidden collisions :
+ *  - with cliffs
+ *  - with a blocking field component (enemy, holding ally, building)
+ *  - with solid trinket (tree)
+ *  
+ * The role of this class is to find an allowed close motion vector, or to
+ * cancel the motion otherwise.
+ * 
+ * At this time, collision Manager is responsible of leading a unit out of a local
+ * blockade. This particluar case may be given to a more specialized class, with
+ * dedicated algorithms like local pathfinder. 
+ * 
  * @author Benoît
  */
 public class CollisionManager {
-    private enum CollisionType {NONE, MAP, BLOCKER, BOTH};
-    
-    private static double BRAKING_RATIO = 0.9;
     private static double MAX_ADAPT_TOLERANCE = Angle.toRadians(180);
     private static double ADAPT_TOLERANCE = Angle.toRadians(100);
     private static double ADAPT_TOLERANCE_INCRASE = Angle.toRadians(20);
@@ -56,8 +65,10 @@ public class CollisionManager {
         updateBlockingShapes(blockers);
         updateSolidShapes();
 
-        // if mover is already colliding something, we separate it
         if(!mover.fly() && willCollide(Point3D.ORIGIN)){
+            // if mover is already colliding something, we separate it
+        	// this may happen when two units are overlapping while moving, and are asked to hold ground.
+        	// One will hold, the other one will separate before holding too
             mover.hiker.pos = mover.hiker.pos.getAddition(getAntiOverlapVector().getScaled(traveledDistance));
             mover.velocity = Point3D.ORIGIN;
         }else{
@@ -203,7 +214,6 @@ public class CollisionManager {
     }
     
     private void giveUp(){
-//        LogUtil.logger.info("stuck de chez stuck");
         tolerance = ADAPT_TOLERANCE;
         mover.setDestinationReached();
     }

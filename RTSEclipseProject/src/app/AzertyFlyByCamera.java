@@ -16,6 +16,7 @@ public class AzertyFlyByCamera extends FlyByCamera {
 		super(cam);
 	}
 
+	@Override
 	public void registerWithInput(InputManager inputManager){
         this.inputManager = inputManager;
         

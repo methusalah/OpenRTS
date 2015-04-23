@@ -4,20 +4,19 @@
  */
 package view.actorDrawing;
 
+import geometry.geom2d.Point2D;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
+import model.battlefield.actors.ModelActor;
+import model.battlefield.actors.PhysicActor;
+import view.math.Translator;
+
 import com.jme3.animation.AnimControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-
-import geometry.Point2D;
-import math.Angle;
-import math.MyRandom;
-import model.battlefield.actors.ModelActor;
-import model.battlefield.actors.PhysicActor;
-import tools.LogUtil;
-import view.math.Translator;
 
 /**
  *

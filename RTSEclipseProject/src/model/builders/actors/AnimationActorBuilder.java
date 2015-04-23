@@ -5,12 +5,10 @@
 package model.builders.actors;
 
 import model.battlefield.actors.Actor;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
 import model.battlefield.actors.AnimationActor;
-import model.battlefield.abstractComps.Hiker;
-import static model.builders.actors.ActorBuilder.TYPE;
-import ressources.definitions.Definition;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

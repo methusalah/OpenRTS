@@ -1,16 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.lighting;
 
-import geometry3D.Point3D;
+import geometry.math.Angle;
+
 import java.awt.Color;
-import math.Angle;
+
+import javafx.geometry.Point3D;
 
 /**
  *
- * @author Benoît
  */
 public class DirectionalLighting extends Lighting{
     public Point3D direction;

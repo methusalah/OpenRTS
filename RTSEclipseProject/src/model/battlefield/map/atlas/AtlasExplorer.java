@@ -1,15 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.atlas;
 
-import geometry.Point2D;
+import geometry.geom2d.Point2D;
+
 import java.util.ArrayList;
+
 import model.battlefield.map.Map;
 
 /**
- *
+ * Translate coordinates between map's and atlas' spaces.
+ * 
+ * Also finds groups of pixel of a certain shape.
+ * 
  * @author Benoît
  */
 public class AtlasExplorer {

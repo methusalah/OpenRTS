@@ -4,14 +4,13 @@
  */
 package model.editor.tools;
 
-import java.util.ArrayList;
+import geometry.math.MyRandom;
+
 import java.util.List;
 
-import math.MyRandom;
 import model.battlefield.map.Tile;
-import model.editor.ToolManager;
 import model.editor.Pencil;
-import tools.LogUtil;
+import model.editor.ToolManager;
 
 /**
  *
@@ -74,7 +73,7 @@ public class HeightTool extends Tool {
     private void uniform(List<Tile> tiles){
         if(!pencil.maintained){
             pencil.maintain();
-            maintainedElevation = manager.battlefield.map.getGroundAltitude(pencil.getCoord());
+            maintainedElevation = manager.battlefield.map.getAltitudeAt(pencil.getCoord());
         }
         for(Tile t : tiles){
             double diff = maintainedElevation-t.elevation;

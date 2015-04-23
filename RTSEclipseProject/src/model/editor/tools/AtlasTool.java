@@ -4,28 +4,18 @@
  */
 package model.editor.tools;
 
-import model.editor.Set;
-import collections.Map2D;
-import com.jme3.texture.Image;
-import com.jme3.texture.Texture2D;
-import geometry.Point2D;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
+import geometry.geom2d.Point2D;
+import geometry.tools.LogUtil;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import model.battlefield.map.Tile;
-import model.editor.ToolManager;
-import model.editor.Pencil;
-import model.battlefield.map.atlas.DoubleMap;
+
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
-import static model.editor.Pencil.Shape.Circle;
-import static model.editor.Pencil.Shape.Diamond;
-import static model.editor.Pencil.Shape.Square;
-import tools.LogUtil;
-import view.mapDrawing.MapRenderer;
+import model.battlefield.map.atlas.DoubleMap;
+import model.editor.Pencil;
+import model.editor.Set;
+import model.editor.ToolManager;
 
 /**
  *

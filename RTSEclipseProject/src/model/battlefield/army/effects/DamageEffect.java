@@ -1,16 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.effects;
 
 import java.util.ArrayList;
+
 import model.builders.EffectBuilder;
 
 
 /**
- *
- * @author Benoît
+ * Simple damage effect
+ * 
  */
 public class DamageEffect extends Effect {
     protected final int amount;

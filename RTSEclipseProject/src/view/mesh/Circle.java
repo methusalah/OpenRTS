@@ -36,7 +36,7 @@ public class Circle extends Mesh {
 		FloatBuffer normals = BufferUtils.createFloatBuffer(samples * 3);
 		short[] indices = new short[samples * 2];
 
-		float rate = FastMath.TWO_PI / (float) samples;
+		float rate = FastMath.TWO_PI / samples;
 		float angle = 0;
 		for (int i = 0; i < samples; i++) {
 			float x = FastMath.cos(angle) + center.x;

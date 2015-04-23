@@ -1,19 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.effects;
 
-import geometry3D.Point3D;
+import geometry.math.MyRandom;
+
 import java.util.ArrayList;
-import math.MyRandom;
-import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
+
 import model.builders.EffectBuilder;
 
 /**
- *
- * @author Benoît
+ * This effect is made to launch its children with temporality.
+ * 
+ * It can delay the launch, or launch many times the same child effect.
+ * 
  */
 public class PersistentEffect extends Effect {
     protected final int periodCount;

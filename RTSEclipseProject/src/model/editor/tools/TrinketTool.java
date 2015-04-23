@@ -4,22 +4,17 @@
  */
 package model.editor.tools;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
-import java.awt.Color;
+import geometry.geom2d.Point2D;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
+
 import java.util.ArrayList;
-import java.util.List;
-import math.Angle;
-import math.MyRandom;
-import model.battlefield.army.components.Unit;
-import model.builders.UnitBuilder;
-import model.editor.ToolManager;
-import model.editor.Pencil;
-import model.editor.Set;
+
 import model.battlefield.map.Trinket;
 import model.builders.TrinketBuilder;
-import model.battlefield.warfare.Faction;
-import tools.LogUtil;
+import model.editor.Pencil;
+import model.editor.Set;
+import model.editor.ToolManager;
 
 /**
  *
@@ -74,7 +69,7 @@ public class TrinketTool extends Tool{
             if(t.pos.equals(pos))
                 pos = pos.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
         
-        Trinket t = manager.lib.getAllEditableTrinketBuilders().get(set.actual).build(pos.get3D(manager.battlefield.map.getGroundAltitude(pos)));
+        Trinket t = manager.lib.getAllEditableTrinketBuilders().get(set.actual).build(pos.get3D(manager.battlefield.map.getAltitudeAt(pos)));
         manager.battlefield.map.trinkets.add(t);
     }
     private void remove(){
@@ -104,9 +99,9 @@ public class TrinketTool extends Tool{
         }
         if(actualTrinket != null){
             // TODO attention, l'elevation n'est pas forcement juste avec ce calcul
-            double elevation = actualTrinket.pos.z-manager.battlefield.map.getGroundAltitude(actualTrinket.pos.get2D());
+            double elevation = actualTrinket.pos.z-manager.battlefield.map.getAltitudeAt(actualTrinket.pos.get2D());
             Point2D newPos = pencil.getCoord().getSubtraction(moveOffset);
-            double z = manager.battlefield.map.getGroundAltitude(newPos)+elevation;
+            double z = manager.battlefield.map.getAltitudeAt(newPos)+elevation;
             actualTrinket.pos = newPos.get3D(z);
         }
     }

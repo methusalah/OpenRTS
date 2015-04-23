@@ -1,17 +1,31 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.tacticalAI;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 import java.util.ArrayList;
-import model.battlefield.army.tacticalAI.AttackEvent;
+
 import model.battlefield.army.components.Unit;
 
 /**
- *
- * @author Benoît
+ * Provides decision on what to do at each frame, for each unit.
+ * 
+ * This AI algorithm is working as a final state machine, stacking states to
+ * get the job done and react to its environment at the same time.
+ * 
+ * the different states are defined by a unique method describing the behavior.
+ * Each behavior may :
+ *  - stack a new behavior over itself
+ *  - pop itself
+ * 
+ * When a behavior is no more needed and pop itself, the previous stacked behavior
+ * begin again.  
+ * 
+ * It may also receive direct orders from the player. In this special case, all stacked
+ * states are pop and the state machine is emptied before desired behaviors are stacked.
+ * 
+ * For example, if the player order to move, the AI stacks the state "wait orders" and
+ * the state "move" over it. When move is done, the AI fall to the "wait orders" state.
+ * 
  */
 public class TacticalAI {
     protected static final String AUTO_ATTACK = "autoattack";

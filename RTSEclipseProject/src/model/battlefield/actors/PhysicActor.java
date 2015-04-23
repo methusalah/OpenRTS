@@ -1,16 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.actors;
 
 import java.util.List;
 
-import tools.LogUtil;
 import model.builders.actors.ActorBuilder;
 
 /**
- *
+ * A special Model Actor that must be managed by the physical engine.
+ * 
+ * The life of this actor is limited and managed by the view. The life decrease only when the model is
+ * completely static to prevent moving models to disappear. Only the view knows the physical state of 
+ * this actor.
+ *  
  * @author Benoît
  */
 public class PhysicActor extends ModelActor {

@@ -194,7 +194,8 @@ public class StaticCamera implements AnalogListener, ActionListener {
         cam.setFrustumRight(w);
     }
 
-    public void onAnalog(String name, float value, float tpf) {
+    @Override
+	public void onAnalog(String name, float value, float tpf) {
         if (!enabled)
             return;
 
@@ -213,7 +214,8 @@ public class StaticCamera implements AnalogListener, ActionListener {
         }
     }
 
-    public void onAction(String name, boolean value, float tpf) {
+    @Override
+	public void onAction(String name, boolean value, float tpf) {
         if (!enabled)
             return;
 

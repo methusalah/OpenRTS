@@ -4,19 +4,20 @@
  */
 package model.builders;
 
+import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
-import math.MyRandom;
+
 import model.battlefield.map.cliff.Cliff;
-import static model.battlefield.map.cliff.Cliff.Type.Orthogonal;
 import model.battlefield.map.cliff.faces.manmade.CornerManmadeFace;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.manmade.OrthogonalManmadeFace;
 import model.battlefield.map.cliff.faces.manmade.SalientManmadeFace;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
-import ressources.definitions.Definition;
-import tools.LogUtil;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

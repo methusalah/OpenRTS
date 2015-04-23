@@ -5,8 +5,8 @@
 package model;
 
 import java.text.DecimalFormat;
+
 import model.battlefield.army.components.Unit;
-import tools.LogUtil;
 
 /**
  *

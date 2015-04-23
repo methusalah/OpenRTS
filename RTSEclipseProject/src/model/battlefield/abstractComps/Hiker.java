@@ -1,22 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.abstractComps;
 
-import geometry.BoundingCircle;
-import geometry.Point2D;
-import geometry3D.Point3D;
-import java.util.ArrayList;
-import java.util.List;
-import math.Angle;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
 import model.battlefield.army.components.Mover;
-import model.battlefield.army.components.Unit;
 import model.builders.MoverBuilder;
 
 /**
- *
- * @author Benoît
+ * A basic abstract entity, containing all needed attributes and methods to set a moving object on the battlefield
+ * 
  */
 public abstract class Hiker extends FieldComp{
     public final double speed;

@@ -4,20 +4,8 @@
  */
 package view.actorDrawing;
 
-import com.jme3.animation.AnimChannel;
-import com.jme3.animation.AnimControl;
-import com.jme3.animation.AnimEventListener;
-import com.jme3.animation.LoopMode;
-import com.jme3.asset.AssetManager;
-import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.bullet.objects.PhysicsRigidBody;
-import com.jme3.effect.ParticleEmitter;
-import com.jme3.material.Material;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
+import geometry.tools.LogUtil;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,9 +17,18 @@ import model.battlefield.actors.AnimationActor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import model.battlefield.actors.PhysicActor;
-import tools.LogUtil;
-import view.View;
 import view.material.MaterialManager;
+
+import com.jme3.animation.AnimChannel;
+import com.jme3.animation.AnimControl;
+import com.jme3.animation.AnimEventListener;
+import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.effect.ParticleEmitter;
+import com.jme3.material.Material;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 
 /**
  *

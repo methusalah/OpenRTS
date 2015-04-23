@@ -1,16 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army;
 
-import model.battlefield.army.components.Unit;
 import java.util.ArrayList;
 
+import model.battlefield.army.components.Unit;
+
 /**
- * A Unity is a list of unit of the same type
+ * A Unity is a list of unit of the same type.
+ * 
+ * Used in the controller to select all units of the same time in the screen 
  *
- * @author Benoît
  */
 public class Unity extends ArrayList<Unit> {
     

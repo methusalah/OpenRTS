@@ -1,24 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army;
 
-import model.battlefield.army.components.Unit;
-import model.battlefield.army.components.Projectile;
-import geometry.Point2D;
-import java.awt.Color;
 import java.util.ArrayList;
-import model.battlefield.actors.Actor;
-import model.battlefield.army.effects.Effect;
-import ressources.definitions.BuilderLibrary;
-import model.battlefield.map.Map;
+
+import model.battlefield.army.components.Projectile;
+import model.battlefield.army.components.Unit;
 import model.battlefield.army.effects.PersistentEffect;
-import model.battlefield.warfare.Faction;
-import tools.LogUtil;
 
 /**
- *
+ * updates and destroys all armies' elements at each frame
+ * 
  * @author Benoît
  */
 public class ArmyManager {

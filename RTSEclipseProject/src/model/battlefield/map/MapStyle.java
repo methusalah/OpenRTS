@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map;
 
 import java.util.ArrayList;
@@ -11,7 +7,6 @@ import model.builders.CliffShapeBuilder;
 
 /**
  *
- * @author Benoît
  */
 public class MapStyle {
     public List<CliffShapeBuilder> cliffShapeBuilders = new ArrayList<>();

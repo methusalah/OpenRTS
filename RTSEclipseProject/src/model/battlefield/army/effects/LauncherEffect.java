@@ -1,23 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.effects;
-
-import geometry3D.Point3D;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import tools.LogUtil;
-import model.builders.EffectBuilder;
 import model.battlefield.army.components.Projectile;
-import model.battlefield.army.components.Unit;
+import model.builders.EffectBuilder;
 
 /**
+ * That effect is created with a new projectile and subscribe to the projectiles events.
+ * 
+ * When the projectile arrives at destination, launcher effect launches its children effects.
  *
- * @author Benoît
  */
 public class LauncherEffect extends Effect implements ActionListener {
     protected final Projectile projectile;

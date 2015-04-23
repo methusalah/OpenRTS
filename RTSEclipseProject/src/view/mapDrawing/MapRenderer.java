@@ -1,16 +1,8 @@
 package view.mapDrawing;
 
 
-import com.jme3.asset.AssetManager;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.scene.Mesh;
-import com.jme3.scene.shape.Box;
-import com.jme3.texture.Texture;
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,18 +10,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import math.Angle;
-import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.Tile;
+import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcel.ParcelMesh;
-import tools.LogUtil;
 import view.View;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.Translator;
+
+import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Mesh;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Box;
+import com.jme3.texture.Texture;
 
 public class MapRenderer implements ActionListener {
 
@@ -133,7 +134,7 @@ public class MapRenderer implements ActionListener {
     		tilesSpatial.put(t, new ArrayList<>());
     	List<Spatial> nodes = tilesSpatial.get(t);
     	for(Spatial s : nodes)
-            castAndReceiveNode.detachChild((Node)s);
+            castAndReceiveNode.detachChild(s);
         tilesSpatial.get(t).clear();
     }
     

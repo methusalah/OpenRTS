@@ -4,15 +4,8 @@
  */
 package view.mapDrawing;
 
-import geometry.algorithm.Triangulator;
-import geometry3D.MyMesh;
-import geometry3D.Point3D;
-import geometry3D.Polygon3D;
-import geometry3D.Triangle3D;
-
-import java.util.ArrayList;
-
-import model.battlefield.map.Map;
+import geometry.geom3d.MyMesh;
+import geometry.geom3d.Point3D;
 import model.battlefield.map.Tile;
 import model.battlefield.map.parcel.ParcelMesh;
 

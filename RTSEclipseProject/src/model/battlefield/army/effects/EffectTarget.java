@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.effects;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 
 /**
  *
- * @author Benoît
  */
 public interface EffectTarget {
     

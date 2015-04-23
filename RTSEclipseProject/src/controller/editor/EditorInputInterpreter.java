@@ -1,14 +1,13 @@
 package controller.editor;
 
-import view.View;
+import geometry.tools.LogUtil;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.renderer.Camera;
+
 import controller.InputInterpreter;
-import tools.LogUtil;
 
 public class EditorInputInterpreter extends InputInterpreter {
     protected final static String SWITCH_CTRL_1 = "ctrl1";

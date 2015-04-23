@@ -4,16 +4,13 @@
  */
 package model.builders;
 
-import geometry3D.Point3D;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
-import java.util.HashMap;
-import model.battlefield.actors.Actor;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.Weapon;
 import model.builders.actors.ActorBuilder;
-import ressources.definitions.Definition;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *

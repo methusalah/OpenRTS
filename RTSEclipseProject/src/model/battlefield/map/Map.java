@@ -1,24 +1,32 @@
 package model.battlefield.map;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
-import geometry3D.Triangle3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.geom3d.Triangle3D;
+import geometry.math.Angle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
+import model.builders.definitions.BuilderLibrary;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-import ressources.definitions.BuilderLibrary;
-import tools.LogUtil;
-
-
+/**
+ * Contains everything to set up a terrain and explore it.
+ * 
+ * Map is mainly :
+ *  - a tile based grid with relief and cliffs
+ *  - a texture atlas to paint on the ground
+ *  - a list of trinkets
+ * 
+ * Also contains methods and fields dedicated to serialization/deserialization.
+ * 
+ */
 @Root
 public class Map {
 	
@@ -66,8 +74,8 @@ public class Map {
         return tiles.get(y*width+x);
     }
 
-    public double getGroundAltitude(Point2D pos) {
-        Tile t = getTile(pos);
+    public double getAltitudeAt(Point2D coord) {
+        Tile t = getTile(coord);
         if(t.n==null || t.s==null || t.e==null || t.w== null)
             return 0;
 
@@ -80,15 +88,15 @@ public class Map {
         Point3D se = t.e.getPos();
         Triangle3D tr;
 
-        if(Angle.getTurn(tPos2D, tnePos2D, pos) == Angle.CLOCKWISE)
+        if(Angle.getTurn(tPos2D, tnePos2D, coord) == Angle.CLOCKWISE)
             tr = new Triangle3D(sw, se, ne);
         else
             tr = new Triangle3D(sw, ne, nw);
 
-        return tr.getElevated(pos).z;
+        return tr.getElevated(coord).z;
     }
-    public Point3D getTerrainNormal(Point2D pos) {
-        Tile t = getTile(pos);
+    public Point3D getNormalVectorAt(Point2D coord) {
+        Tile t = getTile(coord);
         if(t.n==null || t.s==null || t.e==null || t.w== null)
             return Point3D.UNIT_Z;
 
@@ -101,7 +109,7 @@ public class Map {
         Point3D se = t.e.getPos();
         Triangle3D tr;
 
-        if(Angle.getTurn(tPos2D, tnePos2D, pos) == Angle.CLOCKWISE)
+        if(Angle.getTurn(tPos2D, tnePos2D, coord) == Angle.CLOCKWISE)
             tr = new Triangle3D(sw, se, ne);
         else
             tr = new Triangle3D(sw, ne, nw);

@@ -1,28 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
-import model.battlefield.abstractComps.Hiker;
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import tools.LogUtil;
-import math.Angle;
-import math.MyRandom;
+import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
-import model.builders.actors.ModelActorBuilder;
 import model.builders.MoverBuilder;
+import model.builders.actors.ModelActorBuilder;
 
 /**
- *
+ * Projectile is a special Hiker that flies to a target accordingly to a flight plan.
+ * 
+ * Flight plan remains to be implemented. For now a projectile goes as strait as possible
+ * to the point, depending on his mass, speed, rotation speed...
+ * 
+ * 
+ * It is defined by XML and is only instanciated by associate builder.
+ * 
+ * It is launched by a LauncherEffect, and notify it of its arrival.
+ * 
  * @author Benoît
  */
 public class Projectile extends Hiker {

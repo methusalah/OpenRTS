@@ -4,9 +4,9 @@
  */
 package controller.editor;
 
-import controller.GUIController;
-import controller.GUIDrawer;
-import de.lessvoid.nifty.controls.Slider;
+import static model.editor.Pencil.Shape.Circle;
+import static model.editor.Pencil.Shape.Diamond;
+import static model.editor.Pencil.Shape.Square;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -14,16 +14,15 @@ import java.util.List;
 
 import model.builders.MapStyleBuilder;
 import model.editor.Pencil;
-import static model.editor.Pencil.Shape.Circle;
-import static model.editor.Pencil.Shape.Diamond;
-import static model.editor.Pencil.Shape.Square;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
 import model.editor.tools.RampTool;
 import model.editor.tools.Tool;
 import model.editor.tools.UnitTool;
-import tools.LogUtil;
+import controller.GUIController;
+import controller.GUIDrawer;
+import de.lessvoid.nifty.controls.Slider;
 
 /**
  *
@@ -196,7 +195,7 @@ public class EditorGUIDrawer extends GUIDrawer{
             
             Slider sizeSlider = getSlider("sizeslider");
             sizeSlider.setMin(1);//(float)pencil.sizeIncrement);
-            sizeSlider.setMax((float)Pencil.MAX_SIZE);
+            sizeSlider.setMax(Pencil.MAX_SIZE);
             sizeSlider.setStepSize(1);//(float)pencil.sizeIncrement);
             sizeSlider.setValue((float)pencil.size);
             

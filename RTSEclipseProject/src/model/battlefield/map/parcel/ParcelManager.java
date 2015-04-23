@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.parcel;
 
 import java.util.ArrayList;
@@ -9,11 +5,18 @@ import java.util.List;
 
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
 /**
- *
- * @author Benoît
+ * Divides the tile based grid into parcels for performance purpose.
+ * 
+ * the objectives : 
+ *  - group tiles for the graphic card to manage less objects,
+ *  - divide map to prevent the graphic car to draw it entirely at each frame.
+ *  
+ * Other resolutions may offer better results. Resolution may become dynamic.
+ * 
+ * The challenge here is to smooth texture at parcels' frontiers (see ParcelMesh)
+ * 
  */
 public class ParcelManager {
     

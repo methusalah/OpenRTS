@@ -4,20 +4,16 @@
  */
 package view.jme;
 
+import java.util.ArrayList;
+
+import model.battlefield.map.atlas.Atlas;
+
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
-import com.jme3.material.RenderState.BlendMode;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 import com.jme3.texture.plugins.AWTLoader;
-
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-
-import model.editor.tools.AtlasTool;
-import model.battlefield.map.atlas.Atlas;
 
 /**
  *

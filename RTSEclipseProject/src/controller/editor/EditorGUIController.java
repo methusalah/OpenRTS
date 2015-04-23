@@ -4,34 +4,17 @@
  */
 package controller.editor;
 
+import java.util.List;
+
+import model.builders.MapStyleBuilder;
 import controller.Controller;
-import controller.battlefield.*;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
 import de.lessvoid.nifty.controls.DropDownSelectionChangedEvent;
 import de.lessvoid.nifty.controls.ListBoxSelectionChangedEvent;
-import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.controls.SliderChangedEvent;
-import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
-
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
-import model.Commander;
-import model.Reporter;
-import model.battlefield.army.components.Unit;
-import model.battlefield.army.Unity;
-import model.builders.MapStyleBuilder;
-import model.editor.Pencil;
-import static model.editor.Pencil.Shape.Circle;
-import model.editor.tools.AtlasTool;
-import model.editor.tools.CliffTool;
-import model.editor.tools.HeightTool;
-import tools.LogUtil;
 
 /**
  *

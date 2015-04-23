@@ -1,16 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
-import math.Angle;
-import math.Precision;
-import tools.LogUtil;
+import geometry.math.Angle;
 
 /**
- *
- * @author Benoît
+ * Mobile element of the unit, the turret gives the view all needed information to
+ * rotate a bone of a model
+ * 
+ * Turrets are used attached to weapons and weapons ask for their rotation. But theoretically
+ * a turret can be attached without weapon and have its own rotating behavior (radar, head...)
+ *   
+ * It is defined by XML and is only instanciated by associate builder.
+ * 
  */
 public class Turret {
     public enum OnIdleBehave {RESET_ON_MOVE, RESET, SPIN, HOLD};

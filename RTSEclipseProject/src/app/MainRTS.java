@@ -1,25 +1,27 @@
 package app;
 
-import com.jme3.bullet.BulletAppState;
+import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import math.MyRandom;
 import model.Model;
-import tools.LogUtil;
 import view.View;
 import view.mapDrawing.MapRenderer;
 
+import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.AppSettings;
+
 import controller.Controller;
 import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainRTS extends MySimpleApplication implements ActionListener{
     Model model;

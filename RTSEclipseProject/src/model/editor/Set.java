@@ -4,10 +4,7 @@
  */
 package model.editor;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import tools.LogUtil;
 
 /**
  *

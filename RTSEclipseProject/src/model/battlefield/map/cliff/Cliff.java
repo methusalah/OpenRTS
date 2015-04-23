@@ -1,15 +1,23 @@
 package model.battlefield.map.cliff;
 
-import model.battlefield.map.Trinket;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.CliffOrganizer;
+import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.faces.Face;
-import tools.LogUtil;
 
+/**
+ * Connect to each other to create a path of cliffs and compute correct shape.
+ * 
+ * This is a structuring class creating relationship.
+ * The shape is determined by the CliffOrganizer class. 
+ * The graphical representation is computed by the Face class.
+ * 
+ * "Bugged" type is used to accept zero-solution configuration that may appear while
+ * editing the map. In this case, the view draw an error flag to warn the user.
+ *
+ */
 public class Cliff {
     public enum Type{Orthogonal, Salient, Corner, Border, Bugged}
     

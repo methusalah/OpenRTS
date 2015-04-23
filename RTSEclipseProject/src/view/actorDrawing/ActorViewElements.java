@@ -4,13 +4,12 @@
  */
 package view.actorDrawing;
 
-import com.jme3.animation.Bone;
+import java.util.ArrayList;
+
 import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import java.util.ArrayList;
-import view.jme.MyParticleEmitter;
 
 /**
  *

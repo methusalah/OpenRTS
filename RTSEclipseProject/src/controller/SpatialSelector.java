@@ -1,7 +1,7 @@
 package controller;
 
-import geometry.Point2D;
-import geometry3D.Point3D;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import view.View;
 import view.math.Translator;
 

@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.actors;
 
 import java.awt.Color;
 import java.util.List;
-import model.battlefield.Battlefield;
-import model.battlefield.army.ArmyManager;
+
 import model.builders.actors.ActorBuilder;
-import tools.LogUtil;
 
 /**
- *
+ * Has everything needed by the view to configure a particle emitter.
  * @author Benoît
  */
 public class ParticleActor extends Actor {

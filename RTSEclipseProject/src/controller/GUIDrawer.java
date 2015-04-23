@@ -4,20 +4,16 @@
  */
 package controller;
 
+import java.awt.Color;
+import java.util.List;
+
 import de.lessvoid.nifty.controls.DropDown;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.Slider;
 import de.lessvoid.nifty.effects.EffectEventId;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
-import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
-
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
-import tools.LogUtil;
 
 /**
  *

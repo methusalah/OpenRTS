@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.atlas;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Benoît
+ * Specialized collection
+ * 
  */
 public class DoubleMap {
 	private List<Double> values;

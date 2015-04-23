@@ -4,39 +4,30 @@
  */
 package view.mapDrawing;
 
-import collections.PointRing;
+import geometry.collections.PointRing;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+
+import model.battlefield.map.Tile;
+import model.battlefield.map.parcel.ParcelMesh;
+import model.editor.Pencil;
+import view.View;
+import view.material.MaterialManager;
+import view.math.Translator;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
-import com.jme3.scene.shape.Quad;
-
-import geometry.Point2D;
-import geometry.Polygon;
-import geometry3D.Point3D;
-import geometry3D.PolygonExtruder;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import math.Angle;
-import model.battlefield.map.Map;
-import model.battlefield.map.Tile;
-import model.battlefield.map.parcel.ParcelMesh;
-import model.editor.Pencil;
-import tools.LogUtil;
-import view.View;
-import view.material.MaterialManager;
-import view.math.Translator;
 
 /**
  *
@@ -229,8 +220,8 @@ public class EditorRenderer implements ActionListener {
             if(index < pr.size() &&
                     view.model.battlefield.map.isInBounds(pr.get(index)) &&
                     view.model.battlefield.map.isInBounds(pr.getNext(index))){
-                Point3D start = pr.get(index).get3D(view.model.battlefield.map.getGroundAltitude(pr.get(index))+0.1);
-                Point3D end = pr.getNext(index).get3D(view.model.battlefield.map.getGroundAltitude(pr.getNext(index))+0.1);
+                Point3D start = pr.get(index).get3D(view.model.battlefield.map.getAltitudeAt(pr.get(index))+0.1);
+                Point3D end = pr.getNext(index).get3D(view.model.battlefield.map.getAltitudeAt(pr.getNext(index))+0.1);
                 Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
                 l.setLineWidth(PENCIL_THICKNESS);
                 ((Geometry)spatial).setMesh(l);

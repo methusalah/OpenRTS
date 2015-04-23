@@ -1,7 +1,6 @@
 package view;
 
-import geometry.Point2D;
-import view.math.Translator;
+import geometry.geom2d.Point2D;
 
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;

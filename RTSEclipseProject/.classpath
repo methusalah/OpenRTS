@@ -8,7 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jmonkey/jME3-core.jar" sourcepath="lib/jmonkey/jMonkeyEngine3-sources.zip"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/GeometryEclipseProject"/>
 	<classpathentry kind="lib" path="lib/jmonkey/eventbus.jar"/>
 	<classpathentry kind="lib" path="lib/jmonkey/j-ogg-oggd.jar"/>
 	<classpathentry kind="lib" path="lib/jmonkey/j-ogg-vorbisd.jar"/>

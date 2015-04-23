@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.map.cliff;
+
+import geometry.math.Angle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
@@ -15,11 +12,15 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-import tools.LogUtil;
-
 /**
- *
- * @author Benoît
+ * Create a passage into cliffs to allow hiker hiking throught levels.
+ * 
+ * For now, ramps are only orthogonal and work on one-level height cliffs only.
+ * 
+ * A ramp is created on a cliff, replace it and create cliffs at its sides.
+ * 
+ * Ramps can be enlarged but not narrowed.
+ * 
  */
 
 @Root

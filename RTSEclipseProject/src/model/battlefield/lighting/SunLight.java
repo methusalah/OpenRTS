@@ -1,8 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.lighting;
+
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -10,13 +9,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Angle;
-import model.battlefield.map.Tile;
-import tools.LogUtil;
-
 /**
- *
- * @author Benoît
+ * Sun light is a multi-component light defining : 
+ *  - directional light
+ *  - directional shadow caster
+ *  - ambient light
+ *  
+ *  This class is mainly done for edition purpose and should be refactored
+ * 
  */
 public class SunLight {
     public static double DEFAULT_COMPASS_ANGLE =  Angle.toRadians(20);

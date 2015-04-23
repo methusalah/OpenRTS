@@ -4,18 +4,16 @@
  */
 package controller.battlefield;
 
+import java.util.ArrayList;
+
+import model.Reporter;
+import model.battlefield.army.Unity;
+import model.battlefield.army.components.Unit;
 import controller.Controller;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
-import java.util.ArrayList;
-import model.Commander;
-import model.Reporter;
-import model.battlefield.army.components.Unit;
-import model.battlefield.army.Unity;
-import tools.LogUtil;
 
 /**
  *

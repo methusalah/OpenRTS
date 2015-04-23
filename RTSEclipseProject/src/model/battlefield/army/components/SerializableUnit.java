@@ -1,21 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.army.components;
 
-import geometry3D.Point3D;
+import geometry.geom3d.Point3D;
+
 import java.util.List;
+
 import model.battlefield.warfare.Faction;
-import model.builders.UnitBuilder;
+import model.builders.definitions.BuilderLibrary;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-import ressources.definitions.BuilderLibrary;
-import tools.LogUtil;
 
 /**
- *
- * @author Benoît
+ * Stores the minimal information needed to define a unit at this initial position.
+ * 
+ * For serialisation/deserialization purpose only.  
+ * 
  */
 @Root
 public class SerializableUnit {

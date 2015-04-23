@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.battlefield.actors;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.builders.actors.ActorBuilder;
-import tools.LogUtil;
-
 /**
- *
+ * This is a scene for all actors. Actors come and leave that scene whenever they want.
+ * 
+ * The view draw all actors present in the pool at each frame, and erase those that leave.
+ * 
  * @author Benoît
  */
 public class ActorPool {
@@ -20,14 +16,10 @@ public class ActorPool {
     public List<Actor> deletedActors = new ArrayList<>();
     
     public void registerActor(Actor actor){
-//    	if(actor instanceof PhysicActor)
-//    		LogUtil.logger.info("register actor"+actor.getType()+" of id "+actor.debbug_id+" class "+actor.getClass().getSimpleName());	
         activeActors.add(actor);
     }
     
     public void deleteActor(Actor actor){
-//    	if(actor instanceof PhysicActor)
-//    		LogUtil.logger.info("unregister actor"+actor.getType()+" of id "+actor.debbug_id+" class "+actor.getClass().getSimpleName());	
         activeActors.remove(actor);
         deletedActors.add(actor);
     }

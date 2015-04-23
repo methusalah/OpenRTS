@@ -1,14 +1,15 @@
 package model.battlefield.army.motion.pathfinding;
 
-import model.battlefield.army.motion.pathfinding.Path;
-import geometry.Point2D;
+import geometry.geom2d.Point2D;
+
 import java.util.ArrayList;
+
 import model.battlefield.map.Map;
-import tools.LogUtil;
 
 /**
- *
- * @author Benoît
+ * This PathFinder works with A* algorithm.
+ * 
+ * It is unused in OpenRTS at this time but may be usefull for local blockades.
  */
 public class PathFinder {
     Map m;

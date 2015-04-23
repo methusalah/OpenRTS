@@ -5,15 +5,13 @@
 package model.builders.actors;
 
 import java.awt.Color;
-import model.battlefield.actors.Actor;
-import ressources.definitions.BuilderLibrary;
-import ressources.definitions.DefElement;
+
 import model.battlefield.abstractComps.FieldComp;
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
-import static model.builders.actors.ActorBuilder.TRIGGER;
-import static model.builders.actors.ActorBuilder.TYPE;
-import ressources.definitions.Definition;
-import tools.LogUtil;
+import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.DefElement;
+import model.builders.definitions.Definition;
 
 /**
  *
