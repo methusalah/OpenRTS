@@ -1,0 +1,84 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+
+repositories {
+	mavenCentral()
+	maven { url 'http://updates.jmonkeyengine.org/maven' }
+}
+
+dependencies {
+	compile fileTree(dir: 'lib', include: ['*.jar'])
+
+	compile "com.jme3:jme3-core:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-effects:$jmonkeyengine_version.+"
+	//    	compile "com.jme3:jme3-networking:$jmonkeyengine_version.+"
+	//    	compile "com.jme3:jme3-plugins:$jmonkeyengine_version.+"
+	////    	compile "com.jme3:jme3-jogg:$jmonkeyengine_version.+"
+	////    	compile "com.jme3:jme3-terrain:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-blender:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
+	//    	compile "com.jme3:jme3-desktop:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version.+"
+	//    	//
+	//    	//	compile "com.jme3:jme3-networking:$jmonkeyengine_version.+"
+	//    	//
+	//    	//	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
+	//    	//	compile "com.jme3:jme3-bullet-natives:$jmonkeyengine_version.+"
+	//    	//
+
+	compile "com.jme3:jme3-niftygui:$jmonkeyengine_version.+"
+
+	//	compile 'com.google.code.gson:gson:2.3.1'
+	compile 'org.bushe:eventbus:1.4'
+	//	compile 'com.google.guava:guava:18.0'
+	//	compile 'org.apache.commons:commons-lang3:3.3.2'
+	//	compile 'org.reflections:reflections:0.9.8'
+	testCompile 'org.testng:testng:6.8'
+}
+
+eclipse.classpath.file {
+	beforeMerged { classpath ->
+		classpath.entries.removeAll() { c ->
+			c.kind == 'src'
+		}
+	}
+
+	withXml {
+		def node = it.asNode()
+
+		node.appendNode('classpathentry kind="src" path="src"')
+
+		node.children().removeAll() { c ->
+			def path = c.attribute('path')
+			path != null && (
+					path.contains('/com.android.support/support-v4')
+					)
+		}
+	}
+}
+
+sourceSets {
+	main { java { srcDir 'src'
+		} }
+	test { java { srcDir 'test' } }
+}
+
+//sets up the Android Eclipse project, using the old Ant based build.
+eclipse {
+	// need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
+	// ignores any nodes added in classpath.file.withXml
+	sourceSets {
+		main { java.srcDirs "src" }
+	}
+
+	jdt {
+		sourceCompatibility = 1.7
+		targetCompatibility = 1.7
+	}
+
+	project { name = appName + "-core" }
+}

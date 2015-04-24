@@ -1,0 +1,68 @@
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+mainClassName = 'simulacra.system.Simulacra'
+if (!hasProperty('mainClass')) {
+	ext.mainClass = 'simulacra.system.Simulacra'
+}
+
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://updates.jmonkeyengine.org/maven'
+    }
+}
+
+dependencies {
+    compile project(':core')
+    compile 'com.jme3:jme3-desktop:3.0.+'
+    compile 'com.jme3:jme3-lwjgl:3.0.+'
+}
+
+eclipse.classpath.file {
+	beforeMerged { classpath ->
+		classpath.entries.removeAll() { c ->
+			c.kind == 'src'
+		}
+	}
+
+	withXml {
+		def node = it.asNode()
+
+		node.appendNode('classpathentry kind="src" path="src"')
+
+		node.children().removeAll() { c ->
+			def path = c.attribute('path')
+			path != null && (
+					path.contains('/com.android.support/support-v4')
+					)
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java { srcDir 'src' }
+		resources { srcDir 'assets' }
+	}
+	test { java { srcDir 'test' } }
+}
+
+// sets up the Android Eclipse project, using the old Ant based build.
+eclipse {
+	// need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
+	// ignores any nodes added in classpath.file.withXml
+	sourceSets {
+		main { java.srcDirs "src" }
+	}
+
+	jdt {
+		sourceCompatibility = 1.7
+		targetCompatibility = 1.7
+	}
+
+	project { name = appName + "-desktop" }
+}
