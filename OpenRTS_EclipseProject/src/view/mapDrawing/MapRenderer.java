@@ -131,7 +131,7 @@ public class MapRenderer implements ActionListener {
     
     private void freeTileNode(Tile t){
     	if(tilesSpatial.get(t) == null)
-    		tilesSpatial.put(t, new ArrayList<>());
+    		tilesSpatial.put(t, new ArrayList<Spatial>());
     	List<Spatial> nodes = tilesSpatial.get(t);
     	for(Spatial s : nodes)
             castAndReceiveNode.detachChild(s);
