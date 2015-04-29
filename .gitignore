@@ -21,3 +21,4 @@ lib/jME3*
 local.properties
 
 **/*.dylib
+/build/

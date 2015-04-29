@@ -47,6 +47,8 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 		app.setShowSettings(false);
 		app.setSettings(settings);
 		app.start();
+		
+		// test
 	}
         
     @Override
