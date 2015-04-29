@@ -19,3 +19,5 @@ lib/jME3*
 
 **/Thumbs.db
 local.properties
+
+**/*.dylib

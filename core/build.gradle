@@ -1,6 +1,13 @@
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'eclipse'
 
+mainClassName = 'app.MainRTS'
+if (!hasProperty('mainClass')) {
+	ext.mainClass = 'app.MainRTS'
+}
+	
+	
 sourceCompatibility = 1.7
 version = '1.0'
 
@@ -62,8 +69,10 @@ eclipse.classpath.file {
 }
 
 sourceSets {
-	main { java { srcDir 'src'
-		} }
+	main {
+		java { srcDir 'src'} 
+		resources { srcDir 'assets' }
+	}
 	test { java { srcDir 'test' } }
 }
 

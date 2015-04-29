@@ -12,7 +12,9 @@ But OpenRTS is under developpement. There is a long way to go and a huge and gro
 Watch <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">the engine in action !</a>
 
 # How to set up ?
-Just clone the repository into Eclipse and run ! The engine is set by defaut with a test dataset and some exemple maps you can load.
+Just clone the repository. After that you can run at commandline in rootdirectory "./gradlew run" (or "gradlew.bat run" on windows).
+If you want to use it in your favorite IDE, install gradle support there. For example in eclipse see here https://marketplace.eclipse.org/content/gradle-integration-eclipse-44 .
+The engine is set by default with a test dataset and some example maps you can load.
 
 - **F1** : Editor Mode
 - **F2** : Game Mode (static iso camera)

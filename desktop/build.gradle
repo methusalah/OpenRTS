@@ -1,12 +1,14 @@
-apply plugin: 'application'
+//apply plugin: 'application'
+apply plugin: 'java'
 apply plugin: 'eclipse'
 
-mainClassName = 'simulacra.system.Simulacra'
-if (!hasProperty('mainClass')) {
-	ext.mainClass = 'simulacra.system.Simulacra'
-}
+//mainClassName = 'app.MainRTS'
+//if (!hasProperty('mainClass')) {
+//	ext.mainClass = 'app.MainRTS'
+//}
 
 
+sourceCompatibility = 1.7
 version = '1.0'
 
 repositories {
@@ -18,8 +20,8 @@ repositories {
 
 dependencies {
     compile project(':core')
-    compile 'com.jme3:jme3-desktop:3.0.+'
-    compile 'com.jme3:jme3-lwjgl:3.0.+'
+    compile 'com.jme3:jme3-desktop:$jmonkeyengine_version.+'
+    compile 'com.jme3:jme3-lwjgl:$jmonkeyengine_version.+'
 }
 
 eclipse.classpath.file {
