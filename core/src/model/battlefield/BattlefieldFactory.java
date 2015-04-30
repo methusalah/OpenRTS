@@ -27,7 +27,7 @@ import org.simpleframework.xml.core.Persister;
  * 
  */
 public class BattlefieldFactory {
-    private static final String BATTLEFIELD_FILE_EXTENSION = "bf";
+    private static final String BATTLEFIELD_FILE_EXTENSION = "btf";
 
     private BuilderLibrary lib;
     
