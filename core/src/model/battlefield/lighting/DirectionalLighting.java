@@ -1,10 +1,10 @@
 package model.battlefield.lighting;
 
+import geometry.geom3d.Point3D;
 import geometry.math.Angle;
 
 import java.awt.Color;
 
-import javafx.geometry.Point3D;
 
 /**
  *
