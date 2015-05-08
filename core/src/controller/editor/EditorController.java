@@ -8,6 +8,7 @@ import geometry.geom2d.Point2D;
 import model.Model;
 import view.View;
 
+import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
@@ -34,7 +35,7 @@ public class EditorController extends Controller {
     }
 
     @Override
-    public void update(double elapsedTime) {
+    public void update(float elapsedTime) {
 //        screenCoord = Translator.toPoint2D(im.getCursorPosition());
         model.toolManager.pointedSpatialLabel = spatialSelector.getSpatialLabel();
         Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
@@ -51,8 +52,8 @@ public class EditorController extends Controller {
     }
 
     @Override
-    public void activate() {
-        super.activate();
+    public void stateAttached(AppStateManager stateManager) {
+        super.stateAttached(stateManager);
         inputManager.setCursorVisible(true);
         view.rootNode.attachChild(view.editorRend.mainNode);
         guiController.activate();
@@ -60,10 +61,10 @@ public class EditorController extends Controller {
     }
 
     @Override
-    public void desactivate() {
+    public void stateDetached(AppStateManager stateManager) {
     	model.battlefield.engagement.saveEngagement();
     	model.battlefield.map.prepareForBattle();
-        super.desactivate();
+        super.stateDetached(stateManager);
         view.rootNode.detachChild(view.editorRend.mainNode);
     }
     

@@ -23,7 +23,7 @@ import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
 
-public class MainRTS extends MySimpleApplication implements ActionListener{
+public class MainRTS extends MySimpleApplication implements ActionListener {
     Model model;
 	View view;
 	MapRenderer tr;
@@ -56,6 +56,7 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
+//		stateManager.detach(bulletAppState);
 
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
@@ -73,10 +74,13 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
         groundCtrl.addListener(this);
 
         niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
+        //TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
+//        niftyDisplay.getNifty().validateXml("interface/screen.xml");
         niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
         
         actualCtrl = editorCtrl;
-        actualCtrl.activate();
+        stateManager.attach(actualCtrl);
+        actualCtrl.setEnabled(true);
 
         view.mapRend.renderTiles();
         
@@ -111,8 +115,11 @@ public class MainRTS extends MySimpleApplication implements ActionListener{
         }
         LogUtil.logger.info("switching controller to "+desiredCtrl.getClass().getSimpleName());
         
-        actualCtrl.desactivate();
+        stateManager.detach(actualCtrl);
+        actualCtrl.setEnabled(false);
         actualCtrl = desiredCtrl;
-        actualCtrl.activate();
+        stateManager.attach(actualCtrl);
+        actualCtrl.setEnabled(true);
+        
     }
 }

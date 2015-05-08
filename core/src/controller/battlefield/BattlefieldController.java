@@ -5,6 +5,7 @@ import model.Model;
 import view.View;
 import view.math.Translator;
 
+import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
@@ -30,7 +31,7 @@ public class BattlefieldController extends Controller {
     }
     
     @Override
-    public void update(double elapsedTime) {
+    public void update(float elapsedTime) {
         // draw selection rectangle
         Point2D selStart = ((BattlefieldInputInterpreter)inputInterpreter).selectionStart;
         if(selStart != null){
@@ -59,8 +60,8 @@ public class BattlefieldController extends Controller {
     }
 
     @Override
-    public void activate() {
-        super.activate();
+    public void stateAttached(AppStateManager stateManager) {
+        super.stateAttached(stateManager);
         inputManager.setCursorVisible(true);
         guiController.activate();
     }

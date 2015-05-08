@@ -8,6 +8,7 @@ import geometry.tools.LogUtil;
 import model.Model;
 import view.View;
 
+import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
@@ -29,7 +30,7 @@ public class GroundController extends Controller {
 
     
     @Override
-    public void update(double elapsedTime) {
+    public void update(float elapsedTime) {
     }
 
     @Override
@@ -37,8 +38,8 @@ public class GroundController extends Controller {
     }
 
     @Override
-    public void activate() {
-        super.activate();
+    public void stateAttached(AppStateManager stateManager) {
+        super.stateAttached(stateManager);
         inputManager.setCursorVisible(false);
         LogUtil.logger.info("ground controller on line");
     }
