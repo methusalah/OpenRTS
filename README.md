@@ -20,8 +20,8 @@ You want to set up in your favorite IDE like jMonkey SDK or Eclipse? Simple ! Pl
 
 The engine is set by default with a test dataset and some example maps you can load.
 
-- **F1** : Editor Mode
-- **F2** : Game Mode (static iso camera)
+- **F1** : Game Mode (static iso camera)
+- **F2** : Editor Mode
 - **F3** : First Person view (for testing purpose)
 
 # Need Help ?
