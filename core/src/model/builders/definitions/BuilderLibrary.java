@@ -7,6 +7,7 @@ package model.builders.definitions;
 import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class BuilderLibrary {
     private static final String MANMADE_FACE = "ManmadeFace";
 
 
-    private HashMap<String, HashMap> builders = new HashMap<>();
+    private HashMap<String, HashMap<String,Builder>> builders = new HashMap<>();
 
     public Battlefield battlefield;
 
@@ -79,7 +80,7 @@ public class BuilderLibrary {
     
     
     public void submit(Definition def){
-        HashMap typed = builders.get(def.type);
+        HashMap<String, Builder> typed = builders.get(def.type);
         if(typed == null)
             throw new RuntimeException("Type '"+def.type+"' is unknown.");
         
@@ -152,29 +153,22 @@ public class BuilderLibrary {
     }
 
     
-    
-    
-    
-    
-    private List<Builder> getAllBuilders(String type){
-        List<Builder> res = new ArrayList<>();
-        res.addAll(((HashMap<String, Builder>)builders.get(type)).values());
+    private <T extends Builder> List<T > getAllBuilders(String type, Class<T> clazz){
+        List<T> res = new ArrayList<>();
+        res.addAll((Collection<? extends T>) (builders.get(type)).values());
         if(res.isEmpty())
             throw new IllegalArgumentException("type '"+type+"' dosen't seem to have any element.");
         return res;
     }
-    /**
-     * wildcard casting from : http://stackoverflow.com/questions/933447/how-do-you-cast-a-list-of-supertypes-to-a-list-of-subtypes
-     * @return 
-     */
+
     public List<UnitBuilder> getAllUnitBuilders(){
-        return (List<UnitBuilder>)(List<?>)getAllBuilders(UNIT);
+        return getAllBuilders(UNIT,UnitBuilder.class);
     }
     public List<TrinketBuilder> getAllTrinketBuilders(){
-        return (List<TrinketBuilder>)(List<?>)getAllBuilders(TRINKET);
+        return getAllBuilders(TRINKET,TrinketBuilder.class);
     }
     public List<TrinketBuilder> getAllEditableTrinketBuilders(){
-        List<TrinketBuilder> all = (List<TrinketBuilder>)(List<?>)getAllBuilders(TRINKET);
+        List<TrinketBuilder> all = getAllBuilders(TRINKET,TrinketBuilder.class);
         List<TrinketBuilder> res = new ArrayList<>();
         for(TrinketBuilder b : all)
             if(b.isEditable())
@@ -182,7 +176,7 @@ public class BuilderLibrary {
         return res;
     }
     public List<MapStyleBuilder> getAllMapStyleBuilders(){
-        return (List<MapStyleBuilder>)(List<?>)getAllBuilders(MAP_STYLE);
+        return getAllBuilders(MAP_STYLE,MapStyleBuilder.class);
     }
     
 }
