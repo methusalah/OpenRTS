@@ -1,4 +1,4 @@
 rootProject.name = 'OpenRTS'
 
 include 'core'
-include 'desktop'
+include 'example'

@@ -1,0 +1,46 @@
+apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+mainClassName = 'Application'
+if (!hasProperty('mainClass')) {
+	ext.mainClass = 'Application'
+}
+
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://updates.jmonkeyengine.org/maven'
+    }
+}
+
+dependencies {
+    compile project(':core')
+//    compile 'com.jme3:jme3-desktop:$jmonkeyengine_version.+'
+//    compile 'com.jme3:jme3-lwjgl:$jmonkeyengine_version.+'
+}
+
+sourceSets {
+	main {
+		java { srcDir 'src' }
+		resources { srcDir 'assets' }
+	}
+	test { java { srcDir 'test' } }
+}
+
+eclipse {
+	sourceSets {
+		main { java.srcDirs "src" }
+	}
+
+	jdt {
+		sourceCompatibility = 1.7
+		targetCompatibility = 1.7
+	}
+
+	project { name = appName + "-example" }
+}
