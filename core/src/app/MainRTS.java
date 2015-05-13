@@ -90,9 +90,10 @@ public class MainRTS extends MySimpleApplication implements ActionListener {
     @Override
     public void simpleUpdate(float tpf) {
         float maxedTPF = Math.min(tpf, 0.1f);
+        listener.setLocation(cam.getLocation());
+        listener.setRotation(cam.getRotation());
         view.actorManager.render();
         actualCtrl.update(maxedTPF);
-        
         model.updateConfigs();
     }
 

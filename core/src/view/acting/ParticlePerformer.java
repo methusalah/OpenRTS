@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.actorDrawing;
+package view.acting;
 
 import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import view.math.Translator;
@@ -24,17 +25,14 @@ import com.jme3.math.Vector3f;
  *
  * @author Benoît
  */
-public class ParticleActorDrawer {
-    
-    ActorDrawingManager manager;
-    
-    public ParticleActorDrawer(ActorDrawingManager manager){
-        this.manager = manager;
+public class ParticlePerformer extends Performer{
+    public ParticlePerformer(Backstage bs){
+        super(bs);
     }
     
-    protected void draw(ParticleActor actor){
-        if(actor.launched)
-            return;
+    @Override
+    public void perform(Actor a) {
+    	ParticleActor actor = (ParticleActor)a;
         
         if(actor.viewElements.particleEmitter == null)
             createEmitter(actor);
@@ -101,7 +99,7 @@ public class ParticleActorDrawer {
     
     private void createEmitter(ParticleActor actor){
         ParticleEmitter emitter = new ParticleEmitter("", ParticleMesh.Type.Triangle, actor.maxCount);
-        Material m = manager.getParticleMat(actor.spritePath);
+        Material m = bs.getParticleMat(actor.spritePath);
         
         if(!actor.add)
             m.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
@@ -131,7 +129,7 @@ public class ParticleActorDrawer {
             emitter.setFaceNormal(Vector3f.UNIT_Z);
         if(actor.velocity != 0)
             emitter.setFacingVelocity(true);
-        manager.mainNode.attachChild(emitter);
+        bs.mainNode.attachChild(emitter);
         actor.viewElements.particleEmitter = emitter;
     }
     

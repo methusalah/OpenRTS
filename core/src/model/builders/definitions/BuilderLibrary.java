@@ -29,6 +29,7 @@ import model.builders.actors.AnimationActorBuilder;
 import model.builders.actors.ModelActorBuilder;
 import model.builders.actors.ParticleActorBuilder;
 import model.builders.actors.PhysicActorBuilder;
+import model.builders.actors.SoundActorBuilder;
 
 /**
  *
@@ -98,6 +99,7 @@ public class BuilderLibrary {
                     case ActorBuilder.TYPE_PARTICLE : typed.put(def.id, new ParticleActorBuilder(def, this)); break;
                     case ActorBuilder.TYPE_PHYSIC : typed.put(def.id, new PhysicActorBuilder(def, this)); break;
                     case ActorBuilder.TYPE_MODEL : typed.put(def.id, new ModelActorBuilder(def, this)); break;
+                    case ActorBuilder.TYPE_SOUND : typed.put(def.id, new SoundActorBuilder(def, this)); break;
                         default: typed.put(def.id, new ActorBuilder(def, this));
                 }
                 break;

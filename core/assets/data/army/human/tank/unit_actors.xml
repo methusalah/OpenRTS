@@ -13,6 +13,7 @@
     <ActorList Trigger="onDestroyed" ActorLink="TankDestroyed"/>
     <ActorList Trigger="onDestroyed" ActorLink="TankDestroyedGlow"/>
     <ActorList Trigger="onDestroyed" ActorLink="TankWreck"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankExplosion"/>
   </Actor>
 
   <Actor id="LeftMud">
@@ -180,4 +181,13 @@
       <Mass value="1"/>
       <Life value="4"/>
   </Actor>
+  
+  <Actor id="TankExplosion">
+    <Type value="Sound"/>
+    <SoundPath value="monoexplosion1.wav"/>
+    <Volume value="1"/>
+    <Looping value="false"/>
+    <Positional value="true"/>
+  </Actor>
+  
 </catalog>

@@ -9,6 +9,7 @@
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonFlash2"/>
     <ActorList Trigger="onShoot" ActorLink="TankCanonShockwave"/>
+    <ActorList Trigger="onShoot" ActorLink="TankCanonSound"/>
   </Actor>
   
   <Actor id="TankCanonAnimation">
@@ -91,6 +92,14 @@
     <EndColor R="255" G="0" B="0" A="255"/>
     <MinLife value="0.4"/>
     <MaxLife value="0.4"/>
+  </Actor>
+
+  <Actor id="TankCanonSound">
+    <Type value="Sound"/>
+    <SoundPath value="monoshot1.wav"/>
+    <Volume value="1"/>
+    <Looping value="false"/>
+    <Positional value="true"/>
   </Actor>
 
 </catalog>

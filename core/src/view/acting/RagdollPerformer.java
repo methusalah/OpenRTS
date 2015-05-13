@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.actorDrawing;
+package view.acting;
 
 import geometry.geom2d.Point2D;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.PhysicActor;
 import view.math.Translator;
@@ -22,31 +23,31 @@ import com.jme3.scene.Spatial;
  *
  * @author Benoît
  */
-public class RagdollActorDrawer {
-    ActorDrawingManager manager;
-    
-    public RagdollActorDrawer(ActorDrawingManager manager){
-        this.manager = manager;
+public class RagdollPerformer extends Performer{
+    public RagdollPerformer(Backstage bs){
+        super(bs);
     }
     
-    protected void draw(PhysicActor actor){
+    @Override
+    public void perform(Actor a) {
+    	PhysicActor actor = (PhysicActor)a;
         if(!actor.launched){
             actor.life = actor.startLife;
-            manager.modelDrawer.draw(actor);
+            bs.modelPfm.perform(actor);
 
             Spatial s = actor.viewElements.spatial;
             ModelActor ma = actor.getParentModelActor();
 
             Vector3f massVec = s.getControl(AnimControl.class).getSkeleton().getBone(actor.massCenterBone).getModelSpacePosition().mult(s.getLocalScale());
             Node massCenter = new Node();
-            manager.mainNode.detachChild(s);
-            manager.mainNode.attachChild(massCenter);
+            bs.mainNode.detachChild(s);
+            bs.mainNode.attachChild(massCenter);
             massCenter.attachChild(s);
             s.setLocalTranslation(massVec.negate());
 
             RigidBodyControl control = new RigidBodyControl((float)actor.mass*100);
             massCenter.addControl(control);
-            manager.mainPhysicsSpace.add(control);
+            bs.mainPhysicsSpace.add(control);
 
 
             // translation
@@ -76,7 +77,7 @@ public class RagdollActorDrawer {
             if(!s.getControl(RigidBodyControl.class).isActive()){
                 actor.life -= elapsedTime;
                 if(!actor.alive()){
-                    manager.mainPhysicsSpace.remove(s);
+                	bs.mainPhysicsSpace.remove(s);
                     s.removeControl(RigidBodyControl.class);
                 }
             }

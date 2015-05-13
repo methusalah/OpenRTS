@@ -27,6 +27,7 @@ public class ActorBuilder extends Builder{
     public static final String TYPE_PARTICLE = "Particle";
     public static final String TYPE_ANIMATION = "Animation";
     public static final String TYPE_PHYSIC = "Physic";
+    public static final String TYPE_SOUND = "Sound";
     
     protected static final String ACTOR_LIST = "ActorList";
     protected static final String TRIGGER = "Trigger";

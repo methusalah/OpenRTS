@@ -36,7 +36,6 @@ public class ParticleActor extends Actor {
     public final boolean add;
     public final double startVariation;
     
-    public boolean launched = false;
     public long startTime = 0;
 
     public ParticleActor(String spritePath,
@@ -104,7 +103,6 @@ public class ParticleActor extends Actor {
 
     @Override
     protected void act() {
-        launched = false;
         startTime = 0;
         super.act();
     }

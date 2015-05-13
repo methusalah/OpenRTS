@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.actorDrawing;
+package view.acting;
 
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Turret;
@@ -28,21 +29,21 @@ import com.jme3.scene.Spatial;
  *
  * @author Benoît
  */
-public class ModelActorDrawer {
+public class ModelPerformer extends Performer {
     private static final float DEFAULT_SCALE = 0.0025f;
     
-    private ActorDrawingManager manager;
-    
-    public ModelActorDrawer(ActorDrawingManager manager){
-        this.manager = manager;
+    public ModelPerformer(Backstage bs){
+        super(bs);
     }
 
-    protected void draw(ModelActor actor){
+	@Override
+	public void perform(Actor a) {
+		ModelActor actor = (ModelActor)a;
         if(actor.viewElements.spatial == null){
-            Spatial s = manager.buildSpatial(actor.modelPath);
+            Spatial s = bs.buildSpatial(actor.modelPath);
             
             if(actor.color != null)
-                s.setMaterial(manager.materialManager.getLightingColor(Translator.toColorRGBA(actor.color)));
+                s.setMaterial(bs.materialManager.getLightingColor(Translator.toColorRGBA(actor.color)));
             
             s.setLocalScale((float)actor.scaleX*DEFAULT_SCALE,
                     (float)actor.scaleY*DEFAULT_SCALE,
@@ -92,28 +93,6 @@ public class ModelActorDrawer {
             }
             s.setLocalRotation(r);
             
-//            if(manager.mainNode.getChild("debbug1") != null)
-//            	manager.mainNode.detachChildNamed("debbug1");
-//            if(manager.mainNode.getChild("debbug2") != null)
-//            	manager.mainNode.detachChildNamed("debbug2");
-//            
-//        	Geometry g = new Geometry("debbug1");
-//        	Vector3f start = Translator.toVector3f(actor.getComp().getPos());
-//        	Vector3f end = Translator.toVector3f(actor.getComp().upDirection).add(start);
-//        	
-//        	g.setMesh(new Line(start, end));
-//        	g.setMaterial(manager.materialManager.redMaterial);
-//        	manager.mainNode.attachChild(g);
-//
-//        	Geometry g2 = new Geometry("debbug2");
-//        	Vector3f start2 = Translator.toVector3f(actor.getComp().getPos());
-//        	Vector3f end2 = Translator.toVector3f(actor.getComp().direction).add(start2);
-//        	
-//        	g2.setMesh(new Line(start2, end2));
-//        	g2.setMaterial(manager.materialManager.redMaterial);
-//        	manager.mainNode.attachChild(g2);
-            	
-            
             if(actor.getComp() instanceof Unit)
                 drawAsUnit(actor);
             else if(actor.getComp() instanceof Projectile)
@@ -140,7 +119,7 @@ public class ModelActorDrawer {
         if(actor.viewElements.selectionCircle == null){
             Geometry g = new Geometry();
             g.setMesh(new Circle((float)unit.getRadius(), 10));
-            g.setMaterial(manager.materialManager.greenMaterial);
+            g.setMaterial(bs.materialManager.greenMaterial);
             g.rotate((float)Angle.RIGHT, 0, 0);
             Node n = new Node();
             n.attachChild(g);
@@ -150,11 +129,11 @@ public class ModelActorDrawer {
         n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
         if(unit.selected){
-            if(!manager.mainNode.hasChild(n))
-                manager.mainNode.attachChild(n);
+            if(!bs.mainNode.hasChild(n))
+            	bs.mainNode.attachChild(n);
         } else
-            if(manager.mainNode.hasChild(n))
-                manager.mainNode.detachChild(n);
+            if(bs.mainNode.hasChild(n))
+            	bs.mainNode.detachChild(n);
     }
  
     private void orientTurret(ModelActor actor) {
@@ -203,5 +182,4 @@ public class ModelActorDrawer {
 //        return p3D;
         return Translator.toPoint3D(modelSpacePos);
     }
-
 }

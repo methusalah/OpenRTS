@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.actorDrawing;
+package view.acting;
 
+import model.battlefield.actors.Actor;
 import model.battlefield.actors.AnimationActor;
 
 import com.jme3.animation.AnimChannel;
@@ -15,8 +16,14 @@ import com.jme3.scene.Spatial;
  *
  * @author Benoît
  */
-public class AnimationActorDrawer {
-    protected void draw(AnimationActor actor){
+public class AnimationPerformer extends Performer{
+    public AnimationPerformer(Backstage bs) {
+		super(bs);
+	}
+
+    @Override
+    public void perform(Actor a) {
+    	AnimationActor actor = (AnimationActor)a;
     	if(actor.launched)
     		return;
     	actor.launched = true;
@@ -30,5 +37,4 @@ public class AnimationActorDrawer {
         }
         channel.setSpeed((float)actor.speed);
     }
-
 }

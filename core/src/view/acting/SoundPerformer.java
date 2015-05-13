@@ -1,0 +1,34 @@
+package view.acting;
+
+import view.math.Translator;
+
+import com.jme3.audio.AudioNode;
+
+import model.battlefield.actors.Actor;
+import model.battlefield.actors.SoundActor;
+
+public class SoundPerformer extends Performer{
+
+	public SoundPerformer(Backstage bs) {
+		super(bs);
+	}
+
+	@Override
+	public void perform(Actor a) {
+		SoundActor actor = (SoundActor)a;
+		AudioNode audio = bs.getAudioNode(actor.soundPath);
+		audio.setPositional(actor.positional);
+		if(actor.positional)
+			audio.setLocalTranslation(Translator.toVector3f(actor.getParentModelActor().getPos()));
+		
+		audio.setLooping(actor.looping);
+		audio.setVolume((float)(actor.volume));
+		
+		audio.setRefDistance(4);
+		audio.setReverbEnabled(false);
+		
+		audio.playInstance();
+		a.stopActing();
+	}
+
+}

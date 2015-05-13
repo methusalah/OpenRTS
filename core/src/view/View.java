@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Model;
-import view.actorDrawing.ActorDrawingManager;
+import view.acting.Backstage;
 import view.mapDrawing.EditorRenderer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapRenderer;
@@ -33,7 +33,7 @@ public class View implements ActionListener {
     // Renderers
     public MapRenderer mapRend;
     public EditorRenderer editorRend;
-    public ActorDrawingManager actorManager;
+    public Backstage actorManager;
     public LightDrawer lightDrawer;
 
 
@@ -68,7 +68,7 @@ public class View implements ActionListener {
         model.toolManager.addListener(editorRend);
         
         
-        actorManager = new ActorDrawingManager(am, materialManager, model.battlefield.actorPool);
+        actorManager = new Backstage(am, materialManager, model.battlefield.actorPool);
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
         
@@ -97,7 +97,7 @@ public class View implements ActionListener {
         lightDrawer.updateLights();
         model.battlefield.sunLight.addListener(lightDrawer);
         
-        actorManager = new ActorDrawingManager(assetManager, materialManager, model.battlefield.actorPool);
+        actorManager = new Backstage(assetManager, materialManager, model.battlefield.actorPool);
         rootNode.attachChild(actorManager.mainNode);
         actorManager.mainPhysicsSpace = physicsSpace;
     }

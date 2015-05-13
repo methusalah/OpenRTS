@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package view.actorDrawing;
+package view.acting;
 
 import geometry.tools.LogUtil;
 
@@ -23,6 +19,8 @@ import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
 import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioData;
+import com.jme3.audio.AudioNode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.effect.ParticleEmitter;
@@ -34,7 +32,7 @@ import com.jme3.scene.Spatial;
  *
  * @author Benoît
  */
-public class ActorDrawingManager implements AnimEventListener {
+public class Backstage implements AnimEventListener {
 
     AssetManager assetManager;
     public MaterialManager materialManager;
@@ -43,27 +41,30 @@ public class ActorDrawingManager implements AnimEventListener {
     public Node mainNode;
     public PhysicsSpace mainPhysicsSpace;
     
-    ModelActorDrawer modelDrawer;
-    ParticleActorDrawer particleDrawer;
-    AnimationActorDrawer animationDrawer;
-    RagdollActorDrawer physicDrawer;
+    ModelPerformer modelPfm;
+    ParticlePerformer particlePfm;
+    AnimationPerformer animationPfm;
+    RagdollPerformer physicPfm;
+    SoundPerformer soundPfm;
     
     
     HashMap<String, Spatial> models = new HashMap<>();
+    HashMap<String, AudioNode> sounds = new HashMap<>();
     
     List<ParticleEmitter> dyingEmitters = new ArrayList<>();
     List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 
-    public ActorDrawingManager(AssetManager assetManager, MaterialManager materialManager, ActorPool pool){
+    public Backstage(AssetManager assetManager, MaterialManager materialManager, ActorPool pool){
         this.assetManager = assetManager;
         this.materialManager = materialManager;
         this.pool = pool;
         mainNode = new Node();
         
-        modelDrawer = new ModelActorDrawer(this);
-        particleDrawer = new ParticleActorDrawer(this);
-        animationDrawer = new AnimationActorDrawer();
-        physicDrawer = new RagdollActorDrawer(this);
+        modelPfm = new ModelPerformer(this);
+        particlePfm = new ParticlePerformer(this);
+        animationPfm = new AnimationPerformer(this);
+        physicPfm = new RagdollPerformer(this);
+        soundPfm = new SoundPerformer(this);
    }
     
     public void render(){
@@ -87,16 +88,19 @@ public class ActorDrawingManager implements AnimEventListener {
     		}
     	dyingEmitters.removeAll(deleted);
         
+    	
+    	
         for(Actor a : pool.getActors())
             switch (a.getType()){
-            	case "model" : modelDrawer.draw((ModelActor)a); break;
+            	case "model" : modelPfm.perform((ModelActor)a); break;
             }
 
         for(Actor a : pool.getActors())
             switch (a.getType()){
-                case "physic" : physicDrawer.draw((PhysicActor)a); break;
-                case "animation" : animationDrawer.draw((AnimationActor)a); break;
-                case "particle" : particleDrawer.draw((ParticleActor)a); break;
+                case "physic" : physicPfm.perform(a); break;
+                case "animation" : animationPfm.perform(a); break;
+                case "particle" : particlePfm.perform(a); break;
+                case "sound" : soundPfm.perform(a); break;
             }
     }
     
@@ -145,6 +149,14 @@ public class ActorDrawingManager implements AnimEventListener {
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
         m.setTexture("Texture", assetManager.loadTexture("textures/"+texturePath));
         return m;
+    }
+    
+    protected AudioNode getAudioNode(String soundPath){
+        if(!sounds.containsKey(soundPath)){
+            sounds.put(soundPath, new AudioNode(assetManager, "sounds/"+soundPath));
+    		mainNode.attachChild(sounds.get(soundPath));
+        }
+        return sounds.get(soundPath);
     }
 
     @Override

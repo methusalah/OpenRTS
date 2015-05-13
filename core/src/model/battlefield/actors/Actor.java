@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.builders.actors.ActorBuilder;
-import view.actorDrawing.ActorViewElements;
+import view.acting.ActorViewElements;
 
 /**
  * Actors are visual representations. If you want to draw something on the view, you simply

@@ -54,7 +54,6 @@ public class AnimationActor extends Actor {
             
         } while(!parent.containsModel());
         return (ModelActor)parent;
-
     }
     
     @Override
