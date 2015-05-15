@@ -1,6 +1,11 @@
 package app;
+
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
@@ -23,7 +28,13 @@ import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
-public abstract class MySimpleApplication extends Application implements PhysicsTickListener {
+import exception.TechnicalException;
+import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
+
+public abstract class OpenRTSApplication extends Application implements PhysicsTickListener {
+
+	protected static OpenRTSApplication appInstance;
 
     protected Node rootNode = new Node("Root Node");
     protected Node guiNode = new Node("Gui Node");
@@ -62,19 +73,6 @@ public abstract class MySimpleApplication extends Application implements Physics
                     BufferUtils.printCurrentDirectMemory(null);
                 }
         }
-    }
-
-    public MySimpleApplication(){
-        super();
-		Logger.getLogger("").setLevel(Level.WARNING);
-		AppSettings settings = new AppSettings(true);
-		settings.setBitsPerPixel(32);
-		settings.setWidth(800);
-		settings.setHeight(600);
-		settings.setTitle("Mon test � moi qui casse tout");
-		settings.setVSync(true);
-		setShowSettings(false);
-		setSettings(settings);
     }
 
     @Override
@@ -220,5 +218,42 @@ public abstract class MySimpleApplication extends Application implements Physics
     public PhysicsSpace getPhysicsSpace(){
         return bulletAppState.getPhysicsSpace();
     }
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+	}
+
+	public abstract AppSettings getDefaultSetting();
+
+	public void toggleToFullscreen() {
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		DisplayMode[] modes = device.getDisplayModes();
+		int i = 0; // note: there are usually several, let's pick the first
+		settings.setResolution(modes[i].getWidth(), modes[i].getHeight());
+		settings.setFrequency(modes[i].getRefreshRate());
+		settings.setBitsPerPixel(modes[i].getBitDepth());
+		settings.setFullscreen(device.isFullScreenSupported());
+		appInstance.setSettings(settings);
+		appInstance.restart(); // restart the context to apply changes
+	}
+
+	public void resetSettings() {
+		appInstance.settings.clear();
+		try {
+			appInstance.settings.save("openrts.example");
+		} catch (BackingStoreException e) {
+			throw new TechnicalException(e);
+		}
+	}
+
+	public static void main(OpenRTSApplication app) {
+		appInstance = app;
+		Logger.getLogger("").setLevel(Level.INFO);
+		LogUtil.init();
+		LogUtil.logger.info("seed : " + MyRandom.SEED);
+
+		appInstance.start();
+
+	}
 
 }
