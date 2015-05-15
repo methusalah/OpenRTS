@@ -18,6 +18,8 @@ public class HeightTool extends Tool {
 	private static final String RAISE_LOW_OP = "raise/low";
 	private static final String NOISE_SMOOTH_OP = "noise/smooth";
 	private static final String UNIFOMR_RESET_OP = "uniform/reset";
+	
+	private static final int MAX_HEIGHT = 30, MIN_HEIGHT = -10;
 
 	double amplitude = 0.5;
 	double maintainedElevation;
@@ -72,12 +74,16 @@ public class HeightTool extends Tool {
 	private void raise(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			t.elevation += amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
+	        if(t.elevation > MAX_HEIGHT)
+	            t.elevation = MAX_HEIGHT;
 		}
 	}
 
 	private void low(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			t.elevation -= amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
+	        if(t.elevation < MIN_HEIGHT)
+	            t.elevation = MIN_HEIGHT;
 		}
 	}
 
