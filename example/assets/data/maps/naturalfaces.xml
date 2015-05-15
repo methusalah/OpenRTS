@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <NaturalFace id="StdDug">
+    <Style value="dug1"/>
+    <Color R="76" G="63" B="44"/>
+    <NoiseX value="0.5"/>
+    <NoiseY value="0.5"/>
+    <NoiseZ value="0.5"/>
+    <RidgeDepth value="0.5"/>
+    <RidgePosition value="0.5"/>
+  </NaturalFace>
+</catalog>

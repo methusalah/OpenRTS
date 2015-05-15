@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <MapStyle id="StdMapStyle">
+  	<Width value="80"/>
+  	<Height value="80"/>
+    <CliffShapeLink value="StdManmade"/>
+    <CliffShapeLink value="StdRockyVegyDug"/>
+    
+    
+    
+    <GroundTexture diffuse="textures/grass.png" normal="textures/grassnorm.png" scale="8"/>
+    <GroundTexture diffuse="textures/road.jpg" normal="textures/road_normal.png" scale="32"/>
+    <GroundTexture diffuse="textures/dirt.png" scale="8"/>
+    <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
+<!-- 	<GroundTexture diffuse="textures/trans.png" scale="1"/> -->
+  </MapStyle>
+
+  <MapStyle id="AnotherMapStyle">
+  	<Width value="256"/>
+  	<Height value="256"/>
+    <CliffShapeLink value="StdManmade"/>
+    <CliffShapeLink value="StdRockyVegyDug"/>
+
+    <GroundTexture diffuse="textures/road.jpg" normal="textures/grassnorm.png" scale="8"/>
+    <GroundTexture diffuse="textures/grass.png" normal="textures/road_normal.png" scale="32"/>
+    <GroundTexture diffuse="textures/dirt.png" scale="8"/>
+    <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
+<!-- 	<GroundTexture diffuse="textures/trans.png" scale="1"/> -->
+  </MapStyle>
+</catalog>
