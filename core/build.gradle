@@ -6,8 +6,8 @@ mainClassName = 'app.MainRTS'
 if (!hasProperty('mainClass')) {
 	ext.mainClass = 'app.MainRTS'
 }
-	
-	
+
+
 sourceCompatibility = 1.7
 version = '1.0'
 
@@ -22,7 +22,7 @@ dependencies {
 
 	compile "com.jme3:jme3-core:$jmonkeyengine_version.+"
 	compile "com.jme3:jme3-effects:$jmonkeyengine_version.+"
-	//    	compile "com.jme3:jme3-networking:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-networking:$jmonkeyengine_version.+"
 	//    	compile "com.jme3:jme3-plugins:$jmonkeyengine_version.+"
 	////    	compile "com.jme3:jme3-jogg:$jmonkeyengine_version.+"
 	////    	compile "com.jme3:jme3-terrain:$jmonkeyengine_version.+"
@@ -70,10 +70,11 @@ eclipse.classpath.file {
 
 sourceSets {
 	main {
-		java { srcDir 'src'} 
+		java { srcDir 'src'}
 		resources { srcDir 'assets' }
 	}
-	test { java { srcDir 'test' } }
+	test { java { srcDir 'test'
+		} }
 }
 
 //sets up the Android Eclipse project, using the old Ant based build.
