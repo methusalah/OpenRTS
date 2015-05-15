@@ -44,17 +44,4 @@ public class Game extends OpenRTSApplication {
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}
-
-	@Override
-	public AppSettings getDefaultSetting() {
-		AppSettings settings = new AppSettings(true);
-		settings.setBitsPerPixel(32);
-		settings.setWidth(1920);
-		settings.setHeight(960);
-		settings.setTitle("OpenRTS Example Game");
-		settings.setVSync(true);
-		settings.putBoolean("isCustomized", true);
-		settings.setFullscreen(true);
-		return settings;
-	}
 }
