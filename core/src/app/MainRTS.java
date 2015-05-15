@@ -107,16 +107,4 @@ public class MainRTS extends OpenRTSApplication implements ActionListener {
 		actualCtrl.setEnabled(true);
 
 	}
-
-	@Override
-	public AppSettings getDefaultSetting() {
-		AppSettings settings = new AppSettings(true);
-		settings.setBitsPerPixel(32);
-		settings.setWidth(1920);
-		settings.setHeight(960);
-		settings.setTitle("RTS");
-		settings.setVSync(true);
-
-		return settings;
-	}
 }

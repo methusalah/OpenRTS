@@ -34,7 +34,7 @@ import geometry.tools.LogUtil;
 
 public abstract class OpenRTSApplication extends Application implements PhysicsTickListener {
 
-	protected static OpenRTSApplication appInstance;
+	public static OpenRTSApplication appInstance;
 
     protected Node rootNode = new Node("Root Node");
     protected Node guiNode = new Node("Gui Node");
@@ -46,7 +46,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
     protected StatsView statsView;
 
     protected AzertyFlyByCamera flyCam;
-    protected boolean showSettings = true;
 
     private AppActionListener actionListener = new AppActionListener();
 
@@ -79,16 +78,17 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
     public void start(){
         // set some default settings in-case
         // settings dialog is not shown
-        if (settings == null)
+        if (settings == null){
             setSettings(new AppSettings(true));
-
-        // show settings dialog
-        if (showSettings){
-        	// TODO erreur ici apres l'installation du nightly build d'avril, � voir si �a marche.
-            if (!JmeSystem.showSettingsDialog(settings, showSettings))
-                return;
+            settings.setWidth(1024);
+            settings.setHeight(768);
+			try {
+				settings.load("openrts.example");
+			} catch (BackingStoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
-
         super.start();
     }
 
@@ -102,14 +102,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
     public Node getRootNode() {
         return rootNode;
-    }
-
-    public boolean isShowSettings() {
-        return showSettings;
-    }
-
-    public void setShowSettings(boolean showSettings) {
-        this.showSettings = showSettings;
     }
 
     private void initTexts(){
@@ -223,8 +215,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
 	}
 
-	public abstract AppSettings getDefaultSetting();
-
 	public void toggleToFullscreen() {
 		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		DisplayMode[] modes = device.getDisplayModes();
@@ -237,15 +227,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		appInstance.restart(); // restart the context to apply changes
 	}
 
-	public void resetSettings() {
-		appInstance.settings.clear();
-		try {
-			appInstance.settings.save("openrts.example");
-		} catch (BackingStoreException e) {
-			throw new TechnicalException(e);
-		}
-	}
-
 	public static void main(OpenRTSApplication app) {
 		appInstance = app;
 		Logger.getLogger("").setLevel(Level.INFO);
@@ -253,7 +234,23 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		LogUtil.logger.info("seed : " + MyRandom.SEED);
 
 		appInstance.start();
-
 	}
+	
+	public void changeSettings(){
+		JmeSystem.showSettingsDialog(settings, false);
+		if(settings.isFullscreen()){
+			LogUtil.logger.info("Fullscreen not yet supported");
+			settings.setFullscreen(false);
+		}
+		
 
+		try {
+			settings.save("openrts.example");
+		} catch (BackingStoreException e) {
+			throw new TechnicalException(e);
+		}
+		appInstance.setSettings(settings);
+		appInstance.restart(); // restart the context to apply changes
+		cam.resize(settings.getWidth(), settings.getHeight(), true);
+	}
 }
