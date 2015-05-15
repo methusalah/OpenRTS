@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Unit id="Marine">
+    <UIName value="Marine Le Pen"/>
+    <Race value="human"/>
+    <Radius value="0.25"/>
+    <SeparationRadius value="0.25"/>
+    <Speed value="2.5"/>
+    <Mass value="1"/>
+    <MaxHealth value="60"/>
+    <Sight value="7"/>
+    <MoverLink value="Ground"/>
+    <WeaponList WeaponLink="Rifle"/>
+    <ActorLink value="Marine"/>
+  </Unit>
+  <Unit id="humanCruiser">
+    <UIName value="Cruiser"/>
+    <Race value="human"/>
+    <Radius value="0.6"/>
+    <SeparationRadius value="0.6"/>
+    <Speed value="4"/>
+    <Mass value="2"/>
+    <MaxHealth value="300"/>
+    <Sight value="10"/>
+    <MoverLink value="Fly"/>
+    <WeaponList WeaponLink="Battery"/>
+    <ActorLink value="Aircraft"/>
+  </Unit>
+  <Unit id="BigAlien">
+    <UIName value="Big alien"/>
+    <Race value="alien"/>
+    <Radius value="0.75"/>
+    <SeparationRadius value="0.75"/>
+    <Speed value="5"/>
+    <Mass value="1.3"/>
+    <MaxHealth value="120"/>
+    <Sight value="10"/>
+    <MoverLink value="GroundProne"/>
+    <WeaponList WeaponLink="StdWeapon"/>
+    <ActorLink value="BigAlien"/>
+  </Unit>
+  <Unit id="SmallAlien">
+    <UIName value="Small alien"/>
+    <Race value="alien"/>
+    <Radius value="0.35"/>
+    <SeparationRadius value="0.35"/>
+    <Speed value="7"/>
+    <Mass value="0.3"/>
+    <ModelPath value="alien/infantry01.mesh.xml"/>
+    <MaxHealth value="120"/>
+    <Sight value="8"/>
+    <MoverLink value="Ground"/>
+    <WeaponList WeaponLink="MeleeWeapon"/>
+    <ActorLink value="SmallAlien"/>
+  </Unit>
+</catalog>

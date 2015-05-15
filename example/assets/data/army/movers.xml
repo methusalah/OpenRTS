@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Mover id="GroundProne">
+    <PathfindingMode value="Walk"/>
+    <Heightmap value="Ground"/>
+    <StandingMode value="Prone"/>
+  </Mover>
+  <Mover id="Ground">
+    <PathfindingMode value="Walk"/>
+    <Heightmap value="Ground"/>
+    <StandingMode value="Stand"/>
+  </Mover>
+  <Mover id="Fly">
+    <PathfindingMode value="Fly"/>
+    <Heightmap value="Sky"/>
+    <StandingMode value="Stand"/>
+  </Mover>
+  <Mover id="Projectile">
+    <PathfindingMode value="Fly"/>
+    <Heightmap value="Air"/>
+    <StandingMode value="Stand"/>
+  </Mover>
+</catalog>

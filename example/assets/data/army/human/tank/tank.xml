@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Unit id="humantank">
+    <UIName value="Tank de la mort"/>
+    <Race value="human"/>
+    <Radius value="0.8"/>
+    <SeparationRadius value="0.8"/>
+    <Speed value="4"/>
+    <Mass value="1"/>
+    <MaxHealth value="120"/>
+    <Sight value="10"/>
+    <MoverLink value="GroundProne"/>
+    <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>
+<!--     <WeaponList WeaponLink="TankMachinegun"/> -->
+    <ActorLink value="Tank"/>
+  </Unit>
+  <Weapon id="TankCanon">
+    <UIName value="Canon"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="5"/>
+    <ScanRange value="7"/>
+    <Period value="1.2"/>
+    <ActorLink value="TankCanonMainActor"/>
+    <SourceBone value="BMuzzle01"/>
+    <DirectionBone value="BMuzzleVec01"/>
+  </Weapon>
+  <Weapon id="TankMachinegun">
+    <UIName value="Machinegun"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="3"/>
+    <ScanRange value="3"/>
+    <Period value="0.5"/>
+    <ActorLink value="TankMachinegunMainActor"/>
+  </Weapon>
+
+</catalog>

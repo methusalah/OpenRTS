@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Weapon id="StdWeapon">
+    <UIName value="Arme standard qui pue"/>
+    <EffectLink value="StdDoubleShot"/>
+    <Range value="5"/>
+    <ScanRange value="7"/>
+    <Period value="5"/>
+  </Weapon>
+  <Weapon id="MeleeWeapon">
+    <UIName value="attaque au corps a corps"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="0.1"/>
+    <ScanRange value="5"/>
+    <Period value="4"/>
+  </Weapon>
+  <Weapon id="Rifle">
+    <UIName value="fusil standard"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="5"/>
+    <ScanRange value="5"/>
+    <Period value="4"/>
+  </Weapon>
+  <Weapon id="Battery">
+    <UIName value="battery de missile"/>
+    <EffectLink value="StdLauncher"/>
+    <Range value="6"/>
+    <ScanRange value="8"/>
+    <Period value="0.5"/>
+  </Weapon>
+</catalog>

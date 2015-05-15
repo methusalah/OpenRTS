@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Turret id="StdTurret">
+    <Speed value="200"/>
+    <IdleSpeed value="20"/>
+    <OnIdle value="ResetOnMove"/>
+    <BoneName value="BTurret01"/>
+  </Turret>
+</catalog>
