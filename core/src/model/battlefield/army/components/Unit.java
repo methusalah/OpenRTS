@@ -18,8 +18,6 @@ import model.builders.TurretBuilder;
 import model.builders.WeaponBuilder;
 import model.builders.actors.ModelActorBuilder;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 /**
  * A special Hicker that can move freely on the battle field and interact with other
  *
@@ -247,10 +245,4 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 	public Unit getNearest(Unit o1, Unit o2) {
 		return (Unit)super.getNearest(o1, o2);
 	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("UIName", UIName).toString();
-	}
-
 }
