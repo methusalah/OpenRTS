@@ -45,20 +45,16 @@ public class Commander {
 		}
 	}
 
-	public void select(String label, Point2D pos) {
+	public void select(long id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
 		if (moveAttack) {
-			act(label, pos);
-		} else if (isValid(label)) {
-			for (Unit u : armyManager.units) {
-				if (u.label.matches(label)) {
-					unselect();
-					select(u);
-					break;
-				}
-			}
+			act(id, pos);
+		} else if (EntityManager.isValidId(id)) {
+			Unit u = getUnit(id);
+			unselect();
+			select(u);
 		}
 		sendReportOrder();
 	}
@@ -75,7 +71,7 @@ public class Commander {
 	public void select(Point2D corner1, Point2D corner2) {
 		unselect();
 		AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
-		for (Unit u : armyManager.units) {
+		for (Unit u : armyManager.getUnits()) {
 			if (rect.contains(u.getPos2D())) {
 				select(u);
 			}
@@ -85,15 +81,17 @@ public class Commander {
 	}
 
 	private void select(Unit u) {
-		u.selected = true;
-		selection.add(u);
+		if (u != null) {
+			u.selected = true;
+			selection.add(u);
+		}
 	}
 
-	public void act(String label, Point2D pos) {
+	public void act(Long id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
-		Unit target = getUnit(label);
+		Unit target = getUnit(id);
 		for (Unit u : selection) {
 			u.group.clear();
 			u.group.addAll(selection);
@@ -139,24 +137,16 @@ public class Commander {
 		sendReportOrder();
 	}
 
-	private boolean isValid(String label) {
-		return label != null && !label.isEmpty();
-	}
-
-	private Unit getUnit(String label) {
-		if (isValid(label)) {
-			for (Unit u : armyManager.units) {
-				if (u.label.matches(label)) {
-					return u;
-				}
-			}
+	private Unit getUnit(Long id) {
+		if (EntityManager.isValidId(id)) {
+			return armyManager.getUnit(id);
 		}
 		return null;
 	}
 
 	public void selectAll() {
 		unselect();
-		for (Unit u : armyManager.units) {
+		for (Unit u : armyManager.getUnits()) {
 			select(u);
 		}
 		sendReportOrder();
@@ -175,7 +165,7 @@ public class Commander {
 	public void updateSelectables(Point2D visionCenter) {
 		unitiesInContext.clear();
 		if (visionCenter != null) {
-			for (Unit u : armyManager.units) {
+			for (Unit u : armyManager.getUnits()) {
 				if (u.getPos2D().getDistance(visionCenter) < 10) {
 					if (!unitiesInContext.containsKey(u.UIName)) {
 						unitiesInContext.put(u.UIName, new Unity());

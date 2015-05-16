@@ -6,8 +6,8 @@ mainClassName = 'app.MainRTS'
 if (!hasProperty('mainClass')) {
 	ext.mainClass = 'app.MainRTS'
 }
-	
-	
+
+
 sourceCompatibility = 1.7
 version = '1.0'
 
@@ -42,7 +42,7 @@ dependencies {
 	//	compile 'com.google.code.gson:gson:2.3.1'
 	compile 'org.bushe:eventbus:1.4'
 	//	compile 'com.google.guava:guava:18.0'
-	//	compile 'org.apache.commons:commons-lang3:3.3.2'
+	compile 'org.apache.commons:commons-lang3:3.3.2'
 	//	compile 'org.reflections:reflections:0.9.8'
 	testCompile 'org.testng:testng:6.8'
 }
@@ -70,10 +70,11 @@ eclipse.classpath.file {
 
 sourceSets {
 	main {
-		java { srcDir 'src'} 
+		java { srcDir 'src'}
 		resources { srcDir 'assets' }
 	}
-	test { java { srcDir 'test' } }
+	test { java { srcDir 'test'
+		} }
 }
 
 //sets up the Android Eclipse project, using the old Ant based build.

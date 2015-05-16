@@ -9,6 +9,7 @@ import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 
+import model.EntityManager;
 import model.battlefield.map.Trinket;
 import model.builders.TrinketBuilder;
 import model.editor.Pencil;
@@ -82,9 +83,9 @@ public class TrinketTool extends Tool {
 
 	private void remove() {
 		Trinket toRemove = null;
-		if (isValid(manager.pointedSpatialLabel)) {
+		if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
 			for (Trinket t : manager.battlefield.map.trinkets) {
-				if (t.label.matches(manager.pointedSpatialLabel)) {
+				if (t.getId() == manager.getPointedSpatialEntityId()) {
 					toRemove = t;
 					break;
 				}
@@ -100,9 +101,9 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = null;
-			if (isValid(manager.pointedSpatialLabel)) {
+			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
 				for (Trinket t : manager.battlefield.map.trinkets) {
-					if (t.label.matches(manager.pointedSpatialLabel)) {
+					if (t.getId() == manager.getPointedSpatialEntityId()) {
 						actualTrinket = t;
 						moveOffset = pencil.getCoord().getSubtraction(t.pos.get2D());
 						break;
@@ -123,9 +124,9 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = null;
-			if (isValid(manager.pointedSpatialLabel)) {
+			if (EntityManager.isValidId((manager.getPointedSpatialEntityId()))) {
 				for (Trinket t : manager.battlefield.map.trinkets) {
-					if (t.label.matches(manager.pointedSpatialLabel)) {
+					if (t.getId() == manager.getPointedSpatialEntityId()) {
 						actualTrinket = t;
 						break;
 					}
@@ -135,10 +136,6 @@ public class TrinketTool extends Tool {
 		if (actualTrinket != null) {
 			actualTrinket.yaw = pencil.getCoord().getSubtraction(actualTrinket.pos.get2D()).getAngle();
 		}
-	}
-
-	private boolean isValid(String label) {
-		return label != null && !label.isEmpty();
 	}
 
 	@Override

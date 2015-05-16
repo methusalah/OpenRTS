@@ -85,11 +85,11 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					break;
 				case SELECT:
 					if (!endSelection()) {
-						ctrl.model.commander.select(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord());
+						ctrl.model.commander.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					}
 					break;
 				case ACTION:
-					ctrl.model.commander.act(ctrl.spatialSelector.getSpatialLabel(), getSpatialCoord());
+					ctrl.model.commander.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
 					ctrl.model.commander.setMoveAttack();
@@ -120,7 +120,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 		AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
 
 		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ctrl.model.battlefield.armyManager.units) {
+		for (Unit u : ctrl.model.battlefield.armyManager.getUnits()) {
 			if (rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
 				inSelection.add(u);
 			}
