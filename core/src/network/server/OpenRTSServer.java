@@ -1,27 +1,31 @@
-package network.client;
+package network.server;
 
 import java.io.IOException;
 
 import network.msg.HelloMessage;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.network.Client;
 import com.jme3.network.Network;
+import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.JmeContext;
 
-public class ClientMain extends SimpleApplication {
+public class OpenRTSServer extends SimpleApplication {
+
+	public static final int PORT = 6143;
+
 	public static void main(String[] args) {
-		ClientMain app = new ClientMain();
-		app.start(JmeContext.Type.Display); // standard display type
+		OpenRTSServer app = new OpenRTSServer();
+		app.start(JmeContext.Type.Headless); // headless type for servers!
 	}
 
+	@Override
 	public void simpleInitApp() {
-		Client myClient;
+		Server myServer;
 		try {
-			myClient = Network.connectToServer("localhost", 6143);
-			myClient.start();
-			myClient.addMessageListener(new ClientListener(), HelloMessage.class);
+			myServer = Network.createServer(PORT, PORT);
+			myServer.start();
+			myServer.addMessageListener(new ServerListener(), HelloMessage.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
