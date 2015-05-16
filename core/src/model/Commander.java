@@ -48,6 +48,9 @@ public class Commander {
     }
     
     public void select(String label, Point2D pos) {
+		if (pos == null) {
+			return;
+		}
         if(moveAttack)
             act(label, pos);
         else if(isValid(label))
