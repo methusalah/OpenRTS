@@ -84,6 +84,9 @@ public class Commander {
     }
     
     public void act(String label, Point2D pos) {
+		if (pos == null) {
+			return;
+		}
         Unit target = getUnit(label);
         for(Unit u : selection){
             u.group.clear();
