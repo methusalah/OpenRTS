@@ -10,6 +10,7 @@ import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 
+import model.EntityManager;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 import model.builders.UnitBuilder;
@@ -73,7 +74,7 @@ public class UnitTool extends Tool {
 
 	private void add() {
 		Point2D coord = pencil.getCoord();
-		for (Unit u : manager.battlefield.armyManager.units) {
+		for (Unit u : manager.battlefield.armyManager.getUnits()) {
 			if (u.getPos2D().equals(coord)) {
 				coord = coord.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
 			}
@@ -87,12 +88,11 @@ public class UnitTool extends Tool {
 	}
 
 	private void remove() {
-		if (isValid(manager.pointedSpatialLabel)) {
-			for (Unit u : manager.battlefield.armyManager.units)
-				if (u.label.matches(manager.pointedSpatialLabel)) {
-					manager.battlefield.engagement.removeUnit(u);
-					break;
-				}
+		if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
+			Unit u = manager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
+			if (u != null) {
+				manager.battlefield.engagement.removeUnit(u);
+			}
 		}
 	}
 
@@ -100,13 +100,12 @@ public class UnitTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualUnit = null;
-			if (isValid(manager.pointedSpatialLabel)) {
-				for (Unit u : manager.battlefield.armyManager.units)
-					if (u.label.matches(manager.pointedSpatialLabel)) {
-						actualUnit = u;
-						moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
-						break;
-					}
+			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
+				Unit u = manager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
+				if (u != null) {
+					actualUnit = u;
+					moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
+				}
 			}
 		}
 		if (actualUnit != null) {
@@ -118,22 +117,17 @@ public class UnitTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualUnit = null;
-			if (isValid(manager.pointedSpatialLabel)) {
-				for (Unit u : manager.battlefield.armyManager.units)
-					if (u.label.matches(manager.pointedSpatialLabel)) {
-						actualUnit = u;
-						break;
-					}
+			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
+				Unit u = manager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
+				if (u != null) {
+					actualUnit = u;
+				}
 			}
 		}
 		if (actualUnit != null) {
 			actualUnit.yaw = pencil.getCoord().getSubtraction(actualUnit.getPos2D()).getAngle();
 			actualUnit.direction = Point3D.UNIT_X.getRotationAroundZ(actualUnit.yaw);
 		}
-	}
-
-	private boolean isValid(String label) {
-		return label != null && !label.isEmpty();
 	}
 
 	@Override

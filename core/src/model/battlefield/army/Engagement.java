@@ -17,55 +17,56 @@ import org.simpleframework.xml.Root;
 
 /**
  * Stores units and factions, and provide a serializable version of the initial situation
- */ 
+ */
 @Root
 public class Engagement {
-    public Battlefield battlefield;
-    public BuilderLibrary lib;
-    public List<Faction> factions = new ArrayList<>();
-    
-    @ElementList
-    public List<SerializableUnit> initialEngagement = new ArrayList<>();
+	public Battlefield battlefield;
+	public BuilderLibrary lib;
+	public List<Faction> factions = new ArrayList<>();
 
-    public Engagement(){
-        Faction f1 = new Faction(Color.red, "1");
-        Faction f2 = new Faction(Color.blue, "2");
-        f1.setEnnemy(f2);
-        factions.add(f1);
-        factions.add(f2);
-    }
-    
-    public Engagement(Battlefield battlefield, BuilderLibrary lib) {
-        Faction f1 = new Faction(Color.red, "1");
-        Faction f2 = new Faction(Color.blue, "2");
-        f1.setEnnemy(f2);
-        factions.add(f1);
-        factions.add(f2);
-        
-        this.lib = lib;
-        this.battlefield = battlefield;
-    }
-    
-    public void addUnit(Unit u){
-        battlefield.armyManager.registerUnit(u);
-    }
-    
-    public void removeUnit(Unit u){
-        battlefield.armyManager.unregisterUnit(u);
-    }
-    
-    public void resetEngagement(){
-    	LogUtil.logger.info("reseting engagement");
-        battlefield.armyManager.reset();
-        
-        for(SerializableUnit up : initialEngagement)
-            battlefield.armyManager.registerUnit(up.getUnit(lib, factions));
-    }
-    
-    public void saveEngagement(){
-    	initialEngagement.clear();
-    	for(Unit u : battlefield.armyManager.units)
-    		initialEngagement.add(new SerializableUnit(u));
-    		
-    }
+	@ElementList
+	public List<SerializableUnit> initialEngagement = new ArrayList<>();
+
+	public Engagement() {
+		Faction f1 = new Faction(Color.red, "1");
+		Faction f2 = new Faction(Color.blue, "2");
+		f1.setEnnemy(f2);
+		factions.add(f1);
+		factions.add(f2);
+	}
+
+	public Engagement(Battlefield battlefield, BuilderLibrary lib) {
+		Faction f1 = new Faction(Color.red, "1");
+		Faction f2 = new Faction(Color.blue, "2");
+		f1.setEnnemy(f2);
+		factions.add(f1);
+		factions.add(f2);
+
+		this.lib = lib;
+		this.battlefield = battlefield;
+	}
+
+	public void addUnit(Unit u) {
+		battlefield.armyManager.registerUnit(u);
+	}
+
+	public void removeUnit(Unit u) {
+		battlefield.armyManager.unregisterUnit(u);
+	}
+
+	public void resetEngagement() {
+		LogUtil.logger.info("reseting engagement");
+		battlefield.armyManager.reset();
+
+		for (SerializableUnit up : initialEngagement) {
+			battlefield.armyManager.registerUnit(up.getUnit(lib, factions));
+		}
+	}
+
+	public void saveEngagement() {
+		initialEngagement.clear();
+		for (Unit u : battlefield.armyManager.getUnits()) {
+			initialEngagement.add(new SerializableUnit(u));
+		}
+	}
 }

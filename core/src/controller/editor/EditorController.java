@@ -21,53 +21,54 @@ import de.lessvoid.nifty.Nifty;
  * @author Benoît
  */
 public class EditorController extends Controller {
-    Point2D screenCoord;
-    
-    public EditorController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
-        super(model, view, inputManager, cam);
+	Point2D screenCoord;
 
-        inputInterpreter = new EditorInputInterpreter(this);
-        guiController = new EditorGUIController(nifty, this);
+	public EditorController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
+		super(model, view, inputManager, cam);
 
-        model.commander.registerListener(this);
-        
-        cameraManager = new IsometricCameraManager(cam, 10, model);
-    }
+		inputInterpreter = new EditorInputInterpreter(this);
+		guiController = new EditorGUIController(nifty, this);
 
-    @Override
-    public void update(float elapsedTime) {
-//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
-        model.toolManager.pointedSpatialLabel = spatialSelector.getSpatialLabel();
-        Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
-        if(coord != null && model.battlefield.map.isInBounds(coord)){
-            model.toolManager.updatePencilsPos(coord);
-            view.editorRend.drawPencil();
-        }
-        
-        guiController.update();
-    }
+		model.commander.registerListener(this);
 
-    @Override
-    public void manageEvent() {
-    }
+		cameraManager = new IsometricCameraManager(cam, 10, model);
+	}
 
-    @Override
-    public void stateAttached(AppStateManager stateManager) {
-        super.stateAttached(stateManager);
-        inputManager.setCursorVisible(true);
-        view.rootNode.attachChild(view.editorRend.mainNode);
-        guiController.activate();
-        model.battlefield.engagement.resetEngagement();
-    }
+	@Override
+	public void update(float elapsedTime) {
+		//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
+		model.toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
+		model.toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
+		Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
+		if(coord != null && model.battlefield.map.isInBounds(coord)){
+			model.toolManager.updatePencilsPos(coord);
+			view.editorRend.drawPencil();
+		}
 
-    @Override
-    public void stateDetached(AppStateManager stateManager) {
-    	model.battlefield.engagement.saveEngagement();
-    	model.battlefield.map.prepareForBattle();
-        super.stateDetached(stateManager);
-        view.rootNode.detachChild(view.editorRend.mainNode);
-    }
-    
-    
-    
+		guiController.update();
+	}
+
+	@Override
+	public void manageEvent() {
+	}
+
+	@Override
+	public void stateAttached(AppStateManager stateManager) {
+		super.stateAttached(stateManager);
+		inputManager.setCursorVisible(true);
+		view.rootNode.attachChild(view.editorRend.mainNode);
+		guiController.activate();
+		model.battlefield.engagement.resetEngagement();
+	}
+
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		model.battlefield.engagement.saveEngagement();
+		model.battlefield.map.prepareForBattle();
+		super.stateDetached(stateManager);
+		view.rootNode.detachChild(view.editorRend.mainNode);
+	}
+
+
+
 }
