@@ -1,6 +1,11 @@
 package app;
+
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
@@ -23,7 +28,13 @@ import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
-public abstract class MySimpleApplication extends Application implements PhysicsTickListener {
+import exception.TechnicalException;
+import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
+
+public abstract class OpenRTSApplication extends Application implements PhysicsTickListener {
+
+	public static OpenRTSApplication appInstance;
 
     protected Node rootNode = new Node("Root Node");
     protected Node guiNode = new Node("Gui Node");
@@ -35,7 +46,6 @@ public abstract class MySimpleApplication extends Application implements Physics
     protected StatsView statsView;
 
     protected AzertyFlyByCamera flyCam;
-    protected boolean showSettings = true;
 
     private AppActionListener actionListener = new AppActionListener();
 
@@ -64,33 +74,21 @@ public abstract class MySimpleApplication extends Application implements Physics
         }
     }
 
-    public MySimpleApplication(){
-        super();
-		Logger.getLogger("").setLevel(Level.WARNING);
-		AppSettings settings = new AppSettings(true);
-		settings.setBitsPerPixel(32);
-		settings.setWidth(800);
-		settings.setHeight(600);
-		settings.setTitle("Mon test � moi qui casse tout");
-		settings.setVSync(true);
-		setShowSettings(false);
-		setSettings(settings);
-    }
-
     @Override
     public void start(){
         // set some default settings in-case
         // settings dialog is not shown
-        if (settings == null)
+        if (settings == null){
             setSettings(new AppSettings(true));
-
-        // show settings dialog
-        if (showSettings){
-        	// TODO erreur ici apres l'installation du nightly build d'avril, � voir si �a marche.
-            if (!JmeSystem.showSettingsDialog(settings, showSettings))
-                return;
+            settings.setWidth(1024);
+            settings.setHeight(768);
+			try {
+				settings.load("openrts.example");
+			} catch (BackingStoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
-
         super.start();
     }
 
@@ -104,14 +102,6 @@ public abstract class MySimpleApplication extends Application implements Physics
 
     public Node getRootNode() {
         return rootNode;
-    }
-
-    public boolean isShowSettings() {
-        return showSettings;
-    }
-
-    public void setShowSettings(boolean showSettings) {
-        this.showSettings = showSettings;
     }
 
     private void initTexts(){
@@ -221,4 +211,46 @@ public abstract class MySimpleApplication extends Application implements Physics
         return bulletAppState.getPhysicsSpace();
     }
 
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+	}
+
+	public void toggleToFullscreen() {
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		DisplayMode[] modes = device.getDisplayModes();
+		int i = 0; // note: there are usually several, let's pick the first
+		settings.setResolution(modes[i].getWidth(), modes[i].getHeight());
+		settings.setFrequency(modes[i].getRefreshRate());
+		settings.setBitsPerPixel(modes[i].getBitDepth());
+		settings.setFullscreen(device.isFullScreenSupported());
+		appInstance.setSettings(settings);
+		appInstance.restart(); // restart the context to apply changes
+	}
+
+	public static void main(OpenRTSApplication app) {
+		appInstance = app;
+		Logger.getLogger("").setLevel(Level.INFO);
+		LogUtil.init();
+		LogUtil.logger.info("seed : " + MyRandom.SEED);
+
+		appInstance.start();
+	}
+	
+	public void changeSettings(){
+		JmeSystem.showSettingsDialog(settings, false);
+		if(settings.isFullscreen()){
+			LogUtil.logger.info("Fullscreen not yet supported");
+			settings.setFullscreen(false);
+		}
+		
+
+		try {
+			settings.save("openrts.example");
+		} catch (BackingStoreException e) {
+			throw new TechnicalException(e);
+		}
+		appInstance.setSettings(settings);
+		appInstance.restart(); // restart the context to apply changes
+		cam.resize(settings.getWidth(), settings.getHeight(), true);
+	}
 }

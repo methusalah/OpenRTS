@@ -45,6 +45,7 @@ public class ToolManager {
     
     double delay = 0;
     long lastAction = 0;
+    long timer = 0;
     
     List<ActionListener> listeners = new ArrayList<>();
     
@@ -121,7 +122,7 @@ public class ToolManager {
             actualTool.secondaryAction();
     }
 
-    long timer = 0;
+
     public void updateTiles(List<Tile> tiles){
         List<Tile> extended = getExtendedZone(tiles);
         

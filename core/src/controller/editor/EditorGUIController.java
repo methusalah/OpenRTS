@@ -6,6 +6,10 @@ package controller.editor;
 
 import java.util.List;
 
+import app.MainRTS;
+
+import com.jme3.system.JmeSystem;
+
 import model.builders.MapStyleBuilder;
 import controller.Controller;
 import controller.GUIController;
@@ -109,7 +113,11 @@ public class EditorGUIController extends GUIController {
     }
     
     public void newMap(){
-        ctrl.model.setNewBattlefield();
+    	ctrl.model.setNewBattlefield();
+    }
+    
+    public void settings(){
+    	MainRTS.appInstance.changeSettings();
     }
     
     public void toggleGrid(){

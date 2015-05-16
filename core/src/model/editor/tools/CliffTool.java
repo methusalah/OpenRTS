@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.editor.tools;
 
@@ -15,96 +14,99 @@ import model.editor.Set;
 import model.editor.ToolManager;
 
 /**
- *
  * @author Benoît
  */
 public class CliffTool extends Tool {
-    private static final String RAISE_LOW_OP = "raise/low";
-    private static final String FLATTEN_OP = "flatten";
+	private static final String RAISE_LOW_OP = "raise/low";
+	private static final String FLATTEN_OP = "flatten";
 
-    int maintainedlevel;
+	int maintainedlevel;
 
-    public CliffTool(ToolManager manager) {
-        super(manager, RAISE_LOW_OP, FLATTEN_OP);
-        ArrayList<String> iconPaths = new ArrayList<>();
-        for(CliffShapeBuilder b : manager.battlefield.map.style.cliffShapeBuilders)
-            iconPaths.add(b.getIconPath());
-        set = new Set(iconPaths, true);
-    }
-    
-    @Override
-    protected void createPencil() {
-        pencil = new Pencil(manager.battlefield.map);
-        pencil.snapPair = true;
-        pencil.size = 4;
-        pencil.sizeIncrement = 2;
-        pencil.setUniqueMode();
-        pencil.strengthIncrement = 0;
-    }
+	public CliffTool(ToolManager manager) {
+		super(manager, RAISE_LOW_OP, FLATTEN_OP);
+		ArrayList<String> iconPaths = new ArrayList<>();
+		for (CliffShapeBuilder b : manager.battlefield.map.style.cliffShapeBuilders) {
+			iconPaths.add(b.getIconPath());
+		}
+		set = new Set(iconPaths, true);
+	}
 
+	@Override
+	protected void createPencil() {
+		pencil = new Pencil(manager.battlefield.map);
+		pencil.snapPair = true;
+		pencil.size = 4;
+		pencil.sizeIncrement = 2;
+		pencil.setUniqueMode();
+		pencil.strengthIncrement = 0;
+	}
 
-    @Override
-    public void primaryAction() {
-        switch (actualOp){
-            case RAISE_LOW_OP : raise(); break;
-            case FLATTEN_OP : flatten(); break;
-        }
-    }
+	@Override
+	public void primaryAction() {
+		switch (actualOp) {
+			case RAISE_LOW_OP:
+				raise();
+				break;
+			case FLATTEN_OP:
+				flatten();
+				break;
+		}
+	}
 
-    @Override
-    public void secondaryAction() {
-        switch (actualOp){
-            case RAISE_LOW_OP : low(); break;
-            case FLATTEN_OP : break;
-        }
-    }
-    
-    private void raise(){
-        if(!pencil.maintained){
-            pencil.maintain();
-            maintainedlevel = pencil.getCenterTile().level+1;
-            if(maintainedlevel > 2)
-                maintainedlevel = 2;
-        }
-        changeLevel();
-    }
-    
-    private void low(){
-        if(!pencil.maintained){
-            pencil.maintain();
-            maintainedlevel = pencil.getCenterTile().level-1;
-            if(maintainedlevel < 0)
-                maintainedlevel = 0;
-        }
-        changeLevel();
-    }
-    
-    private void flatten(){
-        if(!pencil.maintained){
-            pencil.maintain();
-            maintainedlevel = pencil.getCenterTile().level;
-        }
-        changeLevel();
-    }
-    
-    private void changeLevel(){
-        List<Tile> group = pencil.getTiles();
-        
-        List<Tile> toUpdate = new ArrayList<>();
-        for(Tile t : group){
-            t.level = maintainedlevel;
-            if(t.ramp != null)
-                toUpdate.addAll(t.ramp.destroy());
-        }
-        group.addAll(toUpdate);
-        manager.updateTiles(group);
-    }
-    
+	@Override
+	public void secondaryAction() {
+		switch (actualOp) {
+			case RAISE_LOW_OP:
+				low();
+				break;
+			case FLATTEN_OP:
+				break;
+		}
+	}
 
-    public void buildShape(Cliff cliff){
-        manager.battlefield.map.style.cliffShapeBuilders.get(set.actual).build(cliff);
-    }
+	private void raise() {
+		if (!pencil.maintained) {
+			pencil.maintain();
+			maintainedlevel = pencil.getCenterTile().level + 1;
+			if (maintainedlevel > 2)
+				maintainedlevel = 2;
+		}
+		changeLevel();
+	}
 
+	private void low() {
+		if (!pencil.maintained) {
+			pencil.maintain();
+			maintainedlevel = pencil.getCenterTile().level - 1;
+			if (maintainedlevel < 0)
+				maintainedlevel = 0;
+		}
+		changeLevel();
+	}
 
-    
+	private void flatten() {
+		if (!pencil.maintained) {
+			pencil.maintain();
+			maintainedlevel = pencil.getCenterTile().level;
+		}
+		changeLevel();
+	}
+
+	private void changeLevel() {
+		List<Tile> group = pencil.getTiles();
+
+		List<Tile> toUpdate = new ArrayList<>();
+		for (Tile t : group) {
+			t.level = maintainedlevel;
+			if (t.ramp != null)
+				toUpdate.addAll(t.ramp.destroy());
+		}
+		group.addAll(toUpdate);
+		manager.updateTiles(group);
+	}
+
+	public void buildShape(Cliff cliff) {
+		manager.battlefield.map.style.cliffShapeBuilders.get(set.actual).build(cliff);
+	}
+
 }

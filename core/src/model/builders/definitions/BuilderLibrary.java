@@ -4,6 +4,7 @@
  */
 package model.builders.definitions;
 
+import exception.TechnicalException;
 import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
@@ -159,7 +160,7 @@ public class BuilderLibrary {
         List<T> res = new ArrayList<>();
         res.addAll((Collection<? extends T>) (builders.get(type)).values());
         if(res.isEmpty())
-            throw new IllegalArgumentException("type '"+type+"' dosen't seem to have any element.");
+			throw new TechnicalException("type '" + type + "' dosen't seem to have any element.");
         return res;
     }
 

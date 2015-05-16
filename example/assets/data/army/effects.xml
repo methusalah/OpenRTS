@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Effect id="StdDoubleShot">
+    <Type value="Persistent"/>
+    <PeriodCount value="2"/>
+    <DurationList value="0"/>
+    <DurationList value="0.5"/>
+    <RangeList value="0"/>
+    <RangeList value="0.1"/>
+    <EffectLinkList value="StdLauncher"/>
+    <EffectLinkList value="StdLauncher"/>
+  </Effect>
+  <Effect id="StdDamage">
+    <Type value="Damage"/>
+    <Amount value="9"/>
+  </Effect>
+  <Effect id="StdHeavyDamage">
+    <Type value="Damage"/>
+    <Amount value="8"/>
+  </Effect>
+  <Effect id="StdLauncher">
+    <Type value="Launcher"/>
+    <EffectLinkList value="StdDamage"/>
+    <ProjectileLink value="StdProjectile"/>
+  </Effect>
+  <Effect id="BatteryPersistent">
+    <Type value="Persistent"/>
+    <PeriodCount value="6"/>
+    <DurationList value="0.2"/>
+    <DurationList value="0.2"/>
+    <RangeList value="0"/>
+    <RangeList value="0.1"/>
+    <EffectLinkList value="BatteryLaunch"/>
+    <EffectLinkList value="BatteryLaunch"/>
+  </Effect>
+  <Effect id="BatteryLaunch">
+    <Type value="Launcher"/>
+    <EffectLinkList value="StdDamage"/>
+    <ProjectileLink value="BatteryMissile"/>
+  </Effect>
+</catalog>

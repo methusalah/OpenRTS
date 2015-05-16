@@ -13,4 +13,8 @@ public class FunctionalException extends RuntimeException {
         super(message);
     }
 	
+	public FunctionalException(Throwable cause) {
+		super(cause);
+	}
+
 }

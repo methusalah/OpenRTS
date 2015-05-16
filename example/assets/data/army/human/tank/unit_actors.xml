@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Actor id="Tank">
+    <Type value="Model"/>
+    <ModelPath value="human/htank/htank03c.mesh.xml"/>
+    <Scale value="1"/>
+    <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onMove" ActorLink="LeftDust"/>
+    <ActorList Trigger="onMove" ActorLink="RightDust"/>
+    <ActorList Trigger="onMove" ActorLink="LeftMud"/>
+    <ActorList Trigger="onMove" ActorLink="RightMud"/>
+    <ActorList Trigger="onWait" ActorLink="Idle"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankDestroyed"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankDestroyedGlow"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankWreck"/>
+    <ActorList Trigger="onDestroyed" ActorLink="TankExplosion"/>
+  </Actor>
+
+  <Actor id="LeftMud">
+    <Type value="Particle"/>
+    <SpritePath value="particles/mudd.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BDust01"/>
+    <DirectionBone value="BDustVec01"/>
+    <Velocity value="0.8"/>
+    <Fanning value="0.5"/>
+    <MaxCount value="60"/>
+    <PerSecond value="40"/>
+    <StartSize value="0.05"/>
+    <EndSize value="0.05"/>
+    <StartColor R="144" G="108" B="63" A="255"/>
+    <EndColor R="144" G="108" B="63" A="255"/>
+    <MinLife value="0.5"/>
+    <MaxLife value="0.8"/>
+    <Gravity value="true"/>
+    <StartVariation value="0.1"/>
+  </Actor>
+  
+  <Actor id="RightMud">
+    <Type value="Particle"/>
+    <SpritePath value="particles/mudd.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BDust02"/>
+    <DirectionBone value="BDustVec02"/>
+    <Velocity value="0.8"/>
+    <Fanning value="0.5"/>
+    <MaxCount value="60"/>
+    <PerSecond value="40"/>
+    <StartSize value="0.05"/>
+    <EndSize value="0.05"/>
+    <StartColor R="144" G="108" B="63" A="255"/>
+    <EndColor R="144" G="108" B="63" A="255"/>
+    <MinLife value="0.5"/>
+    <MaxLife value="0.8"/>
+    <Gravity value="true"/>
+    <StartVariation value="0.1"/>
+  </Actor>
+  
+  <Actor id="LeftDust">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BDust01"/>
+    <DirectionBone value="BDustVec01"/>
+    <MaxCount value="60"/>
+    <PerSecond value="30"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="128"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="1.1"/>
+    <MaxLife value="1.1"/>
+    <StartVariation value="0.1"/>
+    <RotationSpeed value="360"/>
+  </Actor>
+  
+  <Actor id="RightDust">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BDust02"/>
+    <DirectionBone value="BDustVec02"/>
+    <MaxCount value="60"/>
+    <PerSecond value="30"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="128"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="1.1"/>
+    <MaxLife value="1.3"/>
+    <StartVariation value="0.1"/>
+    <RotationSpeed value="360"/>
+  </Actor>
+
+
+
+
+
+
+  <Actor id="TankDestroyed">
+    <Type value="Particle"/>
+<!--    <SpritePath value="particles/flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <SpritePath value="particles/explosion01.png"/>
+    <NbCol value="7"/>
+    <NbRow value="7"/>
+    <Add value="false"/>
+    <Duration value="600"/>
+    <MaxCount value="200"/>
+    <PerSecond value="400"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="200"/>
+    <EndColor R="255" G="255" B="255" A="100"/>
+    <StartVariation value="0.6"/>
+    <MinLife value="0.8"/>
+    <MaxLife value="0.8"/>
+  </Actor>
+  
+  <Actor id="TankDestroyedGlow">
+    <Type value="Particle"/>
+    <SpritePath value="particles/glow01.png"/>
+    <EmissionBone value="B03"/>
+    <DirectionBone value="B04"/>
+    <Add value="true"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <Duration value="0"/>
+    <StartSize value="1.5"/>
+    <EndSize value="0.7"/>
+    <StartColor R="255" G="255" B="0" A="255"/>
+    <EndColor R="100" G="0" B="0" A="200"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
+  </Actor>   
+  
+  <Actor id="TankWreck">
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck1" Prob="0.4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck2" Prob="0.4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck3" Prob="0.4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck4" Prob="0.4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="TankWreck5" Prob="0.4"/>
+  </Actor>
+  
+  <Actor id="TankWreck1">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece01.mesh.xml"/>
+      <MassCenterBone value="BRootDebris01"/>
+      <Mass value="1"/>
+      <Life value="4"/>
+  </Actor>
+  
+  <Actor id="TankWreck2">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece02.mesh.xml"/>
+      <MassCenterBone value="BRootDebris02"/>      
+      <Mass value="1"/>
+      <Life value="4"/>
+  </Actor>
+  
+  <Actor id="TankWreck3">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece03.mesh.xml"/>
+      <MassCenterBone value="BRootDebris03"/>      
+      <Mass value="1"/>
+      <Life value="4"/>
+  </Actor>
+  <Actor id="TankWreck4">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece04.mesh.xml"/>
+      <MassCenterBone value="BRootDebris04"/>      
+      <Mass value="1"/>
+      <Life value="4"/>
+  </Actor>
+  
+  <Actor id="TankWreck5">
+      <Type value="Physic"/>
+      <ModelPath value="human/htank/htank03c_piece05.mesh.xml"/>
+      <MassCenterBone value="BRootDebris05"/>      
+      <Mass value="1"/>
+      <Life value="4"/>
+  </Actor>
+  
+  <Actor id="TankExplosion">
+    <Type value="Sound"/>
+    <SoundPath value="monoexplosion1.wav"/>
+    <Volume value="1"/>
+    <Looping value="false"/>
+    <Positional value="true"/>
+  </Actor>
+  
+</catalog>

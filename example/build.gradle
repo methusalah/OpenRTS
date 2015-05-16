@@ -2,9 +2,9 @@ apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-mainClassName = 'Application'
+mainClassName = 'Game'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'Application'
+	ext.mainClass = 'Game'
 }
 
 
