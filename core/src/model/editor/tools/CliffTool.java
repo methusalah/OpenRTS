@@ -10,8 +10,8 @@ import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.builders.CliffShapeBuilder;
-import model.editor.Pencil;
 import model.editor.AssetSet;
+import model.editor.Pencil;
 import model.editor.ToolManager;
 
 /**
@@ -34,7 +34,7 @@ public class CliffTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(ModelManager.battlefield.map);
+		pencil = new Pencil();
 		pencil.snapPair = true;
 		pencil.size = 4;
 		pencil.sizeIncrement = 2;

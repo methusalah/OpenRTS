@@ -25,7 +25,7 @@ public class ModelManager {
 
 	public static Battlefield battlefield;
 
-	public static ToolManager toolManager = new ToolManager();
+	public static ToolManager toolManager;
 
 	final static DefParser parser;
 	static double nextUpdate = 0;
@@ -38,6 +38,7 @@ public class ModelManager {
 
 		factory = new BattlefieldFactory(lib);
 		setNewBattlefield();
+		toolManager = new ToolManager();
 	}
 
 	// no instancing from outside
@@ -69,8 +70,6 @@ public class ModelManager {
 
 	private static void setBattlefield(Battlefield battlefield) {
 		ModelManager.battlefield = battlefield;
-		CommandManager.armyManager = battlefield.armyManager;
-		CommandManager.map = battlefield.map;
 		LogUtil.logger.info("Reseting view...");
 		notifyListeners(BATTLEFIELD_UPDATED_EVENT);
 		LogUtil.logger.info("Done.");

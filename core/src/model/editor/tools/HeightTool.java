@@ -31,7 +31,7 @@ public class HeightTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(ModelManager.battlefield.map);
+		pencil = new Pencil();
 		pencil.size = 4;
 		pencil.sizeIncrement = 1;
 		pencil.strength = 0.5;

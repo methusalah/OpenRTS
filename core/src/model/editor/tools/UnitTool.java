@@ -15,8 +15,8 @@ import model.ModelManager;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 import model.builders.UnitBuilder;
-import model.editor.Pencil;
 import model.editor.AssetSet;
+import model.editor.Pencil;
 import model.editor.ToolManager;
 
 /**
@@ -43,7 +43,7 @@ public class UnitTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(ModelManager.battlefield.map);
+		pencil = new Pencil();
 		pencil.sizeIncrement = 0;
 		pencil.strengthIncrement = 0;
 		pencil.setUniqueMode();

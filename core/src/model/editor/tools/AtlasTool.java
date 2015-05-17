@@ -13,8 +13,8 @@ import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.DoubleMap;
-import model.editor.Pencil;
 import model.editor.AssetSet;
+import model.editor.Pencil;
 import model.editor.ToolManager;
 
 /**
@@ -39,7 +39,7 @@ public class AtlasTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(ModelManager.battlefield.map);
+		pencil = new Pencil();
 		pencil.size = 2;
 		pencil.sizeIncrement = 0.25;
 		pencil.strength = 0.5;

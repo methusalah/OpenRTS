@@ -23,7 +23,7 @@ public class RampTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(ModelManager.battlefield.map);
+		pencil = new Pencil();
 		pencil.sizeIncrement = 0;
 		pencil.setUniqueMode();
 		pencil.strengthIncrement = 0;

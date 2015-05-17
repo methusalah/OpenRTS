@@ -69,7 +69,7 @@ public class CommandManager {
 	public void select(Point2D corner1, Point2D corner2) {
 		unselect();
 		AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
-		for (Unit u : armyManager.getUnits()) {
+		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
 			if (rect.contains(u.getPos2D())) {
 				select(u);
 			}
@@ -103,7 +103,7 @@ public class CommandManager {
 	}
 
 	private static void orderMove(Point2D p) {
-		FlowField ff = new FlowField(map, p);
+		FlowField ff = new FlowField(ModelManager.battlefield.map, p);
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {
@@ -115,7 +115,7 @@ public class CommandManager {
 	}
 
 	private static void orderAttack(Unit enemy) {
-		FlowField ff = new FlowField(map, enemy.getPos2D());
+		FlowField ff = new FlowField(ModelManager.battlefield.map, enemy.getPos2D());
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {
@@ -137,33 +137,27 @@ public class CommandManager {
 
 	private static Unit getUnit(Long id) {
 		if (EntityManager.isValidId(id)) {
-			return armyManager.getUnit(id);
+			return ModelManager.battlefield.armyManager.getUnit(id);
 		}
 		return null;
 	}
 
 	public static void selectAll() {
 		unselect();
-		for (Unit u : armyManager.getUnits()) {
+		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
 			select(u);
 		}
 		sendReportOrder();
 	}
 
 	public static void sendReportOrder() {
-		for (ReportEventListener l : listeners) {
-			l.manageEvent();
-		}
-	}
-
-	public static void registerListener(ReportEventListener l) {
-		listeners.add(l);
+		System.err.println("SendReportOrder");
 	}
 
 	public static void updateSelectables(Point2D visionCenter) {
 		unitiesInContext.clear();
 		if (visionCenter != null) {
-			for (Unit u : armyManager.getUnits()) {
+			for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
 				if (u.getPos2D().getDistance(visionCenter) < 10) {
 					if (!unitiesInContext.containsKey(u.UIName)) {
 						unitiesInContext.put(u.UIName, new Unity());
