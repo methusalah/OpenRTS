@@ -61,6 +61,7 @@ public class BattlefieldController extends Controller {
 
 	}
 
+	// TODO: See AppState.setEnabled => use it, this is a better implementation
 	public void togglePause(){
 		paused = !paused;
 		view.actorManager.pause(paused);
