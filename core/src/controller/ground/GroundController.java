@@ -5,7 +5,6 @@
 package controller.ground;
 
 import geometry.tools.LogUtil;
-import model.Model;
 import view.View;
 
 import com.jme3.app.state.AppStateManager;
@@ -21,29 +20,29 @@ import controller.cameraManagement.GroundCameraManager;
  */
 public class GroundController extends Controller {
 
-    public GroundController(Model model, View view, InputManager inputManager, Camera cam) {
-        super(model, view, inputManager, cam);
-        
-        inputInterpreter = new GroundInputInterpreter(this);
-        cameraManager = new GroundCameraManager(cam, model);
-    }
+	public GroundController(View view, InputManager inputManager, Camera cam) {
+		super(view, inputManager, cam);
 
-    
-    @Override
-    public void update(float elapsedTime) {
-    }
+		inputInterpreter = new GroundInputInterpreter(this);
+		cameraManager = new GroundCameraManager(cam);
+	}
 
-    @Override
-    public void manageEvent() {
-    }
 
-    @Override
-    public void stateAttached(AppStateManager stateManager) {
-        super.stateAttached(stateManager);
-        inputManager.setCursorVisible(false);
-        LogUtil.logger.info("ground controller on line");
-    }
-    
-    
-    
+	@Override
+	public void update(float elapsedTime) {
+	}
+
+	@Override
+	public void manageEvent() {
+	}
+
+	@Override
+	public void stateAttached(AppStateManager stateManager) {
+		super.stateAttached(stateManager);
+		inputManager.setCursorVisible(false);
+		LogUtil.logger.info("ground controller on line");
+	}
+
+
+
 }

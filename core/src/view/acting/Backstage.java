@@ -9,17 +9,12 @@ import java.util.List;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
-import model.battlefield.actors.AnimationActor;
-import model.battlefield.actors.ModelActor;
-import model.battlefield.actors.ParticleActor;
-import model.battlefield.actors.PhysicActor;
 import view.material.MaterialManager;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
 import com.jme3.asset.AssetManager;
-import com.jme3.audio.AudioData;
 import com.jme3.audio.AudioNode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.objects.PhysicsRigidBody;
@@ -70,38 +65,43 @@ public class Backstage implements AnimEventListener {
     public void render(){
         // first, the spatials attached to interrupted actor are detached
         for(Actor a : pool.grabDeletedActors()){
-            if(a.viewElements.spatial != null)
-                mainNode.detachChild(a.viewElements.spatial);
+            if(a.viewElements.spatial != null) {
+				mainNode.detachChild(a.viewElements.spatial);
+			}
             if(a.viewElements.particleEmitter != null){
             	a.viewElements.particleEmitter.setParticlesPerSec(0);
                 dyingEmitters.add(a.viewElements.particleEmitter);
                 a.viewElements.particleEmitter = null;                
             }
-            if(a.viewElements.selectionCircle != null)
-                mainNode.detachChild(a.viewElements.selectionCircle);
+            if(a.viewElements.selectionCircle != null) {
+				mainNode.detachChild(a.viewElements.selectionCircle);
+			}
         }
         List<ParticleEmitter> deleted = new ArrayList<>();
-    	for(ParticleEmitter pe : dyingEmitters)
-    		if(pe.getNumVisibleParticles() == 0){
+    	for(ParticleEmitter pe : dyingEmitters) {
+			if(pe.getNumVisibleParticles() == 0){
     			mainNode.detachChild(pe);
     			deleted.add(pe);
     		}
+		}
     	dyingEmitters.removeAll(deleted);
         
     	
     	
-        for(Actor a : pool.getActors())
-            switch (a.getType()){
-            	case "model" : modelPfm.perform((ModelActor)a); break;
+        for(Actor a : pool.getActors()) {
+			switch (a.getType()){
+            	case "model" : modelPfm.perform(a); break;
             }
+		}
 
-        for(Actor a : pool.getActors())
-            switch (a.getType()){
+        for(Actor a : pool.getActors()) {
+			switch (a.getType()){
                 case "physic" : physicPfm.perform(a); break;
                 case "animation" : animationPfm.perform(a); break;
                 case "particle" : particlePfm.perform(a); break;
                 case "sound" : soundPfm.perform(a); break;
             }
+		}
     }
     
     public void pause(boolean val){
@@ -115,27 +115,33 @@ public class Backstage implements AnimEventListener {
 	    		pausedPhysics.add(rb);
 	    	}
     	} else {
-    		for(PhysicsRigidBody rb : pausedPhysics)
-    			mainPhysicsSpace.add(rb);
+    		for(PhysicsRigidBody rb : pausedPhysics) {
+				mainPhysicsSpace.add(rb);
+			}
     	}
     	
 	}
 
     public void setEmmitersEnable(Spatial s, boolean val){
-    	if(s instanceof ParticleEmitter)
-    		((ParticleEmitter)s).setEnabled(!val);
-    	if(s instanceof Node)
-	        for(Spatial child : ((Node)s).getChildren())
-	        	setEmmitersEnable(child, val);
+    	if(s instanceof ParticleEmitter) {
+			((ParticleEmitter)s).setEnabled(!val);
+		}
+    	if(s instanceof Node) {
+			for(Spatial child : ((Node)s).getChildren()) {
+				setEmmitersEnable(child, val);
+			}
+		}
     }
     
     
     protected Spatial buildSpatial(String modelPath){
-        if(!models.containsKey(modelPath))
-            models.put(modelPath, assetManager.loadModel("models/"+modelPath));
+        if(!models.containsKey(modelPath)) {
+			models.put(modelPath, assetManager.loadModel("models/"+modelPath));
+		}
         Spatial res = models.get(modelPath).clone();
-        if(res == null)
-            LogUtil.logger.info(modelPath);
+        if(res == null) {
+			LogUtil.logger.info(modelPath);
+		}
         AnimControl control = res.getControl(AnimControl.class);
         if(control != null){
             control.addListener(this);

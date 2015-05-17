@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.editor.Pencil;
-import model.editor.Set;
+import model.editor.AssetSet;
 import model.editor.ToolManager;
 
 /**
@@ -15,7 +15,7 @@ import model.editor.ToolManager;
  */
 public abstract class Tool {
 	private List<String> operations;
-	protected Set set = null;
+	protected AssetSet set = null;
 	protected String actualOp;
 
 	ToolManager manager;
@@ -67,7 +67,7 @@ public abstract class Tool {
 		return set != null;
 	}
 
-	public Set getSet() {
+	public AssetSet getSet() {
 		return set;
 	}
 

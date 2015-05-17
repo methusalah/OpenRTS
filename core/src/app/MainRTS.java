@@ -5,14 +5,13 @@ import geometry.tools.LogUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.Model;
+import model.ModelManager;
 import view.View;
 import view.mapDrawing.MapRenderer;
 
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.system.AppSettings;
 
 import controller.Controller;
 import controller.battlefield.BattlefieldController;
@@ -20,7 +19,7 @@ import controller.editor.EditorController;
 import controller.ground.GroundController;
 
 public class MainRTS extends OpenRTSApplication implements ActionListener {
-	Model model;
+
 	View view;
 	MapRenderer tr;
 	BattlefieldController fieldCtrl;
@@ -42,16 +41,15 @@ public class MainRTS extends OpenRTSApplication implements ActionListener {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		model = new Model();
-		view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort, model);
+		view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-		fieldCtrl = new BattlefieldController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 		fieldCtrl.addListener(this);
-		editorCtrl = new EditorController(model, view, niftyDisplay.getNifty(), inputManager, cam);
+		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
 		editorCtrl.addListener(this);
-		groundCtrl = new GroundController(model, view, inputManager, cam);
+		groundCtrl = new GroundController(view, inputManager, cam);
 		groundCtrl.addListener(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
@@ -75,7 +73,7 @@ public class MainRTS extends OpenRTSApplication implements ActionListener {
 		listener.setRotation(cam.getRotation());
 		view.actorManager.render();
 		actualCtrl.update(maxedTPF);
-		model.updateConfigs();
+		ModelManager.updateConfigs();
 	}
 
 	@Override

@@ -13,6 +13,11 @@ public final class EntityManager {
 	public static long NOT_VALID_ID = -1;
 	private static long idx = 0;
 
+	// no instancing from outside
+	private EntityManager() {
+
+	}
+
 	public static long getNewEntityId() {
 		return idx++;
 	}

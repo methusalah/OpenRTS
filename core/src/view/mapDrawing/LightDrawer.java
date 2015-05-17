@@ -7,6 +7,7 @@ package view.mapDrawing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.ModelManager;
 import view.View;
 import view.math.Translator;
 
@@ -28,84 +29,84 @@ import com.jme3.shadow.EdgeFilteringMode;
  * @author Benoît
  */
 public class LightDrawer implements ActionListener {
-    
-    View view;
-    Node rootNode;
-    
-    AmbientLight al;
-    DirectionalLight sun;
-    DirectionalLight shadowCaster;
-    DirectionalLightShadowRenderer sr;
-    DirectionalLightShadowFilter sf;
 
-    public LightDrawer(View view, AssetManager am, Node rootNode, ViewPort vp) {
-        this.view = view;
-        this.rootNode = rootNode;
+	View view;
+	Node rootNode;
 
-        
-        FilterPostProcessor fpp = new FilterPostProcessor(am);
+	AmbientLight al;
+	DirectionalLight sun;
+	DirectionalLight shadowCaster;
+	DirectionalLightShadowRenderer sr;
+	DirectionalLightShadowFilter sf;
 
-        int SHADOWMAP_SIZE = 4096;
-        sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
-        sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-        sr.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
-//        vp.addProcessor(sr);
-
-        sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
-        sf.setEnabled(true);
-        sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-        sf.setShadowZExtend(SHADOWMAP_SIZE);
-        fpp.addFilter(sf);
+	public LightDrawer(View view, AssetManager am, Node rootNode, ViewPort vp) {
+		this.view = view;
+		this.rootNode = rootNode;
 
 
-        // Ambiant occlusion filter
-        SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
-//        fpp.addFilter(ssaoFilter);
-        // Glow filter
-        BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
-        fpp.addFilter(bloom);
-        vp.addProcessor(fpp);
-        
-        reset ();
-        updateLights();
-        
-    }
-    
-    public void reset(){
-    	rootNode.removeLight(al);
-    	rootNode.removeLight(sun);
-    	rootNode.removeLight(shadowCaster);
-    	
-        al = Translator.toJMELight(view.model.battlefield.sunLight.ambient);
-        sun = Translator.toJMELight(view.model.battlefield.sunLight.sun);
-        shadowCaster = Translator.toJMELight(view.model.battlefield.sunLight.shadowCaster);
-        sr.setLight(shadowCaster);
-        sf.setLight(shadowCaster);
-                
-        rootNode.addLight(al);
-        rootNode.addLight(sun);
-        rootNode.addLight(shadowCaster);
-    }
-    
-    
+		FilterPostProcessor fpp = new FilterPostProcessor(am);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        switch(e.getActionCommand()){
-            case "light" : updateLights(); break;
-                default: throw new IllegalArgumentException("Unknown command : "+e.getActionCommand());
-        }
-    }
+		int SHADOWMAP_SIZE = 4096;
+		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
+		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+		sr.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
+		//        vp.addProcessor(sr);
 
-    public void updateLights(){
-        Translator.toJMELight(al, view.model.battlefield.sunLight.ambient);
-        Translator.toJMELight(sun, view.model.battlefield.sunLight.sun);
-        Translator.toJMELight(shadowCaster, view.model.battlefield.sunLight.shadowCaster);
-        shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-        sr.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
-        sf.setShadowIntensity((float)view.model.battlefield.sunLight.shadowCaster.intensity);
-        
-    }
+		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
+		sf.setEnabled(true);
+		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+		sf.setShadowZExtend(SHADOWMAP_SIZE);
+		fpp.addFilter(sf);
 
-    
+
+		// Ambiant occlusion filter
+		SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
+		//        fpp.addFilter(ssaoFilter);
+		// Glow filter
+		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
+		fpp.addFilter(bloom);
+		vp.addProcessor(fpp);
+
+		reset ();
+		updateLights();
+
+	}
+
+	public void reset(){
+		rootNode.removeLight(al);
+		rootNode.removeLight(sun);
+		rootNode.removeLight(shadowCaster);
+
+		al = Translator.toJMELight(ModelManager.battlefield.sunLight.ambient);
+		sun = Translator.toJMELight(ModelManager.battlefield.sunLight.sun);
+		shadowCaster = Translator.toJMELight(ModelManager.battlefield.sunLight.shadowCaster);
+		sr.setLight(shadowCaster);
+		sf.setLight(shadowCaster);
+
+		rootNode.addLight(al);
+		rootNode.addLight(sun);
+		rootNode.addLight(shadowCaster);
+	}
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()){
+			case "light" : updateLights(); break;
+			default: throw new IllegalArgumentException("Unknown command : "+e.getActionCommand());
+		}
+	}
+
+	public void updateLights(){
+		Translator.toJMELight(al, ModelManager.battlefield.sunLight.ambient);
+		Translator.toJMELight(sun, ModelManager.battlefield.sunLight.sun);
+		Translator.toJMELight(shadowCaster, ModelManager.battlefield.sunLight.shadowCaster);
+		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
+		sr.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
+		sf.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
+
+	}
+
+
 }

@@ -10,11 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.battlefield.Battlefield;
+import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.parcel.ParcelMesh;
-import model.builders.definitions.BuilderLibrary;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
@@ -27,9 +26,6 @@ import model.editor.tools.UnitTool;
  * @author Benoît
  */
 public class ToolManager {
-	public final Battlefield battlefield;
-	public final BuilderLibrary lib;
-
 	private String pointedSpatialLabel;
 	private long pointedSpatialEntityId;
 
@@ -48,9 +44,7 @@ public class ToolManager {
 
 	List<ActionListener> listeners = new ArrayList<>();
 
-	public ToolManager(Battlefield battlefield, BuilderLibrary lib) {
-		this.battlefield = battlefield;
-		this.lib = lib;
+	public ToolManager() {
 		heightTool = new HeightTool(this);
 		cliffTool = new CliffTool(this);
 		atlasTool = new AtlasTool(this);
@@ -138,7 +132,7 @@ public class ToolManager {
 		for (Tile t : extended) {
 			int minLevel = t.level;
 			int maxLevel = t.level;
-			for (Tile n : battlefield.map.get8Around(t)) {
+			for (Tile n : ModelManager.battlefield.map.get8Around(t)) {
 				maxLevel = Math.max(maxLevel, n.level);
 			}
 			if (t.hasCliff()) {
@@ -165,7 +159,7 @@ public class ToolManager {
 	}
 
 	public void updateParcelsForExtended(List<Tile> tiles) {
-		List<ParcelMesh> toUpdate = battlefield.parcelManager.updateParcelsFor(tiles);
+		List<ParcelMesh> toUpdate = ModelManager.battlefield.parcelManager.updateParcelsFor(tiles);
 		notifyListeners("parcels", toUpdate);
 	}
 
@@ -177,7 +171,7 @@ public class ToolManager {
 		List<Tile> res = new ArrayList<>();
 		res.addAll(tiles);
 		for (Tile t : tiles) {
-			for (Tile n : battlefield.map.get8Around(t)) {
+			for (Tile n : ModelManager.battlefield.map.get8Around(t)) {
 				if (!res.contains(n)) {
 					res.add(n);
 				}

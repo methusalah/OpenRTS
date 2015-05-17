@@ -19,33 +19,31 @@ import model.battlefield.map.Map;
 /**
  * @author Benoît
  */
-public class Commander {
+public class CommandManager {
 
-	ArmyManager armyManager;
-	Map map;
+	static ArmyManager armyManager;
+	static Map map;
 
-	public ArrayList<Unit> selection = new ArrayList<>();
-	public HashMap<String, Unity> unitiesInContext = new HashMap<>();
-	boolean moveAttack = false;
+	public static List<Unit> selection = new ArrayList<>();
+	private static HashMap<String, Unity> unitiesInContext = new HashMap<>();
+	static boolean moveAttack = false;
 
-	ArrayList<ReportEventListener> listeners = new ArrayList<>();
+	static ArrayList<ReportEventListener> listeners = new ArrayList<>();
 
-	public Commander(ArmyManager um, Map map) {
-		this.armyManager = um;
-		this.map = map;
+	private CommandManager() {
 	}
 
-	public void setMoveAttack() {
+	public static void setMoveAttack() {
 		moveAttack = true;
 	}
 
-	public void orderHold() {
+	public static void orderHold() {
 		for (Unit u : selection) {
 			u.ai.orderHold();
 		}
 	}
 
-	public void select(long id, Point2D pos) {
+	public static void select(long id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
@@ -59,7 +57,7 @@ public class Commander {
 		sendReportOrder();
 	}
 
-	public void select(List<Unit> units) {
+	public static void select(List<Unit> units) {
 		unselect();
 		for (Unit u : units) {
 			select(u);
@@ -80,14 +78,14 @@ public class Commander {
 		sendReportOrder();
 	}
 
-	private void select(Unit u) {
+	private static void select(Unit u) {
 		if (u != null) {
 			u.selected = true;
 			selection.add(u);
 		}
 	}
 
-	public void act(Long id, Point2D pos) {
+	public static void act(Long id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
@@ -104,7 +102,7 @@ public class Commander {
 		moveAttack = false;
 	}
 
-	private void orderMove(Point2D p) {
+	private static void orderMove(Point2D p) {
 		FlowField ff = new FlowField(map, p);
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
@@ -116,7 +114,7 @@ public class Commander {
 		}
 	}
 
-	private void orderAttack(Unit enemy) {
+	private static void orderAttack(Unit enemy) {
 		FlowField ff = new FlowField(map, enemy.getPos2D());
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
@@ -129,7 +127,7 @@ public class Commander {
 		}
 	}
 
-	private void unselect() {
+	private static void unselect() {
 		for (Unit u : selection) {
 			u.selected = false;
 		}
@@ -137,14 +135,14 @@ public class Commander {
 		sendReportOrder();
 	}
 
-	private Unit getUnit(Long id) {
+	private static Unit getUnit(Long id) {
 		if (EntityManager.isValidId(id)) {
 			return armyManager.getUnit(id);
 		}
 		return null;
 	}
 
-	public void selectAll() {
+	public static void selectAll() {
 		unselect();
 		for (Unit u : armyManager.getUnits()) {
 			select(u);
@@ -152,17 +150,17 @@ public class Commander {
 		sendReportOrder();
 	}
 
-	public void sendReportOrder() {
+	public static void sendReportOrder() {
 		for (ReportEventListener l : listeners) {
 			l.manageEvent();
 		}
 	}
 
-	public void registerListener(ReportEventListener l) {
+	public static void registerListener(ReportEventListener l) {
 		listeners.add(l);
 	}
 
-	public void updateSelectables(Point2D visionCenter) {
+	public static void updateSelectables(Point2D visionCenter) {
 		unitiesInContext.clear();
 		if (visionCenter != null) {
 			for (Unit u : armyManager.getUnits()) {
@@ -177,14 +175,14 @@ public class Commander {
 		sendReportOrder();
 	}
 
-	public void selectUnityInContext(Unity unityID) {
+	public static void selectUnityInContext(Unity unityID) {
 		unselect();
 		for (Unit u : unitiesInContext.get(unityID.UIName)) {
 			select(u);
 		}
 	}
 
-	public ArrayList<Unity> getUnitiesInContext() {
+	public static ArrayList<Unity> getUnitiesInContext() {
 		ArrayList<Unity> res = new ArrayList<>();
 		for (Unity unity : unitiesInContext.values()) {
 			res.add(unity);
