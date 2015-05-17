@@ -16,7 +16,7 @@ public class ModelManager {
 	public static final String BATTLEFIELD_UPDATED_EVENT = "mapupdatedevent";
 	public static final String CONFIG_PATH = "assets/data";
 	public static final String DEFAULT_MAP_PATH = "assets/maps/";
-	static final double UPDATE_DELAY = 1000;
+	private static final double UPDATE_DELAY = 1000;
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 32;
 
@@ -25,7 +25,7 @@ public class ModelManager {
 
 	public static Battlefield battlefield;
 
-	public static ToolManager toolManager = new ToolManager();;
+	public static ToolManager toolManager = new ToolManager();
 
 	final static DefParser parser;
 	static double nextUpdate = 0;
