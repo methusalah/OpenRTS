@@ -40,6 +40,7 @@ public class ModelManager {
 		setNewBattlefield();
 	}
 
+	// no instancing from outside
 	private ModelManager() {
 
 	}
