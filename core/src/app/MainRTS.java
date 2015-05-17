@@ -91,7 +91,7 @@ public class MainRTS extends OpenRTSApplication {
 				desiredCtrl = groundCtrl;
 				break;
 			default:
-				throw new IllegalAccessError();
+				return;
 		}
 		LogUtil.logger.info("switching controller to " + desiredCtrl.getClass().getSimpleName());
 
