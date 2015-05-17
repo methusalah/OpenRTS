@@ -64,7 +64,7 @@ public class MapRenderer implements ActionListener {
 	}
 
 	public void renderTiles() {
-		LogUtil.logger.info("rendering ground"+ModelManager.battlefield.parcelManager.meshes.size()+" "+ModelManager.battlefield.map.tiles.size());
+		LogUtil.logger.info("rendering ground" + ModelManager.battlefield.parcelManager.meshes.size() + " " + ModelManager.battlefield.map.getTiles().size());
 		int index = 0;
 		for(String s : ModelManager.battlefield.map.style.textures){
 			Texture diffuse = am.loadTexture(s);
@@ -93,7 +93,7 @@ public class MapRenderer implements ActionListener {
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 		}
-		updateTiles(ModelManager.battlefield.map.tiles);
+		updateTiles(ModelManager.battlefield.map.getTiles());
 	}
 
 	private Spatial getModel(String path){
