@@ -86,10 +86,12 @@ public class ModelManager {
 		setBattlefield(loadedBattlefield);
 	}
 
+	// FIXME: Replace with EventManager
 	public static void addListener(ActionListener listener) {
 		listeners.add(listener);
 	}
 
+	// FIXME: Replace with EventManager
 	private static void notifyListeners(String eventCommand) {
 		for (ActionListener l : listeners) {
 			// FIXME: why we are doing this?

@@ -1,16 +1,15 @@
 package network.server;
 
-import geometry.tools.LogUtil;
-
 import java.io.IOException;
-
-import network.msg.HelloMessage;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.JmeContext;
+
+import event.Event;
+import geometry.tools.LogUtil;
 
 public class OpenRTSServer extends SimpleApplication {
 
@@ -27,11 +26,11 @@ public class OpenRTSServer extends SimpleApplication {
 		try {
 			myServer = Network.createServer(PORT, PORT);
 			myServer.start();
-			myServer.addMessageListener(new ServerListener(), HelloMessage.class);
+			myServer.addMessageListener(new ServerListener(), Event.class);
 			LogUtil.logger.info("Server listening at :" + PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Serializer.registerClass(HelloMessage.class);
+		Serializer.registerClass(Event.class);
 	}
 }
