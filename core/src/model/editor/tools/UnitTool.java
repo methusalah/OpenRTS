@@ -16,7 +16,7 @@ import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 import model.builders.UnitBuilder;
 import model.editor.Pencil;
-import model.editor.Set;
+import model.editor.AssetSet;
 import model.editor.ToolManager;
 
 /**
@@ -38,7 +38,7 @@ public class UnitTool extends Tool {
 		for (UnitBuilder b : ModelManager.lib.getAllUnitBuilders()) {
 			builderIDs.add(b.getUIName());
 		}
-		set = new Set(builderIDs, false);
+		set = new AssetSet(builderIDs, false);
 	}
 
 	@Override

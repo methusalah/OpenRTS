@@ -14,7 +14,7 @@ import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.DoubleMap;
 import model.editor.Pencil;
-import model.editor.Set;
+import model.editor.AssetSet;
 import model.editor.ToolManager;
 
 /**
@@ -34,7 +34,7 @@ public class AtlasTool extends Tool {
 		super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
 		this.atlas = ModelManager.battlefield.map.atlas;
 		explorer = new AtlasExplorer(ModelManager.battlefield.map);
-		set = new Set(ModelManager.battlefield.map.style.textures, true);
+		set = new AssetSet(ModelManager.battlefield.map.style.textures, true);
 	}
 
 	@Override

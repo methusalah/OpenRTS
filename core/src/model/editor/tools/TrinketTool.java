@@ -14,7 +14,7 @@ import model.ModelManager;
 import model.battlefield.map.Trinket;
 import model.builders.TrinketBuilder;
 import model.editor.Pencil;
-import model.editor.Set;
+import model.editor.AssetSet;
 import model.editor.ToolManager;
 
 /**
@@ -36,7 +36,7 @@ public class TrinketTool extends Tool {
 		for (TrinketBuilder b : ModelManager.lib.getAllEditableTrinketBuilders()) {
 			builderIDs.add(b.getId());
 		}
-		set = new Set(builderIDs, false);
+		set = new AssetSet(builderIDs, false);
 	}
 
 	@Override

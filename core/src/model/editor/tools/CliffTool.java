@@ -11,7 +11,7 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.builders.CliffShapeBuilder;
 import model.editor.Pencil;
-import model.editor.Set;
+import model.editor.AssetSet;
 import model.editor.ToolManager;
 
 /**
@@ -29,7 +29,7 @@ public class CliffTool extends Tool {
 		for (CliffShapeBuilder b : ModelManager.battlefield.map.style.cliffShapeBuilders) {
 			iconPaths.add(b.getIconPath());
 		}
-		set = new Set(iconPaths, true);
+		set = new AssetSet(iconPaths, true);
 	}
 
 	@Override
