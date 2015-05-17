@@ -47,17 +47,20 @@ public class ModelManager {
 	}
 
 	public static void updateConfigs() {
-		if(System.currentTimeMillis()>nextUpdate){
-			nextUpdate = System.currentTimeMillis()+UPDATE_DELAY;
+		if (System.currentTimeMillis() > nextUpdate) {
+			nextUpdate = System.currentTimeMillis() + UPDATE_DELAY;
 			parser.readFile();
 		}
 	}
 
 	public static void loadBattlefield() {
 		Battlefield loadedBattlefield = factory.load();
-		if(loadedBattlefield != null) {
-			setBattlefield(loadedBattlefield);
-		}
+		setBattlefield(loadedBattlefield);
+	}
+
+	public static void loadBattlefield(String file) {
+		Battlefield loadedBattlefield = factory.load(file);
+		setBattlefield(loadedBattlefield);
 	}
 
 	public static void saveBattlefield() {
@@ -69,18 +72,18 @@ public class ModelManager {
 	}
 
 	private static void setBattlefield(Battlefield battlefield) {
-		ModelManager.battlefield = battlefield;
-		LogUtil.logger.info("Reseting view...");
-		notifyListeners(BATTLEFIELD_UPDATED_EVENT);
-		LogUtil.logger.info("Done.");
+		if (battlefield != null) {
+			ModelManager.battlefield = battlefield;
+			LogUtil.logger.info("Reseting view...");
+			notifyListeners(BATTLEFIELD_UPDATED_EVENT);
+			LogUtil.logger.info("Done.");
+		}
 	}
 
 	public static void reload() {
 		saveBattlefield();
 		Battlefield loadedBattlefield = factory.load(battlefield.fileName);
-		if(loadedBattlefield != null) {
-			setBattlefield(loadedBattlefield);
-		}
+		setBattlefield(loadedBattlefield);
 	}
 
 	public static void addListener(ActionListener listener) {
@@ -88,7 +91,7 @@ public class ModelManager {
 	}
 
 	private static void notifyListeners(String eventCommand) {
-		for(ActionListener l : listeners) {
+		for (ActionListener l : listeners) {
 			// FIXME: why we are doing this?
 			l.actionPerformed(new ActionEvent(new ModelManager(), 0, eventCommand));
 		}

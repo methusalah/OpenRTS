@@ -1,5 +1,7 @@
 package controller.battlefield;
 
+import event.EventManager;
+import event.InputEvent;
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
@@ -74,6 +76,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	@Override
 	public void onAction(String name, boolean isPressed, float tpf) {
+		EventManager.post(new InputEvent(name));
 		if (!isPressed) {
 			switch (name) {
 				case SWITCH_CTRL_1:

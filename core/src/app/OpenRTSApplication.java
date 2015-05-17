@@ -7,9 +7,12 @@ import geometry.tools.LogUtil;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
+
+import network.client.ClientManager;
 
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
@@ -50,6 +53,8 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	private AppActionListener actionListener = new AppActionListener();
 
 	BulletAppState bulletAppState;
+
+
 
 	private class AppActionListener implements ActionListener {
 		@Override
@@ -256,4 +261,14 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		appInstance.restart(); // restart the context to apply changes
 		cam.resize(settings.getWidth(), settings.getHeight(), true);
 	}
+
+	public void startClient() throws IOException {
+		ClientManager.startClient();
+	}
+
+	public void stopClient() {
+		ClientManager.stopClient();
+	}
+
+
 }

@@ -1,5 +1,7 @@
 package network.server;
 
+import geometry.tools.LogUtil;
+
 import java.io.IOException;
 
 import network.msg.HelloMessage;
@@ -26,11 +28,10 @@ public class OpenRTSServer extends SimpleApplication {
 			myServer = Network.createServer(PORT, PORT);
 			myServer.start();
 			myServer.addMessageListener(new ServerListener(), HelloMessage.class);
+			LogUtil.logger.info("Server listening at :" + PORT);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Serializer.registerClass(HelloMessage.class);
-
 	}
 }
