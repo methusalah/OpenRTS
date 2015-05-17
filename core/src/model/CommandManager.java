@@ -48,7 +48,6 @@ public class CommandManager {
 			unselect();
 			select(u);
 		}
-		sendReportOrder();
 	}
 
 	public static void select(List<Unit> units) {
@@ -57,7 +56,6 @@ public class CommandManager {
 			select(u);
 		}
 		moveAttack = false;
-		sendReportOrder();
 	}
 
 	public void select(Point2D corner1, Point2D corner2) {
@@ -69,7 +67,6 @@ public class CommandManager {
 			}
 		}
 		moveAttack = false;
-		sendReportOrder();
 	}
 
 	private static void select(Unit u) {
@@ -126,7 +123,6 @@ public class CommandManager {
 			u.selected = false;
 		}
 		selection.clear();
-		sendReportOrder();
 	}
 
 	private static Unit getUnit(Long id) {
@@ -141,11 +137,6 @@ public class CommandManager {
 		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
 			select(u);
 		}
-		sendReportOrder();
-	}
-
-	public static void sendReportOrder() {
-		System.err.println("SendReportOrder");
 	}
 
 	public static void updateSelectables(Point2D visionCenter) {
@@ -160,7 +151,6 @@ public class CommandManager {
 				}
 			}
 		}
-		sendReportOrder();
 	}
 
 	public static void selectUnityInContext(Unity unityID) {
