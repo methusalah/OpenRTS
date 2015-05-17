@@ -9,6 +9,7 @@ import geometry.tools.LogUtil;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.DoubleMap;
@@ -31,14 +32,14 @@ public class AtlasTool extends Tool {
 
 	public AtlasTool(ToolManager manager) {
 		super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
-		this.atlas = manager.battlefield.map.atlas;
-		explorer = new AtlasExplorer(manager.battlefield.map);
-		set = new Set(manager.battlefield.map.style.textures, true);
+		this.atlas = ModelManager.battlefield.map.atlas;
+		explorer = new AtlasExplorer(ModelManager.battlefield.map);
+		set = new Set(ModelManager.battlefield.map.style.textures, true);
 	}
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(manager.battlefield.map);
+		pencil = new Pencil(ModelManager.battlefield.map);
 		pencil.size = 2;
 		pencil.sizeIncrement = 0.25;
 		pencil.strength = 0.5;
@@ -86,8 +87,9 @@ public class AtlasTool extends Tool {
 	}
 
 	private void increment(ArrayList<Point2D> pixels) {
-		for (Point2D p : pixels)
+		for (Point2D p : pixels) {
 			increment(p, set.actual);
+		}
 	}
 
 	private void increment(Point2D p, int layer) {
@@ -170,7 +172,7 @@ public class AtlasTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			autoLayer = 0;
-			Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height).getDivision(manager.battlefield.map.width, manager.battlefield.map.height);
+			Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height).getDivision(ModelManager.battlefield.map.width, ModelManager.battlefield.map.height);
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
 			for (DoubleMap l : atlas.layers) {
@@ -190,7 +192,7 @@ public class AtlasTool extends Tool {
 			int y = (int) Math.round(p.y);
 			double attenuatedInc = increment
 					* pencil.strength
-					* pencil.getApplicationRatio(new Point2D(x, y).getMult(manager.battlefield.map.width, manager.battlefield.map.height).getDivision(
+					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.battlefield.map.width, ModelManager.battlefield.map.height).getDivision(
 							atlas.width, atlas.height));
 
 			int activeLayerCount = 0;

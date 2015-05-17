@@ -7,6 +7,7 @@ import geometry.math.MyRandom;
 
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -18,7 +19,7 @@ public class HeightTool extends Tool {
 	private static final String RAISE_LOW_OP = "raise/low";
 	private static final String NOISE_SMOOTH_OP = "noise/smooth";
 	private static final String UNIFOMR_RESET_OP = "uniform/reset";
-	
+
 	private static final int MAX_HEIGHT = 30, MIN_HEIGHT = -10;
 
 	double amplitude = 0.5;
@@ -30,7 +31,7 @@ public class HeightTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(manager.battlefield.map);
+		pencil = new Pencil(ModelManager.battlefield.map);
 		pencil.size = 4;
 		pencil.sizeIncrement = 1;
 		pencil.strength = 0.5;
@@ -74,23 +75,25 @@ public class HeightTool extends Tool {
 	private void raise(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			t.elevation += amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-	        if(t.elevation > MAX_HEIGHT)
-	            t.elevation = MAX_HEIGHT;
+			if(t.elevation > MAX_HEIGHT) {
+				t.elevation = MAX_HEIGHT;
+			}
 		}
 	}
 
 	private void low(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			t.elevation -= amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-	        if(t.elevation < MIN_HEIGHT)
-	            t.elevation = MIN_HEIGHT;
+			if(t.elevation < MIN_HEIGHT) {
+				t.elevation = MIN_HEIGHT;
+			}
 		}
 	}
 
 	private void uniform(List<Tile> tiles) {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedElevation = manager.battlefield.map.getAltitudeAt(pencil.getCoord());
+			maintainedElevation = ModelManager.battlefield.map.getAltitudeAt(pencil.getCoord());
 		}
 		for (Tile t : tiles) {
 			double diff = maintainedElevation - t.elevation;
@@ -119,10 +122,11 @@ public class HeightTool extends Tool {
 
 			double diff = average - t.elevation;
 			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-			if (diff > 0)
+			if (diff > 0) {
 				t.elevation += Math.min(diff, attenuatedAmplitude);
-			else if (diff < 0)
+			} else if (diff < 0) {
 				t.elevation += Math.max(diff, -attenuatedAmplitude);
+			}
 		}
 	}
 

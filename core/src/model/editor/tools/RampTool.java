@@ -5,6 +5,7 @@ package model.editor.tools;
 
 import java.util.ArrayList;
 
+import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Ramp;
 import model.editor.Pencil;
@@ -22,7 +23,7 @@ public class RampTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(manager.battlefield.map);
+		pencil = new Pencil(ModelManager.battlefield.map);
 		pencil.sizeIncrement = 0;
 		pencil.setUniqueMode();
 		pencil.strengthIncrement = 0;
@@ -37,7 +38,7 @@ public class RampTool extends Tool {
 			if (!t.hasCliff()) {
 				return;
 			}
-			new Ramp(t, manager.battlefield.map);
+			new Ramp(t, ModelManager.battlefield.map);
 		}
 
 		ArrayList<Tile> changed = new ArrayList<>();

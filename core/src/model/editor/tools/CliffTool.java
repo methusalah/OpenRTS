@@ -6,6 +6,7 @@ package model.editor.tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.builders.CliffShapeBuilder;
@@ -25,7 +26,7 @@ public class CliffTool extends Tool {
 	public CliffTool(ToolManager manager) {
 		super(manager, RAISE_LOW_OP, FLATTEN_OP);
 		ArrayList<String> iconPaths = new ArrayList<>();
-		for (CliffShapeBuilder b : manager.battlefield.map.style.cliffShapeBuilders) {
+		for (CliffShapeBuilder b : ModelManager.battlefield.map.style.cliffShapeBuilders) {
 			iconPaths.add(b.getIconPath());
 		}
 		set = new Set(iconPaths, true);
@@ -33,7 +34,7 @@ public class CliffTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(manager.battlefield.map);
+		pencil = new Pencil(ModelManager.battlefield.map);
 		pencil.snapPair = true;
 		pencil.size = 4;
 		pencil.sizeIncrement = 2;
@@ -68,8 +69,9 @@ public class CliffTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			maintainedlevel = pencil.getCenterTile().level + 1;
-			if (maintainedlevel > 2)
+			if (maintainedlevel > 2) {
 				maintainedlevel = 2;
+			}
 		}
 		changeLevel();
 	}
@@ -78,8 +80,9 @@ public class CliffTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			maintainedlevel = pencil.getCenterTile().level - 1;
-			if (maintainedlevel < 0)
+			if (maintainedlevel < 0) {
 				maintainedlevel = 0;
+			}
 		}
 		changeLevel();
 	}
@@ -98,15 +101,16 @@ public class CliffTool extends Tool {
 		List<Tile> toUpdate = new ArrayList<>();
 		for (Tile t : group) {
 			t.level = maintainedlevel;
-			if (t.ramp != null)
+			if (t.ramp != null) {
 				toUpdate.addAll(t.ramp.destroy());
+			}
 		}
 		group.addAll(toUpdate);
 		manager.updateTiles(group);
 	}
 
 	public void buildShape(Cliff cliff) {
-		manager.battlefield.map.style.cliffShapeBuilders.get(set.actual).build(cliff);
+		ModelManager.battlefield.map.style.cliffShapeBuilders.get(set.actual).build(cliff);
 	}
 
 }

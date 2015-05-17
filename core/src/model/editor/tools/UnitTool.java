@@ -11,6 +11,7 @@ import geometry.math.MyRandom;
 import java.util.ArrayList;
 
 import model.EntityManager;
+import model.ModelManager;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 import model.builders.UnitBuilder;
@@ -34,7 +35,7 @@ public class UnitTool extends Tool {
 	public UnitTool(ToolManager manager) {
 		super(manager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
 		ArrayList<String> builderIDs = new ArrayList<>();
-		for (UnitBuilder b : manager.lib.getAllUnitBuilders()) {
+		for (UnitBuilder b : ModelManager.lib.getAllUnitBuilders()) {
 			builderIDs.add(b.getUIName());
 		}
 		set = new Set(builderIDs, false);
@@ -42,7 +43,7 @@ public class UnitTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil(manager.battlefield.map);
+		pencil = new Pencil(ModelManager.battlefield.map);
 		pencil.sizeIncrement = 0;
 		pencil.strengthIncrement = 0;
 		pencil.setUniqueMode();
@@ -74,24 +75,24 @@ public class UnitTool extends Tool {
 
 	private void add() {
 		Point2D coord = pencil.getCoord();
-		for (Unit u : manager.battlefield.armyManager.getUnits()) {
+		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
 			if (u.getPos2D().equals(coord)) {
 				coord = coord.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
 			}
 		}
 		// TODO: what happend, if there is no Race named "human"?
-		Faction f = manager.lib.getAllUnitBuilders().get(set.actual).hasRace("human") ? manager.battlefield.engagement.factions.get(0)
-				: manager.battlefield.engagement.factions.get(1);
+		Faction f = ModelManager.lib.getAllUnitBuilders().get(set.actual).hasRace("human") ? ModelManager.battlefield.engagement.factions.get(0)
+				: ModelManager.battlefield.engagement.factions.get(1);
 
-		manager.battlefield.engagement.addUnit(manager.lib.getAllUnitBuilders().get(set.actual)
+		ModelManager.battlefield.engagement.addUnit(ModelManager.lib.getAllUnitBuilders().get(set.actual)
 				.build(f, coord.get3D(0), MyRandom.between(-Angle.FLAT, Angle.FLAT)));
 	}
 
 	private void remove() {
 		if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
-			Unit u = manager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
+			Unit u = ModelManager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
 			if (u != null) {
-				manager.battlefield.engagement.removeUnit(u);
+				ModelManager.battlefield.engagement.removeUnit(u);
 			}
 		}
 	}
@@ -101,7 +102,7 @@ public class UnitTool extends Tool {
 			pencil.maintain();
 			actualUnit = null;
 			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
-				Unit u = manager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
+				Unit u = ModelManager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
 				if (u != null) {
 					actualUnit = u;
 					moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
@@ -118,7 +119,7 @@ public class UnitTool extends Tool {
 			pencil.maintain();
 			actualUnit = null;
 			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
-				Unit u = manager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
+				Unit u = ModelManager.battlefield.armyManager.getUnit(manager.getPointedSpatialEntityId());
 				if (u != null) {
 					actualUnit = u;
 				}
