@@ -41,7 +41,7 @@ dependencies {
 
 	//	compile 'com.google.code.gson:gson:2.3.1'
 	compile 'org.bushe:eventbus:1.4'
-	//	compile 'com.google.guava:guava:18.0'
+	compile 'com.google.guava:guava:18.0'
 	compile 'org.apache.commons:commons-lang3:3.3.2'
 	//	compile 'org.reflections:reflections:0.9.8'
 	compile 'org.simpleframework:simple-xml:2.7.1'
@@ -75,8 +75,7 @@ sourceSets {
 		java { srcDir 'src'}
 		resources { srcDir 'assets' }
 	}
-	test { java { srcDir 'test'
-		} }
+	test { java { srcDir 'test' } }
 }
 
 //sets up the Android Eclipse project, using the old Ant based build.

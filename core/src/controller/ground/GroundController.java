@@ -33,10 +33,6 @@ public class GroundController extends Controller {
 	}
 
 	@Override
-	public void manageEvent() {
-	}
-
-	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);

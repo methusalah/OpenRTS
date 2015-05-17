@@ -4,11 +4,6 @@
  */
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import model.ReportEventListener;
 import view.View;
 
 import com.jme3.app.state.AbstractAppState;
@@ -17,20 +12,20 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.cameraManagement.CameraManager;
+import event.EventManager;
+import event.InputEvent;
 
 /**
  *
  * @author Benoît
  */
-public abstract class Controller extends AbstractAppState implements ReportEventListener {
+public abstract class Controller extends AbstractAppState {
 	public View view;
 	public InputInterpreter inputInterpreter;
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;
-
 	public GUIController guiController;
-	ArrayList<ActionListener> listeners = new ArrayList<>();
 
 	public Controller(View view, InputManager inputManager, Camera cam) {
 		super();
@@ -53,13 +48,7 @@ public abstract class Controller extends AbstractAppState implements ReportEvent
 		cameraManager.activate();
 	}
 
-	public void addListener(ActionListener listener) {
-		listeners.add(listener);
-	}
-
 	public void notifyListeners(String command) {
-		for (ActionListener l : listeners) {
-			l.actionPerformed(new ActionEvent(this, 0, command));
-		}
+		EventManager.post(new InputEvent(command));
 	}
 }

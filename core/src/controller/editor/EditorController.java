@@ -5,7 +5,6 @@
 package controller.editor;
 
 import geometry.geom2d.Point2D;
-import model.CommandManager;
 import model.ModelManager;
 import view.View;
 
@@ -29,9 +28,6 @@ public class EditorController extends Controller {
 
 		inputInterpreter = new EditorInputInterpreter(this);
 		guiController = new EditorGUIController(nifty, this);
-
-		CommandManager.registerListener(this);
-
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}
 
@@ -47,10 +43,6 @@ public class EditorController extends Controller {
 		}
 
 		guiController.update();
-	}
-
-	@Override
-	public void manageEvent() {
 	}
 
 	@Override

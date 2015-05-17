@@ -10,25 +10,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.battlefield.army.ArmyManager;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.motion.pathfinding.FlowField;
-import model.battlefield.map.Map;
 
 /**
  * @author Benoît
  */
 public class CommandManager {
 
-	static ArmyManager armyManager;
-	static Map map;
-
 	public static List<Unit> selection = new ArrayList<>();
 	private static HashMap<String, Unity> unitiesInContext = new HashMap<>();
 	static boolean moveAttack = false;
-
-	static ArrayList<ReportEventListener> listeners = new ArrayList<>();
+	private static final CommandManager instance = new CommandManager();
 
 	private CommandManager() {
 	}

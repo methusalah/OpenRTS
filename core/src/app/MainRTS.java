@@ -1,14 +1,10 @@
 package app;
 
-import geometry.tools.LogUtil;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import model.ModelManager;
 import view.View;
 import view.mapDrawing.MapRenderer;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -17,8 +13,11 @@ import controller.Controller;
 import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
+import event.EventManager;
+import event.InputEvent;
+import geometry.tools.LogUtil;
 
-public class MainRTS extends OpenRTSApplication implements ActionListener {
+public class MainRTS extends OpenRTSApplication {
 
 	View view;
 	MapRenderer tr;
@@ -46,11 +45,9 @@ public class MainRTS extends OpenRTSApplication implements ActionListener {
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
 		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
-		fieldCtrl.addListener(this);
 		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
-		editorCtrl.addListener(this);
 		groundCtrl = new GroundController(view, inputManager, cam);
-		groundCtrl.addListener(this);
+		EventManager.register(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
@@ -80,8 +77,8 @@ public class MainRTS extends OpenRTSApplication implements ActionListener {
 	public void destroy() {
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	@Subscribe
+	public void actionPerformed(InputEvent e) {
 		Controller desiredCtrl;
 		switch (e.getActionCommand()) {
 			case "CTRL1":

@@ -1,11 +1,11 @@
 package controller.battlefield;
 
-import geometry.geom2d.Point2D;
 import model.CommandManager;
 import model.ModelManager;
 import view.View;
 import view.math.Translator;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
@@ -13,6 +13,9 @@ import com.jme3.renderer.Camera;
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
+import event.EventManager;
+import event.InputEvent;
+import geometry.geom2d.Point2D;
 
 /**
  *
@@ -26,7 +29,7 @@ public class BattlefieldController extends Controller {
 		inputInterpreter = new BattlefieldInputInterpreter(this);
 		guiController = new BattlefieldGUIController(nifty, this);
 
-		CommandManager.registerListener(this);
+		EventManager.register(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}
@@ -52,8 +55,8 @@ public class BattlefieldController extends Controller {
 		}
 	}
 
-	@Override
-	public void manageEvent() {
+	@Subscribe
+	public void manageEvent(InputEvent ev) {
 		guiController.update();
 	}
 
