@@ -44,6 +44,8 @@ dependencies {
 	//	compile 'com.google.guava:guava:18.0'
 	compile 'org.apache.commons:commons-lang3:3.3.2'
 	//	compile 'org.reflections:reflections:0.9.8'
+	compile 'org.simpleframework:simple-xml:2.7.1'
+	
 	testCompile 'org.testng:testng:6.8'
 }
 
