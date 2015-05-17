@@ -50,7 +50,7 @@ public class CommandManager {
 		}
 	}
 
-	public static void select(List<Unit> units) {
+	private static void select(List<Unit> units) {
 		unselect();
 		for (Unit u : units) {
 			select(u);
@@ -58,15 +58,18 @@ public class CommandManager {
 		moveAttack = false;
 	}
 
-	public void select(Point2D corner1, Point2D corner2) {
+	public static boolean select(Point2D corner1, Point2D corner2) {
 		unselect();
+		boolean unitsInBox = false;
 		AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
 		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
 			if (rect.contains(u.getPos2D())) {
 				select(u);
+				unitsInBox = true;
 			}
 		}
 		moveAttack = false;
+		return unitsInBox;
 	}
 
 	private static void select(Unit u) {
@@ -166,6 +169,10 @@ public class CommandManager {
 			res.add(unity);
 		}
 		return res;
+	}
+
+	public static CommandManager getInstance() {
+		return instance;
 	}
 
 }
