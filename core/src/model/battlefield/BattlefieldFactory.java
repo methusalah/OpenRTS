@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import model.Model;
+import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
@@ -60,7 +60,7 @@ public class BattlefieldFactory {
     
     
     public Battlefield load(){
-        final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
+        final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
         fc.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*."+BATTLEFIELD_FILE_EXTENSION+")", BATTLEFIELD_FILE_EXTENSION);
         fc.addChoosableFileFilter(filter);
@@ -150,7 +150,7 @@ public class BattlefieldFactory {
                 LogUtil.logger.info("Saving battlefield overwriting "+battlefield.fileName+"...");
                 serializer.write(battlefield, new File(battlefield.fileName));
             } else {
-                final JFileChooser fc = new JFileChooser(Model.DEFAULT_MAP_PATH);
+                final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
                 fc.setAcceptAllFileFilterUsed(false);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*."+BATTLEFIELD_FILE_EXTENSION+")", BATTLEFIELD_FILE_EXTENSION);
                 fc.addChoosableFileFilter(filter);

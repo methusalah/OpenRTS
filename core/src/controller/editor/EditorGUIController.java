@@ -6,7 +6,7 @@ package controller.editor;
 
 import java.util.List;
 
-import model.Model;
+import model.ModelManager;
 import model.builders.MapStyleBuilder;
 import app.MainRTS;
 import controller.Controller;
@@ -63,14 +63,14 @@ public class EditorGUIController extends GUIController {
 	public void onSliderChanged(final String id, final SliderChangedEvent event) {
 		switch(id){
 			case "sizeslider" :
-				if (event.getValue() < Model.toolManager.actualTool.pencil.size) {
-					Model.toolManager.actualTool.pencil.decRadius();
-				} else if (event.getValue() > Model.toolManager.actualTool.pencil.size) {
-					Model.toolManager.actualTool.pencil.incRadius();
+				if (event.getValue() < ModelManager.toolManager.actualTool.pencil.size) {
+					ModelManager.toolManager.actualTool.pencil.decRadius();
+				} else if (event.getValue() > ModelManager.toolManager.actualTool.pencil.size) {
+					ModelManager.toolManager.actualTool.pencil.incRadius();
 				}
 				break;
 			case "strslider":
-				Model.toolManager.actualTool.pencil.strength = event.getValue();
+				ModelManager.toolManager.actualTool.pencil.strength = event.getValue();
 				break;
 		}
 	}
@@ -83,7 +83,7 @@ public class EditorGUIController extends GUIController {
 		}
 		switch(id){
 			case "selectionlist":
-				Model.toolManager.actualTool.getSet().set(selectionIndices.get(0));
+				ModelManager.toolManager.actualTool.getSet().set(selectionIndices.get(0));
 				break;
 		}
 	}
@@ -94,24 +94,24 @@ public class EditorGUIController extends GUIController {
 			return;
 		}
 		int selectionIndex = event.getSelectionItemIndex();
-		MapStyleBuilder builder = Model.lib.getAllMapStyleBuilders().get(selectionIndex);
-		if (!Model.battlefield.map.mapStyleID.equals(builder.getId())) {
-			Model.battlefield.map.mapStyleID = builder.getId();
-			Model.reload();
+		MapStyleBuilder builder = ModelManager.lib.getAllMapStyleBuilders().get(selectionIndex);
+		if (!ModelManager.battlefield.map.mapStyleID.equals(builder.getId())) {
+			ModelManager.battlefield.map.mapStyleID = builder.getId();
+			ModelManager.reload();
 		}
 	}
 
 
 	public void load(){
-		Model.loadBattlefield();
+		ModelManager.loadBattlefield();
 	}
 
 	public void save(){
-		Model.saveBattlefield();
+		ModelManager.saveBattlefield();
 	}
 
 	public void newMap(){
-		Model.setNewBattlefield();
+		ModelManager.setNewBattlefield();
 	}
 
 	public void settings(){
@@ -122,64 +122,64 @@ public class EditorGUIController extends GUIController {
 		ctrl.view.editorRend.toggleGrid();
 	}
 	public void setCliffTool(){
-		Model.toolManager.setCliffTool();
+		ModelManager.toolManager.setCliffTool();
 		askRedraw();
 	}
 	public void setHeightTool(){
-		Model.toolManager.setHeightTool();
+		ModelManager.toolManager.setHeightTool();
 		askRedraw();
 	}
 	public void setAtlasTool(){
-		Model.toolManager.setAtlasTool();
+		ModelManager.toolManager.setAtlasTool();
 		askRedraw();
 	}
 	public void setRampTool(){
-		Model.toolManager.setRampTool();
+		ModelManager.toolManager.setRampTool();
 		askRedraw();
 	}
 	public void setUnitTool(){
-		Model.toolManager.setUnitTool();
+		ModelManager.toolManager.setUnitTool();
 		askRedraw();
 	}
 	public void setTrincketTool(){
-		Model.toolManager.setTrinketTool();
+		ModelManager.toolManager.setTrinketTool();
 		askRedraw();
 	}
 
 	public void setOperation(String indexString){
-		Model.toolManager.actualTool.setOperation(Integer.parseInt(indexString));
+		ModelManager.toolManager.actualTool.setOperation(Integer.parseInt(indexString));
 		askRedraw();
 	}
 
 	public void setSet(String indexString){
-		if (Model.toolManager.actualTool.hasSet()) {
-			Model.toolManager.actualTool.getSet().set(Integer.parseInt(indexString));
+		if (ModelManager.toolManager.actualTool.hasSet()) {
+			ModelManager.toolManager.actualTool.getSet().set(Integer.parseInt(indexString));
 		}
 		askRedraw();
 	}
 
 	public void setRoughMode(){
-		Model.toolManager.actualTool.pencil.setRoughMode();
+		ModelManager.toolManager.actualTool.pencil.setRoughMode();
 		askRedraw();
 	}
 	public void setAirbrushMode(){
-		Model.toolManager.actualTool.pencil.setAirbrushMode();
+		ModelManager.toolManager.actualTool.pencil.setAirbrushMode();
 		askRedraw();
 	}
 	public void setNoiseMode(){
-		Model.toolManager.actualTool.pencil.setNoiseMode();
+		ModelManager.toolManager.actualTool.pencil.setNoiseMode();
 		askRedraw();
 	}
 	public void setSquareShape(){
-		Model.toolManager.actualTool.pencil.setSquareShape();
+		ModelManager.toolManager.actualTool.pencil.setSquareShape();
 		askRedraw();
 	}
 	public void setDiamondShape(){
-		Model.toolManager.actualTool.pencil.setDiamondShape();
+		ModelManager.toolManager.actualTool.pencil.setDiamondShape();
 		askRedraw();
 	}
 	public void setCircleShape(){
-		Model.toolManager.actualTool.pencil.setCircleShape();
+		ModelManager.toolManager.actualTool.pencil.setCircleShape();
 		askRedraw();
 	}
 }

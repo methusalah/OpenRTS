@@ -1,7 +1,7 @@
 package controller.editor;
 
 import geometry.tools.LogUtil;
-import model.Model;
+import model.ModelManager;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -147,42 +147,42 @@ public class EditorInputInterpreter extends InputInterpreter {
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
 		if (analogUnpressed) {
-			Model.toolManager.releasePencils();
+			ModelManager.toolManager.releasePencils();
 			analogUnpressed = false;
 		} else {
 			switch (name) {
 				case PRIMARY_ACTION:
-					Model.toolManager.analogPrimaryAction();
+					ModelManager.toolManager.analogPrimaryAction();
 					break;
 				case SECONDARY_ACTION:
-					Model.toolManager.analogSecondaryAction();
+					ModelManager.toolManager.analogSecondaryAction();
 					break;
 				case INC_DAYTIME:
-					Model.battlefield.sunLight.incDayTime();
+					ModelManager.battlefield.sunLight.incDayTime();
 					break;
 				case DEC_DAYTIME:
-					Model.battlefield.sunLight.decDayTime();
+					ModelManager.battlefield.sunLight.decDayTime();
 					break;
 				case COMPASS_EAST:
-					Model.battlefield.sunLight.turnCompassEast();
+					ModelManager.battlefield.sunLight.turnCompassEast();
 					break;
 				case COMPASS_WEST:
-					Model.battlefield.sunLight.turnCompassWest();
+					ModelManager.battlefield.sunLight.turnCompassWest();
 					break;
 				case INC_INTENSITY:
-					Model.battlefield.sunLight.incIntensity();
+					ModelManager.battlefield.sunLight.incIntensity();
 					break;
 				case DEC_INTENSITY:
-					Model.battlefield.sunLight.decIntensity();
+					ModelManager.battlefield.sunLight.decIntensity();
 					break;
 				case DEC_RED:
-					Model.battlefield.sunLight.decRed();
+					ModelManager.battlefield.sunLight.decRed();
 					break;
 				case DEC_GREEN:
-					Model.battlefield.sunLight.decGreen();
+					ModelManager.battlefield.sunLight.decGreen();
 					break;
 				case DEC_BLUE:
-					Model.battlefield.sunLight.decBlue();
+					ModelManager.battlefield.sunLight.decBlue();
 					break;
 			}
 		}
@@ -193,11 +193,11 @@ public class EditorInputInterpreter extends InputInterpreter {
 		if (!isPressed) {
 			switch (name) {
 				case PRIMARY_ACTION:
-					Model.toolManager.primaryAction();
+					ModelManager.toolManager.primaryAction();
 					analogUnpressed = true;
 					break;
 				case SECONDARY_ACTION:
-					Model.toolManager.secondaryAction();
+					ModelManager.toolManager.secondaryAction();
 					analogUnpressed = true;
 					break;
 				case INC_DAYTIME:
@@ -222,59 +222,59 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ctrl.notifyListeners("CTRL3");
 					break;
 				case TOGGLE_PENCIL_SHAPE:
-					Model.toolManager.actualTool.pencil.toggleShape();
+					ModelManager.toolManager.actualTool.pencil.toggleShape();
 					break;
 				case TOGGLE_PENCIL_MODE:
-					Model.toolManager.actualTool.pencil.toggleMode();
+					ModelManager.toolManager.actualTool.pencil.toggleMode();
 					break;
 				case INC_SELECTOR_RADIUS:
-					Model.toolManager.actualTool.pencil.incRadius();
+					ModelManager.toolManager.actualTool.pencil.incRadius();
 					break;
 				case DEC_SELECTOR_RADIUS:
-					Model.toolManager.actualTool.pencil.decRadius();
+					ModelManager.toolManager.actualTool.pencil.decRadius();
 					break;
 				case SET_CLIFF_TOOL:
-					Model.toolManager.setCliffTool();
+					ModelManager.toolManager.setCliffTool();
 					break;
 				case SET_HEIGHT_TOOL:
-					Model.toolManager.setHeightTool();
+					ModelManager.toolManager.setHeightTool();
 					break;
 				case SET_ATLAS_TOOL:
-					Model.toolManager.setAtlasTool();
+					ModelManager.toolManager.setAtlasTool();
 					break;
 				case SET_RAMP_TOOL:
-					Model.toolManager.setRampTool();
+					ModelManager.toolManager.setRampTool();
 					break;
 				case SET_UNIT_TOOL:
-					Model.toolManager.setUnitTool();
+					ModelManager.toolManager.setUnitTool();
 					break;
 
 				case TOGGLE_OPERATION:
-					Model.toolManager.toggleOperation();
+					ModelManager.toolManager.toggleOperation();
 					break;
 				case TOGGLE_SET:
-					Model.toolManager.toggleSet();
+					ModelManager.toolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
 					ctrl.view.editorRend.toggleGrid();
 					break;
 				case TOGGLE_LIGHT_COMP:
-					Model.battlefield.sunLight.toggleLight();
+					ModelManager.battlefield.sunLight.toggleLight();
 					break;
 				case TOGGLE_SPEED:
-					Model.battlefield.sunLight.toggleSpeed();
+					ModelManager.battlefield.sunLight.toggleSpeed();
 					break;
 				case RESET_COLOR:
-					Model.battlefield.sunLight.resetColor();
+					ModelManager.battlefield.sunLight.resetColor();
 					break;
 				case SAVE:
-					Model.saveBattlefield();
+					ModelManager.saveBattlefield();
 					break;
 				case LOAD:
-					Model.loadBattlefield();
+					ModelManager.loadBattlefield();
 					break;
 				case NEW:
-					Model.setNewBattlefield();
+					ModelManager.setNewBattlefield();
 					break;
 			}
 			ctrl.guiController.askRedraw();

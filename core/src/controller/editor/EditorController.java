@@ -5,8 +5,8 @@
 package controller.editor;
 
 import geometry.geom2d.Point2D;
-import model.Commander;
-import model.Model;
+import model.CommandManager;
+import model.ModelManager;
 import view.View;
 
 import com.jme3.app.state.AppStateManager;
@@ -30,7 +30,7 @@ public class EditorController extends Controller {
 		inputInterpreter = new EditorInputInterpreter(this);
 		guiController = new EditorGUIController(nifty, this);
 
-		Commander.registerListener(this);
+		CommandManager.registerListener(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}
@@ -38,11 +38,11 @@ public class EditorController extends Controller {
 	@Override
 	public void update(float elapsedTime) {
 		//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
-		Model.toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
-		Model.toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
+		ModelManager.toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
+		ModelManager.toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
 		Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
-		if (coord != null && Model.battlefield.map.isInBounds(coord)) {
-			Model.toolManager.updatePencilsPos(coord);
+		if (coord != null && ModelManager.battlefield.map.isInBounds(coord)) {
+			ModelManager.toolManager.updatePencilsPos(coord);
 			view.editorRend.drawPencil();
 		}
 
@@ -59,13 +59,13 @@ public class EditorController extends Controller {
 		inputManager.setCursorVisible(true);
 		view.rootNode.attachChild(view.editorRend.mainNode);
 		guiController.activate();
-		Model.battlefield.engagement.resetEngagement();
+		ModelManager.battlefield.engagement.resetEngagement();
 	}
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		Model.battlefield.engagement.saveEngagement();
-		Model.battlefield.map.prepareForBattle();
+		ModelManager.battlefield.engagement.saveEngagement();
+		ModelManager.battlefield.map.prepareForBattle();
 		super.stateDetached(stateManager);
 		view.rootNode.detachChild(view.editorRend.mainNode);
 	}

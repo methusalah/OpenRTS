@@ -5,7 +5,7 @@ import geometry.geom2d.Point2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.Model;
+import model.ModelManager;
 import view.acting.Backstage;
 import view.mapDrawing.EditorRenderer;
 import view.mapDrawing.LightDrawer;
@@ -43,7 +43,7 @@ public class View implements ActionListener {
 	public Pointer pointer;
 
 	public View(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
-		Model.addListener(this);
+		ModelManager.addListener(this);
 		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
 		gui.attachChild(guiNode);
@@ -54,19 +54,19 @@ public class View implements ActionListener {
 		pointer = new Pointer();
 
 		lightDrawer = new LightDrawer(this, am, rootNode, vp);
-		Model.battlefield.sunLight.addListener(lightDrawer);
+		ModelManager.battlefield.sunLight.addListener(lightDrawer);
 
 		mapRend = new MapRenderer(this, materialManager, am);
 		rootNode.attachChild(mapRend.mainNode);
 		mapRend.mainPhysicsSpace = physicsSpace;
-		Model.toolManager.addListener(mapRend);
+		ModelManager.toolManager.addListener(mapRend);
 
 		editorRend = new EditorRenderer(this, materialManager);
 		rootNode.attachChild(editorRend.mainNode);
-		Model.toolManager.addListener(editorRend);
+		ModelManager.toolManager.addListener(editorRend);
 
 
-		actorManager = new Backstage(am, materialManager, Model.battlefield.actorPool);
+		actorManager = new Backstage(am, materialManager, ModelManager.battlefield.actorPool);
 		rootNode.attachChild(actorManager.mainNode);
 		actorManager.mainPhysicsSpace = physicsSpace;
 
@@ -78,24 +78,24 @@ public class View implements ActionListener {
 		rootNode.detachChild(editorRend.mainNode);
 		rootNode.detachChild(actorManager.mainNode);
 
-		Model.toolManager.removeListener(mapRend);
-		Model.toolManager.removeListener(editorRend);
+		ModelManager.toolManager.removeListener(mapRend);
+		ModelManager.toolManager.removeListener(editorRend);
 
 		mapRend = new MapRenderer(this, materialManager, assetManager);
 		rootNode.attachChild(mapRend.mainNode);
 		mapRend.mainPhysicsSpace = physicsSpace;
-		Model.toolManager.addListener(mapRend);
+		ModelManager.toolManager.addListener(mapRend);
 		mapRend.renderTiles();
 
 		editorRend = new EditorRenderer(this, materialManager);
 		rootNode.attachChild(editorRend.mainNode);
-		Model.toolManager.addListener(editorRend);
+		ModelManager.toolManager.addListener(editorRend);
 
 		lightDrawer.reset();
 		lightDrawer.updateLights();
-		Model.battlefield.sunLight.addListener(lightDrawer);
+		ModelManager.battlefield.sunLight.addListener(lightDrawer);
 
-		actorManager = new Backstage(assetManager, materialManager, Model.battlefield.actorPool);
+		actorManager = new Backstage(assetManager, materialManager, ModelManager.battlefield.actorPool);
 		rootNode.attachChild(actorManager.mainNode);
 		actorManager.mainPhysicsSpace = physicsSpace;
 	}

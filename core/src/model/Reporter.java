@@ -48,14 +48,14 @@ public class Reporter {
 	}
 
 	public boolean reportSingleUnit(){
-		if (Commander.selection.size() == 1) {
+		if (CommandManager.selection.size() == 1) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean reportNothing(){
-		if (Commander.selection.isEmpty()) {
+		if (CommandManager.selection.isEmpty()) {
 			return true;
 		}
 		return false;

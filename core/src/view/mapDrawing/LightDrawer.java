@@ -7,7 +7,7 @@ package view.mapDrawing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.Model;
+import model.ModelManager;
 import view.View;
 import view.math.Translator;
 
@@ -49,7 +49,7 @@ public class LightDrawer implements ActionListener {
 		int SHADOWMAP_SIZE = 4096;
 		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
 		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-		sr.setShadowIntensity((float)Model.battlefield.sunLight.shadowCaster.intensity);
+		sr.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
 		//        vp.addProcessor(sr);
 
 		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
@@ -77,9 +77,9 @@ public class LightDrawer implements ActionListener {
 		rootNode.removeLight(sun);
 		rootNode.removeLight(shadowCaster);
 
-		al = Translator.toJMELight(Model.battlefield.sunLight.ambient);
-		sun = Translator.toJMELight(Model.battlefield.sunLight.sun);
-		shadowCaster = Translator.toJMELight(Model.battlefield.sunLight.shadowCaster);
+		al = Translator.toJMELight(ModelManager.battlefield.sunLight.ambient);
+		sun = Translator.toJMELight(ModelManager.battlefield.sunLight.sun);
+		shadowCaster = Translator.toJMELight(ModelManager.battlefield.sunLight.shadowCaster);
 		sr.setLight(shadowCaster);
 		sf.setLight(shadowCaster);
 
@@ -99,12 +99,12 @@ public class LightDrawer implements ActionListener {
 	}
 
 	public void updateLights(){
-		Translator.toJMELight(al, Model.battlefield.sunLight.ambient);
-		Translator.toJMELight(sun, Model.battlefield.sunLight.sun);
-		Translator.toJMELight(shadowCaster, Model.battlefield.sunLight.shadowCaster);
+		Translator.toJMELight(al, ModelManager.battlefield.sunLight.ambient);
+		Translator.toJMELight(sun, ModelManager.battlefield.sunLight.sun);
+		Translator.toJMELight(shadowCaster, ModelManager.battlefield.sunLight.shadowCaster);
 		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-		sr.setShadowIntensity((float)Model.battlefield.sunLight.shadowCaster.intensity);
-		sf.setShadowIntensity((float)Model.battlefield.sunLight.shadowCaster.intensity);
+		sr.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
+		sf.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
 
 	}
 

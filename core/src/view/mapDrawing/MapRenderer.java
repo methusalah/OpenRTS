@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Model;
+import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
@@ -54,7 +54,7 @@ public class MapRenderer implements ActionListener {
 
 	public MapRenderer(View view, MaterialManager mm, AssetManager am) {
 		this.view = view;
-		groundTexture = new TerrainSplatTexture(Model.battlefield.map.atlas, am);
+		groundTexture = new TerrainSplatTexture(ModelManager.battlefield.map.atlas, am);
 		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -64,23 +64,23 @@ public class MapRenderer implements ActionListener {
 	}
 
 	public void renderTiles() {
-		LogUtil.logger.info("rendering ground"+Model.battlefield.parcelManager.meshes.size()+" "+Model.battlefield.map.tiles.size());
+		LogUtil.logger.info("rendering ground"+ModelManager.battlefield.parcelManager.meshes.size()+" "+ModelManager.battlefield.map.tiles.size());
 		int index = 0;
-		for(String s : Model.battlefield.map.style.textures){
+		for(String s : ModelManager.battlefield.map.style.textures){
 			Texture diffuse = am.loadTexture(s);
 			Texture normal;
-			if(Model.battlefield.map.style.normals.get(index) != null) {
-				normal = am.loadTexture(Model.battlefield.map.style.normals.get(index));
+			if(ModelManager.battlefield.map.style.normals.get(index) != null) {
+				normal = am.loadTexture(ModelManager.battlefield.map.style.normals.get(index));
 			} else {
 				normal = null;
 			}
-			double scale = Model.battlefield.map.style.scales.get(index);
+			double scale = ModelManager.battlefield.map.style.scales.get(index);
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
 		groundTexture.buildMaterial();
 
-		for(ParcelMesh mesh : Model.battlefield.parcelManager.meshes){
+		for(ParcelMesh mesh : ModelManager.battlefield.parcelManager.meshes){
 			Geometry g = new Geometry();
 			Mesh jmeMesh = Translator.toJMEMesh(mesh);
 			SilentTangentBinormalGenerator.generate(jmeMesh);
@@ -93,7 +93,7 @@ public class MapRenderer implements ActionListener {
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 		}
-		updateTiles(Model.battlefield.map.tiles);
+		updateTiles(ModelManager.battlefield.map.tiles);
 	}
 
 	private Spatial getModel(String path){

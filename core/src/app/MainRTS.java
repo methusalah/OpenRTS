@@ -5,7 +5,7 @@ import geometry.tools.LogUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.Model;
+import model.ModelManager;
 import view.View;
 import view.mapDrawing.MapRenderer;
 
@@ -73,7 +73,7 @@ public class MainRTS extends OpenRTSApplication implements ActionListener {
 		listener.setRotation(cam.getRotation());
 		view.actorManager.render();
 		actualCtrl.update(maxedTPF);
-		Model.updateConfigs();
+		ModelManager.updateConfigs();
 	}
 
 	@Override

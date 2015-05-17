@@ -4,7 +4,6 @@ import geometry.tools.LogUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 
 import model.battlefield.Battlefield;
@@ -13,9 +12,9 @@ import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.DefParser;
 import model.editor.ToolManager;
 
-public class Model {
+public class ModelManager {
 	public static final String BATTLEFIELD_UPDATED_EVENT = "mapupdatedevent";
-	static final String CONFIG_PATH = "assets/data";
+	public static final String CONFIG_PATH = "assets/data";
 	public static final String DEFAULT_MAP_PATH = "assets/maps/";
 	static final double UPDATE_DELAY = 1000;
 	private static final int DEFAULT_WIDTH = 64;
@@ -26,12 +25,9 @@ public class Model {
 
 	public static Battlefield battlefield;
 
-	// public Commander commander;
 	public static ToolManager toolManager;
 
-
 	final static DefParser parser;
-	File confFile;
 	static double nextUpdate = 0;
 
 	private static ArrayList<ActionListener> listeners = new ArrayList<>();
@@ -44,7 +40,7 @@ public class Model {
 		setNewBattlefield();
 	}
 
-	private Model() {
+	private ModelManager() {
 
 	}
 
@@ -71,9 +67,9 @@ public class Model {
 	}
 
 	private static void setBattlefield(Battlefield battlefield) {
-		Model.battlefield = battlefield;
-		Commander.armyManager = battlefield.armyManager;
-		Commander.map = battlefield.map;
+		ModelManager.battlefield = battlefield;
+		CommandManager.armyManager = battlefield.armyManager;
+		CommandManager.map = battlefield.map;
 		toolManager = new ToolManager(battlefield, lib);
 		LogUtil.logger.info("Reseting view...");
 		notifyListeners(BATTLEFIELD_UPDATED_EVENT);
@@ -92,10 +88,10 @@ public class Model {
 		listeners.add(listener);
 	}
 
-	public static void notifyListeners(String eventCommand) {
+	private static void notifyListeners(String eventCommand) {
 		for(ActionListener l : listeners) {
 			// FIXME: why we are doing this?
-			l.actionPerformed(new ActionEvent(new Model(), 0, eventCommand));
+			l.actionPerformed(new ActionEvent(new ModelManager(), 0, eventCommand));
 		}
 
 	}

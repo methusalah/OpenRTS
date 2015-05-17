@@ -6,7 +6,7 @@ package controller.battlefield;
 
 import java.util.ArrayList;
 
-import model.Commander;
+import model.CommandManager;
 import model.Reporter;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
@@ -33,7 +33,7 @@ public class BattlefieldGUIController extends GUIController {
 	}
 
 	public void selectAll(){
-		Commander.selectAll();
+		CommandManager.selectAll();
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class BattlefieldGUIController extends GUIController {
 		String n = System.getProperty("line.separator");
 
 		// update unities
-		unities = Commander.getUnitiesInContext();
+		unities = CommandManager.getUnitiesInContext();
 		// Unity selectors
 		for(int i=0; i<5; i++){
 			if(i > unities.size()-1){
@@ -63,8 +63,8 @@ public class BattlefieldGUIController extends GUIController {
 		}
 
 		// update info
-		if (Commander.selection.size() == 1) {
-			Unit u = Commander.selection.get(0);
+		if (CommandManager.selection.size() == 1) {
+			Unit u = CommandManager.selection.get(0);
 			getElement("unitName").getRenderer(TextRenderer.class).setText(Reporter.getName(u));
 			getElement("unitHealth").getRenderer(TextRenderer.class).setText(Reporter.getHealth(u));
 			getElement("unitState").getRenderer(TextRenderer.class).setText(Reporter.getState(u));
@@ -92,6 +92,6 @@ public class BattlefieldGUIController extends GUIController {
 
 	public void select(String s){
 		int index = Integer.parseInt(s);
-		Commander.selectUnityInContext(unities.get(index));
+		CommandManager.selectUnityInContext(unities.get(index));
 	}
 }

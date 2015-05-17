@@ -19,7 +19,7 @@ import model.battlefield.map.Map;
 /**
  * @author Benoît
  */
-public class Commander {
+public class CommandManager {
 
 	static ArmyManager armyManager;
 	static Map map;
@@ -30,7 +30,7 @@ public class Commander {
 
 	static ArrayList<ReportEventListener> listeners = new ArrayList<>();
 
-	private Commander() {
+	private CommandManager() {
 	}
 
 	public static void setMoveAttack() {

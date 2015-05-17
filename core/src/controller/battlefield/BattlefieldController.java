@@ -1,8 +1,8 @@
 package controller.battlefield;
 
 import geometry.geom2d.Point2D;
-import model.Commander;
-import model.Model;
+import model.CommandManager;
+import model.ModelManager;
 import view.View;
 import view.math.Translator;
 
@@ -26,7 +26,7 @@ public class BattlefieldController extends Controller {
 		inputInterpreter = new BattlefieldInputInterpreter(this);
 		guiController = new BattlefieldGUIController(nifty, this);
 
-		Commander.registerListener(this);
+		CommandManager.registerListener(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}
@@ -43,12 +43,12 @@ public class BattlefieldController extends Controller {
 		}
 
 		// update selectables
-		Commander.updateSelectables(spatialSelector.getCenterViewCoord(view.rootNode));
+		CommandManager.updateSelectables(spatialSelector.getCenterViewCoord(view.rootNode));
 		guiController.update();
 
 		// udpdate army
 		if(!paused) {
-			Model.battlefield.armyManager.update(elapsedTime);
+			ModelManager.battlefield.armyManager.update(elapsedTime);
 		}
 	}
 

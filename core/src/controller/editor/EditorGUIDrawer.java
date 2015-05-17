@@ -11,7 +11,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Model;
+import model.ModelManager;
 import model.builders.MapStyleBuilder;
 import model.editor.Pencil;
 import model.editor.tools.AtlasTool;
@@ -62,7 +62,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawToolPanel() {
-		Tool tool = Model.toolManager.actualTool;
+		Tool tool = ModelManager.toolManager.actualTool;
 		if (tool instanceof CliffTool) {
 			maintainButton(CLIFF_TOOL_BUTTON_ID);
 		} else {
@@ -95,7 +95,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawOperationPanel() {
-		Tool tool = Model.toolManager.actualTool;
+		Tool tool = ModelManager.toolManager.actualTool;
 		for (int i = 0; i < 3; i++) {
 			if (!tool.getOperation(i).isEmpty()) {
 				getElement(OPERATION_BUTTON_ID_PREFIX + i).show();
@@ -113,7 +113,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawSetPanel() {
-		Tool tool = Model.toolManager.actualTool;
+		Tool tool = ModelManager.toolManager.actualTool;
 		if (tool.hasSet()) {
 			if (tool.getSet().hasIcons()) {
 				drawIconSetPanel();
@@ -127,7 +127,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawIconSetPanel() {
-		Tool tool = Model.toolManager.actualTool;
+		Tool tool = ModelManager.toolManager.actualTool;
 		getElement(ICON_SET_PANEL_ID).show();
 		getElement(LIST_SET_PANEL_ID).hide();
 		for (int i = 0; i < 8; i++) {
@@ -146,26 +146,26 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawListSetPanel() {
-		Tool tool = Model.toolManager.actualTool;
+		Tool tool = ModelManager.toolManager.actualTool;
 		getElement(LIST_SET_PANEL_ID).show();
 		getElement(ICON_SET_PANEL_ID).hide();
 		fillList(SELECTION_LIST_ID, tool.getSet().getAllAssets());
 	}
 
 	private void drawMapStyleDropDown() {
-		List<MapStyleBuilder> builders = Model.lib.getAllMapStyleBuilders();
+		List<MapStyleBuilder> builders = ModelManager.lib.getAllMapStyleBuilders();
 		List<String> ids = new ArrayList<>();
 		for (MapStyleBuilder b : builders) {
 			ids.add(b.getId());
 		}
-		int selIndex = ids.indexOf(Model.battlefield.map.mapStyleID);
+		int selIndex = ids.indexOf(ModelManager.battlefield.map.mapStyleID);
 		fillDropDown(DROPDOWN_STYLE_ID, ids, selIndex);
 	}
 
 	private void drawPencilPanel() {
 		getElement("pencilpanel").hide();
 
-		Pencil pencil = Model.toolManager.actualTool.pencil;
+		Pencil pencil = ModelManager.toolManager.actualTool.pencil;
 
 		if (pencil.sizeIncrement != 0) {
 			getElement("pencilpanel").show();

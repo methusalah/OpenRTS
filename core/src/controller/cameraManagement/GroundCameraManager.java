@@ -4,7 +4,7 @@ package controller.cameraManagement;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
 import geometry.tools.LogUtil;
-import model.Model;
+import model.ModelManager;
 import view.math.Translator;
 
 import com.jme3.input.InputManager;
@@ -62,8 +62,8 @@ public class GroundCameraManager extends CameraManager {
 	}
 
 	private void placeCam(){
-		if (Model.battlefield.map.isInBounds(pos.get2D())) {
-			pos.z = Model.battlefield.map.getAltitudeAt(pos.get2D()) + 0.5;
+		if (ModelManager.battlefield.map.isInBounds(pos.get2D())) {
+			pos.z = ModelManager.battlefield.map.getAltitudeAt(pos.get2D()) + 0.5;
 		} else {
 			pos.z = 0;
 		}

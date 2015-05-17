@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Model;
+import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.Pencil;
@@ -55,7 +55,7 @@ public class EditorRenderer implements ActionListener {
 		this.view = view;
 		this.mm = mm;
 
-		for (ParcelMesh parcel : Model.battlefield.parcelManager.meshes) {
+		for (ParcelMesh parcel : ModelManager.battlefield.parcelManager.meshes) {
 			GridMesh grid = new GridMesh(parcel);
 			gridMeshes.put(parcel, grid);
 
@@ -151,22 +151,22 @@ public class EditorRenderer implements ActionListener {
 
 
 	public void drawPencil() {
-		if(Model.toolManager.actualTool == Model.toolManager.cliffTool ||
-				Model.toolManager.actualTool == Model.toolManager.rampTool){
+		if(ModelManager.toolManager.actualTool == ModelManager.toolManager.cliffTool ||
+				ModelManager.toolManager.actualTool == ModelManager.toolManager.rampTool){
 			drawCliffPencil();
-		} else if(Model.toolManager.actualTool == Model.toolManager.heightTool){
+		} else if(ModelManager.toolManager.actualTool == ModelManager.toolManager.heightTool){
 			drawHeightPencil();
-		} else if(Model.toolManager.actualTool == Model.toolManager.atlasTool){
+		} else if(ModelManager.toolManager.actualTool == ModelManager.toolManager.atlasTool){
 			drawAtlasPencil();
 		}
 	}
 
 	private void drawCliffPencil() {
-		List<Tile> tiles = Model.toolManager.cliffTool.pencil.getTiles();
+		List<Tile> tiles = ModelManager.toolManager.cliffTool.pencil.getTiles();
 		int index = 0;
 		for(Spatial s : CliffPencilNode.getChildren()){
 			if(index < tiles.size()) {
-				s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getCoord(), (float)Model.toolManager.cliffTool.pencil.getElevation()+0.1f));
+				s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getCoord(), (float)ModelManager.toolManager.cliffTool.pencil.getElevation()+0.1f));
 			} else {
 				s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 			}
@@ -174,7 +174,7 @@ public class EditorRenderer implements ActionListener {
 		}
 	}
 	private void drawHeightPencil() {
-		List<Tile> tiles = Model.toolManager.heightTool.pencil.getNodes();
+		List<Tile> tiles = ModelManager.toolManager.heightTool.pencil.getNodes();
 		int index = 0;
 		for(Spatial s : HeightPencilNode.getChildren()){
 			if(index < tiles.size()){
@@ -192,9 +192,9 @@ public class EditorRenderer implements ActionListener {
 		}
 	}
 	private void drawAtlasPencil() {
-		Pencil s = Model.toolManager.atlasTool.pencil;
+		Pencil s = ModelManager.toolManager.atlasTool.pencil;
 		PointRing pr = new PointRing();
-		Point2D center = Model.toolManager.actualTool.pencil.getCoord();
+		Point2D center = ModelManager.toolManager.actualTool.pencil.getCoord();
 
 		if(s.shape == Pencil.Shape.Square ||
 				s.shape == Pencil.Shape.Diamond){
@@ -227,10 +227,10 @@ public class EditorRenderer implements ActionListener {
 		int index = 0;
 		for(Spatial spatial : AtlasPencilNode.getChildren()){
 			if(index < pr.size() &&
-					Model.battlefield.map.isInBounds(pr.get(index)) &&
-					Model.battlefield.map.isInBounds(pr.getNext(index))){
-				Point3D start = pr.get(index).get3D(Model.battlefield.map.getAltitudeAt(pr.get(index))+0.1);
-				Point3D end = pr.getNext(index).get3D(Model.battlefield.map.getAltitudeAt(pr.getNext(index))+0.1);
+					ModelManager.battlefield.map.isInBounds(pr.get(index)) &&
+					ModelManager.battlefield.map.isInBounds(pr.getNext(index))){
+				Point3D start = pr.get(index).get3D(ModelManager.battlefield.map.getAltitudeAt(pr.get(index))+0.1);
+				Point3D end = pr.getNext(index).get3D(ModelManager.battlefield.map.getAltitudeAt(pr.getNext(index))+0.1);
 				Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
 				l.setLineWidth(PENCIL_THICKNESS);
 				((Geometry)spatial).setMesh(l);
@@ -272,14 +272,14 @@ public class EditorRenderer implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()){
 			case "tool" :
-				if(Model.toolManager.actualTool != Model.toolManager.cliffTool &&
-				Model.toolManager.actualTool != Model.toolManager.rampTool) {
+				if(ModelManager.toolManager.actualTool != ModelManager.toolManager.cliffTool &&
+				ModelManager.toolManager.actualTool != ModelManager.toolManager.rampTool) {
 					hideCliffPencil();
 				}
-				if(Model.toolManager.actualTool != Model.toolManager.heightTool) {
+				if(ModelManager.toolManager.actualTool != ModelManager.toolManager.heightTool) {
 					hideHeightPencil();
 				}
-				if(Model.toolManager.actualTool != Model.toolManager.atlasTool) {
+				if(ModelManager.toolManager.actualTool != ModelManager.toolManager.atlasTool) {
 					hideAtlasPencil();
 				}
 				break;

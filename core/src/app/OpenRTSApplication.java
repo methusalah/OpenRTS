@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
-import model.Commander;
+import model.CommandManager;
 
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
@@ -53,7 +53,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	BulletAppState bulletAppState;
 
-	protected static Commander commander;
+	protected static CommandManager commander;
 
 	private class AppActionListener implements ActionListener {
 		@Override
