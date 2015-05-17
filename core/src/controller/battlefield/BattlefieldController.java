@@ -58,6 +58,7 @@ public class BattlefieldController extends Controller {
 	@Subscribe
 	public void manageEvent(InputEvent ev) {
 		guiController.update();
+
 	}
 
 	public void togglePause(){
@@ -71,6 +72,5 @@ public class BattlefieldController extends Controller {
 		inputManager.setCursorVisible(true);
 		guiController.activate();
 	}
-
 
 }

@@ -26,7 +26,6 @@ public class Game extends OpenRTSApplication {
 		View view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-
 		BattlefieldController fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);

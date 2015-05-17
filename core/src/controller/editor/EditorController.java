@@ -62,6 +62,4 @@ public class EditorController extends Controller {
 		view.rootNode.detachChild(view.editorRend.mainNode);
 	}
 
-
-
 }

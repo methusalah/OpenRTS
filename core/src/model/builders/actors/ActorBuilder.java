@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders.actors;
 
@@ -17,71 +16,74 @@ import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
 /**
- *
  * @author Benoît
  */
-public class ActorBuilder extends Builder{
-    public static final String TYPE = "Type"; 
+public class ActorBuilder extends Builder {
+	public static final String TYPE = "Type";
 
-    public static final String TYPE_MODEL = "Model";
-    public static final String TYPE_PARTICLE = "Particle";
-    public static final String TYPE_ANIMATION = "Animation";
-    public static final String TYPE_PHYSIC = "Physic";
-    public static final String TYPE_SOUND = "Sound";
-    
-    protected static final String ACTOR_LIST = "ActorList";
-    protected static final String TRIGGER = "Trigger";
-    protected static final String PROB = "Prob";
-    protected static final String ACTOR_LINK = "ActorLink";
+	public static final String TYPE_MODEL = "Model";
+	public static final String TYPE_PARTICLE = "Particle";
+	public static final String TYPE_ANIMATION = "Animation";
+	public static final String TYPE_PHYSIC = "Physic";
+	public static final String TYPE_SOUND = "Sound";
 
-    protected String type;
-    private List<String> childrenActorBuildersID = new ArrayList<>();
-    protected List<ActorBuilder> childrenActorBuilders = new ArrayList<>();
-    protected List<String> childrenTriggers = new ArrayList<>();
-    protected List<Double> childrenProbs = new ArrayList<>();
-    
-    public ActorBuilder(Definition def, BuilderLibrary lib){
-        super(def, lib);
-        for(DefElement de : def.elements)
-            switch(de.name){
-                case TYPE : type = de.getVal(); break;
-                case ACTOR_LIST :
-                    childrenActorBuildersID.add(de.getVal(ACTOR_LINK));
-                    childrenTriggers.add(de.getVal(TRIGGER));
-                    if(de.getVal(PROB) != null)
-                    	childrenProbs.add(de.getDoubleVal(PROB));
-                    else
-                    	childrenProbs.add(1d);
-                    break;
-            }
-    }
-    
-    public Actor build(String trigger, Actor parent){
-        List<ActorBuilder> localChildrenActorBuilders = new ArrayList<>();
-        List<String> localChildrenTriggers = new ArrayList<>();
-        
-        int i = 0;
-        for(ActorBuilder b : childrenActorBuilders){
-        	if(MyRandom.next() < childrenProbs.get(i)){
-        		localChildrenActorBuilders.add(b);
-        		localChildrenTriggers.add(childrenTriggers.get(i));
-        	}
-        	
-        	i++;
-        }
-    	
-    	Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, lib.battlefield.actorPool);
-    	res.debbug_id = getId();
-    	return res;
-    }
+	protected static final String ACTOR_LIST = "ActorList";
+	protected static final String TRIGGER = "Trigger";
+	protected static final String PROB = "Prob";
+	protected static final String ACTOR_LINK = "ActorLink";
 
-    @Override
-    public void readFinalizedLibrary() {
-        for(String s : childrenActorBuildersID)
-            childrenActorBuilders.add(lib.getActorBuilder(s));
-        if(childrenActorBuilders.size() != childrenTriggers.size())
-            LogUtil.logger.info("fuck "+def.id);
-    }
+	protected String type;
+	private List<String> childrenActorBuildersID = new ArrayList<>();
+	protected List<ActorBuilder> childrenActorBuilders = new ArrayList<>();
+	protected List<String> childrenTriggers = new ArrayList<>();
+	protected List<Double> childrenProbs = new ArrayList<>();
 
-    
+	public ActorBuilder(Definition def, BuilderLibrary lib) {
+		super(def, lib);
+		for (DefElement de : def.elements) {
+			switch (de.name) {
+				case TYPE:
+					type = de.getVal();
+					break;
+				case ACTOR_LIST:
+					childrenActorBuildersID.add(de.getVal(ACTOR_LINK));
+					childrenTriggers.add(de.getVal(TRIGGER));
+					if (de.getVal(PROB) != null) {
+						childrenProbs.add(de.getDoubleVal(PROB));
+					} else {
+						childrenProbs.add(1d);
+					}
+					break;
+			}
+		}
+	}
+
+	public Actor build(String trigger, Actor parent) {
+		List<ActorBuilder> localChildrenActorBuilders = new ArrayList<>();
+		List<String> localChildrenTriggers = new ArrayList<>();
+
+		int i = 0;
+		for (ActorBuilder b : childrenActorBuilders) {
+			if (MyRandom.next() < childrenProbs.get(i)) {
+				localChildrenActorBuilders.add(b);
+				localChildrenTriggers.add(childrenTriggers.get(i));
+			}
+			i++;
+		}
+
+		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, lib.battlefield.actorPool);
+		res.debbug_id = getId();
+		return res;
+	}
+
+	@Override
+	public void readFinalizedLibrary() {
+		for (String s : childrenActorBuildersID) {
+			childrenActorBuilders.add(lib.getActorBuilder(s));
+		}
+		if (childrenActorBuilders.size() != childrenTriggers.size()) {
+			LogUtil.logger.info("fuck " + def.id);
+		}
+	}
+
 }

@@ -5,6 +5,7 @@
 package controller.battlefield;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.CommandManager;
 import model.Reporter;
@@ -21,7 +22,7 @@ import de.lessvoid.nifty.screen.Screen;
  * @author Benoît
  */
 public class BattlefieldGUIController extends GUIController {
-	ArrayList<Unity> unities = new ArrayList<>();
+	List<Unity> unities = new ArrayList<>();
 
 	public BattlefieldGUIController(Nifty nifty, Controller controller) {
 		super(controller, nifty);

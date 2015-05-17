@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package controller.editor;
 
@@ -19,7 +18,6 @@ import de.lessvoid.nifty.controls.SliderChangedEvent;
 import de.lessvoid.nifty.screen.Screen;
 
 /**
- *
  * @author Benoît
  */
 public class EditorGUIController extends GUIController {
@@ -30,7 +28,7 @@ public class EditorGUIController extends GUIController {
 	}
 
 	@Override
-	public void activate(){
+	public void activate() {
 		nifty.gotoScreen("editor");
 		nifty.update();
 		askRedraw();
@@ -38,10 +36,10 @@ public class EditorGUIController extends GUIController {
 
 	@Override
 	public void update() {
-		if(!nifty.getCurrentScreen().getScreenId().equals("editor")) {
+		if (!nifty.getCurrentScreen().getScreenId().equals("editor")) {
 			throw new RuntimeException("updating editor screen but is not current screen.");
 		}
-		if(redrawAsked){
+		if (redrawAsked) {
 			drawer.draw();
 			redrawAsked = false;
 		}
@@ -59,10 +57,10 @@ public class EditorGUIController extends GUIController {
 	public void onEndScreen() {
 	}
 
-	@NiftyEventSubscriber(pattern=".*slider")
+	@NiftyEventSubscriber(pattern = ".*slider")
 	public void onSliderChanged(final String id, final SliderChangedEvent event) {
-		switch(id){
-			case "sizeslider" :
+		switch (id) {
+			case "sizeslider":
 				if (event.getValue() < ModelManager.toolManager.actualTool.pencil.size) {
 					ModelManager.toolManager.actualTool.pencil.decRadius();
 				} else if (event.getValue() > ModelManager.toolManager.actualTool.pencil.size) {
@@ -75,22 +73,22 @@ public class EditorGUIController extends GUIController {
 		}
 	}
 
-	@NiftyEventSubscriber(pattern=".*list")
+	@NiftyEventSubscriber(pattern = ".*list")
 	public void onListSelectionChanged(final String id, final ListBoxSelectionChangedEvent event) {
 		List<Integer> selectionIndices = event.getSelectionIndices();
-		if(selectionIndices.isEmpty()) {
+		if (selectionIndices.isEmpty()) {
 			return;
 		}
-		switch(id){
+		switch (id) {
 			case "selectionlist":
 				ModelManager.toolManager.actualTool.getSet().set(selectionIndices.get(0));
 				break;
 		}
 	}
 
-	@NiftyEventSubscriber(pattern=".*dropdown")
+	@NiftyEventSubscriber(pattern = ".*dropdown")
 	public void onDropDownSelectionChanged(final String id, final DropDownSelectionChangedEvent event) {
-		if(!event.getDropDown().isEnabled()) {
+		if (!event.getDropDown().isEnabled()) {
 			return;
 		}
 		int selectionIndex = event.getSelectionItemIndex();
@@ -101,84 +99,94 @@ public class EditorGUIController extends GUIController {
 		}
 	}
 
-
-	public void load(){
+	public void load() {
 		ModelManager.loadBattlefield();
 	}
 
-	public void save(){
+	public void save() {
 		ModelManager.saveBattlefield();
 	}
 
-	public void newMap(){
+	public void newMap() {
 		ModelManager.setNewBattlefield();
 	}
 
-	public void settings(){
+	public void settings() {
 		MainRTS.appInstance.changeSettings();
 	}
 
-	public void toggleGrid(){
+	public void toggleGrid() {
 		ctrl.view.editorRend.toggleGrid();
 	}
-	public void setCliffTool(){
+
+	public void setCliffTool() {
 		ModelManager.toolManager.setCliffTool();
 		askRedraw();
 	}
-	public void setHeightTool(){
+
+	public void setHeightTool() {
 		ModelManager.toolManager.setHeightTool();
 		askRedraw();
 	}
-	public void setAtlasTool(){
+
+	public void setAtlasTool() {
 		ModelManager.toolManager.setAtlasTool();
 		askRedraw();
 	}
-	public void setRampTool(){
+
+	public void setRampTool() {
 		ModelManager.toolManager.setRampTool();
 		askRedraw();
 	}
-	public void setUnitTool(){
+
+	public void setUnitTool() {
 		ModelManager.toolManager.setUnitTool();
 		askRedraw();
 	}
-	public void setTrincketTool(){
+
+	public void setTrincketTool() {
 		ModelManager.toolManager.setTrinketTool();
 		askRedraw();
 	}
 
-	public void setOperation(String indexString){
+	public void setOperation(String indexString) {
 		ModelManager.toolManager.actualTool.setOperation(Integer.parseInt(indexString));
 		askRedraw();
 	}
 
-	public void setSet(String indexString){
+	public void setSet(String indexString) {
 		if (ModelManager.toolManager.actualTool.hasSet()) {
 			ModelManager.toolManager.actualTool.getSet().set(Integer.parseInt(indexString));
 		}
 		askRedraw();
 	}
 
-	public void setRoughMode(){
+	public void setRoughMode() {
 		ModelManager.toolManager.actualTool.pencil.setRoughMode();
 		askRedraw();
 	}
-	public void setAirbrushMode(){
+
+	public void setAirbrushMode() {
 		ModelManager.toolManager.actualTool.pencil.setAirbrushMode();
 		askRedraw();
 	}
-	public void setNoiseMode(){
+
+	public void setNoiseMode() {
 		ModelManager.toolManager.actualTool.pencil.setNoiseMode();
 		askRedraw();
 	}
-	public void setSquareShape(){
+
+	public void setSquareShape() {
 		ModelManager.toolManager.actualTool.pencil.setSquareShape();
 		askRedraw();
 	}
-	public void setDiamondShape(){
+
+	public void setDiamondShape() {
 		ModelManager.toolManager.actualTool.pencil.setDiamondShape();
 		askRedraw();
 	}
-	public void setCircleShape(){
+
+	public void setCircleShape() {
 		ModelManager.toolManager.actualTool.pencil.setCircleShape();
 		askRedraw();
 	}
