@@ -1,8 +1,6 @@
 package model.builders.actors;
 
-import geometry.tools.LogUtil;
 import model.battlefield.actors.Actor;
-import model.battlefield.actors.AnimationActor;
 import model.battlefield.actors.SoundActor;
 import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.DefElement;
@@ -25,8 +23,8 @@ public class SoundActorBuilder extends ActorBuilder{
     
     public SoundActorBuilder(Definition def, BuilderLibrary lib){
         super(def, lib);
-        for(DefElement de : def.elements)
-            switch(de.name){
+        for(DefElement de : def.elements) {
+			switch(de.name){
                 case TYPE :
                 case TRIGGER :
                 case ACTOR_LIST : break;
@@ -36,6 +34,7 @@ public class SoundActorBuilder extends ActorBuilder{
                 case POSITIONAL : positional = de.getBoolVal(); break;
                 default:printUnknownElement(de.name);
             }
+		}
     }
     
     @Override
