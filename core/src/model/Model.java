@@ -21,22 +21,22 @@ public class Model {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 32;
 
+	public static final BattlefieldFactory factory;
+	public static final BuilderLibrary lib;
 
-	public final BattlefieldFactory factory;
-	public Battlefield battlefield;
+	public static Battlefield battlefield;
 
-	public Commander commander;
-	public ToolManager toolManager;
+	// public Commander commander;
+	public static ToolManager toolManager;
 
 
-	public final BuilderLibrary lib;
-	final DefParser parser;
+	final static DefParser parser;
 	File confFile;
-	double nextUpdate = 0;
+	static double nextUpdate = 0;
 
-	private ArrayList<ActionListener> listeners = new ArrayList<>();
+	private static ArrayList<ActionListener> listeners = new ArrayList<>();
 
-	public Model() {
+	static {
 		lib = new BuilderLibrary();
 		parser = new DefParser(lib, CONFIG_PATH);
 
@@ -44,38 +44,43 @@ public class Model {
 		setNewBattlefield();
 	}
 
-	public void updateConfigs() {
+	private Model() {
+
+	}
+
+	public static void updateConfigs() {
 		if(System.currentTimeMillis()>nextUpdate){
 			nextUpdate = System.currentTimeMillis()+UPDATE_DELAY;
 			parser.readFile();
 		}
 	}
 
-	public void loadBattlefield(){
+	public static void loadBattlefield() {
 		Battlefield loadedBattlefield = factory.load();
 		if(loadedBattlefield != null) {
 			setBattlefield(loadedBattlefield);
 		}
 	}
 
-	public void saveBattlefield(){
+	public static void saveBattlefield() {
 		factory.save(battlefield);
 	}
 
-	public void setNewBattlefield(){
+	public static void setNewBattlefield() {
 		setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
-	private void setBattlefield(Battlefield battlefield){
-		this.battlefield = battlefield;
-		commander = new Commander(battlefield.armyManager, battlefield.map);
+	private static void setBattlefield(Battlefield battlefield) {
+		Model.battlefield = battlefield;
+		Commander.armyManager = battlefield.armyManager;
+		Commander.map = battlefield.map;
 		toolManager = new ToolManager(battlefield, lib);
 		LogUtil.logger.info("Reseting view...");
 		notifyListeners(BATTLEFIELD_UPDATED_EVENT);
 		LogUtil.logger.info("Done.");
 	}
 
-	public void reload(){
+	public static void reload() {
 		saveBattlefield();
 		Battlefield loadedBattlefield = factory.load(battlefield.fileName);
 		if(loadedBattlefield != null) {
@@ -83,13 +88,14 @@ public class Model {
 		}
 	}
 
-	public void addListener(ActionListener listener){
+	public static void addListener(ActionListener listener) {
 		listeners.add(listener);
 	}
 
-	public void notifyListeners(String eventCommand){
+	public static void notifyListeners(String eventCommand) {
 		for(ActionListener l : listeners) {
-			l.actionPerformed(new ActionEvent(this, 0, eventCommand));
+			// FIXME: why we are doing this?
+			l.actionPerformed(new ActionEvent(new Model(), 0, eventCommand));
 		}
 
 	}

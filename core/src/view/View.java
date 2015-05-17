@@ -24,142 +24,140 @@ import com.jme3.scene.shape.Line;
 
 public class View implements ActionListener {
 
-    // External ressources
-    public Model model;
-    public Node rootNode;
-    public Node guiNode = new Node();
-    public PhysicsSpace physicsSpace;
-        
-    // Renderers
-    public MapRenderer mapRend;
-    public EditorRenderer editorRend;
-    public Backstage actorManager;
-    public LightDrawer lightDrawer;
+	// External ressources
+	public Node rootNode;
+	public Node guiNode = new Node();
+	public PhysicsSpace physicsSpace;
+
+	// Renderers
+	public MapRenderer mapRend;
+	public EditorRenderer editorRend;
+	public Backstage actorManager;
+	public LightDrawer lightDrawer;
 
 
-    // Internal ressources
-    public MaterialManager materialManager;
-    public ViewPort vp;
-    public AssetManager assetManager;
-    public Pointer pointer;
+	// Internal ressources
+	public MaterialManager materialManager;
+	public ViewPort vp;
+	public AssetManager assetManager;
+	public Pointer pointer;
 
-    public View(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp, Model m){
-        model = m;
-        model.addListener(this);
-        this.rootNode = rootNode;
-        this.physicsSpace = physicsSpace;
-        gui.attachChild(guiNode);
+	public View(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
+		Model.addListener(this);
+		this.rootNode = rootNode;
+		this.physicsSpace = physicsSpace;
+		gui.attachChild(guiNode);
 
-        materialManager = new MaterialManager(am);
-        this.assetManager = am;
-        this.vp = vp;
-        pointer = new Pointer();
-        
-        lightDrawer = new LightDrawer(this, am, rootNode, vp);
-        model.battlefield.sunLight.addListener(lightDrawer);
+		materialManager = new MaterialManager(am);
+		this.assetManager = am;
+		this.vp = vp;
+		pointer = new Pointer();
 
-        mapRend = new MapRenderer(this, materialManager, am);
-        rootNode.attachChild(mapRend.mainNode);
-        mapRend.mainPhysicsSpace = physicsSpace;
-        model.toolManager.addListener(mapRend);
-        
-        editorRend = new EditorRenderer(this, materialManager);
-        rootNode.attachChild(editorRend.mainNode);
-        model.toolManager.addListener(editorRend);
-        
-        
-        actorManager = new Backstage(am, materialManager, model.battlefield.actorPool);
-        rootNode.attachChild(actorManager.mainNode);
-        actorManager.mainPhysicsSpace = physicsSpace;
-        
-        createSky();
-    }
-    
-    public void reset(){
-        rootNode.detachChild(mapRend.mainNode);
-        rootNode.detachChild(editorRend.mainNode);
-        rootNode.detachChild(actorManager.mainNode);
-        
-        model.toolManager.removeListener(mapRend);
-        model.toolManager.removeListener(editorRend);
-        
-        mapRend = new MapRenderer(this, materialManager, assetManager);
-        rootNode.attachChild(mapRend.mainNode);
-        mapRend.mainPhysicsSpace = physicsSpace;
-        model.toolManager.addListener(mapRend);
-        mapRend.renderTiles();
-        
-        editorRend = new EditorRenderer(this, materialManager);
-        rootNode.attachChild(editorRend.mainNode);
-        model.toolManager.addListener(editorRend);
-        
-        lightDrawer.reset();
-        lightDrawer.updateLights();
-        model.battlefield.sunLight.addListener(lightDrawer);
-        
-        actorManager = new Backstage(assetManager, materialManager, model.battlefield.actorPool);
-        rootNode.attachChild(actorManager.mainNode);
-        actorManager.mainPhysicsSpace = physicsSpace;
-    }
-	
-    private void createSky() {
-        vp.setBackgroundColor(new ColorRGBA(135f/255f, 206f/255f, 250f/255f, 1));
-        Geometry xAxe = new Geometry();
-        xAxe.setMesh(new Box(5, 0.1f, 0.1f));
-        xAxe.setMaterial(materialManager.getColor(ColorRGBA.Brown));
-        xAxe.setLocalTranslation(5, 0, 0);
-        rootNode.attachChild(xAxe);
+		lightDrawer = new LightDrawer(this, am, rootNode, vp);
+		Model.battlefield.sunLight.addListener(lightDrawer);
 
-        Geometry zAxe = new Geometry();
-        zAxe.setMesh(new Box(0.1f, 0.1f, 5));
-        zAxe.setMaterial(materialManager.greenMaterial);
-        zAxe.setLocalTranslation(0, 0, 5);
-        rootNode.attachChild(zAxe);
+		mapRend = new MapRenderer(this, materialManager, am);
+		rootNode.attachChild(mapRend.mainNode);
+		mapRend.mainPhysicsSpace = physicsSpace;
+		Model.toolManager.addListener(mapRend);
 
-        Geometry yAxe = new Geometry();
-        yAxe.setMesh(new Box(0.1f, 5, 0.1f));
-        yAxe.setMaterial(materialManager.redMaterial);
-        yAxe.setLocalTranslation(0, 5, 0);
-        rootNode.attachChild(yAxe);
-    }
-    
-    public void drawSelectionArea(Point2D c1, Point2D c2) {
-        float minX = (float) Math.min(c1.x, c2.x);
-        float maxX = (float) Math.max(c1.x, c2.x);
+		editorRend = new EditorRenderer(this, materialManager);
+		rootNode.attachChild(editorRend.mainNode);
+		Model.toolManager.addListener(editorRend);
 
-        float minY = (float) Math.min(c1.y, c2.y);
-        float maxY = (float) Math.max(c1.y, c2.y);
 
-        guiNode.detachAllChildren();
+		actorManager = new Backstage(am, materialManager, Model.battlefield.actorPool);
+		rootNode.attachChild(actorManager.mainNode);
+		actorManager.mainPhysicsSpace = physicsSpace;
 
-        Geometry g1 = new Geometry();
-        g1.setMesh(new Line(new Vector3f(minX, minY, 0),
-                new Vector3f(maxX, minY, 0)));
-        g1.setMaterial(materialManager.getColor(ColorRGBA.White));
-        guiNode.attachChild(g1);
+		createSky();
+	}
 
-        Geometry g2 = new Geometry();
-        g2.setMesh(new Line(new Vector3f(minX, maxY, 0),
-                new Vector3f(maxX, maxY, 0)));
-        g2.setMaterial(materialManager.getColor(ColorRGBA.White));
-        guiNode.attachChild(g2);
-            
-        Geometry g3 = new Geometry();
-        g3.setMesh(new Line(new Vector3f(minX, minY, 0),
-                new Vector3f(minX, maxY, 0)));
-        g3.setMaterial(materialManager.getColor(ColorRGBA.White));
-        guiNode.attachChild(g3);
+	public void reset(){
+		rootNode.detachChild(mapRend.mainNode);
+		rootNode.detachChild(editorRend.mainNode);
+		rootNode.detachChild(actorManager.mainNode);
 
-        Geometry g4 = new Geometry();
-        g4.setMesh(new Line(new Vector3f(maxX, minY, 0),
-                new Vector3f(maxX, maxY, 0)));
-        g4.setMaterial(materialManager.getColor(ColorRGBA.White));
-        guiNode.attachChild(g4);
-}
+		Model.toolManager.removeListener(mapRend);
+		Model.toolManager.removeListener(editorRend);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        reset();
-    }
+		mapRend = new MapRenderer(this, materialManager, assetManager);
+		rootNode.attachChild(mapRend.mainNode);
+		mapRend.mainPhysicsSpace = physicsSpace;
+		Model.toolManager.addListener(mapRend);
+		mapRend.renderTiles();
+
+		editorRend = new EditorRenderer(this, materialManager);
+		rootNode.attachChild(editorRend.mainNode);
+		Model.toolManager.addListener(editorRend);
+
+		lightDrawer.reset();
+		lightDrawer.updateLights();
+		Model.battlefield.sunLight.addListener(lightDrawer);
+
+		actorManager = new Backstage(assetManager, materialManager, Model.battlefield.actorPool);
+		rootNode.attachChild(actorManager.mainNode);
+		actorManager.mainPhysicsSpace = physicsSpace;
+	}
+
+	private void createSky() {
+		vp.setBackgroundColor(new ColorRGBA(135f/255f, 206f/255f, 250f/255f, 1));
+		Geometry xAxe = new Geometry();
+		xAxe.setMesh(new Box(5, 0.1f, 0.1f));
+		xAxe.setMaterial(materialManager.getColor(ColorRGBA.Brown));
+		xAxe.setLocalTranslation(5, 0, 0);
+		rootNode.attachChild(xAxe);
+
+		Geometry zAxe = new Geometry();
+		zAxe.setMesh(new Box(0.1f, 0.1f, 5));
+		zAxe.setMaterial(materialManager.greenMaterial);
+		zAxe.setLocalTranslation(0, 0, 5);
+		rootNode.attachChild(zAxe);
+
+		Geometry yAxe = new Geometry();
+		yAxe.setMesh(new Box(0.1f, 5, 0.1f));
+		yAxe.setMaterial(materialManager.redMaterial);
+		yAxe.setLocalTranslation(0, 5, 0);
+		rootNode.attachChild(yAxe);
+	}
+
+	public void drawSelectionArea(Point2D c1, Point2D c2) {
+		float minX = (float) Math.min(c1.x, c2.x);
+		float maxX = (float) Math.max(c1.x, c2.x);
+
+		float minY = (float) Math.min(c1.y, c2.y);
+		float maxY = (float) Math.max(c1.y, c2.y);
+
+		guiNode.detachAllChildren();
+
+		Geometry g1 = new Geometry();
+		g1.setMesh(new Line(new Vector3f(minX, minY, 0),
+				new Vector3f(maxX, minY, 0)));
+		g1.setMaterial(materialManager.getColor(ColorRGBA.White));
+		guiNode.attachChild(g1);
+
+		Geometry g2 = new Geometry();
+		g2.setMesh(new Line(new Vector3f(minX, maxY, 0),
+				new Vector3f(maxX, maxY, 0)));
+		g2.setMaterial(materialManager.getColor(ColorRGBA.White));
+		guiNode.attachChild(g2);
+
+		Geometry g3 = new Geometry();
+		g3.setMesh(new Line(new Vector3f(minX, minY, 0),
+				new Vector3f(minX, maxY, 0)));
+		g3.setMaterial(materialManager.getColor(ColorRGBA.White));
+		guiNode.attachChild(g3);
+
+		Geometry g4 = new Geometry();
+		g4.setMesh(new Line(new Vector3f(maxX, minY, 0),
+				new Vector3f(maxX, maxY, 0)));
+		g4.setMaterial(materialManager.getColor(ColorRGBA.White));
+		guiNode.attachChild(g4);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		reset();
+	}
 
 }

@@ -7,6 +7,8 @@ import geometry.tools.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Commander;
+import model.Model;
 import model.battlefield.army.components.Unit;
 import view.math.Translator;
 
@@ -85,18 +87,18 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					break;
 				case SELECT:
 					if (!endSelection()) {
-						ctrl.model.commander.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+						Commander.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					}
 					break;
 				case ACTION:
-					ctrl.model.commander.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+					Commander.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
-					ctrl.model.commander.setMoveAttack();
+					Commander.setMoveAttack();
 					LogUtil.logger.info("move attack");
 					break;
 				case HOLD:
-					ctrl.model.commander.orderHold();
+					Commander.orderHold();
 					break;
 				case PAUSE:
 					((BattlefieldController) ctrl).togglePause();
@@ -120,12 +122,12 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 		AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
 
 		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ctrl.model.battlefield.armyManager.getUnits()) {
+		for (Unit u : Model.battlefield.armyManager.getUnits()) {
 			if (rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
 				inSelection.add(u);
 			}
 		}
-		ctrl.model.commander.select(inSelection);
+		Commander.select(inSelection);
 		selectionStart = null;
 		return !inSelection.isEmpty();
 	}

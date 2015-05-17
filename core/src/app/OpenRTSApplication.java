@@ -1,11 +1,17 @@
 package app;
 
+import exception.TechnicalException;
+import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
+
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
+
+import model.Commander;
 
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
@@ -28,188 +34,189 @@ import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
-import exception.TechnicalException;
-import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
-
 public abstract class OpenRTSApplication extends Application implements PhysicsTickListener {
 
 	public static OpenRTSApplication appInstance;
 
-    protected Node rootNode = new Node("Root Node");
-    protected Node guiNode = new Node("Gui Node");
+	protected Node rootNode = new Node("Root Node");
+	protected Node guiNode = new Node("Gui Node");
 
-    protected float secondCounter = 0.0f;
-    
-    protected BitmapText fpsText;
-    protected MyDebugger debugger;
-    protected StatsView statsView;
+	protected float secondCounter = 0.0f;
 
-    protected AzertyFlyByCamera flyCam;
+	protected BitmapText fpsText;
+	protected MyDebugger debugger;
+	protected StatsView statsView;
 
-    private AppActionListener actionListener = new AppActionListener();
+	protected AzertyFlyByCamera flyCam;
 
-    BulletAppState bulletAppState;
-    
-    private class AppActionListener implements ActionListener {
-        @Override
+	private AppActionListener actionListener = new AppActionListener();
+
+	BulletAppState bulletAppState;
+
+	protected static Commander commander;
+
+	private class AppActionListener implements ActionListener {
+		@Override
 		public void onAction(String name, boolean value, float tpf) {
-            if (!value)
-                return;
+			if (!value) {
+				return;
+			}
 
-            if (name.equals("SIMPLEAPP_Exit")){
-                    stop();
-                }else if (name.equals("SIMPLEAPP_CameraPos")){
-                    if (cam != null){
-                        Vector3f loc = cam.getLocation();
-                        Quaternion rot = cam.getRotation();
-                        System.out.println("Camera Position: ("+
-                                loc.x+", "+loc.y+", "+loc.z+")");
-                        System.out.println("Camera Rotation: "+rot);
-                        System.out.println("Camera Direction: "+cam.getDirection());
-                    }
-                }else if (name.equals("SIMPLEAPP_Memory")){
-                    BufferUtils.printCurrentDirectMemory(null);
-                }
-        }
-    }
+			if (name.equals("SIMPLEAPP_Exit")){
+				stop();
+			}else if (name.equals("SIMPLEAPP_CameraPos")){
+				if (cam != null){
+					Vector3f loc = cam.getLocation();
+					Quaternion rot = cam.getRotation();
+					System.out.println("Camera Position: ("+
+							loc.x+", "+loc.y+", "+loc.z+")");
+					System.out.println("Camera Rotation: "+rot);
+					System.out.println("Camera Direction: "+cam.getDirection());
+				}
+			}else if (name.equals("SIMPLEAPP_Memory")){
+				BufferUtils.printCurrentDirectMemory(null);
+			}
+		}
+	}
 
-    @Override
-    public void start(){
-        // set some default settings in-case
-        // settings dialog is not shown
-        if (settings == null){
-            setSettings(new AppSettings(true));
-            settings.setWidth(1024);
-            settings.setHeight(768);
+	@Override
+	public void start(){
+		// set some default settings in-case
+		// settings dialog is not shown
+		if (settings == null){
+			setSettings(new AppSettings(true));
+			settings.setWidth(1024);
+			settings.setHeight(768);
 			try {
 				settings.load("openrts.example");
 			} catch (BackingStoreException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
-        super.start();
-    }
+		}
+		super.start();
+	}
 
-    public AzertyFlyByCamera getFlyByCamera() {
-        return flyCam;
-    }
+	public AzertyFlyByCamera getFlyByCamera() {
+		return flyCam;
+	}
 
-    public Node getGuiNode() {
-        return guiNode;
-    }
+	public Node getGuiNode() {
+		return guiNode;
+	}
 
-    public Node getRootNode() {
-        return rootNode;
-    }
+	public Node getRootNode() {
+		return rootNode;
+	}
 
-    private void initTexts(){
-        BitmapFont guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        fpsText = new BitmapText(guiFont, false);
-        fpsText.setLocalTranslation(0, fpsText.getLineHeight(), 0);
-        fpsText.setText("Frames per second");
-        guiNode.attachChild(fpsText);
-        
-        debugger = new MyDebugger(0, settings.getHeight(), assetManager.loadFont("Interface/Fonts/Console.fnt"));
-        guiNode.attachChild(debugger.getNode());
-    }
-    
-    public void loadStatsView(){
-        statsView = new StatsView("Statistics View", assetManager, renderer.getStatistics());
-//         move it up so it appears above fps text
-        statsView.setLocalTranslation(0, fpsText.getLineHeight(), 0);
-        guiNode.attachChild(statsView);
-    }
+	private void initTexts(){
+		BitmapFont guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+		fpsText = new BitmapText(guiFont, false);
+		fpsText.setLocalTranslation(0, fpsText.getLineHeight(), 0);
+		fpsText.setText("Frames per second");
+		guiNode.attachChild(fpsText);
 
-    @Override
-    public void initialize(){
-        bulletAppState=new BulletAppState();
-        bulletAppState.startPhysics();
+		debugger = new MyDebugger(0, settings.getHeight(), assetManager.loadFont("Interface/Fonts/Console.fnt"));
+		guiNode.attachChild(debugger.getNode());
+	}
 
-        super.initialize();
+	public void loadStatsView(){
+		statsView = new StatsView("Statistics View", assetManager, renderer.getStatistics());
+		//         move it up so it appears above fps text
+		statsView.setLocalTranslation(0, fpsText.getLineHeight(), 0);
+		guiNode.attachChild(statsView);
+	}
 
-        guiNode.setQueueBucket(Bucket.Gui);
-        guiNode.setCullHint(CullHint.Never);
-        initTexts();
-        loadStatsView();
-        viewPort.attachScene(rootNode);
-        guiViewPort.attachScene(guiNode);
+	@Override
+	public void initialize(){
+		bulletAppState=new BulletAppState();
+		bulletAppState.startPhysics();
 
-        if (inputManager != null){
-            flyCam = new AzertyFlyByCamera(cam);
-            flyCam.setMoveSpeed(1f);
-            flyCam.registerWithInput(inputManager);
+		super.initialize();
 
-            if (context.getType() == Type.Display)
-                inputManager.addMapping("SIMPLEAPP_Exit", new KeyTrigger(KeyInput.KEY_ESCAPE));
-            
-            inputManager.addMapping("SIMPLEAPP_CameraPos", new KeyTrigger(KeyInput.KEY_C));
-            inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
-            inputManager.addListener(actionListener, "SIMPLEAPP_Exit",
-                                     "SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
-        }
+		guiNode.setQueueBucket(Bucket.Gui);
+		guiNode.setCullHint(CullHint.Never);
+		initTexts();
+		loadStatsView();
+		viewPort.attachScene(rootNode);
+		guiViewPort.attachScene(guiNode);
 
-        // call user code
-        simpleInitApp();
-        stateManager.attach(bulletAppState);
-        getPhysicsSpace().addTickListener(this);
-    }
+		if (inputManager != null){
+			flyCam = new AzertyFlyByCamera(cam);
+			flyCam.setMoveSpeed(1f);
+			flyCam.registerWithInput(inputManager);
 
-    @Override
-    public void update() {
-        super.update(); // makes sure to execute AppTasks
-        if (speed == 0 || paused)
-            return;
-        
-        float tpf = timer.getTimePerFrame() * speed;
+			if (context.getType() == Type.Display) {
+				inputManager.addMapping("SIMPLEAPP_Exit", new KeyTrigger(KeyInput.KEY_ESCAPE));
+			}
 
-        secondCounter += timer.getTimePerFrame();
-        int fps = (int) timer.getFrameRate();
-        if (secondCounter >= 1.0f){
-            fpsText.setText("Frames per second: "+fps);
-            secondCounter = 0.0f;
-        }
+			inputManager.addMapping("SIMPLEAPP_CameraPos", new KeyTrigger(KeyInput.KEY_C));
+			inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
+			inputManager.addListener(actionListener, "SIMPLEAPP_Exit",
+					"SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
+		}
 
-        // update states
-        stateManager.update(tpf);
+		// call user code
+		simpleInitApp();
+		stateManager.attach(bulletAppState);
+		getPhysicsSpace().addTickListener(this);
+	}
 
-        // simple update and root node
-        debugger.reset();
-        simpleUpdate(tpf);
-        debugger.getNode();
-        
-        rootNode.updateLogicalState(tpf);
-        guiNode.updateLogicalState(tpf);
-        rootNode.updateGeometricState();
-        guiNode.updateGeometricState();
+	@Override
+	public void update() {
+		super.update(); // makes sure to execute AppTasks
+		if (speed == 0 || paused) {
+			return;
+		}
 
-        // render states
-        stateManager.render(renderManager);
-        renderManager.render(tpf, true);
-        simpleRender(renderManager);
-        stateManager.postRender();
-    }
+		float tpf = timer.getTimePerFrame() * speed;
 
-    public abstract void simpleInitApp();
+		secondCounter += timer.getTimePerFrame();
+		int fps = (int) timer.getFrameRate();
+		if (secondCounter >= 1.0f){
+			fpsText.setText("Frames per second: "+fps);
+			secondCounter = 0.0f;
+		}
 
-    public void simpleUpdate(float tpf){
-    }
+		// update states
+		stateManager.update(tpf);
 
-    public void simpleRender(RenderManager rm){
-    }
+		// simple update and root node
+		debugger.reset();
+		simpleUpdate(tpf);
+		debugger.getNode();
 
-    public void simplePhysicsUpdate(float tpf){
-    }
+		rootNode.updateLogicalState(tpf);
+		guiNode.updateLogicalState(tpf);
+		rootNode.updateGeometricState();
+		guiNode.updateGeometricState();
 
-    @Override
+		// render states
+		stateManager.render(renderManager);
+		renderManager.render(tpf, true);
+		simpleRender(renderManager);
+		stateManager.postRender();
+	}
+
+	public abstract void simpleInitApp();
+
+	public void simpleUpdate(float tpf){
+	}
+
+	public void simpleRender(RenderManager rm){
+	}
+
+	public void simplePhysicsUpdate(float tpf){
+	}
+
+	@Override
 	public void physicsTick(PhysicsSpace space, float f) {
-        simplePhysicsUpdate(f);
-    }
+		simplePhysicsUpdate(f);
+	}
 
-    public PhysicsSpace getPhysicsSpace(){
-        return bulletAppState.getPhysicsSpace();
-    }
+	public PhysicsSpace getPhysicsSpace(){
+		return bulletAppState.getPhysicsSpace();
+	}
 
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
@@ -235,14 +242,14 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 		appInstance.start();
 	}
-	
+
 	public void changeSettings(){
 		JmeSystem.showSettingsDialog(settings, false);
 		if(settings.isFullscreen()){
 			LogUtil.logger.info("Fullscreen not yet supported");
 			settings.setFullscreen(false);
 		}
-		
+
 
 		try {
 			settings.save("openrts.example");

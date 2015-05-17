@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import model.Model;
 import model.ReportEventListener;
 import view.View;
 
@@ -24,7 +23,6 @@ import controller.cameraManagement.CameraManager;
  * @author Benoît
  */
 public abstract class Controller extends AbstractAppState implements ReportEventListener {
-	public Model model;
 	public View view;
 	public InputInterpreter inputInterpreter;
 	public InputManager inputManager;
@@ -34,20 +32,21 @@ public abstract class Controller extends AbstractAppState implements ReportEvent
 	public GUIController guiController;
 	ArrayList<ActionListener> listeners = new ArrayList<>();
 
-	public Controller(Model model, View view, InputManager inputManager,Camera cam) {
+	public Controller(View view, InputManager inputManager, Camera cam) {
 		super();
-		this.model = model;
 		this.view = view;
 		this.inputManager = inputManager;
 		spatialSelector = new SpatialSelector(cam, inputManager, view);
 
 	}
 
+	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
 		cameraManager.unregisterInputs(inputManager);
 	}
 
+	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		inputInterpreter.registerInputs(inputManager);
 		cameraManager.registerInputs(inputManager);
@@ -59,7 +58,8 @@ public abstract class Controller extends AbstractAppState implements ReportEvent
 	}
 
 	public void notifyListeners(String command) {
-		for (ActionListener l : listeners)
+		for (ActionListener l : listeners) {
 			l.actionPerformed(new ActionEvent(this, 0, command));
+		}
 	}
 }

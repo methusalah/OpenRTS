@@ -5,6 +5,7 @@
 package controller.editor;
 
 import geometry.geom2d.Point2D;
+import model.Commander;
 import model.Model;
 import view.View;
 
@@ -23,25 +24,25 @@ import de.lessvoid.nifty.Nifty;
 public class EditorController extends Controller {
 	Point2D screenCoord;
 
-	public EditorController(Model model, View view, Nifty nifty, InputManager inputManager, Camera cam){
-		super(model, view, inputManager, cam);
+	public EditorController(View view, Nifty nifty, InputManager inputManager, Camera cam) {
+		super(view, inputManager, cam);
 
 		inputInterpreter = new EditorInputInterpreter(this);
 		guiController = new EditorGUIController(nifty, this);
 
-		model.commander.registerListener(this);
+		Commander.registerListener(this);
 
-		cameraManager = new IsometricCameraManager(cam, 10, model);
+		cameraManager = new IsometricCameraManager(cam, 10);
 	}
 
 	@Override
 	public void update(float elapsedTime) {
 		//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
-		model.toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
-		model.toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
+		Model.toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
+		Model.toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
 		Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
-		if(coord != null && model.battlefield.map.isInBounds(coord)){
-			model.toolManager.updatePencilsPos(coord);
+		if (coord != null && Model.battlefield.map.isInBounds(coord)) {
+			Model.toolManager.updatePencilsPos(coord);
 			view.editorRend.drawPencil();
 		}
 
@@ -58,13 +59,13 @@ public class EditorController extends Controller {
 		inputManager.setCursorVisible(true);
 		view.rootNode.attachChild(view.editorRend.mainNode);
 		guiController.activate();
-		model.battlefield.engagement.resetEngagement();
+		Model.battlefield.engagement.resetEngagement();
 	}
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		model.battlefield.engagement.saveEngagement();
-		model.battlefield.map.prepareForBattle();
+		Model.battlefield.engagement.saveEngagement();
+		Model.battlefield.map.prepareForBattle();
 		super.stateDetached(stateManager);
 		view.rootNode.detachChild(view.editorRend.mainNode);
 	}
