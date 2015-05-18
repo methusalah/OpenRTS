@@ -1,4 +1,5 @@
 package app.example;
+import model.ModelManager;
 import view.View;
 import app.OpenRTSApplication;
 
@@ -14,6 +15,8 @@ public class Game extends OpenRTSApplication {
 		OpenRTSApplication.main(new Game());
 	}
 
+	View view;
+	BattlefieldController fieldCtrl;
 	@Override
 	public void simpleInitApp() {
 		BulletAppState bulletAppState = new BulletAppState();
@@ -24,10 +27,10 @@ public class Game extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		View view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		BattlefieldController fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
+		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
@@ -40,5 +43,15 @@ public class Game extends OpenRTSApplication {
 		view.mapRend.renderTiles();
 
 		guiViewPort.addProcessor(niftyDisplay);
+	}
+	
+	@Override
+	public void simpleUpdate(float tpf) {
+		float maxedTPF = Math.min(tpf, 0.1f);
+		listener.setLocation(cam.getLocation());
+		listener.setRotation(cam.getRotation());
+		view.actorManager.render();
+		fieldCtrl.update(maxedTPF);
+		ModelManager.updateConfigs();
 	}
 }
