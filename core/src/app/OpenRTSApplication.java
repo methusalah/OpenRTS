@@ -262,8 +262,12 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		cam.resize(settings.getWidth(), settings.getHeight(), true);
 	}
 
-	public void startClient() throws IOException {
-		ClientManager.startClient();
+	public void startClient() {
+		try {
+			ClientManager.startClient();
+		} catch (IOException e) {
+			LogUtil.logger.info("Server not available");
+		}
 	}
 
 	public void stopClient() {

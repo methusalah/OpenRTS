@@ -1,6 +1,4 @@
 package app.example;
-import java.io.IOException;
-
 import model.ModelManager;
 import app.OpenRTSApplication;
 
@@ -16,12 +14,7 @@ public class GameMutliplayerHuman extends Game {
 
 		GameMutliplayerHuman app = new GameMutliplayerHuman();
 		OpenRTSApplication.main(app);
-		try {
-			app.startClient();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		app.startClient();
 	}
 
 	@Override
