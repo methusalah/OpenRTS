@@ -1,4 +1,4 @@
-import view.EditorView;
+import view.MapView;
 import app.OpenRTSApplication;
 
 import com.jme3.bullet.BulletAppState;
@@ -23,7 +23,7 @@ public class Game extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		EditorView view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		BattlefieldController fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);

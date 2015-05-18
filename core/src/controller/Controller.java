@@ -4,7 +4,7 @@
  */
 package controller;
 
-import view.EditorView;
+import view.MapView;
 
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -20,16 +20,16 @@ import event.InputEvent;
  * @author Benoît
  */
 public abstract class Controller extends AbstractAppState {
-	public EditorView view;
+
 	public InputInterpreter inputInterpreter;
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;
 	public GUIController guiController;
+	public MapView view;
 
-	public Controller(EditorView view, InputManager inputManager, Camera cam) {
+	public Controller(MapView view, InputManager inputManager, Camera cam) {
 		super();
-		this.view = view;
 		this.inputManager = inputManager;
 		spatialSelector = new SpatialSelector(cam, inputManager, view);
 

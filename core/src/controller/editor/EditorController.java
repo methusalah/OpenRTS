@@ -22,10 +22,11 @@ import de.lessvoid.nifty.Nifty;
  */
 public class EditorController extends Controller {
 	Point2D screenCoord;
+	protected EditorView view;
 
 	public EditorController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
-
+		this.view = view;
 		inputInterpreter = new EditorInputInterpreter(this);
 		guiController = new EditorGUIController(nifty, this);
 		cameraManager = new IsometricCameraManager(cam, 10);

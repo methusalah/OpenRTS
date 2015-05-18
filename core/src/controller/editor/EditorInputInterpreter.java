@@ -2,6 +2,7 @@ package controller.editor;
 
 import geometry.tools.LogUtil;
 import model.ModelManager;
+import view.EditorView;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -256,7 +257,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ModelManager.toolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
-					ctrl.view.editorRend.toggleGrid();
+					((EditorView) ctrl.view).editorRend.toggleGrid();
 					break;
 				case TOGGLE_LIGHT_COMP:
 					ModelManager.battlefield.sunLight.toggleLight();

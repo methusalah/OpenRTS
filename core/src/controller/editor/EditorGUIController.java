@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.ModelManager;
 import model.builders.MapStyleBuilder;
+import view.EditorView;
 import app.MainRTS;
 import controller.Controller;
 import controller.GUIController;
@@ -116,7 +117,7 @@ public class EditorGUIController extends GUIController {
 	}
 
 	public void toggleGrid() {
-		ctrl.view.editorRend.toggleGrid();
+		((EditorView) ctrl.view).editorRend.toggleGrid();
 	}
 
 	public void setCliffTool() {
