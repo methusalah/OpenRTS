@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 import model.ModelManager;
 import view.acting.Backstage;
-import view.mapDrawing.EditorRenderer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapRenderer;
 import view.material.MaterialManager;
@@ -22,27 +21,25 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 
-public class View implements ActionListener {
+public class MapView implements ActionListener {
 
 	// External ressources
 	public Node rootNode;
 	public Node guiNode = new Node();
-	public PhysicsSpace physicsSpace;
+	protected PhysicsSpace physicsSpace;
 
 	// Renderers
 	public MapRenderer mapRend;
-	public EditorRenderer editorRend;
 	public Backstage actorManager;
-	public LightDrawer lightDrawer;
-
+	protected LightDrawer lightDrawer;
 
 	// Internal ressources
-	public MaterialManager materialManager;
-	public ViewPort vp;
-	public AssetManager assetManager;
+	protected MaterialManager materialManager;
+	protected ViewPort vp;
+	protected AssetManager assetManager;
 	public Pointer pointer;
 
-	public View(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
+	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
 		ModelManager.addListener(this);
 		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
@@ -61,11 +58,6 @@ public class View implements ActionListener {
 		mapRend.mainPhysicsSpace = physicsSpace;
 		ModelManager.toolManager.addListener(mapRend);
 
-		editorRend = new EditorRenderer(this, materialManager);
-		rootNode.attachChild(editorRend.mainNode);
-		ModelManager.toolManager.addListener(editorRend);
-
-
 		actorManager = new Backstage(am, materialManager, ModelManager.battlefield.actorPool);
 		rootNode.attachChild(actorManager.mainNode);
 		actorManager.mainPhysicsSpace = physicsSpace;
@@ -73,23 +65,17 @@ public class View implements ActionListener {
 		createSky();
 	}
 
-	public void reset(){
+	public void reset() {
 		rootNode.detachChild(mapRend.mainNode);
-		rootNode.detachChild(editorRend.mainNode);
 		rootNode.detachChild(actorManager.mainNode);
 
 		ModelManager.toolManager.removeListener(mapRend);
-		ModelManager.toolManager.removeListener(editorRend);
 
 		mapRend = new MapRenderer(this, materialManager, assetManager);
 		rootNode.attachChild(mapRend.mainNode);
 		mapRend.mainPhysicsSpace = physicsSpace;
 		ModelManager.toolManager.addListener(mapRend);
 		mapRend.renderTiles();
-
-		editorRend = new EditorRenderer(this, materialManager);
-		rootNode.attachChild(editorRend.mainNode);
-		ModelManager.toolManager.addListener(editorRend);
 
 		lightDrawer.reset();
 		lightDrawer.updateLights();
@@ -101,7 +87,7 @@ public class View implements ActionListener {
 	}
 
 	private void createSky() {
-		vp.setBackgroundColor(new ColorRGBA(135f/255f, 206f/255f, 250f/255f, 1));
+		vp.setBackgroundColor(new ColorRGBA(135f / 255f, 206f / 255f, 250f / 255f, 1));
 		Geometry xAxe = new Geometry();
 		xAxe.setMesh(new Box(5, 0.1f, 0.1f));
 		xAxe.setMaterial(materialManager.getColor(ColorRGBA.Brown));
@@ -131,26 +117,22 @@ public class View implements ActionListener {
 		guiNode.detachAllChildren();
 
 		Geometry g1 = new Geometry();
-		g1.setMesh(new Line(new Vector3f(minX, minY, 0),
-				new Vector3f(maxX, minY, 0)));
+		g1.setMesh(new Line(new Vector3f(minX, minY, 0), new Vector3f(maxX, minY, 0)));
 		g1.setMaterial(materialManager.getColor(ColorRGBA.White));
 		guiNode.attachChild(g1);
 
 		Geometry g2 = new Geometry();
-		g2.setMesh(new Line(new Vector3f(minX, maxY, 0),
-				new Vector3f(maxX, maxY, 0)));
+		g2.setMesh(new Line(new Vector3f(minX, maxY, 0), new Vector3f(maxX, maxY, 0)));
 		g2.setMaterial(materialManager.getColor(ColorRGBA.White));
 		guiNode.attachChild(g2);
 
 		Geometry g3 = new Geometry();
-		g3.setMesh(new Line(new Vector3f(minX, minY, 0),
-				new Vector3f(minX, maxY, 0)));
+		g3.setMesh(new Line(new Vector3f(minX, minY, 0), new Vector3f(minX, maxY, 0)));
 		g3.setMaterial(materialManager.getColor(ColorRGBA.White));
 		guiNode.attachChild(g3);
 
 		Geometry g4 = new Geometry();
-		g4.setMesh(new Line(new Vector3f(maxX, minY, 0),
-				new Vector3f(maxX, maxY, 0)));
+		g4.setMesh(new Line(new Vector3f(maxX, minY, 0), new Vector3f(maxX, maxY, 0)));
 		g4.setMaterial(materialManager.getColor(ColorRGBA.White));
 		guiNode.attachChild(g4);
 	}

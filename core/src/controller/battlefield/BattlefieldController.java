@@ -2,7 +2,7 @@ package controller.battlefield;
 
 import model.CommandManager;
 import model.ModelManager;
-import view.View;
+import view.EditorView;
 import view.math.Translator;
 
 import com.google.common.eventbus.Subscribe;
@@ -23,7 +23,7 @@ import geometry.geom2d.Point2D;
 public class BattlefieldController extends Controller {
 	private boolean paused = false;
 
-	public BattlefieldController(View view, Nifty nifty, InputManager inputManager, Camera cam) {
+	public BattlefieldController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
 
 		inputInterpreter = new BattlefieldInputInterpreter(this);

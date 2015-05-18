@@ -1,7 +1,5 @@
-import java.io.IOException;
-
 import model.ModelManager;
-import view.View;
+import view.EditorView;
 import app.OpenRTSApplication;
 
 import com.jme3.bullet.BulletAppState;
@@ -22,12 +20,7 @@ public class GameMutliplayer extends OpenRTSApplication {
 
 		GameMutliplayer app = new GameMutliplayer();
 		OpenRTSApplication.main(app);
-		try {
-			app.startClient();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		app.startClient();
 	}
 
 	@Override
@@ -40,7 +33,7 @@ public class GameMutliplayer extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		View view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		EditorView view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 

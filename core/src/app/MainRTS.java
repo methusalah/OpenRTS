@@ -1,7 +1,7 @@
 package app;
 
 import model.ModelManager;
-import view.View;
+import view.EditorView;
 import view.mapDrawing.MapRenderer;
 
 import com.google.common.eventbus.Subscribe;
@@ -19,7 +19,7 @@ import geometry.tools.LogUtil;
 
 public class MainRTS extends OpenRTSApplication {
 
-	View view;
+	EditorView view;
 	MapRenderer tr;
 	BattlefieldController fieldCtrl;
 	EditorController editorCtrl;
@@ -40,7 +40,7 @@ public class MainRTS extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		view = new View(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 

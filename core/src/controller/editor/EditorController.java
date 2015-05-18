@@ -6,7 +6,7 @@ package controller.editor;
 
 import geometry.geom2d.Point2D;
 import model.ModelManager;
-import view.View;
+import view.EditorView;
 
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -23,7 +23,7 @@ import de.lessvoid.nifty.Nifty;
 public class EditorController extends Controller {
 	Point2D screenCoord;
 
-	public EditorController(View view, Nifty nifty, InputManager inputManager, Camera cam) {
+	public EditorController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
 
 		inputInterpreter = new EditorInputInterpreter(this);

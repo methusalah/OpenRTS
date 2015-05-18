@@ -18,7 +18,7 @@ import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.Pencil;
-import view.View;
+import view.EditorView;
 import view.material.MaterialManager;
 import view.math.Translator;
 
@@ -39,7 +39,7 @@ public class EditorRenderer implements ActionListener {
 	public static final double QUAD_PENCIL_SAMPLE_LENGTH = 0.5;
 	public static final int PENCIL_THICKNESS = 3;
 
-	View view;
+	EditorView view;
 	private final MaterialManager mm;
 
 	public Node mainNode = new Node();
@@ -51,7 +51,7 @@ public class EditorRenderer implements ActionListener {
 	private HashMap<ParcelMesh, Geometry> gridGeoms = new HashMap<>();
 
 
-	public EditorRenderer(View view, MaterialManager mm) {
+	public EditorRenderer(EditorView view, MaterialManager mm) {
 		this.view = view;
 		this.mm = mm;
 

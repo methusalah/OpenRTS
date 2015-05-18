@@ -5,7 +5,7 @@
 package controller.ground;
 
 import geometry.tools.LogUtil;
-import view.View;
+import view.EditorView;
 
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -20,7 +20,7 @@ import controller.cameraManagement.GroundCameraManager;
  */
 public class GroundController extends Controller {
 
-	public GroundController(View view, InputManager inputManager, Camera cam) {
+	public GroundController(EditorView view, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
 
 		inputInterpreter = new GroundInputInterpreter(this);

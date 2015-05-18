@@ -3,7 +3,7 @@ package controller;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import model.EntityManager;
-import view.View;
+import view.EditorView;
 import view.acting.ModelPerformer;
 import view.math.Translator;
 
@@ -19,10 +19,10 @@ public class SpatialSelector {
 
 	Camera cam;
 	InputManager im;
-	View view;
+	EditorView view;
 	public boolean centered = false;
 
-	public SpatialSelector(Camera c, InputManager im, View v) {
+	public SpatialSelector(Camera c, InputManager im, EditorView v) {
 		cam = c;
 		this.im = im;
 		view = v;

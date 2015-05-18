@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package view.mapDrawing;
 
@@ -8,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.ModelManager;
-import view.View;
+import view.MapView;
 import view.math.Translator;
 
 import com.jme3.asset.AssetManager;
@@ -25,12 +24,11 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
 
 /**
- *
  * @author Benoît
  */
 public class LightDrawer implements ActionListener {
 
-	View view;
+	MapView view;
 	Node rootNode;
 
 	AmbientLight al;
@@ -39,18 +37,17 @@ public class LightDrawer implements ActionListener {
 	DirectionalLightShadowRenderer sr;
 	DirectionalLightShadowFilter sf;
 
-	public LightDrawer(View view, AssetManager am, Node rootNode, ViewPort vp) {
+	public LightDrawer(MapView view, AssetManager am, Node rootNode, ViewPort vp) {
 		this.view = view;
 		this.rootNode = rootNode;
-
 
 		FilterPostProcessor fpp = new FilterPostProcessor(am);
 
 		int SHADOWMAP_SIZE = 4096;
 		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
 		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-		sr.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
-		//        vp.addProcessor(sr);
+		sr.setShadowIntensity((float) ModelManager.battlefield.sunLight.shadowCaster.intensity);
+		// vp.addProcessor(sr);
 
 		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
 		sf.setEnabled(true);
@@ -58,21 +55,20 @@ public class LightDrawer implements ActionListener {
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
 		fpp.addFilter(sf);
 
-
 		// Ambiant occlusion filter
 		SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
-		//        fpp.addFilter(ssaoFilter);
+		// fpp.addFilter(ssaoFilter);
 		// Glow filter
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
 		fpp.addFilter(bloom);
 		vp.addProcessor(fpp);
 
-		reset ();
+		reset();
 		updateLights();
 
 	}
 
-	public void reset(){
+	public void reset() {
 		rootNode.removeLight(al);
 		rootNode.removeLight(sun);
 		rootNode.removeLight(shadowCaster);
@@ -88,25 +84,25 @@ public class LightDrawer implements ActionListener {
 		rootNode.addLight(shadowCaster);
 	}
 
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch(e.getActionCommand()){
-			case "light" : updateLights(); break;
-			default: throw new IllegalArgumentException("Unknown command : "+e.getActionCommand());
+		switch (e.getActionCommand()) {
+			case "light":
+				updateLights();
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown command : " + e.getActionCommand());
 		}
 	}
 
-	public void updateLights(){
+	public void updateLights() {
 		Translator.toJMELight(al, ModelManager.battlefield.sunLight.ambient);
 		Translator.toJMELight(sun, ModelManager.battlefield.sunLight.sun);
 		Translator.toJMELight(shadowCaster, ModelManager.battlefield.sunLight.shadowCaster);
 		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-		sr.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
-		sf.setShadowIntensity((float)ModelManager.battlefield.sunLight.shadowCaster.intensity);
+		sr.setShadowIntensity((float) ModelManager.battlefield.sunLight.shadowCaster.intensity);
+		sf.setShadowIntensity((float) ModelManager.battlefield.sunLight.shadowCaster.intensity);
 
 	}
-
 
 }
