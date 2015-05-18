@@ -5,6 +5,7 @@ package model;
 
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,26 +51,12 @@ public class CommandManager {
 		}
 	}
 
-	private static void select(List<Unit> units) {
+	public static void select(List<Unit> units) {
 		unselect();
 		for (Unit u : units) {
 			select(u);
 		}
 		moveAttack = false;
-	}
-
-	public static boolean select(Point2D corner1, Point2D corner2) {
-		unselect();
-		boolean unitsInBox = false;
-		AlignedBoundingBox rect = new AlignedBoundingBox(corner1, corner2);
-		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
-			if (rect.contains(u.getPos2D())) {
-				select(u);
-				unitsInBox = true;
-			}
-		}
-		moveAttack = false;
-		return unitsInBox;
 	}
 
 	private static void select(Unit u) {
