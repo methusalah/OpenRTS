@@ -35,7 +35,7 @@ And of course, you won't hesitate to write to us at openRTS.team@gmail.com
 You want to participate and make OpenRTS a fully functionnal game engine ? The more the merrier !
 
 ### Forum
-<a href="http://hub.jmonkeyengine.org/c/user-code-projects/openrts" target="_blank">The place to start</a>! Debates and brainstormings to make OpenRTS a better engine (and to meet the awsome team).
+<a href="http://hub.jmonkeyengine.org/c/user-code-projects/openrts" target="_blank">The place to start</a> ! Debates and brainstormings to make OpenRTS a better engine (and to meet the awsome team).
 
 ### GitHub issues, our TODO list
 We've got a gazillion of issues you can work on right now, and we will be happy to add your requested features to the list. 
