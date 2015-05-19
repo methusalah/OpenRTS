@@ -26,12 +26,18 @@ The engine is set by default with a test dataset and some example maps you can l
 
 # Need Help ?
 First, you may want to take a look at the <a href="https://github.com/methusalah/OpenRTS/wiki" target="_blank">wiki</a>.
-Do not hesitate to write to us at openRTS.team@gmail.com
+
+Then you will certainly get to the <a href="http://hub.jmonkeyengine.org/c/user-code-projects/openrts" target="_blank">forum</a>.
+
+And of course, you won't hesitate to write to us at openRTS.team@gmail.com
 
 # How to contribute ?
 You want to participate and make OpenRTS a fully functionnal game engine ? The more the merrier !
 
-### GitHub issues
+### Forum
+<a href="http://hub.jmonkeyengine.org/c/user-code-projects/openrts" target="_blank">The place to start</a>! Debates and brainstormings to make OpenRTS a better engine (and to meet the awsome team).
+
+### GitHub issues, our TODO list
 We've got a gazillion of issues you can work on right now, and we will be happy to add your requested features to the list. 
 
 ### Ressources
@@ -42,7 +48,7 @@ We are glad to welcome all your creations : models, sounds, maps, particle sprit
 Please note that all your contributions will fall under the OpenRTS licence and will become public and free-to-use, as the engine itself.
 
 ### Bug report
-If you see bugs (and you will probably see many), please search for existing issues to avoid duplicates. Then open your issue with a little test case.
+If you see bugs (and you will probably see many), please search for existing <a href="https://github.com/methusalah/OpenRTS/issues?q=is%3Aopen+is%3Aissue+label%3Abug" target="_blank">bug issues</a> to avoid duplicates. Then open your issue with a little test case. You can also report it on the forum if you have doubts.
 
 # Licence
 OpenRTS is released under the MIT Licence. See Licence file.
