@@ -60,9 +60,10 @@ public class CommandManager {
 	}
 
 	public static void select(List<Unit> units) {
-		unselect();
+		if(!multipleSelection)
+			unselect();
 		for (Unit u : units) {
-			changeSelection(u);
+			addToSelection(u);
 		}
 		moveAttack = false;
 	}

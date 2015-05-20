@@ -106,13 +106,13 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 							dblclicCoord.getDistance(getSpatialCoord()) < DOUBLE_CLIC_MAX_OFFSET){
 						// double clic
 						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
-						selectionStart = null;
 					} else {
 						// simple clic
-						if (!endSelection()) {
-							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-						}
+//						if (!endSelection()) {
+//							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+//						}
 					}
+					selectionStart = null;
 					dblclicTimer = System.currentTimeMillis();
 					dblclicCoord = getSpatialCoord();
 					break;
@@ -150,6 +150,21 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 		selectionStart = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
 	}
 
+	public void updateSelection(){
+        Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+        if(selectionEnd.equals(selectionStart) ||
+        		selectionEnd.getDistance(selectionStart) < 10){
+        	return;
+        }
+        AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
+        
+        List<Unit> inSelection = new ArrayList<>();
+        for(Unit u : ModelManager.battlefield.armyManager.getUnits())
+        	if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos())))
+        		inSelection.add(u);
+        CommandManager.select(inSelection);
+	}
+	
 	private boolean endSelection() {
         Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
         if(selectionEnd.equals(selectionStart) ||
