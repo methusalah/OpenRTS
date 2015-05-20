@@ -36,7 +36,6 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
 	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
 
-	public Point2D clicInitialCoord;
 	boolean multipleSelection = false;
 	double dblclicTimer = 0;
 	Point2D dblclicCoord;
@@ -108,10 +107,10 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 						// double clic
 						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
 					} else {
-						if(!isDragging())
+						if(!((BattlefieldController) ctrl).isDrawingZone())
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					}
-					clicInitialCoord = null;
+					((BattlefieldController) ctrl).endSelectionZone();
 					dblclicTimer = System.currentTimeMillis();
 					dblclicCoord = getSpatialCoord();
 					break;
@@ -135,7 +134,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					CommandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
-					beginSelection();
+					((BattlefieldController) ctrl).startSelectionZone();
 					break;
 			}
 		}
@@ -143,33 +142,5 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	private Point2D getSpatialCoord() {
 		return ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
-	}
-
-	private void beginSelection() {
-		clicInitialCoord = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-	}
-
-	public void updateSelection(){
-        Point2D coord = getMouseCoord();
-        if(coord.equals(clicInitialCoord)){
-        	return;
-        }
-        AlignedBoundingBox rect = new AlignedBoundingBox(clicInitialCoord, coord);
-        
-        List<Unit> inSelection = new ArrayList<>();
-        for(Unit u : ModelManager.battlefield.armyManager.getUnits()) {
-			if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
-				inSelection.add(u);
-			}
-		}
-        CommandManager.select(inSelection);
-	}
-	
-	private boolean isDragging(){
-        return getMouseCoord().getDistance(clicInitialCoord) > 10;
-	}
-	
-	private Point2D getMouseCoord(){
-		return Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
 	}
 }
