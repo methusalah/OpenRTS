@@ -2,17 +2,9 @@ package controller.battlefield;
 
 import event.EventManager;
 import event.InputEvent;
-import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import model.CommandManager;
-import model.ModelManager;
-import model.battlefield.army.components.Unit;
-import view.math.Translator;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;

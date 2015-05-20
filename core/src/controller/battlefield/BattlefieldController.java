@@ -45,13 +45,10 @@ public class BattlefieldController extends Controller {
 	@Override
 	public void update(float elapsedTime) {
 		updateSelectionZone();
-		
-		
-		// update selectables
-		CommandManager.updateSelectables(spatialSelector.getCenterViewCoord(view.rootNode));
+		updateContext();
 		guiController.update();
 
-		// udpdate army
+		// update army
 		if(!paused) {
 			ModelManager.battlefield.armyManager.update(elapsedTime);
 		}
@@ -91,6 +88,18 @@ public class BattlefieldController extends Controller {
 		}
         CommandManager.select(inSelection);
 		view.drawSelectionArea(zoneStart, coord);
+	}
+	
+	private void updateContext(){
+        AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
+        List<Unit> inScreen = new ArrayList<>();
+        for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
+			if(screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
+				inScreen.add(u);
+			}
+        }
+        CommandManager.createContextualUnities(inScreen);
+
 	}
 	
 	
