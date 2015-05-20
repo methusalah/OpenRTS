@@ -23,6 +23,7 @@ public class CommandManager {
 	public static List<Unit> selection = new ArrayList<>();
 	private static HashMap<String, Unity> unitiesInContext = new HashMap<>();
 	static boolean moveAttack = false;
+	static boolean multipleSelection = false;
 	private static final CommandManager instance = new CommandManager();
 
 	private CommandManager() {
@@ -30,6 +31,10 @@ public class CommandManager {
 
 	public static void setMoveAttack() {
 		moveAttack = true;
+	}
+	
+	public static void setMultipleSelection(boolean val){
+		multipleSelection = val;
 	}
 
 	public static void orderHold() {
@@ -44,26 +49,41 @@ public class CommandManager {
 		}
 		if (moveAttack) {
 			act(id, pos);
-		} else if (EntityManager.isValidId(id)) {
+		} else {
+			if(!multipleSelection)
+				unselect();
+			if (!EntityManager.isValidId(id))
+				return;
 			Unit u = getUnit(id);
-			unselect();
-			select(u);
+			changeSelection(u);
 		}
 	}
 
 	public static void select(List<Unit> units) {
 		unselect();
 		for (Unit u : units) {
-			select(u);
+			changeSelection(u);
 		}
 		moveAttack = false;
 	}
 
-	private static void select(Unit u) {
-		if (u != null) {
+	private static void changeSelection(Unit u) {
+		if(u == null)
+			return;
+		if(u.selected){
+			u.selected = false;
+			selection.remove(u);
+		} else {
 			u.selected = true;
 			selection.add(u);
 		}
+	}
+	private static void addToSelection(Unit u) {
+		if(u == null)
+			return;
+		u.selected = true;
+		if(!selection.contains(u))
+			selection.add(u);
 	}
 
 	public static void act(Long id, Point2D pos) {
@@ -125,7 +145,7 @@ public class CommandManager {
 	public static void selectAll() {
 		unselect();
 		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
-			select(u);
+			changeSelection(u);
 		}
 	}
 
@@ -144,9 +164,19 @@ public class CommandManager {
 	}
 
 	public static void selectUnityInContext(Unity unityID) {
-		unselect();
-		for (Unit u : unitiesInContext.get(unityID.UIName)) {
-			select(u);
+		selectUnityInContext(unityID.UIName);
+	}
+	public static void selectUnityInContext(Long unitID) {
+		Unit target = getUnit(unitID);
+		if (target != null) {
+			selectUnityInContext(target.UIName);
+		}
+	}
+	public static void selectUnityInContext(String id) {
+		if(!multipleSelection)
+			unselect();
+		for (Unit u : unitiesInContext.get(id)) {
+			addToSelection(u);
 		}
 	}
 

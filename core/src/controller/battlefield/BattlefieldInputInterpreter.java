@@ -28,10 +28,17 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static String SELECT = "select";
 	protected final static String ACTION = "action";
 	protected final static String MOVE_ATTACK = "moveattack";
+	protected final static String MULTIPLE_SELECTION = "multipleselection";
 	protected final static String HOLD = "hold";
 	protected final static String PAUSE = "pause";
+	
+	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
+	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
 
 	public Point2D selectionStart;
+	boolean multipleSelection = false;
+	double dblclicTimer = 0;
+	Point2D dblclicCoord;
 
 	BattlefieldInputInterpreter(BattlefieldController controller) {
 		super(controller);
@@ -40,7 +47,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private void setMappings() {
-		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, HOLD, PAUSE };
+		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
 
 	@Override
@@ -51,6 +58,8 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
 		inputManager.addMapping(ACTION, new MouseButtonTrigger(1));
 		inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
+		inputManager.addMapping(MULTIPLE_SELECTION, new KeyTrigger(KeyInput.KEY_LCONTROL),
+				new KeyTrigger(KeyInput.KEY_RCONTROL));
 		inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
 		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
 
@@ -88,17 +97,30 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 				case SWITCH_CTRL_3:
 					ctrl.notifyListeners("CTRL3");
 					break;
+					
+				case MULTIPLE_SELECTION:
+					CommandManager.setMultipleSelection(false);
+					break;
 				case SELECT:
-					if (!endSelection()) {
-						CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+					if(System.currentTimeMillis()-dblclicTimer < DOUBLE_CLIC_DELAY &&
+							dblclicCoord.getDistance(getSpatialCoord()) < DOUBLE_CLIC_MAX_OFFSET){
+						// double clic
+						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
+						selectionStart = null;
+					} else {
+						// simple clic
+						if (!endSelection()) {
+							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+						}
 					}
+					dblclicTimer = System.currentTimeMillis();
+					dblclicCoord = getSpatialCoord();
 					break;
 				case ACTION:
 					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
 					CommandManager.setMoveAttack();
-					LogUtil.logger.info("move attack");
 					break;
 				case HOLD:
 					CommandManager.orderHold();
@@ -107,8 +129,16 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					((BattlefieldController) ctrl).togglePause();
 					break;
 			}
-		} else if (name.equals(SELECT)) {
-			beginSelection();
+		} else {
+			// input pressed
+			switch(name){
+				case MULTIPLE_SELECTION:
+					CommandManager.setMultipleSelection(true);
+					break;
+				case SELECT:
+					beginSelection();
+					break;
+			}
 		}
 	}
 
@@ -122,6 +152,11 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	private boolean endSelection() {
         Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+        if(selectionEnd.equals(selectionStart) ||
+        		selectionEnd.getDistance(selectionStart) < 10){
+        	selectionStart = null;
+        	return false;
+        }
         AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
         
         List<Unit> inSelection = new ArrayList<>();
