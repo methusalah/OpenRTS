@@ -30,7 +30,7 @@ public class Engagement {
 	public Engagement() {
 		Faction f1 = new Faction(Color.red, "1");
 		Faction f2 = new Faction(Color.blue, "2");
-		f1.setEnnemy(f2);
+		f1.setEnemy(f2);
 		factions.add(f1);
 		factions.add(f2);
 	}
@@ -38,7 +38,7 @@ public class Engagement {
 	public Engagement(Battlefield battlefield, BuilderLibrary lib) {
 		Faction f1 = new Faction(Color.red, "1");
 		Faction f2 = new Faction(Color.blue, "2");
-		f1.setEnnemy(f2);
+		f1.setEnemy(f2);
 		factions.add(f1);
 		factions.add(f2);
 

@@ -27,7 +27,7 @@ public class ArmyManager {
 			Entry<Long, Unit> entry = unitIterator.next();
 			Unit u = entry.getValue();
 			if (u.destroyed()) {
-				u.faction.units.remove(u);
+				u.faction.getUnits().remove(u);
 				unitIterator.remove();
 			} else {
 				u.update(elapsedTime);

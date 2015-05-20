@@ -21,21 +21,15 @@ import model.builders.actors.ModelActorBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * A special Hicker that can move freely on the battle field and interact with other
- *
- * The role of this class is to put in common three subsystems :
- *  - a mover to achieve motion over the battlefield and trhought other units
- *  - a tactical AI to take decisions
- *  - an arming to launch effects
- *
- * It uses a model actor to be drawn on the view.
- *
- * It is defined by XML and is only instanciated by associate builder.
- *
+ * A special Hicker that can move freely on the battle field and interact with other The role of this class is to put in common three subsystems : - a mover to
+ * achieve motion over the battlefield and trhought other units - a tactical AI to take decisions - an arming to launch effects It uses a model actor to be
+ * drawn on the view. It is defined by XML and is only instanciated by associate builder.
  */
-public class Unit extends Hiker implements EffectSource, EffectTarget{
+public class Unit extends Hiker implements EffectSource, EffectTarget {
 
-	public enum State {MOVING, AIMING, IDLING, DESTROYED, STUCK};
+	public enum State {
+		MOVING, AIMING, IDLING, DESTROYED, STUCK
+	};
 
 	// final data
 	public final String UIName;
@@ -53,18 +47,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 	public State state = State.IDLING;
 	public boolean selected = false;
 
-	public Unit(double radius,
-			double speed,
-			double mass,
-			Point3D pos,
-			double yaw,
-			MoverBuilder moverBuilder,
-			String UIName,
-			String BuilderID,
-			String race,
-			int maxHealth,
-			Faction faction,
-			ModelActorBuilder actorBuilder) {
+	public Unit(double radius, double speed, double mass, Point3D pos, double yaw, MoverBuilder moverBuilder, String UIName, String BuilderID, String race,
+			int maxHealth, Faction faction, ModelActorBuilder actorBuilder) {
 		super(radius, speed, mass, pos, yaw, moverBuilder);
 		this.UIName = UIName;
 		this.builderID = BuilderID;
@@ -76,6 +60,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 		health = maxHealth;
 		actor = actorBuilder.build(this);
 	}
+
 	public Unit(Unit o) {
 		super(o.radius, o.speed, o.mass, o.pos, o.yaw, o.mover);
 		UIName = o.UIName;
@@ -89,18 +74,18 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 		actor = o.actor;
 	}
 
-	private void setFaction(Faction faction){
-		if(this.faction != null) {
-			this.faction.units.remove(this);
+	private void setFaction(Faction faction) {
+		if (this.faction != null) {
+			this.faction.getUnits().remove(this);
 		}
 		this.faction = faction;
-		faction.units.add(this);
+		faction.getUnits().add(this);
 	}
 
-	public void update(double elapsedTime){
+	public void update(double elapsedTime) {
 		boolean aiming, moving;
 
-		if(destroyed()) {
+		if (destroyed()) {
 			return;
 		}
 		findNearbyMovers();
@@ -122,31 +107,29 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 
 	}
 
-	protected boolean isMoving(){
+	protected boolean isMoving() {
 		return state == State.MOVING;
 	}
 
-	protected void setYaw(double yaw){
+	protected void setYaw(double yaw) {
 		mover.desiredYaw = yaw;
 	}
 
-	public void idle(){
+	public void idle() {
 		state = State.IDLING;
 	}
 
 	private void findNearbyMovers() {
 		mover.toFlockWith.clear();
-		for(Unit u : group) {
-			if(u != this) {
+		for (Unit u : group) {
+			if (u != this) {
 				mover.toFlockWith.add(u.getMover());
 			}
 		}
 
 		mover.toLetPass.clear();
-		for(Unit u : faction.units) {
-			if(u != this &&
-					getBoundsDistance(u) <= 0
-					&& u.mover.heightmap.equals(mover.heightmap)) {
+		for (Unit u : faction.getUnits()) {
+			if (u != this && getBoundsDistance(u) <= 0 && u.mover.heightmap.equals(mover.heightmap)) {
 				mover.toLetPass.add(u.mover);
 			}
 		}
@@ -156,23 +139,23 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 		mover.addTrinketsToAvoidingList();
 	}
 
-	private List<FieldComp> getBlockers(){
+	private List<FieldComp> getBlockers() {
 		List<FieldComp> res = new ArrayList<>();
-		for(Faction f : faction.enemies) {
-			for(Unit u : f.units) {
+		for (Faction f : faction.getEnemies()) {
+			for (Unit u : f.getUnits()) {
 				res.add(u);
 			}
 		}
 
-		for(Unit u : faction.units) {
-			if(u != this && u.mover.holdPosition) {
+		for (Unit u : faction.getUnits()) {
+			if (u != this && u.mover.holdPosition) {
 				res.add(u);
 			}
 		}
 		return res;
 	}
 
-	private void destroy(){
+	private void destroy() {
 		state = State.DESTROYED;
 		actor.onMove(false);
 		actor.onAim(false);
@@ -181,34 +164,34 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 		actor.stopActing();
 	}
 
-	public void removeFromBattlefield(){
+	public void removeFromBattlefield() {
 		state = State.DESTROYED;
 		actor.stopActingAndChildren();
 	}
 
-	public boolean destroyed(){
+	public boolean destroyed() {
 		return state == State.DESTROYED;
 	}
 
-	public double getHealthRate(){
-		return (double)health/maxHealth;
+	public double getHealthRate() {
+		return (double) health / maxHealth;
 	}
 
-	public Mover getMover(){
+	public Mover getMover() {
 		return mover;
 	}
 
-	public Point2D getPos2D(){
+	public Point2D getPos2D() {
 		return getPos().get2D();
 	}
 
-	public ArrayList<Turret> getTurrets(){
+	public ArrayList<Turret> getTurrets() {
 		return arming.turrets;
 	}
 
-	public void addWeapon(WeaponBuilder weaponBuilder, TurretBuilder turretBuilder){
+	public void addWeapon(WeaponBuilder weaponBuilder, TurretBuilder turretBuilder) {
 		Turret t = null;
-		if(turretBuilder != null){
+		if (turretBuilder != null) {
 			t = turretBuilder.build(this);
 			arming.turrets.add(t);
 		}
@@ -227,11 +210,11 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 
 	@Override
 	public void damage(EffectSource source, int amount) {
-		if(destroyed()) {
+		if (destroyed()) {
 			return;
 		}
 		health -= amount;
-		if(health <= 0) {
+		if (health <= 0) {
 			destroy();
 		}
 
@@ -243,9 +226,9 @@ public class Unit extends Hiker implements EffectSource, EffectTarget{
 		return this;
 	}
 
-	//    @Override
+	// @Override
 	public Unit getNearest(Unit o1, Unit o2) {
-		return (Unit)super.getNearest(o1, o2);
+		return (Unit) super.getNearest(o1, o2);
 	}
 
 	@Override

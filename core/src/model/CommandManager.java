@@ -3,13 +3,12 @@
  */
 package model;
 
-import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
@@ -21,7 +20,7 @@ import model.battlefield.army.motion.pathfinding.FlowField;
 public class CommandManager {
 
 	public static List<Unit> selection = new ArrayList<>();
-	private static HashMap<String, Unity> unitiesInContext = new HashMap<>();
+	private static Map<String, Unity> unitiesInContext = new HashMap<>();
 	static boolean moveAttack = false;
 	private static final CommandManager instance = new CommandManager();
 
