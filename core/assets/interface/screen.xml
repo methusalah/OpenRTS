@@ -28,58 +28,6 @@
                         <text id="unitOrder" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
                         <text id="unitHolding" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
                     </panel>
-                    <panel name="buttons" width="100%" height="100%" childLayout="horizontal" valign="top">
-                        <panel id="psel4" height="125" width="100" childLayout="center" align="right">
-                            <image filename="interface/unity.png" width="100%" height="100%"></image>
-                            <effect>
-                                <onShow name="move" mode="in" direction="bottom" length="300" startDelay="0" inherit="true"/>
-                                <onHide name="fade" start="#ff" end="#00" length="300" startDelay="0" inherit="true"/>
-                            </effect>
-                            <control name="label" id="sel4" color="#fff" width="100%" height="100%" visibleToMouse="true">
-                                <interact onClick="select(4)"/>
-                            </control>
-                        </panel>
-                        <panel id="psel3" height="125" width="100" childLayout="center" align="right">
-                            <image filename="interface/unity.png" width="100%" height="100%"></image>
-                            <effect>
-                                <onShow name="move" mode="in" direction="bottom" length="300" startDelay="0" inherit="true"/>
-                                <onHide name="fade" start="#ff" end="#00" length="300" startDelay="0" inherit="true"/>
-                            </effect>
-                            <control name="label" id="sel3" color="#fff" width="100%" height="100%" visibleToMouse="true">
-                                <interact onClick="select(3)"/>
-                            </control>
-                        </panel>
-                        <panel id="psel2" height="125" width="100" childLayout="center" align="right">
-                            <image filename="interface/unity.png" width="100%" height="100%"></image>
-                            <effect>
-                                <onShow name="move" mode="in" direction="bottom" length="300" startDelay="0" inherit="true"/>
-                                <onHide name="fade" start="#ff" end="#00" length="300" startDelay="0" inherit="true"/>
-                            </effect>
-                            <control name="label" id="sel2" color="#fff" width="100%" height="100%" visibleToMouse="true">
-                                <interact onClick="select(2)"/>
-                            </control>
-                        </panel>
-                        <panel id="psel1" height="125" width="100" childLayout="center" align="right">
-                            <image filename="interface/unity.png" width="100%" height="100%"></image>
-                            <effect>
-                                <onShow name="move" mode="in" direction="bottom" length="300" startDelay="0" inherit="true"/>
-                                <onHide name="fade" start="#ff" end="#00" length="300" startDelay="0" inherit="true"/>
-                            </effect>
-                            <control name="label" id="sel1" color="#fff" width="100%" height="100%" visibleToMouse="true">
-                                <interact onClick="select(1)"/>
-                            </control>
-                        </panel>
-                        <panel id="psel0" height="125" width="100" childLayout="center" align="right">
-                            <image filename="interface/unity.png" width="100%" height="100%"></image>
-                            <effect>
-                                <onShow name="move" mode="in" direction="bottom" length="300" startDelay="0" inherit="true"/>
-                                <onHide name="fade" start="#ff" end="#00" length="300" startDelay="0" inherit="true"/>
-                            </effect>
-                            <control name="label" id="sel0" color="#fff" width="100%" height="100%" visibleToMouse="true">
-                                <interact onClick="select(0)"/>
-                            </control>
-                        </panel>
-                    </panel>
                 </panel>
             </panel>
       </layer>
