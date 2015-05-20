@@ -36,7 +36,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
 	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
 
-	public Point2D selectionStart;
+	public Point2D clicInitialCoord;
 	boolean multipleSelection = false;
 	double dblclicTimer = 0;
 	Point2D dblclicCoord;
@@ -108,12 +108,10 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 						// double clic
 						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
 					} else {
-						// simple clic
-//						if (!endSelection()) {
-//							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-//						}
+						if(!isDragging())
+							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					}
-					selectionStart = null;
+					clicInitialCoord = null;
 					dblclicTimer = System.currentTimeMillis();
 					dblclicCoord = getSpatialCoord();
 					break;
@@ -148,16 +146,15 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private void beginSelection() {
-		selectionStart = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+		clicInitialCoord = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
 	}
 
 	public void updateSelection(){
-        Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-        if(selectionEnd.equals(selectionStart) ||
-        		selectionEnd.getDistance(selectionStart) < 10){
+        Point2D coord = getMouseCoord();
+        if(coord.equals(clicInitialCoord)){
         	return;
         }
-        AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
+        AlignedBoundingBox rect = new AlignedBoundingBox(clicInitialCoord, coord);
         
         List<Unit> inSelection = new ArrayList<>();
         for(Unit u : ModelManager.battlefield.armyManager.getUnits()) {
@@ -168,23 +165,11 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
         CommandManager.select(inSelection);
 	}
 	
-	private boolean endSelection() {
-        Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-        if(selectionEnd.equals(selectionStart) ||
-        		selectionEnd.getDistance(selectionStart) < 10){
-        	selectionStart = null;
-        	return false;
-        }
-        AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
-        
-        List<Unit> inSelection = new ArrayList<>();
-        for(Unit u : ModelManager.battlefield.armyManager.getUnits()) {
-			if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
-				inSelection.add(u);
-			}
-		}
-        CommandManager.select(inSelection);
-		selectionStart = null;
-		return !inSelection.isEmpty();
+	private boolean isDragging(){
+        return getMouseCoord().getDistance(clicInitialCoord) > 10;
+	}
+	
+	private Point2D getMouseCoord(){
+		return Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
 	}
 }

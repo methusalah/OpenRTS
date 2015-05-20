@@ -38,7 +38,7 @@ public class BattlefieldController extends Controller {
 	@Override
 	public void update(float elapsedTime) {
 		// draw selection rectangle
-		Point2D selStart = ((BattlefieldInputInterpreter)inputInterpreter).selectionStart;
+		Point2D selStart = ((BattlefieldInputInterpreter)inputInterpreter).clicInitialCoord;
 		if(selStart != null){
 			Point2D p = Translator.toPoint2D(inputManager.getCursorPosition());
 			view.drawSelectionArea(selStart, p);

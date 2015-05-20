@@ -185,7 +185,7 @@ public class CommandManager {
 		if (!multipleSelection) {
 			unselect();
 		}
-		if (unitiesInContext.containsKey(id)) {
+		if(unitiesInContext.containsKey(id)) {
 			for (Unit u : unitiesInContext.get(id)) {
 				addToSelection(u);
 			}
