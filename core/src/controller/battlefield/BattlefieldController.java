@@ -42,6 +42,7 @@ public class BattlefieldController extends Controller {
 		if(selStart != null){
 			Point2D p = Translator.toPoint2D(inputManager.getCursorPosition());
 			view.drawSelectionArea(selStart, p);
+			((BattlefieldInputInterpreter)inputInterpreter).updateSelection();
 		} else {
 			view.guiNode.detachAllChildren();
 		}
