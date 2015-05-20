@@ -1,13 +1,14 @@
 package controller.battlefield;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import event.EventManager;
 import event.InputEvent;
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import model.CommandManager;
 import model.ModelManager;
 import model.battlefield.army.components.Unit;
@@ -121,14 +122,16 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private boolean endSelection() {
-        Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-        AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
-        
-        List<Unit> inSelection = new ArrayList<>();
-        for(Unit u : ModelManager.battlefield.armyManager.getUnits())
-        	if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos())))
-        		inSelection.add(u);
-        CommandManager.select(inSelection);
+		Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
+		AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
+
+		List<Unit> inSelection = new ArrayList<>();
+		for(Unit u : ModelManager.battlefield.armyManager.getUnits()) {
+			if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
+				inSelection.add(u);
+			}
+		}
+		CommandManager.select(inSelection);
 		selectionStart = null;
 		return !inSelection.isEmpty();
 	}

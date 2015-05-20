@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,8 +19,8 @@ import model.battlefield.army.effects.PersistentEffect;
  */
 public class ArmyManager {
 	private Map<Long, Unit> units = new HashMap<Long, Unit>();
-	public ArrayList<PersistentEffect> persistenteffects = new ArrayList<>();
-	public ArrayList<Projectile> projectiles = new ArrayList<>();
+	public List<PersistentEffect> persistenteffects = new ArrayList<>();
+	public List<Projectile> projectiles = new ArrayList<>();
 
 	public void update(double elapsedTime) {
 		Iterator<Entry<Long, Unit>> unitIterator = units.entrySet().iterator();
@@ -35,7 +36,7 @@ public class ArmyManager {
 		}
 
 		// update persistent effects
-		ArrayList<PersistentEffect> terminated = new ArrayList<>();
+		List<PersistentEffect> terminated = new ArrayList<PersistentEffect>();
 		for (PersistentEffect e : persistenteffects) {
 			if (e.terminated) {
 				terminated.add(e);
@@ -46,7 +47,7 @@ public class ArmyManager {
 		persistenteffects.removeAll(terminated);
 
 		// update projectiles
-		ArrayList<Projectile> arrived = new ArrayList<>();
+		List<Projectile> arrived = new ArrayList<>();
 		for (Projectile p : projectiles) {
 			if (p.arrived) {
 				arrived.add(p);
