@@ -31,8 +31,8 @@ public class CommandManager {
 	public static void setMoveAttack() {
 		moveAttack = true;
 	}
-	
-	public static void setMultipleSelection(boolean val){
+
+	public static void setMultipleSelection(boolean val) {
 		multipleSelection = val;
 	}
 
@@ -49,18 +49,21 @@ public class CommandManager {
 		if (moveAttack) {
 			act(id, pos);
 		} else {
-			if(!multipleSelection)
+			if (!multipleSelection) {
 				unselect();
-			if (!EntityManager.isValidId(id))
+			}
+			if (!EntityManager.isValidId(id)) {
 				return;
+			}
 			Unit u = getUnit(id);
 			changeSelection(u);
 		}
 	}
 
 	public static void select(List<Unit> units) {
-		if(!multipleSelection)
+		if (!multipleSelection) {
 			unselect();
+		}
 		for (Unit u : units) {
 			addToSelection(u);
 		}
@@ -68,9 +71,10 @@ public class CommandManager {
 	}
 
 	private static void changeSelection(Unit u) {
-		if(u == null)
+		if (u == null) {
 			return;
-		if(u.selected){
+		}
+		if (u.selected) {
 			u.selected = false;
 			selection.remove(u);
 		} else {
@@ -78,12 +82,15 @@ public class CommandManager {
 			selection.add(u);
 		}
 	}
+
 	private static void addToSelection(Unit u) {
-		if(u == null)
+		if (u == null) {
 			return;
+		}
 		u.selected = true;
-		if(!selection.contains(u))
+		if (!selection.contains(u)) {
 			selection.add(u);
+		}
 	}
 
 	public static void act(Long id, Point2D pos) {
@@ -166,17 +173,22 @@ public class CommandManager {
 	public static void selectUnityInContext(Unity unityID) {
 		selectUnityInContext(unityID.UIName);
 	}
+
 	public static void selectUnityInContext(Long unitID) {
 		Unit target = getUnit(unitID);
 		if (target != null) {
 			selectUnityInContext(target.UIName);
 		}
 	}
+
 	public static void selectUnityInContext(String id) {
-		if(!multipleSelection)
+		if (!multipleSelection) {
 			unselect();
-		for (Unit u : unitiesInContext.get(id)) {
-			addToSelection(u);
+		}
+		if (unitiesInContext.containsKey(id)) {
+			for (Unit u : unitiesInContext.get(id)) {
+				addToSelection(u);
+			}
 		}
 	}
 
