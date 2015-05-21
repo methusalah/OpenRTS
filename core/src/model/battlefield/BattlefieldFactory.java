@@ -119,14 +119,13 @@ public class BattlefieldFactory {
 		}
 
 		int i = 0;
-		LogUtil.logger.info("   cliffs' shapes");
 		for (Tile t : res.map.getTiles()) {
 			for (Cliff c : t.getCliffs()) {
 				lib.getCliffShapeBuilder(t.cliffShapeID).build(c);
 				i++;
 			}
 		}
-		LogUtil.logger.info("   cliffs' shapes " + i);
+		LogUtil.logger.info("   cliffs' shapes (" + i+")");
 
 		lib.battlefield = res;
 		res.buildParcels();

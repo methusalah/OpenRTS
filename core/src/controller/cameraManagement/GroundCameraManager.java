@@ -37,10 +37,6 @@ public class GroundCameraManager extends CameraManager {
 		pos = new Point3D(1, 1, 0);
 		rotation = new Quaternion().fromAngles((float)Angle.RIGHT, 0, (float)Angle.FLAT);
 		cam.setFrustumPerspective(45, (float)cam.getWidth()/cam.getHeight(), 0.01f, 1000);
-		LogUtil.logger.info("frustum near "+cam.getFrustumNear());
-		LogUtil.logger.info("frustum far "+cam.getFrustumFar());
-		LogUtil.logger.info("frustum top "+cam.getFrustumTop());
-		LogUtil.logger.info("frustum bottom "+cam.getFrustumBottom());
 
 		applyRotationToCam();
 		placeCam();

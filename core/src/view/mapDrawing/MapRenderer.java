@@ -64,7 +64,6 @@ public class MapRenderer implements ActionListener {
 	}
 
 	public void renderTiles() {
-		LogUtil.logger.info("rendering ground" + ModelManager.battlefield.parcelManager.meshes.size() + " " + ModelManager.battlefield.map.getTiles().size());
 		int index = 0;
 		for (String s : ModelManager.battlefield.map.style.textures) {
 			Texture diffuse = am.loadTexture(s);

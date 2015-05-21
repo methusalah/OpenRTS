@@ -55,7 +55,6 @@ public class Engagement {
 	}
 
 	public void resetEngagement() {
-		LogUtil.logger.info("reseting engagement");
 		battlefield.armyManager.reset();
 
 		for (SerializableUnit up : initialEngagement) {

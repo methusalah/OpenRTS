@@ -72,7 +72,6 @@ public class BuilderLibrary {
 	}
 
 	public void buildLinks() {
-		LogUtil.logger.info("buildings links...");
 		for (Map<String, Builder> map : builders.values()) {
 			for (Builder b : map.values()) {
 				b.readFinalizedLibrary();
