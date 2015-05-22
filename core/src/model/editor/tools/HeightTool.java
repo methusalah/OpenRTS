@@ -93,7 +93,7 @@ public class HeightTool extends Tool {
 	private void uniform(List<Tile> tiles) {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedElevation = ModelManager.battlefield.map.getAltitudeAt(pencil.getCoord());
+			maintainedElevation = ModelManager.getBattlefield().getMap().getAltitudeAt(pencil.getCoord());
 		}
 		for (Tile t : tiles) {
 			double diff = maintainedElevation - t.elevation;

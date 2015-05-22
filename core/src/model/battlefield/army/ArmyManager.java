@@ -18,11 +18,11 @@ import model.battlefield.army.effects.PersistentEffect;
  * @author Benoît
  */
 public class ArmyManager {
-	private Map<Long, Unit> units = new HashMap<Long, Unit>();
-	public List<PersistentEffect> persistenteffects = new ArrayList<>();
-	public List<Projectile> projectiles = new ArrayList<>();
+	private static Map<Long, Unit> units = new HashMap<Long, Unit>();
+	private static List<PersistentEffect> persistenteffects = new ArrayList<>();
+	private static List<Projectile> projectiles = new ArrayList<>();
 
-	public void update(double elapsedTime) {
+	public static void update(double elapsedTime) {
 		Iterator<Entry<Long, Unit>> unitIterator = units.entrySet().iterator();
 		while (unitIterator.hasNext()) {
 			Entry<Long, Unit> entry = unitIterator.next();
@@ -59,20 +59,20 @@ public class ArmyManager {
 
 	}
 
-	public void addPersistentEffect(PersistentEffect eff) {
+	public static void addPersistentEffect(PersistentEffect eff) {
 		persistenteffects.add(eff);
 	}
 
-	public void registerUnit(Unit unit) {
+	public static void registerUnit(Unit unit) {
 		units.put(unit.getId(), unit);
 	}
 
-	public void unregisterUnit(Unit unit) {
+	public static void unregisterUnit(Unit unit) {
 		unit.removeFromBattlefield();
 		units.remove(unit);
 	}
 
-	public void registerProjectile(Projectile projectile) {
+	public static void registerProjectile(Projectile projectile) {
 		projectiles.add(projectile);
 	}
 
@@ -80,7 +80,7 @@ public class ArmyManager {
 		projectile.removeFromBattlefield();
 	}
 
-	public void reset() {
+	public static void reset() {
 		for (Unit u : units.values()) {
 			u.removeFromBattlefield();
 		}
@@ -91,11 +91,11 @@ public class ArmyManager {
 		update(0);
 	}
 
-	public Unit getUnit(long id) {
+	public static Unit getUnit(long id) {
 		return units.get(id);
 	}
 
-	public Collection<Unit> getUnits() {
+	public static Collection<Unit> getUnits() {
 		return units.values();
 	}
 }

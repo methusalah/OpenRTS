@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.battlefield.army.ArmyManager;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.motion.pathfinding.FlowField;
@@ -111,7 +112,7 @@ public class CommandManager {
 	}
 
 	private static void orderMove(Point2D p) {
-		FlowField ff = new FlowField(ModelManager.battlefield.map, p);
+		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), p);
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {
@@ -123,7 +124,7 @@ public class CommandManager {
 	}
 
 	private static void orderAttack(Unit enemy) {
-		FlowField ff = new FlowField(ModelManager.battlefield.map, enemy.getPos2D());
+		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), enemy.getPos2D());
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {
@@ -144,14 +145,14 @@ public class CommandManager {
 
 	private static Unit getUnit(Long id) {
 		if (EntityManager.isValidId(id)) {
-			return ModelManager.battlefield.armyManager.getUnit(id);
+			return ArmyManager.getUnit(id);
 		}
 		return null;
 	}
 
 	public static void selectAll() {
 		unselect();
-		for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
+		for (Unit u : ArmyManager.getUnits()) {
 			changeSelection(u);
 		}
 	}
@@ -159,7 +160,7 @@ public class CommandManager {
 	public static void updateSelectables(Point2D visionCenter) {
 		unitiesInContext.clear();
 		if (visionCenter != null) {
-			for (Unit u : ModelManager.battlefield.armyManager.getUnits()) {
+			for (Unit u : ArmyManager.getUnits()) {
 				if (u.getPos2D().getDistance(visionCenter) < 10) {
 					if (!unitiesInContext.containsKey(u.UIName)) {
 						unitiesInContext.put(u.UIName, new Unity());

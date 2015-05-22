@@ -3,9 +3,6 @@
  */
 package model.editor;
 
-import geometry.geom2d.Point2D;
-
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,81 +18,87 @@ import model.editor.tools.RampTool;
 import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
+import event.EventManager;
+import event.ParcelUpdateEvent;
+import event.SetToolEvent;
+import event.UpdateGroundAtlasEvent;
+import geometry.geom2d.Point2D;
 
 /**
  * @author Benoît
  */
 public class ToolManager {
-	private String pointedSpatialLabel;
-	private long pointedSpatialEntityId;
+	private static String pointedSpatialLabel;
+	private static long pointedSpatialEntityId;
 
-	public HeightTool heightTool;
-	public CliffTool cliffTool;
-	public AtlasTool atlasTool;
-	public RampTool rampTool;
-	public UnitTool unitTool;
-	public TrinketTool trinketTool;
+	private static HeightTool heightTool;
+	private static CliffTool cliffTool;
+	private static AtlasTool atlasTool;
+	private static RampTool rampTool;
+	private static UnitTool unitTool;
+	private static TrinketTool trinketTool;
 
-	public Tool actualTool;
+	private static Tool actualTool;
 
-	double delay = 0;
-	long lastAction = 0;
-	long timer = 0;
+	private static double delay = 0;
+	private static long lastAction = 0;
+	private long timer = 0;
 
-	List<ActionListener> listeners = new ArrayList<>();
+	private static List<ActionListener> listeners = new ArrayList<>();
+	private static ToolManager instance = new ToolManager();
 
-	public ToolManager() {
-		heightTool = new HeightTool(this);
-		cliffTool = new CliffTool(this);
-		atlasTool = new AtlasTool(this);
-		rampTool = new RampTool(this);
+	private ToolManager() {
+		setHeightTool(new HeightTool(this));
+		setCliffTool(new CliffTool(this));
+		setAtlasTool(new AtlasTool(this));
+		setRampTool(new RampTool(this));
 		unitTool = new UnitTool(this);
 		trinketTool = new TrinketTool(this);
 
-		actualTool = cliffTool;
+		actualTool = getCliffTool();
 	}
 
-	public void setCliffTool() {
+	public static void setCliffTool() {
 		actualTool = cliffTool;
-		notifyListeners("tool");
+		EventManager.post(new SetToolEvent());
 	}
 
-	public void setHeightTool() {
+	public static void setHeightTool() {
 		actualTool = heightTool;
-		notifyListeners("tool");
+		EventManager.post(new SetToolEvent());
 	}
 
-	public void setAtlasTool() {
+	public static void setAtlasTool() {
 		actualTool = atlasTool;
-		notifyListeners("tool");
+		EventManager.post(new SetToolEvent());
 	}
 
-	public void setRampTool() {
+	public static void setRampTool() {
 		actualTool = rampTool;
-		notifyListeners("tool");
+		EventManager.post(new SetToolEvent());
 	}
 
-	public void setUnitTool() {
+	public static void setUnitTool() {
 		actualTool = unitTool;
-		notifyListeners("tool");
+		EventManager.post(new SetToolEvent());
 	}
 
-	public void setTrinketTool() {
+	public static void setTrinketTool() {
 		actualTool = trinketTool;
-		notifyListeners("tool");
+		EventManager.post(new SetToolEvent());
 	}
 
-	public void toggleSet() {
+	public static void toggleSet() {
 		if (actualTool.hasSet()) {
 			actualTool.getSet().toggle();
 		}
 	}
 
-	public void toggleOperation() {
+	public static void toggleOperation() {
 		actualTool.toggleOperation();
 	}
 
-	public void analogPrimaryAction() {
+	public static void analogPrimaryAction() {
 		if (actualTool.isAnalog()) {
 			if (lastAction + delay < System.currentTimeMillis()) {
 				// LogUtil.logger.info((System.currentTimeMillis()-lastAction)+" ms since last call");
@@ -105,13 +108,13 @@ public class ToolManager {
 		}
 	}
 
-	public void primaryAction() {
+	public static void primaryAction() {
 		if (!actualTool.isAnalog()) {
 			actualTool.primaryAction();
 		}
 	}
 
-	public void analogSecondaryAction() {
+	public static void analogSecondaryAction() {
 		if (actualTool.isAnalog()) {
 			if (lastAction + delay < System.currentTimeMillis()) {
 				lastAction = System.currentTimeMillis();
@@ -120,7 +123,7 @@ public class ToolManager {
 		}
 	}
 
-	public void secondaryAction() {
+	public static void secondaryAction() {
 		if (!actualTool.isAnalog()) {
 			actualTool.secondaryAction();
 		}
@@ -132,7 +135,7 @@ public class ToolManager {
 		for (Tile t : extended) {
 			int minLevel = t.level;
 			int maxLevel = t.level;
-			for (Tile n : ModelManager.battlefield.map.get8Around(t)) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				maxLevel = Math.max(maxLevel, n.level);
 			}
 			if (t.hasCliff()) {
@@ -151,16 +154,18 @@ public class ToolManager {
 		}
 		for (Tile t : extended) {
 			for (Cliff c : t.getCliffs()) {
-				cliffTool.buildShape(c);
+				getCliffTool().buildShape(c);
 			}
 		}
-		notifyListeners("tiles", extended);
+		EventManager.post(new TilesEvent(extended));
+		// notifyListeners("tiles", extended);
 		updateParcelsForExtended(tiles);
 	}
 
 	public void updateParcelsForExtended(List<Tile> tiles) {
-		List<ParcelMesh> toUpdate = ModelManager.battlefield.parcelManager.updateParcelsFor(tiles);
-		notifyListeners("parcels", toUpdate);
+		List<ParcelMesh> toUpdate = ModelManager.getBattlefield().getParcelManager().updateParcelsFor(tiles);
+		EventManager.post(new ParcelUpdateEvent(toUpdate));
+		// notifyListeners("parcels", toUpdate);
 	}
 
 	public void updateParcels(List<Tile> tiles) {
@@ -171,7 +176,7 @@ public class ToolManager {
 		List<Tile> res = new ArrayList<>();
 		res.addAll(tiles);
 		for (Tile t : tiles) {
-			for (Tile n : ModelManager.battlefield.map.get8Around(t)) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				if (!res.contains(n)) {
 					res.add(n);
 				}
@@ -181,37 +186,23 @@ public class ToolManager {
 	}
 
 	public void updateGroundAtlas() {
-		notifyListeners("ground", new ArrayList<Tile>());
+		EventManager.post(new UpdateGroundAtlasEvent());
+		// notifyListeners("ground", new ArrayList<Tile>());
 	}
 
-	private void notifyListeners(String command, Object o) {
-		ActionEvent event = new ActionEvent(o, 0, command);
-		for (ActionListener l : listeners) {
-			l.actionPerformed(event);
-		}
-	}
+	// private void notifyListeners(String command, Object o) {
+	// ActionEvent event = new ActionEvent(o, 0, command);
+	// for (ActionListener l : listeners) {
+	// l.actionPerformed(event);
+	// }
+	// }
 
-	private void notifyListeners(String command) {
-		ActionEvent event = new ActionEvent(this, 0, command);
-		for (ActionListener l : listeners) {
-			l.actionPerformed(event);
-		}
-	}
-
-	public void addListener(ActionListener l) {
-		listeners.add(l);
-	}
-
-	public void removeListener(ActionListener l) {
-		listeners.remove(l);
-	}
-
-	public void updatePencilsPos(Point2D pos) {
+	public static void updatePencilsPos(Point2D pos) {
 		actualTool.pencil.setPos(pos);
 		// updateTiles(actualTool.pencil.getTiles());
 	}
 
-	public void releasePencils() {
+	public static void releasePencils() {
 		actualTool.pencil.release();
 	}
 
@@ -219,16 +210,51 @@ public class ToolManager {
 		return pointedSpatialLabel;
 	}
 
-	public void setPointedSpatialLabel(String pointedSpatialLabel) {
-		this.pointedSpatialLabel = pointedSpatialLabel;
+	public static void setPointedSpatialLabel(String pointedSpatialLabel) {
+		ToolManager.pointedSpatialLabel = pointedSpatialLabel;
 	}
 
 	public long getPointedSpatialEntityId() {
 		return pointedSpatialEntityId;
 	}
 
-	public void setPointedSpatialEntityId(long pointedSpatialEntityId) {
-		this.pointedSpatialEntityId = pointedSpatialEntityId;
+	public static void setPointedSpatialEntityId(long pointedSpatialEntityId) {
+		ToolManager.pointedSpatialEntityId = pointedSpatialEntityId;
 	}
 
+	public static Tool getActualTool() {
+		return actualTool;
+	}
+
+	public static CliffTool getCliffTool() {
+		return cliffTool;
+	}
+
+	public static void setCliffTool(CliffTool cliffTool) {
+		ToolManager.cliffTool = cliffTool;
+	}
+
+	public static RampTool getRampTool() {
+		return rampTool;
+	}
+
+	public static void setRampTool(RampTool rampTool) {
+		ToolManager.rampTool = rampTool;
+	}
+
+	public static HeightTool getHeightTool() {
+		return heightTool;
+	}
+
+	public static void setHeightTool(HeightTool heightTool) {
+		ToolManager.heightTool = heightTool;
+	}
+
+	public static AtlasTool getAtlasTool() {
+		return atlasTool;
+	}
+
+	public static void setAtlasTool(AtlasTool atlasTool) {
+		ToolManager.atlasTool = atlasTool;
+	}
 }

@@ -23,6 +23,7 @@ public class GameMutliplayerAlien extends Game {
 
 		if (!mapfilename.isEmpty()) {
 			ModelManager.loadBattlefield(mapfilename);
+			faction = ModelManager.getBattlefield().getEngagement().factions.get(1);
 		}
 	}
 }

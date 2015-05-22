@@ -1,8 +1,8 @@
 package model.builders.actors;
 
+import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.SoundActor;
-import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
@@ -11,36 +11,38 @@ import model.builders.definitions.Definition;
  * @author Benoît
  */
 public class SoundActorBuilder extends ActorBuilder{
-    private static final String SOUND_PATH = "SoundPath";
-    private static final String VOLUME = "Volume";
-    private static final String LOOPING = "Looping";
-    private static final String POSITIONAL = "Positional";
-    
-    private String soundPath;
-    private double volume = 1;
-    private boolean positional = false;
-    private boolean looping = false;
-    
-    public SoundActorBuilder(Definition def, BuilderLibrary lib){
-        super(def, lib);
-        for(DefElement de : def.elements) {
+	private static final String SOUND_PATH = "SoundPath";
+	private static final String VOLUME = "Volume";
+	private static final String LOOPING = "Looping";
+	private static final String POSITIONAL = "Positional";
+
+	private String soundPath;
+	private double volume = 1;
+	private boolean positional = false;
+	private boolean looping = false;
+
+	public SoundActorBuilder(Definition def) {
+		super(def);
+		for(DefElement de : def.elements) {
 			switch(de.name){
-                case TYPE :
-                case TRIGGER :
-                case ACTOR_LIST : break;
-                case SOUND_PATH : soundPath = de.getVal(); break;
-                case VOLUME : volume = de.getDoubleVal(); break;
-                case LOOPING : looping = de.getBoolVal(); break;
-                case POSITIONAL : positional = de.getBoolVal(); break;
-                default:printUnknownElement(de.name);
-            }
+				case TYPE :
+				case TRIGGER :
+				case ACTOR_LIST : break;
+				case SOUND_PATH : soundPath = de.getVal(); break;
+				case VOLUME : volume = de.getDoubleVal(); break;
+				case LOOPING : looping = de.getBoolVal(); break;
+				case POSITIONAL : positional = de.getBoolVal(); break;
+				default:printUnknownElement(de.name);
+			}
 		}
-    }
-    
-    @Override
-    public Actor build(String trigger, Actor parent){
-    	Actor res = new SoundActor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, soundPath, looping, volume, positional);
-    	res.debbug_id = getId();
-        return res;
-    }
+	}
+
+	@Override
+	public Actor build(String trigger, Actor parent){
+		Actor res = new SoundActor(parent, trigger, childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool(), soundPath, looping,
+				volume,
+				positional);
+		res.debbug_id = getId();
+		return res;
+	}
 }

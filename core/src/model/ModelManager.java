@@ -1,16 +1,16 @@
 package model;
 
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
 import geometry.tools.LogUtil;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
-import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.DefParser;
-import model.editor.ToolManager;
 
 public class ModelManager {
 	public static final String BATTLEFIELD_UPDATED_EVENT = "mapupdatedevent";
@@ -20,25 +20,19 @@ public class ModelManager {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 32;
 
-	public static final BattlefieldFactory factory;
-	public static final BuilderLibrary lib;
+	private static final BattlefieldFactory factory;
 
-	public static Battlefield battlefield;
+	private static Battlefield battlefield;
+	private final static DefParser parser;
+	private static double nextUpdate = 0;
 
-	public static ToolManager toolManager;
-
-	final static DefParser parser;
-	static double nextUpdate = 0;
-
-	private static ArrayList<ActionListener> listeners = new ArrayList<>();
+	private static List<ActionListener> listeners = new ArrayList<>();
 
 	static {
-		lib = new BuilderLibrary();
-		parser = new DefParser(lib, CONFIG_PATH);
+		parser = new DefParser(CONFIG_PATH);
 
-		factory = new BattlefieldFactory(lib);
+		factory = new BattlefieldFactory();
 		setNewBattlefield();
-		toolManager = new ToolManager();
 	}
 
 	// no instancing from outside
@@ -64,39 +58,30 @@ public class ModelManager {
 	}
 
 	public static void saveBattlefield() {
-		factory.save(battlefield);
+		factory.save(getBattlefield());
 	}
 
 	public static void setNewBattlefield() {
 		setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
-	private static void setBattlefield(Battlefield battlefield) {
+	public static void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			LogUtil.logger.info("Reseting view...");
-			notifyListeners(BATTLEFIELD_UPDATED_EVENT);
+			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");
 		}
 	}
 
 	public static void reload() {
 		saveBattlefield();
-		Battlefield loadedBattlefield = factory.load(battlefield.fileName);
+		Battlefield loadedBattlefield = factory.load(getBattlefield().getFileName());
 		setBattlefield(loadedBattlefield);
 	}
 
-	// FIXME: Replace with EventManager
-	public static void addListener(ActionListener listener) {
-		listeners.add(listener);
+	public static Battlefield getBattlefield() {
+		return battlefield;
 	}
 
-	// FIXME: Replace with EventManager
-	private static void notifyListeners(String eventCommand) {
-		for (ActionListener l : listeners) {
-			// FIXME: why we are doing this?
-			l.actionPerformed(new ActionEvent(new ModelManager(), 0, eventCommand));
-		}
-
-	}
 }

@@ -1,10 +1,5 @@
 package view.mapDrawing;
 
-import geometry.math.Angle;
-import geometry.tools.LogUtil;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +11,14 @@ import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcel.ParcelMesh;
+import model.editor.TilesEvent;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.Translator;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -33,7 +30,13 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 
-public class MapRenderer implements ActionListener {
+import event.EventManager;
+import event.ParcelUpdateEvent;
+import event.UpdateGroundAtlasEvent;
+import geometry.math.Angle;
+import geometry.tools.LogUtil;
+
+public class MapRenderer {
 
 	MapView view;
 	MaterialManager mm;
@@ -53,8 +56,9 @@ public class MapRenderer implements ActionListener {
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
 	public MapRenderer(MapView view, MaterialManager mm, AssetManager am) {
+		EventManager.register(this);
 		this.view = view;
-		groundTexture = new TerrainSplatTexture(ModelManager.battlefield.map.atlas, am);
+		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
 		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -64,23 +68,24 @@ public class MapRenderer implements ActionListener {
 	}
 
 	public void renderTiles() {
-		LogUtil.logger.info("rendering ground" + ModelManager.battlefield.parcelManager.meshes.size() + " " + ModelManager.battlefield.map.getTiles().size());
+		LogUtil.logger.info("rendering ground" + ModelManager.getBattlefield().getParcelManager().meshes.size() + " "
+				+ ModelManager.getBattlefield().getMap().getTiles().size());
 		int index = 0;
-		for (String s : ModelManager.battlefield.map.style.textures) {
+		for (String s : ModelManager.getBattlefield().getMap().style.textures) {
 			Texture diffuse = am.loadTexture(s);
 			Texture normal;
-			if (ModelManager.battlefield.map.style.normals.get(index) != null) {
-				normal = am.loadTexture(ModelManager.battlefield.map.style.normals.get(index));
+			if (ModelManager.getBattlefield().getMap().style.normals.get(index) != null) {
+				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.normals.get(index));
 			} else {
 				normal = null;
 			}
-			double scale = ModelManager.battlefield.map.style.scales.get(index);
+			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
 		groundTexture.buildMaterial();
 
-		for (ParcelMesh mesh : ModelManager.battlefield.parcelManager.meshes) {
+		for (ParcelMesh mesh : ModelManager.getBattlefield().getParcelManager().meshes) {
 			Geometry g = new Geometry();
 			Mesh jmeMesh = Translator.toJMEMesh(mesh);
 			SilentTangentBinormalGenerator.generate(jmeMesh);
@@ -93,7 +98,7 @@ public class MapRenderer implements ActionListener {
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 		}
-		updateTiles(ModelManager.battlefield.map.getTiles());
+		updateTiles(ModelManager.getBattlefield().getMap().getTiles());
 	}
 
 	private Spatial getModel(String path) {
@@ -103,19 +108,19 @@ public class MapRenderer implements ActionListener {
 		return models.get(path).clone();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-			case "parcels":
-				updateParcelsFor((ArrayList<ParcelMesh>) (e.getSource()));
-				break;
-			case "tiles":
-				updateTiles((ArrayList<Tile>) (e.getSource()));
-				break;
-			case "ground":
-				updateGroundTexture();
-				break;
-		}
+	@Subscribe
+	public void handleParcelUpdateEvent(ParcelUpdateEvent e) {
+		updateParcelsFor(e.getToUpdate());
+	}
+
+	@Subscribe
+	public void handleGroundUpdateEvent(UpdateGroundAtlasEvent e) {
+		updateGroundTexture();
+	}
+
+	@Subscribe
+	protected void handleTileEvent(TilesEvent e) {
+		updateTiles(e.getExtended());
 	}
 
 	private void updateGroundTexture() {

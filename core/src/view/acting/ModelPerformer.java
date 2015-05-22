@@ -39,13 +39,13 @@ public class ModelPerformer extends Performer {
 	public void perform(Actor a) {
 		ModelActor actor = (ModelActor) a;
 		if (actor.viewElements.spatial == null) {
-			Spatial s = bs.buildSpatial(actor.modelPath);
+			Spatial s = bs.buildSpatial(actor.getModelPath());
 
-			if (actor.color != null) {
-				s.setMaterial(bs.materialManager.getLightingColor(Translator.toColorRGBA(actor.color)));
+			if (actor.getColor() != null) {
+				s.setMaterial(bs.materialManager.getLightingColor(Translator.toColorRGBA(actor.getColor())));
 			}
 
-			s.setLocalScale((float) actor.scaleX * DEFAULT_SCALE, (float) actor.scaleY * DEFAULT_SCALE, (float) actor.scaleZ * DEFAULT_SCALE);
+			s.setLocalScale((float) actor.getScaleX() * DEFAULT_SCALE, (float) actor.getScaleY() * DEFAULT_SCALE, (float) actor.getScaleZ() * DEFAULT_SCALE);
 			s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 			s.setName(actor.getLabel());
 			actor.viewElements.spatial = s;

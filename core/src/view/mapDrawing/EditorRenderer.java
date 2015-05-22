@@ -1,13 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the toolManager.
+ * To change this template, choose Tools | Templates and open the template in the toolManager.
  */
 package view.mapDrawing;
-
-import geometry.collections.PointRing;
-import geometry.geom2d.Point2D;
-import geometry.geom3d.Point3D;
-import geometry.math.Angle;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +12,7 @@ import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.Pencil;
+import model.editor.ToolManager;
 import view.EditorView;
 import view.material.MaterialManager;
 import view.math.Translator;
@@ -30,8 +25,13 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 
+import event.EventManager;
+import geometry.collections.PointRing;
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+
 /**
- *
  * @author Benoît
  */
 public class EditorRenderer implements ActionListener {
@@ -50,12 +50,12 @@ public class EditorRenderer implements ActionListener {
 	private HashMap<ParcelMesh, GridMesh> gridMeshes = new HashMap<>();
 	private HashMap<ParcelMesh, Geometry> gridGeoms = new HashMap<>();
 
-
 	public EditorRenderer(EditorView view, MaterialManager mm) {
 		this.view = view;
 		this.mm = mm;
+		EventManager.register(this);
 
-		for (ParcelMesh parcel : ModelManager.battlefield.parcelManager.meshes) {
+		for (ParcelMesh parcel : ModelManager.getBattlefield().getParcelManager().meshes) {
 			GridMesh grid = new GridMesh(parcel);
 			gridMeshes.put(parcel, grid);
 
@@ -68,7 +68,6 @@ public class EditorRenderer implements ActionListener {
 			gridGeoms.put(parcel, g);
 		}
 
-
 		mainNode.attachChild(gridNode);
 
 		mainNode.attachChild(CliffPencilNode);
@@ -80,8 +79,8 @@ public class EditorRenderer implements ActionListener {
 		BuildAtlasPencil();
 	}
 
-	private void BuildCliffPencil(){
-		for(int i=0; i< Pencil.MAX_SIZE*Pencil.MAX_SIZE; i++){
+	private void BuildCliffPencil() {
+		for (int i = 0; i < Pencil.MAX_SIZE * Pencil.MAX_SIZE; i++) {
 			Node n = new Node();
 			Geometry l1 = new Geometry();
 			Line l = new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 1, 0.1f));
@@ -131,8 +130,8 @@ public class EditorRenderer implements ActionListener {
 		}
 	}
 
-	private void BuildHeightPencil(){
-		for(int i=0; i<Pencil.MAX_SIZE*Pencil.MAX_SIZE; i++){
+	private void BuildHeightPencil() {
+		for (int i = 0; i < Pencil.MAX_SIZE * Pencil.MAX_SIZE; i++) {
 			Geometry g = new Geometry();
 			g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
 			g.setMaterial(mm.getColor(ColorRGBA.Orange));
@@ -140,8 +139,8 @@ public class EditorRenderer implements ActionListener {
 		}
 	}
 
-	private void BuildAtlasPencil(){
-		for(int i=0; i<Pencil.MAX_SIZE*8; i++){
+	private void BuildAtlasPencil() {
+		for (int i = 0; i < Pencil.MAX_SIZE * 8; i++) {
 			Geometry g = new Geometry();
 			g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
 			g.setMaterial(mm.getColor(ColorRGBA.Orange));
@@ -149,91 +148,89 @@ public class EditorRenderer implements ActionListener {
 		}
 	}
 
-
 	public void drawPencil() {
-		if(ModelManager.toolManager.actualTool == ModelManager.toolManager.cliffTool ||
-				ModelManager.toolManager.actualTool == ModelManager.toolManager.rampTool){
+		if (ToolManager.getActualTool() == ToolManager.getCliffTool() || ToolManager.getActualTool() == ToolManager.getRampTool()) {
 			drawCliffPencil();
-		} else if(ModelManager.toolManager.actualTool == ModelManager.toolManager.heightTool){
+		} else if (ToolManager.getActualTool() == ToolManager.getHeightTool()) {
 			drawHeightPencil();
-		} else if(ModelManager.toolManager.actualTool == ModelManager.toolManager.atlasTool){
+		} else if (ToolManager.getActualTool() == ToolManager.getAtlasTool()) {
 			drawAtlasPencil();
 		}
 	}
 
 	private void drawCliffPencil() {
-		List<Tile> tiles = ModelManager.toolManager.cliffTool.pencil.getTiles();
+		List<Tile> tiles = ToolManager.getCliffTool().pencil.getTiles();
 		int index = 0;
-		for(Spatial s : CliffPencilNode.getChildren()){
-			if(index < tiles.size()) {
-				s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getCoord(), (float)ModelManager.toolManager.cliffTool.pencil.getElevation()+0.1f));
+		for (Spatial s : CliffPencilNode.getChildren()) {
+			if (index < tiles.size()) {
+				s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getCoord(), (float) ToolManager.getCliffTool().pencil.getElevation() + 0.1f));
 			} else {
 				s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 			}
 			index++;
 		}
 	}
+
 	private void drawHeightPencil() {
-		List<Tile> tiles = ModelManager.toolManager.heightTool.pencil.getNodes();
+		List<Tile> tiles = ToolManager.getHeightTool().pencil.getNodes();
 		int index = 0;
-		for(Spatial s : HeightPencilNode.getChildren()){
-			if(index < tiles.size()){
+		for (Spatial s : HeightPencilNode.getChildren()) {
+			if (index < tiles.size()) {
 				Point3D start = tiles.get(index).getPos();
 				Point3D end = tiles.get(index).getPos().getAddition(0, 0, 0.5);
 				Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
 				l.setLineWidth(PENCIL_THICKNESS);
-				((Geometry)s).setMesh(l);
+				((Geometry) s).setMesh(l);
 				s.setLocalTranslation(Vector3f.ZERO);
-				//                s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)toolManager.selector.getElevation()+0.1f));
+				// s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getPos2D(), (float)toolManager.selector.getElevation()+0.1f));
 			} else {
 				s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 			}
 			index++;
 		}
 	}
-	private void drawAtlasPencil() {
-		Pencil s = ModelManager.toolManager.atlasTool.pencil;
-		PointRing pr = new PointRing();
-		Point2D center = ModelManager.toolManager.actualTool.pencil.getCoord();
 
-		if(s.shape == Pencil.Shape.Square ||
-				s.shape == Pencil.Shape.Diamond){
-			for(double i=-s.size/2; i<s.size/2; i+=QUAD_PENCIL_SAMPLE_LENGTH) {
-				pr.add(center.getAddition(i, -s.size/2));
+	private void drawAtlasPencil() {
+		Pencil s = ToolManager.getActualTool().pencil;
+		PointRing pr = new PointRing();
+		Point2D center = ToolManager.getActualTool().pencil.getCoord();
+
+		if (s.shape == Pencil.SHAPE.Square || s.shape == Pencil.SHAPE.Diamond) {
+			for (double i = -s.size / 2; i < s.size / 2; i += QUAD_PENCIL_SAMPLE_LENGTH) {
+				pr.add(center.getAddition(i, -s.size / 2));
 			}
-			for(double i=-s.size/2; i<s.size/2; i+=QUAD_PENCIL_SAMPLE_LENGTH) {
-				pr.add(center.getAddition(s.size/2, i));
+			for (double i = -s.size / 2; i < s.size / 2; i += QUAD_PENCIL_SAMPLE_LENGTH) {
+				pr.add(center.getAddition(s.size / 2, i));
 			}
-			for(double i=s.size/2; i>-s.size/2; i-=QUAD_PENCIL_SAMPLE_LENGTH) {
-				pr.add(center.getAddition(i, s.size/2));
+			for (double i = s.size / 2; i > -s.size / 2; i -= QUAD_PENCIL_SAMPLE_LENGTH) {
+				pr.add(center.getAddition(i, s.size / 2));
 			}
-			for(double i=s.size/2; i>-s.size/2; i-=QUAD_PENCIL_SAMPLE_LENGTH) {
-				pr.add(center.getAddition(-s.size/2, i));
+			for (double i = s.size / 2; i > -s.size / 2; i -= QUAD_PENCIL_SAMPLE_LENGTH) {
+				pr.add(center.getAddition(-s.size / 2, i));
 			}
-			if(s.shape == Pencil.Shape.Diamond){
+			if (s.shape == Pencil.SHAPE.Diamond) {
 				PointRing newPR = new PointRing();
-				for(Point2D p : pr) {
-					newPR.add(p.getRotation(Angle.RIGHT/2, center));
+				for (Point2D p : pr) {
+					newPR.add(p.getRotation(Angle.RIGHT / 2, center));
 				}
 				pr = newPR;
 			}
 		} else {
-			Point2D revol = center.getAddition(s.size/2, 0);
-			for(int i=0; i<CIRCLE_PENCIL_SAMPLE_COUNT; i++) {
-				pr.add(revol.getRotation(Angle.FLAT*2*i/CIRCLE_PENCIL_SAMPLE_COUNT, center));
+			Point2D revol = center.getAddition(s.size / 2, 0);
+			for (int i = 0; i < CIRCLE_PENCIL_SAMPLE_COUNT; i++) {
+				pr.add(revol.getRotation(Angle.FLAT * 2 * i / CIRCLE_PENCIL_SAMPLE_COUNT, center));
 			}
 		}
 
 		int index = 0;
-		for(Spatial spatial : AtlasPencilNode.getChildren()){
-			if(index < pr.size() &&
-					ModelManager.battlefield.map.isInBounds(pr.get(index)) &&
-					ModelManager.battlefield.map.isInBounds(pr.getNext(index))){
-				Point3D start = pr.get(index).get3D(ModelManager.battlefield.map.getAltitudeAt(pr.get(index))+0.1);
-				Point3D end = pr.getNext(index).get3D(ModelManager.battlefield.map.getAltitudeAt(pr.getNext(index))+0.1);
+		for (Spatial spatial : AtlasPencilNode.getChildren()) {
+			if (index < pr.size() && ModelManager.getBattlefield().getMap().isInBounds(pr.get(index))
+					&& ModelManager.getBattlefield().getMap().isInBounds(pr.getNext(index))) {
+				Point3D start = pr.get(index).get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pr.get(index)) + 0.1);
+				Point3D end = pr.getNext(index).get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pr.getNext(index)) + 0.1);
 				Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
 				l.setLineWidth(PENCIL_THICKNESS);
-				((Geometry)spatial).setMesh(l);
+				((Geometry) spatial).setMesh(l);
 				spatial.setLocalTranslation(Vector3f.ZERO);
 			} else {
 				spatial.setLocalTranslation(new Vector3f(-1000, -1000, 0));
@@ -242,25 +239,26 @@ public class EditorRenderer implements ActionListener {
 		}
 	}
 
-	private void hideCliffPencil(){
-		for(Spatial s : CliffPencilNode.getChildren()){
-			s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
-		}
-	}
-	private void hideHeightPencil(){
-		for(Spatial s : HeightPencilNode.getChildren()){
-			s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
-		}
-	}
-	private void hideAtlasPencil(){
-		for(Spatial s : AtlasPencilNode.getChildren()){
+	private void hideCliffPencil() {
+		for (Spatial s : CliffPencilNode.getChildren()) {
 			s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 		}
 	}
 
+	private void hideHeightPencil() {
+		for (Spatial s : HeightPencilNode.getChildren()) {
+			s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+		}
+	}
 
-	public void toggleGrid(){
-		if(mainNode.hasChild(gridNode)) {
+	private void hideAtlasPencil() {
+		for (Spatial s : AtlasPencilNode.getChildren()) {
+			s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
+		}
+	}
+
+	public void toggleGrid() {
+		if (mainNode.hasChild(gridNode)) {
 			mainNode.detachChild(gridNode);
 		} else {
 			mainNode.attachChild(gridNode);
@@ -270,22 +268,21 @@ public class EditorRenderer implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch(e.getActionCommand()){
-			case "tool" :
-				if(ModelManager.toolManager.actualTool != ModelManager.toolManager.cliffTool &&
-				ModelManager.toolManager.actualTool != ModelManager.toolManager.rampTool) {
+		switch (e.getActionCommand()) {
+			case "tool":
+				if (ToolManager.getActualTool() != ToolManager.getCliffTool() && ToolManager.getActualTool() != ToolManager.getRampTool()) {
 					hideCliffPencil();
 				}
-				if(ModelManager.toolManager.actualTool != ModelManager.toolManager.heightTool) {
+				if (ToolManager.getActualTool() != ToolManager.getHeightTool()) {
 					hideHeightPencil();
 				}
-				if(ModelManager.toolManager.actualTool != ModelManager.toolManager.atlasTool) {
+				if (ToolManager.getActualTool() != ToolManager.getAtlasTool()) {
 					hideAtlasPencil();
 				}
 				break;
-			case "parcels" :
-				List<ParcelMesh> updatedParcels = (List<ParcelMesh>)(e.getSource());
-				for(ParcelMesh parcel : updatedParcels){
+			case "parcels":
+				List<ParcelMesh> updatedParcels = (List<ParcelMesh>) (e.getSource());
+				for (ParcelMesh parcel : updatedParcels) {
 					GridMesh m = gridMeshes.get(parcel);
 					m.update();
 					gridGeoms.get(parcel).setMesh(Translator.toJMEMesh(m));

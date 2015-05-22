@@ -32,9 +32,9 @@ public class AtlasTool extends Tool {
 
 	public AtlasTool(ToolManager manager) {
 		super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
-		this.atlas = ModelManager.battlefield.map.atlas;
-		explorer = new AtlasExplorer(ModelManager.battlefield.map);
-		set = new AssetSet(ModelManager.battlefield.map.style.textures, true);
+		this.atlas = ModelManager.getBattlefield().getMap().atlas;
+		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
+		set = new AssetSet(ModelManager.getBattlefield().getMap().style.textures, true);
 	}
 
 	@Override
@@ -172,7 +172,8 @@ public class AtlasTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			autoLayer = 0;
-			Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height).getDivision(ModelManager.battlefield.map.width, ModelManager.battlefield.map.height);
+			Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height)
+					.getDivision(ModelManager.getBattlefield().getMap().width, ModelManager.getBattlefield().getMap().height);
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
 			for (DoubleMap l : atlas.layers) {
@@ -192,8 +193,10 @@ public class AtlasTool extends Tool {
 			int y = (int) Math.round(p.y);
 			double attenuatedInc = increment
 					* pencil.strength
-					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.battlefield.map.width, ModelManager.battlefield.map.height).getDivision(
-							atlas.width, atlas.height));
+					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().width,
+							ModelManager.getBattlefield().getMap().height)
+							.getDivision(
+									atlas.width, atlas.height));
 
 			int activeLayerCount = 0;
 			for (DoubleMap l : atlas.layers) {

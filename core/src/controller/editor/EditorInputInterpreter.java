@@ -2,6 +2,8 @@ package controller.editor;
 
 import geometry.tools.LogUtil;
 import model.ModelManager;
+import model.battlefield.lighting.SunLight;
+import model.editor.ToolManager;
 import view.EditorView;
 
 import com.jme3.input.InputManager;
@@ -148,42 +150,43 @@ public class EditorInputInterpreter extends InputInterpreter {
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
 		if (analogUnpressed) {
-			ModelManager.toolManager.releasePencils();
+			ToolManager.releasePencils();
 			analogUnpressed = false;
 		} else {
+			SunLight sunLight = ModelManager.getBattlefield().getSunLight();
 			switch (name) {
 				case PRIMARY_ACTION:
-					ModelManager.toolManager.analogPrimaryAction();
+					ToolManager.analogPrimaryAction();
 					break;
 				case SECONDARY_ACTION:
-					ModelManager.toolManager.analogSecondaryAction();
+					ToolManager.analogSecondaryAction();
 					break;
 				case INC_DAYTIME:
-					ModelManager.battlefield.sunLight.incDayTime();
+					sunLight.incDayTime();
 					break;
 				case DEC_DAYTIME:
-					ModelManager.battlefield.sunLight.decDayTime();
+					sunLight.decDayTime();
 					break;
 				case COMPASS_EAST:
-					ModelManager.battlefield.sunLight.turnCompassEast();
+					sunLight.turnCompassEast();
 					break;
 				case COMPASS_WEST:
-					ModelManager.battlefield.sunLight.turnCompassWest();
+					sunLight.turnCompassWest();
 					break;
 				case INC_INTENSITY:
-					ModelManager.battlefield.sunLight.incIntensity();
+					sunLight.incIntensity();
 					break;
 				case DEC_INTENSITY:
-					ModelManager.battlefield.sunLight.decIntensity();
+					sunLight.decIntensity();
 					break;
 				case DEC_RED:
-					ModelManager.battlefield.sunLight.decRed();
+					sunLight.decRed();
 					break;
 				case DEC_GREEN:
-					ModelManager.battlefield.sunLight.decGreen();
+					sunLight.decGreen();
 					break;
 				case DEC_BLUE:
-					ModelManager.battlefield.sunLight.decBlue();
+					sunLight.decBlue();
 					break;
 			}
 		}
@@ -194,11 +197,11 @@ public class EditorInputInterpreter extends InputInterpreter {
 		if (!isPressed) {
 			switch (name) {
 				case PRIMARY_ACTION:
-					ModelManager.toolManager.primaryAction();
+					ToolManager.primaryAction();
 					analogUnpressed = true;
 					break;
 				case SECONDARY_ACTION:
-					ModelManager.toolManager.secondaryAction();
+					ToolManager.secondaryAction();
 					analogUnpressed = true;
 					break;
 				case INC_DAYTIME:
@@ -223,50 +226,50 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ctrl.notifyListeners("CTRL3");
 					break;
 				case TOGGLE_PENCIL_SHAPE:
-					ModelManager.toolManager.actualTool.pencil.toggleShape();
+					ToolManager.getActualTool().pencil.toggleShape();
 					break;
 				case TOGGLE_PENCIL_MODE:
-					ModelManager.toolManager.actualTool.pencil.toggleMode();
+					ToolManager.getActualTool().pencil.toggleMode();
 					break;
 				case INC_SELECTOR_RADIUS:
-					ModelManager.toolManager.actualTool.pencil.incRadius();
+					ToolManager.getActualTool().pencil.incRadius();
 					break;
 				case DEC_SELECTOR_RADIUS:
-					ModelManager.toolManager.actualTool.pencil.decRadius();
+					ToolManager.getActualTool().pencil.decRadius();
 					break;
 				case SET_CLIFF_TOOL:
-					ModelManager.toolManager.setCliffTool();
+					ToolManager.setCliffTool();
 					break;
 				case SET_HEIGHT_TOOL:
-					ModelManager.toolManager.setHeightTool();
+					ToolManager.setHeightTool();
 					break;
 				case SET_ATLAS_TOOL:
-					ModelManager.toolManager.setAtlasTool();
+					ToolManager.setAtlasTool();
 					break;
 				case SET_RAMP_TOOL:
-					ModelManager.toolManager.setRampTool();
+					ToolManager.setRampTool();
 					break;
 				case SET_UNIT_TOOL:
-					ModelManager.toolManager.setUnitTool();
+					ToolManager.setUnitTool();
 					break;
 
 				case TOGGLE_OPERATION:
-					ModelManager.toolManager.toggleOperation();
+					ToolManager.toggleOperation();
 					break;
 				case TOGGLE_SET:
-					ModelManager.toolManager.toggleSet();
+					ToolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
 					((EditorView) ctrl.view).editorRend.toggleGrid();
 					break;
 				case TOGGLE_LIGHT_COMP:
-					ModelManager.battlefield.sunLight.toggleLight();
+					ModelManager.getBattlefield().getSunLight().toggleLight();
 					break;
 				case TOGGLE_SPEED:
-					ModelManager.battlefield.sunLight.toggleSpeed();
+					ModelManager.getBattlefield().getSunLight().toggleSpeed();
 					break;
 				case RESET_COLOR:
-					ModelManager.battlefield.sunLight.resetColor();
+					ModelManager.getBattlefield().getSunLight().resetColor();
 					break;
 				case SAVE:
 					ModelManager.saveBattlefield();

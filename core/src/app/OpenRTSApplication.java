@@ -52,7 +52,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	private AppActionListener actionListener = new AppActionListener();
 
-	BulletAppState bulletAppState;
+	protected BulletAppState bulletAppState;
 
 
 

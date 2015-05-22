@@ -6,6 +6,7 @@ package controller.editor;
 
 import geometry.geom2d.Point2D;
 import model.ModelManager;
+import model.editor.ToolManager;
 import view.EditorView;
 
 import com.jme3.app.state.AppStateManager;
@@ -35,11 +36,11 @@ public class EditorController extends Controller {
 	@Override
 	public void update(float elapsedTime) {
 		//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
-		ModelManager.toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
-		ModelManager.toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
+		ToolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
+		ToolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
 		Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
-		if (coord != null && ModelManager.battlefield.map.isInBounds(coord)) {
-			ModelManager.toolManager.updatePencilsPos(coord);
+		if (coord != null && ModelManager.getBattlefield().getMap().isInBounds(coord)) {
+			ToolManager.updatePencilsPos(coord);
 			view.editorRend.drawPencil();
 		}
 
@@ -52,13 +53,13 @@ public class EditorController extends Controller {
 		inputManager.setCursorVisible(true);
 		view.rootNode.attachChild(view.editorRend.mainNode);
 		guiController.activate();
-		ModelManager.battlefield.engagement.resetEngagement();
+		ModelManager.getBattlefield().getEngagement().resetEngagement();
 	}
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		ModelManager.battlefield.engagement.saveEngagement();
-		ModelManager.battlefield.map.prepareForBattle();
+		ModelManager.getBattlefield().getEngagement().saveEngagement();
+		ModelManager.getBattlefield().getMap().prepareForBattle();
 		super.stateDetached(stateManager);
 		view.rootNode.detachChild(view.editorRend.mainNode);
 	}

@@ -1,7 +1,7 @@
 package controller.battlefield;
 
 import model.CommandManager;
-import model.ModelManager;
+import model.battlefield.army.ArmyManager;
 import view.MapView;
 import view.math.Translator;
 
@@ -53,7 +53,7 @@ public class BattlefieldController extends Controller {
 
 		// udpdate army
 		if(!paused) {
-			ModelManager.battlefield.armyManager.update(elapsedTime);
+			ArmyManager.update(elapsedTime);
 		}
 	}
 

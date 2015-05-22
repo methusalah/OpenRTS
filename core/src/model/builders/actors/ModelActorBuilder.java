@@ -5,10 +5,10 @@ package model.builders.actors;
 
 import java.awt.Color;
 
+import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
-import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
@@ -32,8 +32,8 @@ public class ModelActorBuilder extends ActorBuilder {
 	private double scaleZ = 1;
 	private Color color;
 
-	public ModelActorBuilder(Definition def, BuilderLibrary lib) {
-		super(def, lib);
+	public ModelActorBuilder(Definition def) {
+		super(def);
 		for (DefElement de : def.elements) {
 			switch (de.name) {
 				case TYPE:
@@ -78,7 +78,9 @@ public class ModelActorBuilder extends ActorBuilder {
 		double localScaleY = scaleY * comp.scaleY;
 		double localScaleZ = scaleZ * comp.scaleZ;
 
-		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, localModelPath, localScaleX, localScaleY,
+		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool(), localModelPath,
+				localScaleX,
+				localScaleY,
 				localScaleZ, localColor, comp);
 		res.debbug_id = getId();
 		res.act();

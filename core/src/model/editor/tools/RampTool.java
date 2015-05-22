@@ -38,12 +38,12 @@ public class RampTool extends Tool {
 			if (!t.hasCliff()) {
 				return;
 			}
-			new Ramp(t, ModelManager.battlefield.map);
+			new Ramp(t, ModelManager.getBattlefield().getMap());
 		}
 
 		ArrayList<Tile> changed = new ArrayList<>();
-		changed.addAll(t.ramp.tiles);
-		for (Tile t1 : t.ramp.tiles) {
+		changed.addAll(t.ramp.getTiles());
+		for (Tile t1 : t.ramp.getTiles()) {
 			for (Tile n : t1.get8Neighbors()) {
 				if (!changed.contains(n)) {
 					changed.add(n);

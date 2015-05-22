@@ -1,5 +1,6 @@
 package app.example;
 import model.ModelManager;
+import model.battlefield.warfare.Faction;
 import view.MapView;
 import app.OpenRTSApplication;
 
@@ -8,11 +9,14 @@ import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
 import controller.battlefield.BattlefieldController;
+import event.EventManager;
 
 public class Game extends OpenRTSApplication {
 
 	protected MapView view;
 	protected BattlefieldController fieldCtrl;
+	// TODO: I'm not sure, if this is the correct place for faction
+	protected Faction faction;
 
 	public static void main(String[] args) {
 		OpenRTSApplication.main(new Game());
@@ -32,6 +36,7 @@ public class Game extends OpenRTSApplication {
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
+		EventManager.register(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices

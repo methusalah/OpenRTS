@@ -31,10 +31,7 @@ public class DefParser {
 	Map<File, Long> filesAndTimers = new HashMap<>();
 	List<File> filesToRead = new ArrayList<>();
 
-	BuilderLibrary lib;
-
-	public DefParser(BuilderLibrary lib, String path) {
-		this.lib = lib;
+	public DefParser(String path) {
 		ArrayList<File> filesAndDir = getFiles(path);
 		while (!filesAndDir.isEmpty()) {
 			ArrayList<File> toAdd = new ArrayList<>();
@@ -92,8 +89,8 @@ public class DefParser {
 						def = parseEvent(event, def);
 					} else if (event.isEndElement()) {
 						String elementName = event.asEndElement().getName().getLocalPart();
-						if (def != null && elementName.equals(def.type)) {
-							lib.submit(def);
+						if (def != null && elementName.equals(def.getType())) {
+							BuilderManager.submit(def);
 							def = null;
 						}
 						// else
@@ -108,11 +105,12 @@ public class DefParser {
 			}
 		}
 		if (!filesToRead.isEmpty()) {
-			lib.buildLinks();
+			BuilderManager.buildLinks();
 		}
 
 	}
 
+	// FIXME: hier ist der einstieg des XML Parsen. Wieso Seriell und nicht direkt im RAM?
 	private Definition parseEvent(XMLEvent event, Definition def) {
 		StartElement se = event.asStartElement();
 		String elementName = se.getName().getLocalPart();

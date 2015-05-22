@@ -28,7 +28,7 @@ public class IsometricCameraManager extends CameraManager {
 		super(cam);
 		pos = new Point3D(0, 0, elevation);
 		target = new Point3D(0, elevation*2/3, 0);
-		move(ModelManager.battlefield.map.width / 2, ModelManager.battlefield.map.height / 2);
+		move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
 		placeCam();
 		setMappaings();
 	}
@@ -80,7 +80,7 @@ public class IsometricCameraManager extends CameraManager {
 	}
 
 	private void move(double x, double y){
-		if (ModelManager.battlefield.map.isInBounds(target.getAddition(x, y, 0).get2D())) {
+		if (ModelManager.getBattlefield().getMap().isInBounds(target.getAddition(x, y, 0).get2D())) {
 			pos = pos.getAddition(x, y, 0);
 			target = target.getAddition(x, y, 0);
 			placeCam();

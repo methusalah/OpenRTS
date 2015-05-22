@@ -5,7 +5,7 @@ import geometry.geom3d.Point3D;
 import java.util.List;
 
 import model.battlefield.warfare.Faction;
-import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.BuilderManager;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -43,10 +43,10 @@ public class SerializableUnit {
 		this.yaw = yaw;
 	}
 
-	public Unit getUnit(BuilderLibrary lib, List<Faction> factions){
+	public Unit getUnit(List<Faction> factions) {
 		for(Faction f : factions) {
 			if (f.getName().equals(factionName)) {
-				return lib.getUnitBuilder(builderID).build(f, pos, yaw);
+				return BuilderManager.getUnitBuilder(builderID).build(f, pos, yaw);
 			}
 		}
 		throw new RuntimeException("impossible to build unit, check faction names");

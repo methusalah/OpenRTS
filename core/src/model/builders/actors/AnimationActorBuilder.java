@@ -1,8 +1,8 @@
 package model.builders.actors;
 
+import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.AnimationActor;
-import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
@@ -21,8 +21,8 @@ public class AnimationActorBuilder extends ActorBuilder {
 	private double speed;
 	private AnimationActor.Cycle cycle;
 
-	public AnimationActorBuilder(Definition def, BuilderLibrary lib) {
-		super(def, lib);
+	public AnimationActorBuilder(Definition def) {
+		super(def);
 		for (DefElement de : def.elements) {
 			switch (de.name) {
 				case TYPE:
@@ -56,7 +56,8 @@ public class AnimationActorBuilder extends ActorBuilder {
 
 	@Override
 	public Actor build(String trigger, Actor parent) {
-		Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, lib.battlefield.actorPool, animationName, cycle, speed);
+		Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool(), animationName,
+				cycle, speed);
 		res.debbug_id = getId();
 		return res;
 	}

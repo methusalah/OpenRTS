@@ -22,19 +22,19 @@ import model.battlefield.map.Tile;
 public class Pencil {
 	public static final int MAX_SIZE = 12;
 
-	public enum Shape {
+	public enum SHAPE {
 		Square, Diamond, Circle
 	}
 
-	public enum Mode {
+	public enum MODE {
 		Unique, Rough, Airbrush, Noise
 	}
 
 	private Point2D pos = Point2D.ORIGIN;
 	public Point2D containerTilePos;
 	public Point2D nearestTilePos;
-	public Shape shape = Shape.Square;
-	public Mode mode = Mode.Rough;
+	public SHAPE shape = SHAPE.Square;
+	public MODE mode = MODE.Rough;
 
 	public double size = 1;
 	public double sizeIncrement = 1;
@@ -63,15 +63,15 @@ public class Pencil {
 	}
 
 	private void setSquare() {
-		shape = Shape.Square;
+		shape = SHAPE.Square;
 	}
 
 	private void setDiamond() {
-		shape = Shape.Diamond;
+		shape = SHAPE.Diamond;
 	}
 
 	private void setCircle() {
-		shape = Shape.Circle;
+		shape = SHAPE.Circle;
 	}
 
 	public void setPos(Point2D pos) {
@@ -85,31 +85,31 @@ public class Pencil {
 	}
 
 	public void setSquareShape() {
-		shape = Shape.Square;
+		shape = SHAPE.Square;
 	}
 
 	public void setDiamondShape() {
-		shape = Shape.Diamond;
+		shape = SHAPE.Diamond;
 	}
 
 	public void setCircleShape() {
-		shape = Shape.Circle;
+		shape = SHAPE.Circle;
 	}
 
 	public void setRoughMode() {
-		mode = Mode.Rough;
+		mode = MODE.Rough;
 	}
 
 	public void setAirbrushMode() {
-		mode = Mode.Airbrush;
+		mode = MODE.Airbrush;
 	}
 
 	public void setNoiseMode() {
-		mode = Mode.Noise;
+		mode = MODE.Noise;
 	}
 
 	public void setUniqueMode() {
-		mode = Mode.Unique;
+		mode = MODE.Unique;
 	}
 
 	public void toggleShape() {
@@ -129,18 +129,18 @@ public class Pencil {
 	}
 
 	public void toggleMode() {
-		if (mode == Mode.Unique) {
+		if (mode == MODE.Unique) {
 			return;
 		}
 		switch (mode) {
 			case Rough:
-				mode = Mode.Airbrush;
+				mode = MODE.Airbrush;
 				break;
 			case Airbrush:
-				mode = Mode.Noise;
+				mode = MODE.Noise;
 				break;
 			case Noise:
-				mode = Mode.Rough;
+				mode = MODE.Rough;
 				break;
 			default:
 				throw new RuntimeException();
@@ -172,7 +172,7 @@ public class Pencil {
 	}
 
 	public Tile getCenterTile() {
-		return ModelManager.battlefield.map.getTile(getContainerTilePos());
+		return ModelManager.getBattlefield().getMap().getTile(getContainerTilePos());
 	}
 
 	private Point2D getContainerTilePos() {
@@ -213,8 +213,8 @@ public class Pencil {
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(center);
-				if (ModelManager.battlefield.map.isInBounds(p) && circle.contains(ModelManager.battlefield.map.getTile(p).getCoord())) {
-					res.add(ModelManager.battlefield.map.getTile(p));
+				if (ModelManager.getBattlefield().getMap().isInBounds(p) && circle.contains(ModelManager.getBattlefield().getMap().getTile(p).getCoord())) {
+					res.add(ModelManager.getBattlefield().getMap().getTile(p));
 				}
 			}
 		}
@@ -234,8 +234,8 @@ public class Pencil {
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(center);
-				if (ModelManager.battlefield.map.isInBounds(p) && quad.hasInside(ModelManager.battlefield.map.getTile(p).getCoord())) {
-					res.add(ModelManager.battlefield.map.getTile(p));
+				if (ModelManager.getBattlefield().getMap().isInBounds(p) && quad.hasInside(ModelManager.getBattlefield().getMap().getTile(p).getCoord())) {
+					res.add(ModelManager.getBattlefield().getMap().getTile(p));
 				}
 			}
 		}
@@ -260,14 +260,14 @@ public class Pencil {
 	}
 
 	public double getShapeAngle() {
-		if (shape == Shape.Diamond) {
+		if (shape == SHAPE.Diamond) {
 			return Angle.RIGHT / 2;
 		}
 		return 0;
 	}
 
 	public double getElevation() {
-		return ModelManager.battlefield.map.getTile(getContainerTilePos()).getZ();
+		return ModelManager.getBattlefield().getMap().getTile(getContainerTilePos()).getZ();
 	}
 
 	private double getEccentricity(Point2D p) {

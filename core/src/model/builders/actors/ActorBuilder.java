@@ -9,9 +9,10 @@ import geometry.tools.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.builders.Builder;
-import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.BuilderManager;
 import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
@@ -38,8 +39,8 @@ public class ActorBuilder extends Builder {
 	protected List<String> childrenTriggers = new ArrayList<>();
 	protected List<Double> childrenProbs = new ArrayList<>();
 
-	public ActorBuilder(Definition def, BuilderLibrary lib) {
-		super(def, lib);
+	public ActorBuilder(Definition def) {
+		super(def);
 		for (DefElement de : def.elements) {
 			switch (de.name) {
 				case TYPE:
@@ -71,7 +72,7 @@ public class ActorBuilder extends Builder {
 			i++;
 		}
 
-		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, lib.battlefield.actorPool);
+		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, ModelManager.getBattlefield().getActorPool());
 		res.debbug_id = getId();
 		return res;
 	}
@@ -79,10 +80,10 @@ public class ActorBuilder extends Builder {
 	@Override
 	public void readFinalizedLibrary() {
 		for (String s : childrenActorBuildersID) {
-			childrenActorBuilders.add(lib.getActorBuilder(s));
+			childrenActorBuilders.add(BuilderManager.getActorBuilder(s));
 		}
 		if (childrenActorBuilders.size() != childrenTriggers.size()) {
-			LogUtil.logger.info("fuck " + def.id);
+			LogUtil.logger.info("fuck " + def.getId());
 		}
 	}
 

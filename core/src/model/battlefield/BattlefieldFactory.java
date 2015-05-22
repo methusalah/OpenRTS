@@ -15,7 +15,7 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 import model.builders.MapStyleBuilder;
-import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.BuilderManager;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -26,15 +26,13 @@ import org.simpleframework.xml.core.Persister;
  */
 public class BattlefieldFactory {
 	private static final String BATTLEFIELD_FILE_EXTENSION = "btf";
-	private BuilderLibrary lib;
 
-	public BattlefieldFactory(BuilderLibrary lib) {
-		this.lib = lib;
+	public BattlefieldFactory() {
 	}
 
 	public Battlefield getNew(int width, int height) {
 		LogUtil.logger.info("Creating new battlefield...");
-		MapStyleBuilder styleBuilder = lib.getMapStyleBuilder("StdMapStyle");
+		MapStyleBuilder styleBuilder = BuilderManager.getMapStyleBuilder("StdMapStyle");
 		Map m = new Map(styleBuilder.width, styleBuilder.height);
 		styleBuilder.build(m);
 
@@ -48,8 +46,8 @@ public class BattlefieldFactory {
 		LogUtil.logger.info("   map's tiles' links");
 		linkTiles(m);
 
-		Battlefield res = new Battlefield(m, lib);
-		lib.battlefield = res;
+		Battlefield res = new Battlefield(m);
+		ModelManager.setBattlefield(res);
 
 		LogUtil.logger.info("Loading done.");
 		return res;
@@ -79,7 +77,7 @@ public class BattlefieldFactory {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
 			Serializer serializer = new Persister();
 			res = serializer.read(Battlefield.class, file);
-			res.fileName = file.getCanonicalPath();
+			res.setFileName(file.getCanonicalPath());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -90,20 +88,20 @@ public class BattlefieldFactory {
 		}
 
 		LogUtil.logger.info("   builders");
-		lib.getMapStyleBuilder(res.map.mapStyleID).build(res.map);
+		BuilderManager.getMapStyleBuilder(res.getMap().mapStyleID).build(res.getMap());
 
 		LogUtil.logger.info("   tiles' links");
-		linkTiles(res.map);
+		linkTiles(res.getMap());
 
 		LogUtil.logger.info("   ramps");
-		for (Ramp r : res.map.ramps) {
-			r.connect(res.map);
+		for (Ramp r : res.getMap().ramps) {
+			r.connect(res.getMap());
 		}
 
-		for (Tile t : res.map.getTiles()) {
+		for (Tile t : res.getMap().getTiles()) {
 			int minLevel = t.level;
 			int maxLevel = t.level;
-			for (Tile n : res.map.get8Around(t)) {
+			for (Tile n : res.getMap().get8Around(t)) {
 				maxLevel = Math.max(maxLevel, n.level);
 			}
 			if (minLevel != maxLevel) {
@@ -112,7 +110,7 @@ public class BattlefieldFactory {
 		}
 
 		LogUtil.logger.info("   cliffs' connexions");
-		for (Tile t : res.map.getTiles()) {
+		for (Tile t : res.getMap().getTiles()) {
 			for (Cliff c : t.getCliffs()) {
 				c.connect();
 			}
@@ -120,35 +118,33 @@ public class BattlefieldFactory {
 
 		int i = 0;
 		LogUtil.logger.info("   cliffs' shapes");
-		for (Tile t : res.map.getTiles()) {
+		for (Tile t : res.getMap().getTiles()) {
 			for (Cliff c : t.getCliffs()) {
-				lib.getCliffShapeBuilder(t.cliffShapeID).build(c);
+				BuilderManager.getCliffShapeBuilder(t.cliffShapeID).build(c);
 				i++;
 			}
 		}
 		LogUtil.logger.info("   cliffs' shapes " + i);
 
-		lib.battlefield = res;
-		res.buildParcels();
-		res.engagement.battlefield = res;
-		res.engagement.lib = lib;
-		res.map.resetTrinkets(lib);
-		res.engagement.resetEngagement();
+		ModelManager.getBattlefield().buildParcels();
+		ModelManager.setBattlefield(res);
+		res.getMap().resetTrinkets();
+		res.getEngagement().resetEngagement();
 
 		LogUtil.logger.info("   texture atlas");
-		res.map.atlas.loadFromFile(res.fileName);
+		res.getMap().atlas.loadFromFile(res.getFileName());
 		LogUtil.logger.info("Loading done.");
 		return res;
 	}
 
 	public void save(Battlefield battlefield) {
-		battlefield.engagement.saveEngagement();
-		battlefield.map.saveTrinkets();
+		battlefield.getEngagement().saveEngagement();
+		battlefield.getMap().saveTrinkets();
 		Serializer serializer = new Persister();
 		try {
-			if (battlefield.fileName != null) {
-				LogUtil.logger.info("Saving battlefield overwriting " + battlefield.fileName + "...");
-				serializer.write(battlefield, new File(battlefield.fileName));
+			if (battlefield.getFileName() != null) {
+				LogUtil.logger.info("Saving battlefield overwriting " + battlefield.getFileName() + "...");
+				serializer.write(battlefield, new File(battlefield.getFileName()));
 			} else {
 				final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
 				fc.setAcceptAllFileFilterUsed(false);
@@ -163,16 +159,16 @@ public class BattlefieldFactory {
 						f = new File(f.toString() + "." + BATTLEFIELD_FILE_EXTENSION);
 					}
 
-					battlefield.fileName = f.getCanonicalPath();
-					LogUtil.logger.info("Saving map as " + battlefield.fileName + "...");
-					serializer.write(battlefield, new File(battlefield.fileName));
+					battlefield.setFileName(f.getCanonicalPath());
+					LogUtil.logger.info("Saving map as " + battlefield.getFileName() + "...");
+					serializer.write(battlefield, new File(battlefield.getFileName()));
 				}
 			}
 		} catch (Exception ex) {
 			Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		LogUtil.logger.info("Saving texture atlas...");
-		battlefield.map.atlas.saveToFile(battlefield.fileName);
+		battlefield.getMap().atlas.saveToFile(battlefield.getFileName());
 		LogUtil.logger.info("Done.");
 	}
 

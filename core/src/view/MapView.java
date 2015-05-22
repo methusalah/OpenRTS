@@ -1,16 +1,12 @@
 package view;
 
-import geometry.geom2d.Point2D;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import model.ModelManager;
 import view.acting.Backstage;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapRenderer;
 import view.material.MaterialManager;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.ColorRGBA;
@@ -21,7 +17,11 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 
-public class MapView implements ActionListener {
+import event.EventManager;
+import event.InputEvent;
+import geometry.geom2d.Point2D;
+
+public class MapView {
 
 	// External ressources
 	public Node rootNode;
@@ -40,7 +40,7 @@ public class MapView implements ActionListener {
 	public Pointer pointer;
 
 	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
-		ModelManager.addListener(this);
+		EventManager.register(this);
 		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
 		gui.attachChild(guiNode);
@@ -51,14 +51,13 @@ public class MapView implements ActionListener {
 		pointer = new Pointer();
 
 		lightDrawer = new LightDrawer(this, am, rootNode, vp);
-		ModelManager.battlefield.sunLight.addListener(lightDrawer);
+		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
 
 		mapRend = new MapRenderer(this, materialManager, am);
 		rootNode.attachChild(mapRend.mainNode);
 		mapRend.mainPhysicsSpace = physicsSpace;
-		ModelManager.toolManager.addListener(mapRend);
 
-		actorManager = new Backstage(am, materialManager, ModelManager.battlefield.actorPool);
+		actorManager = new Backstage(am, materialManager, ModelManager.getBattlefield().getActorPool());
 		rootNode.attachChild(actorManager.mainNode);
 		actorManager.mainPhysicsSpace = physicsSpace;
 
@@ -69,19 +68,16 @@ public class MapView implements ActionListener {
 		rootNode.detachChild(mapRend.mainNode);
 		rootNode.detachChild(actorManager.mainNode);
 
-		ModelManager.toolManager.removeListener(mapRend);
-
 		mapRend = new MapRenderer(this, materialManager, assetManager);
 		rootNode.attachChild(mapRend.mainNode);
 		mapRend.mainPhysicsSpace = physicsSpace;
-		ModelManager.toolManager.addListener(mapRend);
 		mapRend.renderTiles();
 
 		lightDrawer.reset();
 		lightDrawer.updateLights();
-		ModelManager.battlefield.sunLight.addListener(lightDrawer);
+		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
 
-		actorManager = new Backstage(assetManager, materialManager, ModelManager.battlefield.actorPool);
+		actorManager = new Backstage(assetManager, materialManager, ModelManager.getBattlefield().getActorPool());
 		rootNode.attachChild(actorManager.mainNode);
 		actorManager.mainPhysicsSpace = physicsSpace;
 	}
@@ -137,9 +133,9 @@ public class MapView implements ActionListener {
 		guiNode.attachChild(g4);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		reset();
+	@Subscribe
+	public void actionPerformed(InputEvent e) {
+		// reset();
 	}
 
 }

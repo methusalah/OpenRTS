@@ -12,8 +12,8 @@ import java.util.List;
  * @author Benoît
  */
 public class Definition {
-	public String id;
-	public String type;
+	private final String id;
+	private final String type;
 
 	boolean upToDate = true;
 
@@ -25,16 +25,16 @@ public class Definition {
 	}
 
 	public Definition(Definition other){
-		id = other.id;
-		type = other.type;
+		this.id = other.getId();
+		type = other.getType();
 		elements = new ArrayList<>(other.elements);
 	}
 
 	public boolean equals(Definition other){
-		if(!id.equals(other.id)) {
+		if(!getId().equals(other.getId())) {
 			return false;
 		}
-		if(!type.equals(other.type)) {
+		if(!getType().equals(other.getType())) {
 			return false;
 		}
 
@@ -60,5 +60,14 @@ public class Definition {
 		}
 		return null;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
 
 }

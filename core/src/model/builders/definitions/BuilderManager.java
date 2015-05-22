@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.battlefield.Battlefield;
 import model.builders.Builder;
 import model.builders.CliffShapeBuilder;
 import model.builders.EffectBuilder;
@@ -35,7 +34,7 @@ import model.builders.actors.SoundActorBuilder;
 /**
  * @author Benoît
  */
-public class BuilderLibrary {
+public class BuilderManager {
 	private static final String ERROR = "Impossible to find ";
 
 	private static final String UNIT = "Unit";
@@ -52,11 +51,12 @@ public class BuilderLibrary {
 	private static final String NATURAL_FACE = "NaturalFace";
 	private static final String MANMADE_FACE = "ManmadeFace";
 
-	private Map<String, Map<String, Builder>> builders = new HashMap<>();
+	private static Map<String, Map<String, Builder>> builders = new HashMap<>();
 
-	public Battlefield battlefield;
+	private BuilderManager() {
+	}
 
-	public BuilderLibrary() {
+	static {
 		builders.put(UNIT, new HashMap<String, Builder>());
 		builders.put(MOVER, new HashMap<String, Builder>());
 		builders.put(WEAPON, new HashMap<String, Builder>());
@@ -71,7 +71,7 @@ public class BuilderLibrary {
 		builders.put(MANMADE_FACE, new HashMap<String, Builder>());
 	}
 
-	public void buildLinks() {
+	public static void buildLinks() {
 		LogUtil.logger.info("buildings links...");
 		for (Map<String, Builder> map : builders.values()) {
 			for (Builder b : map.values()) {
@@ -80,72 +80,72 @@ public class BuilderLibrary {
 		}
 	}
 
-	public void submit(Definition def) {
-		Map<String, Builder> typed = builders.get(def.type);
+	public static void submit(Definition def) {
+		Map<String, Builder> typed = builders.get(def.getType());
 		if (typed == null) {
-			throw new RuntimeException("Type '" + def.type + "' is unknown.");
+			throw new RuntimeException("Type '" + def.getType() + "' is unknown.");
 		}
 
-		switch (def.type) {
+		switch (def.getType()) {
 			case UNIT:
-				typed.put(def.id, new UnitBuilder(def, this));
+				typed.put(def.getId(), new UnitBuilder(def));
 				break;
 			case MOVER:
-				typed.put(def.id, new MoverBuilder(def, this));
+				typed.put(def.getId(), new MoverBuilder(def));
 				break;
 			case WEAPON:
-				typed.put(def.id, new WeaponBuilder(def, this));
+				typed.put(def.getId(), new WeaponBuilder(def));
 				break;
 			case TURRET:
-				typed.put(def.id, new TurretBuilder(def, this));
+				typed.put(def.getId(), new TurretBuilder(def));
 				break;
 			case EFFECT:
-				typed.put(def.id, new EffectBuilder(def, this));
+				typed.put(def.getId(), new EffectBuilder(def));
 				break;
 			case PROJECTILE:
-				typed.put(def.id, new ProjectileBuilder(def, this));
+				typed.put(def.getId(), new ProjectileBuilder(def));
 				break;
 			case ACTOR:
 				String actorType = def.getElement(ActorBuilder.TYPE) == null ? "" : def.getElement(ActorBuilder.TYPE).getVal();
 				switch (actorType) {
 					case ActorBuilder.TYPE_ANIMATION:
-						typed.put(def.id, new AnimationActorBuilder(def, this));
+						typed.put(def.getId(), new AnimationActorBuilder(def));
 						break;
 					case ActorBuilder.TYPE_PARTICLE:
-						typed.put(def.id, new ParticleActorBuilder(def, this));
+						typed.put(def.getId(), new ParticleActorBuilder(def));
 						break;
 					case ActorBuilder.TYPE_PHYSIC:
-						typed.put(def.id, new PhysicActorBuilder(def, this));
+						typed.put(def.getId(), new PhysicActorBuilder(def));
 						break;
 					case ActorBuilder.TYPE_MODEL:
-						typed.put(def.id, new ModelActorBuilder(def, this));
+						typed.put(def.getId(), new ModelActorBuilder(def));
 						break;
 					case ActorBuilder.TYPE_SOUND:
-						typed.put(def.id, new SoundActorBuilder(def, this));
+						typed.put(def.getId(), new SoundActorBuilder(def));
 						break;
 					default:
-						typed.put(def.id, new ActorBuilder(def, this));
+						typed.put(def.getId(), new ActorBuilder(def));
 				}
 				break;
 			case MAP_STYLE:
-				typed.put(def.id, new MapStyleBuilder(def, this));
+				typed.put(def.getId(), new MapStyleBuilder(def));
 				break;
 			case CLIFF_SHAPE:
-				typed.put(def.id, new CliffShapeBuilder(def, this));
+				typed.put(def.getId(), new CliffShapeBuilder(def));
 				break;
 			case TRINKET:
-				typed.put(def.id, new TrinketBuilder(def, this));
+				typed.put(def.getId(), new TrinketBuilder(def));
 				break;
 			case NATURAL_FACE:
-				typed.put(def.id, new NaturalFaceBuilder(def, this));
+				typed.put(def.getId(), new NaturalFaceBuilder(def));
 				break;
 			case MANMADE_FACE:
-				typed.put(def.id, new ManmadeFaceBuilder(def, this));
+				typed.put(def.getId(), new ManmadeFaceBuilder(def));
 				break;
 		}
 	}
 
-	private <T extends Builder> T getBuilder(String type, String id, Class<T> clazz) {
+	private static <T extends Builder> T getBuilder(String type, String id, Class<T> clazz) {
 		Builder res = builders.get(type).get(id);
 		if (res == null) {
 			throw new IllegalArgumentException(ERROR + type + "/" + id);
@@ -153,55 +153,55 @@ public class BuilderLibrary {
 		return (T) res;
 	}
 
-	public UnitBuilder getUnitBuilder(String id) {
+	public static UnitBuilder getUnitBuilder(String id) {
 		return getBuilder(UNIT, id, UnitBuilder.class);
 	}
 
-	public MoverBuilder getMoverBuilder(String id) {
+	public static MoverBuilder getMoverBuilder(String id) {
 		return getBuilder(MOVER, id, MoverBuilder.class);
 	}
 
-	public WeaponBuilder getWeaponBuilder(String id) {
+	public static WeaponBuilder getWeaponBuilder(String id) {
 		return getBuilder(WEAPON, id, WeaponBuilder.class);
 	}
 
-	public TurretBuilder getTurretBuilder(String id) {
+	public static TurretBuilder getTurretBuilder(String id) {
 		return getBuilder(TURRET, id, TurretBuilder.class);
 	}
 
-	public EffectBuilder getEffectBuilder(String id) {
+	public static EffectBuilder getEffectBuilder(String id) {
 		return getBuilder(EFFECT, id, EffectBuilder.class);
 	}
 
-	public ProjectileBuilder getProjectileBuilder(String id) {
+	public static ProjectileBuilder getProjectileBuilder(String id) {
 		return getBuilder(PROJECTILE, id, ProjectileBuilder.class);
 	}
 
-	public ActorBuilder getActorBuilder(String id) {
+	public static ActorBuilder getActorBuilder(String id) {
 		return getBuilder(ACTOR, id, ActorBuilder.class);
 	}
 
-	public MapStyleBuilder getMapStyleBuilder(String id) {
+	public static MapStyleBuilder getMapStyleBuilder(String id) {
 		return getBuilder(MAP_STYLE, id, MapStyleBuilder.class);
 	}
 
-	public CliffShapeBuilder getCliffShapeBuilder(String id) {
+	public static CliffShapeBuilder getCliffShapeBuilder(String id) {
 		return getBuilder(CLIFF_SHAPE, id, CliffShapeBuilder.class);
 	}
 
-	public TrinketBuilder getTrinketBuilder(String id) {
+	public static TrinketBuilder getTrinketBuilder(String id) {
 		return getBuilder(TRINKET, id, TrinketBuilder.class);
 	}
 
-	public NaturalFaceBuilder getNaturalFaceBuilder(String id) {
+	public static NaturalFaceBuilder getNaturalFaceBuilder(String id) {
 		return getBuilder(NATURAL_FACE, id, NaturalFaceBuilder.class);
 	}
 
-	public ManmadeFaceBuilder getManmadeFaceBuilder(String id) {
+	public static ManmadeFaceBuilder getManmadeFaceBuilder(String id) {
 		return getBuilder(MANMADE_FACE, id, ManmadeFaceBuilder.class);
 	}
 
-	private <T extends Builder> List<T> getAllBuilders(String type, Class<T> clazz) {
+	private static <T extends Builder> List<T> getAllBuilders(String type, Class<T> clazz) {
 		List<T> res = new ArrayList<>();
 		res.addAll((Collection<? extends T>) (builders.get(type)).values());
 		if (res.isEmpty()) {
@@ -210,7 +210,7 @@ public class BuilderLibrary {
 		return res;
 	}
 
-	public List<UnitBuilder> getAllUnitBuilders() {
+	public static List<UnitBuilder> getAllUnitBuilders() {
 		return getAllBuilders(UNIT, UnitBuilder.class);
 	}
 
@@ -218,7 +218,7 @@ public class BuilderLibrary {
 		return getAllBuilders(TRINKET, TrinketBuilder.class);
 	}
 
-	public List<TrinketBuilder> getAllEditableTrinketBuilders() {
+	public static List<TrinketBuilder> getAllEditableTrinketBuilders() {
 		List<TrinketBuilder> all = getAllBuilders(TRINKET, TrinketBuilder.class);
 		List<TrinketBuilder> res = new ArrayList<>();
 		for (TrinketBuilder b : all) {
@@ -229,7 +229,7 @@ public class BuilderLibrary {
 		return res;
 	}
 
-	public List<MapStyleBuilder> getAllMapStyleBuilders() {
+	public static List<MapStyleBuilder> getAllMapStyleBuilders() {
 		return getAllBuilders(MAP_STYLE, MapStyleBuilder.class);
 	}
 

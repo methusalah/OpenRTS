@@ -3,9 +3,9 @@
  */
 package controller.editor;
 
-import static model.editor.Pencil.Shape.Circle;
-import static model.editor.Pencil.Shape.Diamond;
-import static model.editor.Pencil.Shape.Square;
+import static model.editor.Pencil.SHAPE.Circle;
+import static model.editor.Pencil.SHAPE.Diamond;
+import static model.editor.Pencil.SHAPE.Square;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -13,7 +13,9 @@ import java.util.List;
 
 import model.ModelManager;
 import model.builders.MapStyleBuilder;
+import model.builders.definitions.BuilderManager;
 import model.editor.Pencil;
+import model.editor.ToolManager;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
@@ -62,7 +64,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawToolPanel() {
-		Tool tool = ModelManager.toolManager.actualTool;
+		Tool tool = ToolManager.getActualTool();
 		if (tool instanceof CliffTool) {
 			maintainButton(CLIFF_TOOL_BUTTON_ID);
 		} else {
@@ -95,7 +97,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawOperationPanel() {
-		Tool tool = ModelManager.toolManager.actualTool;
+		Tool tool = ToolManager.getActualTool();
 		for (int i = 0; i < 3; i++) {
 			if (!tool.getOperation(i).isEmpty()) {
 				getElement(OPERATION_BUTTON_ID_PREFIX + i).show();
@@ -113,7 +115,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawSetPanel() {
-		Tool tool = ModelManager.toolManager.actualTool;
+		Tool tool = ToolManager.getActualTool();
 		if (tool.hasSet()) {
 			if (tool.getSet().hasIcons()) {
 				drawIconSetPanel();
@@ -127,7 +129,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawIconSetPanel() {
-		Tool tool = ModelManager.toolManager.actualTool;
+		Tool tool = ToolManager.getActualTool();
 		getElement(ICON_SET_PANEL_ID).show();
 		getElement(LIST_SET_PANEL_ID).hide();
 		for (int i = 0; i < 8; i++) {
@@ -146,26 +148,26 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawListSetPanel() {
-		Tool tool = ModelManager.toolManager.actualTool;
+		Tool tool = ToolManager.getActualTool();
 		getElement(LIST_SET_PANEL_ID).show();
 		getElement(ICON_SET_PANEL_ID).hide();
 		fillList(SELECTION_LIST_ID, tool.getSet().getAllAssets());
 	}
 
 	private void drawMapStyleDropDown() {
-		List<MapStyleBuilder> builders = ModelManager.lib.getAllMapStyleBuilders();
+		List<MapStyleBuilder> builders = BuilderManager.getAllMapStyleBuilders();
 		List<String> ids = new ArrayList<>();
 		for (MapStyleBuilder b : builders) {
 			ids.add(b.getId());
 		}
-		int selIndex = ids.indexOf(ModelManager.battlefield.map.mapStyleID);
+		int selIndex = ids.indexOf(ModelManager.getBattlefield().getMap().mapStyleID);
 		fillDropDown(DROPDOWN_STYLE_ID, ids, selIndex);
 	}
 
 	private void drawPencilPanel() {
 		getElement("pencilpanel").hide();
 
-		Pencil pencil = ModelManager.toolManager.actualTool.pencil;
+		Pencil pencil = ToolManager.getActualTool().pencil;
 
 		if (pencil.sizeIncrement != 0) {
 			getElement("pencilpanel").show();
@@ -188,17 +190,17 @@ public class EditorGUIDrawer extends GUIDrawer {
 			}
 
 			// mode buttons
-			if (pencil.mode.equals(Pencil.Mode.Rough)) {
+			if (pencil.mode.equals(Pencil.MODE.Rough)) {
 				maintainButton(ROUGH_BUTTON_ID);
 			} else {
 				releaseButton(ROUGH_BUTTON_ID);
 			}
-			if (pencil.mode.equals(Pencil.Mode.Airbrush)) {
+			if (pencil.mode.equals(Pencil.MODE.Airbrush)) {
 				maintainButton(AIRBRUSH_BUTTON_ID);
 			} else {
 				releaseButton(AIRBRUSH_BUTTON_ID);
 			}
-			if (pencil.mode.equals(Pencil.Mode.Noise)) {
+			if (pencil.mode.equals(Pencil.MODE.Noise)) {
 				maintainButton(NOISE_BUTTON_ID);
 			} else {
 				releaseButton(NOISE_BUTTON_ID);
@@ -210,7 +212,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 			sizeSlider.setStepSize(1);// (float)pencil.sizeIncrement);
 			sizeSlider.setValue((float) pencil.size);
 
-			if (pencil.mode == Pencil.Mode.Unique) {
+			if (pencil.mode == Pencil.MODE.Unique) {
 				getElement("pencilmodepanel").hide();
 			} else {
 				getElement("pencilmodepanel").show();

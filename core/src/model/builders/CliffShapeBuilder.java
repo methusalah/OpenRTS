@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.map.cliff.Cliff;
-import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.BuilderManager;
 import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
@@ -37,8 +37,8 @@ public class CliffShapeBuilder extends Builder {
 	private List<Double> rampTrinketProbs = new ArrayList<>();
 	private String editorIconPath = "textures/editor/defaultcliffshapeicon.png";
 
-	public CliffShapeBuilder(Definition def, BuilderLibrary lib) {
-		super(def, lib);
+	public CliffShapeBuilder(Definition def) {
+		super(def);
 		for (DefElement de : def.elements) {
 			switch (de.name) {
 				case NATURAL_FACE_LINK:
@@ -62,7 +62,7 @@ public class CliffShapeBuilder extends Builder {
 	}
 
 	public void build(Cliff cliff) {
-		cliff.getTile().cliffShapeID = def.id;
+		cliff.getTile().cliffShapeID = def.getId();
 		if (naturalFaceBuilder != null) {
 			cliff.face = naturalFaceBuilder.build(cliff);
 		} else {
@@ -88,7 +88,7 @@ public class CliffShapeBuilder extends Builder {
 	}
 
 	public String getID() {
-		return def.id;
+		return def.getId();
 	}
 
 	public String getIconPath() {
@@ -98,16 +98,16 @@ public class CliffShapeBuilder extends Builder {
 	@Override
 	public void readFinalizedLibrary() {
 		if (!naturalFaceBuilderID.isEmpty()) {
-			naturalFaceBuilder = lib.getNaturalFaceBuilder(naturalFaceBuilderID);
+			naturalFaceBuilder = BuilderManager.getNaturalFaceBuilder(naturalFaceBuilderID);
 		}
 		if (!manmadeFaceBuilderID.isEmpty()) {
-			manmadeFaceBuilder = lib.getManmadeFaceBuilder(manmadeFaceBuilderID);
+			manmadeFaceBuilder = BuilderManager.getManmadeFaceBuilder(manmadeFaceBuilderID);
 		}
 		for (String s : trinketBuildersID) {
-			trinketBuilders.add(lib.getTrinketBuilder(s));
+			trinketBuilders.add(BuilderManager.getTrinketBuilder(s));
 		}
 		for (String s : rampTrinketBuildersID) {
-			rampTrinketBuilders.add(lib.getTrinketBuilder(s));
+			rampTrinketBuilders.add(BuilderManager.getTrinketBuilder(s));
 		}
 	}
 }

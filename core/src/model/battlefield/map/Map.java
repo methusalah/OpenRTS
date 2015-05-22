@@ -10,7 +10,6 @@ import java.util.List;
 
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
-import model.builders.definitions.BuilderLibrary;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -313,10 +312,10 @@ public class Map {
 		}
 	}
 
-	public void resetTrinkets(BuilderLibrary lib) {
+	public void resetTrinkets() {
 		trinkets.clear();
 		for (SerializableTrinket st : serializableTrinkets) {
-			trinkets.add(st.getTrinket(lib));
+			trinkets.add(st.getTrinket());
 		}
 	}
 
@@ -333,6 +332,10 @@ public class Map {
 				}
 			}
 		}
-
 	}
+
+	public List<Ramp> getRamps() {
+		return ramps;
+	}
+
 }

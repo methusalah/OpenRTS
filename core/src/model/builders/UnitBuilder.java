@@ -11,7 +11,7 @@ import java.util.List;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 import model.builders.actors.ModelActorBuilder;
-import model.builders.definitions.BuilderLibrary;
+import model.builders.definitions.BuilderManager;
 import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
@@ -48,8 +48,8 @@ public class UnitBuilder extends Builder {
 	private List<String> turretBuildersID = new ArrayList<>();
 	private List<TurretBuilder> turretBuilders = new ArrayList<>();
 
-	public UnitBuilder(Definition def, BuilderLibrary lib) {
-		super(def, lib);
+	public UnitBuilder(Definition def) {
+		super(def);
 		for (DefElement de : def.elements) {
 			switch (de.name) {
 				case RADIUS:
@@ -111,15 +111,15 @@ public class UnitBuilder extends Builder {
 
 	@Override
 	public void readFinalizedLibrary() {
-		actorBuilder = (ModelActorBuilder) lib.getActorBuilder(actorBuilderID);
-		moverBuilder = lib.getMoverBuilder(moverBuilderID);
+		actorBuilder = (ModelActorBuilder) BuilderManager.getActorBuilder(actorBuilderID);
+		moverBuilder = BuilderManager.getMoverBuilder(moverBuilderID);
 		int i = 0;
 		for (String s : weaponBuildersID) {
-			weaponBuilders.add(lib.getWeaponBuilder(s));
+			weaponBuilders.add(BuilderManager.getWeaponBuilder(s));
 			if (turretBuildersID.get(i) == null) {
 				turretBuilders.add(null);
 			} else {
-				turretBuilders.add(lib.getTurretBuilder(turretBuildersID.get(i)));
+				turretBuilders.add(BuilderManager.getTurretBuilder(turretBuildersID.get(i)));
 			}
 			i++;
 		}

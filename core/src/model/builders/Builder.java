@@ -5,7 +5,6 @@
 package model.builders;
 
 import geometry.tools.LogUtil;
-import model.builders.definitions.BuilderLibrary;
 import model.builders.definitions.Definition;
 
 /**
@@ -14,17 +13,15 @@ import model.builders.definitions.Definition;
  */
 public abstract class Builder {
 	protected Definition def;
-	protected BuilderLibrary lib;
 
-	public Builder(Definition def, BuilderLibrary lib){
+	public Builder(Definition def) {
 		this.def = def;
-		this.lib = lib;
 	}
 
 	public abstract void readFinalizedLibrary();
 
 	public String getId(){
-		return def.id;
+		return def.getId();
 	}
 
 	public void printUnknownElement(String elementName){
