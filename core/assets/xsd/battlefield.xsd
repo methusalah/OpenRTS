@@ -48,8 +48,33 @@
 
 	<xs:complexType name="engagementType">
 		<xs:sequence>
-			<xs:element name="initialEngagement" />
+			<xs:element name="initialEngagement" type="initialEngagementType" />
 		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="initialEngagementType">
+		<xs:sequence>
+			<xs:element name="serializableUnit" type="serializableUnitType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="serializableUnitType">
+		<xs:sequence>
+			<xs:element name="builderID" type="xs:string"/>
+			<xs:element name="factionName" type="xs:string"/>
+			<xs:element name="pos">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="x" type="xs:float" />
+						<xs:element name="y" type="xs:float" />
+						<xs:element name="z" type="xs:float" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="yaw" type="xs:float" minOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string"></xs:attribute>
 	</xs:complexType>
 
 	<xs:complexType name="tilesType">
