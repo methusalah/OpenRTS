@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.w3schools.com" xmlns="http://www.w3schools.com"
+	elementFormDefault="qualified">
+	<xs:complexType name="unitType">
+		
+		<xs:sequence>
+			<xs:element name="UIName">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Race">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Radius">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:float"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SeparationRadius">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:float"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Speed">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:float"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Mass">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:float"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ModelPath" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MaxHealth">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:int"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Sight">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:float"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MoverLink">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WeaponList">
+				<xs:complexType>
+					<xs:attribute name="WeaponLink" type="xs:string"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ActorLink">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="catalogType">
+		<xs:sequence>
+			<xs:element name="Unit" type="unitType" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="catalog" type="catalogType" />
+</xs:schema>
