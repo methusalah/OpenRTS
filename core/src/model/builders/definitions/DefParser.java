@@ -134,7 +134,7 @@ public class DefParser {
 				Attribute a = attributes.next();
 				de.addVal(a.getName().toString(), a.getValue());
 			}
-			def.elements.add(de);
+			def.getElements().add(de);
 			// LogUtil.logger.info("    element ajouté : "+de.name+" - "+de.getVal());
 		}
 		return def;

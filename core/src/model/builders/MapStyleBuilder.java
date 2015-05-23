@@ -37,7 +37,7 @@ public class MapStyleBuilder extends Builder{
 
 	public MapStyleBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
+		for (DefElement de : def.getElements()) {
 			switch(de.name){
 				case CLIFF_SHAPE_LINK : cliffShapeBuildersID.add(de.getVal()); break;
 				case WIDTH : width = de.getIntVal(); break;

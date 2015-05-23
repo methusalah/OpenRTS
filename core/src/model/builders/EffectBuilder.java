@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders;
 
@@ -21,10 +20,9 @@ import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
 /**
- *
  * @author Benoît
  */
-public class EffectBuilder extends Builder{
+public class EffectBuilder extends Builder {
 	private static final String TYPE = "Type";
 	private static final String EFFECT_LINK_LIST = "EffectLinkList";
 	private static final String TYPE_DAMAGE = "Damage";
@@ -47,48 +45,63 @@ public class EffectBuilder extends Builder{
 
 	public EffectBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
-			switch(de.name){
-				case TYPE : type = de.getVal(); break;
-				case EFFECT_LINK_LIST : effectBuildersID.add(de.getVal()); break;
-				case AMOUNT : amount = de.getIntVal(); break;
-				case PERIOD_COUNT : periodCount = de.getIntVal(); break;
-				case PERIOD_DURATION_LIST : durations.add(de.getDoubleVal()*1000); break;
-				case PERIOD_RANGE_LIST : ranges.add(de.getDoubleVal()*1000); break;
-				case PROJECTILE_LINK : projectileLink = de.getVal(); break;
+		for (DefElement de : def.getElements()) {
+			switch (de.name) {
+				case TYPE:
+					type = de.getVal();
+					break;
+				case EFFECT_LINK_LIST:
+					effectBuildersID.add(de.getVal());
+					break;
+				case AMOUNT:
+					amount = de.getIntVal();
+					break;
+				case PERIOD_COUNT:
+					periodCount = de.getIntVal();
+					break;
+				case PERIOD_DURATION_LIST:
+					durations.add(de.getDoubleVal() * 1000);
+					break;
+				case PERIOD_RANGE_LIST:
+					ranges.add(de.getDoubleVal() * 1000);
+					break;
+				case PROJECTILE_LINK:
+					projectileLink = de.getVal();
+					break;
 			}
 		}
 	}
 
-	public Effect build(EffectSource source, EffectTarget target, Point3D targetPoint){
+	public Effect build(EffectSource source, EffectTarget target, Point3D targetPoint) {
 		Projectile projectile = null;
-		if(projectileLink != null) {
+		if (projectileLink != null) {
 			projectile = BuilderManager.getProjectileBuilder(projectileLink).build(source, target, targetPoint);
 		}
 
 		Effect res;
-		switch(type){
-			case TYPE_DAMAGE :
+		switch (type) {
+			case TYPE_DAMAGE:
 				res = new DamageEffect(amount, effectBuilders, source, target);
 				break;
-			case TYPE_PERSISTENT :
+			case TYPE_PERSISTENT:
 				res = new PersistentEffect(periodCount, durations, ranges, effectBuilders, source, target);
 				ArmyManager.addPersistentEffect((PersistentEffect) res);
 				break;
-			case TYPE_LAUNCHER :
+			case TYPE_LAUNCHER:
 				res = new LauncherEffect(projectile, effectBuilders, source, target);
 				break;
-			default : printUnknownValue(TYPE, type); throw new RuntimeException();
+			default:
+				printUnknownValue(TYPE, type);
+				throw new RuntimeException();
 		}
 		return res;
 	}
 
 	@Override
 	public void readFinalizedLibrary() {
-		for(String s : effectBuildersID) {
+		for (String s : effectBuildersID) {
 			effectBuilders.add(BuilderManager.getEffectBuilder(s));
 		}
 	}
-
 
 }

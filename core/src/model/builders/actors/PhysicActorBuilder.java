@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders.actors;
 
@@ -12,10 +11,9 @@ import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
 /**
- *
  * @author Benoît
  */
-public class PhysicActorBuilder extends ActorBuilder{
+public class PhysicActorBuilder extends ActorBuilder {
 	private static final String MODEL_PATH = "ModelPath";
 	private static final String SCALE = "Scale";
 	private static final String MASS = "Mass";
@@ -30,17 +28,29 @@ public class PhysicActorBuilder extends ActorBuilder{
 
 	public PhysicActorBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
-			switch(de.name){
-				case TYPE :
-				case TRIGGER :
-				case ACTOR_LIST : break;
-				case MODEL_PATH : modelPath = de.getVal(); break;
-				case SCALE : scale = de.getDoubleVal(); break;
-				case LIFE : life = de.getDoubleVal()*1000; break;
-				case MASS : mass = de.getDoubleVal(); break;
-				case MASS_CENTER_BONE : massCenterBone = de.getVal(); break;
-				default:printUnknownElement(de.name);
+		for (DefElement de : def.getElements()) {
+			switch (de.name) {
+				case TYPE:
+				case TRIGGER:
+				case ACTOR_LIST:
+					break;
+				case MODEL_PATH:
+					modelPath = de.getVal();
+					break;
+				case SCALE:
+					scale = de.getDoubleVal();
+					break;
+				case LIFE:
+					life = de.getDoubleVal() * 1000;
+					break;
+				case MASS:
+					mass = de.getDoubleVal();
+					break;
+				case MASS_CENTER_BONE:
+					massCenterBone = de.getVal();
+					break;
+				default:
+					printUnknownElement(de.name);
 			}
 		}
 	}
@@ -49,9 +59,9 @@ public class PhysicActorBuilder extends ActorBuilder{
 	public Actor build(String trigger, Actor parent) {
 		return build(trigger, null, parent);
 	}
-	public Actor build(String trigger, Hiker movable, Actor parent){
-		Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders,
-				ModelManager
+
+	public Actor build(String trigger, Hiker movable, Actor parent) {
+		Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, ModelManager
 				.getBattlefield().getActorPool());
 		res.debbug_id = getId();
 		return res;

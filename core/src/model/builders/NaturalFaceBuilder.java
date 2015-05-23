@@ -46,7 +46,7 @@ public class NaturalFaceBuilder extends Builder{
 
 	public NaturalFaceBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
+		for (DefElement de : def.getElements()) {
 			switch(de.name){
 				case NOISE :
 					checkRange(de);

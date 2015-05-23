@@ -50,7 +50,7 @@ public class UnitBuilder extends Builder {
 
 	public UnitBuilder(Definition def) {
 		super(def);
-		for (DefElement de : def.elements) {
+		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case RADIUS:
 					radius = de.getDoubleVal();

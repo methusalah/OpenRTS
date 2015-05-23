@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders;
 
@@ -12,10 +11,9 @@ import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
 /**
- *
  * @author Benoît
  */
-public class MoverBuilder extends Builder{
+public class MoverBuilder extends Builder {
 	private static final String PATHFINDING_MODE = "PathfindingMode";
 	private static final String HEIGHTMAP = "Heightmap";
 	private static final String STANDING_MODE = "StandingMode";
@@ -35,31 +33,43 @@ public class MoverBuilder extends Builder{
 
 	public MoverBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
-			switch(de.name){
-				case PATHFINDING_MODE :
-					switch (de.getVal()){
-						case FLY : pathfindingMode = Mover.PathfindingMode.FLY; break;
-						case WALK : pathfindingMode = Mover.PathfindingMode.WALK; break;
+		for (DefElement de : def.getElements()) {
+			switch (de.name) {
+				case PATHFINDING_MODE:
+					switch (de.getVal()) {
+						case FLY:
+							pathfindingMode = Mover.PathfindingMode.FLY;
+							break;
+						case WALK:
+							pathfindingMode = Mover.PathfindingMode.WALK;
+							break;
 					}
 					break;
-				case HEIGHTMAP :
-					switch (de.getVal()){
-						case SKY : heightmap = Mover.Heightmap.SKY; break;
-						case GROUND : heightmap = Mover.Heightmap.GROUND; break;
+				case HEIGHTMAP:
+					switch (de.getVal()) {
+						case SKY:
+							heightmap = Mover.Heightmap.SKY;
+							break;
+						case GROUND:
+							heightmap = Mover.Heightmap.GROUND;
+							break;
 					}
 					break;
-				case STANDING_MODE :
-					switch (de.getVal()){
-						case STAND : standingMode = Mover.StandingMode.STAND; break;
-						case PRONE : standingMode = Mover.StandingMode.PRONE; break;
+				case STANDING_MODE:
+					switch (de.getVal()) {
+						case STAND:
+							standingMode = Mover.StandingMode.STAND;
+							break;
+						case PRONE:
+							standingMode = Mover.StandingMode.PRONE;
+							break;
 					}
 					break;
 			}
 		}
 	}
 
-	public Mover build(Hiker movable){
+	public Mover build(Hiker movable) {
 		Mover res = new Mover(heightmap, pathfindingMode, standingMode, movable, ModelManager.getBattlefield().getMap());
 		return res;
 	}

@@ -71,7 +71,7 @@ public class ParticleActorBuilder extends ActorBuilder {
 
 	public ParticleActorBuilder(Definition def) {
 		super(def);
-		for (DefElement de : def.elements) {
+		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
 				case TRIGGER:

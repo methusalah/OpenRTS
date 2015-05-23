@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders.definitions;
 
@@ -8,38 +7,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Benoît
  */
 public class Definition {
 	private final String id;
 	private final String type;
 
-	boolean upToDate = true;
+	private boolean upToDate = true;
 
-	public List<DefElement> elements = new ArrayList<>();
+	private List<DefElement> elements = new ArrayList<>();
 
-	public Definition(String type, String id){
+
+	public Definition(String type, String id) {
 		this.type = type;
 		this.id = id;
 	}
 
-	public Definition(Definition other){
+	public Definition(Definition other) {
 		this.id = other.getId();
 		type = other.getType();
 		elements = new ArrayList<>(other.elements);
 	}
 
-	public boolean equals(Definition other){
-		if(!getId().equals(other.getId())) {
+	public boolean equals(Definition other) {
+		if (!getId().equals(other.getId())) {
 			return false;
 		}
-		if(!getType().equals(other.getType())) {
+		if (!getType().equals(other.getType())) {
 			return false;
 		}
 
-		for(int i=0; i<elements.size(); i++) {
-			if(!elements.get(i).equals(other.elements.get(i))) {
+		for (int i = 0; i < elements.size(); i++) {
+			if (!elements.get(i).equals(other.elements.get(i))) {
 				return false;
 			}
 		}
@@ -47,14 +46,14 @@ public class Definition {
 		return true;
 	}
 
-	public void updateElements(ArrayList<DefElement> elements){
+	public void updateElements(ArrayList<DefElement> elements) {
 		this.elements.clear();
 		this.elements.addAll(elements);
 	}
 
-	public DefElement getElement(String name){
-		for(DefElement de : elements) {
-			if(de.name.equals(name)) {
+	public DefElement getElement(String name) {
+		for (DefElement de : elements) {
+			if (de.name.equals(name)) {
 				return de;
 			}
 		}
@@ -69,5 +68,8 @@ public class Definition {
 		return type;
 	}
 
+	public List<DefElement> getElements() {
+		return elements;
+	}
 
 }

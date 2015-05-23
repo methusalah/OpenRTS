@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders;
 
@@ -15,7 +14,6 @@ import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
 /**
- *
  * @author Benoît
  */
 public class ProjectileBuilder extends Builder {
@@ -40,25 +38,38 @@ public class ProjectileBuilder extends Builder {
 
 	public ProjectileBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
-			switch(de.name){
-				case SPEED : speed = de.getDoubleVal(); break;
-				case MASS : mass = de.getDoubleVal(); break;
-				case MOVER_LINK : moverLink = de.getVal(); break;
-				case ACTOR_LINK : actorLink = de.getVal(); break;
-				case PRECISION :
-					switch (de.getVal()){
-						case PRECISION_IN_RADIUS : precisionType = Projectile.PRECISION_TYPE.IN_RADIUS; break;
-						case PRECISION_CENTER : precisionType = Projectile.PRECISION_TYPE.CENTER; break;
-						default : precisionType = Projectile.PRECISION_TYPE.OTHER;
-						precision = de.getDoubleVal();
-						break;
+		for (DefElement de : def.getElements()) {
+			switch (de.name) {
+				case SPEED:
+					speed = de.getDoubleVal();
+					break;
+				case MASS:
+					mass = de.getDoubleVal();
+					break;
+				case MOVER_LINK:
+					moverLink = de.getVal();
+					break;
+				case ACTOR_LINK:
+					actorLink = de.getVal();
+					break;
+				case PRECISION:
+					switch (de.getVal()) {
+						case PRECISION_IN_RADIUS:
+							precisionType = Projectile.PRECISION_TYPE.IN_RADIUS;
+							break;
+						case PRECISION_CENTER:
+							precisionType = Projectile.PRECISION_TYPE.CENTER;
+							break;
+						default:
+							precisionType = Projectile.PRECISION_TYPE.OTHER;
+							precision = de.getDoubleVal();
+							break;
 					}
 			}
 		}
 	}
 
-	public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint){
+	public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint) {
 		Projectile res = new Projectile(radius, speed, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
 		ArmyManager.registerProjectile(res);
 		return res;
@@ -69,6 +80,5 @@ public class ProjectileBuilder extends Builder {
 		moverBuilder = BuilderManager.getMoverBuilder(moverLink);
 		actorBuilder = (ModelActorBuilder) BuilderManager.getActorBuilder(actorLink);
 	}
-
 
 }

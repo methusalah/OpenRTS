@@ -34,7 +34,7 @@ public class ModelActorBuilder extends ActorBuilder {
 
 	public ModelActorBuilder(Definition def) {
 		super(def);
-		for (DefElement de : def.elements) {
+		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
 				case TRIGGER:

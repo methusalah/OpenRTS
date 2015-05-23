@@ -41,7 +41,7 @@ public class ActorBuilder extends Builder {
 
 	public ActorBuilder(Definition def) {
 		super(def);
-		for (DefElement de : def.elements) {
+		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
 					type = de.getVal();

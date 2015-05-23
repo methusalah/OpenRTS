@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in the editor.
  */
 package model.builders;
 
@@ -19,10 +18,9 @@ import model.builders.definitions.DefElement;
 import model.builders.definitions.Definition;
 
 /**
- *
  * @author Benoît
  */
-public class ManmadeFaceBuilder extends Builder{
+public class ManmadeFaceBuilder extends Builder {
 	private static final String ORTHOGONAL_LIST = "OrthogonalList";
 	private static final String SALIENT_LIST = "SalientList";
 	private static final String CORNER_LIST = "CornerList";
@@ -35,45 +33,53 @@ public class ManmadeFaceBuilder extends Builder{
 
 	public ManmadeFaceBuilder(Definition def) {
 		super(def);
-		for(DefElement de : def.elements) {
-			switch(de.name){
-				case ORTHOGONAL_LIST : addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), orthos); break;
-				case SALIENT_LIST : addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), salients); break;
-				case CORNER_LIST : addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), corners); break;
+		for (DefElement de : def.getElements()) {
+			switch (de.name) {
+				case ORTHOGONAL_LIST:
+					addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), orthos);
+					break;
+				case SALIENT_LIST:
+					addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), salients);
+					break;
+				case CORNER_LIST:
+					addWithWheight(de.getVal(PATH), de.getIntVal(WEIGHT), corners);
+					break;
 			}
 		}
 	}
 
-	public ManmadeFace build(Cliff cliff){
+	public ManmadeFace build(Cliff cliff) {
 		int index = 0;
-		switch (cliff.type){
-			case Orthogonal :
-				if(orthos.size()>1) {
-					index = MyRandom.nextInt(orthos.size()-1);
+		switch (cliff.type) {
+			case Orthogonal:
+				if (orthos.size() > 1) {
+					index = MyRandom.nextInt(orthos.size() - 1);
 				}
 				return new OrthogonalManmadeFace(cliff, orthos.get(index));
-			case Salient :
-				if(salients.size()>1) {
-					index = MyRandom.nextInt(salients.size()-1);
+			case Salient:
+				if (salients.size() > 1) {
+					index = MyRandom.nextInt(salients.size() - 1);
 				}
 				return new SalientManmadeFace(cliff, salients.get(index));
-			case Corner :
-				if(corners.size()>1) {
-					index = MyRandom.nextInt(corners.size()-1);
+			case Corner:
+				if (corners.size() > 1) {
+					index = MyRandom.nextInt(corners.size() - 1);
 				}
 				return new CornerManmadeFace(cliff, corners.get(index));
-			case Border :
-			case Bugged : return null;
-			default:throw new RuntimeException();
+			case Border:
+			case Bugged:
+				return null;
+			default:
+				throw new RuntimeException();
 		}
 	}
 
-	private void addWithWheight(String s, int weight, List<String> list){
-		if(weight<=0 || weight>50){
-			LogUtil.logger.warning("Invalid weight ("+weight+") for manmade face "+def.getId()+". Weight must be between 1 and 50.");
-					return;
+	private void addWithWheight(String s, int weight, List<String> list) {
+		if (weight <= 0 || weight > 50) {
+			LogUtil.logger.warning("Invalid weight (" + weight + ") for manmade face " + def.getId() + ". Weight must be between 1 and 50.");
+			return;
 		}
-		for(int i=0; i<weight; i++) {
+		for (int i = 0; i < weight; i++) {
 			list.add(s);
 		}
 	}
