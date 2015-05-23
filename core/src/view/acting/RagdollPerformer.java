@@ -24,67 +24,68 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class RagdollPerformer extends Performer{
-    public RagdollPerformer(Backstage bs){
-        super(bs);
-    }
-    
-    @Override
-    public void perform(Actor a) {
-    	PhysicActor actor = (PhysicActor)a;
-        if(!actor.launched){
-            actor.life = actor.startLife;
-            bs.modelPfm.perform(actor);
+	public RagdollPerformer(Backstage bs){
+		super(bs);
+	}
 
-            Spatial s = actor.viewElements.spatial;
-            ModelActor ma = actor.getParentModelActor();
+	@Override
+	public void perform(Actor a) {
+		PhysicActor actor = (PhysicActor)a;
+		if(!actor.launched){
+			actor.life = actor.startLife;
+			bs.modelPfm.perform(actor);
 
-            Vector3f massVec = s.getControl(AnimControl.class).getSkeleton().getBone(actor.massCenterBone).getModelSpacePosition().mult(s.getLocalScale());
-            Node massCenter = new Node();
-            bs.mainNode.detachChild(s);
-            bs.mainNode.attachChild(massCenter);
-            massCenter.attachChild(s);
-            s.setLocalTranslation(massVec.negate());
+			Spatial s = actor.getViewElements().spatial;
+			ModelActor ma = actor.getParentModelActor();
 
-            RigidBodyControl control = new RigidBodyControl((float)actor.mass*100);
-            massCenter.addControl(control);
-            bs.mainPhysicsSpace.add(control);
+			Vector3f massVec = s.getControl(AnimControl.class).getSkeleton().getBone(actor.massCenterBone).getModelSpacePosition().mult(s.getLocalScale());
+			Node massCenter = new Node();
+			bs.mainNode.detachChild(s);
+			bs.mainNode.attachChild(massCenter);
+			massCenter.attachChild(s);
+			s.setLocalTranslation(massVec.negate());
 
-
-            // translation
-            double massVecLength = massVec.length();
-            double massVecAngle = new Point2D(massVec.x, massVec.y).getAngle();
-            Point2D unitPos2D = ma.getPos().get2D().getTranslation(massVecAngle, massVecLength);
-            control.setPhysicsLocation(Translator.toVector3f(unitPos2D.get3D(ma.getPos().z+0.1)));
+			RigidBodyControl control = new RigidBodyControl((float)actor.mass*100);
+			massCenter.addControl(control);
+			bs.mainPhysicsSpace.add(control);
 
 
-            // rotation
-            Quaternion r = new Quaternion();
-            r.fromAngles(0, 0, (float)(ma.getYaw()+Angle.RIGHT));
-            control.setPhysicsRotation(r);
+			// translation
+			double massVecLength = massVec.length();
+			double massVecAngle = new Point2D(massVec.x, massVec.y).getAngle();
+			Point2D unitPos2D = ma.getPos().get2D().getTranslation(massVecAngle, massVecLength);
+			control.setPhysicsLocation(Translator.toVector3f(unitPos2D.get3D(ma.getPos().z+0.1)));
 
-//            control.applyCentralForce(new Vector3f((float)MyRandom.next(), (float)MyRandom.next(), 1).mult(1000));
-            control.applyForce(massVec.multLocal((float)MyRandom.next(), (float)MyRandom.next(), (float)MyRandom.next()).mult(3000),
-            		new Vector3f((float)MyRandom.between(-0.1, 0.1), (float)MyRandom.between(-0.1, 0.1), (float)MyRandom.between(-0.1, 0.1)));
-            actor.launched = true;
-            actor.viewElements.spatial = massCenter;
-        }
 
-        Spatial s = actor.viewElements.spatial;
-        double elapsedTime = System.currentTimeMillis()-actor.timer;
-        actor.timer = System.currentTimeMillis();
- 
-        if(actor.alive()){
-            if(!s.getControl(RigidBodyControl.class).isActive()){
-                actor.life -= elapsedTime;
-                if(!actor.alive()){
-                	bs.mainPhysicsSpace.remove(s);
-                    s.removeControl(RigidBodyControl.class);
-                }
-            }
-        } else {
-            s.setLocalTranslation(s.getWorldTranslation().add(0, 0, (float)-elapsedTime/3000));
-            if(s.getWorldTranslation().z < -1)
-                actor.stopActing();
-        }
-    }
+			// rotation
+			Quaternion r = new Quaternion();
+			r.fromAngles(0, 0, (float)(ma.getYaw()+Angle.RIGHT));
+			control.setPhysicsRotation(r);
+
+			//            control.applyCentralForce(new Vector3f((float)MyRandom.next(), (float)MyRandom.next(), 1).mult(1000));
+			control.applyForce(massVec.multLocal((float)MyRandom.next(), (float)MyRandom.next(), (float)MyRandom.next()).mult(3000),
+					new Vector3f((float)MyRandom.between(-0.1, 0.1), (float)MyRandom.between(-0.1, 0.1), (float)MyRandom.between(-0.1, 0.1)));
+			actor.launched = true;
+			actor.getViewElements().spatial = massCenter;
+		}
+
+		Spatial s = actor.getViewElements().spatial;
+		double elapsedTime = System.currentTimeMillis()-actor.timer;
+		actor.timer = System.currentTimeMillis();
+
+		if(actor.alive()){
+			if(!s.getControl(RigidBodyControl.class).isActive()){
+				actor.life -= elapsedTime;
+				if(!actor.alive()){
+					bs.mainPhysicsSpace.remove(s);
+					s.removeControl(RigidBodyControl.class);
+				}
+			}
+		} else {
+			s.setLocalTranslation(s.getWorldTranslation().add(0, 0, (float)-elapsedTime/3000));
+			if(s.getWorldTranslation().z < -1) {
+				actor.stopActing();
+			}
+		}
+	}
 }

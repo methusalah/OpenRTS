@@ -34,7 +34,7 @@ public class ActorBuilder extends Builder {
 	protected static final String ACTOR_LINK = "ActorLink";
 
 	protected String type;
-	private List<String> childrenActorBuildersID = new ArrayList<>();
+	protected List<String> childrenActorBuildersID = new ArrayList<>();
 	protected List<ActorBuilder> childrenActorBuilders = new ArrayList<>();
 	protected List<String> childrenTriggers = new ArrayList<>();
 	protected List<Double> childrenProbs = new ArrayList<>();

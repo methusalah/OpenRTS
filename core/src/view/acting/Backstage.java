@@ -63,16 +63,16 @@ public class Backstage implements AnimEventListener {
 	public void render() {
 		// first, the spatials attached to interrupted actor are detached
 		for (Actor a : pool.grabDeletedActors()) {
-			if (a.viewElements.spatial != null) {
-				mainNode.detachChild(a.viewElements.spatial);
+			if (a.getViewElements().spatial != null) {
+				mainNode.detachChild(a.getViewElements().spatial);
 			}
-			if (a.viewElements.particleEmitter != null) {
-				a.viewElements.particleEmitter.setParticlesPerSec(0);
-				dyingEmitters.add(a.viewElements.particleEmitter);
-				a.viewElements.particleEmitter = null;
+			if (a.getViewElements().particleEmitter != null) {
+				a.getViewElements().particleEmitter.setParticlesPerSec(0);
+				dyingEmitters.add(a.getViewElements().particleEmitter);
+				a.getViewElements().particleEmitter = null;
 			}
-			if (a.viewElements.selectionCircle != null) {
-				mainNode.detachChild(a.viewElements.selectionCircle);
+			if (a.getViewElements().selectionCircle != null) {
+				mainNode.detachChild(a.getViewElements().selectionCircle);
 			}
 		}
 		List<ParticleEmitter> deleted = new ArrayList<>();

@@ -38,7 +38,7 @@ public class ModelPerformer extends Performer {
 	@Override
 	public void perform(Actor a) {
 		ModelActor actor = (ModelActor) a;
-		if (actor.viewElements.spatial == null) {
+		if (actor.getViewElements().spatial == null) {
 			Spatial s = bs.buildSpatial(actor.getModelPath());
 
 			if (actor.getColor() != null) {
@@ -48,7 +48,7 @@ public class ModelPerformer extends Performer {
 			s.setLocalScale((float) actor.getScaleX() * DEFAULT_SCALE, (float) actor.getScaleY() * DEFAULT_SCALE, (float) actor.getScaleZ() * DEFAULT_SCALE);
 			s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 			s.setName(actor.getLabel());
-			actor.viewElements.spatial = s;
+			actor.getViewElements().spatial = s;
 			// We force update here because we need imediatly to have access to bones' absolute position.
 			AnimControl animControl = s.getControl(AnimControl.class);
 			if (animControl != null) {
@@ -63,7 +63,7 @@ public class ModelPerformer extends Performer {
 	}
 
 	protected void drawAsComp(ModelActor actor) {
-		Spatial s = actor.viewElements.spatial;
+		Spatial s = actor.getViewElements().spatial;
 		// save the unitid in the userdata
 		s.setUserData(ENTITYID_USERDATA, actor.getComp().getId());
 
@@ -117,16 +117,16 @@ public class ModelPerformer extends Performer {
 
 	private void drawSelectionCircle(ModelActor actor) {
 		Unit unit = (Unit) actor.getComp();
-		if (actor.viewElements.selectionCircle == null) {
+		if (actor.getViewElements().selectionCircle == null) {
 			Geometry g = new Geometry();
 			g.setMesh(new Circle((float) unit.getRadius(), 10));
 			g.setMaterial(bs.materialManager.greenMaterial);
 			g.rotate((float) Angle.RIGHT, 0, 0);
 			Node n = new Node();
 			n.attachChild(g);
-			actor.viewElements.selectionCircle = n;
+			actor.getViewElements().selectionCircle = n;
 		}
-		Node n = actor.viewElements.selectionCircle;
+		Node n = actor.getViewElements().selectionCircle;
 		n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
 		if (unit.selected) {
@@ -140,7 +140,7 @@ public class ModelPerformer extends Performer {
 
 	private void orientTurret(ModelActor actor) {
 		for (Turret t : ((Unit) actor.getComp()).getTurrets()) {
-			Bone turretBone = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(t.boneName);
+			Bone turretBone = actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton().getBone(t.boneName);
 			if (turretBone == null) {
 				throw new RuntimeException("Can't find the bone " + t.boneName + " for turret.");
 			}
@@ -154,7 +154,7 @@ public class ModelPerformer extends Performer {
 	}
 
 	private void updateBoneCoords(ModelActor actor) {
-		Skeleton sk = actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton();
+		Skeleton sk = actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton();
 		for (int i = 0; i < sk.getBoneCount(); i++) {
 			Bone b = sk.getBone(i);
 			actor.setBone(b.getName(), getBoneWorldPos(actor, i));
@@ -166,13 +166,13 @@ public class ModelPerformer extends Performer {
 	}
 
 	private Point3D getBoneWorldPos(ModelActor actor, int boneIndex) {
-		return getBoneWorldPos(actor, actor.viewElements.spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
+		return getBoneWorldPos(actor, actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
 	}
 
 	private Point3D getBoneWorldPos(ModelActor actor, Point3D actorPos, double actorYaw, String boneName) {
-		Spatial s = actor.viewElements.spatial;
+		Spatial s = actor.getViewElements().spatial;
 		Vector3f modelSpacePos = s.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
-		Quaternion q = actor.viewElements.spatial.getLocalRotation();
+		Quaternion q = actor.getViewElements().spatial.getLocalRotation();
 		modelSpacePos = q.mult(modelSpacePos);
 		modelSpacePos.multLocal(s.getLocalScale());
 		modelSpacePos = modelSpacePos.add(s.getLocalTranslation());

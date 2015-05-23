@@ -64,7 +64,6 @@ public class UnitBuilder extends Builder {
 				case MOVER_LINK:
 					moverBuilderID = de.getVal();
 					break;
-
 				case UINAME:
 					UIName = de.getVal();
 					break;
