@@ -17,8 +17,8 @@ import model.editor.ToolManager;
 public class RampTool extends Tool {
 	private static final String ADD_DELETE_OP = "add/delete";
 
-	public RampTool(ToolManager manager) {
-		super(manager, ADD_DELETE_OP);
+	public RampTool() {
+		super(ADD_DELETE_OP);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class RampTool extends Tool {
 				}
 			}
 		}
-		manager.updateTiles(changed);
+		ToolManager.updateTiles(changed);
 	}
 
 	@Override

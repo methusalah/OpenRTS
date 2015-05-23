@@ -30,8 +30,8 @@ public class AtlasTool extends Tool {
 	int autoLayer;
 	double increment = 40;
 
-	public AtlasTool(ToolManager manager) {
-		super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
+	public AtlasTool() {
+		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
 		this.atlas = ModelManager.getBattlefield().getMap().atlas;
 		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
 		set = new AssetSet(ModelManager.getBattlefield().getMap().style.textures, true);
@@ -57,7 +57,7 @@ public class AtlasTool extends Tool {
 				break;
 		}
 
-		manager.updateGroundAtlas();
+		ToolManager.updateGroundAtlas();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class AtlasTool extends Tool {
 				smooth(getInvolvedPixels());
 				break;
 		}
-		manager.updateGroundAtlas();
+		ToolManager.updateGroundAtlas();
 	}
 
 	public ArrayList<Point2D> getInvolvedPixels() {

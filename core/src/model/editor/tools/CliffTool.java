@@ -23,8 +23,8 @@ public class CliffTool extends Tool {
 
 	int maintainedlevel;
 
-	public CliffTool(ToolManager manager) {
-		super(manager, RAISE_LOW_OP, FLATTEN_OP);
+	public CliffTool() {
+		super(RAISE_LOW_OP, FLATTEN_OP);
 		ArrayList<String> iconPaths = new ArrayList<>();
 		for (CliffShapeBuilder b : ModelManager.getBattlefield().getMap().style.cliffShapeBuilders) {
 			iconPaths.add(b.getIconPath());
@@ -106,7 +106,7 @@ public class CliffTool extends Tool {
 			}
 		}
 		group.addAll(toUpdate);
-		manager.updateTiles(group);
+		ToolManager.updateTiles(group);
 	}
 
 	public void buildShape(Cliff cliff) {

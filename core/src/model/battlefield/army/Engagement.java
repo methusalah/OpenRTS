@@ -31,15 +31,7 @@ public class Engagement {
 		factions.add(f2);
 	}
 
-	public void addUnit(Unit u) {
-		ArmyManager.registerUnit(u);
-	}
-
-	public void removeUnit(Unit u) {
-		ArmyManager.unregisterUnit(u);
-	}
-
-	public void resetEngagement() {
+	public void reset() {
 		LogUtil.logger.info("reseting engagement");
 		ArmyManager.reset();
 
@@ -48,7 +40,7 @@ public class Engagement {
 		}
 	}
 
-	public void saveEngagement() {
+	public void save() {
 		initialEngagement.clear();
 		for (Unit u : ArmyManager.getUnits()) {
 			initialEngagement.add(new SerializableUnit(u));

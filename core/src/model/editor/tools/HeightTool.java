@@ -25,8 +25,8 @@ public class HeightTool extends Tool {
 	double amplitude = 0.5;
 	double maintainedElevation;
 
-	public HeightTool(ToolManager manager) {
-		super(manager, RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
+	public HeightTool() {
+		super(RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class HeightTool extends Tool {
 				uniform(group);
 				break;
 		}
-		manager.updateParcels(group);
+		ToolManager.updateParcels(group);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class HeightTool extends Tool {
 				reset(group);
 				break;
 		}
-		manager.updateParcels(group);
+		ToolManager.updateParcels(group);
 	}
 
 	private void raise(List<Tile> tiles) {

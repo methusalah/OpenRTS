@@ -6,9 +6,8 @@ package model.editor.tools;
 import java.util.Arrays;
 import java.util.List;
 
-import model.editor.Pencil;
 import model.editor.AssetSet;
-import model.editor.ToolManager;
+import model.editor.Pencil;
 
 /**
  * @author Benoît
@@ -18,11 +17,9 @@ public abstract class Tool {
 	protected AssetSet set = null;
 	protected String actualOp;
 
-	ToolManager manager;
 	public Pencil pencil;
 
-	public Tool(ToolManager manager, String... operationsArray) {
-		this.manager = manager;
+	public Tool(String... operationsArray) {
 		operations = Arrays.asList(operationsArray);
 		actualOp = operations.get(0);
 		createPencil();

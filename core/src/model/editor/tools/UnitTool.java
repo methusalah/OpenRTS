@@ -9,6 +9,7 @@ import geometry.math.Angle;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.EntityManager;
 import model.ModelManager;
@@ -34,9 +35,9 @@ public class UnitTool extends Tool {
 
 	double angle = 0;
 
-	public UnitTool(ToolManager manager) {
-		super(manager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
-		ArrayList<String> builderIDs = new ArrayList<>();
+	public UnitTool() {
+		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
+		List<String> builderIDs = new ArrayList<>();
 		for (UnitBuilder b : BuilderManager.getAllUnitBuilders()) {
 			builderIDs.add(b.getUIName());
 		}
@@ -86,16 +87,16 @@ public class UnitTool extends Tool {
 		Faction f = BuilderManager.getAllUnitBuilders().get(set.actual).hasRace("human") ? ModelManager.getBattlefield().getEngagement().factions.get(0)
 				: ModelManager.getBattlefield().getEngagement().factions.get(1);
 
-		ModelManager.getBattlefield().getEngagement().addUnit(
+		ArmyManager.registerUnit(
 				BuilderManager.getAllUnitBuilders().get(set.actual)
 				.build(f, coord.get3D(0), MyRandom.between(-Angle.FLAT, Angle.FLAT)));
 	}
 
 	private void remove() {
-		if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
-			Unit u = ArmyManager.getUnit(manager.getPointedSpatialEntityId());
+		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
+			Unit u = ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
 			if (u != null) {
-				ModelManager.getBattlefield().getEngagement().removeUnit(u);
+				ArmyManager.unregisterUnit(u);
 			}
 		}
 	}
@@ -104,8 +105,8 @@ public class UnitTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualUnit = null;
-			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
-				Unit u = ArmyManager.getUnit(manager.getPointedSpatialEntityId());
+			if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
+				Unit u = ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
 				if (u != null) {
 					actualUnit = u;
 					moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
@@ -121,8 +122,8 @@ public class UnitTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualUnit = null;
-			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
-				Unit u = ArmyManager.getUnit(manager.getPointedSpatialEntityId());
+			if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
+				Unit u = ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
 				if (u != null) {
 					actualUnit = u;
 				}

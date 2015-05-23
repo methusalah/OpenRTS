@@ -27,7 +27,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class Unit extends Hiker implements EffectSource, EffectTarget {
 
-	public enum State {
+	public enum STATE {
 		MOVING, AIMING, IDLING, DESTROYED, STUCK
 	};
 
@@ -44,7 +44,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	public Faction faction;
 	public ArrayList<Unit> group = new ArrayList<>();
 	public int health;
-	public State state = State.IDLING;
+	public STATE state = STATE.IDLING;
 	public boolean selected = false;
 
 	public Unit(double radius, double speed, double mass, Point3D pos, double yaw, MoverBuilder moverBuilder, String UIName, String BuilderID, String race,
@@ -108,7 +108,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
 	protected boolean isMoving() {
-		return state == State.MOVING;
+		return state == STATE.MOVING;
 	}
 
 	protected void setYaw(double yaw) {
@@ -116,7 +116,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
 	public void idle() {
-		state = State.IDLING;
+		state = STATE.IDLING;
 	}
 
 	private void findNearbyMovers() {
@@ -156,7 +156,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
 	private void destroy() {
-		state = State.DESTROYED;
+		state = STATE.DESTROYED;
 		actor.onMove(false);
 		actor.onAim(false);
 		actor.onWait(false);
@@ -165,12 +165,12 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
 	public void removeFromBattlefield() {
-		state = State.DESTROYED;
+		state = STATE.DESTROYED;
 		actor.stopActingAndChildren();
 	}
 
 	public boolean destroyed() {
-		return state == State.DESTROYED;
+		return state == STATE.DESTROYED;
 	}
 
 	public double getHealthRate() {

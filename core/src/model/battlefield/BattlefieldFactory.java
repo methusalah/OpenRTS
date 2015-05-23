@@ -71,37 +71,37 @@ public class BattlefieldFactory {
 	}
 
 	public Battlefield load(File file) {
-		Battlefield res = null;
+		Battlefield bField = null;
 
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
 			Serializer serializer = new Persister();
-			res = serializer.read(Battlefield.class, file);
-			res.setFileName(file.getCanonicalPath());
+			bField = serializer.read(Battlefield.class, file);
+			bField.setFileName(file.getCanonicalPath());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
-		if (res == null) {
+		if (bField == null) {
 			LogUtil.logger.info("Load failed");
 			return null;
 		}
 
 		LogUtil.logger.info("   builders");
-		BuilderManager.getMapStyleBuilder(res.getMap().mapStyleID).build(res.getMap());
+		BuilderManager.getMapStyleBuilder(bField.getMap().mapStyleID).build(bField.getMap());
 
 		LogUtil.logger.info("   tiles' links");
-		linkTiles(res.getMap());
+		linkTiles(bField.getMap());
 
 		LogUtil.logger.info("   ramps");
-		for (Ramp r : res.getMap().ramps) {
-			r.connect(res.getMap());
+		for (Ramp r : bField.getMap().ramps) {
+			r.connect(bField.getMap());
 		}
 
-		for (Tile t : res.getMap().getTiles()) {
+		for (Tile t : bField.getMap().getTiles()) {
 			int minLevel = t.level;
 			int maxLevel = t.level;
-			for (Tile n : res.getMap().get8Around(t)) {
+			for (Tile n : bField.getMap().get8Around(t)) {
 				maxLevel = Math.max(maxLevel, n.level);
 			}
 			if (minLevel != maxLevel) {
@@ -110,7 +110,7 @@ public class BattlefieldFactory {
 		}
 
 		LogUtil.logger.info("   cliffs' connexions");
-		for (Tile t : res.getMap().getTiles()) {
+		for (Tile t : bField.getMap().getTiles()) {
 			for (Cliff c : t.getCliffs()) {
 				c.connect();
 			}
@@ -118,7 +118,7 @@ public class BattlefieldFactory {
 
 		int i = 0;
 		LogUtil.logger.info("   cliffs' shapes");
-		for (Tile t : res.getMap().getTiles()) {
+		for (Tile t : bField.getMap().getTiles()) {
 			for (Cliff c : t.getCliffs()) {
 				BuilderManager.getCliffShapeBuilder(t.cliffShapeID).build(c);
 				i++;
@@ -127,18 +127,18 @@ public class BattlefieldFactory {
 		LogUtil.logger.info("   cliffs' shapes " + i);
 
 		ModelManager.getBattlefield().buildParcels();
-		ModelManager.setBattlefield(res);
-		res.getMap().resetTrinkets();
-		res.getEngagement().resetEngagement();
+		ModelManager.setBattlefield(bField);
+		bField.getMap().resetTrinkets();
+		bField.getEngagement().reset();
 
 		LogUtil.logger.info("   texture atlas");
-		res.getMap().atlas.loadFromFile(res.getFileName());
+		bField.getMap().atlas.loadFromFile(bField.getFileName());
 		LogUtil.logger.info("Loading done.");
-		return res;
+		return bField;
 	}
 
 	public void save(Battlefield battlefield) {
-		battlefield.getEngagement().saveEngagement();
+		battlefield.getEngagement().save();
 		battlefield.getMap().saveTrinkets();
 		Serializer serializer = new Persister();
 		try {

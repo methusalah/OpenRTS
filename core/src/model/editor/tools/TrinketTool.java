@@ -8,6 +8,7 @@ import geometry.math.Angle;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.EntityManager;
 import model.ModelManager;
@@ -31,9 +32,9 @@ public class TrinketTool extends Tool {
 
 	double angle = 0;
 
-	public TrinketTool(ToolManager manager) {
-		super(manager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
-		ArrayList<String> builderIDs = new ArrayList<>();
+	public TrinketTool() {
+		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
+		List<String> builderIDs = new ArrayList<>();
 		for (TrinketBuilder b : BuilderManager.getAllEditableTrinketBuilders()) {
 			builderIDs.add(b.getId());
 		}
@@ -86,9 +87,9 @@ public class TrinketTool extends Tool {
 
 	private void remove() {
 		Trinket toRemove = null;
-		if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
+		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
 			for (Trinket t : ModelManager.getBattlefield().getMap().trinkets) {
-				if (t.getId() == manager.getPointedSpatialEntityId()) {
+				if (t.getId() == ToolManager.getPointedSpatialEntityId()) {
 					toRemove = t;
 					break;
 				}
@@ -104,9 +105,9 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = null;
-			if (EntityManager.isValidId(manager.getPointedSpatialEntityId())) {
+			if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
 				for (Trinket t : ModelManager.getBattlefield().getMap().trinkets) {
-					if (t.getId() == manager.getPointedSpatialEntityId()) {
+					if (t.getId() == ToolManager.getPointedSpatialEntityId()) {
 						actualTrinket = t;
 						moveOffset = pencil.getCoord().getSubtraction(t.pos.get2D());
 						break;
@@ -127,9 +128,9 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = null;
-			if (EntityManager.isValidId((manager.getPointedSpatialEntityId()))) {
+			if (EntityManager.isValidId((ToolManager.getPointedSpatialEntityId()))) {
 				for (Trinket t : ModelManager.getBattlefield().getMap().trinkets) {
-					if (t.getId() == manager.getPointedSpatialEntityId()) {
+					if (t.getId() == ToolManager.getPointedSpatialEntityId()) {
 						actualTrinket = t;
 						break;
 					}

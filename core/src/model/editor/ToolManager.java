@@ -48,12 +48,16 @@ public class ToolManager {
 	private static ToolManager instance = new ToolManager();
 
 	private ToolManager() {
-		setHeightTool(new HeightTool(this));
-		setCliffTool(new CliffTool(this));
-		setAtlasTool(new AtlasTool(this));
-		setRampTool(new RampTool(this));
-		unitTool = new UnitTool(this);
-		trinketTool = new TrinketTool(this);
+
+	}
+
+	static {
+		setHeightTool(new HeightTool());
+		setCliffTool(new CliffTool());
+		setAtlasTool(new AtlasTool());
+		setRampTool(new RampTool());
+		unitTool = new UnitTool();
+		trinketTool = new TrinketTool();
 
 		actualTool = getCliffTool();
 	}
@@ -129,7 +133,7 @@ public class ToolManager {
 		}
 	}
 
-	public void updateTiles(List<Tile> tiles) {
+	public static void updateTiles(List<Tile> tiles) {
 		List<Tile> extended = getExtendedZone(tiles);
 
 		for (Tile t : extended) {
@@ -162,17 +166,17 @@ public class ToolManager {
 		updateParcelsForExtended(tiles);
 	}
 
-	public void updateParcelsForExtended(List<Tile> tiles) {
+	public static void updateParcelsForExtended(List<Tile> tiles) {
 		List<ParcelMesh> toUpdate = ModelManager.getBattlefield().getParcelManager().updateParcelsFor(tiles);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 		// notifyListeners("parcels", toUpdate);
 	}
 
-	public void updateParcels(List<Tile> tiles) {
+	public static void updateParcels(List<Tile> tiles) {
 		updateParcelsForExtended(getExtendedZone(tiles));
 	}
 
-	private List<Tile> getExtendedZone(List<Tile> tiles) {
+	private static List<Tile> getExtendedZone(List<Tile> tiles) {
 		List<Tile> res = new ArrayList<>();
 		res.addAll(tiles);
 		for (Tile t : tiles) {
@@ -185,7 +189,7 @@ public class ToolManager {
 		return res;
 	}
 
-	public void updateGroundAtlas() {
+	public static void updateGroundAtlas() {
 		EventManager.post(new UpdateGroundAtlasEvent());
 		// notifyListeners("ground", new ArrayList<Tile>());
 	}
@@ -214,7 +218,7 @@ public class ToolManager {
 		ToolManager.pointedSpatialLabel = pointedSpatialLabel;
 	}
 
-	public long getPointedSpatialEntityId() {
+	public static long getPointedSpatialEntityId() {
 		return pointedSpatialEntityId;
 	}
 
