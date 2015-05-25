@@ -78,13 +78,14 @@ public class BattlefieldFactory {
 
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
-
+			// FIXME : this is the new JSON importer
 			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-			Battlefield user = mapper.readValue(new File("/Users/wuendsch/git/OpenRTS/core/assets/maps/map01.json"), Battlefield.class);
+			bField = mapper.readValue(new File("/Users/wuendsch/git/OpenRTS/core/assets/maps/map01.json"), Battlefield.class);
 
-			Serializer serializer = new Persister();
-			bField = serializer.read(Battlefield.class, file);
+			// Serializer serializer = new Persister();
+			// bField = serializer.read(Battlefield.class, file);
 			bField.setFileName(file.getCanonicalPath());
+			ModelManager.setBattlefield(bField);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -133,8 +134,9 @@ public class BattlefieldFactory {
 		}
 		LogUtil.logger.info("   cliffs' shapes " + i);
 
+
 		ModelManager.getBattlefield().buildParcels();
-		ModelManager.setBattlefield(bField);
+
 		bField.getMap().resetTrinkets();
 		bField.getEngagement().reset();
 

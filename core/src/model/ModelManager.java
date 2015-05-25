@@ -3,11 +3,6 @@ package model;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import geometry.tools.LogUtil;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
 import model.builders.definitions.DefParser;
@@ -26,7 +21,7 @@ public class ModelManager {
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
 
-	private static List<ActionListener> listeners = new ArrayList<>();
+	// private static List<ActionListener> listeners = new ArrayList<>();
 
 	static {
 		parser = new DefParser(CONFIG_PATH);

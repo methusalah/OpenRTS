@@ -135,7 +135,7 @@ public class MapView {
 
 	@Subscribe
 	public void actionPerformed(InputEvent e) {
-		// reset();
+		reset();
 	}
 
 }

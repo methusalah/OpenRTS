@@ -54,8 +54,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	protected BulletAppState bulletAppState;
 
-
-
 	private class AppActionListener implements ActionListener {
 		@Override
 		public void onAction(String name, boolean value, float tpf) {
@@ -63,28 +61,27 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 				return;
 			}
 
-			if (name.equals("SIMPLEAPP_Exit")){
+			if (name.equals("SIMPLEAPP_Exit")) {
 				stop();
-			}else if (name.equals("SIMPLEAPP_CameraPos")){
-				if (cam != null){
+			} else if (name.equals("SIMPLEAPP_CameraPos")) {
+				if (cam != null) {
 					Vector3f loc = cam.getLocation();
 					Quaternion rot = cam.getRotation();
-					System.out.println("Camera Position: ("+
-							loc.x+", "+loc.y+", "+loc.z+")");
-					System.out.println("Camera Rotation: "+rot);
-					System.out.println("Camera Direction: "+cam.getDirection());
+					System.out.println("Camera Position: (" + loc.x + ", " + loc.y + ", " + loc.z + ")");
+					System.out.println("Camera Rotation: " + rot);
+					System.out.println("Camera Direction: " + cam.getDirection());
 				}
-			}else if (name.equals("SIMPLEAPP_Memory")){
+			} else if (name.equals("SIMPLEAPP_Memory")) {
 				BufferUtils.printCurrentDirectMemory(null);
 			}
 		}
 	}
 
 	@Override
-	public void start(){
+	public void start() {
 		// set some default settings in-case
 		// settings dialog is not shown
-		if (settings == null){
+		if (settings == null) {
 			setSettings(new AppSettings(true));
 			settings.setWidth(1024);
 			settings.setHeight(768);
@@ -110,7 +107,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		return rootNode;
 	}
 
-	private void initTexts(){
+	private void initTexts() {
 		BitmapFont guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
 		fpsText = new BitmapText(guiFont, false);
 		fpsText.setLocalTranslation(0, fpsText.getLineHeight(), 0);
@@ -121,16 +118,16 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		guiNode.attachChild(debugger.getNode());
 	}
 
-	public void loadStatsView(){
+	public void loadStatsView() {
 		statsView = new StatsView("Statistics View", assetManager, renderer.getStatistics());
-		//         move it up so it appears above fps text
+		// move it up so it appears above fps text
 		statsView.setLocalTranslation(0, fpsText.getLineHeight(), 0);
 		guiNode.attachChild(statsView);
 	}
 
 	@Override
-	public void initialize(){
-		bulletAppState=new BulletAppState();
+	public void initialize() {
+		bulletAppState = new BulletAppState();
 		bulletAppState.startPhysics();
 
 		super.initialize();
@@ -142,7 +139,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		viewPort.attachScene(rootNode);
 		guiViewPort.attachScene(guiNode);
 
-		if (inputManager != null){
+		if (inputManager != null) {
 			flyCam = new AzertyFlyByCamera(cam);
 			flyCam.setMoveSpeed(1f);
 			flyCam.registerWithInput(inputManager);
@@ -153,8 +150,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 			inputManager.addMapping("SIMPLEAPP_CameraPos", new KeyTrigger(KeyInput.KEY_C));
 			inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
-			inputManager.addListener(actionListener, "SIMPLEAPP_Exit",
-					"SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
+			inputManager.addListener(actionListener, "SIMPLEAPP_Exit", "SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
 		}
 
 		// call user code
@@ -174,8 +170,8 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 		secondCounter += timer.getTimePerFrame();
 		int fps = (int) timer.getFrameRate();
-		if (secondCounter >= 1.0f){
-			fpsText.setText("Frames per second: "+fps);
+		if (secondCounter >= 1.0f) {
+			fpsText.setText("Frames per second: " + fps);
 			secondCounter = 0.0f;
 		}
 
@@ -201,13 +197,13 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	public abstract void simpleInitApp();
 
-	public void simpleUpdate(float tpf){
+	public void simpleUpdate(float tpf) {
 	}
 
-	public void simpleRender(RenderManager rm){
+	public void simpleRender(RenderManager rm) {
 	}
 
-	public void simplePhysicsUpdate(float tpf){
+	public void simplePhysicsUpdate(float tpf) {
 	}
 
 	@Override
@@ -215,7 +211,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		simplePhysicsUpdate(f);
 	}
 
-	public PhysicsSpace getPhysicsSpace(){
+	public PhysicsSpace getPhysicsSpace() {
 		return bulletAppState.getPhysicsSpace();
 	}
 
@@ -244,13 +240,12 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		appInstance.start();
 	}
 
-	public void changeSettings(){
+	public void changeSettings() {
 		JmeSystem.showSettingsDialog(settings, false);
-		if(settings.isFullscreen()){
+		if (settings.isFullscreen()) {
 			LogUtil.logger.info("Fullscreen not yet supported");
 			settings.setFullscreen(false);
 		}
-
 
 		try {
 			settings.save("openrts.example");
@@ -273,6 +268,5 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	public void stopClient() {
 		ClientManager.stopClient();
 	}
-
 
 }
