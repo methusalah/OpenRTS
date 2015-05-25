@@ -78,10 +78,11 @@ public class BattlefieldFactory {
 
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
-			// FIXME : this is the new JSON importer
+			// this is the new JSON importer
 			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-			bField = mapper.readValue(new File("/Users/wuendsch/git/OpenRTS/core/assets/maps/map01.json"), Battlefield.class);
+			bField = mapper.readValue(file, Battlefield.class);
 
+			// FIXME: remove the old parser
 			// Serializer serializer = new Persister();
 			// bField = serializer.read(Battlefield.class, file);
 			bField.setFileName(file.getCanonicalPath());

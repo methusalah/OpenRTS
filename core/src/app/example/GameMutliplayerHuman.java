@@ -4,7 +4,7 @@ import app.OpenRTSApplication;
 
 public class GameMutliplayerHuman extends Game {
 
-	protected static String mapfilename = "/Users/wuendsch/git/OpenRTS/core/assets/maps/map02.btf";
+	protected static String mapfilename = "assets/maps/map01.json";
 
 	public static void main(String[] args) {
 

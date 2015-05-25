@@ -4,7 +4,7 @@ import app.OpenRTSApplication;
 
 public class GameMutliplayerAlien extends Game {
 
-	protected static String mapfilename = "assets/maps/map02.btf";
+	protected static String mapfilename = "assets/maps/map01.json";
 
 	public static void main(String[] args) {
 
