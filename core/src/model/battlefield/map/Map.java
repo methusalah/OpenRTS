@@ -11,37 +11,37 @@ import java.util.List;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Contains everything to set up a terrain and explore it. Map is mainly : - a tile based grid with relief and cliffs - a texture atlas to paint on the ground -
  * a list of trinkets Also contains methods and fields dedicated to serialization/deserialization.
  */
-@Root
 public class Map {
 
+	@JsonIgnore
 	public MapStyle style = new MapStyle();
 
-	@Element
+	@JsonProperty
 	public String mapStyleID;
 
-	@ElementList
+	@JsonProperty
 	public List<Tile> tiles = new ArrayList<>();
-	@ElementList
+	@JsonProperty
 	public List<Ramp> ramps = new ArrayList<>();
-	@ElementList
-	public List<SerializableTrinket> serializableTrinkets = new ArrayList<>();
+	@JsonProperty
+	public List<SerializableTrinket> serializableTrinkets = new ArrayList<SerializableTrinket>();
 
+	@JsonIgnore
 	public List<Trinket> trinkets = new ArrayList<>();
 
-	@Element
+	@JsonProperty
 	public Atlas atlas;
 
-	@Element
+	@JsonProperty
 	public int width;
-	@Element
+	@JsonProperty
 	public int height;
 
 	public Map(int width, int height) {
@@ -337,5 +337,6 @@ public class Map {
 	public List<Ramp> getRamps() {
 		return ramps;
 	}
+
 
 }

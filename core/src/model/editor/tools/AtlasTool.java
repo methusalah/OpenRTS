@@ -99,8 +99,8 @@ public class AtlasTool extends Tool {
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<DoubleMap> availableLayers = new ArrayList<>();
-		for (DoubleMap l : atlas.layers) {
-			if (atlas.layers.indexOf(l) == layer) {
+		for (DoubleMap l : atlas.getLayers()) {
+			if (atlas.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= add(l, x, y, attenuatedInc);
 			} else {
 				availableLayers.add(l);
@@ -138,15 +138,15 @@ public class AtlasTool extends Tool {
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<DoubleMap> availableLayers = new ArrayList<>();
-		for (DoubleMap l : atlas.layers) {
-			if (atlas.layers.indexOf(l) == layer) {
+		for (DoubleMap l : atlas.getLayers()) {
+			if (atlas.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= subtract(l, x, y, attenuatedInc);
 			} else if (l.get(x, y) > 0) {
 				availableLayers.add(l);
 			}
 		}
 		if (availableLayers.isEmpty()) {
-			availableLayers.add(atlas.layers.get(0));
+			availableLayers.add(atlas.getLayers().get(0));
 		}
 
 		int secur = -1;
@@ -172,13 +172,13 @@ public class AtlasTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			autoLayer = 0;
-			Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height)
+			Point2D center = pencil.getCoord().getMult(atlas.getWidth(), atlas.getHeight())
 					.getDivision(ModelManager.getBattlefield().getMap().width, ModelManager.getBattlefield().getMap().height);
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
-			for (DoubleMap l : atlas.layers) {
-				if (l.get(centerX, centerY) > atlas.layers.get(autoLayer).get(centerX, centerY)) {
-					autoLayer = atlas.layers.indexOf(l);
+			for (DoubleMap l : atlas.getLayers()) {
+				if (l.get(centerX, centerY) > atlas.getLayers().get(autoLayer).get(centerX, centerY)) {
+					autoLayer = atlas.getLayers().indexOf(l);
 				}
 			}
 		}
@@ -194,18 +194,16 @@ public class AtlasTool extends Tool {
 			double attenuatedInc = increment
 					* pencil.strength
 					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().width,
-							ModelManager.getBattlefield().getMap().height)
-							.getDivision(
-									atlas.width, atlas.height));
+							ModelManager.getBattlefield().getMap().height).getDivision(atlas.getWidth(), atlas.getHeight()));
 
 			int activeLayerCount = 0;
-			for (DoubleMap l : atlas.layers) {
+			for (DoubleMap l : atlas.getLayers()) {
 				if (l.get(x, y) != 0) {
 					activeLayerCount++;
 				}
 			}
 			double targetVal = 255 / activeLayerCount;
-			for (DoubleMap l : atlas.layers) {
+			for (DoubleMap l : atlas.getLayers()) {
 				if (l.get(x, y) != 0) {
 					double diff = targetVal - l.get(x, y);
 					if (diff < 0) {
@@ -223,13 +221,13 @@ public class AtlasTool extends Tool {
 	private void updateAtlasPixel(int x, int y) {
 		for (int i = 0; i < 2; i++) {
 			ByteBuffer buffer = atlas.getBuffer(i);
-			int r = (int) Math.round(atlas.layers.get(i).get(x, y)) << 24;
-			int g = (int) Math.round(atlas.layers.get(i + 1).get(x, y)) << 16;
-			int b = (int) Math.round(atlas.layers.get(i + 2).get(x, y)) << 8;
-			int a = (int) Math.round(atlas.layers.get(i + 3).get(x, y));
-			buffer.asIntBuffer().put(y * atlas.width + x, r + g + b + a);
+			int r = (int) Math.round(atlas.getLayers().get(i).get(x, y)) << 24;
+			int g = (int) Math.round(atlas.getLayers().get(i + 1).get(x, y)) << 16;
+			int b = (int) Math.round(atlas.getLayers().get(i + 2).get(x, y)) << 8;
+			int a = (int) Math.round(atlas.getLayers().get(i + 3).get(x, y));
+			buffer.asIntBuffer().put(y * atlas.getWidth() + x, r + g + b + a);
 		}
-		atlas.toUpdate = true;
+		atlas.setToUpdate(true);
 	}
 
 	private double add(DoubleMap map, int x, int y, double val) {

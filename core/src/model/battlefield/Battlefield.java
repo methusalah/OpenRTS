@@ -6,8 +6,8 @@ import model.battlefield.lighting.SunLight;
 import model.battlefield.map.Map;
 import model.battlefield.map.parcel.ParcelManager;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This class simply contains all necessary elements to set a complete battlefield :
@@ -17,30 +17,34 @@ import org.simpleframework.xml.Root;
  * - a pool of playing actors
  *
  */
-@Root
+
 public class Battlefield {
 
-	@Element
+	@JsonProperty
 	private Map map;
-	@Element
+	@JsonProperty
 	private Engagement engagement;
 
+	@JsonIgnore
 	private String fileName;
 
+	@JsonIgnore
 	private ParcelManager parcelManager;
-	private SunLight sunLight;
-	private ActorPool actorPool;
+	@JsonIgnore
+	private SunLight sunLight = new SunLight();
+	@JsonIgnore
+	private ActorPool actorPool = new ActorPool();
 
 	public Battlefield() {
 
 	}
 
-	public Battlefield(@Element(name="map")Map unfinishedMap, @Element(name="engagement")Engagement engagement){
-		this.map = unfinishedMap;
-		this.engagement = engagement;
-		sunLight = new SunLight();
-		actorPool = new ActorPool();
-	}
+	// public Battlefield(@Element(name="map")Map unfinishedMap, @Element(name="engagement")Engagement engagement){
+	// this.map = unfinishedMap;
+	// this.engagement = engagement;
+	// sunLight = new SunLight();
+	// actorPool = new ActorPool();
+	// }
 
 	public Battlefield(Map map) {
 		this.map = map;

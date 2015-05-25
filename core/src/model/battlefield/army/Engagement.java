@@ -10,18 +10,19 @@ import model.battlefield.army.components.SerializableUnit;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Stores units and factions, and provide a serializable version of the initial situation
  */
-@Root
-public class Engagement {
-	public List<Faction> factions = new ArrayList<>();
 
-	@ElementList
-	public List<SerializableUnit> initialEngagement = new ArrayList<>();
+public class Engagement {
+	@JsonIgnore
+	private List<Faction> factions = new ArrayList<>();
+
+	@JsonProperty
+	private List<SerializableUnit> initialEngagement = new ArrayList<>();
 
 	public Engagement() {
 		Faction f1 = new Faction(Color.red, "1");
@@ -45,5 +46,9 @@ public class Engagement {
 		for (Unit u : ArmyManager.getUnits()) {
 			initialEngagement.add(new SerializableUnit(u));
 		}
+	}
+
+	public List<Faction> getFactions() {
+		return factions;
 	}
 }

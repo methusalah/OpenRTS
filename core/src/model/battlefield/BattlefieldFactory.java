@@ -20,6 +20,8 @@ import model.builders.definitions.BuilderManager;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * this class serializes and deserializes a battlefield into and from files everything is translated in and from XML format, except for the texture atlas of the
  * ground (buffer array)
@@ -73,8 +75,13 @@ public class BattlefieldFactory {
 	public Battlefield load(File file) {
 		Battlefield bField = null;
 
+
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
+
+			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+			Battlefield user = mapper.readValue(new File("/Users/wuendsch/git/OpenRTS/core/assets/maps/map01.json"), Battlefield.class);
+
 			Serializer serializer = new Persister();
 			bField = serializer.read(Battlefield.class, file);
 			bField.setFileName(file.getCanonicalPath());

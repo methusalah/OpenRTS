@@ -7,8 +7,7 @@ import java.util.List;
 import model.battlefield.warfare.Faction;
 import model.builders.definitions.BuilderManager;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Stores the minimal information needed to define a unit at this initial position.
@@ -16,16 +15,19 @@ import org.simpleframework.xml.Root;
  * For serialisation/deserialization purpose only.
  *
  */
-@Root
 public class SerializableUnit {
-	@Element
-	public final String builderID;
-	@Element
-	public final String factionName;
-	@Element
-	public Point3D pos;
-	@Element
-	public double yaw;
+	@JsonProperty
+	private String builderID;
+	@JsonProperty
+	private String factionName;
+	@JsonProperty
+	private Point3D pos;
+	@JsonProperty
+	private double yaw;
+
+	public SerializableUnit() {
+
+	}
 
 	public SerializableUnit(Unit u) {
 		builderID = u.builderID;
@@ -33,15 +35,16 @@ public class SerializableUnit {
 		pos = u.pos;
 		yaw = u.yaw;
 	}
-	public SerializableUnit(@Element(name="builderID")String builderID,
-			@Element(name="factionName")String factionName,
-			@Element(name="pos")Point3D pos,
-			@Element(name="yaw")double yaw) {
-		this.builderID = builderID;
-		this.factionName = factionName;
-		this.pos = pos;
-		this.yaw = yaw;
-	}
+
+	// public SerializableUnit(@Element(name="builderID")String builderID,
+	// @Element(name="factionName")String factionName,
+	// @Element(name="pos")Point3D pos,
+	// @Element(name="yaw")double yaw) {
+	// this.builderID = builderID;
+	// this.factionName = factionName;
+	// this.pos = pos;
+	// this.yaw = yaw;
+	// }
 
 	public Unit getUnit(List<Faction> factions) {
 		for(Faction f : factions) {

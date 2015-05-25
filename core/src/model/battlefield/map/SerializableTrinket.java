@@ -3,21 +3,23 @@ package model.battlefield.map;
 import geometry.geom3d.Point3D;
 import model.builders.definitions.BuilderManager;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Root
 public class SerializableTrinket {
-	@Element
-	private final String builderID;
-	@Element
+	@JsonProperty
+	private String builderID;
+	@JsonProperty
 	private Point3D pos;
-	@Element
+	@JsonProperty
 	private double yaw;
-	@Element
+	@JsonProperty
 	private double scaleX, scaleY, scaleZ;
-	@Element
+	@JsonProperty
 	private String modelPath;
+
+	public SerializableTrinket() {
+
+	}
 
 	public SerializableTrinket(Trinket t) {
 		builderID = t.builderID;
@@ -27,21 +29,6 @@ public class SerializableTrinket {
 		scaleY = t.scaleY;
 		scaleZ = t.scaleZ;
 		modelPath = t.modelPath;
-	}
-	public SerializableTrinket(@Element(name="builderID")String builderID,
-			@Element(name="pos")Point3D pos,
-			@Element(name="yaw")double yaw,
-			@Element(name="scaleX")double scaleX,
-			@Element(name="scaleY")double scaleY,
-			@Element(name="scaleZ")double scaleZ,
-			@Element(name="modelPath")String modelPath) {
-		this.builderID = builderID;
-		this.pos = pos;
-		this.yaw = yaw;
-		this.scaleX = scaleX;
-		this.scaleY = scaleY;
-		this.scaleZ = scaleZ;
-		this.modelPath = modelPath;
 	}
 
 	public Trinket getTrinket() {

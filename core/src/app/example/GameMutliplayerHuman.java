@@ -23,7 +23,7 @@ public class GameMutliplayerHuman extends Game {
 
 		if (!mapfilename.isEmpty()) {
 			ModelManager.loadBattlefield(mapfilename);
-			faction = ModelManager.getBattlefield().getEngagement().factions.get(0);
+			faction = ModelManager.getBattlefield().getEngagement().getFactions().get(0);
 		}
 	}
 }

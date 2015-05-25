@@ -7,36 +7,44 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Stores and manage layers of texture to paint on the ground.
- * 
+ *
  * Atlas itself doesn't know the textures, and provides only alpha channels used
  * by the view to draw and blend textures on a multiple material.
- * 
+ *
  * This class contains also methods for serialization/deserialization by Byte, has the data may
  * be huge in a more common XML format.
- * 
+ *
  */
-@Root
 public class Atlas {
 	private static int LAYER_COUNT = 8;
 	private static int RESOLUTION_RATIO = 8;
 
-    @Element
+	@JsonProperty
 	private int mapWidth, mapHeight;
 
-    public int width, height;
-    public List<DoubleMap> layers = new ArrayList<>();
-    List<ByteBuffer> buffers = new ArrayList<>();
+	@JsonIgnore
+	private int width, height;
 
-    public boolean toUpdate = false;
+	@JsonIgnore
+	private List<DoubleMap> layers = new ArrayList<>();
+	@JsonIgnore
+	List<ByteBuffer> buffers = new ArrayList<>();
+	@JsonIgnore
+	private boolean toUpdate = false;
 
-    public Atlas(@Element(name="mapWidth")int mapWidth, @Element(name="mapHeight")int mapHeight) {
-    	this.mapWidth = mapWidth;
-    	this.mapHeight = mapHeight;
+	public Atlas() {
+
+	}
+
+
+	public Atlas(int mapWidth, int mapHeight) {
+		this.mapWidth = mapWidth;
+		this.mapHeight = mapHeight;
 
 
 		width = mapWidth * RESOLUTION_RATIO;
@@ -121,6 +129,26 @@ public class Atlas {
 		buffers.add(buildBuffer(0));
 		buffers.add(buildBuffer(1));
 		toUpdate = true;
+	}
+
+	public boolean isToUpdate() {
+		return toUpdate;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public List<DoubleMap> getLayers() {
+		return layers;
+	}
+
+	public void setToUpdate(boolean toUpdate) {
+		this.toUpdate = toUpdate;
 	}
 
 }
