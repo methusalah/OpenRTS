@@ -38,7 +38,7 @@ public class Tile {
 	@JsonProperty
 	public double elevation = 0;
 	@JsonProperty
-	public String cliffShapeID = "";
+	private String cliffShapeID = "";
 
 	@JsonIgnore
 	private Cliff cliff0;
@@ -70,7 +70,7 @@ public class Tile {
 		this.y = y;
 		this.level = level;
 		this.elevation = elevation;
-		this.cliffShapeID = cliffShapeID;
+		this.setCliffShapeID(cliffShapeID);
 	}
 
 	public int getNeighborsMaxLevel() {
@@ -248,5 +248,13 @@ public class Tile {
 		}
 		return res;
 
+	}
+
+	public String getCliffShapeID() {
+		return cliffShapeID;
+	}
+
+	public void setCliffShapeID(String cliffShapeID) {
+		this.cliffShapeID = cliffShapeID;
 	}
 }
