@@ -136,7 +136,7 @@ public class BattlefieldFactory {
 		LogUtil.logger.info("   cliffs' shapes " + i);
 
 
-		ModelManager.getBattlefield().buildParcels();
+		bField.buildParcels();
 
 		bField.getMap().resetTrinkets();
 		bField.getEngagement().reset();

@@ -21,9 +21,9 @@ public class EditorView extends MapView {
 	@Override
 	public void reset() {
 		super.reset();
-		rootNode.detachChild(editorRend.mainNode);
+		getRootNode().detachChild(editorRend.mainNode);
 		editorRend = new EditorRenderer(this, materialManager);
-		rootNode.attachChild(editorRend.mainNode);
+		getRootNode().attachChild(editorRend.mainNode);
 	}
 
 }

@@ -44,11 +44,11 @@ public class BattlefieldController extends Controller {
 			view.drawSelectionArea(selStart, p);
 			((BattlefieldInputInterpreter)inputInterpreter).updateSelection();
 		} else {
-			view.guiNode.detachAllChildren();
+			view.getGuiNode().detachAllChildren();
 		}
 
 		// update selectables
-		CommandManager.updateSelectables(spatialSelector.getCenterViewCoord(view.rootNode));
+		CommandManager.updateSelectables(spatialSelector.getCenterViewCoord(view.getRootNode()));
 		guiController.update();
 
 		// udpdate army
@@ -66,7 +66,7 @@ public class BattlefieldController extends Controller {
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
 	public void togglePause(){
 		paused = !paused;
-		view.actorManager.pause(paused);
+		view.getActorManager().pause(paused);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class Game extends OpenRTSApplication {
 		stateManager.attach(fieldCtrl);
 		fieldCtrl.setEnabled(true);
 
-		view.mapRend.renderTiles();
+		view.getMapRend().renderTiles();
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}

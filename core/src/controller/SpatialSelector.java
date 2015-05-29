@@ -35,7 +35,7 @@ public class SpatialSelector {
 		} else {
 			r = getMouseRay();
 		}
-		return view.pointer.getPointedGeometry(n, r);
+		return view.getPointer().getPointedGeometry(n, r);
 	}
 
 	public Point2D getCoord(Node n) {
@@ -45,11 +45,11 @@ public class SpatialSelector {
 		} else {
 			r = getMouseRay();
 		}
-		return view.pointer.getPointedCoord(n, r);
+		return view.getPointer().getPointedCoord(n, r);
 	}
 
 	public Point2D getCenterViewCoord(Node n) {
-		return view.pointer.getPointedCoord(n, getCameraRay());
+		return view.getPointer().getPointedCoord(n, getCameraRay());
 	}
 
 	public Point2D getCoord(Node n, Point2D screenCoord) {
@@ -57,7 +57,7 @@ public class SpatialSelector {
 		Vector3f direction = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
-		return view.pointer.getPointedCoord(n, r);
+		return view.getPointer().getPointedCoord(n, r);
 	}
 
 	public Point2D getScreenCoord(Point3D pos) {
@@ -78,7 +78,7 @@ public class SpatialSelector {
 	}
 
 	public String getSpatialLabel() {
-		Spatial s = getGeometry(view.rootNode);
+		Spatial s = getGeometry(view.getRootNode());
 		while (s != null && s.getName() != null) {
 			if (s.getName().startsWith("label")) {
 				return s.getName();
@@ -89,7 +89,7 @@ public class SpatialSelector {
 	}
 
 	public long getEntityId() {
-		Spatial s = getGeometry(view.rootNode);
+		Spatial s = getGeometry(view.getRootNode());
 		while (s != null && s.getName() != null) {
 			Object o = s.getUserData(ModelPerformer.ENTITYID_USERDATA);
 			if (o != null && EntityManager.isValidId((long) o)) {

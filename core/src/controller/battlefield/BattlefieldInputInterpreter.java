@@ -144,7 +144,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord(ctrl.view.rootNode);
+		return ctrl.spatialSelector.getCoord(ctrl.view.getRootNode());
 	}
 
 	private void beginSelection() {

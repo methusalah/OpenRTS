@@ -10,6 +10,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import exception.TechnicalException;
+
 /**
  * Stores and manage layers of texture to paint on the ground.
  *
@@ -107,14 +109,18 @@ public class Atlas {
 		}
 	}
 
+	// TODO: why the complete atlas put into the bytes Array?
 	public void loadFromFile(String fileName) {
 		byte[] bytes = new byte[width * height * LAYER_COUNT];
+		if (bytes.length == 0) {
+			throw new TechnicalException("Atlas couldn't load correctly: the readable bytes must not be empty");
+		}
 		try {
 			FileInputStream fis = new FileInputStream(fileName + "atlas");
 			fis.read(bytes, 0, width * height * LAYER_COUNT);
 			fis.close();
 		} catch (IOException e) {
-			System.out.println("IOException : " + e);
+			throw new TechnicalException("Atlas couldn't load correctly:" + fileName + "atlas ", e);
 		}
 		int index = 0;
 		layers.clear();
@@ -149,6 +155,18 @@ public class Atlas {
 
 	public void setToUpdate(boolean toUpdate) {
 		this.toUpdate = toUpdate;
+	}
+
+	@JsonProperty("mapWidth")
+	public void setMapWidth(int mapWidth) {
+		width = mapWidth * RESOLUTION_RATIO;
+		this.mapWidth = mapWidth;
+	}
+
+	@JsonProperty("mapHeight")
+	public void setMapHeight(int mapHeight) {
+		height = mapHeight * RESOLUTION_RATIO;
+		this.mapHeight = mapHeight;
 	}
 
 }

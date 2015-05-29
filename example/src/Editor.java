@@ -38,7 +38,7 @@ public class Editor extends OpenRTSApplication {
 		stateManager.attach(editorCtrl);
 		editorCtrl.setEnabled(true);
 
-		view.mapRend.renderTiles();
+		view.getMapRend().renderTiles();
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}

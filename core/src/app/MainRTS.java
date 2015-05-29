@@ -58,7 +58,7 @@ public class MainRTS extends OpenRTSApplication {
 		stateManager.attach(actualCtrl);
 		actualCtrl.setEnabled(true);
 
-		view.mapRend.renderTiles();
+		view.getMapRend().renderTiles();
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}
@@ -68,7 +68,7 @@ public class MainRTS extends OpenRTSApplication {
 		float maxedTPF = Math.min(tpf, 0.1f);
 		listener.setLocation(cam.getLocation());
 		listener.setRotation(cam.getRotation());
-		view.actorManager.render();
+		view.getActorManager().render();
 		actualCtrl.update(maxedTPF);
 		ModelManager.updateConfigs();
 	}

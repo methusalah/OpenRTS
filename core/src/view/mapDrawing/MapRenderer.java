@@ -207,6 +207,8 @@ public class MapRenderer {
 			case Corner:
 				s.rotate(0, 0, (float) (c.angle));
 				break;
+			default:
+				break;
 		}
 		s.scale(0.005f);
 		s.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);

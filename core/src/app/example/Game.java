@@ -46,7 +46,7 @@ public class Game extends OpenRTSApplication {
 		stateManager.attach(fieldCtrl);
 		fieldCtrl.setEnabled(true);
 
-		view.mapRend.renderTiles();
+		view.getMapRend().renderTiles();
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}
@@ -56,7 +56,7 @@ public class Game extends OpenRTSApplication {
 		float maxedTPF = Math.min(tpf, 0.1f);
 		listener.setLocation(cam.getLocation());
 		listener.setRotation(cam.getRotation());
-		view.actorManager.render();
+		view.getActorManager().render();
 		fieldCtrl.update(maxedTPF);
 		ModelManager.updateConfigs();
 	}

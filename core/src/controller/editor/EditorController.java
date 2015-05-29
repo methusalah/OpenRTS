@@ -51,7 +51,7 @@ public class EditorController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(true);
-		view.rootNode.attachChild(view.editorRend.mainNode);
+		view.getRootNode().attachChild(view.editorRend.mainNode);
 		guiController.activate();
 		ModelManager.getBattlefield().getEngagement().reset();
 	}
@@ -61,7 +61,7 @@ public class EditorController extends Controller {
 		ModelManager.getBattlefield().getEngagement().save();
 		ModelManager.getBattlefield().getMap().prepareForBattle();
 		super.stateDetached(stateManager);
-		view.rootNode.detachChild(view.editorRend.mainNode);
+		view.getRootNode().detachChild(view.editorRend.mainNode);
 	}
 
 }
