@@ -4,6 +4,8 @@
  */
 package event;
 
+import geometry.tools.LogUtil;
+
 import com.google.common.eventbus.EventBus;
 
 public class EventManager {
@@ -11,17 +13,17 @@ public class EventManager {
 	private static final EventBus eventBus = new EventBus();
 
 	public static void post(Event event) {
-		// LogUtil.logger.info("Event posted:" + event);
+		LogUtil.logger.info("Event posted:" + event);
 		eventBus.post(event);
 	}
 
 	public static void register(Object obj) {
-		// LogUtil.logger.info("register for Events:" + obj);
+		LogUtil.logger.info("register for Events:" + obj);
 		eventBus.register(obj);
 	}
 
 	public static void unregister(Object obj) {
-		// LogUtil.logger.info("unregister for Events:" + obj);
+		LogUtil.logger.info("unregister for Events:" + obj);
 		eventBus.unregister(obj);
 	}
 }
