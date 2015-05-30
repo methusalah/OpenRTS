@@ -21,8 +21,6 @@ public class ModelManager {
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
 
-	// private static List<ActionListener> listeners = new ArrayList<>();
-
 	static {
 		parser = new DefParser(CONFIG_PATH);
 
@@ -53,7 +51,7 @@ public class ModelManager {
 	}
 
 	public static void saveBattlefield() {
-		factory.save(getBattlefield());
+		factory.save(battlefield);
 	}
 
 	public static void setNewBattlefield() {
@@ -71,7 +69,7 @@ public class ModelManager {
 
 	public static void reload() {
 		saveBattlefield();
-		Battlefield loadedBattlefield = factory.load(getBattlefield().getFileName());
+		Battlefield loadedBattlefield = factory.load(battlefield.getFileName());
 		setBattlefield(loadedBattlefield);
 	}
 
