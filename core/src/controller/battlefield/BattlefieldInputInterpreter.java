@@ -5,7 +5,6 @@ import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.CommandManager;
 import model.battlefield.army.ArmyManager;
@@ -34,7 +33,6 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
 	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
 
-	public Point2D selectionStart;
 	boolean multipleSelection = false;
 	double dblclicTimer = 0;
 	Point2D dblclicCoord;
@@ -104,12 +102,11 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 						// double clic
 						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
 					} else {
-						// simple clic
-						//						if (!endSelection()) {
-						//							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-						//						}
+						if(!((BattlefieldController) ctrl).isDrawingZone()) {
+							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+						}
 					}
-					selectionStart = null;
+					((BattlefieldController) ctrl).endSelectionZone();
 					dblclicTimer = System.currentTimeMillis();
 					dblclicCoord = getSpatialCoord();
 					break;
@@ -133,7 +130,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					CommandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
-					beginSelection();
+					((BattlefieldController) ctrl).startSelectionZone();
 					break;
 			}
 		}
@@ -141,46 +138,5 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	private Point2D getSpatialCoord() {
 		return ctrl.spatialSelector.getCoord(ctrl.view.getRootNode());
-	}
-
-	private void beginSelection() {
-		selectionStart = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-	}
-
-	public void updateSelection(){
-		Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-		if(selectionEnd.equals(selectionStart) ||
-				selectionEnd.getDistance(selectionStart) < 10){
-			return;
-		}
-		AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
-
-		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
-			if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
-				inSelection.add(u);
-			}
-		}
-		CommandManager.select(inSelection);
-	}
-
-	private boolean endSelection() {
-		Point2D selectionEnd = Translator.toPoint2D(ctrl.inputManager.getCursorPosition());
-		if(selectionEnd.equals(selectionStart) ||
-				selectionEnd.getDistance(selectionStart) < 10){
-			selectionStart = null;
-			return false;
-		}
-		AlignedBoundingBox rect = new AlignedBoundingBox(selectionStart, selectionEnd);
-
-		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
-			if(rect.contains(ctrl.spatialSelector.getScreenCoord(u.getPos()))) {
-				inSelection.add(u);
-			}
-		}
-		CommandManager.select(inSelection);
-		selectionStart = null;
-		return !inSelection.isEmpty();
 	}
 }

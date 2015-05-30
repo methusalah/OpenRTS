@@ -3,9 +3,6 @@
  */
 package model.builders.definitions;
 
-import exception.TechnicalException;
-import geometry.tools.LogUtil;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,6 +27,7 @@ import model.builders.actors.ModelActorBuilder;
 import model.builders.actors.ParticleActorBuilder;
 import model.builders.actors.PhysicActorBuilder;
 import model.builders.actors.SoundActorBuilder;
+import exception.TechnicalException;
 
 /**
  * @author Benoît
@@ -71,8 +69,8 @@ public class BuilderManager {
 		builders.put(MANMADE_FACE, new HashMap<String, Builder>());
 	}
 
+
 	public static void buildLinks() {
-		LogUtil.logger.info("buildings links...");
 		for (Map<String, Builder> map : builders.values()) {
 			for (Builder b : map.values()) {
 				b.readFinalizedLibrary();

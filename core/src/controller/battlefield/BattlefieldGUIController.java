@@ -22,8 +22,6 @@ import de.lessvoid.nifty.screen.Screen;
  * @author Benoît
  */
 public class BattlefieldGUIController extends GUIController {
-	List<Unity> unities = new ArrayList<>();
-
 	public BattlefieldGUIController(Nifty nifty, Controller controller) {
 		super(controller, nifty);
 	}
@@ -43,25 +41,6 @@ public class BattlefieldGUIController extends GUIController {
 			return;
 		}
 		String n = System.getProperty("line.separator");
-
-		// update unities
-		unities = CommandManager.getUnitiesInContext();
-		// Unity selectors
-		for(int i=0; i<5; i++){
-			if(i > unities.size()-1){
-				if(getElement("psel"+i).isVisible()) {
-					getElement("psel"+i).hide();
-				}
-			} else {
-				if(!getElement("psel"+i).isVisible()) {
-					getElement("psel"+i).show();
-				}
-				if(getElement("sel"+i) != null && getElement("sel"+i).getRenderer(TextRenderer.class)!=null){
-					Unity u = unities.get(i);
-					getElement("sel"+i).getRenderer(TextRenderer.class).setText(u.get(0).UIName+n+u.size());
-				}
-			}
-		}
 
 		// update info
 		if (CommandManager.selection.size() == 1) {
@@ -89,10 +68,5 @@ public class BattlefieldGUIController extends GUIController {
 
 	@Override
 	public void onEndScreen() {
-	}
-
-	public void select(String s){
-		int index = Integer.parseInt(s);
-		CommandManager.selectUnityInContext(unities.get(index));
 	}
 }

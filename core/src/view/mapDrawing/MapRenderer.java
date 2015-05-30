@@ -68,8 +68,6 @@ public class MapRenderer {
 	}
 
 	public void renderTiles() {
-		LogUtil.logger.info("rendering ground" + ModelManager.getBattlefield().getParcelManager().meshes.size() + " "
-				+ ModelManager.getBattlefield().getMap().getTiles().size());
 		int index = 0;
 		for (String s : ModelManager.getBattlefield().getMap().style.textures) {
 			Texture diffuse = am.loadTexture(s);

@@ -157,18 +157,14 @@ public class CommandManager {
 		}
 	}
 
-	public static void updateSelectables(Point2D visionCenter) {
+	public static void createContextualUnities(List<Unit> units) {
 		unitiesInContext.clear();
-		if (visionCenter != null) {
-			for (Unit u : ArmyManager.getUnits()) {
-				if (u.getPos2D().getDistance(visionCenter) < 10) {
-					if (!unitiesInContext.containsKey(u.UIName)) {
-						unitiesInContext.put(u.UIName, new Unity());
-					}
-					unitiesInContext.get(u.UIName).add(u);
-				}
+		for (Unit u : units) {
+			if (!unitiesInContext.containsKey(u.UIName)) {
+				unitiesInContext.put(u.UIName, new Unity());
 			}
-		}
+			unitiesInContext.get(u.UIName).add(u);
+				}
 	}
 
 	public static void selectUnityInContext(Unity unityID) {
@@ -186,7 +182,7 @@ public class CommandManager {
 		if (!multipleSelection) {
 			unselect();
 		}
-		if (unitiesInContext.containsKey(id)) {
+		if(unitiesInContext.containsKey(id)) {
 			for (Unit u : unitiesInContext.get(id)) {
 				addToSelection(u);
 			}

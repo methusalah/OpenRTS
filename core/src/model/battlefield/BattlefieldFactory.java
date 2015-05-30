@@ -126,14 +126,13 @@ public class BattlefieldFactory {
 		}
 
 		int i = 0;
-		LogUtil.logger.info("   cliffs' shapes");
 		for (Tile t : bField.getMap().getTiles()) {
 			for (Cliff c : t.getCliffs()) {
 				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
 				i++;
 			}
 		}
-		LogUtil.logger.info("   cliffs' shapes " + i);
+		LogUtil.logger.info("   cliffs' shapes (" + i+")");
 
 
 		bField.buildParcels();

@@ -21,7 +21,6 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import exception.TechnicalException;
-import geometry.tools.LogUtil;
 
 /**
  * @author Benoît
@@ -72,11 +71,11 @@ public class DefParser {
 				filesToRead.add(f);
 			}
 		}
-
+		String log = "updated : ";
 		for (File f : filesToRead) {
 			try {
 				String fileName = f.getName();
-				LogUtil.logger.info("Updating " + fileName);
+				log = log.concat(fileName+", ");
 				XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 				InputStream in = new FileInputStream(f);
 				XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
