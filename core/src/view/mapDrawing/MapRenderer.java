@@ -11,7 +11,6 @@ import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcel.ParcelMesh;
-import model.editor.TilesEvent;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
@@ -32,6 +31,7 @@ import com.jme3.texture.Texture;
 
 import event.EventManager;
 import event.ParcelUpdateEvent;
+import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.math.Angle;
 import geometry.tools.LogUtil;

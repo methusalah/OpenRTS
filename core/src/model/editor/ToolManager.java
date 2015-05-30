@@ -21,6 +21,7 @@ import model.editor.tools.UnitTool;
 import event.EventManager;
 import event.ParcelUpdateEvent;
 import event.SetToolEvent;
+import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
 

@@ -1,9 +1,8 @@
-package model.editor;
+package event;
 
 import java.util.List;
 
 import model.battlefield.map.Tile;
-import event.Event;
 
 public class TilesEvent extends Event {
 
