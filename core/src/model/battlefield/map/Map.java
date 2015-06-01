@@ -28,6 +28,7 @@ public class Map {
 
 	@JsonProperty
 	public List<Tile> tiles = new ArrayList<>();
+
 	@JsonProperty
 	public List<Ramp> ramps = new ArrayList<>();
 	@JsonProperty

@@ -72,6 +72,7 @@ public class Tile {
 		this.setCliffShapeID(cliffShapeID);
 	}
 
+	@JsonIgnore
 	public int getNeighborsMaxLevel() {
 		int res = Integer.MIN_VALUE;
 		for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
@@ -82,6 +83,7 @@ public class Tile {
 		return res;
 	}
 
+	@JsonIgnore
 	public int getNeighborsMinLevel() {
 		int res = Integer.MAX_VALUE;
 		for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
@@ -92,10 +94,12 @@ public class Tile {
 		return res;
 	}
 
+	@JsonIgnore
 	public boolean isBlocked() {
 		return hasCliff() || hasBlockingTrinket;
 	}
 
+	@JsonIgnore
 	public boolean hasCliff() {
 		for (int i = 0; i < 3; i++) {
 			if (hasCliffOnLevel(i)) {
@@ -105,6 +109,7 @@ public class Tile {
 		return false;
 	}
 
+	@JsonIgnore
 	public boolean hasCliffOnLevel(int level) {
 		return getCliff(level) != null;
 	}
@@ -114,10 +119,12 @@ public class Tile {
 		return new Point3D(x, y, getZ());
 	}
 
+	@JsonIgnore
 	public Point2D getCoord() {
 		return new Point2D(x, y);
 	}
 
+	@JsonIgnore
 	public BoundingShape getBounds() {
 		ArrayList<Point2D> points = new ArrayList<>();
 		points.add(getCoord());
@@ -140,6 +147,7 @@ public class Tile {
 
 	}
 
+	@JsonIgnore
 	public Cliff getCliff(int level) {
 		switch (level) {
 			case 0:
@@ -192,6 +200,7 @@ public class Tile {
 		}
 	}
 
+	@JsonIgnore
 	public double getZ() {
 		if (modifiedLevel != 0) {
 			return modifiedLevel * STAGE_HEIGHT + elevation;
@@ -200,6 +209,7 @@ public class Tile {
 		}
 	}
 
+	@JsonIgnore
 	public int getModifiedLevel() {
 		if (modifiedLevel != 0) {
 			return modifiedLevel;
@@ -208,15 +218,17 @@ public class Tile {
 		}
 	}
 
+	@JsonIgnore
 	public Cliff getLowerCliff() {
 		for (int i = 0; i < 3; i++) {
 			if (getCliff(i) != null) {
 				return getCliff(i);
 			}
 		}
-		throw new RuntimeException("Tile as no cliff " + this);
+		throw new RuntimeException("Tile has no cliff " + this);
 	}
 
+	@JsonIgnore
 	public Cliff getUpperCliff() {
 		Cliff res = getLowerCliff();
 		for (int i = res.level + 1; i < 3; i++) {
@@ -227,6 +239,7 @@ public class Tile {
 		return res;
 	}
 
+	@JsonIgnore
 	public List<Cliff> getCliffs() {
 		List<Cliff> res = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
