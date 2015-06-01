@@ -1,7 +1,9 @@
 package serializable;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -40,11 +42,12 @@ public class TileTest {
 		out.flush();
 		out.close();
 
-		// InputStream in = new FileInputStream("tiles.openrts");
-		// in.read(smileData);
+		InputStream in = new FileInputStream("map1.tiles");
 
-		List otherValue = mapper.readValue(smileData, List.class);
-
+		List<Tile> otherValue = mapper.readValue(in, List.class);
+		in.close();
+		System.out.println(otherValue);
+		assert otherValue.size() == 64 * 64;
 
 		// OpenRTSClient client = new OpenRTSClient();
 		// client.start();
