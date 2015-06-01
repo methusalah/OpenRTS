@@ -1,0 +1,14 @@
+import "Weapon.rts"
+import "Race.rts"
+import "Mover.rts"
+import "Actor.rts"
+
+Marine Unit {
+	uIName "blue Marine"
+	race Human
+	maxHealth 100
+	sight 7
+	mover Ground
+	weapon Pistol
+	actor Ground
+}

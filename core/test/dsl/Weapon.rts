@@ -1,0 +1,6 @@
+Pistol Weapon {
+	uIName "Weapon1"
+	range 7
+	scanRange 8
+	period 3
+}
