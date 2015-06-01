@@ -5,6 +5,7 @@ import geometry.math.Angle;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
@@ -80,7 +81,7 @@ public class Ramp {
 			t.ramp = this;
 			t.level = level;
 			t.elevation = -Tile.STAGE_HEIGHT * getSlopeRate(t);
-			for (Tile n : t.get8Neighbors()) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				n.ramp = this;
 			}
 		}
@@ -244,7 +245,7 @@ public class Ramp {
 			t.ramp = null;
 			t.level--;
 			t.elevation = 0;
-			for (Tile n : t.get8Neighbors()) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				if (!res.contains(n)) {
 					res.add(n);
 

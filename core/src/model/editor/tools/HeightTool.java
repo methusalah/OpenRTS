@@ -115,10 +115,10 @@ public class HeightTool extends Tool {
 	private void smooth(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			double average = 0;
-			for (Tile n : t.get4Neighbors()) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(t)) {
 				average += n.elevation;
 			}
-			average /= t.get4Neighbors().size();
+			average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
 
 			double diff = average - t.elevation;
 			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());

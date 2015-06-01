@@ -40,7 +40,7 @@ public class BattlefieldFactory {
 
 		for (int y = 0; y < m.height; y++) {
 			for (int x = 0; x < m.width; x++) {
-				m.getTiles().add(new Tile(x, y, m));
+				m.getTiles().add(new Tile(x, y));
 			}
 		}
 		LogUtil.logger.info("   map builders");
@@ -185,7 +185,6 @@ public class BattlefieldFactory {
 		for (int x = 0; x < map.width; x++) {
 			for (int y = 0; y < map.height; y++) {
 				Tile t = map.getTile(x, y);
-				t.map = map;
 				if (x > 0) {
 					t.w = map.getTile(x - 1, y);
 				}

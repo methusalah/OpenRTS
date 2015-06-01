@@ -8,6 +8,7 @@ import geometry.geom3d.Point3D;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 
@@ -24,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Tile {
 	public static final double STAGE_HEIGHT = 2;
-	@JsonIgnore
-	public Map map;
+
 	@JsonIgnore
 	public Tile n, s, e, w;
 
@@ -57,8 +57,7 @@ public class Tile {
 
 	}
 
-	public Tile(int x, int y, Map map) {
-		this.map = map;
+	public Tile(int x, int y) {
 		this.x = x;
 		this.y = y;
 		level = 0;
@@ -75,7 +74,7 @@ public class Tile {
 
 	public int getNeighborsMaxLevel() {
 		int res = Integer.MIN_VALUE;
-		for (Tile n : map.get4Around(this)) {
+		for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
 			if (n.level > res) {
 				res = n.level;
 			}
@@ -85,7 +84,7 @@ public class Tile {
 
 	public int getNeighborsMinLevel() {
 		int res = Integer.MAX_VALUE;
-		for (Tile n : map.get4Around(this)) {
+		for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
 			if (n.level < res) {
 				res = n.level;
 			}
@@ -110,6 +109,7 @@ public class Tile {
 		return getCliff(level) != null;
 	}
 
+	@JsonIgnore
 	public Point3D getPos() {
 		return new Point3D(x, y, getZ());
 	}
@@ -125,18 +125,6 @@ public class Tile {
 		points.add(getCoord().getAddition(1, 1));
 		points.add(getCoord().getAddition(0, 1));
 		return new AlignedBoundingBox(points);
-	}
-
-	public ArrayList<Tile> get4Neighbors() {
-		return map.get4Around(this);
-	}
-
-	public ArrayList<Tile> get8Neighbors() {
-		return map.get8Around(this);
-	}
-
-	public ArrayList<Tile> get9Neighbors() {
-		return map.get9Around(this);
 	}
 
 	public void setCliff(int minLevel, int maxLevel) {

@@ -44,7 +44,7 @@ public class RampTool extends Tool {
 		ArrayList<Tile> changed = new ArrayList<>();
 		changed.addAll(t.ramp.getTiles());
 		for (Tile t1 : t.ramp.getTiles()) {
-			for (Tile n : t1.get8Neighbors()) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t1)) {
 				if (!changed.contains(n)) {
 					changed.add(n);
 				}
