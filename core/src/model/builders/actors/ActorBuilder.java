@@ -81,9 +81,6 @@ public class ActorBuilder extends Builder {
 		for (String s : childrenActorBuildersID) {
 			childrenActorBuilders.add(lib.getActorBuilder(s));
 		}
-		if (childrenActorBuilders.size() != childrenTriggers.size()) {
-			LogUtil.logger.info("fuck " + def.id);
-		}
 	}
 
 }
