@@ -61,13 +61,13 @@ public class Atlas {
 
     private ByteBuffer buildBuffer(int index){
         ByteBuffer res = ByteBuffer.allocateDirect(width*height*4);
-        int firstMapIndex = index*4;
+        int firstLayerIndex = index*4;
         for(int x=0; x<width; x++)
             for(int y=0; y<height; y++){
-                int r = (int)Math.round(layers.get(firstMapIndex).get(x, y)) << 24;
-                int g = (int)Math.round(layers.get(firstMapIndex+1).get(x, y)) << 16;
-                int b = (int)Math.round(layers.get(firstMapIndex+2).get(x, y)) << 8;
-                int a = (int)Math.round(layers.get(firstMapIndex+3).get(x, y));
+                int r = (int)Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
+                int g = (int)Math.round(layers.get(firstLayerIndex+1).get(x, y)) << 16;
+                int b = (int)Math.round(layers.get(firstLayerIndex+2).get(x, y)) << 8;
+                int a = (int)Math.round(layers.get(firstLayerIndex+3).get(x, y));
                 res.asIntBuffer().put(y*width+x, r+g+b+a);
             }
         return res;
