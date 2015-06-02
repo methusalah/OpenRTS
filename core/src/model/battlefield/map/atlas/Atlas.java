@@ -64,11 +64,7 @@ public class Atlas {
         int firstLayerIndex = index*4;
         for(int x=0; x<width; x++)
             for(int y=0; y<height; y++){
-                int r = (int)Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
-                int g = (int)Math.round(layers.get(firstLayerIndex+1).get(x, y)) << 16;
-                int b = (int)Math.round(layers.get(firstLayerIndex+2).get(x, y)) << 8;
-                int a = (int)Math.round(layers.get(firstLayerIndex+3).get(x, y));
-                res.asIntBuffer().put(y*width+x, r+g+b+a);
+                res.asIntBuffer().put(y*width+x, getBufferVal(x, y, firstLayerIndex));
             }
         return res;
     }
@@ -117,5 +113,22 @@ public class Atlas {
         buffers.add(buildBuffer(1));
         toUpdate = true;               
     }
+    
+	public void updatePixel(int x, int y) {
+		for (int i = 0; i < buffers.size(); i++) {
+	        int firstLayerIndex = i*4;
+			buffers.get(i).asIntBuffer().put(y*width+x, getBufferVal(x, y, firstLayerIndex));
+		}
+		toUpdate = true;
+	}
+	
+	private int getBufferVal(int x, int y, int firstLayerIndex){
+		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
+		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)) << 16;
+		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)) << 8;
+		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y));
+		return(r + g + b + a);
+	}
+
 
 }

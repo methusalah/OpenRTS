@@ -122,7 +122,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		updateAtlasPixel(x, y);
+		atlas.updatePixel(x, y);
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
@@ -165,7 +165,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		updateAtlasPixel(x, y);
+		atlas.updatePixel(x, y);
 	}
 
 	private void propagate(ArrayList<Point2D> pixels) {
@@ -212,21 +212,9 @@ public class AtlasTool extends Tool {
 					}
 				}
 			}
-			updateAtlasPixel(x, y);
+			atlas.updatePixel(x, y);
 		}
 
-	}
-
-	private void updateAtlasPixel(int x, int y) {
-		for (int i = 0; i < 2; i++) {
-			ByteBuffer buffer = atlas.getBuffer(i);
-			int r = (int) Math.round(atlas.layers.get(i*4).get(x, y)) << 24;
-			int g = (int) Math.round(atlas.layers.get(i*4 + 1).get(x, y)) << 16;
-			int b = (int) Math.round(atlas.layers.get(i*4 + 2).get(x, y)) << 8;
-			int a = (int) Math.round(atlas.layers.get(i*4 + 3).get(x, y));
-			buffer.asIntBuffer().put(y * atlas.width + x, r + g + b + a);
-		}
-		atlas.toUpdate = true;
 	}
 
 	private double add(DoubleMap map, int x, int y, double val) {
