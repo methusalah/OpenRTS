@@ -29,7 +29,7 @@ public class Atlas {
     private int mapWidth, mapHeight;
 
     public int width, height;
-    public List<DoubleMap> layers = new ArrayList<>();
+    public List<AtlasLayer> layers = new ArrayList<>();
     List<ByteBuffer> buffers = new ArrayList<>();
     
     public boolean toUpdate = false;
@@ -46,7 +46,7 @@ public class Atlas {
     @Override
 	public void finalize(){
         for(int i=0; i<LAYER_COUNT; i++){
-            DoubleMap layer = new DoubleMap(width, height);
+            AtlasLayer layer = new AtlasLayer(width, height);
             for(int x=0; x<width; x++)
                 for(int y=0; y<height; y++)
                     if(i == 0)
@@ -77,7 +77,7 @@ public class Atlas {
     public void saveToFile(String fileName){
         byte[] bytes = new byte[width*height*LAYER_COUNT];
         int index = 0;
-        for(DoubleMap l : layers)
+        for(AtlasLayer l : layers)
             for(Double d : l.getAll()){
                 int i = (int)Math.floor(d-128);
                 bytes[index++] = (byte)i;
@@ -103,7 +103,7 @@ public class Atlas {
         int index = 0;
         layers.clear();
         for(int i=0; i<LAYER_COUNT; i++){
-            DoubleMap l = new DoubleMap(width, height);
+            AtlasLayer l = new AtlasLayer(width, height);
             for(int xy=0; xy<width*height; xy++)
                 l.set(xy, (double)bytes[index++]+128);
             layers.add(l);

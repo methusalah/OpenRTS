@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Map2D<E> {
 	
-	private List<List<E>> values;
+	private List<E> values;
 	
 	protected int xSize;
 	protected int ySize;
@@ -14,26 +14,26 @@ public class Map2D<E> {
 	public Map2D(int xSize, int ySize) {
 		this.xSize = xSize;
 		this.ySize = ySize;
-		values = new ArrayList<>(xSize);
-		for (int i = 0; i < xSize; i++) {
-			List<E> row = new ArrayList<>();
-			for (int j = 0; j < ySize; j++) {
-				row.add(null);
-			}
-			values.add(row);
-		}
+		values = new ArrayList<>(xSize*ySize);
+		setAll(null);
+	}
+	public Map2D(int xSize, int ySize, E defaultVal) {
+		this.xSize = xSize;
+		this.ySize = ySize;
+		values = new ArrayList<>(xSize*ySize);
+		setAll(defaultVal);
 	}
 	
-	public void set(int x, int y, E value) {
-		values.get(x).set(y, value);
+	public void set(int x, int y, E val) {
+		values.set(y*xSize+x, val);
 	}
-	
+
+	public void set(int index, E val) {
+		values.set(index, val);
+	}
+
 	public E get(int x, int y) {
-		return values.get(x).get(y);
-	}
-	
-	public List<E> get(int x) {
-		return values.get(x);
+		return values.get(y*xSize+x);
 	}
 	
 	public int xSize() {
@@ -48,15 +48,13 @@ public class Map2D<E> {
     	return x >= 0 && x < xSize && y >= 0 && y < ySize;
     }
     
-    public void clear(){
-    	setAll(null);
+    public void setAll(E value){
+    	values.clear();
+		for (int i = 0; i < xSize*ySize; i++)
+				values.add(value);
     }
     
-    public void setAll(E value){
-		for (int i = 0; i < xSize; i++)
-			for (int j = 0; j < ySize; j++)
-				set(i, j, value);
-    	
+    public List<E> getAll(){
+    	return values;
     }
-
 }

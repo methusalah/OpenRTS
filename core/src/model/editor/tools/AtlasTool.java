@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
-import model.battlefield.map.atlas.DoubleMap;
+import model.battlefield.map.atlas.AtlasLayer;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -98,23 +98,23 @@ public class AtlasTool extends Tool {
 		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
 
 		double valueToDitribute = attenuatedInc;
-		ArrayList<DoubleMap> availableLayers = new ArrayList<>();
-		for (DoubleMap l : atlas.layers) {
+		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
+		for (AtlasLayer l : atlas.layers) {
 			if (atlas.layers.indexOf(l) == layer) {
-				valueToDitribute -= add(l, x, y, attenuatedInc);
+				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
 			} else {
 				availableLayers.add(l);
 			}
 		}
 		int secur = -1;
 		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
-			ArrayList<DoubleMap> unavailableLayers = new ArrayList<>();
+			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
 			double shared = valueToDitribute / availableLayers.size();
 			valueToDitribute = 0;
-			for (DoubleMap m : availableLayers) {
-				valueToDitribute += subtract(m, x, y, shared);
-				if (m.get(x, y) == 0) {
-					unavailableLayers.add(m);
+			for (AtlasLayer l : availableLayers) {
+				valueToDitribute += l.withdrawAndReturnExcess(x, y, shared);
+				if (l.get(x, y) == 0) {
+					unavailableLayers.add(l);
 				}
 			}
 			availableLayers.removeAll(unavailableLayers);
@@ -137,10 +137,10 @@ public class AtlasTool extends Tool {
 		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
 
 		double valueToDitribute = attenuatedInc;
-		ArrayList<DoubleMap> availableLayers = new ArrayList<>();
-		for (DoubleMap l : atlas.layers) {
+		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
+		for (AtlasLayer l : atlas.layers) {
 			if (atlas.layers.indexOf(l) == layer) {
-				valueToDitribute -= subtract(l, x, y, attenuatedInc);
+				valueToDitribute -= l.withdrawAndReturnExcess(x, y, attenuatedInc);
 			} else if (l.get(x, y) > 0) {
 				availableLayers.add(l);
 			}
@@ -151,13 +151,13 @@ public class AtlasTool extends Tool {
 
 		int secur = -1;
 		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
-			ArrayList<DoubleMap> unavailableLayers = new ArrayList<>();
+			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
 			double shared = valueToDitribute / availableLayers.size();
 			valueToDitribute = 0;
-			for (DoubleMap m : availableLayers) {
-				valueToDitribute += add(m, x, y, shared);
-				if (m.get(x, y) == 255) {
-					unavailableLayers.add(m);
+			for (AtlasLayer l : availableLayers) {
+				valueToDitribute += l.addAndReturnExcess(x, y, shared);
+				if (l.get(x, y) == 255) {
+					unavailableLayers.add(l);
 				}
 			}
 			availableLayers.removeAll(unavailableLayers);
@@ -175,7 +175,7 @@ public class AtlasTool extends Tool {
 			Point2D center = pencil.getCoord().getMult(atlas.width, atlas.height).getDivision(ModelManager.battlefield.map.width, ModelManager.battlefield.map.height);
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
-			for (DoubleMap l : atlas.layers) {
+			for (AtlasLayer l : atlas.layers) {
 				if (l.get(centerX, centerY) > atlas.layers.get(autoLayer).get(centerX, centerY)) {
 					autoLayer = atlas.layers.indexOf(l);
 				}
@@ -196,13 +196,13 @@ public class AtlasTool extends Tool {
 							atlas.width, atlas.height));
 
 			int activeLayerCount = 0;
-			for (DoubleMap l : atlas.layers) {
+			for (AtlasLayer l : atlas.layers) {
 				if (l.get(x, y) != 0) {
 					activeLayerCount++;
 				}
 			}
 			double targetVal = 255 / activeLayerCount;
-			for (DoubleMap l : atlas.layers) {
+			for (AtlasLayer l : atlas.layers) {
 				if (l.get(x, y) != 0) {
 					double diff = targetVal - l.get(x, y);
 					if (diff < 0) {
@@ -216,27 +216,4 @@ public class AtlasTool extends Tool {
 		}
 
 	}
-
-	private double add(DoubleMap map, int x, int y, double val) {
-		double rest = 0;
-		double newVal = map.get(x, y) + val;
-		if (newVal > 255) {
-			rest = newVal - 255;
-			newVal = 255;
-		}
-		map.set(x, y, newVal);
-		return rest;
-	}
-
-	private double subtract(DoubleMap map, int x, int y, double val) {
-		double rest = 0;
-		double newVal = map.get(x, y) - val;
-		if (newVal < 0) {
-			rest = -newVal;
-			newVal = 0;
-		}
-		map.set(x, y, newVal);
-		return rest;
-	}
-
 }
