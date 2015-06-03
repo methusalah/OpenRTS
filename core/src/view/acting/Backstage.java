@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import view.material.MaterialManager;
@@ -32,7 +33,7 @@ public class Backstage implements AnimEventListener {
 	private AssetManager assetManager;
 	private MaterialManager materialManager;
 
-	ActorPool pool;
+	// ActorPool pool;
 	public Node mainNode;
 	public PhysicsSpace mainPhysicsSpace;
 
@@ -48,10 +49,10 @@ public class Backstage implements AnimEventListener {
 	List<ParticleEmitter> dyingEmitters = new ArrayList<>();
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 
-	public Backstage(AssetManager assetManager, MaterialManager materialManager, ActorPool pool) {
+	public Backstage(AssetManager assetManager, MaterialManager materialManager) {
 		this.assetManager = assetManager;
 		this.materialManager = materialManager;
-		this.pool = pool;
+		// this.pool = pool;
 		mainNode = new Node();
 
 		modelPfm = new ModelPerformer(this);
@@ -63,6 +64,7 @@ public class Backstage implements AnimEventListener {
 
 	public void render() {
 		// first, the spatials attached to interrupted actor are detached
+		ActorPool pool = ModelManager.getBattlefield().getActorPool();
 		for (Actor a : pool.grabDeletedActors()) {
 			if (a.getViewElements().spatial != null) {
 				mainNode.detachChild(a.getViewElements().spatial);

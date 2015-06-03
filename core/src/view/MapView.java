@@ -41,8 +41,7 @@ public class MapView {
 	private Pointer pointer;
 
 	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
-		ModelManager.setNewBattlefield();
-		EventManager.register(this);
+
 		this.setRootNode(rootNode);
 		this.physicsSpace = physicsSpace;
 		gui.attachChild(guiNode);
@@ -59,11 +58,12 @@ public class MapView {
 		rootNode.attachChild(mapRend.mainNode);
 		mapRend.mainPhysicsSpace = physicsSpace;
 
-		actorManager = new Backstage(am, materialManager, ModelManager.getBattlefield().getActorPool());
+		actorManager = new Backstage(am, materialManager);
 		rootNode.attachChild(actorManager.mainNode);
 		actorManager.mainPhysicsSpace = physicsSpace;
 
 		createSky();
+		EventManager.register(this);
 	}
 
 	public void reset() {

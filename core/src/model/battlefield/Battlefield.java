@@ -33,9 +33,6 @@ public class Battlefield {
 	private ActorPool actorPool = new ActorPool();
 
 	public Battlefield() {
-		sunLight = new SunLight();
-		actorPool = new ActorPool();
-		engagement = new Engagement();
 	}
 
 
