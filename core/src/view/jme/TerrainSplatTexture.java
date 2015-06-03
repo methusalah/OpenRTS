@@ -3,7 +3,11 @@
  */
 package view.jme;
 
+import geometry.tools.LogUtil;
+
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.battlefield.map.atlas.Atlas;
 
@@ -12,6 +16,7 @@ import com.jme3.material.Material;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
+import com.jme3.texture.image.ImageRaster;
 import com.jme3.texture.plugins.AWTLoader;
 
 /**
@@ -47,6 +52,18 @@ public class TerrainSplatTexture {
 		normaMaps.add(normal);
 
 		scales.add(scale);
+//		ImageRaster raster = ImageRaster.create(diffuse.getImage());
+//		List<Short> alphaValues = new ArrayList<>(raster.getWidth()*raster.getHeight());
+//		LogUtil.logger.info("taille du buffer : "+raster.getWidth()*raster.getHeight());
+//		for(int x = 0; x < raster.getWidth(); x++)
+//			for(int y = 0; y < raster.getHeight(); y++)
+//				alphaValues.add((short)Math.round(raster.getPixel(x, y).a*255));
+//		
+//		atlas.layers.get(diffuseMaps.size()-1).setMask(raster.getWidth(), raster.getHeight(), alphaValues, scale);
+	
+		atlas.layers.get(diffuseMaps.size()-1).mask = ImageRaster.create(diffuse.getImage());
+		atlas.layers.get(diffuseMaps.size()-1).maskScale = scale;
+
 	}
 
 	public void buildMaterial() {
