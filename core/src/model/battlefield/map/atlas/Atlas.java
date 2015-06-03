@@ -10,17 +10,10 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import exception.TechnicalException;
-
 /**
- * Stores and manage layers of texture to paint on the ground.
- *
- * Atlas itself doesn't know the textures, and provides only alpha channels used
- * by the view to draw and blend textures on a multiple material.
- *
- * This class contains also methods for serialization/deserialization by Byte, has the data may
- * be huge in a more common XML format.
- *
+ * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw
+ * and blend textures on a multiple material. This class contains also methods for serialization/deserialization by Byte, has the data may be huge in a more
+ * common XML format.
  */
 public class Atlas {
 	private static int LAYER_COUNT = 8;
@@ -31,9 +24,8 @@ public class Atlas {
 
 	@JsonIgnore
 	private int width, height;
-
 	@JsonIgnore
-	private List<DoubleMap> layers = new ArrayList<>();
+	private List<AtlasLayer> layers = new ArrayList<>();
 	@JsonIgnore
 	List<ByteBuffer> buffers = new ArrayList<>();
 	@JsonIgnore
@@ -43,11 +35,9 @@ public class Atlas {
 
 	}
 
-
 	public Atlas(int mapWidth, int mapHeight) {
 		this.mapWidth = mapWidth;
 		this.mapHeight = mapHeight;
-
 
 		width = mapWidth * RESOLUTION_RATIO;
 		height = mapHeight * RESOLUTION_RATIO;
@@ -56,7 +46,7 @@ public class Atlas {
 	@Override
 	public void finalize() {
 		for (int i = 0; i < LAYER_COUNT; i++) {
-			DoubleMap layer = new DoubleMap(width, height);
+			AtlasLayer layer = new AtlasLayer(width, height);
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					if (i == 0) {
@@ -74,14 +64,10 @@ public class Atlas {
 
 	private ByteBuffer buildBuffer(int index) {
 		ByteBuffer res = ByteBuffer.allocateDirect(width * height * 4);
-		int firstMapIndex = index * 4;
+		int firstLayerIndex = index * 4;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				int r = (int) Math.round(layers.get(firstMapIndex).get(x, y)) << 24;
-				int g = (int) Math.round(layers.get(firstMapIndex + 1).get(x, y)) << 16;
-				int b = (int) Math.round(layers.get(firstMapIndex + 2).get(x, y)) << 8;
-				int a = (int) Math.round(layers.get(firstMapIndex + 3).get(x, y));
-				res.asIntBuffer().put(y * width + x, r + g + b + a);
+				res.asIntBuffer().put(y * width + x, getBufferVal(x, y, firstLayerIndex));
 			}
 		}
 		return res;
@@ -94,7 +80,7 @@ public class Atlas {
 	public void saveToFile(String fileName) {
 		byte[] bytes = new byte[width * height * LAYER_COUNT];
 		int index = 0;
-		for (DoubleMap l : layers) {
+		for (AtlasLayer l : layers) {
 			for (Double d : l.getAll()) {
 				int i = (int) Math.floor(d - 128);
 				bytes[index++] = (byte) i;
@@ -109,23 +95,19 @@ public class Atlas {
 		}
 	}
 
-	// TODO: why the complete atlas put into the bytes Array?
 	public void loadFromFile(String fileName) {
 		byte[] bytes = new byte[width * height * LAYER_COUNT];
-		if (bytes.length == 0) {
-			throw new TechnicalException("Atlas couldn't load correctly: the readable bytes must not be empty");
-		}
 		try {
 			FileInputStream fis = new FileInputStream(fileName + "atlas");
 			fis.read(bytes, 0, width * height * LAYER_COUNT);
 			fis.close();
 		} catch (IOException e) {
-			throw new TechnicalException("Atlas couldn't load correctly:" + fileName + "atlas ", e);
+			System.err.println("IOException : " + e);
 		}
 		int index = 0;
 		layers.clear();
 		for (int i = 0; i < LAYER_COUNT; i++) {
-			DoubleMap l = new DoubleMap(width, height);
+			AtlasLayer l = new AtlasLayer(width, height);
 			for (int xy = 0; xy < width * height; xy++) {
 				l.set(xy, (double) bytes[index++] + 128);
 			}
@@ -137,8 +119,32 @@ public class Atlas {
 		toUpdate = true;
 	}
 
+	public void updatePixel(int x, int y) {
+		for (int i = 0; i < buffers.size(); i++) {
+			int firstLayerIndex = i * 4;
+			buffers.get(i).asIntBuffer().put(y * width + x, getBufferVal(x, y, firstLayerIndex));
+		}
+		toUpdate = true;
+	}
+
+	private int getBufferVal(int x, int y, int firstLayerIndex) {
+		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
+		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)) << 16;
+		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)) << 8;
+		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y));
+		return (r + g + b + a);
+	}
+
+	public List<AtlasLayer> getLayers() {
+		return layers;
+	}
+
 	public boolean isToUpdate() {
 		return toUpdate;
+	}
+
+	public void setToUpdate(boolean toUpdate) {
+		this.toUpdate = toUpdate;
 	}
 
 	public int getWidth() {
@@ -147,26 +153,6 @@ public class Atlas {
 
 	public int getHeight() {
 		return height;
-	}
-
-	public List<DoubleMap> getLayers() {
-		return layers;
-	}
-
-	public void setToUpdate(boolean toUpdate) {
-		this.toUpdate = toUpdate;
-	}
-
-	@JsonProperty("mapWidth")
-	public void setMapWidth(int mapWidth) {
-		width = mapWidth * RESOLUTION_RATIO;
-		this.mapWidth = mapWidth;
-	}
-
-	@JsonProperty("mapHeight")
-	public void setMapHeight(int mapHeight) {
-		height = mapHeight * RESOLUTION_RATIO;
-		this.mapHeight = mapHeight;
 	}
 
 }

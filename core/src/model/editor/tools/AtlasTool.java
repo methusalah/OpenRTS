@@ -6,13 +6,12 @@ package model.editor.tools;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
-import model.battlefield.map.atlas.DoubleMap;
+import model.battlefield.map.atlas.AtlasLayer;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -98,23 +97,23 @@ public class AtlasTool extends Tool {
 		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
 
 		double valueToDitribute = attenuatedInc;
-		ArrayList<DoubleMap> availableLayers = new ArrayList<>();
-		for (DoubleMap l : atlas.getLayers()) {
+		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
+		for (AtlasLayer l : atlas.getLayers()) {
 			if (atlas.getLayers().indexOf(l) == layer) {
-				valueToDitribute -= add(l, x, y, attenuatedInc);
+				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
 			} else {
 				availableLayers.add(l);
 			}
 		}
 		int secur = -1;
 		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
-			ArrayList<DoubleMap> unavailableLayers = new ArrayList<>();
+			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
 			double shared = valueToDitribute / availableLayers.size();
 			valueToDitribute = 0;
-			for (DoubleMap m : availableLayers) {
-				valueToDitribute += subtract(m, x, y, shared);
-				if (m.get(x, y) == 0) {
-					unavailableLayers.add(m);
+			for (AtlasLayer l : availableLayers) {
+				valueToDitribute += l.withdrawAndReturnExcess(x, y, shared);
+				if (l.get(x, y) == 0) {
+					unavailableLayers.add(l);
 				}
 			}
 			availableLayers.removeAll(unavailableLayers);
@@ -122,7 +121,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		updateAtlasPixel(x, y);
+		atlas.updatePixel(x, y);
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
@@ -137,10 +136,10 @@ public class AtlasTool extends Tool {
 		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
 
 		double valueToDitribute = attenuatedInc;
-		ArrayList<DoubleMap> availableLayers = new ArrayList<>();
-		for (DoubleMap l : atlas.getLayers()) {
+		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
+		for (AtlasLayer l : atlas.getLayers()) {
 			if (atlas.getLayers().indexOf(l) == layer) {
-				valueToDitribute -= subtract(l, x, y, attenuatedInc);
+				valueToDitribute -= l.withdrawAndReturnExcess(x, y, attenuatedInc);
 			} else if (l.get(x, y) > 0) {
 				availableLayers.add(l);
 			}
@@ -151,13 +150,13 @@ public class AtlasTool extends Tool {
 
 		int secur = -1;
 		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
-			ArrayList<DoubleMap> unavailableLayers = new ArrayList<>();
+			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
 			double shared = valueToDitribute / availableLayers.size();
 			valueToDitribute = 0;
-			for (DoubleMap m : availableLayers) {
-				valueToDitribute += add(m, x, y, shared);
-				if (m.get(x, y) == 255) {
-					unavailableLayers.add(m);
+			for (AtlasLayer l : availableLayers) {
+				valueToDitribute += l.addAndReturnExcess(x, y, shared);
+				if (l.get(x, y) == 255) {
+					unavailableLayers.add(l);
 				}
 			}
 			availableLayers.removeAll(unavailableLayers);
@@ -165,7 +164,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		updateAtlasPixel(x, y);
+		atlas.updatePixel(x, y);
 	}
 
 	private void propagate(ArrayList<Point2D> pixels) {
@@ -176,7 +175,7 @@ public class AtlasTool extends Tool {
 					.getDivision(ModelManager.getBattlefield().getMap().width, ModelManager.getBattlefield().getMap().height);
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
-			for (DoubleMap l : atlas.getLayers()) {
+			for (AtlasLayer l : atlas.getLayers()) {
 				if (l.get(centerX, centerY) > atlas.getLayers().get(autoLayer).get(centerX, centerY)) {
 					autoLayer = atlas.getLayers().indexOf(l);
 				}
@@ -197,13 +196,13 @@ public class AtlasTool extends Tool {
 							ModelManager.getBattlefield().getMap().height).getDivision(atlas.getWidth(), atlas.getHeight()));
 
 			int activeLayerCount = 0;
-			for (DoubleMap l : atlas.getLayers()) {
+			for (AtlasLayer l : atlas.getLayers()) {
 				if (l.get(x, y) != 0) {
 					activeLayerCount++;
 				}
 			}
 			double targetVal = 255 / activeLayerCount;
-			for (DoubleMap l : atlas.getLayers()) {
+			for (AtlasLayer l : atlas.getLayers()) {
 				if (l.get(x, y) != 0) {
 					double diff = targetVal - l.get(x, y);
 					if (diff < 0) {
@@ -213,43 +212,8 @@ public class AtlasTool extends Tool {
 					}
 				}
 			}
-			updateAtlasPixel(x, y);
+			atlas.updatePixel(x, y);
 		}
 
 	}
-
-	private void updateAtlasPixel(int x, int y) {
-		for (int i = 0; i < 2; i++) {
-			ByteBuffer buffer = atlas.getBuffer(i);
-			int r = (int) Math.round(atlas.getLayers().get(i).get(x, y)) << 24;
-			int g = (int) Math.round(atlas.getLayers().get(i + 1).get(x, y)) << 16;
-			int b = (int) Math.round(atlas.getLayers().get(i + 2).get(x, y)) << 8;
-			int a = (int) Math.round(atlas.getLayers().get(i + 3).get(x, y));
-			buffer.asIntBuffer().put(y * atlas.getWidth() + x, r + g + b + a);
-		}
-		atlas.setToUpdate(true);
-	}
-
-	private double add(DoubleMap map, int x, int y, double val) {
-		double rest = 0;
-		double newVal = map.get(x, y) + val;
-		if (newVal > 255) {
-			rest = newVal - 255;
-			newVal = 255;
-		}
-		map.set(x, y, newVal);
-		return rest;
-	}
-
-	private double subtract(DoubleMap map, int x, int y, double val) {
-		double rest = 0;
-		double newVal = map.get(x, y) - val;
-		if (newVal < 0) {
-			rest = -newVal;
-			newVal = 0;
-		}
-		map.set(x, y, newVal);
-		return rest;
-	}
-
 }
