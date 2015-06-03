@@ -60,19 +60,19 @@ public class ParcelMesh extends MyMesh {
 		throw new RuntimeException("strange");
 	}
 
-	private ArrayList<Triangle3D> getTileGround(Tile t) {
+	private List<Triangle3D> getTileGround(Tile t) {
 		Point3D sw = new Point3D(t.x, t.y, t.getZ());
 		Point3D se = new Point3D(t.e.x, t.e.y, t.e.getZ());
 		Point3D ne = new Point3D(t.e.n.x, t.e.n.y, t.e.n.getZ());
 		Point3D nw = new Point3D(t.n.x, t.n.y, t.n.getZ());
 
-		ArrayList<Triangle3D> triangles = new ArrayList<>();
+		List<Triangle3D> triangles = new ArrayList<>();
 		triangles.add(new Triangle3D(sw, se, ne));
 		triangles.add(new Triangle3D(sw, ne, nw));
 		return triangles;
 	}
 
-	private ArrayList<Triangle3D> getCliffGrounds(Tile t) {
+	private List<Triangle3D> getCliffGrounds(Tile t) {
 		if (t.getLowerCliff().type == Type.Bugged || t.getUpperCliff().type == Type.Bugged) {
 			return new ArrayList<Triangle3D>();
 		}
@@ -87,7 +87,7 @@ public class ParcelMesh extends MyMesh {
 			}
 		}
 
-		ArrayList<Triangle3D> res = new ArrayList<>();
+		List<Triangle3D> res = new ArrayList<>();
 		for (Polygon3D p : polygons) {
 			Triangulator triangulator = new Triangulator(p.getTranslation(t.getPos().x + 0.5, t.getPos().y + 0.5, 0));
 			res.addAll(triangulator.getTriangles());
@@ -148,10 +148,9 @@ public class ParcelMesh extends MyMesh {
 		return res;
 	}
 
-	public void compute() {
-		double xScale = 1.0 / ModelManager.getBattlefield().getMap().width;
-		double yScale = 1.0 / ModelManager.getBattlefield().getMap().height;
-
+	public void compute(int width, int height) {
+		double xScale = 1.0 / width;
+		double yScale = 1.0 / height;
 		for (Tile tile : tiles.keySet()) {
 			for (Triangle3D t : getGroundTriangles(tile)) {
 				int index = vertices.size();
@@ -168,7 +167,7 @@ public class ParcelMesh extends MyMesh {
 				Point3D normal3 = t.normal;
 
 				for (Triangle3D n : getNearbyTriangles(tile)) {
-					ArrayList<Point3D> shared = t.getCommonPoints(n);
+					List<Point3D> shared = t.getCommonPoints(n);
 					if (t.normal.getAngleWith(n.normal) > Angle.RIGHT) {
 						continue;
 					}

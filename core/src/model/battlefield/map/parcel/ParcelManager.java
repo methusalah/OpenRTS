@@ -3,6 +3,7 @@ package model.battlefield.map.parcel;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
@@ -31,12 +32,12 @@ public class ParcelManager {
 		for (int i = 0; i < map.width; i++) {
 			for (int j = 0; j < map.height; j++) {
 				int index = (int) (Math.floor(j / RESOLUTION) * widthJump + Math.floor(i / RESOLUTION));
-				getMeshes().get(index).add(map.getTile(i, j));
+				meshes.get(index).add(map.getTile(i, j));
 			}
 		}
 
-		for (ParcelMesh mesh : getMeshes()) {
-			mesh.compute();
+		for (ParcelMesh mesh : meshes) {
+			mesh.compute(map.width, map.height);
 		}
 	}
 
@@ -44,8 +45,8 @@ public class ParcelManager {
 		List<ParcelMesh> res = new ArrayList<>();
 		for (Tile t : tiles) {
 			int index = (int) (Math.floor((t.y) / RESOLUTION) * widthJump + Math.floor((t.x) / RESOLUTION));
-			if (!res.contains(getMeshes().get(index))) {
-				res.add(getMeshes().get(index));
+			if (!res.contains(meshes.get(index))) {
+				res.add(meshes.get(index));
 			}
 		}
 		return res;
@@ -56,41 +57,42 @@ public class ParcelManager {
 		for (ParcelMesh mesh : meshes) {
 			mesh.reset();
 		}
+		Map map = ModelManager.getBattlefield().getMap();
 		for (ParcelMesh mesh : meshes) {
-			mesh.compute();
+			mesh.compute(map.width, map.height);
 		}
 		return meshes;
 	}
 
 	public static List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
 		List<ParcelMesh> res = new ArrayList<>();
-		int index = getMeshes().indexOf(parcelMesh);
-		if (index + 1 < getMeshes().size()) {
-			res.add(getMeshes().get(index + 1));
+		int index = meshes.indexOf(parcelMesh);
+		if (index + 1 < meshes.size()) {
+			res.add(meshes.get(index + 1));
 		}
 
 		if (index + widthJump - 1 < getMeshes().size()) {
-			res.add(getMeshes().get(index + widthJump - 1));
+			res.add(meshes.get(index + widthJump - 1));
 		}
 		if (index + widthJump < getMeshes().size()) {
-			res.add(getMeshes().get(index + widthJump));
+			res.add(meshes.get(index + widthJump));
 		}
 		if (index + widthJump + 1 < getMeshes().size()) {
-			res.add(getMeshes().get(index + widthJump + 1));
+			res.add(meshes.get(index + widthJump + 1));
 		}
 
 		if (index - 1 >= 0) {
-			res.add(getMeshes().get(index - 1));
+			res.add(meshes.get(index - 1));
 		}
 
 		if (index - widthJump - 1 >= 0) {
-			res.add(getMeshes().get(index - widthJump - 1));
+			res.add(meshes.get(index - widthJump - 1));
 		}
 		if (index - widthJump >= 0) {
-			res.add(getMeshes().get(index - widthJump));
+			res.add(meshes.get(index - widthJump));
 		}
 		if (index - widthJump + 1 >= 0) {
-			res.add(getMeshes().get(index - widthJump + 1));
+			res.add(meshes.get(index - widthJump + 1));
 		}
 
 		return res;
@@ -100,8 +102,8 @@ public class ParcelManager {
 		return meshes;
 	}
 
-	public static void setMeshes(List<ParcelMesh> meshes) {
-		ParcelManager.meshes = meshes;
-	}
+	// public static void setMeshes(List<ParcelMesh> meshes) {
+	// ParcelManager.meshes = meshes;
+	// }
 
 }
