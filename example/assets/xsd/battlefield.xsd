@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.w3schools.com" xmlns="http://www.w3schools.com"
+	elementFormDefault="qualified">
+	<xs:complexType name="mapType">
+		<xs:sequence>
+			<xs:element name="mapStyleID" type="xs:string" minOccurs="1" />
+			<xs:element name="tiles" type="tilesType" />
+			<xs:element name="ramps" />
+			<xs:element name="serializableTrinkets" type="serializableTrinketsType" />
+			<xs:element name="atlas"></xs:element>
+			<xs:element name="width" type="xs:int" />
+			<xs:element name="height" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="serializableTrinketsType">
+		<xs:sequence>
+			<xs:element name="serializableTrinket" type="serializableTrinketType"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string"></xs:attribute>
+
+	</xs:complexType>
+
+	<xs:complexType name="serializableTrinketType">
+		<xs:sequence>
+			<xs:element name="builderID" type="xs:string" minOccurs="1" />
+			<xs:element name="pos">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="x" type="xs:float" />
+						<xs:element name="y" type="xs:float" />
+						<xs:element name="z" type="xs:float" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="yaw" type="xs:float" minOccurs="1" />
+			<xs:element name="scaleX" type="xs:float" minOccurs="1" />
+			<xs:element name="scaleY" type="xs:float" minOccurs="1" />
+			<xs:element name="scaleZ" type="xs:float" minOccurs="1" />
+			<xs:element name="modelPath" type="xs:string" minOccurs="1" />
+		</xs:sequence>
+
+
+	</xs:complexType>
+
+	<xs:complexType name="engagementType">
+		<xs:sequence>
+			<xs:element name="initialEngagement" type="initialEngagementType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="initialEngagementType">
+		<xs:sequence>
+			<xs:element name="serializableUnit" type="serializableUnitType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="serializableUnitType">
+		<xs:sequence>
+			<xs:element name="builderID" type="xs:string"/>
+			<xs:element name="factionName" type="xs:string"/>
+			<xs:element name="pos">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="x" type="xs:float" />
+						<xs:element name="y" type="xs:float" />
+						<xs:element name="z" type="xs:float" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="yaw" type="xs:float" minOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="tilesType">
+		<xs:sequence>
+			<xs:element name="tile" type="tileType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="tileType">
+		<xs:sequence>
+			<xs:element name="x" type="xs:int" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="y" type="xs:int" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="level" type="xs:int" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="elevation" type="xs:float" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="cliffShapeID" type="xs:string"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="battlefieldType">
+		<xs:sequence>
+			<xs:element name="map" type="mapType" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="engagement" type="engagementType"
+				minOccurs="1" maxOccurs="1" />
+			<!-- <xs:element name="fileName" type="xs:string" minOccurs="0" /> -->
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="battlefield" type="battlefieldType" />
+</xs:schema>

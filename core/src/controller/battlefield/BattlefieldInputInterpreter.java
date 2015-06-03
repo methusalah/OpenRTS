@@ -1,15 +1,8 @@
 package controller.battlefield;
 
-import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
-
-import java.util.ArrayList;
-
 import model.CommandManager;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.army.components.Unit;
-import view.math.Translator;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -137,6 +130,6 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord(ctrl.view.getRootNode());
+		return ctrl.spatialSelector.getCoord((((BattlefieldController) ctrl).view.getRootNode()));
 	}
 }

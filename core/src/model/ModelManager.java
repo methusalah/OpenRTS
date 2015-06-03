@@ -25,7 +25,7 @@ public class ModelManager {
 		parser = new DefParser(CONFIG_PATH);
 
 		factory = new BattlefieldFactory();
-		setNewBattlefield();
+		// setNewBattlefield();
 	}
 
 	// no instancing from outside
@@ -41,7 +41,7 @@ public class ModelManager {
 	}
 
 	public static void loadBattlefield() {
-		Battlefield loadedBattlefield = factory.load();
+		Battlefield loadedBattlefield = factory.loadWithFileChooser();
 		setBattlefield(loadedBattlefield);
 	}
 

@@ -4,6 +4,7 @@
 package view.jme;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.battlefield.map.atlas.Atlas;
 
@@ -19,10 +20,10 @@ import com.jme3.texture.plugins.AWTLoader;
  */
 public class TerrainSplatTexture {
 
-	Atlas atlas;
-	ArrayList<Texture> diffuseMaps = new ArrayList<>();
-	ArrayList<Texture> normaMaps = new ArrayList<>();
-	ArrayList<Double> scales = new ArrayList<>();
+	private Atlas atlas;
+	private List<Texture> diffuseMaps = new ArrayList<>();
+	private List<Texture> normaMaps = new ArrayList<>();
+	private List<Double> scales = new ArrayList<>();
 
 	AssetManager am;
 

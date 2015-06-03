@@ -42,7 +42,7 @@ public class ModelPerformer extends Performer {
 			Spatial s = bs.buildSpatial(actor.getModelPath());
 
 			if (actor.getColor() != null) {
-				s.setMaterial(bs.materialManager.getLightingColor(Translator.toColorRGBA(actor.getColor())));
+				s.setMaterial(bs.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
 			}
 
 			s.setLocalScale((float) actor.getScaleX() * DEFAULT_SCALE, (float) actor.getScaleY() * DEFAULT_SCALE, (float) actor.getScaleZ() * DEFAULT_SCALE);
@@ -120,7 +120,7 @@ public class ModelPerformer extends Performer {
 		if (actor.getViewElements().selectionCircle == null) {
 			Geometry g = new Geometry();
 			g.setMesh(new Circle((float) unit.getRadius(), 10));
-			g.setMaterial(bs.materialManager.greenMaterial);
+			g.setMaterial(bs.getMaterialManager().greenMaterial);
 			g.rotate((float) Angle.RIGHT, 0, 0);
 			Node n = new Node();
 			n.attachChild(g);

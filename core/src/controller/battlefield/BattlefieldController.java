@@ -30,7 +30,7 @@ public class BattlefieldController extends Controller {
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
-
+	protected MapView view;
 
 	public BattlefieldController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);

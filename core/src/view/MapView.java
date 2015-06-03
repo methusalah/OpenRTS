@@ -41,6 +41,7 @@ public class MapView {
 	private Pointer pointer;
 
 	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
+		ModelManager.setNewBattlefield();
 		EventManager.register(this);
 		this.setRootNode(rootNode);
 		this.physicsSpace = physicsSpace;
@@ -66,21 +67,18 @@ public class MapView {
 	}
 
 	public void reset() {
-		getRootNode().detachChild(getMapRend().mainNode);
-		getRootNode().detachChild(getActorManager().mainNode);
-
-		setMapRend(new MapRenderer(this, materialManager, assetManager));
-		getRootNode().attachChild(getMapRend().mainNode);
-		getMapRend().mainPhysicsSpace = physicsSpace;
-		getMapRend().renderTiles();
+		rootNode.detachChild(mapRend.mainNode);
+		rootNode.detachChild(actorManager.mainNode);
+		EventManager.unregister(mapRend);
+		mapRend = new MapRenderer(this, materialManager, assetManager);
+		rootNode.attachChild(mapRend.mainNode);
+		mapRend.mainPhysicsSpace = physicsSpace;
+		mapRend.renderTiles();
 
 		lightDrawer.reset();
 		lightDrawer.updateLights();
 		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
 
-		setActorManager(new Backstage(assetManager, materialManager, ModelManager.getBattlefield().getActorPool()));
-		getRootNode().attachChild(getActorManager().mainNode);
-		getActorManager().mainPhysicsSpace = physicsSpace;
 	}
 
 	private void createSky() {
@@ -95,13 +93,13 @@ public class MapView {
 		zAxe.setMesh(new Box(0.1f, 0.1f, 5));
 		zAxe.setMaterial(materialManager.greenMaterial);
 		zAxe.setLocalTranslation(0, 0, 5);
-		getRootNode().attachChild(zAxe);
+		rootNode.attachChild(zAxe);
 
 		Geometry yAxe = new Geometry();
 		yAxe.setMesh(new Box(0.1f, 5, 0.1f));
 		yAxe.setMaterial(materialManager.redMaterial);
 		yAxe.setLocalTranslation(0, 5, 0);
-		getRootNode().attachChild(yAxe);
+		rootNode.attachChild(yAxe);
 	}
 
 	public void drawSelectionArea(Point2D c1, Point2D c2) {
@@ -111,27 +109,27 @@ public class MapView {
 		float minY = (float) Math.min(c1.y, c2.y);
 		float maxY = (float) Math.max(c1.y, c2.y);
 
-		getGuiNode().detachAllChildren();
+		guiNode.detachAllChildren();
 
 		Geometry g1 = new Geometry();
 		g1.setMesh(new Line(new Vector3f(minX, minY, 0), new Vector3f(maxX, minY, 0)));
 		g1.setMaterial(materialManager.getColor(ColorRGBA.White));
-		getGuiNode().attachChild(g1);
+		guiNode.attachChild(g1);
 
 		Geometry g2 = new Geometry();
 		g2.setMesh(new Line(new Vector3f(minX, maxY, 0), new Vector3f(maxX, maxY, 0)));
 		g2.setMaterial(materialManager.getColor(ColorRGBA.White));
-		getGuiNode().attachChild(g2);
+		guiNode.attachChild(g2);
 
 		Geometry g3 = new Geometry();
 		g3.setMesh(new Line(new Vector3f(minX, minY, 0), new Vector3f(minX, maxY, 0)));
 		g3.setMaterial(materialManager.getColor(ColorRGBA.White));
-		getGuiNode().attachChild(g3);
+		guiNode.attachChild(g3);
 
 		Geometry g4 = new Geometry();
 		g4.setMesh(new Line(new Vector3f(maxX, minY, 0), new Vector3f(maxX, maxY, 0)));
 		g4.setMaterial(materialManager.getColor(ColorRGBA.White));
-		getGuiNode().attachChild(g4);
+		guiNode.attachChild(g4);
 	}
 
 	@Subscribe
@@ -146,10 +144,6 @@ public class MapView {
 
 	public Backstage getActorManager() {
 		return actorManager;
-	}
-
-	public void setActorManager(Backstage actorManager) {
-		this.actorManager = actorManager;
 	}
 
 	public Node getGuiNode() {

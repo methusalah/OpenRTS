@@ -258,4 +258,9 @@ public class Tile {
 	public void setCliffShapeID(String cliffShapeID) {
 		this.cliffShapeID = cliffShapeID;
 	}
+
+	@Override
+	public String toString() {
+		return "Tile [x=" + x + ", y=" + y + ", level=" + level + "]";
+	}
 }

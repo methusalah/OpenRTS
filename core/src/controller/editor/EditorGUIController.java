@@ -10,7 +10,6 @@ import model.builders.MapStyleBuilder;
 import model.builders.definitions.BuilderManager;
 import model.editor.ToolManager;
 import model.editor.tools.Tool;
-import view.EditorView;
 import app.MainRTS;
 import controller.Controller;
 import controller.GUIController;
@@ -112,16 +111,16 @@ public class EditorGUIController extends GUIController {
 		ModelManager.saveBattlefield();
 	}
 
-	public void newMap() {
-		ModelManager.setNewBattlefield();
-	}
+	// public void newMap() {
+	// ModelManager.setNewBattlefield();
+	// }
 
 	public void settings() {
 		MainRTS.appInstance.changeSettings();
 	}
 
 	public void toggleGrid() {
-		((EditorView) ctrl.view).editorRend.toggleGrid();
+		((EditorController) ctrl).view.editorRend.toggleGrid();
 	}
 
 	public void setCliffTool() {

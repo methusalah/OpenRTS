@@ -26,7 +26,7 @@ public abstract class Controller extends AbstractAppState {
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;
 	public GUIController guiController;
-	public MapView view;
+
 
 	public Controller(MapView view, InputManager inputManager, Camera cam) {
 		super();

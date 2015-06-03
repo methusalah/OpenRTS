@@ -15,46 +15,43 @@ public class ParcelManager {
 
 	private static final int RESOLUTION = 10;
 
-	Map map;
-	public List<ParcelMesh> meshes = new ArrayList<>();
-	private int widthJump;
+	private static List<ParcelMesh> meshes = new ArrayList<>();
+	private static int widthJump;
 
-	public ParcelManager(Map map) {
-		this.map = map;
-		widthJump = (int) (Math.ceil((double) map.width / RESOLUTION));
-		createParcelMeshes();
+	private ParcelManager() {
 	}
 
-	private void createParcelMeshes() {
+	public static void createParcelMeshes(Map map) {
+		widthJump = (int) (Math.ceil((double) map.width / RESOLUTION));
 		int nbParcel = widthJump * (int) Math.ceil((double) map.height / RESOLUTION);
 		for (int i = 0; i < nbParcel; i++) {
-			meshes.add(new ParcelMesh(this));
+			getMeshes().add(new ParcelMesh());
 		}
 
 		for (int i = 0; i < map.width; i++) {
 			for (int j = 0; j < map.height; j++) {
 				int index = (int) (Math.floor(j / RESOLUTION) * widthJump + Math.floor(i / RESOLUTION));
-				meshes.get(index).add(map.getTile(i, j));
+				getMeshes().get(index).add(map.getTile(i, j));
 			}
 		}
 
-		for (ParcelMesh mesh : meshes) {
+		for (ParcelMesh mesh : getMeshes()) {
 			mesh.compute();
 		}
 	}
 
-	public List<ParcelMesh> getParcelsFor(List<Tile> tiles) {
+	public static List<ParcelMesh> getParcelsFor(List<Tile> tiles) {
 		List<ParcelMesh> res = new ArrayList<>();
 		for (Tile t : tiles) {
 			int index = (int) (Math.floor((t.y) / RESOLUTION) * widthJump + Math.floor((t.x) / RESOLUTION));
-			if (!res.contains(meshes.get(index))) {
-				res.add(meshes.get(index));
+			if (!res.contains(getMeshes().get(index))) {
+				res.add(getMeshes().get(index));
 			}
 		}
 		return res;
 	}
 
-	public List<ParcelMesh> updateParcelsFor(List<Tile> tiles) {
+	public static List<ParcelMesh> updateParcelsFor(List<Tile> tiles) {
 		List<ParcelMesh> meshes = getParcelsFor(tiles);
 		for (ParcelMesh mesh : meshes) {
 			mesh.reset();
@@ -65,38 +62,46 @@ public class ParcelManager {
 		return meshes;
 	}
 
-	public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
+	public static List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
 		List<ParcelMesh> res = new ArrayList<>();
-		int index = meshes.indexOf(parcelMesh);
-		if (index + 1 < meshes.size()) {
-			res.add(meshes.get(index + 1));
+		int index = getMeshes().indexOf(parcelMesh);
+		if (index + 1 < getMeshes().size()) {
+			res.add(getMeshes().get(index + 1));
 		}
 
-		if (index + widthJump - 1 < meshes.size()) {
-			res.add(meshes.get(index + widthJump - 1));
+		if (index + widthJump - 1 < getMeshes().size()) {
+			res.add(getMeshes().get(index + widthJump - 1));
 		}
-		if (index + widthJump < meshes.size()) {
-			res.add(meshes.get(index + widthJump));
+		if (index + widthJump < getMeshes().size()) {
+			res.add(getMeshes().get(index + widthJump));
 		}
-		if (index + widthJump + 1 < meshes.size()) {
-			res.add(meshes.get(index + widthJump + 1));
+		if (index + widthJump + 1 < getMeshes().size()) {
+			res.add(getMeshes().get(index + widthJump + 1));
 		}
 
 		if (index - 1 >= 0) {
-			res.add(meshes.get(index - 1));
+			res.add(getMeshes().get(index - 1));
 		}
 
 		if (index - widthJump - 1 >= 0) {
-			res.add(meshes.get(index - widthJump - 1));
+			res.add(getMeshes().get(index - widthJump - 1));
 		}
 		if (index - widthJump >= 0) {
-			res.add(meshes.get(index - widthJump));
+			res.add(getMeshes().get(index - widthJump));
 		}
 		if (index - widthJump + 1 >= 0) {
-			res.add(meshes.get(index - widthJump + 1));
+			res.add(getMeshes().get(index - widthJump + 1));
 		}
 
 		return res;
+	}
+
+	public static List<ParcelMesh> getMeshes() {
+		return meshes;
+	}
+
+	public static void setMeshes(List<ParcelMesh> meshes) {
+		ParcelManager.meshes = meshes;
 	}
 
 }

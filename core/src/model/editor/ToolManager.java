@@ -10,6 +10,7 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
+import model.battlefield.map.parcel.ParcelManager;
 import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
@@ -168,7 +169,7 @@ public class ToolManager {
 	}
 
 	public static void updateParcelsForExtended(List<Tile> tiles) {
-		List<ParcelMesh> toUpdate = ModelManager.getBattlefield().getParcelManager().updateParcelsFor(tiles);
+		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(tiles);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 		// notifyListeners("parcels", toUpdate);
 	}

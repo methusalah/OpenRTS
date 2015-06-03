@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
+import model.battlefield.map.parcel.ParcelManager;
 import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -55,7 +56,7 @@ public class EditorRenderer implements ActionListener {
 		this.mm = mm;
 		EventManager.register(this);
 
-		for (ParcelMesh parcel : ModelManager.getBattlefield().getParcelManager().meshes) {
+		for (ParcelMesh parcel : ParcelManager.getMeshes()) {
 			GridMesh grid = new GridMesh(parcel);
 			gridMeshes.put(parcel, grid);
 

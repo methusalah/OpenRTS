@@ -40,6 +40,7 @@ public class MainRTS extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
+		ModelManager.setNewBattlefield();
 		view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
@@ -61,6 +62,7 @@ public class MainRTS extends OpenRTSApplication {
 		view.getMapRend().renderTiles();
 
 		guiViewPort.addProcessor(niftyDisplay);
+		// ModelManager.setNewBattlefield();
 	}
 
 	@Override

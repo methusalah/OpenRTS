@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
@@ -28,8 +29,8 @@ import com.jme3.scene.Spatial;
  */
 public class Backstage implements AnimEventListener {
 
-	AssetManager assetManager;
-	public MaterialManager materialManager;
+	private AssetManager assetManager;
+	private MaterialManager materialManager;
 
 	ActorPool pool;
 	public Node mainNode;
@@ -41,8 +42,8 @@ public class Backstage implements AnimEventListener {
 	RagdollPerformer physicPfm;
 	SoundPerformer soundPfm;
 
-	HashMap<String, Spatial> models = new HashMap<>();
-	HashMap<String, AudioNode> sounds = new HashMap<>();
+	Map<String, Spatial> models = new HashMap<>();
+	Map<String, AudioNode> sounds = new HashMap<>();
 
 	List<ParticleEmitter> dyingEmitters = new ArrayList<>();
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
@@ -177,6 +178,10 @@ public class Backstage implements AnimEventListener {
 	@Override
 	public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
 		// LogUtil.logger.info("anim changed to "+animName);
+	}
+
+	public MaterialManager getMaterialManager() {
+		return materialManager;
 	}
 
 }

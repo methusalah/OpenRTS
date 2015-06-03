@@ -3,6 +3,8 @@ package model.battlefield;
 import geometry.tools.LogUtil;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +16,7 @@ import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
+import model.battlefield.map.parcel.ParcelManager;
 import model.builders.MapStyleBuilder;
 import model.builders.definitions.BuilderManager;
 
@@ -21,6 +24,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.smile.SmileFactory;
 
 /**
  * this class serializes and deserializes a battlefield into and from files everything is translated in and from XML format, except for the texture atlas of the
@@ -48,14 +52,14 @@ public class BattlefieldFactory {
 		LogUtil.logger.info("   map's tiles' links");
 		linkTiles(m);
 
-		Battlefield res = new Battlefield(m);
-		ModelManager.setBattlefield(res);
+		Battlefield res = new Battlefield();
+		res.setMap(m);
 
 		LogUtil.logger.info("Loading done.");
 		return res;
 	}
 
-	public Battlefield load() {
+	public Battlefield loadWithFileChooser() {
 		final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
 		fc.setAcceptAllFileFilterUsed(false);
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*." + BATTLEFIELD_FILE_EXTENSION + ")", BATTLEFIELD_FILE_EXTENSION);
@@ -80,6 +84,7 @@ public class BattlefieldFactory {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
 			// this is the new JSON importer
 			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+
 			bField = mapper.readValue(file, Battlefield.class);
 
 			// FIXME: remove the old parser
@@ -87,6 +92,18 @@ public class BattlefieldFactory {
 			// bField = serializer.read(Battlefield.class, file);
 			bField.setFileName(file.getCanonicalPath());
 			ModelManager.setBattlefield(bField);
+
+			SmileFactory f = new SmileFactory();
+			// can configure instance with 'SmileParser.Feature' and 'SmileGenerator.Feature'
+			mapper = new ObjectMapper(f);
+			// and then read/write data as usual
+
+			byte[] smileData = mapper.writeValueAsBytes(bField.getMap().getTiles());
+			OutputStream out = new FileOutputStream("map1.tiles");
+			out.write(smileData);
+			out.flush();
+			out.close();
+
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -134,8 +151,7 @@ public class BattlefieldFactory {
 		}
 		LogUtil.logger.info("   cliffs' shapes (" + i+")");
 
-
-		bField.buildParcels();
+		ParcelManager.createParcelMeshes(bField.getMap());
 
 		bField.getMap().resetTrinkets();
 		bField.getEngagement().reset();

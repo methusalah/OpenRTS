@@ -10,6 +10,7 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
+import model.battlefield.map.parcel.ParcelManager;
 import model.battlefield.map.parcel.ParcelMesh;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
@@ -56,7 +57,7 @@ public class MapRenderer {
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
 	public MapRenderer(MapView view, MaterialManager mm, AssetManager am) {
-		EventManager.register(this);
+
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
 		this.mm = mm;
@@ -65,6 +66,7 @@ public class MapRenderer {
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
 		mainNode.attachChild(castAndReceiveNode);
 		mainNode.attachChild(receiveNode);
+		EventManager.register(this);
 	}
 
 	public void renderTiles() {
@@ -83,7 +85,7 @@ public class MapRenderer {
 		}
 		groundTexture.buildMaterial();
 
-		for (ParcelMesh mesh : ModelManager.getBattlefield().getParcelManager().meshes) {
+		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
 			Geometry g = new Geometry();
 			Mesh jmeMesh = Translator.toJMEMesh(mesh);
 			SilentTangentBinormalGenerator.generate(jmeMesh);
