@@ -28,12 +28,12 @@ public class IsometricCameraManager extends CameraManager {
 		super(cam);
 		pos = new Point3D(0, 0, elevation);
 		target = new Point3D(0, elevation*2/3, 0);
-		move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
+//		move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
 		placeCam();
-		setMappaings();
+		setMappings();
 	}
 
-	private void setMappaings(){
+	private void setMappings(){
 		mappings = new String[]{
 				STRAFE_NORTH,
 				STRAFE_SOUTH,

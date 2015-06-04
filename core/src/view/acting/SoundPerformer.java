@@ -9,7 +9,7 @@ import model.battlefield.actors.SoundActor;
 
 public class SoundPerformer extends Performer{
 
-	public SoundPerformer(Backstage bs) {
+	public SoundPerformer(ActorDrawer bs) {
 		super(bs);
 	}
 

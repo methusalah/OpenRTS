@@ -37,7 +37,7 @@ import event.UpdateGroundAtlasEvent;
 import geometry.math.Angle;
 import geometry.tools.LogUtil;
 
-public class MapRenderer {
+public class MapDrawer {
 
 	MapView view;
 	MaterialManager mm;
@@ -56,7 +56,7 @@ public class MapRenderer {
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
-	public MapRenderer(MapView view, MaterialManager mm, AssetManager am) {
+	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
 
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);

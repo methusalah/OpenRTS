@@ -1,9 +1,9 @@
 package view;
 
 import model.ModelManager;
-import view.acting.Backstage;
+import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
-import view.mapDrawing.MapRenderer;
+import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
@@ -21,6 +21,7 @@ import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import event.InputEvent;
 import geometry.geom2d.Point2D;
+import geometry.tools.LogUtil;
 
 public class MapView {
 
@@ -29,9 +30,9 @@ public class MapView {
 	private Node guiNode = new Node();
 	protected PhysicsSpace physicsSpace;
 
-	// Renderers
-	private MapRenderer mapRend;
-	private Backstage actorManager;
+	// Drawers
+	private MapDrawer mapDrawer;
+	private ActorDrawer actorDrawer;
 	protected LightDrawer lightDrawer;
 
 	// Internal ressources
@@ -52,33 +53,35 @@ public class MapView {
 		pointer = new Pointer();
 
 		lightDrawer = new LightDrawer(this, am, rootNode, vp);
-		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
-
-		mapRend = new MapRenderer(this, materialManager, am);
-		rootNode.attachChild(mapRend.mainNode);
-		mapRend.mainPhysicsSpace = physicsSpace;
-
-		actorManager = new Backstage(am, materialManager);
-		rootNode.attachChild(actorManager.mainNode);
-		actorManager.mainPhysicsSpace = physicsSpace;
 
 		createSky();
 		EventManager.register(this);
 	}
 
 	public void reset() {
-		rootNode.detachChild(mapRend.mainNode);
-		rootNode.detachChild(actorManager.mainNode);
-		EventManager.unregister(mapRend);
-		mapRend = new MapRenderer(this, materialManager, assetManager);
-		rootNode.attachChild(mapRend.mainNode);
-		mapRend.mainPhysicsSpace = physicsSpace;
-		mapRend.renderTiles();
-
+		// Light drawer
 		lightDrawer.reset();
-		lightDrawer.updateLights();
 		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
-
+		
+		// map drawer
+		if(mapDrawer != null){
+			rootNode.detachChild(mapDrawer.mainNode);
+			EventManager.unregister(mapDrawer);
+		}
+		mapDrawer = new MapDrawer(this, materialManager, assetManager);
+		rootNode.attachChild(mapDrawer.mainNode);
+		mapDrawer.mainPhysicsSpace = physicsSpace;
+			
+		// actor drawer
+		if(actorDrawer != null){
+			rootNode.detachChild(actorDrawer.mainNode);
+		}
+		actorDrawer = new ActorDrawer(assetManager, materialManager);
+		rootNode.attachChild(actorDrawer.mainNode);
+		actorDrawer.mainPhysicsSpace = physicsSpace;
+		
+		
+		mapDrawer.renderTiles();
 	}
 
 	private void createSky() {
@@ -142,8 +145,8 @@ public class MapView {
 		reset();
 	}
 
-	public Backstage getActorManager() {
-		return actorManager;
+	public ActorDrawer getActorManager() {
+		return actorDrawer;
 	}
 
 	public Node getGuiNode() {
@@ -162,12 +165,12 @@ public class MapView {
 		this.rootNode = rootNode;
 	}
 
-	public MapRenderer getMapRend() {
-		return mapRend;
+	public MapDrawer getMapRend() {
+		return mapDrawer;
 	}
 
-	public void setMapRend(MapRenderer mapRend) {
-		this.mapRend = mapRend;
+	public void setMapRend(MapDrawer mapRend) {
+		this.mapDrawer = mapRend;
 	}
 
 	public Pointer getPointer() {

@@ -44,10 +44,10 @@ public class LightDrawer implements ActionListener {
 		FilterPostProcessor fpp = new FilterPostProcessor(am);
 
 		int SHADOWMAP_SIZE = 4096;
-		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
-		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
-		// vp.addProcessor(sr);
+//		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
+//		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
+//		vp.addProcessor(sr);
 
 		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
 		sf.setEnabled(true);
@@ -63,9 +63,6 @@ public class LightDrawer implements ActionListener {
 		fpp.addFilter(bloom);
 		vp.addProcessor(fpp);
 
-		reset();
-		updateLights();
-
 	}
 
 	public void reset() {
@@ -76,12 +73,14 @@ public class LightDrawer implements ActionListener {
 		al = Translator.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
 		sun = Translator.toJMELight(ModelManager.getBattlefield().getSunLight().sun);
 		shadowCaster = Translator.toJMELight(ModelManager.getBattlefield().getSunLight().shadowCaster);
-		sr.setLight(shadowCaster);
+//		sr.setLight(shadowCaster);
 		sf.setLight(shadowCaster);
 
 		rootNode.addLight(al);
 		rootNode.addLight(sun);
 		rootNode.addLight(shadowCaster);
+		
+		updateLights();
 	}
 
 	@Override
@@ -100,7 +99,7 @@ public class LightDrawer implements ActionListener {
 		Translator.toJMELight(sun, ModelManager.getBattlefield().getSunLight().sun);
 		Translator.toJMELight(shadowCaster, ModelManager.getBattlefield().getSunLight().shadowCaster);
 		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
+//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 		sf.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 
 	}

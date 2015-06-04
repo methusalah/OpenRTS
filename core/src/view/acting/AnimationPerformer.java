@@ -17,7 +17,7 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class AnimationPerformer extends Performer{
-	public AnimationPerformer(Backstage bs) {
+	public AnimationPerformer(ActorDrawer bs) {
 		super(bs);
 	}
 

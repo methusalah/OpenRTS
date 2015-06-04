@@ -1,3 +1,4 @@
+import model.ModelManager;
 import view.EditorView;
 import app.OpenRTSApplication;
 
@@ -38,7 +39,7 @@ public class Editor extends OpenRTSApplication {
 		stateManager.attach(editorCtrl);
 		editorCtrl.setEnabled(true);
 
-		view.getMapRend().renderTiles();
+		ModelManager.setNewBattlefield();
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}

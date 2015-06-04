@@ -47,12 +47,12 @@ public class GameMutliplayer extends OpenRTSApplication {
 		stateManager.attach(fieldCtrl);
 		fieldCtrl.setEnabled(true);
 
-		view.getMapRend().renderTiles();
-
 		guiViewPort.addProcessor(niftyDisplay);
 
 		if (!mapfilename.isEmpty()) {
 			ModelManager.loadBattlefield(mapfilename);
+		} else {
+			ModelManager.setNewBattlefield();
 		}
 	}
 }

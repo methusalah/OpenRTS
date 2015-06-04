@@ -39,7 +39,6 @@ public class GroundCameraManager extends CameraManager {
 		cam.setFrustumPerspective(45, (float)cam.getWidth()/cam.getHeight(), 0.01f, 1000);
 
 		applyRotationToCam();
-		placeCam();
 		setMappings();
 	}
 

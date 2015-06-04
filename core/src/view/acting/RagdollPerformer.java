@@ -24,7 +24,7 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class RagdollPerformer extends Performer{
-	public RagdollPerformer(Backstage bs){
+	public RagdollPerformer(ActorDrawer bs){
 		super(bs);
 	}
 

@@ -28,7 +28,7 @@ import com.jme3.scene.Spatial;
 /**
  * @author Benoît
  */
-public class Backstage implements AnimEventListener {
+public class ActorDrawer implements AnimEventListener {
 
 	private AssetManager assetManager;
 	private MaterialManager materialManager;
@@ -49,7 +49,7 @@ public class Backstage implements AnimEventListener {
 	List<ParticleEmitter> dyingEmitters = new ArrayList<>();
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 
-	public Backstage(AssetManager assetManager, MaterialManager materialManager) {
+	public ActorDrawer(AssetManager assetManager, MaterialManager materialManager) {
 		this.assetManager = assetManager;
 		this.materialManager = materialManager;
 		// this.pool = pool;

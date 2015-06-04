@@ -53,7 +53,7 @@ public class EditorController extends Controller {
 		inputManager.setCursorVisible(true);
 		view.getRootNode().attachChild(view.editorRend.mainNode);
 		guiController.activate();
-		if (ModelManager.getBattlefield().getEngagement() != null) {
+		if (ModelManager.getBattlefield() != null) {
 			ModelManager.getBattlefield().getEngagement().reset();
 		}
 	}

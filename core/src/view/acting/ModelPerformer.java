@@ -31,7 +31,7 @@ public class ModelPerformer extends Performer {
 	private static final float DEFAULT_SCALE = 0.0025f;
 	public static final String ENTITYID_USERDATA = "entityid";
 
-	public ModelPerformer(Backstage bs) {
+	public ModelPerformer(ActorDrawer bs) {
 		super(bs);
 	}
 

@@ -2,7 +2,7 @@ package app;
 
 import model.ModelManager;
 import view.EditorView;
-import view.mapDrawing.MapRenderer;
+import view.mapDrawing.MapDrawer;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.bullet.BulletAppState;
@@ -20,7 +20,7 @@ import geometry.tools.LogUtil;
 public class MainRTS extends OpenRTSApplication {
 
 	EditorView view;
-	MapRenderer tr;
+	MapDrawer tr;
 	BattlefieldController fieldCtrl;
 	EditorController editorCtrl;
 	GroundController groundCtrl;
@@ -40,7 +40,6 @@ public class MainRTS extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		ModelManager.setNewBattlefield();
 		view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
@@ -59,10 +58,9 @@ public class MainRTS extends OpenRTSApplication {
 		stateManager.attach(actualCtrl);
 		actualCtrl.setEnabled(true);
 
-		view.getMapRend().renderTiles();
-
 		guiViewPort.addProcessor(niftyDisplay);
-		// ModelManager.setNewBattlefield();
+
+		ModelManager.setNewBattlefield();
 	}
 
 	@Override

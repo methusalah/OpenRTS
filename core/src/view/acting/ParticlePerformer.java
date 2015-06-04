@@ -26,7 +26,7 @@ import com.jme3.math.Vector3f;
  * @author Benoît
  */
 public class ParticlePerformer extends Performer{
-	public ParticlePerformer(Backstage bs){
+	public ParticlePerformer(ActorDrawer bs){
 		super(bs);
 	}
 

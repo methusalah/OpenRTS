@@ -1,3 +1,4 @@
+import model.ModelManager;
 import view.MapView;
 import app.OpenRTSApplication;
 
@@ -36,7 +37,7 @@ public class Game extends OpenRTSApplication {
 		stateManager.attach(fieldCtrl);
 		fieldCtrl.setEnabled(true);
 
-		view.getMapRend().renderTiles();
+		ModelManager.setNewBattlefield();
 
 		guiViewPort.addProcessor(niftyDisplay);
 	}

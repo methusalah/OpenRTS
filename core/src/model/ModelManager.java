@@ -5,6 +5,7 @@ import event.EventManager;
 import geometry.tools.LogUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
+import model.battlefield.map.parcel.ParcelManager;
 import model.builders.definitions.DefParser;
 
 public class ModelManager {
@@ -61,6 +62,7 @@ public class ModelManager {
 	public static void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
+			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
 			LogUtil.logger.info("Reseting view...");
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");

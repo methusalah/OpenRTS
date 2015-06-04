@@ -3,9 +3,9 @@ package view.acting;
 import model.battlefield.actors.Actor;
 
 public abstract class Performer {
-	Backstage bs;
+	ActorDrawer bs;
 	
-	public Performer(Backstage bs){
+	public Performer(ActorDrawer bs){
 		this.bs = bs;
 	}
 	
