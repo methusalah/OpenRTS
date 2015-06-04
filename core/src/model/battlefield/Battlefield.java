@@ -33,6 +33,7 @@ public class Battlefield {
 	private ActorPool actorPool = new ActorPool();
 
 	public Battlefield() {
+		engagement = new Engagement();
 	}
 
 
