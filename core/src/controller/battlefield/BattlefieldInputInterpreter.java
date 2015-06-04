@@ -1,5 +1,7 @@
 package controller.battlefield;
 
+import event.ControllerChangeEvent;
+import event.EventManager;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
 import model.CommandManager;
@@ -77,13 +79,13 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 		if (!isPressed) {
 			switch (name) {
 				case SWITCH_CTRL_1:
-					ctrl.notifyListeners("CTRL1");
+					EventManager.post(new ControllerChangeEvent(0));
 					break;
 				case SWITCH_CTRL_2:
-					ctrl.notifyListeners("CTRL2");
+					EventManager.post(new ControllerChangeEvent(1));
 					break;
 				case SWITCH_CTRL_3:
-					ctrl.notifyListeners("CTRL3");
+					EventManager.post(new ControllerChangeEvent(2));
 					break;
 
 				case MULTIPLE_SELECTION:

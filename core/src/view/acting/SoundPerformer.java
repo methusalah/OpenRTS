@@ -16,7 +16,7 @@ public class SoundPerformer extends Performer{
 	@Override
 	public void perform(Actor a) {
 		SoundActor actor = (SoundActor)a;
-		AudioNode audio = bs.getAudioNode(actor.soundPath);
+		AudioNode audio = actorDrawer.getAudioNode(actor.soundPath);
 		audio.setPositional(actor.positional);
 		if(actor.positional)
 			audio.setLocalTranslation(Translator.toVector3f(actor.getParentModelActor().getPos()));

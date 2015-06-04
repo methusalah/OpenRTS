@@ -21,7 +21,7 @@ import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
 import event.EventManager;
-import event.InputEvent;
+import event.ControllerChangeEvent;
 
 /**
  *
@@ -106,7 +106,7 @@ public class BattlefieldController extends Controller {
 
 
 	@Subscribe
-	public void manageEvent(InputEvent ev) {
+	public void manageEvent(ControllerChangeEvent ev) {
 		guiController.update();
 
 	}

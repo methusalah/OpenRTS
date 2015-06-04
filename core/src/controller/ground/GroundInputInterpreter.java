@@ -1,5 +1,7 @@
 package controller.ground;
 
+import event.ControllerChangeEvent;
+import event.EventManager;
 import geometry.tools.LogUtil;
 
 import com.jme3.input.InputManager;
@@ -53,9 +55,15 @@ public class GroundInputInterpreter extends InputInterpreter {
     public void onAction(String name, boolean isPressed, float tpf) {
         if(!isPressed){
             switch(name){
-                case SWITCH_CTRL_1 : ctrl.notifyListeners("CTRL1"); break;
-                case SWITCH_CTRL_2 : ctrl.notifyListeners("CTRL2"); break;
-                case SWITCH_CTRL_3 : ctrl.notifyListeners("CTRL3"); break;
+                case SWITCH_CTRL_1 :
+					EventManager.post(new ControllerChangeEvent(0));
+                	break;
+                case SWITCH_CTRL_2 :
+					EventManager.post(new ControllerChangeEvent(1));
+                	break;
+                case SWITCH_CTRL_3 :
+					EventManager.post(new ControllerChangeEvent(2));
+                	break;
             }
         }
     }

@@ -14,7 +14,7 @@ import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
 import event.EventManager;
-import event.InputEvent;
+import event.ControllerChangeEvent;
 import geometry.tools.LogUtil;
 
 public class MainRTS extends OpenRTSApplication {
@@ -78,16 +78,16 @@ public class MainRTS extends OpenRTSApplication {
 	}
 
 	@Subscribe
-	public void actionPerformed(InputEvent e) {
+	public void handleEvent(ControllerChangeEvent e) {
 		Controller desiredCtrl;
-		switch (e.getActionCommand()) {
-			case "CTRL1":
+		switch (e.getControllerIndex()) {
+			case 0:
 				desiredCtrl = fieldCtrl;
 				break;
-			case "CTRL2":
+			case 1:
 				desiredCtrl = editorCtrl;
 				break;
-			case "CTRL3":
+			case 2:
 				desiredCtrl = groundCtrl;
 				break;
 			default:

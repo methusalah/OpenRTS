@@ -12,8 +12,6 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.cameraManagement.CameraManager;
-import event.EventManager;
-import event.InputEvent;
 
 /**
  *
@@ -46,9 +44,5 @@ public abstract class Controller extends AbstractAppState {
 		inputInterpreter.registerInputs(inputManager);
 		cameraManager.registerInputs(inputManager);
 		cameraManager.activate();
-	}
-
-	public void notifyListeners(String command) {
-		EventManager.post(new InputEvent(command));
 	}
 }

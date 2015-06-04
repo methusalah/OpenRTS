@@ -3,10 +3,10 @@ package view.acting;
 import model.battlefield.actors.Actor;
 
 public abstract class Performer {
-	ActorDrawer bs;
+	ActorDrawer actorDrawer;
 	
 	public Performer(ActorDrawer bs){
-		this.bs = bs;
+		this.actorDrawer = bs;
 	}
 	
 	public abstract void perform(Actor a);

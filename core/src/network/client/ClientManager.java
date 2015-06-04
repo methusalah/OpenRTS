@@ -11,7 +11,7 @@ import com.jme3.network.serializing.Serializer;
 
 import event.Event;
 import event.EventManager;
-import event.InputEvent;
+import event.ControllerChangeEvent;
 
 public class ClientManager {
 
@@ -35,7 +35,7 @@ public class ClientManager {
 	}
 
 	@Subscribe
-	public void manageEvent(InputEvent ev) {
+	public void manageEvent(ControllerChangeEvent ev) {
 		if (client.isConnected()) {
 			client.send(ev);
 		}
