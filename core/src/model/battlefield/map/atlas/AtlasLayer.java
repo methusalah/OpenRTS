@@ -19,12 +19,10 @@ public class AtlasLayer extends Map2D<Double> {
 	public double addAndReturnExcess(int x, int y, double toAdd){
 		double excess = 0;
 		double newVal = get(x, y) + toAdd;
-		double maskVal = mask.getPixel((x)%(mask.getWidth()*(int)maskScale), (y)%(mask.getHeight()*(int)maskScale)).a;
-		if(maskVal<1)
-			newVal = Math.min(newVal, 255*maskVal);
-		if (newVal > 255) {
-			excess = newVal - 255;
-			newVal = 255;
+		double maskVal = mask.getPixel((x*mask.getWidth()*(int)maskScale/xSize)%(mask.getWidth()), (y*mask.getHeight()*(int)maskScale/ySize)%(mask.getHeight())).a;
+		if (newVal > 255*maskVal) {
+			excess = newVal - 255*maskVal;
+			newVal = 255*maskVal;
 		}
 		set(x, y, newVal);
 		return excess;
