@@ -1,5 +1,7 @@
 package model.battlefield.map.atlas;
 
+import geometry.tools.LogUtil;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -105,8 +107,8 @@ public class Atlas {
         layers.clear();
         for(int i=0; i<LAYER_COUNT; i++){
             AtlasLayer l = new AtlasLayer(width, height);
-//            for(int xy=0; xy<width*height; xy++)
-//                l.set(xy, (double)bytes[index++]+128);
+            for(int xy=0; xy<width*height; xy++)
+                l.setByte(xy, bytes[index++]);
             layers.add(l);
         }
         buffers.clear();

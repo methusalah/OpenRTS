@@ -55,4 +55,8 @@ public class AtlasLayer {
 	public List<Byte> getBytes(){
 		return map.getAll();
 	}
+	
+	public void setByte(int index, byte val){
+		map.set(index, val);
+	}
 }
