@@ -50,7 +50,7 @@ public class Atlas {
             for(int x=0; x<width; x++)
                 for(int y=0; y<height; y++)
                     if(i == 0)
-                        layer.set(x, y, 255d);
+                        layer.set(x, y, 1d);
                     else
                         layer.set(x, y, 0d);
             layers.add(layer);
@@ -78,9 +78,10 @@ public class Atlas {
         byte[] bytes = new byte[width*height*LAYER_COUNT];
         int index = 0;
         for(AtlasLayer l : layers)
-            for(Double d : l.getAll()){
-                int i = (int)Math.floor(d-128);
-                bytes[index++] = (byte)i;
+            for(Byte b : l.getBytes()){
+//                int i = (int)Math.floor(f-128);
+//              bytes[index++] = (byte)i;
+              bytes[index++] = b;
             }
         try {
             FileOutputStream fos = new FileOutputStream(fileName+"atlas");
@@ -104,8 +105,8 @@ public class Atlas {
         layers.clear();
         for(int i=0; i<LAYER_COUNT; i++){
             AtlasLayer l = new AtlasLayer(width, height);
-            for(int xy=0; xy<width*height; xy++)
-                l.set(xy, (double)bytes[index++]+128);
+//            for(int xy=0; xy<width*height; xy++)
+//                l.set(xy, (double)bytes[index++]+128);
             layers.add(l);
         }
         buffers.clear();
@@ -123,10 +124,10 @@ public class Atlas {
 	}
 	
 	private int getBufferVal(int x, int y, int firstLayerIndex){
-		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
-		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)) << 16;
-		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)) << 8;
-		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y));
+		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)*255) << 24;
+		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)*255) << 16;
+		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)*255) << 8;
+		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y)*255);
 		return(r + g + b + a);
 	}
 

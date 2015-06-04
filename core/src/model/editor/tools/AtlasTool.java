@@ -28,7 +28,7 @@ public class AtlasTool extends Tool {
 	AtlasExplorer explorer;
 
 	int autoLayer;
-	double increment = 40;
+	double increment = 0.15d;
 
 	public AtlasTool(ToolManager manager) {
 		super(manager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
