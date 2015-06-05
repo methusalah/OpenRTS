@@ -106,7 +106,7 @@ public class ParticlePerformer extends Performer{
 
 	private void createEmitter(ParticleActor actor){
 		ParticleEmitter emitter = new ParticleEmitter("", ParticleMesh.Type.Triangle, actor.maxCount);
-		Material m = bs.getParticleMat(actor.spritePath);
+		Material m = actorDrawer.getParticleMat(actor.spritePath);
 
 		if(!actor.add) {
 			m.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
@@ -141,7 +141,7 @@ public class ParticlePerformer extends Performer{
 		if(actor.velocity != 0) {
 			emitter.setFacingVelocity(true);
 		}
-		bs.mainNode.attachChild(emitter);
+		actorDrawer.mainNode.attachChild(emitter);
 		actor.getViewElements().particleEmitter = emitter;
 	}
 

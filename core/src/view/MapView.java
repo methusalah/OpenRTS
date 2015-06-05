@@ -19,7 +19,7 @@ import com.jme3.scene.shape.Line;
 
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
-import event.InputEvent;
+import event.ControllerChangeEvent;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
 
@@ -59,6 +59,7 @@ public class MapView {
 	}
 
 	public void reset() {
+		LogUtil.logger.info("reset");
 		// Light drawer
 		lightDrawer.reset();
 		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
@@ -133,11 +134,6 @@ public class MapView {
 		g4.setMesh(new Line(new Vector3f(maxX, minY, 0), new Vector3f(maxX, maxY, 0)));
 		g4.setMaterial(materialManager.getColor(ColorRGBA.White));
 		guiNode.attachChild(g4);
-	}
-
-	@Subscribe
-	public void actionPerformed(InputEvent e) {
-		reset();
 	}
 
 	@Subscribe

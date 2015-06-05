@@ -84,7 +84,8 @@ public class UnitTool extends Tool {
 			}
 		}
 		// TODO: what happend, if there is no Race named "human"?
-		Faction f = BuilderManager.getAllUnitBuilders().get(set.actual).hasRace("human") ? ModelManager.getBattlefield().getEngagement().getFactions().get(0)
+		Faction f = BuilderManager.getAllUnitBuilders().get(set.actual).hasRace("human") ?
+				ModelManager.getBattlefield().getEngagement().getFactions().get(0)
 				: ModelManager.getBattlefield().getEngagement().getFactions().get(1);
 
 		ArmyManager.registerUnit(

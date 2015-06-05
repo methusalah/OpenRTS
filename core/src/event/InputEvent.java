@@ -2,13 +2,13 @@ package event;
 
 public class InputEvent extends Event {
 
-	private final String actionCommand;
+	private final String command;
 
 	public InputEvent(String command) {
-		this.actionCommand = command;
+		this.command = command;
 	}
 
 	public String getActionCommand() {
-		return actionCommand;
+		return command;
 	}
 }

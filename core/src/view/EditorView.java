@@ -7,6 +7,8 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 
+import event.EventManager;
+
 public class EditorView extends MapView {
 
 	// Renderers
@@ -22,6 +24,8 @@ public class EditorView extends MapView {
 	public void reset() {
 		super.reset();
 		getRootNode().detachChild(editorRend.mainNode);
+		EventManager.unregister(editorRend);
+		
 		editorRend = new EditorRenderer(this, materialManager);
 		getRootNode().attachChild(editorRend.mainNode);
 	}

@@ -10,6 +10,8 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
+import event.ControllerChangeEvent;
+import event.EventManager;
 
 public class EditorInputInterpreter extends InputInterpreter {
 	protected final static String SWITCH_CTRL_1 = "ctrl1";
@@ -196,13 +198,13 @@ public class EditorInputInterpreter extends InputInterpreter {
 					break;
 
 				case SWITCH_CTRL_1:
-					ctrl.notifyListeners("CTRL1");
+					EventManager.post(new ControllerChangeEvent(0));
 					break;
 				case SWITCH_CTRL_2:
-					ctrl.notifyListeners("CTRL2");
+					EventManager.post(new ControllerChangeEvent(1));
 					break;
 				case SWITCH_CTRL_3:
-					ctrl.notifyListeners("CTRL3");
+					EventManager.post(new ControllerChangeEvent(2));
 					break;
 				case TOGGLE_PENCIL_SHAPE:
 					ToolManager.getActualTool().pencil.toggleShape();

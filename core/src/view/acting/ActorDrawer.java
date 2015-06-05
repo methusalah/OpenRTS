@@ -33,7 +33,6 @@ public class ActorDrawer implements AnimEventListener {
 	private AssetManager assetManager;
 	private MaterialManager materialManager;
 
-	// ActorPool pool;
 	public Node mainNode;
 	public PhysicsSpace mainPhysicsSpace;
 
@@ -52,7 +51,6 @@ public class ActorDrawer implements AnimEventListener {
 	public ActorDrawer(AssetManager assetManager, MaterialManager materialManager) {
 		this.assetManager = assetManager;
 		this.materialManager = materialManager;
-		// this.pool = pool;
 		mainNode = new Node();
 
 		modelPfm = new ModelPerformer(this);
@@ -78,6 +76,7 @@ public class ActorDrawer implements AnimEventListener {
 				mainNode.detachChild(a.getViewElements().selectionCircle);
 			}
 		}
+//		LogUtil.logger.info("nb attached spatial to "+this+" : "+mainNode.getChildren().size());
 		List<ParticleEmitter> deleted = new ArrayList<>();
 		for (ParticleEmitter pe : dyingEmitters) {
 			if (pe.getNumVisibleParticles() == 0) {
@@ -88,6 +87,7 @@ public class ActorDrawer implements AnimEventListener {
 		dyingEmitters.removeAll(deleted);
 
 		for (Actor a : pool.getActors()) {
+//			LogUtil.logger.info("actor : "+a);
 			switch (a.getType()) {
 				case "model":
 					modelPfm.perform(a);

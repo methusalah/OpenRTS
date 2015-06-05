@@ -39,10 +39,10 @@ public class ModelPerformer extends Performer {
 	public void perform(Actor a) {
 		ModelActor actor = (ModelActor) a;
 		if (actor.getViewElements().spatial == null) {
-			Spatial s = bs.buildSpatial(actor.getModelPath());
+			Spatial s = actorDrawer.buildSpatial(actor.getModelPath());
 
 			if (actor.getColor() != null) {
-				s.setMaterial(bs.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
+				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
 			}
 
 			s.setLocalScale((float) actor.getScaleX() * DEFAULT_SCALE, (float) actor.getScaleY() * DEFAULT_SCALE, (float) actor.getScaleZ() * DEFAULT_SCALE);
@@ -120,7 +120,7 @@ public class ModelPerformer extends Performer {
 		if (actor.getViewElements().selectionCircle == null) {
 			Geometry g = new Geometry();
 			g.setMesh(new Circle((float) unit.getRadius(), 10));
-			g.setMaterial(bs.getMaterialManager().greenMaterial);
+			g.setMaterial(actorDrawer.getMaterialManager().greenMaterial);
 			g.rotate((float) Angle.RIGHT, 0, 0);
 			Node n = new Node();
 			n.attachChild(g);
@@ -130,11 +130,11 @@ public class ModelPerformer extends Performer {
 		n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
 		if (unit.selected) {
-			if (!bs.mainNode.hasChild(n)) {
-				bs.mainNode.attachChild(n);
+			if (!actorDrawer.mainNode.hasChild(n)) {
+				actorDrawer.mainNode.attachChild(n);
 			}
-		} else if (bs.mainNode.hasChild(n)) {
-			bs.mainNode.detachChild(n);
+		} else if (actorDrawer.mainNode.hasChild(n)) {
+			actorDrawer.mainNode.detachChild(n);
 		}
 	}
 

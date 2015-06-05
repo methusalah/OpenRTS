@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.CommandManager;
+import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import view.MapView;
@@ -20,8 +21,9 @@ import com.jme3.renderer.Camera;
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
+import event.BattleFieldUpdateEvent;
 import event.EventManager;
-import event.InputEvent;
+import event.ControllerChangeEvent;
 
 /**
  *
@@ -106,9 +108,13 @@ public class BattlefieldController extends Controller {
 
 
 	@Subscribe
-	public void manageEvent(InputEvent ev) {
+	public void manageEvent(ControllerChangeEvent ev) {
 		guiController.update();
+	}
 
+	@Subscribe
+	public void manageEvent(BattleFieldUpdateEvent ev) {
+		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation

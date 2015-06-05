@@ -57,7 +57,7 @@ public class Atlas {
 			for(int x=0; x<width; x++) {
 				for(int y=0; y<height; y++) {
 					if(i == 0) {
-						layer.set(x, y, 1d);
+						layer.set(x, y, 255d);
 					} else {
 						layer.set(x, y, 0d);
 					}
@@ -89,10 +89,9 @@ public class Atlas {
 		byte[] bytes = new byte[width*height*LAYER_COUNT];
 		int index = 0;
 		for(AtlasLayer l : layers) {
-			for(Byte b : l.getBytes()){
-				//                int i = (int)Math.floor(f-128);
-				//              bytes[index++] = (byte)i;
-				bytes[index++] = b;
+			for (Double d : l.getAll()) {
+				int i = (int) Math.floor(d - 128);
+				bytes[index++] = (byte) i;
 			}
 		}
 		try {
@@ -111,14 +110,14 @@ public class Atlas {
 			fis.read(bytes, 0, width*height*LAYER_COUNT);
 			fis.close();
 		} catch (IOException e){
-			System.out.println("IOException : " + e);
+			System.err.println("IOException : " + e);
 		}
 		int index = 0;
 		layers.clear();
 		for(int i=0; i<LAYER_COUNT; i++){
 			AtlasLayer l = new AtlasLayer(width, height);
 			for(int xy=0; xy<width*height; xy++) {
-				l.setByte(xy, bytes[index++]);
+				l.set(xy, (double) bytes[index++] + 128);
 			}
 			layers.add(l);
 		}
@@ -137,10 +136,10 @@ public class Atlas {
 	}
 
 	private int getBufferVal(int x, int y, int firstLayerIndex) {
-		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)*255) << 24;
-		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)*255) << 16;
-		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)*255) << 8;
-		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y)*255);
+		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
+		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)) << 16;
+		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)) << 8;
+		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y));
 		return (r + g + b + a);
 	}
 

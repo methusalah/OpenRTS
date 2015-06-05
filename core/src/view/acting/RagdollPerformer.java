@@ -33,21 +33,21 @@ public class RagdollPerformer extends Performer{
 		PhysicActor actor = (PhysicActor)a;
 		if(!actor.launched){
 			actor.life = actor.startLife;
-			bs.modelPfm.perform(actor);
+			actorDrawer.modelPfm.perform(actor);
 
 			Spatial s = actor.getViewElements().spatial;
 			ModelActor ma = actor.getParentModelActor();
 
 			Vector3f massVec = s.getControl(AnimControl.class).getSkeleton().getBone(actor.massCenterBone).getModelSpacePosition().mult(s.getLocalScale());
 			Node massCenter = new Node();
-			bs.mainNode.detachChild(s);
-			bs.mainNode.attachChild(massCenter);
+			actorDrawer.mainNode.detachChild(s);
+			actorDrawer.mainNode.attachChild(massCenter);
 			massCenter.attachChild(s);
 			s.setLocalTranslation(massVec.negate());
 
 			RigidBodyControl control = new RigidBodyControl((float)actor.mass*100);
 			massCenter.addControl(control);
-			bs.mainPhysicsSpace.add(control);
+			actorDrawer.mainPhysicsSpace.add(control);
 
 
 			// translation
@@ -77,7 +77,7 @@ public class RagdollPerformer extends Performer{
 			if(!s.getControl(RigidBodyControl.class).isActive()){
 				actor.life -= elapsedTime;
 				if(!actor.alive()){
-					bs.mainPhysicsSpace.remove(s);
+					actorDrawer.mainPhysicsSpace.remove(s);
 					s.removeControl(RigidBodyControl.class);
 				}
 			}

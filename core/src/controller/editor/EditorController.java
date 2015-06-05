@@ -9,6 +9,7 @@ import model.ModelManager;
 import model.editor.ToolManager;
 import view.EditorView;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
@@ -16,6 +17,8 @@ import com.jme3.renderer.Camera;
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
 
 /**
  *
@@ -31,6 +34,8 @@ public class EditorController extends Controller {
 		inputInterpreter = new EditorInputInterpreter(this);
 		guiController = new EditorGUIController(nifty, this);
 		cameraManager = new IsometricCameraManager(cam, 10);
+		
+		EventManager.register(this);
 	}
 
 	@Override
@@ -66,4 +71,9 @@ public class EditorController extends Controller {
 		view.getRootNode().detachChild(view.editorRend.mainNode);
 	}
 
+	@Subscribe
+	public void manageEvent(BattleFieldUpdateEvent ev) {
+		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
+	}
+	
 }

@@ -3,8 +3,6 @@
  */
 package view.mapDrawing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +16,7 @@ import view.EditorView;
 import view.material.MaterialManager;
 import view.math.Translator;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -27,15 +26,18 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 
 import event.EventManager;
+import event.ParcelUpdateEvent;
+import event.SetToolEvent;
 import geometry.collections.PointRing;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+import geometry.tools.LogUtil;
 
 /**
  * @author Benoît
  */
-public class EditorRenderer implements ActionListener {
+public class EditorRenderer {
 	public static final int CIRCLE_PENCIL_SAMPLE_COUNT = 30;
 	public static final double QUAD_PENCIL_SAMPLE_LENGTH = 0.5;
 	public static final int PENCIL_THICKNESS = 3;
@@ -78,6 +80,8 @@ public class EditorRenderer implements ActionListener {
 		BuildCliffPencil();
 		BuildHeightPencil();
 		BuildAtlasPencil();
+		
+		EventManager.register(this);
 	}
 
 	private void BuildCliffPencil() {
@@ -267,28 +271,26 @@ public class EditorRenderer implements ActionListener {
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-			case "tool":
-				if (ToolManager.getActualTool() != ToolManager.getCliffTool() && ToolManager.getActualTool() != ToolManager.getRampTool()) {
-					hideCliffPencil();
-				}
-				if (ToolManager.getActualTool() != ToolManager.getHeightTool()) {
-					hideHeightPencil();
-				}
-				if (ToolManager.getActualTool() != ToolManager.getAtlasTool()) {
-					hideAtlasPencil();
-				}
-				break;
-			case "parcels":
-				List<ParcelMesh> updatedParcels = (List<ParcelMesh>) (e.getSource());
-				for (ParcelMesh parcel : updatedParcels) {
-					GridMesh m = gridMeshes.get(parcel);
-					m.update();
-					gridGeoms.get(parcel).setMesh(Translator.toJMEMesh(m));
-				}
-				break;
+	@Subscribe
+	public void actionPerformed(SetToolEvent e) {
+		if (ToolManager.getActualTool() != ToolManager.getCliffTool() && ToolManager.getActualTool() != ToolManager.getRampTool()) {
+			hideCliffPencil();
+		}
+		if (ToolManager.getActualTool() != ToolManager.getHeightTool()) {
+			hideHeightPencil();
+		}
+		if (ToolManager.getActualTool() != ToolManager.getAtlasTool()) {
+			hideAtlasPencil();
+		}
+	}
+	
+	@Subscribe
+	public void actionPerformed(ParcelUpdateEvent e) {
+		List<ParcelMesh> updatedParcels = e.getToUpdate();
+		for (ParcelMesh parcel : updatedParcels) {
+			GridMesh m = gridMeshes.get(parcel);
+			m.update();
+			gridGeoms.get(parcel).setMesh(Translator.toJMEMesh(m));
 		}
 	}
 }
