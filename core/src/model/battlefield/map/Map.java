@@ -222,7 +222,7 @@ public class Map {
 		return true;
 	}
 
-	public ArrayList<Tile> get8Around(Tile t) {
+	public List<Tile> get8Around(Tile t) {
 		ArrayList<Tile> res = new ArrayList<>();
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
@@ -238,7 +238,7 @@ public class Map {
 		return res;
 	}
 
-	public ArrayList<Tile> get9Around(Tile t) {
+	public List<Tile> get9Around(Tile t) {
 		ArrayList<Tile> res = new ArrayList<>();
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
@@ -252,7 +252,7 @@ public class Map {
 
 	}
 
-	public ArrayList<Tile> get16Around(Tile t) {
+	public List<Tile> get16Around(Tile t) {
 		ArrayList<Tile> res = new ArrayList<>();
 		for (int i = -2; i <= 2; i++) {
 			for (int j = -2; j <= 2; j++) {
@@ -269,7 +269,7 @@ public class Map {
 		return res;
 	}
 
-	public ArrayList<Tile> get4Around(Tile t) {
+	public List<Tile> get4Around(Tile t) {
 		ArrayList<Tile> res = new ArrayList<>();
 		if (t.n != null) {
 			res.add(t.n);
@@ -338,6 +338,5 @@ public class Map {
 	public List<Ramp> getRamps() {
 		return ramps;
 	}
-
 
 }

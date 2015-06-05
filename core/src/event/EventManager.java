@@ -8,7 +8,7 @@ import com.google.common.eventbus.EventBus;
 
 public class EventManager {
 
-	private static final EventBus eventBus = new EventBus();
+	private static final EventBus eventBus = new EventBus(new RethrowingExceptionHandler());
 
 	public static void post(Event event) {
 		// LogUtil.logger.info("Event posted:" + event);

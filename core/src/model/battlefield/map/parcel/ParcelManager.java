@@ -37,7 +37,7 @@ public class ParcelManager {
 		}
 
 		for (ParcelMesh mesh : meshes) {
-			mesh.compute(map.width, map.height);
+			mesh.compute(map);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class ParcelManager {
 		}
 		Map map = ModelManager.getBattlefield().getMap();
 		for (ParcelMesh mesh : meshes) {
-			mesh.compute(map.width, map.height);
+			mesh.compute(map);
 		}
 		return meshes;
 	}
@@ -71,13 +71,13 @@ public class ParcelManager {
 			res.add(meshes.get(index + 1));
 		}
 
-		if (index + widthJump - 1 < getMeshes().size()) {
+		if (index + widthJump - 1 < meshes.size()) {
 			res.add(meshes.get(index + widthJump - 1));
 		}
-		if (index + widthJump < getMeshes().size()) {
+		if (index + widthJump < meshes.size()) {
 			res.add(meshes.get(index + widthJump));
 		}
-		if (index + widthJump + 1 < getMeshes().size()) {
+		if (index + widthJump + 1 < meshes.size()) {
 			res.add(meshes.get(index + widthJump + 1));
 		}
 

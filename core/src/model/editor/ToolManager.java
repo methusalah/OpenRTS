@@ -151,7 +151,7 @@ public class ToolManager {
 
 		for (Tile t : extended) {
 			for (Cliff c : t.getCliffs()) {
-				c.connect();
+				c.connect(ModelManager.getBattlefield().getMap());
 			}
 		}
 		for (Tile t : extended) {

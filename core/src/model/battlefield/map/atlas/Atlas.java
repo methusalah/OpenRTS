@@ -43,6 +43,7 @@ public class Atlas {
 		height = mapHeight * RESOLUTION_RATIO;
 	}
 
+
 	@Override
 	public void finalize() {
 		for (int i = 0; i < LAYER_COUNT; i++) {

@@ -19,10 +19,11 @@ public class GameMutliplayerAlien extends Game {
 
 	@Override
 	public void simpleInitApp() {
+		super.simpleInitApp();
 		if (!mapfilename.isEmpty()) {
 			ModelManager.loadBattlefield(mapfilename);
 			faction = ModelManager.getBattlefield().getEngagement().getFactions().get(1);
 		}
-		super.simpleInitApp();
+
 	}
 }

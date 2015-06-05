@@ -3,7 +3,6 @@
  */
 package model.builders.actors;
 
-import model.ModelManager;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.PhysicActor;
@@ -61,8 +60,7 @@ public class PhysicActorBuilder extends ActorBuilder {
 	}
 
 	public Actor build(String trigger, Hiker movable, Actor parent) {
-		Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, ModelManager
-				.getBattlefield().getActorPool());
+		Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders);
 		res.debbug_id = getId();
 		return res;
 	}

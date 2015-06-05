@@ -3,7 +3,6 @@
  */
 package model.builders;
 
-import model.ModelManager;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Mover;
 import model.battlefield.army.components.Mover.StandingMode;
@@ -70,7 +69,7 @@ public class MoverBuilder extends Builder {
 	}
 
 	public Mover build(Hiker movable) {
-		Mover res = new Mover(heightmap, pathfindingMode, standingMode, movable, ModelManager.getBattlefield().getMap());
+		Mover res = new Mover(heightmap, pathfindingMode, standingMode, movable);
 		return res;
 	}
 

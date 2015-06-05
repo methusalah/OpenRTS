@@ -5,6 +5,7 @@ package view.mapDrawing;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
@@ -32,7 +33,6 @@ import geometry.collections.PointRing;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 /**
  * @author Benoît
@@ -50,8 +50,8 @@ public class EditorRenderer {
 	public Node CliffPencilNode = new Node();
 	public Node HeightPencilNode = new Node();
 	public Node AtlasPencilNode = new Node();
-	private HashMap<ParcelMesh, GridMesh> gridMeshes = new HashMap<>();
-	private HashMap<ParcelMesh, Geometry> gridGeoms = new HashMap<>();
+	private Map<ParcelMesh, GridMesh> gridMeshes = new HashMap<>();
+	private Map<ParcelMesh, Geometry> gridGeoms = new HashMap<>();
 
 	public EditorRenderer(EditorView view, MaterialManager mm) {
 		this.view = view;
@@ -80,7 +80,7 @@ public class EditorRenderer {
 		BuildCliffPencil();
 		BuildHeightPencil();
 		BuildAtlasPencil();
-		
+
 		EventManager.register(this);
 	}
 
@@ -283,7 +283,7 @@ public class EditorRenderer {
 			hideAtlasPencil();
 		}
 	}
-	
+
 	@Subscribe
 	public void actionPerformed(ParcelUpdateEvent e) {
 		List<ParcelMesh> updatedParcels = e.getToUpdate();

@@ -1,6 +1,5 @@
 package model.builders.actors;
 
-import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.AnimationActor;
 import model.builders.definitions.DefElement;
@@ -56,8 +55,7 @@ public class AnimationActorBuilder extends ActorBuilder {
 
 	@Override
 	public Actor build(String trigger, Actor parent) {
-		Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool(), animationName,
-				cycle, speed);
+		Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, animationName, cycle, speed);
 		res.debbug_id = getId();
 		return res;
 	}

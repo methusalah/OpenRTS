@@ -5,7 +5,6 @@ package model.builders.actors;
 
 import java.awt.Color;
 
-import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -78,7 +77,7 @@ public class ModelActorBuilder extends ActorBuilder {
 		double localScaleY = scaleY * comp.scaleY;
 		double localScaleZ = scaleZ * comp.scaleZ;
 
-		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool(), localModelPath,
+		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders, localModelPath,
 				localScaleX,
 				localScaleY,
 				localScaleZ, localColor, comp);

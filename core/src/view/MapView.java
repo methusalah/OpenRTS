@@ -19,15 +19,14 @@ import com.jme3.scene.shape.Line;
 
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
-import event.ControllerChangeEvent;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
 
 public class MapView {
 
 	// External ressources
-	private Node rootNode;
-	private Node guiNode = new Node();
+	protected Node rootNode;
+	protected Node guiNode = new Node();
 	protected PhysicsSpace physicsSpace;
 
 	// Drawers
@@ -63,7 +62,7 @@ public class MapView {
 		// Light drawer
 		lightDrawer.reset();
 		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
-		
+
 		// map drawer
 		if(mapDrawer != null){
 			rootNode.detachChild(mapDrawer.mainNode);
@@ -72,7 +71,7 @@ public class MapView {
 		mapDrawer = new MapDrawer(this, materialManager, assetManager);
 		rootNode.attachChild(mapDrawer.mainNode);
 		mapDrawer.mainPhysicsSpace = physicsSpace;
-			
+
 		// actor drawer
 		if(actorDrawer != null){
 			rootNode.detachChild(actorDrawer.mainNode);
@@ -80,8 +79,7 @@ public class MapView {
 		actorDrawer = new ActorDrawer(assetManager, materialManager);
 		rootNode.attachChild(actorDrawer.mainNode);
 		actorDrawer.mainPhysicsSpace = physicsSpace;
-		
-		
+
 		mapDrawer.renderTiles();
 	}
 

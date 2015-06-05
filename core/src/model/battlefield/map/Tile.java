@@ -75,9 +75,11 @@ public class Tile {
 	@JsonIgnore
 	public int getNeighborsMaxLevel() {
 		int res = Integer.MIN_VALUE;
-		for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
-			if (n.level > res) {
-				res = n.level;
+		if (ModelManager.getBattlefield() != null) {
+			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
+				if (n.level > res) {
+					res = n.level;
+				}
 			}
 		}
 		return res;

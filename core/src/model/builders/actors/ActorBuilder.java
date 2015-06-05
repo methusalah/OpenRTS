@@ -4,12 +4,10 @@
 package model.builders.actors;
 
 import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.builders.Builder;
 import model.builders.definitions.BuilderManager;
@@ -72,7 +70,7 @@ public class ActorBuilder extends Builder {
 			i++;
 		}
 
-		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, ModelManager.getBattlefield().getActorPool());
+		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders);
 		res.debbug_id = getId();
 		return res;
 	}

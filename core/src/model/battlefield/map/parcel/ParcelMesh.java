@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Cliff.Type;
@@ -139,18 +138,18 @@ public class ParcelMesh extends MyMesh {
 		}
 	}
 
-	private List<Triangle3D> getNearbyTriangles(Tile t) {
+	private List<Triangle3D> getNearbyTriangles(Tile t, model.battlefield.map.Map map) {
 		List<Triangle3D> res = new ArrayList<>();
-		for (Tile n : ModelManager.getBattlefield().getMap().get9Around(t)) {
+		for (Tile n : map.get9Around(t)) {
 			// if(!neib.isCliff())
 			res.addAll(getGroundTriangles(n));
 		}
 		return res;
 	}
 
-	public void compute(int width, int height) {
-		double xScale = 1.0 / width;
-		double yScale = 1.0 / height;
+	public void compute(model.battlefield.map.Map map) {
+		double xScale = 1.0 / map.width;
+		double yScale = 1.0 / map.height;
 		for (Tile tile : tiles.keySet()) {
 			for (Triangle3D t : getGroundTriangles(tile)) {
 				int index = vertices.size();
@@ -166,7 +165,7 @@ public class ParcelMesh extends MyMesh {
 				Point3D normal2 = t.normal;
 				Point3D normal3 = t.normal;
 
-				for (Triangle3D n : getNearbyTriangles(tile)) {
+				for (Triangle3D n : getNearbyTriangles(tile, map)) {
 					List<Point3D> shared = t.getCommonPoints(n);
 					if (t.normal.getAngleWith(n.normal) > Angle.RIGHT) {
 						continue;

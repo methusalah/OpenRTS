@@ -29,26 +29,19 @@ public class ModelActor extends Actor {
 			String trigger,
 			List<String> childrenTriggers,
 			List<ActorBuilder> childrenBuilders,
-			ActorPool pool,
 			String modelPath,
 			double scaleX,
 			double scaleY,
 			double scaleZ,
 			Color color,
 			FieldComp comp) {
-		super(parent, trigger, childrenTriggers, childrenBuilders, pool);
+		super(parent, trigger, childrenTriggers, childrenBuilders);
 		this.modelPath = modelPath;
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
 		this.scaleZ = scaleZ;
 		this.color = color;
 		this.comp = comp;
-	}
-
-	@Override
-	public void act() {
-		// TODO Auto-generated method stub
-		super.act();
 	}
 
 

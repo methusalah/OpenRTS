@@ -59,11 +59,11 @@ public class ModelManager {
 		setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
-	public static void setBattlefield(Battlefield battlefield) {
+	private static void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
-			LogUtil.logger.info("Reseting view...");
+			// LogUtil.logger.info("Reseting view...");
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");
 		}

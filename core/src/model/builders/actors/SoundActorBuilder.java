@@ -1,6 +1,5 @@
 package model.builders.actors;
 
-import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.SoundActor;
 import model.builders.definitions.DefElement;
@@ -48,7 +47,7 @@ public class SoundActorBuilder extends ActorBuilder {
 
 	@Override
 	public Actor build(String trigger, Actor parent) {
-		Actor res = new SoundActor(parent, trigger, childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool(), soundPath, looping,
+		Actor res = new SoundActor(parent, trigger, childrenTriggers, childrenActorBuilders, soundPath, looping,
 				volume, positional);
 		res.debbug_id = getId();
 		return res;
