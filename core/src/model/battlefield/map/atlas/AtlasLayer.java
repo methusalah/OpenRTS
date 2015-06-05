@@ -6,23 +6,30 @@ import java.util.List;
 
 import com.jme3.texture.image.ImageRaster;
 
-public class AtlasLayer extends Map2D<Double> {
+public class AtlasLayer {
 
+	Map2D<Byte> values;
 	Map2D<Short> alphaMask;
 	public ImageRaster mask;
 	public double maskScale;
 
 	public AtlasLayer(int xSize, int ySize) {
-		super(xSize, ySize, 0d);
+		this(xSize, ySize, 0);
+	}
+
+	public AtlasLayer(int xSize, int ySize, double val) {
+		values = new Map2D<Byte>(xSize, ySize, (byte)(val*255-128));
 	}
 
 	public double addAndReturnExcess(int x, int y, double toAdd){
 		double excess = 0;
 		double newVal = get(x, y) + toAdd;
-		double maskVal = mask.getPixel((x*mask.getWidth()*(int)maskScale/xSize)%(mask.getWidth()), (y*mask.getHeight()*(int)maskScale/ySize)%(mask.getHeight())).a;
-		if (newVal > 255*maskVal) {
-			excess = newVal - 255*maskVal;
-			newVal = 255*maskVal;
+		double maskVal = mask.getPixel(
+				(x*mask.getWidth()*(int)maskScale/values.xSize())%(mask.getWidth()),
+				(y*mask.getHeight()*(int)maskScale/values.ySize())%(mask.getHeight())).a;
+		if (newVal > 1*maskVal) {
+			excess = newVal - 1*maskVal;
+			newVal = 1*maskVal;
 		}
 		set(x, y, newVal);
 		return excess;
@@ -46,4 +53,22 @@ public class AtlasLayer extends Map2D<Double> {
 		}
 		maskScale = scale;
 	}
+	
+	public double get(int x, int y){
+		return ((double)values.get(x, y)+128)/255;
+		
+	}
+	
+	public void set(int x, int y, double val){
+		values.set(x, y, (byte)(val*255-128));
+	}
+	
+	public List<Byte> getBytes(){
+		return values.getAll();
+	}
+	
+	public void setByte(int i, byte val){
+		values.set(i, val);
+	}
+	
 }

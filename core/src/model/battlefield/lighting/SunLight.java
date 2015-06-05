@@ -16,7 +16,7 @@ import java.util.List;
 public class SunLight {
 	public static double DEFAULT_COMPASS_ANGLE = Angle.toRadians(20);
 	public static double DEFAULT_HOUR_ANGLE = Angle.toRadians(40);
-	public static double DEFAULT_SUN_INTENSITY = 2;
+	public static double DEFAULT_SUN_INTENSITY = 1.4;
 	public static double DEFAULT_SHADOW_INTENSITY = 0.7;
 
 	public DirectionalLighting sun;
