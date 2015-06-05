@@ -7,7 +7,6 @@ import geometry.math.Angle;
 
 import java.awt.Color;
 
-import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ParticleActor;
 import model.builders.definitions.DefElement;
@@ -158,7 +157,7 @@ public class ParticleActorBuilder extends ActorBuilder {
 	public Actor build(String trigger, Actor parent) {
 		Actor res = new ParticleActor(spritePath, nbCol, nbRow, emissionBone, directionBone, velocity, fanning, randomSprite, maxCount, perSecond, duration,
 				startSize, endSize, startColor, endColor, minLife, maxLife, rotationSpeed, gravity, facing, add, startVariation, parent, trigger,
-				childrenTriggers, childrenActorBuilders, ModelManager.getBattlefield().getActorPool());
+				childrenTriggers, childrenActorBuilders);
 		res.debbug_id = getId();
 		return res;
 	}

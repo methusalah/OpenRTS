@@ -30,9 +30,9 @@ public class SunLight {
 	double intensityIncrement = 0.02;
 	int colorIncrement = 1;
 
-	ArrayList<Lighting> actualLights = new ArrayList<>();
+	List<Lighting> actualLights = new ArrayList<>();
 
-	ArrayList<ActionListener> listeners = new ArrayList<>();
+	List<ActionListener> listeners = new ArrayList<>();
 
 	public SunLight() {
 		sun = new DirectionalLighting(Color.WHITE, DEFAULT_COMPASS_ANGLE, DEFAULT_HOUR_ANGLE, DEFAULT_SUN_INTENSITY);
@@ -213,7 +213,9 @@ public class SunLight {
 	}
 
 	public void addListener(ActionListener l) {
-		listeners.add(l);
+		if (!listeners.contains(l)) {
+			listeners.add(l);
+		}
 	}
 
 }

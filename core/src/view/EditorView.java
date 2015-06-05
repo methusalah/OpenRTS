@@ -23,11 +23,11 @@ public class EditorView extends MapView {
 	@Override
 	public void reset() {
 		super.reset();
-		getRootNode().detachChild(editorRend.mainNode);
+		rootNode.detachChild(editorRend.mainNode);
 		EventManager.unregister(editorRend);
-		
+
 		editorRend = new EditorRenderer(this, materialManager);
-		getRootNode().attachChild(editorRend.mainNode);
+		rootNode.attachChild(editorRend.mainNode);
 	}
 
 }

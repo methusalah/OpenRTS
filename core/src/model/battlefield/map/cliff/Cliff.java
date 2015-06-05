@@ -3,24 +3,20 @@ package model.battlefield.map.cliff;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ModelManager;
+import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.faces.Face;
 
 /**
- * Connect to each other to create a path of cliffs and compute correct shape.
- *
- * This is a structuring class creating relationship.
- * The shape is determined by the CliffOrganizer class.
- * The graphical representation is computed by the Face class.
- *
- * "Bugged" type is used to accept zero-solution configuration that may appear while
- * editing the map. In this case, the view draw an error flag to warn the user.
- *
+ * Connect to each other to create a path of cliffs and compute correct shape. This is a structuring class creating relationship. The shape is determined by the
+ * CliffOrganizer class. The graphical representation is computed by the Face class. "Bugged" type is used to accept zero-solution configuration that may appear
+ * while editing the map. In this case, the view draw an error flag to warn the user.
  */
 public class Cliff {
-	public enum Type{Orthogonal, Salient, Corner, Border, Bugged}
+	public enum Type {
+		Orthogonal, Salient, Corner, Border, Bugged
+	}
 
 	public Type type;
 
@@ -38,38 +34,37 @@ public class Cliff {
 		this.level = level;
 	}
 
-	public void connect(){
-		CliffOrganizer.organize(this);
+	public void connect(Map map) {
+		CliffOrganizer.organize(this, map);
 	}
 
-	public String getConnexionConfiguration(){
+	public String getConnexionConfiguration(Map map) {
 		String res = new String();
-		if(isNeighborCliff(tile.n)) {
+		if (isNeighborCliff(tile.n, map)) {
 			res = res.concat("n");
 		}
-		if(isNeighborCliff(tile.s)) {
+		if (isNeighborCliff(tile.s, map)) {
 			res = res.concat("s");
 		}
-		if(isNeighborCliff(tile.e)) {
+		if (isNeighborCliff(tile.e, map)) {
 			res = res.concat("e");
 		}
-		if(isNeighborCliff(tile.w)) {
+		if (isNeighborCliff(tile.w, map)) {
 			res = res.concat("w");
 		}
 		return res;
 	}
 
-	private boolean isNeighborCliff(Tile t){
-		if(t == null ||
-				!t.hasCliffOnLevel(level) ||
-				//                t.level != tile.level ||
+	private boolean isNeighborCliff(Tile t, Map map) {
+		if (t == null || !t.hasCliffOnLevel(level) ||
+				// t.level != tile.level ||
 				t.getCliff(level).type == Type.Bugged) {
 			return false;
 		}
 
-		for(Tile n1 : getUpperGrounds()) {
-			for(Tile n2 : t.getCliff(level).getUpperGrounds()) {
-				if(n1 == n2) {
+		for (Tile n1 : getUpperGrounds(map)) {
+			for (Tile n2 : t.getCliff(level).getUpperGrounds(map)) {
+				if (n1 == n2) {
 					return true;
 				}
 			}
@@ -77,63 +72,63 @@ public class Cliff {
 		return false;
 	}
 
-	public void link(Tile parent, Tile child){
+	public void link(Tile parent, Tile child) {
 		this.parentTile = parent;
-		if(parent != null) {
+		if (parent != null) {
 			getParent().childTile = tile;
 		}
 
 		this.childTile = child;
-		if(child != null) {
+		if (child != null) {
 			getChild().parentTile = tile;
 		}
 	}
 
-	public ArrayList<Tile> getUpperGrounds(){
+	public ArrayList<Tile> getUpperGrounds(Map map) {
 		ArrayList<Tile> res = new ArrayList<>();
-		for (Tile n : ModelManager.getBattlefield().getMap().get8Around(tile)) {
-			if(n.level>tile.level) {
+		for (Tile n : map.get8Around(tile)) {
+			if (n.level > tile.level) {
 				res.add(n);
 			}
 		}
 		return res;
 	}
 
-	public void removeFromBattlefield(){
-		for(Trinket t : trinkets) {
+	public void removeFromBattlefield() {
+		for (Trinket t : trinkets) {
 			t.removeFromBattlefield();
 		}
-		if(parentTile != null && parentTile.getCliff(level) != null) {
+		if (parentTile != null && parentTile.getCliff(level) != null) {
 			getParent().childTile = null;
 		}
-		if(childTile != null && childTile.getCliff(level) != null) {
+		if (childTile != null && childTile.getCliff(level) != null) {
 			getChild().parentTile = null;
 		}
 	}
 
-	public Cliff getParent(){
-		if(parentTile == null) {
+	public Cliff getParent() {
+		if (parentTile == null) {
 			return null;
 		}
 		return parentTile.getCliff(level);
 	}
 
-	public Cliff getChild(){
-		if(childTile == null) {
+	public Cliff getChild() {
+		if (childTile == null) {
 			return null;
 		}
 		return childTile.getCliff(level);
 	}
 
-	public boolean hasParent(){
+	public boolean hasParent() {
 		return parentTile != null;
 	}
 
-	public boolean hasChild(){
+	public boolean hasChild() {
 		return childTile != null;
 	}
 
-	public Tile getTile(){
+	public Tile getTile() {
 		return tile;
 	}
 

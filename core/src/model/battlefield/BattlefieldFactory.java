@@ -91,7 +91,7 @@ public class BattlefieldFactory {
 			// Serializer serializer = new Persister();
 			// bField = serializer.read(Battlefield.class, file);
 			bField.setFileName(file.getCanonicalPath());
-			ModelManager.setBattlefield(bField);
+			bField.getMap().atlas.finalize();
 
 			SmileFactory f = new SmileFactory();
 			// can configure instance with 'SmileParser.Feature' and 'SmileGenerator.Feature'
@@ -114,6 +114,7 @@ public class BattlefieldFactory {
 		}
 
 		LogUtil.logger.info("   builders");
+
 		BuilderManager.getMapStyleBuilder(bField.getMap().mapStyleID).build(bField.getMap());
 
 		LogUtil.logger.info("   tiles' links");
@@ -138,7 +139,7 @@ public class BattlefieldFactory {
 		LogUtil.logger.info("   cliffs' connexions");
 		for (Tile t : bField.getMap().getTiles()) {
 			for (Cliff c : t.getCliffs()) {
-				c.connect();
+				c.connect(bField.getMap());
 			}
 		}
 

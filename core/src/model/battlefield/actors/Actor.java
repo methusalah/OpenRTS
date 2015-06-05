@@ -3,6 +3,7 @@ package model.battlefield.actors;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.builders.actors.ActorBuilder;
 import view.acting.ActorViewElements;
 
@@ -25,7 +26,6 @@ public class Actor {
 	protected final Actor parent;
 	protected final String trigger;
 	protected final List<Actor> children;
-	protected final ActorPool pool;
 
 	public String debbug_id = "id not configured";
 
@@ -33,7 +33,7 @@ public class Actor {
 
 	protected boolean acting = false;
 
-	public Actor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders, ActorPool pool) {
+	public Actor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders) {
 		this.parent = parent;
 		this.trigger = trigger;
 		children = new ArrayList<>();
@@ -42,7 +42,6 @@ public class Actor {
 			children.add(b.build(childrenTriggers.get(i), this));
 			i++;
 		}
-		this.pool = pool;
 	}
 
 	public void onMove(boolean cond) {
@@ -97,17 +96,17 @@ public class Actor {
 		}
 	}
 
-	protected void act() {
-		if (acting) {
+	public void act() {
+		if (acting || ModelManager.getBattlefield() == null) {
 			return;
 		}
 		acting = true;
-		pool.registerActor(this);
+		ModelManager.getBattlefield().getActorPool().registerActor(this);
 	}
 
 	public void stopActing() {
 		acting = false;
-		pool.deleteActor(this);
+		ModelManager.getBattlefield().getActorPool().deleteActor(this);
 	}
 
 	public void stopActingAndChildren() {
