@@ -496,8 +496,8 @@ public class SilentTangentBinormalGenerator {
 
 		boolean normalize = false;
 		if (Math.abs(det) < ZERO_TOLERANCE) {
-			log.log(Level.WARNING, "Colinear uv coordinates for triangle " + "[{0}, {1}, {2}]; tex0 = [{3}, {4}], " + "tex1 = [{5}, {6}], tex2 = [{7}, {8}]",
-					new Object[] { index[0], index[1], index[2], t[0].x, t[0].y, t[1].x, t[1].y, t[2].x, t[2].y });
+//			log.log(Level.WARNING, "Colinear uv coordinates for triangle " + "[{0}, {1}, {2}]; tex0 = [{3}, {4}], " + "tex1 = [{5}, {6}], tex2 = [{7}, {8}]",
+//					new Object[] { index[0], index[1], index[2], t[0].x, t[0].y, t[1].x, t[1].y, t[2].x, t[2].y });
 			det = 1;
 			normalize = true;
 		}
@@ -511,7 +511,7 @@ public class SilentTangentBinormalGenerator {
 		binormal.normalizeLocal();
 
 		if (Math.abs(Math.abs(tangent.dot(binormal)) - 1) < ZERO_TOLERANCE) {
-			log.log(Level.WARNING, "Vertices are on the same line " + "for triangle [{0}, {1}, {2}].", new Object[] { index[0], index[1], index[2] });
+//			log.log(Level.WARNING, "Vertices are on the same line " + "for triangle [{0}, {1}, {2}].", new Object[] { index[0], index[1], index[2] });
 		}
 
 		float factor = 1 / det;
