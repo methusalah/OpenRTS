@@ -57,7 +57,6 @@ public class MapDrawer {
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
 	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
-
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
 		this.mm = mm;
@@ -119,7 +118,7 @@ public class MapDrawer {
 	}
 
 	@Subscribe
-	protected void handleTileEvent(TilesEvent e) {
+	public void handleTileEvent(TilesEvent e) {
 		updateTiles(e.getExtended());
 	}
 

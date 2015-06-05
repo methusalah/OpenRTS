@@ -3,7 +3,6 @@
  */
 package model.editor;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import event.SetToolEvent;
 import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
+import geometry.tools.LogUtil;
 
 /**
  * @author Benoît
@@ -44,11 +44,7 @@ public class ToolManager {
 
 	private static double delay = 0;
 	private static long lastAction = 0;
-	private long timer = 0;
-
-	private static List<ActionListener> listeners = new ArrayList<>();
-	private static ToolManager instance = new ToolManager();
-
+	
 	private ToolManager() {
 
 	}
@@ -164,14 +160,12 @@ public class ToolManager {
 			}
 		}
 		EventManager.post(new TilesEvent(extended));
-		// notifyListeners("tiles", extended);
 		updateParcelsForExtended(tiles);
 	}
 
 	public static void updateParcelsForExtended(List<Tile> tiles) {
 		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(tiles);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
-		// notifyListeners("parcels", toUpdate);
 	}
 
 	public static void updateParcels(List<Tile> tiles) {
