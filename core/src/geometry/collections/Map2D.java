@@ -12,11 +12,9 @@ public class Map2D<E> {
 	
 	
 	public Map2D(int xSize, int ySize) {
-		this.xSize = xSize;
-		this.ySize = ySize;
-		values = new ArrayList<>(xSize*ySize);
-		setAll(null);
+		this(xSize, ySize, null);
 	}
+	
 	public Map2D(int xSize, int ySize, E defaultVal) {
 		this.xSize = xSize;
 		this.ySize = ySize;
