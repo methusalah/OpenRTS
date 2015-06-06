@@ -9,33 +9,25 @@ import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Create a passage into cliffs to allow hiker hiking throught levels. For now, ramps are only orthogonal and work on one-level height cliffs only. A ramp is
  * created on a cliff, replace it and create cliffs at its sides. Ramps can be enlarged but not narrowed.
  */
 
-@Root
 public class Ramp {
 
-	private Map map;
 	private List<Tile> tiles = new ArrayList<>();
-
+	@JsonIgnore
 	int minX, maxX, minY, maxY;
 
-	@Element
 	private int level;
-	@Element
 	private double angle;
-	@ElementList
 	private List<Integer> tilesRef = new ArrayList<>();
 
-	public Ramp(Tile t, Map map) {
-		this.map = map;
-		map.ramps.add(this);
+	public Ramp(Tile t) {
+		ModelManager.getBattlefield().getMap().ramps.add(this);
 		if (!t.hasCliff()) {
 			throw new IllegalArgumentException("Ramp must be first created on a cliff.");
 		}
@@ -45,7 +37,7 @@ public class Ramp {
 		compute();
 	}
 
-	public Ramp(@Element(name = "level") int level, @Element(name = "angle") double angle, @ElementList(name = "tilesRef") List<Integer> tilesRef) {
+	public Ramp(int level, double angle, List<Integer> tilesRef) {
 		this.level = level;
 		this.angle = angle;
 		this.tilesRef = tilesRef;
@@ -57,7 +49,6 @@ public class Ramp {
 	 * @param map
 	 */
 	public void connect(Map map) {
-		this.map = map;
 		for (Integer ref : tilesRef) {
 			tiles.add(map.getTile(ref));
 		}
@@ -77,7 +68,7 @@ public class Ramp {
 		}
 		tilesRef.clear();
 		for (Tile t : tiles) {
-			tilesRef.add(map.getRef(t));
+			tilesRef.add(ModelManager.getBattlefield().getMap().getRef(t));
 			t.ramp = this;
 			t.level = level;
 			t.elevation = -Tile.STAGE_HEIGHT * getSlopeRate(t);
@@ -238,8 +229,8 @@ public class Ramp {
 		throw new RuntimeException();
 	}
 
-	public ArrayList<Tile> destroy() {
-		ArrayList<Tile> res = new ArrayList<>();
+	public List<Tile> destroy() {
+		List<Tile> res = new ArrayList<>();
 		res.addAll(tiles);
 		for (Tile t : tiles) {
 			t.ramp = null;
@@ -254,7 +245,7 @@ public class Ramp {
 				}
 			}
 		}
-		map.ramps.remove(this);
+		ModelManager.getBattlefield().getMap().ramps.remove(this);
 		return res;
 
 	}

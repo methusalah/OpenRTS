@@ -1,5 +1,6 @@
 package model.battlefield.map.parcel;
 
+import exception.TechnicalException;
 import geometry.collections.Ring;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.algorithm.Triangulator;
@@ -56,7 +57,7 @@ public class ParcelMesh extends MyMesh {
 				}
 			}
 		}
-		throw new RuntimeException("strange");
+		throw new TechnicalException("Ground Triangle was not found, this must not happed. It's strange");
 	}
 
 	private List<Triangle3D> getTileGround(Tile t) {
