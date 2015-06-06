@@ -4,6 +4,7 @@
 package model.editor.tools;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
@@ -38,10 +39,10 @@ public class RampTool extends Tool {
 			if (!t.hasCliff()) {
 				return;
 			}
-			new Ramp(t, ModelManager.getBattlefield().getMap());
+			new Ramp(t);
 		}
 
-		ArrayList<Tile> changed = new ArrayList<>();
+		List<Tile> changed = new ArrayList<>();
 		changed.addAll(t.ramp.getTiles());
 		for (Tile t1 : t.ramp.getTiles()) {
 			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t1)) {

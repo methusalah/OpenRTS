@@ -10,6 +10,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import exception.TechnicalException;
+
 /**
  * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw
  * and blend textures on a multiple material. This class contains also methods for serialization/deserialization by Byte, has the data may be huge in a more
@@ -93,7 +95,7 @@ public class Atlas {
 			fis.read(bytes, 0, width * height * LAYER_COUNT);
 			fis.close();
 		} catch (IOException e) {
-			System.err.println("IOException : " + e);
+			throw new TechnicalException("IOException : " + e);
 		}
 		int index = 0;
 		layers.clear();

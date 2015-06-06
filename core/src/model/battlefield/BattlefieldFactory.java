@@ -20,10 +20,8 @@ import model.battlefield.map.parcel.ParcelManager;
 import model.builders.MapStyleBuilder;
 import model.builders.definitions.BuilderManager;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.smile.SmileFactory;
 
 /**
@@ -166,11 +164,13 @@ public class BattlefieldFactory {
 	public void save(Battlefield battlefield) {
 		battlefield.getEngagement().save();
 		battlefield.getMap().saveTrinkets();
-		Serializer serializer = new Persister();
+
+		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		try {
 			if (battlefield.getFileName() != null) {
 				LogUtil.logger.info("Saving battlefield overwriting " + battlefield.getFileName() + "...");
-				serializer.write(battlefield, new File(battlefield.getFileName()));
+				mapper.writeValue(new File(battlefield.getFileName()), battlefield);
 			} else {
 				final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
 				fc.setAcceptAllFileFilterUsed(false);
@@ -187,7 +187,7 @@ public class BattlefieldFactory {
 
 					battlefield.setFileName(f.getCanonicalPath());
 					LogUtil.logger.info("Saving map as " + battlefield.getFileName() + "...");
-					serializer.write(battlefield, new File(battlefield.getFileName()));
+					mapper.writeValue(new File(battlefield.getFileName()), battlefield);
 				}
 			}
 		} catch (Exception ex) {

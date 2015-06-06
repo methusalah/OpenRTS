@@ -19,7 +19,7 @@ import controller.cameraManagement.CameraManager;
  */
 public abstract class Controller extends AbstractAppState {
 
-	public InputInterpreter inputInterpreter;
+	protected InputInterpreter inputInterpreter;
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;

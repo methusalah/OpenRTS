@@ -12,8 +12,6 @@ import model.ModelManager;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 
-import org.simpleframework.xml.Element;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -63,8 +61,7 @@ public class Tile {
 		level = 0;
 	}
 
-	public Tile(@Element(name = "x") int x, @Element(name = "y") int y, @Element(name = "level") int level, @Element(name = "elevation") double elevation,
-			@Element(name = "cliffShapeID") String cliffShapeID) {
+	public Tile(int x, int y, int level, double elevation, String cliffShapeID) {
 		this.x = x;
 		this.y = y;
 		this.level = level;
