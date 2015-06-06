@@ -111,9 +111,9 @@ public class EditorGUIController extends GUIController {
 		ModelManager.saveBattlefield();
 	}
 
-	// public void newMap() {
-	// ModelManager.setNewBattlefield();
-	// }
+	public void newMap() {
+		ModelManager.setNewBattlefield();
+	}
 
 	public void settings() {
 		MainRTS.appInstance.changeSettings();

@@ -25,7 +25,7 @@ import event.EventManager;
  * @author Benoît
  */
 public class EditorController extends Controller {
-	Point2D screenCoord;
+	protected Point2D screenCoord;
 	protected EditorView view;
 
 	public EditorController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
@@ -34,7 +34,7 @@ public class EditorController extends Controller {
 		inputInterpreter = new EditorInputInterpreter(this);
 		guiController = new EditorGUIController(nifty, this);
 		cameraManager = new IsometricCameraManager(cam, 10);
-		
+
 		EventManager.register(this);
 	}
 
@@ -75,5 +75,5 @@ public class EditorController extends Controller {
 	public void manageEvent(BattleFieldUpdateEvent ev) {
 		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
 	}
-	
+
 }
