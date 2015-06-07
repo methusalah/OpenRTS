@@ -42,12 +42,12 @@ public class TileTest {
 		out.flush();
 		out.close();
 
-		InputStream in = new FileInputStream("map1.tiles");
+		InputStream in = new FileInputStream("assets/maps/map1.tiles");
 
 		List<Tile> otherValue = mapper.readValue(in, List.class);
 		in.close();
 		System.out.println(otherValue);
-		assert otherValue.size() == 64 * 64;
+		assert otherValue.size() == 4 * 4;
 
 		// OpenRTSClient client = new OpenRTSClient();
 		// client.start();
