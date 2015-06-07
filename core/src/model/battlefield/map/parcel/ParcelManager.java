@@ -35,6 +35,7 @@ public class ParcelManager {
 	}
 
 	public static void createParcelMeshes(Map map) {
+		meshes.clear();
 		WIDTHJUMP = (int) (Math.ceil((double) map.width / RESOLUTION));
 		int nbParcel = WIDTHJUMP * (int) Math.ceil((double) map.height / RESOLUTION);
 		for (int i = 0; i < nbParcel; i++) {
@@ -199,6 +200,7 @@ public class ParcelManager {
 		Ring<Point3D> elevatedRing = new Ring<>();
 		for (Point3D p : groundPoints) {
 			double elevation;
+			// TODO: smell like switch case
 			if (p.get2D().equals(sw)) {
 				elevation = getElevation(t, c);
 			} else if (p.get2D().equals(se)) {
