@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <Actor id="StdTrinket">
+        <Type value="Model"/>
+<!--        <Scale value="1"/>
+        <ActorList Trigger="onAllTime" ActorLink=""/>
+-->
+    </Actor>
+    
+</catalog>

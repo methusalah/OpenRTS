@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Actor id="Aircraft">
+    <Type value="Model"/>
+    <ModelPath value="human/adav/adav02b.mesh.xml"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet01"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet02"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet03"/>
+    <ActorList Trigger="onMove" ActorLink="AdavJet04"/>
+    <ActorList Trigger="onMove" ActorLink="AdavContrail01"/>    
+    <Scale value="1"/>
+  </Actor>
+  
+  <Actor id="AdavJet01">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet01"/>
+    <DirectionBone value="BJetVec01"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.06"/>
+    <EndSize value="0.01"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  
+  <Actor id="AdavJet02">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet02"/>
+    <DirectionBone value="BJetVec02"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.06"/>
+    <EndSize value="0.01"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  
+  <Actor id="AdavJet03">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet03"/>
+    <DirectionBone value="BJetVec03"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.06"/>
+    <EndSize value="0.01"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  
+  <Actor id="AdavJet04">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <!--<NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <EmissionBone value="BJet04"/>
+    <DirectionBone value="BJetVec04"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.06"/>
+    <EndSize value="0.01"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+    <StartVariation value="0.05"/>
+  </Actor>
+  
+  <Actor id="AdavContrail01">
+    <Type value="Particle"/>
+    <SpritePath value="particles/contrail02.png"/>
+    <NbCol value="1"/>
+    <NbRow value="1"/>
+    <Add value="false"/>
+    <EmissionBone value="BContrail01"/>
+    <DirectionBone value="BContrailVec01"/>
+    <MaxCount value="5000"/>
+    <PerSecond value="1000"/>
+    <StartSize value="0.02"/>
+    <EndSize value="0.02"/>
+    <StartColor R="255" G="255" B="255" A="255"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="1"/>
+    <MaxLife value="1"/>
+  </Actor>
+  
+  <Actor id="Marine">
+    <Type value="Model"/>
+    <ModelPath value="human/infantry01.mesh.xml"/>
+    <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onWait" ActorLink="Idle"/>
+    <Scale value="1"/>
+  </Actor>
+  <Actor id="Move">
+    <Type value="Animation"/>
+    <AnimName value="run"/>
+    <Speed value="2"/>
+    <Cycle value="Cycle"/>
+  </Actor>
+  <Actor id="Idle">
+    <Type value="Animation"/>
+    <AnimName value="idle"/>
+    <Speed value="0.8"/>
+    <Cycle value="Loop"/>
+  </Actor>
+
+  <Actor id="SmallAlien">
+    <Type value="Model"/>
+    <ModelPath value="alien/miniwalker/miniwalker02a.mesh.xml"/>
+    <Scale value="1"/>
+    <ActorList Trigger="onMove" ActorLink="Move"/>
+    <ActorList Trigger="onWait" ActorLink="Idle"/>
+  </Actor>
+  <Actor id="BigAlien">
+    <Type value="Model"/>
+    <ModelPath value="alien/vehicule01.mesh.xml"/>
+    <Scale value="1"/>
+  </Actor>
+  
+  <Actor id="StdMissile">
+    <Type value="Model"/>
+    <ModelPath value="human/hmissileT1/hmissileT1_02.mesh.xml"/>
+    <Scale value="1"/>
+    <ActorList Trigger="onMove" ActorLink="StdJetFlame"/>
+    <ActorList Trigger="onMove" ActorLink="StdJetSmoke"/>
+    <ActorList Trigger="onDestroyed" ActorLink="StdMissileExpl"/>
+    <ActorList Trigger="onDestroyed" ActorLink="StdMissileExplGlow"/>    
+  </Actor>
+  <Actor id="StdJetFlame">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BJet01"/>
+    <DirectionBone value="BJetVec01"/>
+    <MaxCount value="100"/>
+    <PerSecond value="80"/>
+    <StartSize value="0.08"/>
+    <EndSize value="0.01"/>
+    <StartColor R="245" G="205" B="0" A="255"/>
+    <EndColor R="200" G="0" B="0" A="0"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.2"/>
+  </Actor>
+  <Actor id="StdJetSmoke">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke.png"/>
+    <Add value="false"/>
+    <EmissionBone value="BJet01"/>
+    <DirectionBone value="BJetVec01"/>
+    <MaxCount value="100"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.01"/>
+    <EndSize value="0.08"/>
+    <StartColor R="250" G="250" B="250" A="180"/>
+    <EndColor R="150" G="150" B="150" A="50"/>
+    <MinLife value="0.8"/>
+    <MaxLife value="0.8"/>
+  </Actor>
+  <Actor id="StdMissileExpl">
+    <Type value="Particle"/>
+    <SpritePath value="particles/explosion01.png"/>
+    <NbCol value="7"/>
+    <NbRow value="7"/>
+    <Add value="false"/>
+    <EmissionBone value="BRoot"/>
+    <DirectionBone value="BJet01"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <Duration value="0"/>
+    <StartSize value="0.3"/>
+    <EndSize value="0.3"/>
+    <StartColor R="255" G="255" B="255" A="255"/>
+    <EndColor R="255" G="255" B="255" A="255"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
+  </Actor>
+  <Actor id="StdMissileExplGlow">
+    <Type value="Particle"/>
+    <SpritePath value="particles/glow01.png"/>
+    <Add value="true"/>
+    <EmissionBone value="BRoot"/>
+    <DirectionBone value="BJet01"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <Duration value="0"/>
+    <StartSize value="0.6"/>
+    <EndSize value="0.3"/>
+    <StartColor R="255" G="255" B="0" A="200"/>
+    <EndColor R="100" G="0" B="0" A="75"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
+  </Actor>  
+
+</catalog>

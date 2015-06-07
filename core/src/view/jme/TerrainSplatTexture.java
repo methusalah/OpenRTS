@@ -49,14 +49,14 @@ public class TerrainSplatTexture {
 		normaMaps.add(normal);
 
 		scales.add(scale);
-		//		ImageRaster raster = ImageRaster.create(diffuse.getImage());
-		//		List<Short> alphaValues = new ArrayList<>(raster.getWidth()*raster.getHeight());
-		//		LogUtil.logger.info("taille du buffer : "+raster.getWidth()*raster.getHeight());
-		//		for(int x = 0; x < raster.getWidth(); x++)
-		//			for(int y = 0; y < raster.getHeight(); y++)
-		//				alphaValues.add((short)Math.round(raster.getPixel(x, y).a*255));
+		// ImageRaster raster = ImageRaster.create(diffuse.getImage());
+		// List<Short> alphaValues = new ArrayList<>(raster.getWidth()*raster.getHeight());
+		// LogUtil.logger.info("taille du buffer : "+raster.getWidth()*raster.getHeight());
+		// for(int x = 0; x < raster.getWidth(); x++)
+		// for(int y = 0; y < raster.getHeight(); y++)
+		// alphaValues.add((short)Math.round(raster.getPixel(x, y).a*255));
 		//
-		//		atlas.layers.get(diffuseMaps.size()-1).setMask(raster.getWidth(), raster.getHeight(), alphaValues, scale);
+		// atlas.layers.get(diffuseMaps.size()-1).setMask(raster.getWidth(), raster.getHeight(), alphaValues, scale);
 
 		atlas.getLayers().get(diffuseMaps.size() - 1).mask = ImageRaster.create(diffuse.getImage());
 		atlas.getLayers().get(diffuseMaps.size() - 1).maskScale = scale;
@@ -87,8 +87,6 @@ public class TerrainSplatTexture {
 					}
 				}
 			}
-
-
 		}
 	}
 

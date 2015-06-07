@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Projectile id="StdProjectile">
+    <Speed value="4"/>
+    <Mass value="1"/>
+    <Precision value="Center"/>
+    <MoverLink value="Projectile"/>
+    <ActorLink value="StdMissile"/>
+  </Projectile>
+  <Projectile id="BatteryMissile">
+    <Speed value="6"/>
+    <Mass value="3"/>
+    <Precision value="InRadius"/>
+    <MoverLink value="Projectile"/>
+    <ActorLink value="StdMissile"/>
+  </Projectile>
+</catalog>

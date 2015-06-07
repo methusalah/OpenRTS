@@ -97,7 +97,7 @@ public class BattlefieldFactory {
 			// and then read/write data as usual
 
 			byte[] smileData = mapper.writeValueAsBytes(bField.getMap().getTiles());
-			OutputStream out = new FileOutputStream("map1.tiles");
+			OutputStream out = new FileOutputStream(ModelManager.DEFAULT_MAP_PATH + "/map1.tiles");
 			out.write(smileData);
 			out.flush();
 			out.close();
