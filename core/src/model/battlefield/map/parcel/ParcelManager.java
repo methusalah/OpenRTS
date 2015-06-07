@@ -26,7 +26,7 @@ import model.battlefield.map.cliff.Cliff.Type;
  */
 public class ParcelManager {
 
-	private static final int RESOLUTION = 10;
+	private static int RESOLUTION = 10;
 
 	private static List<ParcelMesh> meshes = new ArrayList<>();
 	private static int WIDTHJUMP;
@@ -36,6 +36,12 @@ public class ParcelManager {
 
 	public static void createParcelMeshes(Map map) {
 		meshes.clear();
+		if (map.width < 10 || map.height < 10) {
+			RESOLUTION = Math.min(map.width, map.height);
+		} else {
+			RESOLUTION = 10;
+		}
+
 		WIDTHJUMP = (int) (Math.ceil((double) map.width / RESOLUTION));
 		int nbParcel = WIDTHJUMP * (int) Math.ceil((double) map.height / RESOLUTION);
 		for (int i = 0; i < nbParcel; i++) {
