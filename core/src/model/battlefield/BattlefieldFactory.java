@@ -75,6 +75,7 @@ public class BattlefieldFactory {
 	}
 
 	public Battlefield load(File file) {
+		ModelManager.setBattlefieldUnavailable();
 		Battlefield bField = null;
 
 		try {
@@ -107,6 +108,7 @@ public class BattlefieldFactory {
 
 		if (bField == null) {
 			LogUtil.logger.info("Load failed");
+			ModelManager.setBattlefieldReady();
 			return null;
 		}
 

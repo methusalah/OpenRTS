@@ -23,6 +23,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
@@ -46,9 +47,11 @@ public class MapDrawer {
 	private Map<String, Spatial> models = new HashMap<>();
 
 	private Map<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
+	private Map<ParcelMesh, Spatial> layerSpatial = new HashMap<>();
 	private Map<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
 	public TerrainSplatTexture groundTexture;
+	public TerrainSplatTexture layerTexture;
 
 	public Node mainNode = new Node();
 	public Node castAndReceiveNode = new Node();
@@ -59,6 +62,8 @@ public class MapDrawer {
 	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
+		groundTexture.limited = false;
+		layerTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
 		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -81,8 +86,17 @@ public class MapDrawer {
 			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
+			if(index == 4)
+				break;
+		}
+		for (int i = 0; i < 6; i++) {
+			if(i == 5)
+				layerTexture.addTexture(am.loadTexture("textures/paving.png"), null, 32);
+			else
+				layerTexture.addTexture(am.loadTexture("textures/transp.png"), null, 1);
 		}
 		groundTexture.buildMaterial();
+		layerTexture.buildMaterial();
 
 		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
 			Geometry g = new Geometry();
@@ -90,12 +104,20 @@ public class MapDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
-			// g.setQueueBucket(Bucket.Transparent);
+			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
 			parcelsSpatial.put(mesh, g);
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
+			
+			Geometry g2 = new Geometry();
+			g2.setMesh(jmeMesh);
+			g2.setMaterial(layerTexture.getMaterial());
+			g2.setQueueBucket(Bucket.Transparent);
+			g2.setLocalTranslation(0, 0, 2f);
+			layerSpatial.put(mesh, g2);
+			castAndReceiveNode.attachChild(g2);
 		}
 		updateTiles(ModelManager.getBattlefield().getMap().getTiles());
 	}
@@ -124,6 +146,7 @@ public class MapDrawer {
 
 	private void updateGroundTexture() {
 		groundTexture.getMaterial();
+		layerTexture.getMaterial();
 	}
 
 	private void updateTiles(List<Tile> tiles) {
@@ -222,6 +245,9 @@ public class MapDrawer {
 			g.setMesh(jmeMesh);
 			mainPhysicsSpace.remove(g);
 			mainPhysicsSpace.add(g);
+			
+			Geometry g2 = ((Geometry) layerSpatial.get(parcel));
+			g2.setMesh(jmeMesh);
 		}
 	}
 }
