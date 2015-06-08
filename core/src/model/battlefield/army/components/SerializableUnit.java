@@ -36,16 +36,6 @@ public class SerializableUnit {
 		yaw = u.yaw;
 	}
 
-	// public SerializableUnit(@Element(name="builderID")String builderID,
-	// @Element(name="factionName")String factionName,
-	// @Element(name="pos")Point3D pos,
-	// @Element(name="yaw")double yaw) {
-	// this.builderID = builderID;
-	// this.factionName = factionName;
-	// this.pos = pos;
-	// this.yaw = yaw;
-	// }
-
 	public Unit getUnit(List<Faction> factions) {
 		for(Faction f : factions) {
 			if (f.getName().equals(factionName)) {

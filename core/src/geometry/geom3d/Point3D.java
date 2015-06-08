@@ -5,6 +5,10 @@ import geometry.math.Precision;
 
 import java.text.DecimalFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 public class Point3D {
 	public static final Point3D ORIGIN = new Point3D(0, 0, 0);
 	public static final Point3D UNIT = new Point3D(1, 1, 1);
@@ -13,10 +17,9 @@ public class Point3D {
 	public static final Point3D UNIT_Z = new Point3D(0, 0, 1);
 	private static final DecimalFormat df = new DecimalFormat("0.00");
 
-	public double x;
-	public double y;
-	public double z;
-
+	@JsonProperty
+	public double x, y, z;
+	
 	public Point3D() {
 
 	}
@@ -78,7 +81,8 @@ public class Point3D {
 			throw new RuntimeException("Can't construct invalid " + this.getClass().getSimpleName() + " : " + this);
 		}
 	}
-
+	
+	@JsonIgnore
 	public double getDistance(Point3D other) {
 		double dx = x - other.x;
 		double dy = y - other.y;
@@ -86,10 +90,12 @@ public class Point3D {
 		return Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
+	@JsonIgnore
 	public double getNorm() {
 		return Math.sqrt(x * x + y * y + z * z);
 	}
 
+	@JsonIgnore
 	public Point3D getNormalized() {
 		double norm = getNorm();
 		if (norm == 0) {
@@ -98,6 +104,7 @@ public class Point3D {
 		return getDivision(norm);
 	}
 
+	@JsonIgnore
 	public Point3D getCross(Point3D o) {
 		double resX = ((y * o.z) - (z * o.y));
 		double resY = ((z * o.x) - (x * o.z));
@@ -105,27 +112,32 @@ public class Point3D {
 		return new Point3D(resX, resY, resZ);
 	}
 
+	@JsonIgnore
 	public Point3D getSubtraction(Point3D o) {
 		return new Point3D(x - o.x, y - o.y, z - o.z);
 	}
 
+	@JsonIgnore
 	public Point3D getDivision(double val) {
 		return new Point3D(x / val, y / val, z / val);
 	}
 
+	@JsonIgnore
 	public Point3D getMult(double val) {
 		return new Point3D(x * val, y * val, z * val);
 	}
 
+	@JsonIgnore
 	public Point3D getMult(double xVal, double yVal, double zVal) {
 		return new Point3D(x * xVal, y * yVal, z * zVal);
-		// ahah
 	}
 
+	@JsonIgnore
 	public Point3D getAddition(Point3D o) {
 		return new Point3D(x + o.x, y + o.y, z + o.z);
 	}
 
+	@JsonIgnore
 	public Point3D getAddition(double x, double y, double z) {
 		return new Point3D(this.x + x, this.y + y, this.z + z);
 	}
@@ -144,14 +156,17 @@ public class Point3D {
 		return "(" + df.format(x) + ", " + df.format(y) + ", " + df.format(z) + ")";
 	}
 
+	@JsonIgnore
 	public boolean isOrigin() {
 		return equals(ORIGIN);
 	}
 
+	@JsonIgnore
 	private double getQuaternion() {
-		throw new RuntimeException("go fuck with your quaternions");
+		throw new RuntimeException("bloody quaternions are not implemented.");
 	}
 
+	@JsonIgnore
 	public Point3D getTruncation(double val) {
 		if (getNorm() > val) {
 			return getNormalized().getMult(val);
@@ -159,32 +174,63 @@ public class Point3D {
 		return new Point3D(this);
 	}
 
+	@JsonIgnore
 	public Point3D getScaled(double scale) {
 		return getNormalized().getMult(scale);
 	}
 
+	@JsonIgnore
 	public Point3D getNegation() {
 		return new Point3D(-x, -y, -z);
 	}
 
+	@JsonIgnore
 	public Point2D get2D() {
 		return new Point2D(this);
 	}
 
+	@JsonIgnore
 	public Point3D getRotationAroundZ(double angle) {
 		return get2D().getRotation(angle).get3D(z);
 	}
 
+	@JsonIgnore
 	public Point3D getRotationAroundZ(double angle, Point2D pivot) {
 		return get2D().getRotation(angle, pivot).get3D(z);
 	}
 
+	@JsonIgnore
 	public double getDotProduct(Point3D o) {
 		return x * o.x + y * o.y + z * o.z;
 	}
 
+	@JsonIgnore
 	public double getAngleWith(Point3D o) {
 		return Math.acos(getDotProduct(o) / (getNorm() * o.getNorm()));
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getZ() {
+		return z;
+	}
+
+	public void setZ(double z) {
+		this.z = z;
 	}
 
 }
