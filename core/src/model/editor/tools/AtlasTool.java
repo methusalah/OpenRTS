@@ -23,7 +23,6 @@ public class AtlasTool extends Tool {
 	private static final String ADD_DELETE_OP = "add/delete";
 	private static final String PROPAGATE_SMOOTH_OP = "propagate/smooth";
 
-	Atlas atlas;
 	AtlasExplorer explorer;
 
 	int autoLayer;
@@ -31,7 +30,6 @@ public class AtlasTool extends Tool {
 
 	public AtlasTool() {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
-		this.atlas = ModelManager.getBattlefield().getMap().atlas;
 		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
 		set = new AssetSet(ModelManager.getBattlefield().getMap().style.textures, true);
 	}
@@ -98,8 +96,8 @@ public class AtlasTool extends Tool {
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : atlas.getLayers()) {
-			if (atlas.getLayers().indexOf(l) == layer) {
+		for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
+			if (ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
 			} else {
 				availableLayers.add(l);
@@ -121,7 +119,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		atlas.updatePixel(x, y);
+		ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
@@ -137,15 +135,15 @@ public class AtlasTool extends Tool {
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : atlas.getLayers()) {
-			if (atlas.getLayers().indexOf(l) == layer) {
+		for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
+			if (ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= l.withdrawAndReturnExcess(x, y, attenuatedInc);
 			} else if (l.get(x, y) > 0) {
 				availableLayers.add(l);
 			}
 		}
 		if (availableLayers.isEmpty()) {
-			availableLayers.add(atlas.getLayers().get(0));
+			availableLayers.add(ModelManager.getBattlefield().getMap().atlas.getLayers().get(0));
 		}
 
 		int secur = -1;
@@ -164,20 +162,20 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		atlas.updatePixel(x, y);
+		ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
 	}
 
 	private void propagate(ArrayList<Point2D> pixels) {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			autoLayer = 0;
-			Point2D center = pencil.getCoord().getMult(atlas.getWidth(), atlas.getHeight())
+			Point2D center = pencil.getCoord().getMult(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())
 					.getDivision(ModelManager.getBattlefield().getMap().width, ModelManager.getBattlefield().getMap().height);
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
-			for (AtlasLayer l : atlas.getLayers()) {
-				if (l.get(centerX, centerY) > atlas.getLayers().get(autoLayer).get(centerX, centerY)) {
-					autoLayer = atlas.getLayers().indexOf(l);
+			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
+				if (l.get(centerX, centerY) > ModelManager.getBattlefield().getMap().atlas.getLayers().get(autoLayer).get(centerX, centerY)) {
+					autoLayer = ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l);
 				}
 			}
 		}
@@ -193,16 +191,16 @@ public class AtlasTool extends Tool {
 			double attenuatedInc = increment
 					* pencil.strength
 					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().width,
-							ModelManager.getBattlefield().getMap().height).getDivision(atlas.getWidth(), atlas.getHeight()));
+							ModelManager.getBattlefield().getMap().height).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight()));
 
 			int activeLayerCount = 0;
-			for (AtlasLayer l : atlas.getLayers()) {
+			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
 				if (l.get(x, y) != 0) {
 					activeLayerCount++;
 				}
 			}
 			double targetVal = 255 / activeLayerCount;
-			for (AtlasLayer l : atlas.getLayers()) {
+			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
 				if (l.get(x, y) != 0) {
 					double diff = targetVal - l.get(x, y);
 					if (diff < 0) {
@@ -212,7 +210,7 @@ public class AtlasTool extends Tool {
 					}
 				}
 			}
-			atlas.updatePixel(x, y);
+			ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
 		}
 
 	}
