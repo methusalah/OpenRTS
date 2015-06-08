@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import exception.TechnicalException;
+import geometry.tools.LogUtil;
 
 /**
  * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw
@@ -40,14 +41,13 @@ public class Atlas {
 	public Atlas(int mapWidth, int mapHeight) {
 		this.mapWidth = mapWidth;
 		this.mapHeight = mapHeight;
-
-		width = mapWidth * RESOLUTION_RATIO;
-		height = mapHeight * RESOLUTION_RATIO;
 	}
 
 
 	@Override
 	public void finalize() {
+		width = mapWidth * RESOLUTION_RATIO;
+		height = mapHeight * RESOLUTION_RATIO;
 		layers.add(new AtlasLayer(width, height, 1));
 		for (int i = 1; i < LAYER_COUNT; i++) {
 			layers.add(new AtlasLayer(width, height, 0));

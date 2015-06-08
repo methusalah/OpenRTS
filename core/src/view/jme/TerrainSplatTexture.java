@@ -37,9 +37,6 @@ public class TerrainSplatTexture {
 	}
 
 	public void addTexture(Texture diffuse, Texture normal, double scale) {
-//		LogUtil.logger.info("adding "+diffuse);
-//		LogUtil.logger.info("       "+normal);
-//		LogUtil.logger.info("       "+scale);
 		diffuse.setAnisotropicFilter(8);
 		diffuse.setWrap(Texture.WrapMode.Repeat);
 		diffuseMaps.add(diffuse);
@@ -51,14 +48,6 @@ public class TerrainSplatTexture {
 		normaMaps.add(normal);
 
 		scales.add(scale);
-		// ImageRaster raster = ImageRaster.create(diffuse.getImage());
-		// List<Short> alphaValues = new ArrayList<>(raster.getWidth()*raster.getHeight());
-		// LogUtil.logger.info("taille du buffer : "+raster.getWidth()*raster.getHeight());
-		// for(int x = 0; x < raster.getWidth(); x++)
-		// for(int y = 0; y < raster.getHeight(); y++)
-		// alphaValues.add((short)Math.round(raster.getPixel(x, y).a*255));
-		//
-		// atlas.layers.get(diffuseMaps.size()-1).setMask(raster.getWidth(), raster.getHeight(), alphaValues, scale);
 
 		atlas.getLayers().get(diffuseMaps.size() - 1).mask = ImageRaster.create(diffuse.getImage());
 		atlas.getLayers().get(diffuseMaps.size() - 1).maskScale = scale;
@@ -67,8 +56,11 @@ public class TerrainSplatTexture {
 
 	public void buildMaterial() {
 		mat = new Material(am, "Common/MatDefs/Terrain/TerrainLighting.j3md");
-		mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
-		mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
+		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
+		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
+		
+		mat.setTexture("AlphaMap", alpha0);
+		mat.setTexture("AlphaMap_1", alpha1);
 		// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
 		// mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
