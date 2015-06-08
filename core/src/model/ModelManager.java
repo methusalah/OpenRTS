@@ -63,8 +63,8 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
-			battlefield.getEngagement().reset();
-			// LogUtil.logger.info("Reseting view...");
+			ModelManager.getBattlefield().getMap().resetTrinkets();
+			ModelManager.getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");
 		}

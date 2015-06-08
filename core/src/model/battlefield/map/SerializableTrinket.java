@@ -3,6 +3,7 @@ package model.battlefield.map;
 import geometry.geom3d.Point3D;
 import model.builders.definitions.BuilderManager;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SerializableTrinket {
@@ -31,6 +32,7 @@ public class SerializableTrinket {
 		modelPath = t.modelPath;
 	}
 
+	@JsonIgnore
 	public Trinket getTrinket() {
 		Trinket res = BuilderManager.getTrinketBuilder(builderID).build(pos, yaw, modelPath, scaleX, scaleY, scaleZ);
 		return res;

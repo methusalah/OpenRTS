@@ -151,9 +151,6 @@ public class BattlefieldFactory {
 
 		ParcelManager.createParcelMeshes(bField.getMap());
 
-		bField.getMap().resetTrinkets();
-//		bField.getEngagement().reset();
-
 		LogUtil.logger.info("   texture atlas");
 		bField.getMap().atlas.loadFromFile(bField.getFileName());
 		LogUtil.logger.info("Loading done.");
