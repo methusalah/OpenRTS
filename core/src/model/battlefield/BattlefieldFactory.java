@@ -77,7 +77,6 @@ public class BattlefieldFactory {
 	public Battlefield load(File file) {
 		Battlefield bField = null;
 
-
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
 			// this is the new JSON importer

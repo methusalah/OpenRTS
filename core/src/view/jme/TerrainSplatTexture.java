@@ -3,6 +3,8 @@
  */
 package view.jme;
 
+import geometry.tools.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,6 @@ import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 import com.jme3.texture.image.ImageRaster;
-import com.jme3.texture.plugins.AWTLoader;
 
 /**
  * @author Benoît
@@ -29,15 +30,16 @@ public class TerrainSplatTexture {
 	AssetManager am;
 
 	Material mat;
-	AWTLoader awtLoader;
 
 	public TerrainSplatTexture(Atlas atlas, AssetManager am) {
 		this.atlas = atlas;
 		this.am = am;
-		awtLoader = new AWTLoader();
 	}
 
 	public void addTexture(Texture diffuse, Texture normal, double scale) {
+//		LogUtil.logger.info("adding "+diffuse);
+//		LogUtil.logger.info("       "+normal);
+//		LogUtil.logger.info("       "+scale);
 		diffuse.setAnisotropicFilter(8);
 		diffuse.setWrap(Texture.WrapMode.Repeat);
 		diffuseMaps.add(diffuse);

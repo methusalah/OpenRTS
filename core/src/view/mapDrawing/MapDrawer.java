@@ -89,7 +89,7 @@ public class MapDrawer {
 			Mesh jmeMesh = Translator.toJMEMesh(mesh);
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
-			g.setMaterial(groundTexture.getMaterial());
+			g.setMaterial(mm.getLightingTexture("textures/dirt.png"));//groundTexture.getMaterial());
 			// g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
