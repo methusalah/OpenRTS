@@ -12,6 +12,7 @@ import model.battlefield.map.atlas.Atlas;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
@@ -30,6 +31,8 @@ public class TerrainSplatTexture {
 	AssetManager am;
 
 	Material mat;
+	
+	public boolean limited = false;
 
 	public TerrainSplatTexture(Atlas atlas, AssetManager am) {
 		this.atlas = atlas;
@@ -49,20 +52,23 @@ public class TerrainSplatTexture {
 
 		scales.add(scale);
 
-		atlas.getLayers().get(diffuseMaps.size() - 1).mask = ImageRaster.create(diffuse.getImage());
-		atlas.getLayers().get(diffuseMaps.size() - 1).maskScale = scale;
+//		atlas.getLayers().get(diffuseMaps.size() - 1).mask = ImageRaster.create(diffuse.getImage());
+//		atlas.getLayers().get(diffuseMaps.size() - 1).maskScale = scale;
 
 	}
 
 	public void buildMaterial() {
 		mat = new Material(am, "Common/MatDefs/Terrain/TerrainLighting.j3md");
+
 		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
-		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
-		
 		mat.setTexture("AlphaMap", alpha0);
-		mat.setTexture("AlphaMap_1", alpha1);
+
+		if(!limited){
+			Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
+			mat.setTexture("AlphaMap_1", alpha1);
+		}
 		// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
-		// mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+		mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 		for (int i = 0; i < 12; i++) {
 			if (diffuseMaps.size() > i) {
@@ -85,12 +91,13 @@ public class TerrainSplatTexture {
 	}
 
 	public Material getMaterial() {
-		if (atlas.isToUpdate()) {
+//		if (atlas.isToUpdate()) {
 			mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
-			mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
+			if(!limited)
+				mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
 			// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
 			atlas.setToUpdate(false);
-		}
+//		}
 		return mat;
 	}
 }

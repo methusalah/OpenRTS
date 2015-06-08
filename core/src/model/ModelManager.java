@@ -1,5 +1,7 @@
 package model;
 
+import javax.management.RuntimeErrorException;
+
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import geometry.tools.LogUtil;
@@ -21,6 +23,7 @@ public class ModelManager {
 	private static Battlefield battlefield;
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
+	private static boolean battlefieldReady = true;
 
 	static {
 		parser = new DefParser(CONFIG_PATH);
@@ -63,10 +66,12 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
-			ModelManager.getBattlefield().getMap().resetTrinkets();
-			ModelManager.getBattlefield().getEngagement().reset();
+			battlefieldReady = true;
+			getBattlefield().getMap().resetTrinkets();
+			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");
+			
 		}
 	}
 
@@ -77,7 +82,17 @@ public class ModelManager {
 	}
 
 	public static Battlefield getBattlefield() {
-		return battlefield;
+		if(battlefieldReady)
+			return battlefield;
+		else
+			throw new RuntimeException("Trying to acces to battlefield while it is unavailable");
+	}
+	
+	public static void setBattlefieldUnavailable(){
+		battlefieldReady = false;
+	}
+	public static void setBattlefieldReady(){
+		battlefieldReady = true;
 	}
 
 }
