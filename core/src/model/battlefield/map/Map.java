@@ -34,7 +34,7 @@ public class Map {
 	@JsonProperty
 	public List<SerializableTrinket> serializableTrinkets = new ArrayList<SerializableTrinket>();
 
-	@JsonIgnore
+	@JsonProperty
 	public List<Trinket> trinkets = new ArrayList<>();
 
 	@JsonIgnore
