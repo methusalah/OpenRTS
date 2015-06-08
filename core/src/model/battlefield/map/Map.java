@@ -37,7 +37,7 @@ public class Map {
 	@JsonIgnore
 	public List<Trinket> trinkets = new ArrayList<>();
 
-	@JsonProperty
+	@JsonIgnore
 	public Atlas atlas;
 
 	@JsonProperty
