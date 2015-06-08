@@ -2,3 +2,4 @@
 test-output
 
 *.dll
+*.so
