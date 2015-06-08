@@ -1,5 +1,7 @@
 package model.battlefield.actors;
 
+import geometry.tools.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 

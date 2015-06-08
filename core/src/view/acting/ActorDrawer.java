@@ -87,7 +87,6 @@ public class ActorDrawer implements AnimEventListener {
 		dyingEmitters.removeAll(deleted);
 
 		for (Actor a : pool.getActors()) {
-//			LogUtil.logger.info("actor : "+a);
 			switch (a.getType()) {
 				case "model":
 					modelPfm.perform(a);

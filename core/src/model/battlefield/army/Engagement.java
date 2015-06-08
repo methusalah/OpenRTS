@@ -36,8 +36,8 @@ public class Engagement {
 		LogUtil.logger.info("reseting engagement");
 		ArmyManager.reset();
 
-		for (SerializableUnit up : initialEngagement) {
-			ArmyManager.registerUnit(up.getUnit(factions));
+		for (SerializableUnit su : initialEngagement) {
+			ArmyManager.registerUnit(su.getUnit(factions));
 		}
 	}
 

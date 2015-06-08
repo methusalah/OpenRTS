@@ -5,11 +5,11 @@ import event.EventManager;
 import geometry.tools.LogUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
+import model.battlefield.army.ArmyManager;
 import model.battlefield.map.parcel.ParcelManager;
 import model.builders.definitions.DefParser;
 
 public class ModelManager {
-	public static final String BATTLEFIELD_UPDATED_EVENT = "mapupdatedevent";
 	public static final String CONFIG_PATH = "assets/data";
 	public static final String DEFAULT_MAP_PATH = "assets/maps/";
 	private static final double UPDATE_DELAY = 1000;
@@ -63,6 +63,7 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
+			battlefield.getEngagement().reset();
 			// LogUtil.logger.info("Reseting view...");
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");
