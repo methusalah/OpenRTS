@@ -90,14 +90,20 @@ public class AtlasTool extends Tool {
 	}
 
 	private void increment(Point2D p, int layer) {
+		Atlas toPaint = ModelManager.getBattlefield().getMap().atlas;
+		if(layer > 3){
+			toPaint = ModelManager.getBattlefield().getMap().cover;
+			layer -= 4; 
+		}
+		
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
 		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
-			if (ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l) == layer) {
+		for (AtlasLayer l : toPaint.getLayers()) {
+			if (toPaint.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
 			} else {
 				availableLayers.add(l);
@@ -119,7 +125,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
+		toPaint.updatePixel(x, y);
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {

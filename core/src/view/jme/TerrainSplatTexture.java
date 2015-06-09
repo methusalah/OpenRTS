@@ -32,8 +32,8 @@ public class TerrainSplatTexture {
 
 	Material mat;
 	
-	public boolean limited = false;
-
+	public boolean transp = false;
+	
 	public TerrainSplatTexture(Atlas atlas, AssetManager am) {
 		this.atlas = atlas;
 		this.am = am;
@@ -63,12 +63,11 @@ public class TerrainSplatTexture {
 		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
 		mat.setTexture("AlphaMap", alpha0);
 
-		if(!limited){
-			Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
-			mat.setTexture("AlphaMap_1", alpha1);
-		}
-		// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
-		mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
+		mat.setTexture("AlphaMap_1", alpha1);
+		
+		if(transp)
+			mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 		for (int i = 0; i < 12; i++) {
 			if (diffuseMaps.size() > i) {
@@ -91,13 +90,11 @@ public class TerrainSplatTexture {
 	}
 
 	public Material getMaterial() {
-//		if (atlas.isToUpdate()) {
+		if (atlas.isToUpdate()) {
 			mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
-			if(!limited)
-				mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
-			// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
+			mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
 			atlas.setToUpdate(false);
-//		}
+		}
 		return mat;
 	}
 }
