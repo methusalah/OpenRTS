@@ -38,7 +38,7 @@ public class Map {
 	public List<Trinket> trinkets = new ArrayList<>();
 
 	@JsonProperty
-	public Atlas atlas;
+	public Atlas atlas, cover;
 
 	@JsonProperty
 	public int width;
@@ -50,6 +50,9 @@ public class Map {
 		this.height = height;
 		atlas = new Atlas(width, height);
 		atlas.finalize();
+		cover = new Atlas(width, height);
+		cover.finalize();
+		
 		tiles = new ArrayList<>(width * height);
 	}
 

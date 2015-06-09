@@ -50,8 +50,8 @@ public class MapDrawer {
 	private Map<ParcelMesh, Spatial> layerSpatial = new HashMap<>();
 	private Map<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
-	public TerrainSplatTexture groundTexture;
-	public TerrainSplatTexture layerTexture;
+	private TerrainSplatTexture groundTexture;
+	private TerrainSplatTexture coverTexture;
 
 	public Node mainNode = new Node();
 	public Node castAndReceiveNode = new Node();
@@ -62,8 +62,8 @@ public class MapDrawer {
 	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
-		groundTexture.limited = false;
-		layerTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
+		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().cover, am);
+		coverTexture.transp = true;
 		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -84,19 +84,15 @@ public class MapDrawer {
 				normal = null;
 			}
 			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
-			groundTexture.addTexture(diffuse, normal, scale);
-			index++;
-			if(index == 4)
-				break;
-		}
-		for (int i = 0; i < 6; i++) {
-			if(i == 5)
-				layerTexture.addTexture(am.loadTexture("textures/paving.png"), null, 32);
+			
+			if(index < 4)
+				groundTexture.addTexture(diffuse, normal, scale);
 			else
-				layerTexture.addTexture(am.loadTexture("textures/transp.png"), null, 1);
+				coverTexture.addTexture(diffuse, normal, scale);
+			index++;
 		}
 		groundTexture.buildMaterial();
-		layerTexture.buildMaterial();
+		coverTexture.buildMaterial();
 
 		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
 			Geometry g = new Geometry();
@@ -104,7 +100,7 @@ public class MapDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
-			g.setQueueBucket(Bucket.Transparent);
+//			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
 			parcelsSpatial.put(mesh, g);
@@ -113,9 +109,9 @@ public class MapDrawer {
 			
 			Geometry g2 = new Geometry();
 			g2.setMesh(jmeMesh);
-			g2.setMaterial(layerTexture.getMaterial());
+			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
-			g2.setLocalTranslation(0, 0, 2f);
+			g2.setLocalTranslation(0, 0, 0.1f);
 			layerSpatial.put(mesh, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
@@ -146,7 +142,7 @@ public class MapDrawer {
 
 	private void updateGroundTexture() {
 		groundTexture.getMaterial();
-		layerTexture.getMaterial();
+		coverTexture.getMaterial();
 	}
 
 	private void updateTiles(List<Tile> tiles) {
