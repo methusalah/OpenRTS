@@ -6,6 +6,7 @@ package model.editor.tools;
 import geometry.geom2d.Point2D;
 import geometry.tools.LogUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import model.ModelManager;
@@ -106,7 +107,8 @@ public class AtlasTool extends Tool {
 			if (toPaint.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
 			} else {
-				availableLayers.add(l);
+				if(l.get(x, y) > 0)
+					availableLayers.add(l);
 			}
 		}
 		int secur = -1;
@@ -126,6 +128,17 @@ public class AtlasTool extends Tool {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
 		toPaint.updatePixel(x, y);
+
+		DecimalFormat df = new DecimalFormat("0.000");
+		String val = "values : ";
+		double total = 0;
+		for(AtlasLayer l : toPaint.getLayers()) {
+			val += df.format(l.get(x, y))+", ";
+			total += l.get(x, y);
+		}
+		
+		LogUtil.logger.info(val);
+		LogUtil.logger.info("total : "+df.format(total));
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
