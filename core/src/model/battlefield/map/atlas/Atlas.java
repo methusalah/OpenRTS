@@ -47,7 +47,7 @@ public class Atlas {
 	public void finalize() {
 		width = mapWidth * RESOLUTION_RATIO;
 		height = mapHeight * RESOLUTION_RATIO;
-		layers.add(new AtlasLayer(width, height, 1));
+		layers.add(new AtlasLayer(width, height, AtlasLayer.MAX_VALUE));
 		for (int i = 1; i < LAYER_COUNT; i++) {
 			layers.add(new AtlasLayer(width, height, 0));
 		}
@@ -120,10 +120,10 @@ public class Atlas {
 	}
 
 	private int getBufferVal(int x, int y, int firstLayerIndex) {
-		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)*255) << 24;
-		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)*255) << 16;
-		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)*255) << 8;
-		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y)*255);
+		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
+		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)) << 16;
+		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)) << 8;
+		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y));
 		return (r + g + b + a);
 	}
 

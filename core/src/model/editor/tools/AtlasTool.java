@@ -4,10 +4,12 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.tools.LogUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
@@ -27,7 +29,8 @@ public class AtlasTool extends Tool {
 	AtlasExplorer explorer;
 
 	int autoLayer;
-	double increment = 0.15d;
+//	double increment = 0.15d;
+	double increment = 40;
 
 	public AtlasTool() {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
@@ -99,7 +102,7 @@ public class AtlasTool extends Tool {
 		
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
-		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
+		double attenuatedInc = Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
@@ -114,7 +117,7 @@ public class AtlasTool extends Tool {
 		int secur = -1;
 		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
 			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
-			double shared = valueToDitribute / availableLayers.size();
+			double shared = Math.round(valueToDitribute / availableLayers.size());
 			valueToDitribute = 0;
 			for (AtlasLayer l : availableLayers) {
 				valueToDitribute += l.withdrawAndReturnExcess(x, y, shared);
@@ -128,17 +131,6 @@ public class AtlasTool extends Tool {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
 		toPaint.updatePixel(x, y);
-
-		DecimalFormat df = new DecimalFormat("0.000");
-		String val = "values : ";
-		double total = 0;
-		for(AtlasLayer l : toPaint.getLayers()) {
-			val += df.format(l.get(x, y))+", ";
-			total += l.get(x, y);
-		}
-		
-		LogUtil.logger.info(val);
-		LogUtil.logger.info("total : "+df.format(total));
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
@@ -150,7 +142,7 @@ public class AtlasTool extends Tool {
 	private void decrement(Point2D p, int layer) {
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
-		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
+		double attenuatedInc = Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
@@ -207,10 +199,10 @@ public class AtlasTool extends Tool {
 		for (Point2D p : pixels) {
 			int x = (int) Math.round(p.x);
 			int y = (int) Math.round(p.y);
-			double attenuatedInc = increment
+			double attenuatedInc = Math.round(increment
 					* pencil.strength
 					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().width,
-							ModelManager.getBattlefield().getMap().height).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight()));
+							ModelManager.getBattlefield().getMap().height).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())));
 
 			int activeLayerCount = 0;
 			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {

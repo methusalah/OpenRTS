@@ -51,10 +51,6 @@ public class TerrainSplatTexture {
 		normaMaps.add(normal);
 
 		scales.add(scale);
-
-//		atlas.getLayers().get(diffuseMaps.size() - 1).mask = ImageRaster.create(diffuse.getImage());
-//		atlas.getLayers().get(diffuseMaps.size() - 1).maskScale = scale;
-
 	}
 
 	public void buildMaterial() {
@@ -66,7 +62,7 @@ public class TerrainSplatTexture {
 		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
 		mat.setTexture("AlphaMap_1", alpha1);
 		
-//		if(transp)
+		if(transp)
 			mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 		for (int i = 0; i < 12; i++) {
