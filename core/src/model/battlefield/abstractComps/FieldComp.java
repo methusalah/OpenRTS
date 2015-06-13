@@ -84,5 +84,9 @@ public class FieldComp {
 	public long getId() {
 		return id;
 	}
+	
+	public void setPos(Point3D newPos){
+		pos = newPos;
+	}
 
 }

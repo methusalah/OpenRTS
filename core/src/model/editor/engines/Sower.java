@@ -1,0 +1,163 @@
+package model.editor.engines;
+
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
+import geometry.math.Angle;
+import geometry.math.MyRandom;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.ModelManager;
+import model.battlefield.map.Trinket;
+import model.builders.TrinketBuilder;
+import model.builders.definitions.BuilderManager;
+
+public class Sower {
+	private static final int MAX_PLACES_COUNT = 30;
+	private static final int MAX_TRINKETS_COUNT = 10;
+	
+	List<Trinket> toGrow = new ArrayList<>();
+	
+	public boolean running = false;
+	private boolean killed = false;
+	
+	public Sower(){
+		Trinket first = getRandomTrinket();
+		Point3D randomPos = new Point3D(
+				(double)ModelManager.getBattlefield().getMap().width/2,
+				(double)ModelManager.getBattlefield().getMap().height/2,
+				0);
+		randomPos.z = ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos.get2D());
+		first.setPos(randomPos);
+		
+		toGrow.add(first);
+//		sowTrinket(first);
+		start();
+	}
+	
+	private void sowTrinket(Trinket t){
+		t.drawOnBattlefield();
+		toGrow.add(t);
+		ModelManager.getBattlefield().store(t);
+	}
+	
+	private Trinket getRandomTrinket(){
+		List<TrinketBuilder> builders = BuilderManager.getAllEditableTrinketBuilders();
+		return builders.get(MyRandom.nextInt(builders.size())).build(Point3D.ORIGIN);
+		
+	}
+	
+	public void start() {
+		new Thread(
+				new Runnable() {
+					@Override
+					public void run() {
+						while(!killed) {
+							if(running && !toGrow.isEmpty()){
+								Trinket newTrinket = findCandidate();
+								if(newTrinket != null)
+									synchronized (ModelManager.getBattlefield().getMap()) {
+										ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
+									}
+							}
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				}		
+			).start();
+	}
+	
+	private Trinket findCandidate(){
+		Trinket source = toGrow.get(MyRandom.nextInt(toGrow.size()));
+		List<Trinket> neibors = ModelManager.getBattlefield().getCloseComps(source, 10);
+		for(int i = 0; i < MAX_TRINKETS_COUNT; i++){
+			Trinket candidate = getRandomTrinket();
+			for(int j = 0; j < MAX_PLACES_COUNT; j++){
+				double separationDistance = source.getRadius()+candidate.getRadius();
+				Point2D place = source.getCoord().getTranslation(MyRandom.between(0, Angle.FULL), MyRandom.between(separationDistance, separationDistance*2));
+				if(!ModelManager.getBattlefield().getMap().isInBounds(place))
+					continue;
+				
+				boolean isValidePlace = true;
+				for(Trinket n : neibors)
+					if(n.getCoord().getDistance(place) < n.getRadius()+candidate.getRadius()){
+						isValidePlace = false;
+						break;
+					}
+
+				if(isValidePlace){
+					candidate.setPos(place.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(place)));
+					sowTrinket(candidate);
+					return candidate;
+					
+				}
+			}
+		}
+		toGrow.remove(source);
+		return null;
+	}
+	
+	public void kill(){
+		killed = true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

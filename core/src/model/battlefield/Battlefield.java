@@ -1,5 +1,11 @@
 package model.battlefield;
 
+import geometry.geom2d.Point2D;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.army.Engagement;
 import model.battlefield.lighting.SunLight;
@@ -64,4 +70,48 @@ public class Battlefield {
 	public void setMap(Map map) {
 		this.map = map;
 	}
+	
+	public void store(FieldComp fc){
+		map.getTile(fc.getCoord()).storedData.add(fc);
+	}
+	
+	public <T extends FieldComp> List<T> getCloseComps(T fc, double radius){
+		double fcX = fc.getCoord().x;
+		double fcY = fc.getCoord().y;
+		List<T> res = new ArrayList<>();
+		for(int x = (int)(fcX-radius); x < (int)(fcX+radius); x++)
+			for(int y = (int)(fcY-radius); y < (int)(fcY+radius); y++)
+				if(map.isInBounds(new Point2D(x, y)))
+					for(Object o : map.getTile(x, y).storedData)
+						if(o != fc &&
+								o.getClass() == fc.getClass() &&
+								((FieldComp)o).getCoord().getDistance(fc.getCoord()) < radius)
+							res.add((T)o);
+		return res;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

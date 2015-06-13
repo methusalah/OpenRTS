@@ -168,6 +168,9 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 		state = STATE.DESTROYED;
 		actor.stopActingAndChildren();
 	}
+	public void drawOnBattlefield() {
+		actor.act();
+	}
 
 	public boolean destroyed() {
 		return state == STATE.DESTROYED;

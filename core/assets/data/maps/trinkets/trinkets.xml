@@ -5,18 +5,26 @@
         <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <Color R="76" G="63" B="44"/>
         <RotationZ min="0" max="360"/>
-        <Scale min="0.7" max="1.4"/>
-        <Radius value="1"/>
+        <Scale min="0.7" max="3"/>
+	    <Radius value="0.8"/>
+    </Trinket>
+    <Trinket id="LittleRock">
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
+        <Color R="76" G="63" B="44"/>
+        <RotationZ min="0" max="360"/>
+        <Scale min="0.2" max="0.8"/>
+	    <Radius value="0.8"/>
     </Trinket>
     <Trinket id="Plant">
         <ModelList value="env/exterior01/GrassB.mesh.xml"/>
         <RotationZ min="0" max="360"/>
-        <Scale min="0.7" max="1.4"/>
+        <Scale min="0.7" max="1"/>
+	    <Radius value="0.6"/>
     </Trinket>
     <Trinket id="Tree">
         <ModelList value="env/exterior01/treeA.mesh.xml"/>
         <RotationZ min="0" max="360"/>
         <Scale min="0.7" max="1.4"/>
-        <Radius value="0.5"/>
+        <Radius value="0.8"/>
     </Trinket>
 </catalog>
