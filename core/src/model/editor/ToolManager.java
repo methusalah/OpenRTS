@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.parcel.ParcelManager;
@@ -22,6 +23,7 @@ import event.SetToolEvent;
 import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.tools.LogUtil;
 
 /**
@@ -163,6 +165,16 @@ public class ToolManager {
 	}
 
 	public static void updateParcelsForExtended(List<Tile> tiles) {
+		for (Tile t : tiles) {
+			for (Object o : t.storedData) {
+				if(o instanceof FieldComp){
+					FieldComp fc = (FieldComp)o;
+					fc.setPos(new Point3D(fc.getPos().x,
+							fc.getPos().y,
+							ModelManager.getBattlefield().getMap().getAltitudeAt(fc.getPos().get2D())));
+				}
+			}
+		}
 		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(tiles);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 	}
