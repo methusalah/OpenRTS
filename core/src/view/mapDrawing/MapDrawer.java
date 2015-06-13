@@ -100,7 +100,7 @@ public class MapDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
-//			g.setQueueBucket(Bucket.Transparent);
+			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
 			parcelsSpatial.put(mesh, g);

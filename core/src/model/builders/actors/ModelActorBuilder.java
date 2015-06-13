@@ -82,7 +82,7 @@ public class ModelActorBuilder extends ActorBuilder {
 				localScaleY,
 				localScaleZ, localColor, comp);
 		res.debbug_id = getId();
-		res.act();
+//		res.act();
 		return res;
 	}
 

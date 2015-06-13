@@ -1,6 +1,3 @@
-/*
- * To change this template, choose Tools | Templates and open the template in the editor.
- */
 package model.editor;
 
 import java.util.ArrayList;
@@ -11,6 +8,7 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.parcel.ParcelManager;
 import model.battlefield.map.parcel.ParcelMesh;
+import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
@@ -44,6 +42,7 @@ public class ToolManager {
 
 	private static double delay = 0;
 	private static long lastAction = 0;
+	private static Sower sower = new Sower();
 	
 	private ToolManager() {
 
@@ -185,21 +184,20 @@ public class ToolManager {
 		return res;
 	}
 
+	public static void toggleSower(){
+		sower.running = !sower.running;
+	}
+	
+	public static void killSower(){
+		sower.kill();
+	}
+	
 	public static void updateGroundAtlas() {
 		EventManager.post(new UpdateGroundAtlasEvent());
-		// notifyListeners("ground", new ArrayList<Tile>());
 	}
-
-	// private void notifyListeners(String command, Object o) {
-	// ActionEvent event = new ActionEvent(o, 0, command);
-	// for (ActionListener l : listeners) {
-	// l.actionPerformed(event);
-	// }
-	// }
 
 	public static void updatePencilsPos(Point2D pos) {
 		actualTool.pencil.setPos(pos);
-		// updateTiles(actualTool.pencil.getTiles());
 	}
 
 	public static void releasePencils() {

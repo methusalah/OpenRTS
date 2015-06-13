@@ -95,19 +95,16 @@ public class Map {
 	
 	public double getAltitudeAt(Point2D coord) {
 		Triangle3D tr = getTriangleAt(coord);
-		return tr == null? 0: getTriangleAt(coord).getElevated(coord).z;
+		return tr == null ? 0 : getTriangleAt(coord).getElevated(coord).z;
 	}
 
 	public Point3D getNormalVectorAt(Point2D coord) {
 		Triangle3D tr = getTriangleAt(coord);
-		return tr == null? Point3D.UNIT_Z: tr.normal;
+		return tr == null ? Point3D.UNIT_Z : tr.normal;
 	}
 
 	public boolean isBlocked(int x, int y) {
-		if (getTile(x, y).isBlocked()) {
-			return true;
-		}
-		return false;
+		return getTile(x, y).isBlocked() ? true : false;
 	}
 
 	public Tile getTile(Point2D p) {
@@ -193,21 +190,11 @@ public class Map {
 	}
 
 	public boolean isInBounds(Point2D p) {
-		if (p.x < 0 || p.y < 0 || p.x > width - 1 || p.y > height - 1) {
-			return false;
-		}
-		return true;
-
+		return p.x < 0 || p.y < 0 || p.x > width - 1 || p.y > height - 1 ? false : true;
 	}
 
 	public boolean isWalkable(Point2D p) {
-		if (!isInBounds(p)) {
-			return false;
-		}
-		if (getTile(p).isBlocked()) {
-			return false;
-		}
-		return true;
+		return  !isInBounds(p) || getTile(p).isBlocked() ? false : true;
 	}
 
 	public List<Tile> get8Around(Tile t) {
@@ -270,16 +257,6 @@ public class Map {
 		}
 		if (t.w != null) {
 			res.add(t.w);
-		}
-		return res;
-	}
-
-	public ArrayList<Tile> getTilesWithCliff() {
-		ArrayList<Tile> res = new ArrayList<>();
-		for (Tile t : getTiles()) {
-			if (t.hasCliff()) {
-				res.add(t);
-			}
 		}
 		return res;
 	}

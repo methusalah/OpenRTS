@@ -50,6 +50,8 @@ public class Tile {
 	public Ramp ramp;
 	@JsonIgnore
 	public boolean hasBlockingTrinket = false;
+	
+	public List<Object> storedData = new ArrayList<>();
 
 	public Tile() {
 

@@ -3,8 +3,6 @@
  */
 package view.jme;
 
-import geometry.tools.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,6 @@ import com.jme3.material.RenderState.BlendMode;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
-import com.jme3.texture.image.ImageRaster;
 
 /**
  * @author Benoît
@@ -57,7 +54,7 @@ public class TerrainSplatTexture {
 		mat = new Material(am, "Common/MatDefs/Terrain/TerrainLighting.j3md");
 
 		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
-		mat.setTexture("AlphaMap", alpha0);
+		mat.setTexture("AlphaMap", alpha0);//am.loadTexture("textures/alphatest.png"));
 
 		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
 		mat.setTexture("AlphaMap_1", alpha1);
@@ -87,6 +84,7 @@ public class TerrainSplatTexture {
 
 	public Material getMaterial() {
 		if (atlas.isToUpdate()) {
+//			mat.setTexture("AlphaMap", am.loadTexture("textures/alphatest.png"));
 			mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
 			mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
 			atlas.setToUpdate(false);
