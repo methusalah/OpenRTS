@@ -70,10 +70,10 @@ public class Map {
 		return tiles.get(y * width + x);
 	}
 
-	public double getAltitudeAt(Point2D coord) {
+	private Triangle3D getTriangleAt(Point2D coord) {
 		Tile t = getTile(coord);
 		if (t.n == null || t.s == null || t.e == null || t.w == null) {
-			return 0;
+			return null;
 		}
 
 		Point2D tPos2D = new Point2D(t.x, t.y);
@@ -90,32 +90,17 @@ public class Map {
 		} else {
 			tr = new Triangle3D(sw, ne, nw);
 		}
-
-		return tr.getElevated(coord).z;
+		return tr;
+	}
+	
+	public double getAltitudeAt(Point2D coord) {
+		Triangle3D tr = getTriangleAt(coord);
+		return tr == null? 0: getTriangleAt(coord).getElevated(coord).z;
 	}
 
 	public Point3D getNormalVectorAt(Point2D coord) {
-		Tile t = getTile(coord);
-		if (t.n == null || t.s == null || t.e == null || t.w == null) {
-			return Point3D.UNIT_Z;
-		}
-
-		Point2D tPos2D = new Point2D(t.x, t.y);
-		Point2D tnePos2D = new Point2D(t.e.n.x, t.e.n.y);
-
-		Point3D nw = t.n.getPos();
-		Point3D ne = t.n.e.getPos();
-		Point3D sw = t.getPos();
-		Point3D se = t.e.getPos();
-		Triangle3D tr;
-
-		if (Angle.getTurn(tPos2D, tnePos2D, coord) == Angle.CLOCKWISE) {
-			tr = new Triangle3D(sw, se, ne);
-		} else {
-			tr = new Triangle3D(sw, ne, nw);
-		}
-
-		return tr.normal;
+		Triangle3D tr = getTriangleAt(coord);
+		return tr == null? Point3D.UNIT_Z: tr.normal;
 	}
 
 	public boolean isBlocked(int x, int y) {
