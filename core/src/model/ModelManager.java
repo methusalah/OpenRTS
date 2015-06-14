@@ -1,15 +1,12 @@
 package model;
 
-import javax.management.RuntimeErrorException;
-
+import model.battlefield.Battlefield;
+import model.battlefield.BattlefieldFactory;
+import model.battlefield.map.parcel.ParcelManager;
+import model.builders.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import geometry.tools.LogUtil;
-import model.battlefield.Battlefield;
-import model.battlefield.BattlefieldFactory;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.map.parcel.ParcelManager;
-import model.builders.definitions.DefParser;
 
 public class ModelManager {
 	public static final String CONFIG_PATH = "assets/data";
