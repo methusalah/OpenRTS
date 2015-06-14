@@ -19,7 +19,7 @@ public class Sower implements Runnable {
 	private static final int MAX_TRINKETS_COUNT = 10;
 	
 	List<Trinket> toGrow = new ArrayList<>();
-	private volatile boolean pauseAsked = false;
+	private volatile boolean pauseAsked = true;
 	private volatile boolean paused = false;
 	
 	private volatile Thread thread; 
@@ -52,14 +52,6 @@ public class Sower implements Runnable {
 		thread = Thread.currentThread();
 		try {
 			while(!Thread.currentThread().isInterrupted()) {
-				if(!toGrow.isEmpty()){
-					Trinket newTrinket = findCandidate();
-					if(newTrinket != null)
-						synchronized (ModelManager.getBattlefield().getMap()) {
-							ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
-						}
-				}
-				Thread.sleep(50);
 				if(pauseAsked){
 					synchronized (this) {
 						paused = true;
@@ -68,7 +60,16 @@ public class Sower implements Runnable {
 						pauseAsked = false;
 					}
 				}
-					
+
+				
+				if(!toGrow.isEmpty()){
+					Trinket newTrinket = findCandidate();
+					if(newTrinket != null)
+						synchronized (ModelManager.getBattlefield().getMap()) {
+							ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
+						}
+				}
+				Thread.sleep(50);
 			}
 		} catch (InterruptedException e) {
 		}
