@@ -4,6 +4,7 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,15 @@ import model.battlefield.map.Trinket;
 import model.builders.TrinketBuilder;
 import model.builders.definitions.BuilderManager;
 
-public class Sower {
+public class Sower implements Runnable {
 	private static final int MAX_PLACES_COUNT = 30;
 	private static final int MAX_TRINKETS_COUNT = 10;
 	
 	List<Trinket> toGrow = new ArrayList<>();
+	private volatile boolean pauseAsked = false;
+	private volatile boolean paused = false;
 	
-	public boolean running = false;
-	private boolean killed = false;
+	private volatile Thread thread; 
 	
 	public Sower(){
 		Trinket first = getRandomTrinket();
@@ -30,10 +32,7 @@ public class Sower {
 				0);
 		randomPos.z = ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos.get2D());
 		first.setPos(randomPos);
-		
 		toGrow.add(first);
-//		sowTrinket(first);
-		start();
 	}
 	
 	private void sowTrinket(Trinket t){
@@ -48,29 +47,31 @@ public class Sower {
 		
 	}
 	
-	public void start() {
-		new Thread(
-				new Runnable() {
-					@Override
-					public void run() {
-						while(!killed) {
-							if(running && !toGrow.isEmpty()){
-								Trinket newTrinket = findCandidate();
-								if(newTrinket != null)
-									synchronized (ModelManager.getBattlefield().getMap()) {
-										ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
-									}
-							}
-							try {
-								Thread.sleep(50);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+	@Override
+	public void run() {
+		thread = Thread.currentThread();
+		try {
+			while(!Thread.currentThread().isInterrupted()) {
+				if(!toGrow.isEmpty()){
+					Trinket newTrinket = findCandidate();
+					if(newTrinket != null)
+						synchronized (ModelManager.getBattlefield().getMap()) {
+							ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
 						}
+				}
+				Thread.sleep(50);
+				if(pauseAsked){
+					synchronized (this) {
+						paused = true;
+						this.wait();
+						paused = false;
+						pauseAsked = false;
 					}
-				}		
-			).start();
+				}
+					
+			}
+		} catch (InterruptedException e) {
+		}
 	}
 	
 	private Trinket findCandidate(){
@@ -103,8 +104,20 @@ public class Sower {
 		return null;
 	}
 	
-	public void kill(){
-		killed = true;
+	public void askForPause(){
+		pauseAsked = true;
+	}
+	
+	public void unpause(){
+		this.notify();
+	}
+	
+	public boolean isPaused(){
+		return paused;
+	}
+	
+	public void destroy(){
+		thread.interrupt();
 	}
 	
 	

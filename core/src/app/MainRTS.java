@@ -1,6 +1,7 @@
 package app;
 
 import model.ModelManager;
+import model.editor.ToolManager;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
 
@@ -75,6 +76,7 @@ public class MainRTS extends OpenRTSApplication {
 
 	@Override
 	public void destroy() {
+		ToolManager.killSower();
 	}
 
 	@Subscribe

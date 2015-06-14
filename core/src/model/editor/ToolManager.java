@@ -59,6 +59,8 @@ public class ToolManager {
 		trinketTool = new TrinketTool();
 
 		actualTool = getCliffTool();
+		
+		new Thread(sower).start();
 	}
 
 	public static void setCliffTool() {
@@ -104,7 +106,6 @@ public class ToolManager {
 	public static void analogPrimaryAction() {
 		if (actualTool.isAnalog()) {
 			if (lastAction + delay < System.currentTimeMillis()) {
-				// LogUtil.logger.info((System.currentTimeMillis()-lastAction)+" ms since last call");
 				lastAction = System.currentTimeMillis();
 				actualTool.primaryAction();
 			}
@@ -197,11 +198,17 @@ public class ToolManager {
 	}
 
 	public static void toggleSower(){
-		sower.running = !sower.running;
+		synchronized (sower) {
+			if(sower.isPaused()){
+				sower.unpause();
+			}else{
+				sower.askForPause();
+			}
+		}
 	}
 	
 	public static void killSower(){
-		sower.kill();
+		sower.destroy();
 	}
 	
 	public static void updateGroundAtlas() {
