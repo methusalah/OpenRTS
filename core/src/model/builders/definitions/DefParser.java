@@ -109,7 +109,6 @@ public class DefParser {
 
 	}
 
-	// FIXME: hier ist der einstieg des XML Parsen. Wieso Seriell und nicht direkt im RAM?
 	private Definition parseEvent(XMLEvent event, Definition def) {
 		StartElement se = event.asStartElement();
 		String elementName = se.getName().getLocalPart();

@@ -37,31 +37,31 @@ public class WeaponBuilder extends Builder {
 
 	public WeaponBuilder(Definition def) {
 		super(def);
-		for (DefElement de : def.getElements()) {
-			switch (de.name) {
+		for (DefElement element : def.getElements()) {
+			switch (element.name) {
 				case UINAME:
-					UIName = de.getVal();
+					UIName = element.getVal();
 					break;
 				case RANGE:
-					range = de.getDoubleVal();
+					range = element.getDoubleVal();
 					break;
 				case SCAN_RANGE:
-					scanRange = de.getDoubleVal();
+					scanRange = element.getDoubleVal();
 					break;
 				case PERIOD:
-					period = de.getDoubleVal();
+					period = element.getDoubleVal();
 					break;
 				case EFFECT_LINK:
-					effectBuilderID = de.getVal();
+					effectBuilderID = element.getVal();
 					break;
 				case ACTOR_LINK:
-					actorBuilderID = de.getVal();
+					actorBuilderID = element.getVal();
 					break;
 				case SOURCE_BONE:
-					sourceBone = de.getVal();
+					sourceBone = element.getVal();
 					break;
 				case DIRECTION_BONE:
-					directionBone = de.getVal();
+					directionBone = element.getVal();
 					break;
 			}
 		}

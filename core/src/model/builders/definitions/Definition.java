@@ -13,7 +13,7 @@ public class Definition {
 	private final String id;
 	private final String type;
 
-	private boolean upToDate = true;
+	// private boolean upToDate = true;
 
 	private List<DefElement> elements = new ArrayList<>();
 
@@ -52,9 +52,9 @@ public class Definition {
 	}
 
 	public DefElement getElement(String name) {
-		for (DefElement de : elements) {
-			if (de.name.equals(name)) {
-				return de;
+		for (DefElement element : elements) {
+			if (element.name.equals(name)) {
+				return element;
 			}
 		}
 		return null;
