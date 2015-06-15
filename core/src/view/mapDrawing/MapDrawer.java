@@ -75,23 +75,31 @@ public class MapDrawer {
 
 	public void renderTiles() {
 		int index = 0;
-		for (String s : ModelManager.getBattlefield().getMap().style.textures) {
+		for (String s : ModelManager.getBattlefield().getMap().style.diffuses) {
 			Texture diffuse = am.loadTexture(s);
-			Texture normal;
+			Texture normal = null;
 			if (ModelManager.getBattlefield().getMap().style.normals.get(index) != null) {
 				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.normals.get(index));
-			} else {
-				normal = null;
 			}
 			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
 			
-			if(index < 4)
-				groundTexture.addTexture(diffuse, normal, scale);
-			else
-				coverTexture.addTexture(diffuse, normal, scale);
+			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
 		groundTexture.buildMaterial();
+
+		index = 0;
+		for (String s : ModelManager.getBattlefield().getMap().style.coverDiffuses) {
+			Texture diffuse = am.loadTexture(s);
+			Texture normal = null;
+			if (ModelManager.getBattlefield().getMap().style.coverNormals.get(index) != null) {
+				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.coverNormals.get(index));
+			}
+			double scale = ModelManager.getBattlefield().getMap().style.coverScales.get(index);
+			
+			coverTexture.addTexture(diffuse, normal, scale);
+			index++;
+		}
 		coverTexture.buildMaterial();
 
 		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
