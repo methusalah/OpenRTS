@@ -54,7 +54,8 @@ public class TerrainSplatTexture {
 		mat = new Material(am, "Common/MatDefs/Terrain/TerrainLighting.j3md");
 
 		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
-		mat.setTexture("AlphaMap", alpha0);//am.loadTexture("textures/alphatest.png"));
+		mat.setTexture("AlphaMap", alpha0);
+//		mat.setTexture("AlphaMap", am.loadTexture("textures/alphatest.png"));
 
 		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
 		mat.setTexture("AlphaMap_1", alpha1);
@@ -84,7 +85,6 @@ public class TerrainSplatTexture {
 
 	public Material getMaterial() {
 		if (atlas.isToUpdate()) {
-//			mat.setTexture("AlphaMap", am.loadTexture("textures/alphatest.png"));
 			mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
 			mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
 			atlas.setToUpdate(false);
