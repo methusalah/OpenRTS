@@ -119,7 +119,7 @@ public class MapDrawer {
 			g2.setMesh(jmeMesh);
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
-			g2.setLocalTranslation(0, 0, 0.001f);
+			g2.setLocalTranslation(0, 0, 0.01f);
 			layerSpatial.put(mesh, g2);
 			castAndReceiveNode.attachChild(g2);
 		}

@@ -207,50 +207,42 @@ vec2 computeLighting(in vec3 wvPos, in vec3 wvNorm, in vec3 wvViewDir, in vec3 w
 
     vec4 diffuseColor0 = texture2D(m_DiffuseMap, texCoord * m_DiffuseMap_0_scale);
     float transp = (1-diffuseColor0.a)*alphaBlend.r;
-    int nbChan = 1;
     vec4 diffuseColor = diffuseColor0*alphaBlend.r;
     
     #ifdef DIFFUSEMAP_1
       vec4 diffuseColor1 = texture2D(m_DiffuseMap_1, texCoord * m_DiffuseMap_1_scale);
       transp += (1-diffuseColor1.a)*alphaBlend.g;
-      nbChan++;
       diffuseColor = mix( diffuseColor, diffuseColor1, alphaBlend.g );
     
       #ifdef DIFFUSEMAP_2
         vec4 diffuseColor2 = texture2D(m_DiffuseMap_2, texCoord * m_DiffuseMap_2_scale);
       	transp += (1-diffuseColor2.a)*alphaBlend.b;
-      	nbChan++;
       	diffuseColor = mix( diffuseColor, diffuseColor2, alphaBlend.b );
     
         #ifdef DIFFUSEMAP_3
           vec4 diffuseColor3 = texture2D(m_DiffuseMap_3, texCoord * m_DiffuseMap_3_scale);
      	  transp += (1-diffuseColor3.a)*alphaBlend.a;
-     	  nbChan++;
           diffuseColor = mix( diffuseColor, diffuseColor3, alphaBlend.a );
     
           #ifdef ALPHAMAP_1
               #ifdef DIFFUSEMAP_4
                 vec4 diffuseColor4 = texture2D(m_DiffuseMap_4, texCoord * m_DiffuseMap_4_scale);
       			transp += (1-diffuseColor4.a)*alphaBlend1.r;
-      			nbChan++;
                 diffuseColor = mix( diffuseColor, diffuseColor4, alphaBlend1.r );
     
                 #ifdef DIFFUSEMAP_5
                   vec4 diffuseColor5 = texture2D(m_DiffuseMap_5, texCoord * m_DiffuseMap_5_scale);
 			      transp += (1-diffuseColor5.a)*alphaBlend1.g;
-			      nbChan++;
                   diffuseColor = mix( diffuseColor, diffuseColor5, alphaBlend1.g );
                   
                   #ifdef DIFFUSEMAP_6
                     vec4 diffuseColor6 = texture2D(m_DiffuseMap_6, texCoord * m_DiffuseMap_6_scale);
 					transp += (1-diffuseColor6.a)*alphaBlend1.b;
-					nbChan++;
                     diffuseColor = mix( diffuseColor, diffuseColor6, alphaBlend1.b );
                     
                     #ifdef DIFFUSEMAP_7
                       vec4 diffuseColor7 = texture2D(m_DiffuseMap_7, texCoord * m_DiffuseMap_7_scale);
 					  transp += (1-diffuseColor7.a)*alphaBlend1.a;
-					  nbChan++;
                       diffuseColor = mix( diffuseColor, diffuseColor7, alphaBlend1.a );
                       
                       
@@ -289,7 +281,7 @@ vec2 computeLighting(in vec3 wvPos, in vec3 wvNorm, in vec3 wvViewDir, in vec3 w
         #endif
       #endif
     #endif
-    diffuseColor.a = 1-transp/nbChan;
+    diffuseColor.a = 1-transp;
     return diffuseColor;
   }
 
