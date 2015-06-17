@@ -62,8 +62,8 @@ public class ModelManager {
 	private static void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
-			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
 			battlefieldReady = true;
+			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
 			getBattlefield().getMap().resetTrinkets();
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());

@@ -75,6 +75,7 @@ public class MapDrawer {
 
 	public void renderTiles() {
 		int index = 0;
+		LogUtil.logger.info(""+ModelManager.getBattlefield().getMap().style.diffuses);
 		for (String s : ModelManager.getBattlefield().getMap().style.diffuses) {
 			Texture diffuse = am.loadTexture(s);
 			Texture normal = null;
