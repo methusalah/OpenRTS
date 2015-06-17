@@ -85,6 +85,7 @@ public class TrinketTool extends Tool {
 		}
 		Trinket t = BuilderManager.getAllEditableTrinketBuilders().get(set.actual)
 				.build(pos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pos)));
+		t.drawOnBattlefield();
 		ModelManager.getBattlefield().getMap().trinkets.add(t);
 	}
 

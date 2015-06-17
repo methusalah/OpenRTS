@@ -51,6 +51,7 @@ public class Tile {
 	@JsonIgnore
 	public boolean hasBlockingTrinket = false;
 	
+	@JsonIgnore
 	public List<Object> storedData = new ArrayList<>();
 
 	public Tile() {
