@@ -34,7 +34,8 @@ public class AtlasTool extends Tool {
 	public AtlasTool() {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
 		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
-		List<String> allTextures = ModelManager.getBattlefield().getMap().style.diffuses;
+		List<String> allTextures = new ArrayList<>();
+		allTextures.addAll(ModelManager.getBattlefield().getMap().style.diffuses);
 		while(allTextures.size() < 8)
 			allTextures.add(null);
 		allTextures.addAll(ModelManager.getBattlefield().getMap().style.coverDiffuses);
