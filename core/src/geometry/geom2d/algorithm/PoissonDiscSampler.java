@@ -1,4 +1,4 @@
-package model.editor.engines;
+package geometry.geom2d.algorithm;
 
 import geometry.geom2d.Point2D;
 import geometry.math.Angle;
