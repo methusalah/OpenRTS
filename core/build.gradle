@@ -12,7 +12,7 @@ sourceCompatibility = 1.7
 version = '1.0'
 
 
-repositories {
+repositories {	
 	mavenCentral()
 	maven { url 'http://updates.jmonkeyengine.org/maven' }
 }
@@ -30,12 +30,10 @@ dependencies {
 	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
 	//    	compile "com.jme3:jme3-desktop:$jmonkeyengine_version.+"
 	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version.+"
-	//    	//
-	//    	//	compile "com.jme3:jme3-networking:$jmonkeyengine_version.+"
-	//    	//
-	//    	//	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
-	//    	//	compile "com.jme3:jme3-bullet-natives:$jmonkeyengine_version.+"
-	//    	//
+	    	//
+	    	//	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
+	    	//	compile "com.jme3:jme3-bullet-natives:$jmonkeyengine_version.+"
+	    	//
 
 	compile "com.jme3:jme3-niftygui:$jmonkeyengine_version.+"
 
@@ -51,7 +49,7 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
-
+	
 }
 
 eclipse.classpath.file {

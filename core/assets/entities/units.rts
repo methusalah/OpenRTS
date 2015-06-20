@@ -1,0 +1,67 @@
+Unit Marine {
+	uIName "Marine Le Pen"  
+	race human
+	radius 0.25 
+	separationRadius 0.25 
+	speed 2.5 
+	mass 1.0
+	maxHealth 60
+	sight 7 
+	mover GroundMover
+	weapons { 
+		weapon Rifle
+	}  
+	actor Marine 
+}
+
+Unit humanCruiser {
+		uIName "Cruiser" 
+		race human
+		radius 0.6 
+		separationRadius 0.6 
+		speed 4.0
+		mass 2.0
+		maxHealth 300 
+		sight 10
+		mover FlyMover
+		weapons {
+			weapon Battery			
+		} 
+		actor Aircraft
+}
+Unit BigAlien {
+		uIName "Big alien" 
+		race alien 
+		radius 0.75 
+		separationRadius 0.75 
+		speed 5.0
+		mass 1.3 
+		maxHealth 120 
+		sight 10 
+		mover GroundProne 
+		weapons {   
+			weapon StdWeapon
+		} 
+		actor BigAlien 
+}
+
+Unit SmallAlien {
+		uIName "Small alien" 
+		race alien 
+		radius 0.35
+		separationRadius 0.35
+		speed 7.0
+		mass 0.3
+		maxHealth 120
+		sight 8
+		mover GroundMover
+		weapons { 
+			weapon MeleeWeapon
+		}
+		actor SmallAlien 
+				
+//		modelPath "alien/infantry01.mesh.xml" 
+//		maxHealth 120 				 
+		 
+		 
+}
