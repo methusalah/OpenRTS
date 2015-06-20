@@ -4,9 +4,12 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.tools.LogUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
@@ -26,12 +29,17 @@ public class AtlasTool extends Tool {
 	AtlasExplorer explorer;
 
 	int autoLayer;
-	double increment = 0.15d;
+	double increment = 40;
 
 	public AtlasTool() {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
 		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
-		set = new AssetSet(ModelManager.getBattlefield().getMap().style.textures, true);
+		List<String> allTextures = new ArrayList<>();
+		allTextures.addAll(ModelManager.getBattlefield().getMap().style.diffuses);
+		while(allTextures.size() < 8)
+			allTextures.add(null);
+		allTextures.addAll(ModelManager.getBattlefield().getMap().style.coverDiffuses);
+		set = new AssetSet(allTextures, true);
 	}
 
 	@Override
@@ -90,23 +98,30 @@ public class AtlasTool extends Tool {
 	}
 
 	private void increment(Point2D p, int layer) {
+		Atlas toPaint = ModelManager.getBattlefield().getMap().atlas;
+		if(layer >= 8){
+			toPaint = ModelManager.getBattlefield().getMap().cover;
+			layer -= 8; 
+		}
+		
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
-		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
+		double attenuatedInc = Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
-			if (ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l) == layer) {
+		for (AtlasLayer l : toPaint.getLayers()) {
+			if (toPaint.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
 			} else {
-				availableLayers.add(l);
+				if(l.get(x, y) > 0)
+					availableLayers.add(l);
 			}
 		}
 		int secur = -1;
 		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
 			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
-			double shared = valueToDitribute / availableLayers.size();
+			double shared = Math.round(valueToDitribute / availableLayers.size());
 			valueToDitribute = 0;
 			for (AtlasLayer l : availableLayers) {
 				valueToDitribute += l.withdrawAndReturnExcess(x, y, shared);
@@ -119,7 +134,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
+		toPaint.updatePixel(x, y);
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
@@ -129,21 +144,27 @@ public class AtlasTool extends Tool {
 	}
 
 	private void decrement(Point2D p, int layer) {
+		Atlas toPaint = ModelManager.getBattlefield().getMap().atlas;
+		if(layer >= 8){
+			toPaint = ModelManager.getBattlefield().getMap().cover;
+			layer -= 8; 
+		}
+		
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
-		double attenuatedInc = increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p));
+		double attenuatedInc = Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
 
 		double valueToDitribute = attenuatedInc;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
-			if (ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l) == layer) {
+		for (AtlasLayer l : toPaint.getLayers()) {
+			if (toPaint.getLayers().indexOf(l) == layer) {
 				valueToDitribute -= l.withdrawAndReturnExcess(x, y, attenuatedInc);
 			} else if (l.get(x, y) > 0) {
 				availableLayers.add(l);
 			}
 		}
 		if (availableLayers.isEmpty()) {
-			availableLayers.add(ModelManager.getBattlefield().getMap().atlas.getLayers().get(0));
+			availableLayers.add(toPaint.getLayers().get(0));
 		}
 
 		int secur = -1;
@@ -162,7 +183,7 @@ public class AtlasTool extends Tool {
 		if (secur > 40) {
 			LogUtil.logger.warning("Impossible to distribute value");
 		}
-		ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
+		toPaint.updatePixel(x, y);
 	}
 
 	private void propagate(ArrayList<Point2D> pixels) {
@@ -188,10 +209,10 @@ public class AtlasTool extends Tool {
 		for (Point2D p : pixels) {
 			int x = (int) Math.round(p.x);
 			int y = (int) Math.round(p.y);
-			double attenuatedInc = increment
+			double attenuatedInc = Math.round(increment
 					* pencil.strength
 					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().width,
-							ModelManager.getBattlefield().getMap().height).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight()));
+							ModelManager.getBattlefield().getMap().height).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())));
 
 			int activeLayerCount = 0;
 			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {

@@ -21,6 +21,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 	protected final static String PRIMARY_ACTION = "lc";
 	protected final static String SECONDARY_ACTION = "rc";
 	protected final static String TOGGLE_GRID = "GridDisplay";
+	protected final static String TOGGLE_SOWER = "togglesower";
 
 	protected final static String SET_CLIFF_TOOL = "setclifftool";
 	protected final static String SET_HEIGHT_TOOL = "setheighttool";
@@ -70,7 +71,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 				PRIMARY_ACTION, SECONDARY_ACTION, TOGGLE_PENCIL_SHAPE, TOGGLE_PENCIL_MODE, INC_SELECTOR_RADIUS, DEC_SELECTOR_RADIUS, SET_CLIFF_TOOL, SET_HEIGHT_TOOL,
 				SET_ATLAS_TOOL, SET_RAMP_TOOL, SET_UNIT_TOOL,
 
-				TOGGLE_GRID, TOGGLE_SET, TOGGLE_OPERATION, INC_AIRBRUSH_FALLOF, DEC_AIRBRUSH_FALLOF,
+				TOGGLE_GRID, TOGGLE_SOWER, TOGGLE_SET, TOGGLE_OPERATION, INC_AIRBRUSH_FALLOF, DEC_AIRBRUSH_FALLOF,
 
 				TOGGLE_LIGHT_COMP, INC_DAYTIME, DEC_DAYTIME, COMPASS_EAST, COMPASS_WEST, INC_INTENSITY, DEC_INTENSITY, TOGGLE_SPEED, DEC_RED, DEC_GREEN,
 				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, };
@@ -96,6 +97,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(SET_UNIT_TOOL, new KeyTrigger(KeyInput.KEY_5));
 
 		inputManager.addMapping(TOGGLE_GRID, new KeyTrigger(KeyInput.KEY_G));
+		inputManager.addMapping(TOGGLE_SOWER, new KeyTrigger(KeyInput.KEY_H));
 		inputManager.addMapping(TOGGLE_OPERATION, new KeyTrigger(KeyInput.KEY_E));
 		inputManager.addMapping(TOGGLE_SET, new KeyTrigger(KeyInput.KEY_D));
 
@@ -242,6 +244,9 @@ public class EditorInputInterpreter extends InputInterpreter {
 					break;
 				case TOGGLE_GRID:
 					((EditorController) ctrl).view.editorRend.toggleGrid();
+					break;
+				case TOGGLE_SOWER:
+					ToolManager.toggleSower();
 					break;
 				case TOGGLE_LIGHT_COMP:
 					ModelManager.getBattlefield().getSunLight().toggleLight();

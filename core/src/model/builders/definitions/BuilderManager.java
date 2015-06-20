@@ -212,7 +212,7 @@ public class BuilderManager {
 		return getAllBuilders(UNIT, UnitBuilder.class);
 	}
 
-	public List<TrinketBuilder> getAllTrinketBuilders() {
+	public static List<TrinketBuilder> getAllTrinketBuilders() {
 		return getAllBuilders(TRINKET, TrinketBuilder.class);
 	}
 

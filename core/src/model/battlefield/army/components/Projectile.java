@@ -128,4 +128,7 @@ public class Projectile extends Hiker {
 		arrived = true;
 		actor.stopActingAndChildren();
 	}
+	public void drawOnBattlefield(){
+		actor.act();
+	}
 }

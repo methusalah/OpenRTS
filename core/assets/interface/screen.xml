@@ -99,8 +99,8 @@
                 
 <!-- Tool paramaters panel -->
                 <panel id="toolparam" childLayout="absolute" width="100%" height="100%">
-                  <panel id="iconsetpanel" childLayout="vertical" x="0" y="0" width="100%" style="nifty-panel-simple" height="100px">
-                      <panel id="paramsetrow1" childLayout="horizontal" width="100%" height="50%">
+                  <panel id="iconsetpanel" childLayout="vertical" x="0" y="0" width="100%" style="nifty-panel-simple" height="200px">
+                      <panel id="paramsetrow1" childLayout="horizontal" width="100%" height="25%">
                           <control name="myButton" id="set0" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(0)"/>
                           </control>
@@ -114,7 +114,7 @@
                             <interact onClick="setSet(3)"/>
                           </control>
                       </panel>
-                      <panel id="paramsetrow2" childLayout="horizontal" width="100%" height="50%">
+                      <panel id="paramsetrow2" childLayout="horizontal" width="100%" height="25%">
                           <control name="myButton" id="set4" backgroundImage="button/button.png" width="40px" height="40px">
                             <interact onClick="setSet(4)"/>
                           </control>
@@ -128,9 +128,37 @@
                             <interact onClick="setSet(7)"/>
                           </control>
                       </panel>
+                      <panel id="paramsetrow3" childLayout="horizontal" width="100%" height="25%">
+                          <control name="myButton" id="set8" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(8)"/>
+                          </control>
+                          <control name="myButton" id="set9" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(9)"/>
+                          </control>
+                          <control name="myButton" id="set10" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(10)"/>
+                          </control>
+                          <control name="myButton" id="set11" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(11)"/>
+                          </control>
+                      </panel>
+                      <panel id="paramsetrow4" childLayout="horizontal" width="100%" height="25%">
+                          <control name="myButton" id="set12" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(12)"/>
+                          </control>
+                          <control name="myButton" id="set13" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(13)"/>
+                          </control>
+                          <control name="myButton" id="set14" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(14)"/>
+                          </control>
+                          <control name="myButton" id="set15" backgroundImage="button/button.png" width="40px" height="40px">
+                            <interact onClick="setSet(15)"/>
+                          </control>
+                      </panel>
                   </panel>
                   
-                  <panel id="pencilpanel" childLayout="horizontal" width="100%" x="0" y="100" style="nifty-panel-simple" height="100%">
+                  <panel id="pencilpanel" childLayout="horizontal" width="100%" x="0" y="200" style="nifty-panel-simple" height="100%">
                       <panel id="penciltype" childLayout="vertical" width="60px" align="center" height="300">
                           <panel id="pencilshapepanel" childLayout="vertical" width="100%" height="130px">
                               <control name="myButton" id="square" childLayout="center" width="50px" label="square" align="left" height="40px">

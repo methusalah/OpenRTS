@@ -7,6 +7,7 @@ import geometry.collections.PointRing;
 import geometry.geom2d.BoundingCircle;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
+import geometry.geom2d.algorithm.PerlinNoise;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
 
@@ -297,7 +298,8 @@ public class Pencil {
 				double localFalloff = 1 / (1 + Math.exp(-x));
 				return localFalloff;
 			case Noise:
-				return MyRandom.next();
+				return PerlinNoise.noise(p);
+//				return MyRandom.next();
 			case Unique:
 				return 1;
 			default:

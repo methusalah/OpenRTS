@@ -132,8 +132,8 @@ public class EditorGUIDrawer extends GUIDrawer {
 		Tool tool = ToolManager.getActualTool();
 		getElement(ICON_SET_PANEL_ID).show();
 		getElement(LIST_SET_PANEL_ID).hide();
-		for (int i = 0; i < 8; i++) {
-			if (i < tool.getSet().getCount()) {
+		for (int i = 0; i < 16; i++) {
+			if (i < tool.getSet().getCount() && tool.getSet().getAsset(i) != null) {
 				getElement(SET_BUTTON_ID_PREFIX + i).show();
 				setBackground(SET_BUTTON_ID_PREFIX + i, tool.getSet().getAsset(i));
 				if (tool.getSet().actual == i) {

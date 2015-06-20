@@ -1,16 +1,15 @@
-/*
- * To change this template, choose Tools | Templates and open the template in the editor.
- */
 package model.editor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.parcel.ParcelManager;
 import model.battlefield.map.parcel.ParcelMesh;
+import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
 import model.editor.tools.HeightTool;
@@ -24,6 +23,7 @@ import event.SetToolEvent;
 import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.tools.LogUtil;
 
 /**
@@ -44,6 +44,7 @@ public class ToolManager {
 
 	private static double delay = 0;
 	private static long lastAction = 0;
+	private static Sower sower = new Sower();
 	
 	private ToolManager() {
 
@@ -58,6 +59,8 @@ public class ToolManager {
 		trinketTool = new TrinketTool();
 
 		actualTool = getCliffTool();
+		
+		new Thread(sower).start();
 	}
 
 	public static void setCliffTool() {
@@ -103,7 +106,6 @@ public class ToolManager {
 	public static void analogPrimaryAction() {
 		if (actualTool.isAnalog()) {
 			if (lastAction + delay < System.currentTimeMillis()) {
-				// LogUtil.logger.info((System.currentTimeMillis()-lastAction)+" ms since last call");
 				lastAction = System.currentTimeMillis();
 				actualTool.primaryAction();
 			}
@@ -164,6 +166,16 @@ public class ToolManager {
 	}
 
 	public static void updateParcelsForExtended(List<Tile> tiles) {
+		for (Tile t : tiles) {
+			for (Object o : t.storedData) {
+				if(o instanceof FieldComp){
+					FieldComp fc = (FieldComp)o;
+					fc.setPos(new Point3D(fc.getPos().x,
+							fc.getPos().y,
+							ModelManager.getBattlefield().getMap().getAltitudeAt(fc.getPos().get2D())));
+				}
+			}
+		}
 		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(tiles);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 	}
@@ -185,21 +197,26 @@ public class ToolManager {
 		return res;
 	}
 
+	public static void toggleSower(){
+		synchronized (sower) {
+			if(sower.isPaused()){
+				sower.unpause();
+			}else{
+				sower.askForPause();
+			}
+		}
+	}
+	
+	public static void killSower(){
+		sower.destroy();
+	}
+	
 	public static void updateGroundAtlas() {
 		EventManager.post(new UpdateGroundAtlasEvent());
-		// notifyListeners("ground", new ArrayList<Tile>());
 	}
-
-	// private void notifyListeners(String command, Object o) {
-	// ActionEvent event = new ActionEvent(o, 0, command);
-	// for (ActionListener l : listeners) {
-	// l.actionPerformed(event);
-	// }
-	// }
 
 	public static void updatePencilsPos(Point2D pos) {
 		actualTool.pencil.setPos(pos);
-		// updateTiles(actualTool.pencil.getTiles());
 	}
 
 	public static void releasePencils() {

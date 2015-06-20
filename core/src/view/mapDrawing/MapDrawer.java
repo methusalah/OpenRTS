@@ -23,6 +23,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
@@ -46,9 +47,11 @@ public class MapDrawer {
 	private Map<String, Spatial> models = new HashMap<>();
 
 	private Map<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
+	private Map<ParcelMesh, Spatial> layerSpatial = new HashMap<>();
 	private Map<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
-	public TerrainSplatTexture groundTexture;
+	private TerrainSplatTexture groundTexture;
+	private TerrainSplatTexture coverTexture;
 
 	public Node mainNode = new Node();
 	public Node castAndReceiveNode = new Node();
@@ -59,6 +62,8 @@ public class MapDrawer {
 	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
+		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().cover, am);
+		coverTexture.transp = true;
 		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -70,19 +75,32 @@ public class MapDrawer {
 
 	public void renderTiles() {
 		int index = 0;
-		for (String s : ModelManager.getBattlefield().getMap().style.textures) {
+		for (String s : ModelManager.getBattlefield().getMap().style.diffuses) {
 			Texture diffuse = am.loadTexture(s);
-			Texture normal;
+			Texture normal = null;
 			if (ModelManager.getBattlefield().getMap().style.normals.get(index) != null) {
 				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.normals.get(index));
-			} else {
-				normal = null;
 			}
 			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
+			
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
 		groundTexture.buildMaterial();
+
+		index = 0;
+		for (String s : ModelManager.getBattlefield().getMap().style.coverDiffuses) {
+			Texture diffuse = am.loadTexture(s);
+			Texture normal = null;
+			if (ModelManager.getBattlefield().getMap().style.coverNormals.get(index) != null) {
+				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.coverNormals.get(index));
+			}
+			double scale = ModelManager.getBattlefield().getMap().style.coverScales.get(index);
+			
+			coverTexture.addTexture(diffuse, normal, scale);
+			index++;
+		}
+		coverTexture.buildMaterial();
 
 		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
 			Geometry g = new Geometry();
@@ -90,12 +108,20 @@ public class MapDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
-			// g.setQueueBucket(Bucket.Transparent);
+			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
 			parcelsSpatial.put(mesh, g);
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
+			
+			Geometry g2 = new Geometry();
+			g2.setMesh(jmeMesh);
+			g2.setMaterial(coverTexture.getMaterial());
+			g2.setQueueBucket(Bucket.Transparent);
+			g2.setLocalTranslation(0, 0, 0.01f);
+			layerSpatial.put(mesh, g2);
+			castAndReceiveNode.attachChild(g2);
 		}
 		updateTiles(ModelManager.getBattlefield().getMap().getTiles());
 	}
@@ -124,6 +150,7 @@ public class MapDrawer {
 
 	private void updateGroundTexture() {
 		groundTexture.getMaterial();
+		coverTexture.getMaterial();
 	}
 
 	private void updateTiles(List<Tile> tiles) {
@@ -222,6 +249,9 @@ public class MapDrawer {
 			g.setMesh(jmeMesh);
 			mainPhysicsSpace.remove(g);
 			mainPhysicsSpace.add(g);
+			
+			Geometry g2 = ((Geometry) layerSpatial.get(parcel));
+			g2.setMesh(jmeMesh);
 		}
 	}
 }

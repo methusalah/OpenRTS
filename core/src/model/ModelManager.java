@@ -1,13 +1,12 @@
 package model;
 
+import model.battlefield.Battlefield;
+import model.battlefield.BattlefieldFactory;
+import model.battlefield.map.parcel.ParcelManager;
+import model.builders.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import geometry.tools.LogUtil;
-import model.battlefield.Battlefield;
-import model.battlefield.BattlefieldFactory;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.map.parcel.ParcelManager;
-import model.builders.definitions.DefParser;
 
 public class ModelManager {
 	public static final String CONFIG_PATH = "assets/data";
@@ -21,6 +20,7 @@ public class ModelManager {
 	private static Battlefield battlefield;
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
+	private static boolean battlefieldReady = true;
 
 	static {
 		parser = new DefParser(CONFIG_PATH);
@@ -62,11 +62,13 @@ public class ModelManager {
 	private static void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
+			battlefieldReady = true;
 			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
-			ModelManager.getBattlefield().getMap().resetTrinkets();
-			ModelManager.getBattlefield().getEngagement().reset();
+			getBattlefield().getMap().resetTrinkets();
+			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");
+			
 		}
 	}
 
@@ -77,7 +79,17 @@ public class ModelManager {
 	}
 
 	public static Battlefield getBattlefield() {
-		return battlefield;
+		if(battlefieldReady)
+			return battlefield;
+		else
+			throw new RuntimeException("Trying to acces to battlefield while it is unavailable");
+	}
+	
+	public static void setBattlefieldUnavailable(){
+		battlefieldReady = false;
+	}
+	public static void setBattlefieldReady(){
+		battlefieldReady = true;
 	}
 
 }

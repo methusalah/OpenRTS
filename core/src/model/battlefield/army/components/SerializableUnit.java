@@ -39,7 +39,9 @@ public class SerializableUnit {
 	public Unit getUnit(List<Faction> factions) {
 		for(Faction f : factions) {
 			if (f.getName().equals(factionName)) {
-				return BuilderManager.getUnitBuilder(builderID).build(f, pos, yaw);
+				Unit u = BuilderManager.getUnitBuilder(builderID).build(f, pos, yaw);
+				u.drawOnBattlefield();
+				return u;
 			}
 		}
 		throw new RuntimeException("impossible to build unit, check faction names");
