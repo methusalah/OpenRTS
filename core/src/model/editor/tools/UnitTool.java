@@ -88,9 +88,9 @@ public class UnitTool extends Tool {
 				ModelManager.getBattlefield().getEngagement().getFactions().get(0)
 				: ModelManager.getBattlefield().getEngagement().getFactions().get(1);
 
-		ArmyManager.registerUnit(
-				BuilderManager.getAllUnitBuilders().get(set.actual)
-				.build(f, coord.get3D(0), MyRandom.between(-Angle.FLAT, Angle.FLAT)));
+		Unit u = BuilderManager.getAllUnitBuilders().get(set.actual).build(f, coord.get3D(0), MyRandom.between(-Angle.FLAT, Angle.FLAT));
+		u.drawOnBattlefield();
+		ArmyManager.registerUnit(u);
 	}
 
 	private void remove() {

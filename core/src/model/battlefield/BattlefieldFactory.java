@@ -75,6 +75,7 @@ public class BattlefieldFactory {
 	}
 
 	public Battlefield load(File file) {
+		ModelManager.setBattlefieldUnavailable();
 		Battlefield bField = null;
 
 		try {
@@ -84,29 +85,16 @@ public class BattlefieldFactory {
 
 			bField = mapper.readValue(file, Battlefield.class);
 
-			// FIXME: remove the old parser
-			// Serializer serializer = new Persister();
-			// bField = serializer.read(Battlefield.class, file);
 			bField.setFileName(file.getCanonicalPath());
 			bField.getMap().atlas.finalize();
-
-			SmileFactory f = new SmileFactory();
-			// can configure instance with 'SmileParser.Feature' and 'SmileGenerator.Feature'
-			mapper = new ObjectMapper(f);
-			// and then read/write data as usual
-
-			byte[] smileData = mapper.writeValueAsBytes(bField.getMap().getTiles());
-			OutputStream out = new FileOutputStream(ModelManager.DEFAULT_MAP_PATH + "/map1.tiles");
-			out.write(smileData);
-			out.flush();
-			out.close();
-
+			bField.getMap().cover.finalize();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
 		if (bField == null) {
 			LogUtil.logger.info("Load failed");
+			ModelManager.setBattlefieldReady();
 			return null;
 		}
 
@@ -152,7 +140,8 @@ public class BattlefieldFactory {
 		ParcelManager.createParcelMeshes(bField.getMap());
 
 		LogUtil.logger.info("   texture atlas");
-		bField.getMap().atlas.loadFromFile(bField.getFileName());
+		bField.getMap().atlas.loadFromFile(bField.getFileName(), "atlas");
+		bField.getMap().cover.loadFromFile(bField.getFileName(), "cover");
 		LogUtil.logger.info("Loading done.");
 		return bField;
 	}
@@ -190,7 +179,8 @@ public class BattlefieldFactory {
 			Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		LogUtil.logger.info("Saving texture atlas...");
-		battlefield.getMap().atlas.saveToFile(battlefield.getFileName());
+		battlefield.getMap().atlas.saveToFile(battlefield.getFileName(), "atlas");
+		battlefield.getMap().cover.saveToFile(battlefield.getFileName(), "cover");
 		LogUtil.logger.info("Done.");
 	}
 

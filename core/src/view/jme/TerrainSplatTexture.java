@@ -3,8 +3,6 @@
  */
 package view.jme;
 
-import geometry.tools.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +10,10 @@ import model.battlefield.map.atlas.Atlas;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
-import com.jme3.texture.image.ImageRaster;
 
 /**
  * @author Benoît
@@ -30,7 +28,9 @@ public class TerrainSplatTexture {
 	AssetManager am;
 
 	Material mat;
-
+	
+	public boolean transp = false;
+	
 	public TerrainSplatTexture(Atlas atlas, AssetManager am) {
 		this.atlas = atlas;
 		this.am = am;
@@ -48,21 +48,20 @@ public class TerrainSplatTexture {
 		normaMaps.add(normal);
 
 		scales.add(scale);
-
-		atlas.getLayers().get(diffuseMaps.size() - 1).mask = ImageRaster.create(diffuse.getImage());
-		atlas.getLayers().get(diffuseMaps.size() - 1).maskScale = scale;
-
 	}
 
 	public void buildMaterial() {
-		mat = new Material(am, "Common/MatDefs/Terrain/TerrainLighting.j3md");
+		mat = new Material(am, "matdefs/MyTerrainLighting.j3md");
+
 		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
-		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
-		
 		mat.setTexture("AlphaMap", alpha0);
+//		mat.setTexture("AlphaMap", am.loadTexture("textures/alphatest.png"));
+
+		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
 		mat.setTexture("AlphaMap_1", alpha1);
-		// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
-		// mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+		
+//		if(transp)
+			mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 		for (int i = 0; i < 12; i++) {
 			if (diffuseMaps.size() > i) {
@@ -88,7 +87,6 @@ public class TerrainSplatTexture {
 		if (atlas.isToUpdate()) {
 			mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
 			mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
-			// mat.setTexture("AlphaMap_2", new Texture2D(new Image(Image.Format.ABGR8, atlas.width, atlas.height, atlas.getBuffer(2))));
 			atlas.setToUpdate(false);
 		}
 		return mat;

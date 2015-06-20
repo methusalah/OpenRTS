@@ -6,6 +6,7 @@ package model.editor.tools;
 import geometry.geom2d.Point2D;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import model.builders.definitions.BuilderManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
+import model.editor.engines.PoissonDiscSampler;
+import model.editor.engines.Sower;
 
 /**
  * @author bedu
@@ -82,6 +85,7 @@ public class TrinketTool extends Tool {
 		}
 		Trinket t = BuilderManager.getAllEditableTrinketBuilders().get(set.actual)
 				.build(pos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pos)));
+		t.drawOnBattlefield();
 		ModelManager.getBattlefield().getMap().trinkets.add(t);
 	}
 

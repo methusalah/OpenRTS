@@ -76,6 +76,7 @@ public class EffectBuilder extends Builder {
 		Projectile projectile = null;
 		if (projectileLink != null) {
 			projectile = BuilderManager.getProjectileBuilder(projectileLink).build(source, target, targetPoint);
+			projectile.drawOnBattlefield();
 		}
 
 		Effect res;

@@ -34,4 +34,7 @@ public class Trinket extends FieldComp{
     public void removeFromBattlefield(){
     	actor.stopActingAndChildren();
     }
+    public void drawOnBattlefield(){
+    	actor.act();
+    }
 }

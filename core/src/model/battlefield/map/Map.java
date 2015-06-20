@@ -31,14 +31,15 @@ public class Map {
 
 	@JsonProperty
 	public List<Ramp> ramps = new ArrayList<>();
+	
 	@JsonProperty
-	public List<SerializableTrinket> serializableTrinkets = new ArrayList<SerializableTrinket>();
+	public List<SerializableTrinket> serializableTrinkets = new ArrayList<>();
 
 	@JsonIgnore
 	public List<Trinket> trinkets = new ArrayList<>();
 
 	@JsonProperty
-	public Atlas atlas;
+	public Atlas atlas, cover;
 
 	@JsonProperty
 	public int width;
@@ -50,6 +51,9 @@ public class Map {
 		this.height = height;
 		atlas = new Atlas(width, height);
 		atlas.finalize();
+		cover = new Atlas(width, height);
+		cover.finalize();
+		
 		tiles = new ArrayList<>(width * height);
 	}
 
@@ -67,10 +71,10 @@ public class Map {
 		return tiles.get(y * width + x);
 	}
 
-	public double getAltitudeAt(Point2D coord) {
+	private Triangle3D getTriangleAt(Point2D coord) {
 		Tile t = getTile(coord);
 		if (t.n == null || t.s == null || t.e == null || t.w == null) {
-			return 0;
+			return null;
 		}
 
 		Point2D tPos2D = new Point2D(t.x, t.y);
@@ -87,39 +91,21 @@ public class Map {
 		} else {
 			tr = new Triangle3D(sw, ne, nw);
 		}
-
-		return tr.getElevated(coord).z;
+		return tr;
+	}
+	
+	public double getAltitudeAt(Point2D coord) {
+		Triangle3D tr = getTriangleAt(coord);
+		return tr == null ? 0 : getTriangleAt(coord).getElevated(coord).z;
 	}
 
 	public Point3D getNormalVectorAt(Point2D coord) {
-		Tile t = getTile(coord);
-		if (t.n == null || t.s == null || t.e == null || t.w == null) {
-			return Point3D.UNIT_Z;
-		}
-
-		Point2D tPos2D = new Point2D(t.x, t.y);
-		Point2D tnePos2D = new Point2D(t.e.n.x, t.e.n.y);
-
-		Point3D nw = t.n.getPos();
-		Point3D ne = t.n.e.getPos();
-		Point3D sw = t.getPos();
-		Point3D se = t.e.getPos();
-		Triangle3D tr;
-
-		if (Angle.getTurn(tPos2D, tnePos2D, coord) == Angle.CLOCKWISE) {
-			tr = new Triangle3D(sw, se, ne);
-		} else {
-			tr = new Triangle3D(sw, ne, nw);
-		}
-
-		return tr.normal;
+		Triangle3D tr = getTriangleAt(coord);
+		return tr == null ? Point3D.UNIT_Z : tr.normal;
 	}
 
 	public boolean isBlocked(int x, int y) {
-		if (getTile(x, y).isBlocked()) {
-			return true;
-		}
-		return false;
+		return getTile(x, y).isBlocked() ? true : false;
 	}
 
 	public Tile getTile(Point2D p) {
@@ -205,21 +191,11 @@ public class Map {
 	}
 
 	public boolean isInBounds(Point2D p) {
-		if (p.x < 0 || p.y < 0 || p.x > width - 1 || p.y > height - 1) {
-			return false;
-		}
-		return true;
-
+		return p.x < 0 || p.y < 0 || p.x > width - 1 || p.y > height - 1 ? false : true;
 	}
 
 	public boolean isWalkable(Point2D p) {
-		if (!isInBounds(p)) {
-			return false;
-		}
-		if (getTile(p).isBlocked()) {
-			return false;
-		}
-		return true;
+		return  !isInBounds(p) || getTile(p).isBlocked() ? false : true;
 	}
 
 	public List<Tile> get8Around(Tile t) {
@@ -286,16 +262,6 @@ public class Map {
 		return res;
 	}
 
-	public ArrayList<Tile> getTilesWithCliff() {
-		ArrayList<Tile> res = new ArrayList<>();
-		for (Tile t : getTiles()) {
-			if (t.hasCliff()) {
-				res.add(t);
-			}
-		}
-		return res;
-	}
-
 	public int getRef(Tile t) {
 		return t.y * width + t.x;
 	}
@@ -316,7 +282,9 @@ public class Map {
 	public void resetTrinkets() {
 		trinkets.clear();
 		for (SerializableTrinket st : serializableTrinkets) {
-			trinkets.add(st.getTrinket());
+			Trinket t = st.getTrinket();
+			trinkets.add(t);
+			t.drawOnBattlefield();
 		}
 	}
 

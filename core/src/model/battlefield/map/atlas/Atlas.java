@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import exception.TechnicalException;
+import geometry.tools.LogUtil;
 
 /**
  * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw
@@ -28,10 +29,17 @@ public class Atlas {
 	private int width, height;
 	@JsonIgnore
 	private List<AtlasLayer> layers = new ArrayList<>();
+	
 	@JsonIgnore
 	List<ByteBuffer> buffers = new ArrayList<>();
+	
 	@JsonIgnore
 	private boolean toUpdate = false;
+
+	@JsonIgnore
+	private boolean finalized = false;
+	
+	
 
 	public Atlas() {
 
@@ -47,12 +55,13 @@ public class Atlas {
 	public void finalize() {
 		width = mapWidth * RESOLUTION_RATIO;
 		height = mapHeight * RESOLUTION_RATIO;
-		layers.add(new AtlasLayer(width, height, 1));
+		layers.add(new AtlasLayer(width, height, AtlasLayer.MAX_VALUE));
 		for (int i = 1; i < LAYER_COUNT; i++) {
 			layers.add(new AtlasLayer(width, height, 0));
 		}
 		buffers.add(buildBuffer(0));
 		buffers.add(buildBuffer(1));
+		finalized = true;
 	}
 
 	private ByteBuffer buildBuffer(int index) {
@@ -67,10 +76,12 @@ public class Atlas {
 	}
 
 	public ByteBuffer getBuffer(int index) {
+		if(!finalized)
+			LogUtil.logger.warning("You access to unfinalized atlas.");
 		return buffers.get(index);
 	}
 
-	public void saveToFile(String fileName) {
+	public void saveToFile(String fileName, String suffix) {
 		byte[] bytes = new byte[width * height * LAYER_COUNT];
 		int index = 0;
 		for (AtlasLayer l : layers) {
@@ -79,7 +90,7 @@ public class Atlas {
 			}
 		}
 		try {
-			FileOutputStream fos = new FileOutputStream(fileName + "atlas");
+			FileOutputStream fos = new FileOutputStream(fileName + suffix);
 			fos.write(bytes);
 			fos.close();
 		} catch (IOException e) {
@@ -87,10 +98,10 @@ public class Atlas {
 		}
 	}
 
-	public void loadFromFile(String fileName) {
+	public void loadFromFile(String fileName, String suffix) {
 		byte[] bytes = new byte[width * height * LAYER_COUNT];
 		try {
-			FileInputStream fis = new FileInputStream(fileName + "atlas");
+			FileInputStream fis = new FileInputStream(fileName + suffix);
 			fis.read(bytes, 0, width * height * LAYER_COUNT);
 			fis.close();
 		} catch (IOException e) {
@@ -120,14 +131,16 @@ public class Atlas {
 	}
 
 	private int getBufferVal(int x, int y, int firstLayerIndex) {
-		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)*255) << 24;
-		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)*255) << 16;
-		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)*255) << 8;
-		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y)*255);
+		int r = (int) Math.round(layers.get(firstLayerIndex).get(x, y)) << 24;
+		int g = (int) Math.round(layers.get(firstLayerIndex + 1).get(x, y)) << 16;
+		int b = (int) Math.round(layers.get(firstLayerIndex + 2).get(x, y)) << 8;
+		int a = (int) Math.round(layers.get(firstLayerIndex + 3).get(x, y));
 		return (r + g + b + a);
 	}
 
 	public List<AtlasLayer> getLayers() {
+		if(!finalized)
+			LogUtil.logger.warning("You access to unfinalized atlas.");
 		return layers;
 	}
 
