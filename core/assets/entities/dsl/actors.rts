@@ -10,14 +10,14 @@
     actorList { trigger "onMove" actor AdavContrail01}    
     scale 1 
  }
-  
-Actor AdavJet01 { 
+    
+Actor AdavJet01 {  
     type Particle
-    spritePath "particles/smoke01.png"
+    spritePath "particles/smoke01.png"  
     emissionBone "BJet01"    
     directionBone "BJetVec01"
     maxCount 100
-    perSecond 80
+    perSecond 80 
     startSize 0.06 
     endSize 0.01
     startColor { r 245 g 205 b 0 a 255 }

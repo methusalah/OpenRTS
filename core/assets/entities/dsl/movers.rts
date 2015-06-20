@@ -8,7 +8,7 @@ Mover GroundMover {
     heightmap Ground
     standingMode "Stand"
 } 
- 
+  
 Mover FlyMover {
     pathfindingMode Fly
     heightmap Air
