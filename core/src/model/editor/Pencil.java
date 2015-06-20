@@ -46,10 +46,12 @@ public class Pencil {
 	public boolean snapPair = false;
 
 	public boolean maintained = false;
+	
+	private PerlinNoise perlin;
 
 	public Pencil() {
-
-	};
+		perlin = new PerlinNoise();
+	}
 
 	public void incRadius() {
 		if (size < sizeIncrement) {
@@ -298,7 +300,7 @@ public class Pencil {
 				double localFalloff = 1 / (1 + Math.exp(-x));
 				return localFalloff;
 			case Noise:
-				return PerlinNoise.noise(p);
+				return perlin.noise(p);//, 10, 1);
 //				return MyRandom.next();
 			case Unique:
 				return 1;

@@ -4,6 +4,7 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
+import geometry.geom2d.algorithm.PoissonDiscSampler;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
 import geometry.tools.LogUtil;
@@ -19,7 +20,6 @@ import model.builders.definitions.BuilderManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
-import model.editor.engines.PoissonDiscSampler;
 import model.editor.engines.Sower;
 
 /**
