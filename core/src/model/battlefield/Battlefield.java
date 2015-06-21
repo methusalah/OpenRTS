@@ -89,6 +89,20 @@ public class Battlefield {
 							res.add((T)o);
 		return res;
 	}
+
+	public <T extends FieldComp> List<T> getCloseComps(T c, Point2D p, double radius){
+		double fcX = p.x;
+		double fcY = p.y;
+		List<T> res = new ArrayList<>();
+		for(int x = (int)(fcX-radius); x < (int)(fcX+radius); x++)
+			for(int y = (int)(fcY-radius); y < (int)(fcY+radius); y++)
+				if(map.isInBounds(new Point2D(x, y)))
+					for(Object o : map.getTile(x, y).storedData)
+						if(o.getClass() == c.getClass() &&
+								((FieldComp)o).getCoord().getDistance(p) < radius)
+							res.add((T)o);
+		return res;
+	}
 	
 	
 	

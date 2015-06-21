@@ -4,10 +4,12 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.geom3d.Triangle3D;
 import geometry.math.Angle;
+import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
 
@@ -270,6 +272,20 @@ public class Map {
 		int y = (int) Math.floor((double) ref / width);
 		int x = (int) Math.round((double) ref % width);
 		return getTile(x, y);
+	}
+	
+	public List<Tile> getTilesAround(Point2D p, double distance){
+		List<Tile> res = new ArrayList<>();
+		
+		int ceiled = (int)Math.ceil(distance);
+		for (int x = (int)Math.round(p.x)-ceiled; x < (int)Math.round(p.x)+ceiled; x++) {
+			for (int y = (int)Math.round(p.y)-ceiled; y < (int)Math.round(p.y)+ceiled; y++) {
+				Point2D tileCenter = new Point2D(x+0.5, y+0.5);
+				if(tileCenter.getDistance(p)<distance && isInBounds(new Point2D(x, y)))
+					res.add(getTile(x, y));
+			}
+		}
+		return res;
 	}
 
 	public void saveTrinkets() {

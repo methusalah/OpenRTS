@@ -18,33 +18,31 @@ public class Sower implements Runnable {
 	private static final int MAX_PLACES_COUNT = 30;
 	private static final int MAX_TRINKETS_COUNT = 10;
 	
-	List<Trinket> toGrow = new ArrayList<>();
 	private volatile boolean pauseAsked = true;
 	private volatile boolean paused = false;
+	private List<Sowing> sowings = new ArrayList<>();
 	
-	private volatile Thread thread; 
+	private volatile Thread thread;
 	
 	public Sower(){
-		Trinket first = getRandomTrinket();
-		Point3D randomPos = new Point3D(
-				(double)ModelManager.getBattlefield().getMap().width/2,
-				(double)ModelManager.getBattlefield().getMap().height/2,
-				0);
-		randomPos.z = ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos.get2D());
-		first.setPos(randomPos);
-		toGrow.add(first);
+		Sowing tree = new Sowing();
+		tree.addTrinket("Tree");
+		tree.setCliffDist(2);
+		tree.setMaxSlope(30);
+		sowings.add(tree);
+
+		Sowing rocks = new Sowing();
+		rocks.addTrinket("LittleRock");
+		rocks.setMinSlope(20);
+		rocks.allowedGrounds.add("1");
+		rocks.allowedGrounds.add("2");
+		sowings.add(rocks);
 	}
 	
-	private void sowTrinket(Trinket t){
+	private void sowTrinket(Sowing s, Trinket t){
 		t.drawOnBattlefield();
-		toGrow.add(t);
+		s.toGrow.add(t);
 		ModelManager.getBattlefield().store(t);
-	}
-	
-	private Trinket getRandomTrinket(){
-		List<TrinketBuilder> builders = BuilderManager.getAllEditableTrinketBuilders();
-		return builders.get(MyRandom.nextInt(builders.size())).build(Point3D.ORIGIN);
-		
 	}
 	
 	@Override
@@ -61,29 +59,60 @@ public class Sower implements Runnable {
 					}
 				}
 
-				
-				if(!toGrow.isEmpty()){
-					Trinket newTrinket = findCandidate();
+				for(Sowing s : sowings){
+					Trinket newTrinket;
+					if(s.toGrow.isEmpty()){
+						newTrinket = findNewPlace(s);
+//						LogUtil.logger.info("find new place : "+newTrinket);
+					}else{
+						newTrinket = grow(s);
+//						LogUtil.logger.info("grow : "+newTrinket);
+					}
 					if(newTrinket != null)
 						synchronized (ModelManager.getBattlefield().getMap()) {
 							ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
 						}
 				}
-				Thread.sleep(50);
+//				Thread.sleep(50);
 			}
 		} catch (InterruptedException e) {
 		}
 	}
 	
-	private Trinket findCandidate(){
-		Trinket source = toGrow.get(MyRandom.nextInt(toGrow.size()));
+	private Trinket findNewPlace(Sowing s){
+		Point2D randomPos = new Point2D(
+				MyRandom.next()*(double)ModelManager.getBattlefield().getMap().width,
+				MyRandom.next()*(double)ModelManager.getBattlefield().getMap().height);
+		if(s.isAllowed(randomPos)){
+			for(TrinketBuilder tb : s.trinketBuilders){
+				Trinket candidate = tb.build(randomPos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos)));
+				boolean isValid = true;
+				for(Trinket n : ModelManager.getBattlefield().getCloseComps(candidate, randomPos, 10)){
+					double separationDistance = n.getRadius()+candidate.getRadius();
+					if(n.getDistance(candidate)<separationDistance){
+						isValid = false;
+						break;
+					}
+				}
+				if(isValid){
+					sowTrinket(s, candidate);
+					return candidate;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Trinket grow(Sowing s){
+		Trinket source = s.toGrow.get(MyRandom.nextInt(s.toGrow.size()));
 		List<Trinket> neibors = ModelManager.getBattlefield().getCloseComps(source, 10);
 		for(int i = 0; i < MAX_TRINKETS_COUNT; i++){
-			Trinket candidate = getRandomTrinket();
+			Trinket candidate = s.trinketBuilders.get(MyRandom.between(0, s.trinketBuilders.size()-1)).build(Point3D.ORIGIN);
 			for(int j = 0; j < MAX_PLACES_COUNT; j++){
 				double separationDistance = source.getRadius()+candidate.getRadius();
 				Point2D place = source.getCoord().getTranslation(MyRandom.between(0, Angle.FULL), MyRandom.between(separationDistance, separationDistance*2));
-				if(!ModelManager.getBattlefield().getMap().isInBounds(place))
+				if(!ModelManager.getBattlefield().getMap().isInBounds(place) ||
+						!s.isAllowed(place))
 					continue;
 				
 				boolean isValidePlace = true;
@@ -95,13 +124,13 @@ public class Sower implements Runnable {
 
 				if(isValidePlace){
 					candidate.setPos(place.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(place)));
-					sowTrinket(candidate);
+					sowTrinket(s, candidate);
 					return candidate;
 					
 				}
 			}
 		}
-		toGrow.remove(source);
+		s.toGrow.remove(source);
 		return null;
 	}
 	

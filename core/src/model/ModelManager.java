@@ -20,7 +20,7 @@ public class ModelManager {
 	private static Battlefield battlefield;
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
-	private static boolean battlefieldReady = true;
+	public static boolean battlefieldReady = true;
 
 	static {
 		parser = new DefParser(CONFIG_PATH);

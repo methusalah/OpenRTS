@@ -20,7 +20,7 @@ import geometry.tools.LogUtil;
  */
 public class Atlas {
 	private static int LAYER_COUNT = 8;
-	private static int RESOLUTION_RATIO = 8;
+	public static int RESOLUTION_RATIO = 8;
 
 	@JsonProperty
 	private int mapWidth, mapHeight;
