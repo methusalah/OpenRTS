@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.battlefield.army.components.SerializableUnit;
+import model.battlefield.army.components.UnitMemento;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 
@@ -22,7 +22,7 @@ public class Engagement {
 	private List<Faction> factions = new ArrayList<>();
 
 	@JsonProperty
-	private List<SerializableUnit> initialEngagement = new ArrayList<>();
+	private List<UnitMemento> initialEngagement = new ArrayList<>();
 
 	public Engagement() {
 		Faction f1 = new Faction(Color.red, "1");
@@ -36,7 +36,7 @@ public class Engagement {
 		LogUtil.logger.info("reseting engagement");
 		ArmyManager.reset();
 
-		for (SerializableUnit su : initialEngagement) {
+		for (UnitMemento su : initialEngagement) {
 			ArmyManager.registerUnit(su.getUnit(factions));
 		}
 	}
@@ -44,7 +44,7 @@ public class Engagement {
 	public void save() {
 		initialEngagement.clear();
 		for (Unit u : ArmyManager.getUnits()) {
-			initialEngagement.add(new SerializableUnit(u));
+			initialEngagement.add(new UnitMemento(u));
 		}
 	}
 

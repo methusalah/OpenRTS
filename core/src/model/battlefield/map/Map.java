@@ -35,7 +35,7 @@ public class Map {
 	public List<Ramp> ramps = new ArrayList<>();
 	
 	@JsonProperty
-	public List<SerializableTrinket> serializableTrinkets = new ArrayList<>();
+	public List<TrinketMemento> serializableTrinkets = new ArrayList<>();
 
 	@JsonIgnore
 	public List<Trinket> trinkets = new ArrayList<>();
@@ -291,13 +291,13 @@ public class Map {
 	public void saveTrinkets() {
 		serializableTrinkets.clear();
 		for (Trinket t : trinkets) {
-			serializableTrinkets.add(new SerializableTrinket(t));
+			serializableTrinkets.add(new TrinketMemento(t));
 		}
 	}
 
 	public void resetTrinkets() {
 		trinkets.clear();
-		for (SerializableTrinket st : serializableTrinkets) {
+		for (TrinketMemento st : serializableTrinkets) {
 			Trinket t = st.getTrinket();
 			trinkets.add(t);
 			t.drawOnBattlefield();

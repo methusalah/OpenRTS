@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * For serialisation/deserialization purpose only.
  *
  */
-public class SerializableUnit {
+public class UnitMemento {
 	@JsonProperty
 	private String builderID;
 	@JsonProperty
@@ -25,11 +25,11 @@ public class SerializableUnit {
 	@JsonProperty
 	private double yaw;
 
-	public SerializableUnit() {
+	public UnitMemento() {
 
 	}
 
-	public SerializableUnit(Unit u) {
+	public UnitMemento(Unit u) {
 		builderID = u.builderID;
 		factionName = u.faction.getName();
 		pos = u.pos;

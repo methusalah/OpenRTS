@@ -6,7 +6,7 @@ import model.builders.definitions.BuilderManager;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SerializableTrinket {
+public class TrinketMemento {
 	@JsonProperty
 	private String builderID;
 	@JsonProperty
@@ -18,11 +18,11 @@ public class SerializableTrinket {
 	@JsonProperty
 	private String modelPath;
 
-	public SerializableTrinket() {
+	public TrinketMemento() {
 
 	}
 
-	public SerializableTrinket(Trinket t) {
+	public TrinketMemento(Trinket t) {
 		builderID = t.builderID;
 		pos = t.pos;
 		yaw = t.yaw;
