@@ -1,8 +1,8 @@
 package model.battlefield.map.cliff;
 
 import geometry.math.Angle;
+import geometry.structure.grid.Grid;
 import geometry.tools.LogUtil;
-import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
 /**
@@ -11,7 +11,7 @@ import model.battlefield.map.Tile;
  */
 public class CliffOrganizer {
 
-	public static void organize(Cliff c, Map map) {
+	public static void organize(Cliff c, Grid map) {
 		Tile t = c.getTile();
 		Tile n = c.getTile().n;
 		Tile s = c.getTile().s;

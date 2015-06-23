@@ -3,6 +3,7 @@ package model.battlefield.army.components;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.CollisionManager;
 import model.battlefield.army.motion.SteeringMachine;
 import model.battlefield.army.motion.pathfinding.FlowField;
-import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
 
 /**
@@ -249,7 +249,7 @@ public class Mover {
 
 	private void updateElevation() {
 		if (ModelManager.getBattlefield() != null) {
-			Map map = ModelManager.getBattlefield().getMap();
+			Grid map = ModelManager.getBattlefield().getMap();
 			if (heightmap == Heightmap.GROUND) {
 				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getAltitudeAt(hiker.getCoord()));
 				if (standingMode == StandingMode.PRONE) {

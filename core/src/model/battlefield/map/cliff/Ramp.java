@@ -1,12 +1,12 @@
 package model.battlefield.map.cliff;
 
 import geometry.math.Angle;
+import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
-import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,7 +48,7 @@ public class Ramp {
 	 *
 	 * @param map
 	 */
-	public void connect(Map map) {
+	public void connect(Grid map) {
 		for (Integer ref : tilesRef) {
 			tiles.add(map.getTile(ref));
 		}

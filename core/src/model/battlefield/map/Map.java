@@ -1,9 +1,7 @@
 package model.battlefield.map;
 
 import geometry.geom2d.Point2D;
-import geometry.geom3d.Point3D;
-import geometry.geom3d.Triangle3D;
-import geometry.math.Angle;
+import geometry.structure.grid.Grid;
 import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Contains everything to set up a terrain and explore it. Map is mainly : - a tile based grid with relief and cliffs - a texture atlas to paint on the ground -
  * a list of trinkets Also contains methods and fields dedicated to serialization/deserialization.
  */
-public class Map {
+public class Map extends Grid {
 
 	@JsonIgnore
 	public MapStyle style = new MapStyle();
@@ -62,59 +60,8 @@ public class Map {
 	public Map() {
 	}
 
-	public List<Tile> getTiles() {
-		return tiles;
-	}
-
-	public Tile getTile(int x, int y) {
-		if (!isInBounds(new Point2D(x, y))) {
-			throw new IllegalArgumentException(new Point2D(x, y) + " is out of map bounds, ass hole.");
-		}
-		return tiles.get(y * width + x);
-	}
-
-	private Triangle3D getTriangleAt(Point2D coord) {
-		Tile t = getTile(coord);
-		if (t.n == null || t.s == null || t.e == null || t.w == null) {
-			return null;
-		}
-
-		Point2D tPos2D = new Point2D(t.x, t.y);
-		Point2D tnePos2D = new Point2D(t.e.n.x, t.e.n.y);
-
-		Point3D nw = t.n.getPos();
-		Point3D ne = t.n.e.getPos();
-		Point3D sw = t.getPos();
-		Point3D se = t.e.getPos();
-		Triangle3D tr;
-
-		if (Angle.getTurn(tPos2D, tnePos2D, coord) == Angle.CLOCKWISE) {
-			tr = new Triangle3D(sw, se, ne);
-		} else {
-			tr = new Triangle3D(sw, ne, nw);
-		}
-		return tr;
-	}
-	
-	public double getAltitudeAt(Point2D coord) {
-		Triangle3D tr = getTriangleAt(coord);
-		return tr == null ? 0 : getTriangleAt(coord).getElevated(coord).z;
-	}
-
-	public Point3D getNormalVectorAt(Point2D coord) {
-		Triangle3D tr = getTriangleAt(coord);
-		return tr == null ? Point3D.UNIT_Z : tr.normal;
-	}
-
 	public boolean isBlocked(int x, int y) {
 		return getTile(x, y).isBlocked() ? true : false;
-	}
-
-	public Tile getTile(Point2D p) {
-		if (p.x < 0 || p.x > width || p.y < 0 || p.y > height) {
-			return null;
-		}
-		return getTile((int) Math.floor(p.x), (int) Math.floor(p.y));
 	}
 
 	/*
@@ -192,100 +139,8 @@ public class Map {
 		return false;
 	}
 
-	public boolean isInBounds(Point2D p) {
-		return p.x < 0 || p.y < 0 || p.x > width - 1 || p.y > height - 1 ? false : true;
-	}
-
 	public boolean isWalkable(Point2D p) {
 		return  !isInBounds(p) || getTile(p).isBlocked() ? false : true;
-	}
-
-	public List<Tile> get8Around(Tile t) {
-		ArrayList<Tile> res = new ArrayList<>();
-		for (int i = -1; i <= 1; i++) {
-			for (int j = -1; j <= 1; j++) {
-				if (i == 0 && j == 0) {
-					continue;
-				}
-				if (t.x + i >= width || t.x + i < 0 || t.y + j >= height || t.y + j < 0) {
-					continue;
-				}
-				res.add(getTile(t.x + i, t.y + j));
-			}
-		}
-		return res;
-	}
-
-	public List<Tile> get9Around(Tile t) {
-		ArrayList<Tile> res = new ArrayList<>();
-		for (int i = -1; i <= 1; i++) {
-			for (int j = -1; j <= 1; j++) {
-				if (t.x + i >= width || t.x + i < 0 || t.y + j >= height || t.y + j < 0) {
-					continue;
-				}
-				res.add(getTile(t.x + i, t.y + j));
-			}
-		}
-		return res;
-
-	}
-
-	public List<Tile> get16Around(Tile t) {
-		ArrayList<Tile> res = new ArrayList<>();
-		for (int i = -2; i <= 2; i++) {
-			for (int j = -2; j <= 2; j++) {
-				if (i == 0 && j == 0) {
-					continue;
-				}
-				if (t.x + i >= width || t.x + i < 0 || t.y + j >= height || t.y + j < 0) {
-					continue;
-				}
-				res.add(getTile(t.x + i, t.y + j));
-			}
-		}
-		res.removeAll(get8Around(t));
-		return res;
-	}
-
-	public List<Tile> get4Around(Tile t) {
-		ArrayList<Tile> res = new ArrayList<>();
-		if (t.n != null) {
-			res.add(t.n);
-		}
-		if (t.s != null) {
-			res.add(t.s);
-		}
-		if (t.e != null) {
-			res.add(t.e);
-		}
-		if (t.w != null) {
-			res.add(t.w);
-		}
-		return res;
-	}
-
-	public int getRef(Tile t) {
-		return t.y * width + t.x;
-	}
-
-	public Tile getTile(int ref) {
-		int y = (int) Math.floor((double) ref / width);
-		int x = (int) Math.round((double) ref % width);
-		return getTile(x, y);
-	}
-	
-	public List<Tile> getTilesAround(Point2D p, double distance){
-		List<Tile> res = new ArrayList<>();
-		
-		int ceiled = (int)Math.ceil(distance);
-		for (int x = (int)Math.round(p.x)-ceiled; x < (int)Math.round(p.x)+ceiled; x++) {
-			for (int y = (int)Math.round(p.y)-ceiled; y < (int)Math.round(p.y)+ceiled; y++) {
-				Point2D tileCenter = new Point2D(x+0.5, y+0.5);
-				if(tileCenter.getDistance(p)<distance && isInBounds(new Point2D(x, y)))
-					res.add(getTile(x, y));
-			}
-		}
-		return res;
 	}
 
 	public void saveTrinkets() {

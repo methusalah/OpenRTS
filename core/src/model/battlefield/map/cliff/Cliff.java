@@ -1,9 +1,10 @@
 package model.battlefield.map.cliff;
 
+import geometry.structure.grid.Grid;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.faces.Face;
@@ -34,11 +35,11 @@ public class Cliff {
 		this.level = level;
 	}
 
-	public void connect(Map map) {
+	public void connect(Grid map) {
 		CliffOrganizer.organize(this, map);
 	}
 
-	public String getConnexionConfiguration(Map map) {
+	public String getConnexionConfiguration(Grid map) {
 		String res = new String();
 		if (isNeighborCliff(tile.n, map)) {
 			res = res.concat("n");
@@ -55,7 +56,7 @@ public class Cliff {
 		return res;
 	}
 
-	private boolean isNeighborCliff(Tile t, Map map) {
+	private boolean isNeighborCliff(Tile t, Grid map) {
 		if (t == null || !t.hasCliffOnLevel(level) ||
 				// t.level != tile.level ||
 				t.getCliff(level).type == Type.Bugged) {
@@ -84,7 +85,7 @@ public class Cliff {
 		}
 	}
 
-	public ArrayList<Tile> getUpperGrounds(Map map) {
+	public ArrayList<Tile> getUpperGrounds(Grid map) {
 		ArrayList<Tile> res = new ArrayList<>();
 		for (Tile n : map.get8Around(tile)) {
 			if (n.level > tile.level) {

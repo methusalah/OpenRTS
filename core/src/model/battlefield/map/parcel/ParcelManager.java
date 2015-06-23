@@ -8,6 +8,7 @@ import geometry.geom3d.Point3D;
 import geometry.geom3d.Polygon3D;
 import geometry.geom3d.Triangle3D;
 import geometry.math.Angle;
+import geometry.structure.grid.Grid;
 import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
@@ -241,7 +242,7 @@ public class ParcelManager {
 		return t.getZ();
 	}
 
-	public static List<Triangle3D> getNearbyTriangles(Tile t, model.battlefield.map.Map map, ParcelMesh mesh) {
+	public static List<Triangle3D> getNearbyTriangles(Tile t, Grid map, ParcelMesh mesh) {
 		List<Triangle3D> res = new ArrayList<>();
 		for (Tile n : map.get9Around(t)) {
 			// if(!neib.isCliff())
