@@ -5,7 +5,7 @@ import geometry.geom3d.Point3D;
 import java.util.List;
 
 import model.battlefield.warfare.Faction;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.definitions.BuilderManager;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

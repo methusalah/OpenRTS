@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders.actors;
+package model.builders.entity.actors;
 
 import geometry.math.MyRandom;
 
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.actors.Actor;
-import model.builders.Builder;
-import model.builders.definitions.BuilderManager;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.Builder;
+import model.builders.entity.definitions.BuilderManager;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

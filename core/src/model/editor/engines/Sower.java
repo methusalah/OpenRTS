@@ -11,8 +11,8 @@ import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.Trinket;
-import model.builders.TrinketBuilder;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.TrinketBuilder;
+import model.builders.entity.definitions.BuilderManager;
 
 public class Sower implements Runnable {
 	private static final int MAX_PLACES_COUNT = 30;

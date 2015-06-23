@@ -12,8 +12,8 @@ import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.atlas.AtlasLayer;
-import model.builders.TrinketBuilder;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.TrinketBuilder;
+import model.builders.entity.definitions.BuilderManager;
 
 
 public class Sowing {

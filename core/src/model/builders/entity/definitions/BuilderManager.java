@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders.definitions;
+package model.builders.entity.definitions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,24 +9,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.builders.Builder;
-import model.builders.CliffShapeBuilder;
-import model.builders.EffectBuilder;
-import model.builders.ManmadeFaceBuilder;
-import model.builders.MapStyleBuilder;
-import model.builders.MoverBuilder;
-import model.builders.NaturalFaceBuilder;
-import model.builders.ProjectileBuilder;
-import model.builders.TrinketBuilder;
-import model.builders.TurretBuilder;
-import model.builders.UnitBuilder;
-import model.builders.WeaponBuilder;
-import model.builders.actors.ActorBuilder;
-import model.builders.actors.AnimationActorBuilder;
-import model.builders.actors.ModelActorBuilder;
-import model.builders.actors.ParticleActorBuilder;
-import model.builders.actors.PhysicActorBuilder;
-import model.builders.actors.SoundActorBuilder;
+import model.builders.entity.Builder;
+import model.builders.entity.CliffShapeBuilder;
+import model.builders.entity.EffectBuilder;
+import model.builders.entity.ManmadeFaceBuilder;
+import model.builders.entity.MapStyleBuilder;
+import model.builders.entity.MoverBuilder;
+import model.builders.entity.NaturalFaceBuilder;
+import model.builders.entity.ProjectileBuilder;
+import model.builders.entity.TrinketBuilder;
+import model.builders.entity.TurretBuilder;
+import model.builders.entity.UnitBuilder;
+import model.builders.entity.WeaponBuilder;
+import model.builders.entity.actors.ActorBuilder;
+import model.builders.entity.actors.AnimationActorBuilder;
+import model.builders.entity.actors.ModelActorBuilder;
+import model.builders.entity.actors.ParticleActorBuilder;
+import model.builders.entity.actors.PhysicActorBuilder;
+import model.builders.entity.actors.SoundActorBuilder;
 import exception.TechnicalException;
 
 /**

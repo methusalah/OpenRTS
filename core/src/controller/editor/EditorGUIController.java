@@ -6,8 +6,8 @@ package controller.editor;
 import java.util.List;
 
 import model.ModelManager;
-import model.builders.MapStyleBuilder;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.MapStyleBuilder;
+import model.builders.entity.definitions.BuilderManager;
 import model.editor.ToolManager;
 import model.editor.tools.Tool;
 import app.MainRTS;

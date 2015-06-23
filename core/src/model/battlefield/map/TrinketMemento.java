@@ -1,7 +1,7 @@
 package model.battlefield.map;
 
 import geometry.geom3d.Point3D;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.definitions.BuilderManager;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

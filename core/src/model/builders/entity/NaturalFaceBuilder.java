@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import geometry.tools.LogUtil;
 
@@ -13,8 +13,8 @@ import model.battlefield.map.cliff.faces.natural.Dug1Corner;
 import model.battlefield.map.cliff.faces.natural.Dug1Ortho;
 import model.battlefield.map.cliff.faces.natural.Dug1Salient;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  *

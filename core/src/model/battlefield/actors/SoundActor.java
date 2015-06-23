@@ -2,7 +2,7 @@ package model.battlefield.actors;
 
 import java.util.List;
 
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 public class SoundActor extends Actor {
 

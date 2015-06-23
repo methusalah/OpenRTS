@@ -2,7 +2,7 @@ package model.battlefield.actors;
 
 import java.util.List;
 
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 /**
  * A special Model Actor that must be managed by the physical engine. The life of this actor is limited and managed by the view. The life decrease only when the

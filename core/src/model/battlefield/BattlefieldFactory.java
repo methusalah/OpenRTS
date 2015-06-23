@@ -17,8 +17,8 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 import model.battlefield.map.parcel.ParcelManager;
-import model.builders.MapStyleBuilder;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.MapStyleBuilder;
+import model.builders.entity.definitions.BuilderManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

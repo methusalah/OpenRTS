@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.map.Map;
-import model.builders.definitions.BuilderManager;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.definitions.BuilderManager;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  *

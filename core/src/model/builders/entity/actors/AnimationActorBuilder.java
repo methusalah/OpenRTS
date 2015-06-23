@@ -1,9 +1,9 @@
-package model.builders.actors;
+package model.builders.entity.actors;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.AnimationActor;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

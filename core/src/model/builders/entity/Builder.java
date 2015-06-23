@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import geometry.tools.LogUtil;
-import model.builders.definitions.Definition;
+import model.builders.entity.definitions.Definition;
 
 /**
  *

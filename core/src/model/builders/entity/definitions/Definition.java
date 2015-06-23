@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders.definitions;
+package model.builders.entity.definitions;
 
 import java.util.ArrayList;
 import java.util.List;

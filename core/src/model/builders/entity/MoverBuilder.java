@@ -1,13 +1,13 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Mover;
 import model.battlefield.army.components.Mover.StandingMode;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

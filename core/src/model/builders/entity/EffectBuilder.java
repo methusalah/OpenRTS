@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import geometry.geom3d.Point3D;
 
@@ -15,9 +15,9 @@ import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.effects.LauncherEffect;
 import model.battlefield.army.effects.PersistentEffect;
-import model.builders.definitions.BuilderManager;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.definitions.BuilderManager;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

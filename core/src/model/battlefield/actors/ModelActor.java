@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.battlefield.abstractComps.FieldComp;
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 /**
  * Contains the path to a model to draw. This actor also hold the model bone coordinates given by the view. These coordinates may be useful in the model. IE :

@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
@@ -15,10 +15,10 @@ import java.util.List;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.Cliff;
-import model.builders.actors.ModelActorBuilder;
-import model.builders.definitions.BuilderManager;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.actors.ModelActorBuilder;
+import model.builders.entity.definitions.BuilderManager;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

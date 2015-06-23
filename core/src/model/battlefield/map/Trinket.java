@@ -6,7 +6,7 @@ import java.awt.Color;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.ModelActor;
-import model.builders.actors.ModelActorBuilder;
+import model.builders.entity.actors.ModelActorBuilder;
 
 /**
  * Specialized static field comp with a model actor.

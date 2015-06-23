@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
-import model.builders.MapStyleBuilder;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.MapStyleBuilder;
+import model.builders.entity.definitions.BuilderManager;
 import model.editor.Pencil;
 import model.editor.ToolManager;
 import model.editor.tools.AtlasTool;

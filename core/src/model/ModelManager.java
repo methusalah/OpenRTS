@@ -3,7 +3,7 @@ package model;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
 import model.battlefield.map.parcel.ParcelManager;
-import model.builders.definitions.DefParser;
+import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import geometry.tools.LogUtil;

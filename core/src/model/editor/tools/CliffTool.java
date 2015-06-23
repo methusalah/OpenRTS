@@ -9,7 +9,7 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
-import model.builders.CliffShapeBuilder;
+import model.builders.entity.CliffShapeBuilder;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;

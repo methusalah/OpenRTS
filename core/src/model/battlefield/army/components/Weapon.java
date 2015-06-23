@@ -10,8 +10,8 @@ import java.util.List;
 import model.battlefield.actors.Actor;
 import model.battlefield.army.effects.Effect;
 import model.battlefield.army.effects.EffectSource;
-import model.builders.EffectBuilder;
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.EffectBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 /**
  * Weapons have two roles : - find and acquire the best available target - launch the chain of effects whenever it is possible For now, weapons choose

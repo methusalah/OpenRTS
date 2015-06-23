@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import geometry.geom3d.Point3D;
 
@@ -10,10 +10,10 @@ import java.util.List;
 
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
-import model.builders.actors.ModelActorBuilder;
-import model.builders.definitions.BuilderManager;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.actors.ModelActorBuilder;
+import model.builders.entity.definitions.BuilderManager;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

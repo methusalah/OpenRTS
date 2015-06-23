@@ -1,15 +1,15 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model.builders;
+package model.builders.entity;
 
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.Weapon;
-import model.builders.actors.ActorBuilder;
-import model.builders.definitions.BuilderManager;
-import model.builders.definitions.DefElement;
-import model.builders.definitions.Definition;
+import model.builders.entity.actors.ActorBuilder;
+import model.builders.entity.definitions.BuilderManager;
+import model.builders.entity.definitions.DefElement;
+import model.builders.entity.definitions.Definition;
 
 /**
  * @author Benoît

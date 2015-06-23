@@ -3,7 +3,7 @@ package model.battlefield.map;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.builders.CliffShapeBuilder;
+import model.builders.entity.CliffShapeBuilder;
 
 /**
  *
