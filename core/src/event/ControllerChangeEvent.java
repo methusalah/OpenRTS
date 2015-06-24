@@ -1,6 +1,6 @@
 package event;
 
-public class ControllerChangeEvent extends Event {
+public class ControllerChangeEvent extends NetworkEvent {
 
 	private final int index;
 

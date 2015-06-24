@@ -1,6 +1,6 @@
 package event;
 
-public class InputEvent extends Event {
+public class InputEvent extends NetworkEvent {
 
 	private final String command;
 

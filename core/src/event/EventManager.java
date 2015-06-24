@@ -10,7 +10,15 @@ public class EventManager {
 
 	private static final EventBus eventBus = new EventBus(new RethrowingExceptionHandler());
 
-	public static void post(Event event) {
+	public static void post(ServerEvent event) {
+		eventBus.post(event);
+	}
+	
+	public static void post(NetworkEvent event) {
+		eventBus.post(event);
+	}
+	
+	public static void post(ClientEvent event) {
 		// LogUtil.logger.info("Event posted:" + event);
 		eventBus.post(event);
 	}

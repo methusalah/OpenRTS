@@ -9,7 +9,7 @@ import com.jme3.network.Client;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
-import event.Event;
+import event.NetworkEvent;
 import event.EventManager;
 import event.ControllerChangeEvent;
 
@@ -19,12 +19,12 @@ public class ClientManager {
 	protected static Client client;
 
 	public static void startClient() {
-		Serializer.registerClass(Event.class);
+		Serializer.registerClass(NetworkEvent.class);
 		try {
 			Thread.sleep(1000);
 			client = Network.connectToServer("localhost", OpenRTSServer.PORT);
 			client.addClientStateListener(new ClientStateListener());
-			client.addMessageListener(new MessageListener(), Event.class);
+			client.addMessageListener(new MessageListener(), NetworkEvent.class);
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.battlefield.map.Tile;
 
-public class TilesEvent extends Event {
+public class TilesEvent extends ClientEvent {
 
 	private final List<Tile> extended;
 

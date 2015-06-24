@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.battlefield.map.parcel.ParcelMesh;
 
-public class ParcelUpdateEvent extends Event {
+public class ParcelUpdateEvent extends NetworkEvent {
 
 	private final List<ParcelMesh> toUpdate;
 

@@ -1,4 +1,4 @@
 package event;
 
-public class SetToolEvent extends Event {
+public class SetToolEvent extends ClientEvent {
 }

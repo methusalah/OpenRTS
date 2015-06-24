@@ -1,5 +1,5 @@
 package event;
 
-public class UpdateGroundAtlasEvent extends Event {
+public class UpdateGroundAtlasEvent extends ClientEvent {
 
 }

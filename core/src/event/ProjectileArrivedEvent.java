@@ -1,5 +1,5 @@
 package event;
 
-public class ProjectileArrivedEvent extends Event {
+public class ProjectileArrivedEvent extends NetworkEvent {
 
 }
