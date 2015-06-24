@@ -23,12 +23,14 @@ public class ClientManager {
 		try {
 			Thread.sleep(1000);
 			client = Network.connectToServer("localhost", OpenRTSServer.PORT);
+			client.addClientStateListener(new ClientStateListener());
+			client.addMessageListener(new MessageListener(), Event.class);
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		client.start();
-		client.addMessageListener(new ClientListener(), Event.class);
+		
 		EventManager.register(instance);
 	}
 

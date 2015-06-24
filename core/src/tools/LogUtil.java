@@ -24,6 +24,10 @@ public class LogUtil {
 	public static void info(String msg) {
 		logger.info(msg);
 	}
+	
+	public static void warning(String msg) {
+		logger.warning(msg);
+	}
 
 	static class MyHandler extends StreamHandler {
 
