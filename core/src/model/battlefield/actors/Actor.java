@@ -1,12 +1,11 @@
 package model.battlefield.actors;
 
-import geometry.tools.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
 import model.builders.actors.ActorBuilder;
+import tools.LogUtil;
 import view.acting.ActorViewElements;
 
 /**

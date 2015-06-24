@@ -18,9 +18,15 @@ public class ClientManager {
 	private final static ClientManager instance = new ClientManager();
 	protected static Client client;
 
-	public static void startClient() throws IOException {
+	public static void startClient() {
 		Serializer.registerClass(Event.class);
-		client = Network.connectToServer("localhost", OpenRTSServer.PORT);
+		try {
+			Thread.sleep(1000);
+			client = Network.connectToServer("localhost", OpenRTSServer.PORT);
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		client.start();
 		client.addMessageListener(new ClientListener(), Event.class);
 		EventManager.register(instance);

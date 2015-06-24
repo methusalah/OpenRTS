@@ -8,9 +8,10 @@ import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.Segment2D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
+
+import tools.LogUtil;
 
 public class OffsetOperator {
 	// inputs

@@ -3,6 +3,7 @@ package model.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Tile;
@@ -24,7 +25,6 @@ import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.tools.LogUtil;
 
 /**
  * @author Benoît

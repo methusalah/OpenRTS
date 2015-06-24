@@ -12,6 +12,7 @@ import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcel.ParcelManager;
 import model.battlefield.map.parcel.ParcelMesh;
+import tools.LogUtil;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
@@ -36,7 +37,6 @@ import event.ParcelUpdateEvent;
 import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 public class MapDrawer {
 

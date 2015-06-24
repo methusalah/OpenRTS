@@ -1,7 +1,5 @@
 package view.acting;
 
-import geometry.tools.LogUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +9,7 @@ import java.util.Map;
 import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
+import tools.LogUtil;
 import view.material.MaterialManager;
 
 import com.jme3.animation.AnimChannel;

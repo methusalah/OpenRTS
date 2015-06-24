@@ -1,12 +1,13 @@
 package network.server;
 
+import tools.LogUtil;
+
 import com.jme3.network.Filters;
 import com.jme3.network.HostedConnection;
 import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
 
 import event.InputEvent;
-import geometry.tools.LogUtil;
 
 public class ServerListener implements MessageListener<HostedConnection> {
 

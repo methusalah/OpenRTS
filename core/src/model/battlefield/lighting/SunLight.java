@@ -1,13 +1,14 @@
 package model.battlefield.lighting;
 
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import tools.LogUtil;
 
 /**
  * Sun light is a multi-component light defining : - directional light - directional shadow caster - ambient light This class is mainly done for edition purpose

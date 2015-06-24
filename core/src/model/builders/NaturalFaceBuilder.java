@@ -4,10 +4,9 @@
  */
 package model.builders;
 
-import geometry.tools.LogUtil;
-
 import java.awt.Color;
 
+import tools.LogUtil;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.natural.Dug1Corner;
 import model.battlefield.map.cliff.faces.natural.Dug1Ortho;
