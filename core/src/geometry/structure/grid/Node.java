@@ -1,10 +1,10 @@
 package geometry.structure.grid;
 
 
-public abstract class Node {
+public class Node {
 	
 	public int index;
-	private Grid grid;
+	protected Grid grid;
 	
 	public Node(Grid grid, int index) {
 		this.grid = grid;

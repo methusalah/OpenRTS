@@ -37,22 +37,22 @@ public class ParcelManager {
 
 	public static void createParcelMeshes(Map map) {
 		meshes.clear();
-		if (map.width < 10 || map.height < 10) {
-			RESOLUTION = Math.min(map.width, map.height);
+		if (map.xSize() < 10 || map.ySize() < 10) {
+			RESOLUTION = Math.min(map.xSize(), map.ySize());
 		} else {
 			RESOLUTION = 10;
 		}
 
-		WIDTHJUMP = (int) (Math.ceil((double) map.width / RESOLUTION));
-		int nbParcel = WIDTHJUMP * (int) Math.ceil((double) map.height / RESOLUTION);
+		WIDTHJUMP = (int) (Math.ceil((double) map.xSize() / RESOLUTION));
+		int nbParcel = WIDTHJUMP * (int) Math.ceil((double) map.ySize() / RESOLUTION);
 		for (int i = 0; i < nbParcel; i++) {
 			meshes.add(new ParcelMesh());
 		}
 
-		for (int i = 0; i < map.width; i++) {
-			for (int j = 0; j < map.height; j++) {
+		for (int i = 0; i < map.xSize(); i++) {
+			for (int j = 0; j < map.ySize(); j++) {
 				int index = (int) (Math.floor(j / RESOLUTION) * WIDTHJUMP + Math.floor(i / RESOLUTION));
-				meshes.get(index).add(map.getTile(i, j));
+				meshes.get(index).add(map.get(i, j));
 			}
 		}
 
@@ -251,9 +251,9 @@ public class ParcelManager {
 		return res;
 	}
 
-	public static void compute(model.battlefield.map.Map map, ParcelMesh mesh) {
-		double xScale = 1.0 / map.width;
-		double yScale = 1.0 / map.height;
+	public static void compute(Map map, ParcelMesh mesh) {
+		double xScale = 1.0 / map.xSize();
+		double yScale = 1.0 / map.ySize();
 		for (Tile tile : mesh.getTiles()) {
 			for (Triangle3D t : getGroundTriangles(tile, mesh)) {
 				int index = mesh.vertices.size();

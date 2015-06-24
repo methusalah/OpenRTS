@@ -49,11 +49,11 @@ public class Sowing {
 	
 	public boolean isAllowed(Point2D p){
 		Map map = ModelManager.getBattlefield().getMap();
-		
 		// check if the point is near enough from a cliff.
 		if(distFromCliff > 0){
 			boolean hasCliff = false;
-			for(Tile t : map.getTilesAround(p, distFromCliff))
+			// ugly
+			for(Tile t : map.getAround((Tile)map.get(0), p, distFromCliff))
 				if(t.hasCliff()){
 					hasCliff = true;
 					break;

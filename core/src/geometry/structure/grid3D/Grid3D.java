@@ -49,5 +49,10 @@ public class Grid3D extends Grid {
 	public Point3D getPos(Node3D n){
 		return getCoord(n.index).get3D(n.elevation);
 	}
+	
+	@Override
+	public Node3D get(Point2D coord) {
+		return (Node3D)super.get(coord);
+	}
 
 }

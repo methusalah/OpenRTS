@@ -191,7 +191,7 @@ public class AtlasTool extends Tool {
 			pencil.maintain();
 			autoLayer = 0;
 			Point2D center = pencil.getCoord().getMult(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())
-					.getDivision(ModelManager.getBattlefield().getMap().width, ModelManager.getBattlefield().getMap().height);
+					.getDivision(ModelManager.getBattlefield().getMap().xSize(), ModelManager.getBattlefield().getMap().ySize());
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
 			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
@@ -211,8 +211,8 @@ public class AtlasTool extends Tool {
 			int y = (int) Math.round(p.y);
 			double attenuatedInc = Math.round(increment
 					* pencil.strength
-					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().width,
-							ModelManager.getBattlefield().getMap().height).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())));
+					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().xSize(),
+							ModelManager.getBattlefield().getMap().ySize()).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())));
 
 			int activeLayerCount = 0;
 			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {

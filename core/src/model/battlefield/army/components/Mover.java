@@ -14,6 +14,7 @@ import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.CollisionManager;
 import model.battlefield.army.motion.SteeringMachine;
 import model.battlefield.army.motion.pathfinding.FlowField;
+import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
 
 /**
@@ -249,7 +250,7 @@ public class Mover {
 
 	private void updateElevation() {
 		if (ModelManager.getBattlefield() != null) {
-			Grid map = ModelManager.getBattlefield().getMap();
+			Map map = ModelManager.getBattlefield().getMap();
 			if (heightmap == Heightmap.GROUND) {
 				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getAltitudeAt(hiker.getCoord()));
 				if (standingMode == StandingMode.PRONE) {
@@ -260,7 +261,7 @@ public class Mover {
 				}
 				hiker.direction = Point2D.ORIGIN.getTranslation(hiker.yaw, 1).get3D(0);
 			} else if (heightmap == Heightmap.SKY) {
-				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getTile(hiker.getCoord()).level + 3);
+				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.get(hiker.getCoord()).level + 3);
 				hiker.upDirection = Point3D.UNIT_Z;
 			} else {
 				if (!velocity.isOrigin()) {

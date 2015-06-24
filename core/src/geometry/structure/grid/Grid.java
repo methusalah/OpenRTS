@@ -82,7 +82,7 @@ public class Grid  extends Map2D<Node> {
 		return res;
 	}
 
-	public <T extends Node> List<T> getAround(Point2D p, double distance) {
+	public <T extends Node> List<T> getAround(T clazz, Point2D p, double distance) {
 		List<T> res = new ArrayList<>();
 		
 		int ceiled = (int)Math.ceil(distance);
@@ -94,6 +94,10 @@ public class Grid  extends Map2D<Node> {
 			}
 		}
 		return res;
+	}
+	
+	public <T extends Node> Point2D getCoord(T n) {
+		return super.getCoord(n.index);
 	}
 
 }

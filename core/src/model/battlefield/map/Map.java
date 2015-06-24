@@ -1,14 +1,16 @@
 package model.battlefield.map;
 
+import geometry.geom2d.AlignedBoundingBox;
+import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
-import geometry.structure.grid.Grid;
-import geometry.tools.LogUtil;
+import geometry.structure.grid.Node;
+import geometry.structure.grid3D.Grid3D;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
+import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,16 +20,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Contains everything to set up a terrain and explore it. Map is mainly : - a tile based grid with relief and cliffs - a texture atlas to paint on the ground -
  * a list of trinkets Also contains methods and fields dedicated to serialization/deserialization.
  */
-public class Map extends Grid {
+public class Map extends Grid3D {
 
 	@JsonIgnore
 	public MapStyle style = new MapStyle();
 
 	@JsonProperty
 	public String mapStyleID;
-
-	@JsonProperty
-	public List<Tile> tiles = new ArrayList<>();
 
 	@JsonProperty
 	public List<Ramp> ramps = new ArrayList<>();
@@ -41,106 +40,20 @@ public class Map extends Grid {
 	@JsonProperty
 	public Atlas atlas, cover;
 
-	@JsonProperty
-	public int width;
-	@JsonProperty
-	public int height;
-
 	public Map(int width, int height) {
-		this.width = width;
-		this.height = height;
+		super(width, height);
 		atlas = new Atlas(width, height);
 		atlas.finalize();
 		cover = new Atlas(width, height);
 		cover.finalize();
-		
-		tiles = new ArrayList<>(width * height);
-	}
-
-	public Map() {
 	}
 
 	public boolean isBlocked(int x, int y) {
-		return getTile(x, y).isBlocked() ? true : false;
-	}
-
-	/*
-	 * Fast Voxel Traversal Algorithm for Ray Tracing John Amanatides Andrew Woo
-	 */
-	public boolean meetObstacle(Point2D p1, Point2D p2) {
-		// calculate the direction of the ray (linear algebra)
-		double dirX = p2.x - p1.x;
-		double dirY = p2.y - p1.y;
-		double length = Math.sqrt(dirX * dirX + dirY * dirY);
-		dirX /= length; // normalize the direction vector
-		dirY /= length;
-		double tDeltaX = 1 / Math.abs(dirX); // how far we must move in the ray direction before we encounter a new voxel in x-direction
-		double tDeltaY = 1 / Math.abs(dirY); // same but y-direction
-
-		// start voxel coordinates
-		int x = (int) Math.floor(p1.x); // use your transformer function here
-		int y = (int) Math.floor(p1.y);
-
-		// end voxel coordinates
-		int endX = (int) Math.floor(p2.x);
-		int endY = (int) Math.floor(p2.y);
-
-		// decide which direction to start walking in
-		int stepX = (int) Math.signum(dirX);
-		int stepY = (int) Math.signum(dirY);
-
-		double tMaxX, tMaxY;
-		// calculate distance to first intersection in the voxel we start from
-		if (dirX < 0) {
-			tMaxX = (x - p1.x) / dirX;
-		} else {
-			tMaxX = (x + 1 - p1.x) / dirX;
-		}
-
-		if (dirY < 0) {
-			tMaxY = (y - p1.y) / dirY;
-		} else {
-			tMaxY = (y + 1 - p1.y) / dirY;
-		}
-
-		// check if first is occupied
-		if (getTile(x, y).isBlocked()) {
-			return true;
-		}
-		boolean reachedX = false, reachedY = false;
-		while (!reachedX || !reachedY) {
-			if (tMaxX < tMaxY) {
-				tMaxX += tDeltaX;
-				x += stepX;
-			} else {
-				tMaxY += tDeltaY;
-				y += stepY;
-			}
-			if (getTile(x, y).isBlocked()) {
-				return true;
-			}
-
-			if (stepX > 0) {
-				if (x >= endX) {
-					reachedX = true;
-				}
-			} else if (x <= endX) {
-				reachedX = true;
-			}
-
-			if (stepY > 0) {
-				if (y >= endY) {
-					reachedY = true;
-				}
-			} else if (y <= endY) {
-				reachedY = true;
-			}
-		}
-		return false;
+		return ((Tile)get(x, y)).isBlocked() ? true : false;
 	}
 
 	public boolean isWalkable(Point2D p) {
-		return  !isInBounds(p) || getTile(p).isBlocked() ? false : true;
+		return  !isInBounds(p) || get(p).isBlocked() ? false : true;
 	}
 
 	public void saveTrinkets() {
@@ -158,15 +71,83 @@ public class Map extends Grid {
 			t.drawOnBattlefield();
 		}
 	}
-
-	public void prepareForBattle() {
-		for (Tile t : tiles) {
-			t.hasBlockingTrinket = false;
+	
+	public int getMaxLevelAround(Tile t) {
+		int res = Integer.MIN_VALUE;
+		for (Tile n : get4Around(t)) {
+			if (n.level > res) {
+				res = n.level;
+			}
 		}
-		for (Trinket t : trinkets) {
-			if (t.getRadius() != 0) {
-				for (Tile n : get9Around(getTile(t.getCoord()))) {
-					if (n.getCoord().getAddition(0.5, 0.5).getDistance(t.getCoord()) < t.getRadius() + 0.3) {
+		return res;
+	}
+
+	public int getMinLevelAround(Tile t) {
+		int res = Integer.MAX_VALUE;
+		for (Tile n : get4Around(t)) {
+			if (n.level < res) {
+				res = n.level;
+			}
+		}
+		return res;
+	}
+
+	public void setCliffOf(Tile t, int minLevel, int maxLevel) {
+		if (t.ramp != null && t.ramp.getCliffSlopeRate(t) == 1) {
+			return;
+		}
+		for (int level = minLevel; level < maxLevel; level++) {
+			if (t.getCliff(level) == null) {
+				t.setCliff(level, new Cliff(t, level));
+			}
+		}
+		modifyLevelOf(t);
+
+	}
+	
+	public void unsetCliffOn(Tile t) {
+		for (int level = 0; level < 3; level++) {
+			if (t.getCliff(level) != null) {
+				t.getCliff(level).removeFromBattlefield();
+				t.setCliff(level, null);
+			}
+		}
+		modifyLevelOf(t);
+	}
+
+	public void modifyLevelOf(Tile t) {
+		t.modifiedLevel = 0;
+		for (int i = 0; i < 3; i++) {
+			Cliff c = t.getCliff(i);
+			if (c == null || getWestNode(t) == null || getSouthNode(t) == null || getWestNode(getSouthNode(t)) == null) {
+				continue;
+			}
+			if (getWestNode(t).level > c.level || getSouthNode(t).level > c.level || getWestNode(getSouthNode(t)).level > c.level) {
+				t.modifiedLevel = c.level + 1;
+			}
+		}
+	}
+
+	
+
+	public BoundingShape getBoundsOf(Tile t) {
+		ArrayList<Point2D> points = new ArrayList<>();
+		points.add(getCoord(t));
+		points.add(getCoord(t).getAddition(1, 0));
+		points.add(getCoord(t).getAddition(1, 1));
+		points.add(getCoord(t).getAddition(0, 1));
+		return new AlignedBoundingBox(points);
+	}
+
+	
+	public void prepareForBattle() {
+		for (Node n : getAll()) {
+			((Tile)n).hasBlockingTrinket = false;
+		}
+		for (Trinket trinket : trinkets) {
+			if (trinket.getRadius() != 0) {
+				for (Tile n : get9Around(get(trinket.getCoord()))) {
+					if (getCoord(n).getAddition(0.5, 0.5).getDistance(trinket.getCoord()) < trinket.getRadius() + 0.3) {
 						n.hasBlockingTrinket = true;
 					}
 				}
@@ -177,5 +158,14 @@ public class Map extends Grid {
 	public List<Ramp> getRamps() {
 		return ramps;
 	}
-
+	
+	@Override
+	public Tile get(int x, int y) {
+		return (Tile)super.get(x, y);
+	}
+	
+	@Override
+	public Tile get(Point2D coord) {
+		return (Tile)super.get(coord);
+	}
 }

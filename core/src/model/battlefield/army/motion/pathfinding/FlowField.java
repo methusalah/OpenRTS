@@ -5,6 +5,7 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 
 import model.battlefield.map.Map;
+import model.battlefield.map.MapTraversor;
 import model.battlefield.map.Tile;
 
 /**
@@ -28,14 +29,14 @@ public class FlowField {
         this.destination = destination;
         this.map = map;
         double start = System.currentTimeMillis();
-        initHeatMap(map.width, map.height);
-        Tile goalTile = map.getTile(destination);
+        initHeatMap(map.xSize(), map.ySize());
+        Tile goalTile = map.get(destination);
         toVisit.add(goalTile);
 
         visitMap();
 
-        vectorMap = new Point2D[map.width][map.height];
-        generateVectors(map.width, map.height);
+        vectorMap = new Point2D[map.xSize()][map.ySize()];
+        generateVectors(map.xSize(), map.ySize());
     }
     
     private void travelMapFrom(Tile t, int heat){
@@ -109,7 +110,7 @@ public class FlowField {
                     Point2D tileCenter = new Point2D(x+0.5, y+0.5);
                     // First we check if there is a strait way to the destination whithout obstacle
                     if(tileCenter.getDistance(destination) < OBSTACLE_CHECK_DIST &&
-                            !map.meetObstacle(tileCenter, destination))
+                            !MapTraversor.meetObstacle(map, tileCenter, destination))
                         vectorMap[x][y] = null;
                     else{
                         int north;
@@ -151,7 +152,7 @@ public class FlowField {
     }
     
     public Point2D getVector(Point2D p){
-        Tile t = map.getTile(p);
+        Tile t = map.get(p);
         if(getVector(t) != null)
             return getVector(t);
         else

@@ -81,8 +81,8 @@ public class Sower implements Runnable {
 	
 	private Trinket findNewPlace(Sowing s){
 		Point2D randomPos = new Point2D(
-				MyRandom.next()*(double)ModelManager.getBattlefield().getMap().width,
-				MyRandom.next()*(double)ModelManager.getBattlefield().getMap().height);
+				MyRandom.next()*(double)ModelManager.getBattlefield().getMap().xSize(),
+				MyRandom.next()*(double)ModelManager.getBattlefield().getMap().ySize());
 		if(s.isAllowed(randomPos)){
 			for(TrinketBuilder tb : s.trinketBuilders){
 				Trinket candidate = tb.build(randomPos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos)));
