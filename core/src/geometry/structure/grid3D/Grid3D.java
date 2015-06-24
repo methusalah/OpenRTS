@@ -13,7 +13,7 @@ public class Grid3D extends Grid {
 	}
 	
 	private Triangle3D getTriangleAt(Point2D coord) {
-		Node3D n = (Node3D) get(coord);
+		Node3D n = get(coord);
 		if (n.n() == null || n.e() == null) {
 			return null;
 		}

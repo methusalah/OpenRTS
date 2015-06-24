@@ -1,7 +1,5 @@
 package geometry.structure.grid;
 
-import model.builders.entity.Builder;
-
 
 public abstract class Node {
 	
