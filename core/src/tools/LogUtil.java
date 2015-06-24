@@ -1,4 +1,4 @@
-package geometry.tools;
+package tools;
 
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
@@ -11,14 +11,22 @@ import java.util.logging.Logger;
 import java.util.logging.StreamHandler;
 
 public class LogUtil {
-
+	
 	public static Logger logger = Logger.getLogger("Tests benoit");
 
-	public static void init() {
+	{
 		logger.setLevel(Level.ALL);
 		logger.setUseParentHandlers(false);
 		Handler ch = new MyHandler(System.out, new MyFormatter());
 		logger.addHandler(ch);
+	}
+	
+	public static void info(String msg) {
+		logger.info(msg);
+	}
+	
+	public static void warning(String msg) {
+		logger.warning(msg);
 	}
 
 	static class MyHandler extends StreamHandler {

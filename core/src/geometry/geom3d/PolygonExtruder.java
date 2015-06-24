@@ -1,12 +1,12 @@
 package geometry.geom3d;
 
+import tools.LogUtil;
 import geometry.collections.Ring;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.algorithm.OffsetOperator;
 import geometry.geom2d.algorithm.Triangulator;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 public class PolygonExtruder {
 	private static final double NO_SMOOTH_ANGLE = Angle.toRadians(30);

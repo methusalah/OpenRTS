@@ -4,13 +4,12 @@
  */
 package view.acting;
 
-import geometry.tools.LogUtil;
-
 import java.util.ArrayList;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
+import tools.LogUtil;
 import view.math.Translator;
 
 import com.jme3.effect.Particle;

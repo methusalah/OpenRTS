@@ -1,11 +1,11 @@
 package model.battlefield.map.atlas;
 
 import geometry.collections.Map2D;
-import geometry.tools.LogUtil;
 
 import java.util.List;
 
 import sun.util.logging.resources.logging;
+import tools.LogUtil;
 
 import com.jme3.texture.image.ImageRaster;
 import com.sun.corba.se.spi.oa.OADefault;

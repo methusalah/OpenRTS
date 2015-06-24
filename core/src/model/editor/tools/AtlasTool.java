@@ -5,12 +5,12 @@ package model.editor.tools;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.tools.LogUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;

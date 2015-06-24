@@ -4,7 +4,7 @@
  */
 package controller.ground;
 
-import geometry.tools.LogUtil;
+import tools.LogUtil;
 import view.EditorView;
 
 import com.jme3.app.state.AppStateManager;

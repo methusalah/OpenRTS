@@ -1,13 +1,13 @@
 package model.battlefield.actors;
 
 import geometry.geom3d.Point3D;
-import geometry.tools.LogUtil;
 
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
 import model.builders.actors.ActorBuilder;
 

@@ -4,11 +4,11 @@
 package model.builders;
 
 import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.CornerManmadeFace;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;

@@ -4,7 +4,7 @@
  */
 package model.builders;
 
-import geometry.tools.LogUtil;
+import tools.LogUtil;
 import model.builders.definitions.Definition;
 
 /**

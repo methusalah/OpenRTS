@@ -8,11 +8,11 @@ import geometry.geom3d.Point3D;
 import geometry.geom3d.Polygon3D;
 import geometry.geom3d.Triangle3D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;

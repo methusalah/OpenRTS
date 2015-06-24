@@ -1,9 +1,10 @@
 package geometry.geom3d;
 
 import geometry.geom2d.Point2D;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
+
+import tools.LogUtil;
 
 /**
  *

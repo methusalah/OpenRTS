@@ -1,7 +1,7 @@
 package model.battlefield.map.cliff;
 
+import tools.LogUtil;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
