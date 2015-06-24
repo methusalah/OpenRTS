@@ -5,6 +5,7 @@ import java.io.IOException;
 import tools.LogUtil;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.network.HostedConnection;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
@@ -24,11 +25,13 @@ public class OpenRTSServer extends SimpleApplication {
 
 	@Override
 	public void simpleInitApp() {
-		try {		
+		try {		 
 			myServer = Network.createServer(PORT, PORT);
+			myServer.addMessageListener(new MessageListener(), Event.class);
+			myServer.addConnectionListener(new ConnectionListener());
 			myServer.start();
-			myServer.addMessageListener(new ServerListener(), Event.class);
 			LogUtil.logger.info("Server listening at :" + PORT);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

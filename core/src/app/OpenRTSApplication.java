@@ -233,8 +233,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	public static void main(OpenRTSApplication app) {
 		appInstance = app;
-		Logger.getLogger("").setLevel(Level.INFO);
-		LogUtil.init();
 		LogUtil.logger.info("seed : " + MyRandom.SEED);
 
 		appInstance.start();
