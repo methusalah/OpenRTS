@@ -22,8 +22,8 @@ public class Grid3D<T extends Node3D> extends Grid<T> {
 		}
 		T nNE = getNorthNode(nE);
 	
-		Point2D nodePos2D = getCoord(n.index);
-		Point2D nodeNEPos2D = getCoord(nNE.index);
+		Point2D nodePos2D = getCoord(n.getIndex());
+		Point2D nodeNEPos2D = getCoord(nNE.getIndex());
 	
 		Point3D nw = getPos((T)nN);
 		Point3D ne = getPos((T)nNE);
@@ -51,6 +51,6 @@ public class Grid3D<T extends Node3D> extends Grid<T> {
 	
 
 	public Point3D getPos(T n){
-		return getCoord(n.index).get3D(n.elevation);
+		return getCoord(n.getIndex()).get3D(n.elevation);
 	}
 }

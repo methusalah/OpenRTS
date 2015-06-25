@@ -1,5 +1,7 @@
 package model.battlefield.map;
 
+import geometry.geom2d.AlignedBoundingBox;
+import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.structure.grid3D.Node3D;
@@ -124,12 +126,15 @@ public class Tile extends Node3D {
 	}
 
 	@JsonIgnore
-	public double getZ() {
-		if (modifiedLevel != 0) {
-			return modifiedLevel * STAGE_HEIGHT + elevation;
-		} else {
-			return level * STAGE_HEIGHT + elevation;
+	public double getModifiedElevation() {
+		if(level > 0 ){
+			if (modifiedLevel != 0) {
+				return modifiedLevel * STAGE_HEIGHT + elevation;
+			} else {
+				return level * STAGE_HEIGHT + elevation;
+			}
 		}
+		return 0;
 	}
 
 	@JsonIgnore

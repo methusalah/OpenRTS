@@ -74,18 +74,18 @@ public class HeightTool extends Tool {
 
 	private void raise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation += amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-			if(t.elevation > MAX_HEIGHT) {
-				t.elevation = MAX_HEIGHT;
+			t.elevate(amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord()));
+			if(t.getElevation() > MAX_HEIGHT) {
+				t.setElevation(MAX_HEIGHT);
 			}
 		}
 	}
 
 	private void low(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation -= amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-			if(t.elevation < MIN_HEIGHT) {
-				t.elevation = MIN_HEIGHT;
+			t.elevate(-amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord()));
+			if(t.getElevation() < MIN_HEIGHT) {
+				t.setElevation(MIN_HEIGHT);
 			}
 		}
 	}
@@ -96,19 +96,19 @@ public class HeightTool extends Tool {
 			maintainedElevation = ModelManager.getBattlefield().getMap().getAltitudeAt(pencil.getCoord());
 		}
 		for (Tile t : tiles) {
-			double diff = maintainedElevation - t.elevation;
+			double diff = maintainedElevation - t.getElevation();
 			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
 			if (diff > 0) {
-				t.elevation += Math.min(diff, attenuatedAmplitude);
+				t.elevate(Math.min(diff, attenuatedAmplitude));
 			} else if (diff < 0) {
-				t.elevation += Math.max(diff, -attenuatedAmplitude);
+				t.elevate(Math.max(diff, -attenuatedAmplitude));
 			}
 		}
 	}
 
 	private void noise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation += amplitude * pencil.strength * MyRandom.between(-1.0, 1.0) * pencil.getApplicationRatio(t.getCoord());
+			t.elevate(amplitude * pencil.strength * MyRandom.between(-1.0, 1.0) * pencil.getApplicationRatio(t.getCoord()));
 		}
 	}
 
@@ -116,23 +116,23 @@ public class HeightTool extends Tool {
 		for (Tile t : tiles) {
 			double average = 0;
 			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(t)) {
-				average += n.elevation;
+				average += n.getElevation();
 			}
 			average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
 
-			double diff = average - t.elevation;
+			double diff = average - t.getElevation();
 			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
 			if (diff > 0) {
-				t.elevation += Math.min(diff, attenuatedAmplitude);
+				t.elevate(Math.min(diff, attenuatedAmplitude));
 			} else if (diff < 0) {
-				t.elevation += Math.max(diff, -attenuatedAmplitude);
+				t.elevate(Math.max(diff, -attenuatedAmplitude));
 			}
 		}
 	}
 
 	private void reset(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation = 0;
+			t.setElevation(0);
 		}
 	}
 }

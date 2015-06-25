@@ -72,16 +72,6 @@ public final class Map extends Grid3D<Tile> {
 		}
 	}
 
-	public BoundingShape getBoundsOf(Tile t) {
-		ArrayList<Point2D> points = new ArrayList<>();
-		points.add(t.getCoord());
-		points.add(t.getCoord().getAddition(1, 0));
-		points.add(t.getCoord().getAddition(1, 1));
-		points.add(t.getCoord().getAddition(0, 1));
-		return new AlignedBoundingBox(points);
-	}
-
-	
 	public void prepareForBattle() {
 		for (Node n : getAll()) {
 			((Tile)n).hasBlockingTrinket = false;

@@ -229,7 +229,7 @@ public class ParcelManager {
 		if (t.getModifiedLevel() > c.level + 1) {
 			return (c.level + 1) * Tile.STAGE_HEIGHT;
 		}
-		return t.getZ();
+		return t.getModifiedElevation();
 	}
 
 	public static List<Triangle3D> getNearbyTriangles(Tile t, Map map, ParcelMesh mesh) {

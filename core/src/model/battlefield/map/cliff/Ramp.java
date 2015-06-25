@@ -70,10 +70,10 @@ public class Ramp {
 		}
 		tilesRef.clear();
 		for (Tile t : tiles) {
-			tilesRef.add(t.index);
+			tilesRef.add(t.getIndex());
 			t.ramp = this;
 			t.level = level;
-			t.elevation = -Tile.STAGE_HEIGHT * getSlopeRate(t);
+			t.setElevation(-Tile.STAGE_HEIGHT * getSlopeRate(t));
 			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				n.ramp = this;
 			}
@@ -239,13 +239,13 @@ public class Ramp {
 		for (Tile t : tiles) {
 			t.ramp = null;
 			t.level--;
-			t.elevation = 0;
+			t.setElevation(0);
 			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				if (!res.contains(n)) {
 					res.add(n);
 
 					n.ramp = null;
-					n.elevation = 0;
+					n.setElevation(0);
 				}
 			}
 		}
