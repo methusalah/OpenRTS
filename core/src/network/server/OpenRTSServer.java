@@ -1,11 +1,9 @@
 package network.server;
 
 import java.io.IOException;
-
-import tools.LogUtil;
+import java.util.logging.Logger;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.network.HostedConnection;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
@@ -15,26 +13,30 @@ import event.NetworkEvent;
 
 public class OpenRTSServer extends SimpleApplication {
 
+	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
+
 	protected static Server myServer;
 	public static final int PORT = 6143;
 
 	public static void main(String[] args) {
-		OpenRTSServer app = new OpenRTSServer();		
+		OpenRTSServer app = new OpenRTSServer();
 		app.start(JmeContext.Type.Headless); // headless type for servers!
 	}
 
 	@Override
 	public void simpleInitApp() {
-		try {		 
+		try {
 			myServer = Network.createServer(PORT, PORT);
 			myServer.addMessageListener(new MessageListener(), NetworkEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
+			Serializer.registerClass(NetworkEvent.class);
+
 			myServer.start();
-			LogUtil.logger.info("Server listening at :" + PORT);
-			
+			logger.info("Server listening at :" + PORT);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Serializer.registerClass(NetworkEvent.class);
+
 	}
 }

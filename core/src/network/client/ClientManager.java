@@ -1,6 +1,7 @@
 package network.client;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import network.server.OpenRTSServer;
 
@@ -9,11 +10,13 @@ import com.jme3.network.Client;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
-import event.NetworkEvent;
-import event.EventManager;
 import event.ControllerChangeEvent;
+import event.EventManager;
+import event.NetworkEvent;
 
 public class ClientManager {
+
+	private static final Logger logger = Logger.getLogger(ClientManager.class.getName());
 
 	private final static ClientManager instance = new ClientManager();
 	protected static Client client;
@@ -30,7 +33,7 @@ public class ClientManager {
 			e.printStackTrace();
 		}
 		client.start();
-		
+
 		EventManager.register(instance);
 	}
 
