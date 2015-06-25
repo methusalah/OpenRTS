@@ -44,10 +44,10 @@ public class FlowField {
             return;
         setHeat(t, heat);
         
-        travelMapFrom(t.n, heat+1);
-        travelMapFrom(t.s, heat+1);
-        travelMapFrom(t.e, heat+1);
-        travelMapFrom(t.w, heat+1);
+        travelMapFrom(t.n(), heat+1);
+        travelMapFrom(t.s(), heat+1);
+        travelMapFrom(t.e(), heat+1);
+        travelMapFrom(t.w(), heat+1);
     }
     
     private void visitMap(){
@@ -60,10 +60,10 @@ public class FlowField {
                 iterate();
                 if(t != null && !t.isBlocked() && getHeat(t) == Integer.MAX_VALUE){
                     setHeat(t, heat);
-                    toVisit.add(t.n);
-                    toVisit.add(t.s);
-                    toVisit.add(t.e);
-                    toVisit.add(t.w);
+                    toVisit.add(t.n());
+                    toVisit.add(t.s());
+                    toVisit.add(t.e());
+                    toVisit.add(t.w());
                 }
             }
             heat++;
@@ -83,14 +83,14 @@ public class FlowField {
     }
     
     private void setHeat(Tile t, int heat){
-        heatMap[t.x][t.y] = heat;
+        heatMap[(int)t.getCoord().x][(int)t.getCoord().y] = heat;
         if(heat > maxHeat)
             maxHeat = heat;
     }
 
     
     public int getHeat(Tile t){
-        return heatMap[t.x][t.y];
+        return heatMap[(int)t.getCoord().x][(int)t.getCoord().y];
     }
     
     public int getHeat(int x, int y) {
@@ -148,7 +148,7 @@ public class FlowField {
     }
     
     public Point2D getVector(Tile t){
-        return vectorMap[t.x][t.y];
+        return vectorMap[(int)t.getCoord().x][(int)t.getCoord().y];
     }
     
     public Point2D getVector(Point2D p){

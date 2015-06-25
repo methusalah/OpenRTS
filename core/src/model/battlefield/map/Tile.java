@@ -1,5 +1,7 @@
 package model.battlefield.map;
 
+import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.structure.grid3D.Node3D;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * a tile is placed by its lower left coordinate. This has many non-intuitive consequents and must be kept in mind. for example, tiles at the east side of a
  * plateau will have thier coord at the upper ground, when tiles at the west will have their coord at the lower ground.
  */
-public class Tile extends Node3D{
+public class Tile extends Node3D {
 	public static final double STAGE_HEIGHT = 2;
 
 	@JsonProperty
@@ -46,6 +48,10 @@ public class Tile extends Node3D{
 		level = 0;
 	}
 	
+	private Map getMap(){
+		return (Map)grid;
+	}
+	
 	@JsonIgnore
 	public boolean isBlocked() {
 		return hasCliff() || hasBlockingTrinket;
@@ -60,6 +66,27 @@ public class Tile extends Node3D{
 		}
 		return false;
 	}
+	
+	public int getNeighborsMaxLevel() {
+		int res = Integer.MIN_VALUE;
+		for (Tile n : getMap().get4Around(this)) {
+			if (n.level > res) {
+				res = n.level;
+			}
+		}
+		return res;
+	}
+
+	public int getNeighborsMinLevel() {
+		int res = Integer.MAX_VALUE;
+		for (Tile n : getMap().get4Around(this)) {
+			if (n.level < res) {
+				res = n.level;
+			}
+		}
+		return res;
+	}
+
 
 	@JsonIgnore
 	public boolean hasCliffOnLevel(int level) {
@@ -114,6 +141,42 @@ public class Tile extends Node3D{
 		}
 	}
 
+	public void setCliff(int minLevel, int maxLevel) {
+		if (ramp != null && ramp.getCliffSlopeRate(this) == 1) {
+			return;
+		}
+		for (int level = minLevel; level < maxLevel; level++) {
+			if (getCliff(level) == null) {
+				setCliff(level, new Cliff(this, level));
+			}
+		}
+		modifyLevel();
+
+	}
+	
+	public void unsetCliff() {
+		for (int level = 0; level < 3; level++) {
+			if (getCliff(level) != null) {
+				getCliff(level).removeFromBattlefield();
+				setCliff(level, null);
+			}
+		}
+		modifyLevel();
+	}
+
+	private void modifyLevel() {
+		modifiedLevel = 0;
+		for (int i = 0; i < 3; i++) {
+			Cliff c = getCliff(i);
+			if (c == null || w() == null || s() == null || w().s() == null) {
+				continue;
+			}
+			if (w().level > c.level || s().level > c.level || w().s().level > c.level) {
+				modifiedLevel = c.level + 1;
+			}
+		}
+	}
+
 	@JsonIgnore
 	public Cliff getLowerCliff() {
 		for (int i = 0; i < 3; i++) {
@@ -144,8 +207,16 @@ public class Tile extends Node3D{
 			}
 		}
 		return res;
-
 	}
+	
+	public Point2D getCoord(){
+		return getMap().getCoord(index);
+	}
+	public Point3D getPos(){
+		return getMap().getCoord(index).get3D(elevation);
+	}
+	
+	
 
 	public String getCliffShapeID() {
 		return cliffShapeID;
@@ -158,5 +229,18 @@ public class Tile extends Node3D{
 	@Override
 	public String toString() {
 		return "Tile [level=" + level + "]";
+	}
+	
+	public Tile n() {
+		return getMap().getNorthNode(this);
+	}
+	public Tile s() {
+		return getMap().getSouthNode(this);
+	}
+	public Tile e() {
+		return getMap().getEastNode(this);
+	}
+	public Tile w() {
+		return getMap().getWestNode(this);
 	}
 }

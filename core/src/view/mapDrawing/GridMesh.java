@@ -19,15 +19,15 @@ public class GridMesh extends MyMesh {
 	public GridMesh(ParcelMesh parcelMesh) {
 		this.parcelMesh = parcelMesh;
 		for (Tile t : parcelMesh.getTiles()) {
-			if (t.n == null || t.e == null) {
+			if (t.n() == null || t.e() == null) {
 				continue;
 			}
 
 			int index = vertices.size();
 			vertices.add(t.getPos().getAddition(0, 0, Z_OFFSET));
-			vertices.add(t.n.getPos().getAddition(0, 0, Z_OFFSET));
-			vertices.add(t.n.e.getPos().getAddition(0, 0, Z_OFFSET));
-			vertices.add(t.e.getPos().getAddition(0, 0, Z_OFFSET));
+			vertices.add(t.n().getPos().getAddition(0, 0, Z_OFFSET));
+			vertices.add(t.n().e().getPos().getAddition(0, 0, Z_OFFSET));
+			vertices.add(t.e().getPos().getAddition(0, 0, Z_OFFSET));
 
 			normals.add(Point3D.UNIT_Z);
 			normals.add(Point3D.UNIT_Z);
@@ -35,9 +35,9 @@ public class GridMesh extends MyMesh {
 			normals.add(Point3D.UNIT_Z);
 
 			textCoord.add(t.getCoord());
-			textCoord.add(t.n.getCoord());
-			textCoord.add(t.n.e.getCoord());
-			textCoord.add(t.e.getCoord());
+			textCoord.add(t.n().getCoord());
+			textCoord.add(t.n().e().getCoord());
+			textCoord.add(t.e().getCoord());
 
 			indices.add(index);
 			indices.add(index + 2);
@@ -51,13 +51,13 @@ public class GridMesh extends MyMesh {
 	public void update() {
 		vertices.clear();
 		for (Tile t : parcelMesh.getTiles()) {
-			if (t.n == null || t.e == null) {
+			if (t.n() == null || t.e() == null) {
 				continue;
 			}
 			vertices.add(t.getPos().getAddition(0, 0, Z_OFFSET));
-			vertices.add(t.n.getPos().getAddition(0, 0, Z_OFFSET));
-			vertices.add(t.n.e.getPos().getAddition(0, 0, Z_OFFSET));
-			vertices.add(t.e.getPos().getAddition(0, 0, Z_OFFSET));
+			vertices.add(t.n().getPos().getAddition(0, 0, Z_OFFSET));
+			vertices.add(t.n().e().getPos().getAddition(0, 0, Z_OFFSET));
+			vertices.add(t.e().getPos().getAddition(0, 0, Z_OFFSET));
 		}
 
 	}

@@ -123,7 +123,7 @@ public class MapDrawer {
 			layerSpatial.put(mesh, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
-		updateTiles(ModelManager.getBattlefield().getMap().getTiles());
+		updateTiles(ModelManager.getBattlefield().getMap().getAll());
 	}
 
 	private Spatial getModel(String path) {
@@ -185,7 +185,7 @@ public class MapDrawer {
 		Geometry g = new Geometry();
 		g.setMesh(new Box(0.5f, 0.5f, 1));
 		g.setMaterial(mm.redMaterial);
-		g.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
+		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
 
 		Node n = new Node();
 		n.attachChild(g);
@@ -208,7 +208,7 @@ public class MapDrawer {
 		}
 		// g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
 		g.rotate(0, 0, (float) (c.angle));
-		g.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT));
+		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT));
 		n.attachChild(g);
 	}
 
@@ -237,7 +237,7 @@ public class MapDrawer {
 				break;
 		}
 		s.scale(0.005f);
-		s.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);
+		s.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);
 		n.attachChild(s);
 	}
 

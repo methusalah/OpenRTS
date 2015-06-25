@@ -64,7 +64,8 @@ public class ParcelManager {
 	public static List<ParcelMesh> getParcelsFor(List<Tile> tiles) {
 		List<ParcelMesh> res = new ArrayList<>();
 		for (Tile t : tiles) {
-			int index = (int) (Math.floor((t.y) / RESOLUTION) * WIDTHJUMP + Math.floor((t.x) / RESOLUTION));
+			Point2D p = t.getCoord();
+			int index = (int) (Math.floor((p.y) / RESOLUTION) * WIDTHJUMP + Math.floor((p.x) / RESOLUTION));
 			if (!res.contains(meshes.get(index))) {
 				res.add(meshes.get(index));
 			}
@@ -123,19 +124,8 @@ public class ParcelManager {
 		return meshes;
 	}
 
-	private static Tile findTile(int x, int y) {
-		for (ParcelMesh parcelMesh : meshes) {
-			for (Tile tile : parcelMesh.getTiles()) {
-				if (tile.x == x && tile.y == y) {
-					return tile;
-				}
-			}
-		}
-		return null;
-	}
-
 	private static List<Triangle3D> getGroundTriangles(Tile t, ParcelMesh mesh) {
-		if (t.e == null || t.n == null) {
+		if (t.e() == null || t.n() == null) {
 			return new ArrayList<>();
 		}
 
@@ -164,10 +154,10 @@ public class ParcelManager {
 	}
 
 	private static List<Triangle3D> getTileGround(Tile t) {
-		Point3D sw = new Point3D(t.x, t.y, t.getZ());
-		Point3D se = new Point3D(t.e.x, t.e.y, t.e.getZ());
-		Point3D ne = new Point3D(t.e.n.x, t.e.n.y, t.e.n.getZ());
-		Point3D nw = new Point3D(t.n.x, t.n.y, t.n.getZ());
+		Point3D sw = t.getPos();
+		Point3D se = t.e().getPos();
+		Point3D ne = t.e().n().getPos();
+		Point3D nw = t.n().getPos();
 
 		List<Triangle3D> triangles = new ArrayList<>();
 		triangles.add(new Triangle3D(sw, se, ne));
@@ -211,11 +201,11 @@ public class ParcelManager {
 			if (p.get2D().equals(sw)) {
 				elevation = getElevation(t, c);
 			} else if (p.get2D().equals(se)) {
-				elevation = getElevation(t.e, c);
+				elevation = getElevation(t.e(), c);
 			} else if (p.get2D().equals(ne)) {
-				elevation = getElevation(t.n.e, c);
+				elevation = getElevation(t.n().e(), c);
 			} else if (p.get2D().equals(nw)) {
-				elevation = getElevation(t.n, c);
+				elevation = getElevation(t.n(), c);
 			} else {
 				elevation = c.level * Tile.STAGE_HEIGHT;
 			}
@@ -242,7 +232,7 @@ public class ParcelManager {
 		return t.getZ();
 	}
 
-	public static List<Triangle3D> getNearbyTriangles(Tile t, Grid map, ParcelMesh mesh) {
+	public static List<Triangle3D> getNearbyTriangles(Tile t, Map map, ParcelMesh mesh) {
 		List<Triangle3D> res = new ArrayList<>();
 		for (Tile n : map.get9Around(t)) {
 			// if(!neib.isCliff())

@@ -5,6 +5,7 @@ import geometry.structure.grid.Grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.faces.Face;
@@ -35,28 +36,28 @@ public class Cliff {
 		this.level = level;
 	}
 
-	public void connect(Grid map) {
+	public void connect(Map map) {
 		CliffOrganizer.organize(this, map);
 	}
 
-	public String getConnexionConfiguration(Grid map) {
+	public String getConnexionConfiguration(Map map) {
 		String res = new String();
-		if (isNeighborCliff(tile.n, map)) {
+		if (isNeighborCliff(tile.n(), map)) {
 			res = res.concat("n");
 		}
-		if (isNeighborCliff(tile.s, map)) {
+		if (isNeighborCliff(tile.s(), map)) {
 			res = res.concat("s");
 		}
-		if (isNeighborCliff(tile.e, map)) {
+		if (isNeighborCliff(tile.e(), map)) {
 			res = res.concat("e");
 		}
-		if (isNeighborCliff(tile.w, map)) {
+		if (isNeighborCliff(tile.w(), map)) {
 			res = res.concat("w");
 		}
 		return res;
 	}
 
-	private boolean isNeighborCliff(Tile t, Grid map) {
+	private boolean isNeighborCliff(Tile t, Map map) {
 		if (t == null || !t.hasCliffOnLevel(level) ||
 				// t.level != tile.level ||
 				t.getCliff(level).type == Type.Bugged) {
@@ -85,7 +86,7 @@ public class Cliff {
 		}
 	}
 
-	public ArrayList<Tile> getUpperGrounds(Grid map) {
+	public ArrayList<Tile> getUpperGrounds(Map map) {
 		ArrayList<Tile> res = new ArrayList<>();
 		for (Tile n : map.get8Around(tile)) {
 			if (n.level > tile.level) {

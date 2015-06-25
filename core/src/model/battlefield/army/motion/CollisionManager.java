@@ -189,9 +189,9 @@ public class CollisionManager {
 				if (!ModelManager.getBattlefield().getMap().isInBounds(tilePos)) {
 					continue;
 				}
-				Tile t = ModelManager.getBattlefield().getMap().getTile(tilePos);
+				Tile t = ModelManager.getBattlefield().getMap().get(tilePos);
 				if(t.isBlocked()) {
-					solidShapes.add(t.getBounds());
+					solidShapes.add(ModelManager.getBattlefield().getMap().getBoundsOf(t));
 				}
 			}
 		}

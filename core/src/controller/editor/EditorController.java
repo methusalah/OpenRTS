@@ -75,7 +75,7 @@ public class EditorController extends Controller {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
+		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 }

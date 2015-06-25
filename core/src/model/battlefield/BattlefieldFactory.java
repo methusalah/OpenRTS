@@ -40,15 +40,14 @@ public class BattlefieldFactory {
 		Map m = new Map(styleBuilder.width, styleBuilder.height);
 		styleBuilder.build(m);
 
-		for (int y = 0; y < m.height; y++) {
-			for (int x = 0; x < m.width; x++) {
-				m.getTiles().add(new Tile(x, y));
+		int index = 0;
+		for (int y = 0; y < m.ySize(); y++) {
+			for (int x = 0; x < m.xSize(); x++) {
+				m.set(index, new Tile(m, m.getIndex(x, y)));
+				index++;
 			}
 		}
 		LogUtil.logger.info("   map builders");
-
-		LogUtil.logger.info("   map's tiles' links");
-		linkTiles(m);
 
 		Battlefield res = new Battlefield();
 		res.setMap(m);
@@ -102,15 +101,12 @@ public class BattlefieldFactory {
 
 		BuilderManager.getMapStyleBuilder(bField.getMap().mapStyleID).build(bField.getMap());
 
-		LogUtil.logger.info("   tiles' links");
-		linkTiles(bField.getMap());
-
 		LogUtil.logger.info("   ramps");
 		for (Ramp r : bField.getMap().ramps) {
 			r.connect(bField.getMap());
 		}
 
-		for (Tile t : bField.getMap().getTiles()) {
+		for (Tile t : bField.getMap().getAll()) {
 			int minLevel = t.level;
 			int maxLevel = t.level;
 			for (Tile n : bField.getMap().get8Around(t)) {
@@ -122,14 +118,14 @@ public class BattlefieldFactory {
 		}
 
 		LogUtil.logger.info("   cliffs' connexions");
-		for (Tile t : bField.getMap().getTiles()) {
+		for (Tile t : bField.getMap().getAll()) {
 			for (Cliff c : t.getCliffs()) {
 				c.connect(bField.getMap());
 			}
 		}
 
 		int i = 0;
-		for (Tile t : bField.getMap().getTiles()) {
+		for (Tile t : bField.getMap().getAll()) {
 			for (Cliff c : t.getCliffs()) {
 				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
 				i++;
@@ -182,26 +178,5 @@ public class BattlefieldFactory {
 		battlefield.getMap().atlas.saveToFile(battlefield.getFileName(), "atlas");
 		battlefield.getMap().cover.saveToFile(battlefield.getFileName(), "cover");
 		LogUtil.logger.info("Done.");
-	}
-
-	private void linkTiles(Map map) {
-		for (int x = 0; x < map.width; x++) {
-			for (int y = 0; y < map.height; y++) {
-				Tile t = map.getTile(x, y);
-				if (x > 0) {
-					t.w = map.getTile(x - 1, y);
-				}
-				if (x < map.width - 1) {
-					t.e = map.getTile(x + 1, y);
-				}
-				if (y > 0) {
-					t.s = map.getTile(x, y - 1);
-				}
-				if (y < map.height - 1) {
-					t.n = map.getTile(x, y + 1);
-				}
-			}
-		}
-
 	}
 }

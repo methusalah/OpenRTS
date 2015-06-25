@@ -6,33 +6,33 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grid  extends Map2D<Node> {
+public class Grid<T extends Node> extends Map2D<T> {
 
 	public Grid(int width, int height) {
 		super(width, height);
 	}
 	
-	protected <T extends Node> T getNorthNode(T n){
+	public T getNorthNode(T n){
 		Point2D p = getCoord(n.index).getAddition(0, 1);
-		return isInBounds(p)? (T)get(p) : null; 
+		return isInBounds(p)? get(p) : null; 
 	}
 
-	protected <T extends Node> T getSouthNode(T n){
+	public T getSouthNode(T n){
 		Point2D p = getCoord(n.index).getAddition(0, -1);
-		return isInBounds(p)? (T)get(p) : null; 
+		return isInBounds(p)? get(p) : null; 
 	}
 
-	protected <T extends Node> T getEastNode(T n){
+	public T getEastNode(T n){
 		Point2D p = getCoord(n.index).getAddition(1, 0);
-		return isInBounds(p)? (T)get(p) : null; 
+		return isInBounds(p)? get(p) : null; 
 	}
 
-	protected <T extends Node> T getWestNode(T n){
+	public T getWestNode(T n){
 		Point2D p = getCoord(n.index).getAddition(-1, 0);
-		return isInBounds(p)? (T)get(p) : null; 
+		return isInBounds(p)? get(p) : null; 
 	}
 	
-	private <T extends Node> List<T> getAround(T n, int distance) {
+	private List<T> getAround(T n, int distance) {
 		List<T> res = new ArrayList<>();
 		for (int x = -distance; x <= distance; x++) {
 			for (int y = -distance; y <= distance; y++) {
@@ -48,41 +48,45 @@ public class Grid  extends Map2D<Node> {
 		return res;
 	}
 
-	public <T extends Node> List<T> get8Around(T n) {
+	public List<T> get8Around(T n) {
 		List<T> res = getAround(n, 1);
 		return res;
 	}
 	
-	public <T extends Node> List<T> get9Around(T n) {
+	public List<T> get9Around(T n) {
 		List<T> res = getAround(n, 1);
 		res.add(n);
 		return res;
 	}
 
-	public <T extends Node> List<T> get16Around(T n) {
+	public List<T> get16Around(T n) {
 		List<T> res = getAround(n, 2);
 		res.removeAll(getAround(n, 1));
 		return res;
 	}
 
-	public <T extends Node> List<T> get4Around(T n) {
+	public List<T> get4Around(T node) {
+		T n = getNorthNode(node);
+		T s = getSouthNode(node);
+		T e = getEastNode(node);
+		T w = getWestNode(node);
 		List<T> res = new ArrayList<>();
-		if (n.n() != null) {
-			res.add((T)n.n());
+		if (n != null) {
+			res.add(n);
 		}
-		if (n.s() != null) {
-			res.add((T)n.s());
+		if (s != null) {
+			res.add(s);
 		}
-		if (n.e() != null) {
-			res.add((T)n.e());
+		if (e != null) {
+			res.add(e);
 		}
-		if (n.w() != null) {
-			res.add((T)n.w());
+		if (w != null) {
+			res.add(w);
 		}
 		return res;
 	}
 
-	public <T extends Node> List<T> getAround(T clazz, Point2D p, double distance) {
+	public List<T> getAround(Point2D p, double distance) {
 		List<T> res = new ArrayList<>();
 		
 		int ceiled = (int)Math.ceil(distance);
@@ -95,9 +99,4 @@ public class Grid  extends Map2D<Node> {
 		}
 		return res;
 	}
-	
-	public <T extends Node> Point2D getCoord(T n) {
-		return super.getCoord(n.index);
-	}
-
 }

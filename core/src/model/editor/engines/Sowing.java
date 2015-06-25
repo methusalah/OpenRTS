@@ -53,7 +53,7 @@ public class Sowing {
 		if(distFromCliff > 0){
 			boolean hasCliff = false;
 			// ugly
-			for(Tile t : map.getAround((Tile)map.get(0), p, distFromCliff))
+			for(Tile t : map.getAround(p, distFromCliff))
 				if(t.hasCliff()){
 					hasCliff = true;
 					break;
@@ -67,8 +67,6 @@ public class Sowing {
 		if(slopeMin > 0 || slopeMax > 0){
 			double dist = map.getNormalVectorAt(p).get2D().getLength(); 
 			double angle = Angle.RIGHT - new Point2D(dist, 1).getAngle();
-			double a = Angle.toDegrees(angle);
-			//angle = a;
 			if(slopeMin > 0 && angle < Angle.toRadians(slopeMin))
 				return false;
 			if(slopeMax > 0 && angle > Angle.toRadians(slopeMax))

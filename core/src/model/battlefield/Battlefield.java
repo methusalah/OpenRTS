@@ -72,7 +72,7 @@ public class Battlefield {
 	}
 	
 	public void store(FieldComp fc){
-		map.getTile(fc.getCoord()).storedData.add(fc);
+		map.get(fc.getCoord()).storedData.add(fc);
 	}
 	
 	public <T extends FieldComp> List<T> getCloseComps(T fc, double radius){
@@ -82,7 +82,7 @@ public class Battlefield {
 		for(int x = (int)(fcX-radius); x < (int)(fcX+radius); x++)
 			for(int y = (int)(fcY-radius); y < (int)(fcY+radius); y++)
 				if(map.isInBounds(new Point2D(x, y)))
-					for(Object o : map.getTile(x, y).storedData)
+					for(Object o : map.get(x, y).storedData)
 						if(o != fc &&
 								o.getClass() == fc.getClass() &&
 								((FieldComp)o).getCoord().getDistance(fc.getCoord()) < radius)
@@ -97,7 +97,7 @@ public class Battlefield {
 		for(int x = (int)(fcX-radius); x < (int)(fcX+radius); x++)
 			for(int y = (int)(fcY-radius); y < (int)(fcY+radius); y++)
 				if(map.isInBounds(new Point2D(x, y)))
-					for(Object o : map.getTile(x, y).storedData)
+					for(Object o : map.get(x, y).storedData)
 						if(o.getClass() == c.getClass() &&
 								((FieldComp)o).getCoord().getDistance(p) < radius)
 							res.add((T)o);
