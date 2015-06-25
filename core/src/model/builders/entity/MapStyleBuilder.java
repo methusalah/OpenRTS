@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.map.Map;
+import model.battlefield.map.MapStyle;
 import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
@@ -65,16 +66,17 @@ public class MapStyleBuilder extends Builder{
 		}
 	}
 
-	public void build(Map map){
-		map.mapStyleID = getId();
-		map.style.cliffShapeBuilders = cliffShapeBuilders;
-		map.style.diffuses = diffuses;
-		map.style.normals = normals;
-		map.style.scales = scales;
-
-		map.style.coverDiffuses = coverDiffuses;
-		map.style.coverNormals = coverNormals;
-		map.style.coverScales = coverScales;
+	public MapStyle build(){
+		return new MapStyle(getId(),
+				cliffShapeBuilders,
+				diffuses,
+				normals,
+				scales,
+				coverDiffuses,
+				coverNormals,
+				coverScales,
+				width,
+				height);
 	}
 
 	@Override

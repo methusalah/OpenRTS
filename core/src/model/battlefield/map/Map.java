@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public final class Map extends Grid3D<Tile> {
 
 	@JsonIgnore
-	public MapStyle style = new MapStyle();
+	public MapStyle style;
 
 	@JsonProperty
 	public String mapStyleID;
@@ -40,11 +40,12 @@ public final class Map extends Grid3D<Tile> {
 	@JsonProperty
 	public Atlas atlas, cover;
 
-	public Map(int width, int height) {
-		super(width, height);
-		atlas = new Atlas(width, height);
+	public Map(MapStyle style) {
+		super(style.width, style.height);
+		this.style = style;
+		atlas = new Atlas(xSize, ySize);
 		atlas.finalize();
-		cover = new Atlas(width, height);
+		cover = new Atlas(xSize, ySize);
 		cover.finalize();
 	}
 

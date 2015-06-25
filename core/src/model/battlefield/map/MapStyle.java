@@ -9,13 +9,38 @@ import model.builders.entity.CliffShapeBuilder;
  *
  */
 public class MapStyle {
-    public List<CliffShapeBuilder> cliffShapeBuilders = new ArrayList<>();
+	public final String id;
+    public final List<CliffShapeBuilder> cliffShapeBuilders;
     
-    public List<String> diffuses = new ArrayList<>();
-    public List<String> normals = new ArrayList<>();
-    public List<Double> scales = new ArrayList<>();
+    public final List<String> diffuses;
+    public final List<String> normals;
+    public final List<Double> scales;
 
-    public List<String> coverDiffuses = new ArrayList<>();
-    public List<String> coverNormals = new ArrayList<>();
-    public List<Double> coverScales = new ArrayList<>();
+    public final List<String> coverDiffuses;
+    public final List<String> coverNormals;
+    public final List<Double> coverScales;
+    
+    public final int width, height;
+    
+    public MapStyle(String id,
+    		List<CliffShapeBuilder> cliffShapeBuilders,
+    		List<String> diffuses,
+    		List<String> normals,
+    		List<Double> scales,
+    		List<String> coverDiffuses,
+    		List<String> coverNormals,
+    		List<Double> coverScales,
+    		int width, int height
+    		){
+    	this.id = id;
+    	this.cliffShapeBuilders = cliffShapeBuilders;
+    	this.diffuses = diffuses;
+    	this.normals = normals;
+    	this.scales = scales;
+    	this.coverDiffuses = coverDiffuses;
+    	this.coverNormals = coverNormals;
+    	this.coverScales = coverScales;
+    	this.width = width;
+    	this.height = height;
+    }
 }
