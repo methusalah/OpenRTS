@@ -11,28 +11,29 @@ public class EventManager {
 
 	private static final Logger logger = Logger.getLogger(EventManager.class.getName());
 
-	private static final EventBus eventBus = new EventBus(new RethrowingExceptionHandler());
+	private static final EventBus clientEventBus = new EventBus(new RethrowingExceptionHandler());
+	private static final EventBus serverEventBus = new EventBus(new RethrowingExceptionHandler());
 
 	public static void post(ServerEvent event) {
-		eventBus.post(event);
+		serverEventBus.post(event);
 	}
 
 	public static void post(NetworkEvent event) {
-		eventBus.post(event);
+		clientEventBus.post(event);
 	}
 
 	public static void post(ClientEvent event) {
 		logger.info("Event posted:" + event);
-		eventBus.post(event);
+		clientEventBus.post(event);
 	}
 
 	public static void register(Object obj) {
 		logger.info("register for Events:" + obj);
-		eventBus.register(obj);
+		clientEventBus.register(obj);
 	}
 
 	public static void unregister(Object obj) {
 		logger.info("unregister for Events:" + obj);
-		eventBus.unregister(obj);
+		clientEventBus.unregister(obj);
 	}
 }

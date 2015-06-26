@@ -1,8 +1,9 @@
 package app.example;
-import tools.LogUtil;
 import model.ModelManager;
 import network.server.OpenRTSServer;
 import app.OpenRTSApplication;
+
+import com.jme3.system.JmeContext;
 
 public class GameMutliplayerAlien extends Game {
 
@@ -14,13 +15,13 @@ public class GameMutliplayerAlien extends Game {
 			mapfilename = args[0];
 		}
 
-		OpenRTSServer.main(args); 
-		
-		
-		GameMutliplayerAlien app = new GameMutliplayerAlien();
+		OpenRTSServer server = new OpenRTSServer();
+		server.start(JmeContext.Type.Headless);
 
-		OpenRTSApplication.main(app);
-		app.startClient();
+		GameMutliplayerAlien client = new GameMutliplayerAlien();
+
+		OpenRTSApplication.main(client);
+		client.startClient();
 	}
 
 	@Override

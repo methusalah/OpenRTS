@@ -1,7 +1,5 @@
-package controller.battlefield;
+package controller.game;
 
-import event.ControllerChangeEvent;
-import event.EventManager;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
@@ -15,14 +13,11 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
+import controller.battlefield.BattlefieldController;
 
-public class BattlefieldInputInterpreter extends InputInterpreter {
+public class GameInputInterpreter extends InputInterpreter {
 
-	private static final Logger logger = Logger.getLogger(BattlefieldInputInterpreter.class.getName());
-
-	protected final static String SWITCH_CTRL_1 = "ctrl1";
-	protected final static String SWITCH_CTRL_2 = "ctrl2";
-	protected final static String SWITCH_CTRL_3 = "ctrl3";
+	private static final Logger logger = Logger.getLogger(GameInputInterpreter.class.getName());
 
 	protected final static String SELECT = "select";
 	protected final static String ACTION = "action";
@@ -38,26 +33,23 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	double dblclicTimer = 0;
 	Point2D dblclicCoord;
 
-	BattlefieldInputInterpreter(BattlefieldController controller) {
+	GameInputInterpreter(GameController controller) {
 		super(controller);
 		controller.spatialSelector.centered = false;
 		setMappings();
 	}
 
 	private void setMappings() {
-		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
+		mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
 
 	@Override
 	protected void registerInputs(InputManager inputManager) {
-		inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
-		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
-		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
+
 		inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
 		inputManager.addMapping(ACTION, new MouseButtonTrigger(1));
 		inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
-		inputManager.addMapping(MULTIPLE_SELECTION, new KeyTrigger(KeyInput.KEY_LCONTROL),
-				new KeyTrigger(KeyInput.KEY_RCONTROL));
+		inputManager.addMapping(MULTIPLE_SELECTION, new KeyTrigger(KeyInput.KEY_LCONTROL), new KeyTrigger(KeyInput.KEY_RCONTROL));
 		inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
 		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
 
@@ -84,26 +76,15 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	public void onAction(String name, boolean isPressed, float tpf) {
 		if (!isPressed) {
 			switch (name) {
-				case SWITCH_CTRL_1:
-					EventManager.post(new ControllerChangeEvent(0));
-					break;
-				case SWITCH_CTRL_2:
-					EventManager.post(new ControllerChangeEvent(1));
-					break;
-				case SWITCH_CTRL_3:
-					EventManager.post(new ControllerChangeEvent(2));
-					break;
-
 				case MULTIPLE_SELECTION:
 					CommandManager.setMultipleSelection(false);
 					break;
 				case SELECT:
-					if(System.currentTimeMillis()-dblclicTimer < DOUBLE_CLIC_DELAY &&
-							dblclicCoord.getDistance(getSpatialCoord()) < DOUBLE_CLIC_MAX_OFFSET){
-						// double clic
+					if (System.currentTimeMillis() - dblclicTimer < DOUBLE_CLIC_DELAY && dblclicCoord.getDistance(getSpatialCoord()) < DOUBLE_CLIC_MAX_OFFSET) {
+						// double click
 						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
 					} else {
-						if(!((BattlefieldController) ctrl).isDrawingZone()) {
+						if (!((BattlefieldController) ctrl).isDrawingZone()) {
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 						}
 					}
@@ -126,7 +107,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 			}
 		} else {
 			// input pressed
-			switch(name){
+			switch (name) {
 				case MULTIPLE_SELECTION:
 					CommandManager.setMultipleSelection(true);
 					break;
@@ -138,6 +119,6 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord((((BattlefieldController) ctrl).view.getRootNode()));
+		return ctrl.spatialSelector.getCoord((((GameController) ctrl).view.getRootNode()));
 	}
 }

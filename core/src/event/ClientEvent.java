@@ -4,11 +4,8 @@
  */
 package event;
 
-import com.jme3.network.AbstractMessage;
-import com.jme3.network.serializing.Serializable;
 
-@Serializable
-public abstract class ClientEvent extends AbstractMessage {
+public abstract class ClientEvent {
 
 	public ClientEvent() {
 	}

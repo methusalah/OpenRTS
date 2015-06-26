@@ -5,12 +5,10 @@ import java.util.logging.Logger;
 
 import network.server.OpenRTSServer;
 
-import com.google.common.eventbus.Subscribe;
 import com.jme3.network.Client;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
-import event.ControllerChangeEvent;
 import event.EventManager;
 import event.NetworkEvent;
 
@@ -24,7 +22,7 @@ public class ClientManager {
 	public static void startClient() {
 		Serializer.registerClass(NetworkEvent.class);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			client = Network.connectToServer("localhost", OpenRTSServer.PORT);
 			client.addClientStateListener(new ClientStateListener());
 			client.addMessageListener(new MessageListener(), NetworkEvent.class);
@@ -45,11 +43,11 @@ public class ClientManager {
 		return instance;
 	}
 
-	@Subscribe
-	public void manageEvent(ControllerChangeEvent ev) {
-		if (client.isConnected()) {
-			client.send(ev);
-		}
-	}
+	// @Subscribe
+	// public void manageEvent(ControllerChangeEvent ev) {
+	// if (client.isConnected()) {
+	// client.send(ev);
+	// }
+	// }
 
 }
