@@ -22,6 +22,4 @@ local.properties
 
 **/*.dylib
 /build/
-*.log
-*.lck
-*.log.*
+
