@@ -54,7 +54,7 @@ public class MapView {
 		lightDrawer = new LightDrawer(this, am, rootNode, vp);
 
 		createSky();
-		EventManager.register(this);
+		EventManager.registerForClient(this);
 	}
 
 	public void reset() {

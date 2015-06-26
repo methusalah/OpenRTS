@@ -5,6 +5,9 @@ import geometry.math.Precision;
 
 import java.text.DecimalFormat;
 
+import com.jme3.network.serializing.Serializable;
+
+@Serializable
 public class Point2D {
 	public static final Point2D ORIGIN = new Point2D(0, 0);
 	public static final Point2D UNIT_X = new Point2D(1, 0);
@@ -14,7 +17,7 @@ public class Point2D {
 	public double y;
 
 	public Point2D(){
-		
+
 	}
 	public Point2D(double x, double y) {
 		this.x = x;
@@ -27,22 +30,25 @@ public class Point2D {
 		this.y = other.y;
 		check();
 	}
-        
-        public Point2D(Point3D p){
-            x = p.x;
-            y = p.y;
-            check();
-        }
+
+	public Point2D(Point3D p){
+		x = p.x;
+		y = p.y;
+		check();
+	}
 
 	private void check() {
 		boolean valid = true;
-		if (Double.isNaN(x) || Double.isNaN(y))
+		if (Double.isNaN(x) || Double.isNaN(y)) {
 			valid = false;
-		if (Double.isInfinite(x) || Double.isInfinite(y))
+		}
+		if (Double.isInfinite(x) || Double.isInfinite(y)) {
 			valid = false;
+		}
 
-		if (!valid)
+		if (!valid) {
 			throw new RuntimeException("Can't construct invalid Point2D : " + this);
+		}
 	}
 
 	public double getDeterminant(Point2D other) {
@@ -51,8 +57,9 @@ public class Point2D {
 
 	public double getSlope(Point2D other) {
 		// add exception throwing
-		if (other.x - x == 0)
+		if (other.x - x == 0) {
 			return Double.POSITIVE_INFINITY;
+		}
 		return (other.y - y) / (other.x - x);
 	}
 
@@ -65,13 +72,14 @@ public class Point2D {
 		double dy = y - other.y;
 		return Math.sqrt(dx * dx + dy * dy);
 	}
-	
+
 	public Point2D getTransformed(Transform2D transform){
 		return transform.getTransformed(this);
 	}
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 
+	@Override
 	public String toString() {
 		return "(" + df.format(x) + ", " + df.format(y) + ")";
 	}
@@ -96,9 +104,11 @@ public class Point2D {
 		return Math.atan2(y, x);
 	}
 
+	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Point2D))
+		if (!(o instanceof Point2D)) {
 			return false;
+		}
 		Point2D p = (Point2D) o;
 		return Math.abs(x - p.x) < Precision.APPROX && Math.abs(y - p.y) < Precision.APPROX;
 	}
@@ -127,16 +137,17 @@ public class Point2D {
 	public Point2D getRotation(double angle) {
 		return getRotation(angle, ORIGIN);
 	}
-	
+
 	public Point2D getNormalized(){
 		double length = getDistance(ORIGIN);
-		if(length == 0)
+		if(length == 0) {
 			return this;
-		else
-			return getDivision(length); 
+		} else {
+			return getDivision(length);
+		}
 	}
-	
-	
+
+
 
 	public Point2D getDivision(double factor) {
 		return getDivision(factor, factor);
@@ -148,42 +159,43 @@ public class Point2D {
 		return new Point2D(x / factorX, y / factorY);
 	}
 
-	
-	
+
+
 	public Line2D getExtrudedLine(double angle) {
 		Point2D proj = getTranslation(angle, 1);
 		return new Line2D(this, proj);
 	}
 
-    public Point2D getNegation() {
-        return new Point2D(-x, -y);
-    }
+	public Point2D getNegation() {
+		return new Point2D(-x, -y);
+	}
 
-    public double getLength() {
-        return getDistance(ORIGIN);
-    }
-    
-    public Point2D getTruncation(double val) {
-        if(getLength() > val)
-            return getNormalized().getMult(val);
-        return new Point2D(this);
-    }
+	public double getLength() {
+		return getDistance(ORIGIN);
+	}
 
-    public boolean isOrigin() {
-        return x==0 && y==0;
-    }
+	public Point2D getTruncation(double val) {
+		if(getLength() > val) {
+			return getNormalized().getMult(val);
+		}
+		return new Point2D(this);
+	}
 
-    public Point2D getScaled(double scale) {
-        return getNormalized().getMult(scale);
-    }
-    
-    public Point3D get3D(double z){
-        return new Point3D(x, y, z);
-    }
-    
-    public double getManathanDistance(Point2D other){
-        double dx = Math.abs(x - other.x);
-        double dy = Math.abs(y - other.y);
-        return dx + dy;
-    }
+	public boolean isOrigin() {
+		return x==0 && y==0;
+	}
+
+	public Point2D getScaled(double scale) {
+		return getNormalized().getMult(scale);
+	}
+
+	public Point3D get3D(double z){
+		return new Point3D(x, y, z);
+	}
+
+	public double getManathanDistance(Point2D other){
+		double dx = Math.abs(x - other.x);
+		double dy = Math.abs(y - other.y);
+		return dx + dy;
+	}
 }

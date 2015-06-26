@@ -8,13 +8,13 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
-import controller.battlefield.BattlefieldController;
+import controller.game.GameController;
 import event.EventManager;
 
 public class Game extends OpenRTSApplication {
 
 	protected MapView view;
-	protected BattlefieldController fieldCtrl;
+	protected GameController fieldCtrl;
 	// TODO: I'm not sure, if this is the correct place for faction
 	protected Faction faction;
 
@@ -35,13 +35,18 @@ public class Game extends OpenRTSApplication {
 		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
-		EventManager.register(this);
+		fieldCtrl = new GameController(view, niftyDisplay.getNifty(), inputManager, cam);
+		EventManager.registerForClient(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
-		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
-		niftyDisplay.getNifty().fromXml("interface/screen.xml", "hud");
+		try {
+			niftyDisplay.getNifty().validateXml("interface/gamescreen.xml");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		niftyDisplay.getNifty().fromXml("interface/gamescreen.xml", "hud");
 
 		stateManager.attach(fieldCtrl);
 		fieldCtrl.setEnabled(true);

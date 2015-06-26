@@ -9,7 +9,9 @@ import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.JmeContext;
 
-import event.NetworkEvent;
+import event.InputEvent;
+import event.ToClientEvent;
+import event.ToServerEvent;
 
 public class OpenRTSServer extends SimpleApplication {
 
@@ -26,10 +28,12 @@ public class OpenRTSServer extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		try {
+			Serializer.registerClass(ToServerEvent.class);
+			Serializer.registerClass(ToClientEvent.class);
+			Serializer.registerClass(InputEvent.class);
 			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new MessageListener(), NetworkEvent.class);
+			myServer.addMessageListener(new MessageListener(), ToServerEvent.class, InputEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
-			Serializer.registerClass(NetworkEvent.class);
 
 			myServer.start();
 			logger.info("Server listening at :" + PORT);

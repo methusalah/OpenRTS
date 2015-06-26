@@ -10,11 +10,11 @@ import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 
-public class GameGUIController extends GUIController {
+public class GameNiftyController extends GUIController {
 
 	private static DecimalFormat df = new DecimalFormat("0");
 
-	public GameGUIController(Controller ctrl, Nifty nifty) {
+	public GameNiftyController(Controller ctrl, Nifty nifty) {
 		super(ctrl, nifty);
 	}
 

@@ -8,9 +8,9 @@ import com.jme3.network.AbstractMessage;
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
-public abstract class NetworkEvent extends AbstractMessage {
+public abstract class ToClientEvent extends AbstractMessage {
 
-	public NetworkEvent() {
+	public ToClientEvent() {
 	}
 
 	public String getName() {

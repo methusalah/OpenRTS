@@ -14,5 +14,12 @@ public abstract class InputInterpreter implements AnalogListener, ActionListener
 
 	protected abstract void registerInputs(InputManager inputManager);
 
-	protected abstract void unregisterInputs(InputManager inputManager);
+	protected void unregisterInputs(InputManager inputManager) {
+		for (String s : mappings) {
+			if (inputManager.hasMapping(s)) {
+				inputManager.deleteMapping(s);
+			}
+		}
+		inputManager.removeListener(this);
+	}
 }

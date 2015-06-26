@@ -18,7 +18,8 @@ public class EventManager {
 		serverEventBus.post(event);
 	}
 
-	public static void post(NetworkEvent event) {
+	public static void post(ToServerEvent event) {
+		logger.info("Event posted:" + event);
 		clientEventBus.post(event);
 	}
 
@@ -27,13 +28,19 @@ public class EventManager {
 		clientEventBus.post(event);
 	}
 
-	public static void register(Object obj) {
-		logger.info("register for Events:" + obj);
+	public static void registerForClient(Object obj) {
+		logger.info("register for ClientEvents:" + obj);
 		clientEventBus.register(obj);
+	}
+
+	public static void registerForServer(Object obj) {
+		logger.info("register for ServerEvents:" + obj);
+		serverEventBus.register(obj);
 	}
 
 	public static void unregister(Object obj) {
 		logger.info("unregister for Events:" + obj);
 		clientEventBus.unregister(obj);
+		serverEventBus.unregister(obj);
 	}
 }

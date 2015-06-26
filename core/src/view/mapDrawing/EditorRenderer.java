@@ -56,7 +56,7 @@ public class EditorRenderer {
 	public EditorRenderer(EditorView view, MaterialManager mm) {
 		this.view = view;
 		this.mm = mm;
-		EventManager.register(this);
+		EventManager.registerForClient(this);
 
 		for (ParcelMesh parcel : ParcelManager.getMeshes()) {
 			GridMesh grid = new GridMesh(parcel);
@@ -81,7 +81,7 @@ public class EditorRenderer {
 		BuildHeightPencil();
 		BuildAtlasPencil();
 
-		EventManager.register(this);
+		EventManager.registerForClient(this);
 	}
 
 	private void BuildCliffPencil() {

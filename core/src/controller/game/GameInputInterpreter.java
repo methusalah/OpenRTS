@@ -1,11 +1,6 @@
 package controller.game;
 
-import geometry.geom2d.Point2D;
-
 import java.util.logging.Logger;
-
-import model.CommandManager;
-import tools.LogUtil;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -13,7 +8,9 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
-import controller.battlefield.BattlefieldController;
+import event.EventManager;
+import event.InputEvent;
+import geometry.geom2d.Point2D;
 
 public class GameInputInterpreter extends InputInterpreter {
 
@@ -26,22 +23,11 @@ public class GameInputInterpreter extends InputInterpreter {
 	protected final static String HOLD = "hold";
 	protected final static String PAUSE = "pause";
 
-	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
-	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
-
-	boolean multipleSelection = false;
-	double dblclicTimer = 0;
-	Point2D dblclicCoord;
-
-	GameInputInterpreter(GameController controller) {
-		super(controller);
-		controller.spatialSelector.centered = false;
-		setMappings();
-	}
-
-	private void setMappings() {
+	GameInputInterpreter(GameController ctl) {
+		super(ctl);
 		mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
+
 
 	@Override
 	protected void registerInputs(InputManager inputManager) {
@@ -54,18 +40,6 @@ public class GameInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
 
 		inputManager.addListener(this, mappings);
-
-		LogUtil.logger.info("battlefield controller online");
-	}
-
-	@Override
-	protected void unregisterInputs(InputManager inputManager) {
-		for (String s : mappings) {
-			if (inputManager.hasMapping(s)) {
-				inputManager.deleteMapping(s);
-			}
-		}
-		inputManager.removeListener(this);
 	}
 
 	@Override
@@ -74,48 +48,9 @@ public class GameInputInterpreter extends InputInterpreter {
 
 	@Override
 	public void onAction(String name, boolean isPressed, float tpf) {
-		if (!isPressed) {
-			switch (name) {
-				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(false);
-					break;
-				case SELECT:
-					if (System.currentTimeMillis() - dblclicTimer < DOUBLE_CLIC_DELAY && dblclicCoord.getDistance(getSpatialCoord()) < DOUBLE_CLIC_MAX_OFFSET) {
-						// double click
-						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
-					} else {
-						if (!((BattlefieldController) ctrl).isDrawingZone()) {
-							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-						}
-					}
-					((BattlefieldController) ctrl).endSelectionZone();
-					dblclicTimer = System.currentTimeMillis();
-					dblclicCoord = getSpatialCoord();
-					break;
-				case ACTION:
-					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-					break;
-				case MOVE_ATTACK:
-					CommandManager.setMoveAttack();
-					break;
-				case HOLD:
-					CommandManager.orderHold();
-					break;
-				case PAUSE:
-					((BattlefieldController) ctrl).togglePause();
-					break;
-			}
-		} else {
-			// input pressed
-			switch (name) {
-				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(true);
-					break;
-				case SELECT:
-					((BattlefieldController) ctrl).startSelectionZone();
-					break;
-			}
-		}
+		logger.info("User create Event on Client:" + name);
+		InputEvent event = new InputEvent(name, getSpatialCoord(), isPressed);
+		EventManager.post(event);
 	}
 
 	private Point2D getSpatialCoord() {

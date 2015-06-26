@@ -122,12 +122,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 
 	@Override
 	protected void unregisterInputs(InputManager inputManager) {
-		for (String s : mappings) {
-			if (inputManager.hasMapping(s)) {
-				inputManager.deleteMapping(s);
-			}
-		}
-		inputManager.removeListener(this);
+
 	}
 
 	@Override

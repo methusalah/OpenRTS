@@ -37,9 +37,10 @@ public class GameController extends Controller {
 		super(view, inputManager, cam);
 		this.view = view;
 		inputInterpreter = new GameInputInterpreter(this);
+		this.spatialSelector.centered = false;
 		guiController = new BattlefieldGUIController(nifty, this);
 
-		EventManager.register(this);
+		EventManager.registerForClient(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}

@@ -1,14 +1,45 @@
 package event;
 
-public class InputEvent extends NetworkEvent {
+import geometry.geom2d.Point2D;
 
-	private final String command;
+import com.jme3.network.serializing.Serializable;
 
-	public InputEvent(String command) {
+@Serializable
+public class InputEvent extends ToServerEvent {
+
+	private String command;
+	private double x;
+	private double y;
+	private Boolean isPressed;
+
+	public InputEvent() {
+
+	}
+
+	public InputEvent(String command, Point2D point, Boolean isPressed) {
 		this.command = command;
+		this.x = point.x;
+		this.y = point.y;
+		this.isPressed = isPressed;
+	}
+
+	public InputEvent(String command, Point2D point) {
+		this(command, point, false);
 	}
 
 	public String getActionCommand() {
 		return command;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public Boolean getIsPressed() {
+		return isPressed;
 	}
 }

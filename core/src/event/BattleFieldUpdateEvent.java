@@ -1,5 +1,5 @@
 package event;
 
-public class BattleFieldUpdateEvent extends NetworkEvent {
+public class BattleFieldUpdateEvent extends ClientEvent {
 
 }

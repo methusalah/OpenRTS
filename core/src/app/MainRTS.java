@@ -48,7 +48,7 @@ public class MainRTS extends OpenRTSApplication {
 		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
 		groundCtrl = new GroundController(view, inputManager, cam);
-		EventManager.register(this);
+		EventManager.registerForClient(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices

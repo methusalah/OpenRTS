@@ -16,8 +16,8 @@ public class MessageListener implements com.jme3.network.MessageListener<HostedC
 	public void messageReceived(HostedConnection source, Message message) {
 		if (message instanceof InputEvent) {
 			// do something with the message
-			InputEvent helloMessage = (InputEvent) message;
-			logger.info("Client #" + source.getId() + " received: '" + helloMessage.getActionCommand() + "'");
+			InputEvent InputEvent = (InputEvent) message;
+			logger.info("Client #" + source.getId() + " received: '" + InputEvent.getActionCommand() + "'");
 			source.getServer().broadcast(Filters.notEqualTo(source), message);
 		}
 	}
