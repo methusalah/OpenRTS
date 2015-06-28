@@ -287,7 +287,7 @@ public class Mover {
 	}
 
 	public void addTrinketsToAvoidingList() {
-		for (Trinket t : ModelManager.getBattlefield().getMap().trinkets) {
+		for (Trinket t : ModelManager.getBattlefield().getMap().getTrinkets()) {
 			if (t.getRadius() != 0) {
 				toAvoid.add(t);
 			}

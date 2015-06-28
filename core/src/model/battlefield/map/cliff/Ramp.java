@@ -2,12 +2,12 @@ package model.battlefield.map.cliff;
 
 import geometry.geom2d.Point2D;
 import geometry.math.Angle;
-import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
+import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +28,7 @@ public class Ramp {
 	private List<Integer> tilesRef = new ArrayList<>();
 
 	public Ramp(Tile t) {
-		ModelManager.getBattlefield().getMap().ramps.add(this);
+		ModelManager.getBattlefield().getMap().getRamps().add(this);
 		if (!t.hasCliff()) {
 			throw new IllegalArgumentException("Ramp must be first created on a cliff.");
 		}
@@ -49,7 +49,7 @@ public class Ramp {
 	 *
 	 * @param map
 	 */
-	public void connect(Grid map) {
+	public void connect(Map map) {
 		for (Integer ref : tilesRef) {
 			tiles.add((Tile)map.get(ref));
 		}
@@ -249,7 +249,7 @@ public class Ramp {
 				}
 			}
 		}
-		ModelManager.getBattlefield().getMap().ramps.remove(this);
+		ModelManager.getBattlefield().getMap().getRamps().remove(this);
 		return res;
 
 	}

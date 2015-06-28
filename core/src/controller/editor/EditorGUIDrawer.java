@@ -160,7 +160,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 		for (MapStyleBuilder b : builders) {
 			ids.add(b.getId());
 		}
-		int selIndex = ids.indexOf(ModelManager.getBattlefield().getMap().mapStyleID);
+		int selIndex = ids.indexOf(ModelManager.getBattlefield().getMap().getMapStyleID());
 		fillDropDown(DROPDOWN_STYLE_ID, ids, selIndex);
 	}
 

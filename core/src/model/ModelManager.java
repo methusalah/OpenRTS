@@ -3,6 +3,7 @@ package model;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
 import model.battlefield.map.parcel.ParcelManager;
+import model.builders.MapArtisan;
 import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
@@ -64,7 +65,7 @@ public class ModelManager {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;
 			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
-			getBattlefield().getMap().resetTrinkets();
+			MapArtisan.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");

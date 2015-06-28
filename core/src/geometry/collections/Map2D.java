@@ -12,6 +12,9 @@ public class Map2D<E> {
 	protected int xSize;
 	protected int ySize;
 	
+	public Map2D(){
+		
+	}
 	
 	public Map2D(int xSize, int ySize) {
 		this(xSize, ySize, null);
@@ -21,7 +24,7 @@ public class Map2D<E> {
 		this.xSize = xSize;
 		this.ySize = ySize;
 		values = new ArrayList<>(xSize*ySize);
-		setAll(defaultVal);
+		setAllAs(defaultVal);
 	}
 	
 	public void set(int index, E val) {
@@ -67,7 +70,8 @@ public class Map2D<E> {
     public boolean isInBounds(Point2D p){
     	return isInBounds((int)p.x, (int)p.y);
     }
-    public void setAll(E value){
+    
+    private void setAllAs(E value){
     	values.clear();
 		for (int i = 0; i < xSize*ySize; i++)
 				values.add(value);
@@ -75,6 +79,10 @@ public class Map2D<E> {
     
     public List<E> getAll(){
     	return values;
+    }
+    
+    protected void setAll(List<E> values){
+    	this.values = values; 
     }
     
     public int getIndex(int x, int y){

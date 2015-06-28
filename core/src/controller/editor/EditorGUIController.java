@@ -97,8 +97,8 @@ public class EditorGUIController extends GUIController {
 		}
 		int selectionIndex = event.getSelectionItemIndex();
 		MapStyleBuilder builder = BuilderManager.getAllMapStyleBuilders().get(selectionIndex);
-		if (!ModelManager.getBattlefield().getMap().mapStyleID.equals(builder.getId())) {
-			ModelManager.getBattlefield().getMap().mapStyleID = builder.getId();
+		if (!ModelManager.getBattlefield().getMap().getMapStyleID().equals(builder.getId())) {
+			ModelManager.getBattlefield().getMap().setMapStyleID(builder.getId());
 			ModelManager.reload();
 		}
 	}

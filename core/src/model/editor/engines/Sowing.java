@@ -78,7 +78,7 @@ public class Sowing {
 			boolean allowedGroundFound = false;
 			for(String s : allowedGrounds){
 				int i = Integer.parseInt(s);
-				AtlasLayer l = map.atlas.getLayers().get(i);
+				AtlasLayer l = map.getAtlas().getLayers().get(i);
 				if(l.getInMapSpace(p) > 0){
 					allowedGroundFound = true;
 					break;

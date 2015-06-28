@@ -8,6 +8,9 @@ import java.util.List;
 
 public class Grid<T extends Node> extends Map2D<T> {
 
+	public Grid(){
+		super();
+	}
 	public Grid(int width, int height) {
 		super(width, height);
 	}

@@ -68,7 +68,6 @@ public class EditorController extends Controller {
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		ModelManager.getBattlefield().getEngagement().save();
-		ModelManager.getBattlefield().getMap().prepareForBattle();
 		super.stateDetached(stateManager);
 		view.getRootNode().detachChild(view.editorRend.mainNode);
 	}

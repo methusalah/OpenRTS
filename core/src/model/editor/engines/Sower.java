@@ -70,7 +70,7 @@ public class Sower implements Runnable {
 					}
 					if(newTrinket != null)
 						synchronized (ModelManager.getBattlefield().getMap()) {
-							ModelManager.getBattlefield().getMap().trinkets.add(newTrinket);
+							ModelManager.getBattlefield().getMap().getTrinkets().add(newTrinket);
 						}
 				}
 //				Thread.sleep(50);

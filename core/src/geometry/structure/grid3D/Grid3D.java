@@ -8,6 +8,9 @@ import geometry.structure.grid.Grid;
 
 public class Grid3D<T extends Node3D> extends Grid<T> {
 
+	public Grid3D(){
+		super();
+	}
 	public Grid3D(int width, int height) {
 		super(width, height);
 	}

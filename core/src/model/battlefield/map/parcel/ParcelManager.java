@@ -57,7 +57,7 @@ public class ParcelManager {
 		}
 
 		for (ParcelMesh mesh : meshes) {
-			compute(map, mesh);
+			compute(mesh);
 		}
 	}
 
@@ -78,9 +78,8 @@ public class ParcelManager {
 		for (ParcelMesh mesh : meshes) {
 			mesh.reset();
 		}
-		Map map = ModelManager.getBattlefield().getMap();
 		for (ParcelMesh mesh : meshes) {
-			compute(map, mesh);
+			compute(mesh);
 		}
 		return meshes;
 	}
@@ -241,7 +240,8 @@ public class ParcelManager {
 		return res;
 	}
 
-	public static void compute(Map map, ParcelMesh mesh) {
+	public static void compute(ParcelMesh mesh) {
+		Map map = ModelManager.getBattlefield().getMap();
 		double xScale = 1.0 / map.xSize();
 		double yScale = 1.0 / map.ySize();
 		for (Tile tile : mesh.getTiles()) {

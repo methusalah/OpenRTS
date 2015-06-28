@@ -22,19 +22,19 @@ public class AtlasExplorer {
 	}
 
 	public Point2D getInMapSpace(Point2D p){
-		return p.getMult(map.xSize(), map.ySize()).getDivision(map.atlas.getWidth(), map.atlas.getHeight());
+		return p.getMult(map.xSize(), map.ySize()).getDivision(map.getAtlas().getWidth(), map.getAtlas().getHeight());
 	}
 
 	public Point2D getInAtlasSpace(Point2D p){
-		return p.getMult(map.atlas.getHeight(), map.atlas.getHeight()).getDivision(map.xSize(), map.ySize());
+		return p.getMult(map.getAtlas().getHeight(), map.getAtlas().getHeight()).getDivision(map.xSize(), map.ySize());
 	}
 
 	public double getInAtlasSpace(double distance){
-		return distance * map.atlas.getWidth() / map.xSize();
+		return distance * map.getAtlas().getWidth() / map.xSize();
 	}
 
 	public double getInMapSpace(double distance){
-		return distance * map.xSize() / map.atlas.getWidth();
+		return distance * map.xSize() / map.getAtlas().getWidth();
 	}
 
 	public ArrayList<Point2D> getPixelsInMapSpaceSquare(Point2D center, double radius){
@@ -42,9 +42,9 @@ public class AtlasExplorer {
 		radius = getInAtlasSpace(radius);
 		ArrayList<Point2D> res = new ArrayList<>();
 		int minX = (int)Math.round(Math.max(center.x-radius, 0));
-		int maxX = (int) Math.round(Math.min(center.x + radius, map.atlas.getWidth() - 1));
+		int maxX = (int) Math.round(Math.min(center.x + radius, map.getAtlas().getWidth() - 1));
 		int minY = (int)Math.round(Math.max(center.y-radius, 0));
-		int maxY = (int) Math.round(Math.min(center.y + radius, map.atlas.getHeight() - 1));
+		int maxY = (int) Math.round(Math.min(center.y + radius, map.getAtlas().getHeight() - 1));
 		for(int x=minX; x<maxX; x++) {
 			for(int y=minY; y<maxY; y++){
 				Point2D p = new Point2D(x, y);

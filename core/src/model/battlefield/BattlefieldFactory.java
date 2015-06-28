@@ -17,6 +17,7 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 import model.battlefield.map.parcel.ParcelManager;
+import model.builders.MapArtisan;
 import model.builders.entity.MapStyleBuilder;
 import model.builders.entity.definitions.BuilderManager;
 
@@ -36,21 +37,9 @@ public class BattlefieldFactory {
 
 	public Battlefield getNew(int width, int height) {
 		LogUtil.logger.info("Creating new battlefield...");
-		MapStyleBuilder styleBuilder = BuilderManager.getMapStyleBuilder("StdMapStyle");
-		Map m = new Map(styleBuilder.width, styleBuilder.height);
-		styleBuilder.build(m);
-
-		int index = 0;
-		for (int y = 0; y < m.ySize(); y++) {
-			for (int x = 0; x < m.xSize(); x++) {
-				m.set(index, new Tile(m, m.getIndex(x, y)));
-				index++;
-			}
-		}
-		LogUtil.logger.info("   map builders");
 
 		Battlefield res = new Battlefield();
-		res.setMap(m);
+		MapArtisan.buildMap(res);
 
 		LogUtil.logger.info("Loading done.");
 		return res;
@@ -76,17 +65,11 @@ public class BattlefieldFactory {
 	public Battlefield load(File file) {
 		ModelManager.setBattlefieldUnavailable();
 		Battlefield bField = null;
-
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
-			// this is the new JSON importer
 			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-
 			bField = mapper.readValue(file, Battlefield.class);
-
 			bField.setFileName(file.getCanonicalPath());
-			bField.getMap().atlas.finalize();
-			bField.getMap().cover.finalize();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -96,15 +79,9 @@ public class BattlefieldFactory {
 			ModelManager.setBattlefieldReady();
 			return null;
 		}
+		
+		MapArtisan.buildMap(bField);
 
-		LogUtil.logger.info("   builders");
-
-		BuilderManager.getMapStyleBuilder(bField.getMap().mapStyleID).build(bField.getMap());
-
-		LogUtil.logger.info("   ramps");
-		for (Ramp r : bField.getMap().ramps) {
-			r.connect(bField.getMap());
-		}
 
 		for (Tile t : bField.getMap().getAll()) {
 			int minLevel = t.level;
@@ -136,8 +113,8 @@ public class BattlefieldFactory {
 		ParcelManager.createParcelMeshes(bField.getMap());
 
 		LogUtil.logger.info("   texture atlas");
-		bField.getMap().atlas.loadFromFile(bField.getFileName(), "atlas");
-		bField.getMap().cover.loadFromFile(bField.getFileName(), "cover");
+		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");
+		bField.getMap().getCover().loadFromFile(bField.getFileName(), "cover");
 		LogUtil.logger.info("Loading done.");
 		return bField;
 	}
@@ -175,8 +152,8 @@ public class BattlefieldFactory {
 			Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		LogUtil.logger.info("Saving texture atlas...");
-		battlefield.getMap().atlas.saveToFile(battlefield.getFileName(), "atlas");
-		battlefield.getMap().cover.saveToFile(battlefield.getFileName(), "cover");
+		battlefield.getMap().getAtlas().saveToFile(battlefield.getFileName(), "atlas");
+		battlefield.getMap().getCover().saveToFile(battlefield.getFileName(), "cover");
 		LogUtil.logger.info("Done.");
 	}
 }

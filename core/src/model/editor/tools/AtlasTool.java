@@ -35,10 +35,10 @@ public class AtlasTool extends Tool {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
 		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
 		List<String> allTextures = new ArrayList<>();
-		allTextures.addAll(ModelManager.getBattlefield().getMap().style.diffuses);
+		allTextures.addAll(ModelManager.getBattlefield().getMap().getStyle().diffuses);
 		while(allTextures.size() < 8)
 			allTextures.add(null);
-		allTextures.addAll(ModelManager.getBattlefield().getMap().style.coverDiffuses);
+		allTextures.addAll(ModelManager.getBattlefield().getMap().getStyle().coverDiffuses);
 		set = new AssetSet(allTextures, true);
 	}
 
@@ -98,9 +98,9 @@ public class AtlasTool extends Tool {
 	}
 
 	private void increment(Point2D p, int layer) {
-		Atlas toPaint = ModelManager.getBattlefield().getMap().atlas;
+		Atlas toPaint = ModelManager.getBattlefield().getMap().getAtlas();
 		if(layer >= 8){
-			toPaint = ModelManager.getBattlefield().getMap().cover;
+			toPaint = ModelManager.getBattlefield().getMap().getCover();
 			layer -= 8; 
 		}
 		
@@ -144,9 +144,9 @@ public class AtlasTool extends Tool {
 	}
 
 	private void decrement(Point2D p, int layer) {
-		Atlas toPaint = ModelManager.getBattlefield().getMap().atlas;
+		Atlas toPaint = ModelManager.getBattlefield().getMap().getAtlas();
 		if(layer >= 8){
-			toPaint = ModelManager.getBattlefield().getMap().cover;
+			toPaint = ModelManager.getBattlefield().getMap().getCover();
 			layer -= 8; 
 		}
 		
@@ -190,13 +190,13 @@ public class AtlasTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			autoLayer = 0;
-			Point2D center = pencil.getCoord().getMult(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())
+			Point2D center = pencil.getCoord().getMult(ModelManager.getBattlefield().getMap().getAtlas().getWidth(), ModelManager.getBattlefield().getMap().getAtlas().getHeight())
 					.getDivision(ModelManager.getBattlefield().getMap().xSize(), ModelManager.getBattlefield().getMap().ySize());
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
-			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
-				if (l.get(centerX, centerY) > ModelManager.getBattlefield().getMap().atlas.getLayers().get(autoLayer).get(centerX, centerY)) {
-					autoLayer = ModelManager.getBattlefield().getMap().atlas.getLayers().indexOf(l);
+			for (AtlasLayer l : ModelManager.getBattlefield().getMap().getAtlas().getLayers()) {
+				if (l.get(centerX, centerY) > ModelManager.getBattlefield().getMap().getAtlas().getLayers().get(autoLayer).get(centerX, centerY)) {
+					autoLayer = ModelManager.getBattlefield().getMap().getAtlas().getLayers().indexOf(l);
 				}
 			}
 		}
@@ -212,16 +212,16 @@ public class AtlasTool extends Tool {
 			double attenuatedInc = Math.round(increment
 					* pencil.strength
 					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().xSize(),
-							ModelManager.getBattlefield().getMap().ySize()).getDivision(ModelManager.getBattlefield().getMap().atlas.getWidth(), ModelManager.getBattlefield().getMap().atlas.getHeight())));
+							ModelManager.getBattlefield().getMap().ySize()).getDivision(ModelManager.getBattlefield().getMap().getAtlas().getWidth(), ModelManager.getBattlefield().getMap().getAtlas().getHeight())));
 
 			int activeLayerCount = 0;
-			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
+			for (AtlasLayer l : ModelManager.getBattlefield().getMap().getAtlas().getLayers()) {
 				if (l.get(x, y) != 0) {
 					activeLayerCount++;
 				}
 			}
 			double targetVal = 255 / activeLayerCount;
-			for (AtlasLayer l : ModelManager.getBattlefield().getMap().atlas.getLayers()) {
+			for (AtlasLayer l : ModelManager.getBattlefield().getMap().getAtlas().getLayers()) {
 				if (l.get(x, y) != 0) {
 					double diff = targetVal - l.get(x, y);
 					if (diff < 0) {
@@ -231,7 +231,7 @@ public class AtlasTool extends Tool {
 					}
 				}
 			}
-			ModelManager.getBattlefield().getMap().atlas.updatePixel(x, y);
+			ModelManager.getBattlefield().getMap().getAtlas().updatePixel(x, y);
 		}
 
 	}

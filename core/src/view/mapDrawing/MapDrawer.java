@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.ModelManager;
+import model.battlefield.map.MapStyle;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
@@ -47,7 +48,7 @@ public class MapDrawer {
 	private Map<String, Spatial> models = new HashMap<>();
 
 	private Map<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
-	private Map<ParcelMesh, Spatial> layerSpatial = new HashMap<>();
+	private Map<ParcelMesh, Spatial> coverSpatial = new HashMap<>();
 	private Map<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
 	private TerrainSplatTexture groundTexture;
@@ -61,8 +62,8 @@ public class MapDrawer {
 
 	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
 		this.view = view;
-		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
-		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().cover, am);
+		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
+		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);
 		coverTexture.transp = true;
 		this.mm = mm;
 		this.am = am;
@@ -74,14 +75,15 @@ public class MapDrawer {
 	}
 
 	public void renderTiles() {
+		MapStyle style = ModelManager.getBattlefield().getMap().getStyle();
 		int index = 0;
-		for (String s : ModelManager.getBattlefield().getMap().style.diffuses) {
+		for (String s : style.diffuses) {
 			Texture diffuse = am.loadTexture(s);
 			Texture normal = null;
-			if (ModelManager.getBattlefield().getMap().style.normals.get(index) != null) {
-				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.normals.get(index));
+			if (style.normals.get(index) != null) {
+				normal = am.loadTexture(style.normals.get(index));
 			}
-			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
+			double scale = style.scales.get(index);
 			
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
@@ -89,13 +91,13 @@ public class MapDrawer {
 		groundTexture.buildMaterial();
 
 		index = 0;
-		for (String s : ModelManager.getBattlefield().getMap().style.coverDiffuses) {
+		for (String s : style.coverDiffuses) {
 			Texture diffuse = am.loadTexture(s);
 			Texture normal = null;
-			if (ModelManager.getBattlefield().getMap().style.coverNormals.get(index) != null) {
-				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.coverNormals.get(index));
+			if (style.coverNormals.get(index) != null) {
+				normal = am.loadTexture(style.coverNormals.get(index));
 			}
-			double scale = ModelManager.getBattlefield().getMap().style.coverScales.get(index);
+			double scale = style.coverScales.get(index);
 			
 			coverTexture.addTexture(diffuse, normal, scale);
 			index++;
@@ -120,7 +122,7 @@ public class MapDrawer {
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
 			g2.setLocalTranslation(0, 0, 0.01f);
-			layerSpatial.put(mesh, g2);
+			coverSpatial.put(mesh, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
 		updateTiles(ModelManager.getBattlefield().getMap().getAll());
@@ -250,7 +252,7 @@ public class MapDrawer {
 			mainPhysicsSpace.remove(g);
 			mainPhysicsSpace.add(g);
 			
-			Geometry g2 = ((Geometry) layerSpatial.get(parcel));
+			Geometry g2 = ((Geometry) coverSpatial.get(parcel));
 			g2.setMesh(jmeMesh);
 		}
 	}

@@ -1,7 +1,5 @@
 package model.battlefield.map;
 
-import geometry.geom2d.AlignedBoundingBox;
-import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.structure.grid3D.Node3D;
@@ -45,13 +43,22 @@ public class Tile extends Node3D {
 	@JsonIgnore
 	public List<Object> storedData = new ArrayList<>();
 
+	public Tile(){
+		super(null, 0);
+	}
 	public Tile(Map map, int index) {
 		super(map, index);
 		level = 0;
 	}
 	
-	private Map getMap(){
+	@JsonIgnore
+	public Map getMap(){
 		return (Map)grid;
+	}
+	
+	@JsonIgnore
+	public void setMap(Map m){
+		grid = m;
 	}
 	
 	@JsonIgnore
@@ -69,6 +76,7 @@ public class Tile extends Node3D {
 		return false;
 	}
 	
+	@JsonIgnore
 	public int getNeighborsMaxLevel() {
 		int res = Integer.MIN_VALUE;
 		for (Tile n : getMap().get4Around(this)) {
@@ -79,6 +87,7 @@ public class Tile extends Node3D {
 		return res;
 	}
 
+	@JsonIgnore
 	public int getNeighborsMinLevel() {
 		int res = Integer.MAX_VALUE;
 		for (Tile n : getMap().get4Around(this)) {
@@ -109,6 +118,7 @@ public class Tile extends Node3D {
 		}
 	}
 
+	@JsonIgnore
 	public void setCliff(int level, Cliff cliff) {
 		switch (level) {
 			case 0:
@@ -146,6 +156,7 @@ public class Tile extends Node3D {
 		}
 	}
 
+	@JsonIgnore
 	public void setCliff(int minLevel, int maxLevel) {
 		if (ramp != null && ramp.getCliffSlopeRate(this) == 1) {
 			return;
@@ -159,6 +170,7 @@ public class Tile extends Node3D {
 
 	}
 	
+	@JsonIgnore
 	public void unsetCliff() {
 		for (int level = 0; level < 3; level++) {
 			if (getCliff(level) != null) {
@@ -169,6 +181,7 @@ public class Tile extends Node3D {
 		modifyLevel();
 	}
 
+	@JsonIgnore
 	private void modifyLevel() {
 		modifiedLevel = 0;
 		for (int i = 0; i < 3; i++) {
@@ -176,8 +189,8 @@ public class Tile extends Node3D {
 			if (c == null || w() == null || s() == null || w().s() == null) {
 				continue;
 			}
-			if (w().level > c.level || s().level > c.level || w().s().level > c.level) {
-				modifiedLevel = c.level + 1;
+			if (w().level > level || s().level > level || w().s().level > level) {
+				modifiedLevel = level + 1;
 			}
 		}
 	}
@@ -214,38 +227,71 @@ public class Tile extends Node3D {
 		return res;
 	}
 	
+	@JsonIgnore
 	public Point2D getCoord(){
 		return getMap().getCoord(index);
 	}
+	
+	@JsonIgnore
+	public Point2D getCenter(){
+		return getMap().getCoord(index).getAddition(0.5, 0.5);
+	}
+	
+	@JsonIgnore
 	public Point3D getPos(){
-		return getMap().getCoord(index).get3D(elevation);
+		return getMap().getCoord(index).get3D(getModifiedElevation());
 	}
 	
 	
-
+	@JsonIgnore
 	public String getCliffShapeID() {
 		return cliffShapeID;
 	}
 
+	@JsonIgnore
 	public void setCliffShapeID(String cliffShapeID) {
 		this.cliffShapeID = cliffShapeID;
 	}
 
+	@JsonIgnore
 	@Override
 	public String toString() {
 		return "Tile [level=" + level + "]";
 	}
 	
+	@JsonIgnore
 	public Tile n() {
 		return getMap().getNorthNode(this);
 	}
+	@JsonIgnore
 	public Tile s() {
 		return getMap().getSouthNode(this);
 	}
+	@JsonIgnore
 	public Tile e() {
 		return getMap().getEastNode(this);
 	}
+	@JsonIgnore
 	public Tile w() {
 		return getMap().getWestNode(this);
+	}
+	
+	@JsonIgnore
+	public <T> List<T> getData(Class<T> clazz){
+		List<T> res = new ArrayList<>();
+		for(Object o : storedData)
+			if(o.getClass() == clazz.getClass())
+				res.add((T)o);
+		return res;
+	}
+	
+	@JsonIgnore
+	public void addData(Object o){
+		storedData.add(o);
+	}
+
+	@JsonIgnore
+	public void removeData(Object o){
+		storedData.remove(o);
 	}
 }
