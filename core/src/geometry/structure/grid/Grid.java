@@ -68,6 +68,11 @@ public class Grid<T extends Node> extends Map2D<T> {
 		return res;
 	}
 
+	public List<T> get25Around(T n) {
+		List<T> res = getAround(n, 2);
+		return res;
+	}
+
 	public List<T> get4Around(T node) {
 		T n = getNorthNode(node);
 		T s = getSouthNode(node);

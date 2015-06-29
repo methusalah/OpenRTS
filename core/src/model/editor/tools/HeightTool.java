@@ -3,6 +3,7 @@
  */
 package model.editor.tools;
 
+import geometry.geom2d.Point2D;
 import geometry.math.MyRandom;
 
 import java.util.List;
@@ -74,7 +75,7 @@ public class HeightTool extends Tool {
 
 	private void raise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevate(amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord()));
+			t.elevate(getAttenuatedAmplitude(t.getCoord()));
 			if(t.getElevation() > MAX_HEIGHT) {
 				t.setElevation(MAX_HEIGHT);
 			}
@@ -83,7 +84,7 @@ public class HeightTool extends Tool {
 
 	private void low(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevate(-amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord()));
+			t.elevate(-getAttenuatedAmplitude(t.getCoord()));
 			if(t.getElevation() < MIN_HEIGHT) {
 				t.setElevation(MIN_HEIGHT);
 			}
@@ -97,7 +98,7 @@ public class HeightTool extends Tool {
 		}
 		for (Tile t : tiles) {
 			double diff = maintainedElevation - t.getElevation();
-			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
+			double attenuatedAmplitude = getAttenuatedAmplitude(t.getCoord());
 			if (diff > 0) {
 				t.elevate(Math.min(diff, attenuatedAmplitude));
 			} else if (diff < 0) {
@@ -108,7 +109,7 @@ public class HeightTool extends Tool {
 
 	private void noise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevate(amplitude * pencil.strength * MyRandom.between(-1.0, 1.0) * pencil.getApplicationRatio(t.getCoord()));
+			t.elevate(MyRandom.between(-1.0, 1.0) * getAttenuatedAmplitude(t.getCoord()));
 		}
 	}
 
@@ -121,11 +122,10 @@ public class HeightTool extends Tool {
 			average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
 
 			double diff = average - t.getElevation();
-			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
 			if (diff > 0) {
-				t.elevate(Math.min(diff, attenuatedAmplitude));
+				t.elevate(Math.min(diff, getAttenuatedAmplitude(t.getCoord())));
 			} else if (diff < 0) {
-				t.elevate(Math.max(diff, -attenuatedAmplitude));
+				t.elevate(Math.max(diff, -getAttenuatedAmplitude(t.getCoord())));
 			}
 		}
 	}
@@ -134,5 +134,9 @@ public class HeightTool extends Tool {
 		for (Tile t : tiles) {
 			t.setElevation(0);
 		}
+	}
+	
+	private double getAttenuatedAmplitude(Point2D p){
+		return amplitude * pencil.strength * pencil.getApplicationRatio(p);
 	}
 }
