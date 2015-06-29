@@ -26,7 +26,7 @@ public class AtlasExplorer {
 	}
 
 	public Point2D getInAtlasSpace(Point2D p){
-		return p.getMult(map.getAtlas().getHeight(), map.getAtlas().getHeight()).getDivision(map.xSize(), map.ySize());
+		return p.getMult(map.getAtlas().getWidth(), map.getAtlas().getHeight()).getDivision(map.xSize(), map.ySize());
 	}
 
 	public double getInAtlasSpace(double distance){

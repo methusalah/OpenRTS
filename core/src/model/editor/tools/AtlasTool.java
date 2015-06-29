@@ -4,10 +4,7 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
-import geometry.geom3d.Point3D;
-import geometry.tools.LogUtil;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,7 @@ import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.AtlasLayer;
+import model.builders.AtlasArtisan;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -28,7 +26,7 @@ public class AtlasTool extends Tool {
 
 	AtlasExplorer explorer;
 
-	int autoLayer;
+	AtlasLayer autoLayer;
 	double increment = 40;
 
 	public AtlasTool() {
@@ -92,147 +90,63 @@ public class AtlasTool extends Tool {
 	}
 
 	private void increment(ArrayList<Point2D> pixels) {
-		for (Point2D p : pixels) {
-			increment(p, set.actual);
-		}
-	}
-
-	private void increment(Point2D p, int layer) {
-		Atlas toPaint = ModelManager.getBattlefield().getMap().getAtlas();
-		if(layer >= 8){
-			toPaint = ModelManager.getBattlefield().getMap().getCover();
-			layer -= 8; 
-		}
+		Atlas toPaint = getAtlasToPaint();
+		AtlasLayer layer = getActualLayer(toPaint);
 		
-		int x = (int) Math.round(p.x);
-		int y = (int) Math.round(p.y);
-		double attenuatedInc = Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
-
-		double valueToDitribute = attenuatedInc;
-		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : toPaint.getLayers()) {
-			if (toPaint.getLayers().indexOf(l) == layer) {
-				valueToDitribute -= l.addAndReturnExcess(x, y, attenuatedInc);
-			} else {
-				if(l.get(x, y) > 0)
-					availableLayers.add(l);
-			}
+		for (Point2D p : pixels) {
+			AtlasArtisan.incrementPixel(toPaint, p, layer, getAttenuatedIncrement(p));
 		}
-		int secur = -1;
-		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
-			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
-			double shared = Math.round(valueToDitribute / availableLayers.size());
-			valueToDitribute = 0;
-			for (AtlasLayer l : availableLayers) {
-				valueToDitribute += l.withdrawAndReturnExcess(x, y, shared);
-				if (l.get(x, y) == 0) {
-					unavailableLayers.add(l);
-				}
-			}
-			availableLayers.removeAll(unavailableLayers);
-		}
-		if (secur > 40) {
-			LogUtil.logger.warning("Impossible to distribute value");
-		}
-		toPaint.updatePixel(x, y);
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
-		for (Point2D p : pixels) {
-			decrement(p, set.actual);
-		}
-	}
-
-	private void decrement(Point2D p, int layer) {
-		Atlas toPaint = ModelManager.getBattlefield().getMap().getAtlas();
-		if(layer >= 8){
-			toPaint = ModelManager.getBattlefield().getMap().getCover();
-			layer -= 8; 
-		}
+		Atlas toPaint = getAtlasToPaint();
+		AtlasLayer layer = getActualLayer(toPaint);
 		
-		int x = (int) Math.round(p.x);
-		int y = (int) Math.round(p.y);
-		double attenuatedInc = Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
-
-		double valueToDitribute = attenuatedInc;
-		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
-		for (AtlasLayer l : toPaint.getLayers()) {
-			if (toPaint.getLayers().indexOf(l) == layer) {
-				valueToDitribute -= l.withdrawAndReturnExcess(x, y, attenuatedInc);
-			} else if (l.get(x, y) > 0) {
-				availableLayers.add(l);
-			}
+		for (Point2D p : pixels) {
+			AtlasArtisan.decrementPixel(toPaint, p, layer, getAttenuatedIncrement(p));
 		}
-		if (availableLayers.isEmpty()) {
-			availableLayers.add(toPaint.getLayers().get(0));
-		}
-
-		int secur = -1;
-		while (valueToDitribute > 0 && !availableLayers.isEmpty() && secur++ < 50) {
-			ArrayList<AtlasLayer> unavailableLayers = new ArrayList<>();
-			double shared = valueToDitribute / availableLayers.size();
-			valueToDitribute = 0;
-			for (AtlasLayer l : availableLayers) {
-				valueToDitribute += l.addAndReturnExcess(x, y, shared);
-				if (l.get(x, y) == 255) {
-					unavailableLayers.add(l);
-				}
-			}
-			availableLayers.removeAll(unavailableLayers);
-		}
-		if (secur > 40) {
-			LogUtil.logger.warning("Impossible to distribute value");
-		}
-		toPaint.updatePixel(x, y);
 	}
-
+	
 	private void propagate(ArrayList<Point2D> pixels) {
+		Atlas atlas = ModelManager.getBattlefield().getMap().getAtlas();
 		if (!pencil.maintained) {
 			pencil.maintain();
-			autoLayer = 0;
-			Point2D center = pencil.getCoord().getMult(ModelManager.getBattlefield().getMap().getAtlas().getWidth(), ModelManager.getBattlefield().getMap().getAtlas().getHeight())
-					.getDivision(ModelManager.getBattlefield().getMap().xSize(), ModelManager.getBattlefield().getMap().ySize());
+			autoLayer = atlas.getLayers().get(0);
+			Point2D center = explorer.getInAtlasSpace(pencil.getCoord());
 			int centerX = (int) Math.round(center.x);
 			int centerY = (int) Math.round(center.y);
-			for (AtlasLayer l : ModelManager.getBattlefield().getMap().getAtlas().getLayers()) {
-				if (l.get(centerX, centerY) > ModelManager.getBattlefield().getMap().getAtlas().getLayers().get(autoLayer).get(centerX, centerY)) {
-					autoLayer = ModelManager.getBattlefield().getMap().getAtlas().getLayers().indexOf(l);
+			for (AtlasLayer l : atlas.getLayers()) {
+				if (l.get(centerX, centerY) > autoLayer.get(centerX, centerY)) {
+					autoLayer = l;
 				}
 			}
 		}
 		for (Point2D p : pixels) {
-			increment(p, autoLayer);
+			AtlasArtisan.incrementPixel(atlas, p, autoLayer, getAttenuatedIncrement(p));
 		}
 	}
 
 	private void smooth(ArrayList<Point2D> pixels) {
 		for (Point2D p : pixels) {
-			int x = (int) Math.round(p.x);
-			int y = (int) Math.round(p.y);
-			double attenuatedInc = Math.round(increment
-					* pencil.strength
-					* pencil.getApplicationRatio(new Point2D(x, y).getMult(ModelManager.getBattlefield().getMap().xSize(),
-							ModelManager.getBattlefield().getMap().ySize()).getDivision(ModelManager.getBattlefield().getMap().getAtlas().getWidth(), ModelManager.getBattlefield().getMap().getAtlas().getHeight())));
-
-			int activeLayerCount = 0;
-			for (AtlasLayer l : ModelManager.getBattlefield().getMap().getAtlas().getLayers()) {
-				if (l.get(x, y) != 0) {
-					activeLayerCount++;
-				}
-			}
-			double targetVal = 255 / activeLayerCount;
-			for (AtlasLayer l : ModelManager.getBattlefield().getMap().getAtlas().getLayers()) {
-				if (l.get(x, y) != 0) {
-					double diff = targetVal - l.get(x, y);
-					if (diff < 0) {
-						l.set(x, y, l.get(x, y) + Math.max(diff, -attenuatedInc));
-					} else if (diff > 0) {
-						l.set(x, y, l.get(x, y) + Math.min(diff, attenuatedInc));
-					}
-				}
-			}
-			ModelManager.getBattlefield().getMap().getAtlas().updatePixel(x, y);
+			AtlasArtisan.smoothPixel(ModelManager.getBattlefield().getMap().getAtlas(), p, getAttenuatedIncrement(p));
 		}
 
+	}
+	
+	private AtlasLayer getActualLayer(Atlas atlas){
+		if(set.actual > 8)
+			return atlas.getLayers().get(set.actual-8);
+		return atlas.getLayers().get(set.actual);
+	}
+	
+	private Atlas getAtlasToPaint(){
+		if(set.actual > 8)
+			return ModelManager.getBattlefield().getMap().getCover();
+		else
+			return ModelManager.getBattlefield().getMap().getAtlas();
+	}
+	
+	private double getAttenuatedIncrement(Point2D p){
+		return Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
 	}
 }
