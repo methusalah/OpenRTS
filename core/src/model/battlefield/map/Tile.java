@@ -137,14 +137,11 @@ public class Tile extends Node3D {
 
 	@JsonIgnore
 	public double getModifiedElevation() {
-		if(level > 0 ){
 			if (modifiedLevel != 0) {
 				return modifiedLevel * STAGE_HEIGHT + elevation;
 			} else {
 				return level * STAGE_HEIGHT + elevation;
 			}
-		}
-		return 0;
 	}
 
 	@JsonIgnore
@@ -189,10 +186,11 @@ public class Tile extends Node3D {
 			if (c == null || w() == null || s() == null || w().s() == null) {
 				continue;
 			}
-			if (w().level > level || s().level > level || w().s().level > level) {
-				modifiedLevel = level + 1;
+			if (w().level > c.level || s().level > c.level || w().s().level > c.level) {
+				modifiedLevel = c.level + 1;
 			}
 		}
+		
 	}
 
 	@JsonIgnore
