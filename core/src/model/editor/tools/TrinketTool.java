@@ -144,15 +144,7 @@ public class TrinketTool extends Tool {
 	
 	private Trinket getPointedTrinket(){
 		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
-			Map map = ModelManager.getBattlefield().getMap();
-			Point2D pos = pencil.getCoord();
-			Tile container = map.get(pos);
-			for(Tile tile : map.get25Around(container))
-				for (Trinket t : tile.getData(Trinket.class)) {
-					if (t.getId() == ToolManager.getPointedSpatialEntityId()) {
-						return t;
-					}
-				}
+			return ModelManager.getBattlefield().getMap().getTrinket(ToolManager.getPointedSpatialEntityId());
 		}
 		return null;
 	}

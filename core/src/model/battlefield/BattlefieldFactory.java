@@ -110,8 +110,6 @@ public class BattlefieldFactory {
 		}
 		LogUtil.logger.info("   cliffs' shapes (" + i+")");
 
-		ParcelManager.createParcelMeshes(bField.getMap());
-
 		LogUtil.logger.info("   texture atlas");
 		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");
 		bField.getMap().getCover().loadFromFile(bField.getFileName(), "cover");

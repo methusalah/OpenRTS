@@ -4,6 +4,7 @@ import geometry.geom2d.Point2D;
 import geometry.structure.grid3D.Grid3D;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import model.battlefield.map.atlas.Atlas;
@@ -26,7 +27,7 @@ public final class Map extends Grid3D<Tile> {
 	
 	private List<TrinketMemento> initialTrinkets = new ArrayList<>();
 
-	private List<Trinket> trinkets = new ArrayList<>();
+	private java.util.Map<Long, Trinket> trinkets = new HashMap<>();
 
 	private Atlas atlas, cover;
 
@@ -52,9 +53,19 @@ public final class Map extends Grid3D<Tile> {
 	
 	public void saveTrinkets(){
 		initialTrinkets.clear();
-		for(Trinket t : trinkets)
+		for(Trinket t : trinkets.values())
 			initialTrinkets.add(new TrinketMemento(t));
-		
+	}
+	
+	public void addTrinket(Trinket t){
+		trinkets.put(t.getId(), t);
+	}
+	public void removeTrinket(Trinket t){
+		trinkets.remove(t.getId());
+	}
+	
+	public Trinket getTrinket(long id){
+		return trinkets.get(id);
 	}
 	
 	/**
@@ -133,12 +144,7 @@ public final class Map extends Grid3D<Tile> {
 
 	@JsonIgnore
 	public List<Trinket> getTrinkets() {
-		return trinkets;
-	}
-
-	@JsonIgnore
-	public void setTrinkets(List<Trinket> trinkets) {
-		this.trinkets = trinkets;
+		return new ArrayList<Trinket>(trinkets.values());
 	}
 
 	public Atlas getAtlas() {

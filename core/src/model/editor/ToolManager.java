@@ -32,6 +32,7 @@ import geometry.tools.LogUtil;
 public class ToolManager {
 	private static String pointedSpatialLabel;
 	private static long pointedSpatialEntityId;
+	private static FieldComp pointedEntity;
 
 	private static HeightTool heightTool;
 	private static CliffTool cliffTool;

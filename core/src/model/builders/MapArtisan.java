@@ -42,14 +42,14 @@ public class MapArtisan {
 	}
 	
 	public static void attachTrinket(Trinket t, Map m){
-		m.getTrinkets().add(t);
+		m.addTrinket(t);
 		Tile containerTile = m.get(t.getCoord());
 		containerTile.addData(t);
 		TileArtisan.checkBlockingTrinkets(containerTile);
 	}
 
 	public static void dettachTrinket(Trinket t, Map m){
-		m.getTrinkets().remove(t);
+		m.removeTrinket(t);
 		Tile containerTile = m.get(t.getCoord());
 		containerTile.removeData(t);
 		TileArtisan.checkBlockingTrinkets(containerTile);
