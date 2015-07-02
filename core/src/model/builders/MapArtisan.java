@@ -1,11 +1,21 @@
 package model.builders;
 
+import event.EventManager;
+import event.ParcelUpdateEvent;
+import geometry.geom3d.Point3D;
+
+import java.util.List;
+
+import model.ModelManager;
 import model.battlefield.Battlefield;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.TrinketMemento;
 import model.battlefield.map.cliff.Ramp;
+import model.battlefield.map.parcel.ParcelManager;
+import model.battlefield.map.parcel.ParcelMesh;
 import model.builders.entity.definitions.BuilderManager;
 
 public class MapArtisan {
@@ -59,5 +69,23 @@ public class MapArtisan {
 		for(Trinket t : m.getTrinkets())
 			t.drawOnBattlefield();
 	}
+
+	public static void updateParcelsFor(List<Tile> tiles) {
+		List<Tile> extended = TileArtisan.getExtendedZone(tiles);
+
+		for (Tile t : extended) {
+			for (Object o : t.storedData) {
+				if(o instanceof FieldComp){
+					FieldComp fc = (FieldComp)o;
+					fc.setPos(new Point3D(fc.getPos().x,
+							fc.getPos().y,
+							t.getMap().getAltitudeAt(fc.getPos().get2D())));
+				}
+			}
+		}
+		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(extended);
+		EventManager.post(new ParcelUpdateEvent(toUpdate));
+	}
+	
 	
 }

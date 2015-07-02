@@ -58,9 +58,9 @@ public class ToolManager {
 		setRampTool(new RampTool());
 		unitTool = new UnitTool();
 		trinketTool = new TrinketTool();
-
-		actualTool = getCliffTool();
 		
+		actualTool = getCliffTool();
+
 		new Thread(sower).start();
 	}
 
@@ -134,70 +134,6 @@ public class ToolManager {
 		}
 	}
 
-	public static void updateTiles(List<Tile> tiles) {
-		List<Tile> extended = getExtendedZone(tiles);
-
-		for (Tile t : extended) {
-			int minLevel = t.level;
-			int maxLevel = t.level;
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
-				maxLevel = Math.max(maxLevel, n.level);
-			}
-			if (t.hasCliff()) {
-				t.unsetCliff();
-			}
-
-			if (minLevel != maxLevel) {
-				t.setCliff(minLevel, maxLevel);
-			}
-		}
-
-		for (Tile t : extended) {
-			for (Cliff c : t.getCliffs()) {
-				c.connect(ModelManager.getBattlefield().getMap());
-			}
-		}
-		for (Tile t : extended) {
-			for (Cliff c : t.getCliffs()) {
-				getCliffTool().buildShape(c);
-			}
-		}
-		EventManager.post(new TilesEvent(extended));
-		updateParcelsForExtended(tiles);
-	}
-
-	public static void updateParcelsForExtended(List<Tile> tiles) {
-		for (Tile t : tiles) {
-			for (Object o : t.storedData) {
-				if(o instanceof FieldComp){
-					FieldComp fc = (FieldComp)o;
-					fc.setPos(new Point3D(fc.getPos().x,
-							fc.getPos().y,
-							ModelManager.getBattlefield().getMap().getAltitudeAt(fc.getPos().get2D())));
-				}
-			}
-		}
-		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(tiles);
-		EventManager.post(new ParcelUpdateEvent(toUpdate));
-	}
-
-	public static void updateParcels(List<Tile> tiles) {
-		updateParcelsForExtended(getExtendedZone(tiles));
-	}
-
-	private static List<Tile> getExtendedZone(List<Tile> tiles) {
-		List<Tile> res = new ArrayList<>();
-		res.addAll(tiles);
-		for (Tile t : tiles) {
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
-				if (!res.contains(n)) {
-					res.add(n);
-				}
-			}
-		}
-		return res;
-	}
-
 	public static void toggleSower(){
 		synchronized (sower) {
 			if(sower.isPaused()){
@@ -243,7 +179,7 @@ public class ToolManager {
 	public static Tool getActualTool() {
 		return actualTool;
 	}
-
+	
 	public static CliffTool getCliffTool() {
 		return cliffTool;
 	}

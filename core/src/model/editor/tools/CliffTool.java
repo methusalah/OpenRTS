@@ -9,6 +9,7 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
+import model.builders.TileArtisan;
 import model.builders.entity.CliffShapeBuilder;
 import model.editor.AssetSet;
 import model.editor.Pencil;
@@ -106,11 +107,6 @@ public class CliffTool extends Tool {
 			}
 		}
 		group.addAll(toUpdate);
-		ToolManager.updateTiles(group);
+		TileArtisan.updatesElevation(group, set.actual);
 	}
-
-	public void buildShape(Cliff cliff) {
-		ModelManager.getBattlefield().getMap().getStyle().cliffShapeBuilders.get(set.actual).build(cliff);
-	}
-
 }
