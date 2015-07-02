@@ -104,7 +104,8 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = getPointedTrinket();
-			moveOffset = pencil.getCoord().getSubtraction(actualTrinket.getCoord());
+			if(actualTrinket != null)
+				moveOffset = pencil.getCoord().getSubtraction(actualTrinket.getCoord());
 		}
 		if (actualTrinket != null) {
 			// TODO attention, l'elevation n'est pas forcement juste avec ce calcul
