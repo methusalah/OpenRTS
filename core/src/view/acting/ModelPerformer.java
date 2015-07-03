@@ -155,7 +155,10 @@ public class ModelPerformer extends Performer {
 	}
 
 	private void updateBoneCoords(ModelActor actor) {
-		Skeleton sk = actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton();
+		AnimControl ctrl = actor.getViewElements().spatial.getControl(AnimControl.class);
+		if(ctrl == null)
+			return;
+		Skeleton sk = ctrl.getSkeleton();
 		for (int i = 0; i < sk.getBoneCount(); i++) {
 			Bone b = sk.getBone(i);
 			actor.setBone(b.getName(), getBoneWorldPos(actor, i));

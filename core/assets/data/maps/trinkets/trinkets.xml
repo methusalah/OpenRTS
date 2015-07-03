@@ -27,11 +27,4 @@
         <Scale min="0.7" max="1.4"/>
         <Radius value="0.8"/>
     </Trinket>
-    <Trinket id="test">
-        <ModelList value="human/armoured_car/armoured_car.j3o"/>
-        <RotationX min="30" max="30"/>
-        <Scale min="250" max="250"/>
-        <Radius value="0.8"/>
-    </Trinket>
-    
 </catalog>
