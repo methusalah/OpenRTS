@@ -98,16 +98,16 @@ public class TrinketBuilder extends Builder {
 					actorBuilderID = de.getVal();
 					break;
 				case ROTATION_X:
-					minRotX = de.getDoubleVal(MIN);
-					maxRotX = de.getDoubleVal(MAX);
+					minRotX = Angle.toRadians(de.getDoubleVal(MIN));
+					maxRotX = Angle.toRadians(de.getDoubleVal(MAX));
 					break;
 				case ROTATION_Y:
-					minRotY = de.getDoubleVal(MIN);
-					maxRotY = de.getDoubleVal(MAX);
+					minRotY = Angle.toRadians(de.getDoubleVal(MIN));
+					maxRotY = Angle.toRadians(de.getDoubleVal(MAX));
 					break;
 				case ROTATION_Z:
-					minRotZ = de.getDoubleVal(MIN);
-					maxRotZ = de.getDoubleVal(MAX);
+					minRotZ = Angle.toRadians(de.getDoubleVal(MIN));
+					maxRotZ = Angle.toRadians(de.getDoubleVal(MAX));
 					break;
 
 				case POSITION_X:
@@ -146,9 +146,18 @@ public class TrinketBuilder extends Builder {
 		}
 	}
 
+	/**
+	 * For the creation of a trinket from a memento
+	 * @param pos
+	 * @param yaw
+	 * @param modelPath
+	 * @param scaleX
+	 * @param scaleY
+	 * @param scaleZ
+	 * @return
+	 */
 	public Trinket build(Point3D pos, double yaw, String modelPath, double scaleX, double scaleY, double scaleZ) {
 		return new Trinket(editable, radius, getId(), modelPath, pos, scaleX, scaleY, scaleZ, 0, 0, yaw, color, actorBuilder);
-
 	}
 
 	public Trinket build(Point3D position) {

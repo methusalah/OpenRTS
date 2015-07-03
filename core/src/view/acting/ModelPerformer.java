@@ -5,6 +5,7 @@ package view.acting;
 
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+import geometry.tools.LogUtil;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Projectile;
@@ -89,7 +90,7 @@ public class ModelPerformer extends Performer {
 			}
 
 		} else {
-			r.fromAngles(0, 0, (float) (actor.getYaw() + Angle.RIGHT));
+			r.fromAngles((float)actor.getComp().roll, (float)actor.getComp().pitch, (float) (actor.getYaw() + Angle.RIGHT));
 		}
 		s.setLocalRotation(r);
 
