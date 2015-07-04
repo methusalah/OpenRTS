@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Actor id="rollerTankCanonMainActor">
+    <ActorList Trigger="onShoot" ActorLink="rollerTankCanon"/>
+  </Actor>
+  
+  <Actor id="rollerTankCanon">
+    <!-- <ActorList Trigger="onShoot" ActorLink="rollerTankCanonAnimation"/> -->
+    <ActorList Trigger="onShoot" ActorLink="rollerTankCanonFlash"/>
+    <ActorList Trigger="onShoot" ActorLink="rollerTankCanonShockwave"/>
+    <ActorList Trigger="onShoot" ActorLink="rollerTankCanonSound"/>
+  </Actor>
+  
+<!--   <Actor id="rollerTankCanonAnimation">
+    <Type value="Animation"/>
+    <AnimName value="attack01"/>
+    <Speed value="1"/>
+    <Cycle value="Once"/>
+  </Actor> -->
+  
+  <Actor id="rollerTankCanonFlash">
+    <Type value="Particle"/>
+    <SpritePath value="particles/flame.png"/>
+    <NbCol value="1"/>
+    <NbRow value="1"/>
+    <EmissionBone value="boneMuzzle01"/>
+    <DirectionBone value="boneMuzzleVec01"/>
+    <Velocity value="5"/>
+    <Fanning value="0.1"/>
+    <Duration value="100"/>
+    <MaxCount value="30"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.1"/>
+    <StartColor R="220" G="195" B="0" A="180"/>
+    <EndColor R="11" G="215" B="225" A="255"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.6"/>
+  </Actor>
+  
+  <Actor id="rollerTankCanonShockwave">
+    <Type value="Particle"/>
+    <SpritePath value="particles/shockwave.png"/>
+    <EmissionBone value="boneMuzzle01"/>
+    <DirectionBone value="boneMuzzleVec01"/>
+    <Facing value="Velocity"/>
+    <Duration value="0"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.7"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="0.4"/>
+    <MaxLife value="0.4"/>
+  </Actor>
+
+  <Actor id="rollerTankCanonSound">
+    <Type value="Sound"/>
+    <SoundPath value="monoshot1.wav"/>
+    <Volume value="1"/>
+    <Looping value="false"/>
+    <Positional value="true"/>
+  </Actor>
+
+</catalog>
