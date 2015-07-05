@@ -4,12 +4,6 @@ import geometry.collections.Map2D;
 
 import java.util.List;
 
-import sun.util.logging.resources.logging;
-import tools.LogUtil;
-
-import com.jme3.texture.image.ImageRaster;
-import com.sun.corba.se.spi.oa.OADefault;
-
 public class AtlasLayer {
 	public static double MAX_VALUE = 255;
 	

@@ -3,8 +3,6 @@ package network.client;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import network.server.OpenRTSServer;
-
 import com.google.common.eventbus.Subscribe;
 import com.jme3.network.Client;
 import com.jme3.network.Network;
@@ -29,7 +27,7 @@ public class ClientManager {
 		EventManager.registerForClient(instance);
 		try {
 			Thread.sleep(2000);
-			client = Network.connectToServer("localhost", OpenRTSServer.PORT);
+			client = Network.connectToServer("localhost", 6143);
 			client.addClientStateListener(new ClientStateListener());
 			client.addMessageListener(new MessageListener(), ToServerEvent.class);
 		} catch (IOException | InterruptedException e) {
@@ -44,7 +42,7 @@ public class ClientManager {
 		client.close();
 	}
 
-	public ClientManager getInstance() {
+	public static ClientManager getInstance() {
 		return instance;
 	}
 

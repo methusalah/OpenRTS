@@ -8,13 +8,13 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
-import controller.game.GameController;
+import controller.game.MultiplayerGameController;
 import event.EventManager;
 
 public class Game extends OpenRTSApplication {
 
 	protected MapView view;
-	protected GameController fieldCtrl;
+	protected MultiplayerGameController fieldCtrl;
 	// TODO: I'm not sure, if this is the correct place for faction
 	protected Faction faction;
 
@@ -35,7 +35,7 @@ public class Game extends OpenRTSApplication {
 		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		fieldCtrl = new GameController(view, niftyDisplay.getNifty(), inputManager, cam);
+		fieldCtrl = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
 		EventManager.registerForClient(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
