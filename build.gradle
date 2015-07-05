@@ -11,10 +11,13 @@ allprojects {
 		appName = 'OpenRTS'
 		jmonkeyengine_version = '3.0'
 	}
+	sourceCompatibility = 1.8
 
 	repositories {
+		mavenLocal()
 		mavenCentral()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+		maven { url 'http://updates.jmonkeyengine.org/maven' }		
 	}
 }
