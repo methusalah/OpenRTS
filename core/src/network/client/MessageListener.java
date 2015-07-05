@@ -17,7 +17,7 @@ public class MessageListener implements com.jme3.network.MessageListener<Client>
 		if (message instanceof InputEvent) {
 			// do something with the message
 			InputEvent helloMessage = (InputEvent) message;
-			logger.info("Client #" + source.getId() + " received: '" + helloMessage.getActionCommand() + "'");
+			logger.info("Client #" + source.getId() + " received: '" + helloMessage.getCommand() + "'");
 			EventManager.post(helloMessage);
 		} // else...
 	}

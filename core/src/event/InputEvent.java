@@ -27,7 +27,7 @@ public class InputEvent extends ToServerEvent {
 		this(command, point, false);
 	}
 
-	public String getActionCommand() {
+	public String getCommand() {
 		return command;
 	}
 

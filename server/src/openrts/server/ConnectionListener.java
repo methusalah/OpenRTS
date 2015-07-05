@@ -1,4 +1,4 @@
-package network.server;
+package openrts.server;
 
 import java.util.logging.Logger;
 

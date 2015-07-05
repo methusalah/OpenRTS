@@ -22,7 +22,7 @@ public class LauncherEffect extends Effect {
 	public LauncherEffect(Projectile projectile, ArrayList<EffectBuilder> effectBuilders, EffectSource source, EffectTarget target) {
 		super(effectBuilders, source, target);
 		this.projectile = projectile;
-		EventManager.register(this);
+		EventManager.registerForServer(this);
 	}
 
 	@Override

@@ -5,9 +5,6 @@ import geometry.math.Precision;
 
 import java.text.DecimalFormat;
 
-import com.jme3.network.serializing.Serializable;
-
-@Serializable
 public class Point2D {
 	public static final Point2D ORIGIN = new Point2D(0, 0);
 	public static final Point2D UNIT_X = new Point2D(1, 0);
