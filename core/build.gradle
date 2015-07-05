@@ -8,14 +8,6 @@ if (!hasProperty('mainClass')) {
 }
 
 
-sourceCompatibility = 1.7
-version = '1.0'
-
-
-repositories {	
-	mavenCentral()
-	maven { url 'http://updates.jmonkeyengine.org/maven' }
-}
 
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
@@ -130,8 +122,8 @@ eclipse {
 	}
 
 	jdt {
-		sourceCompatibility = 1.7
-		targetCompatibility = 1.7
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
 	}
 
 	project { name = appName + "-core" }

@@ -8,16 +8,6 @@ if (!hasProperty('mainClass')) {
 }
 
 
-sourceCompatibility = 1.7
-version = '1.0'
-
-repositories {
-    mavenCentral()
-    maven {
-        url 'http://updates.jmonkeyengine.org/maven'
-    }
-}
-
 dependencies {
     compile project(':core')
 //    compile 'com.jme3:jme3-desktop:$jmonkeyengine_version.+'
