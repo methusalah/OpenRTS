@@ -6,7 +6,6 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CommandManager;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
@@ -18,6 +17,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
+import controller.CommandManager;
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;

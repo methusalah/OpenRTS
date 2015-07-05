@@ -5,8 +5,8 @@ package controller.battlefield;
 
 import java.text.DecimalFormat;
 
-import model.CommandManager;
 import model.battlefield.army.components.Unit;
+import controller.CommandManager;
 import controller.Controller;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;

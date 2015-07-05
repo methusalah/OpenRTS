@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
  */
-package model;
+package controller;
 
 import geometry.geom2d.Point2D;
 
@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.EntityManager;
+import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
@@ -18,12 +20,13 @@ import model.battlefield.army.motion.pathfinding.FlowField;
 /**
  * @author Benoît
  */
+// TODO:integrate this Class into BattlefieldController and BattleFieldGUIController
 public class CommandManager {
 
 	public static List<Unit> selection = new ArrayList<>();
 	private static Map<String, Unity> unitiesInContext = new HashMap<>();
-	static boolean moveAttack = false;
-	static boolean multipleSelection = false;
+	private static boolean moveAttack = false;
+	private static boolean multipleSelection = false;
 	private static final CommandManager instance = new CommandManager();
 
 	private CommandManager() {
@@ -164,7 +167,7 @@ public class CommandManager {
 				unitiesInContext.put(u.UIName, new Unity());
 			}
 			unitiesInContext.get(u.UIName).add(u);
-				}
+		}
 	}
 
 	public static void selectUnityInContext(Unity unityID) {

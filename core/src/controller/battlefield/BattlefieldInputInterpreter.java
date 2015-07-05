@@ -6,7 +6,6 @@ import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
 
-import model.CommandManager;
 import tools.LogUtil;
 
 import com.jme3.input.InputManager;
@@ -14,6 +13,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
+import controller.CommandManager;
 import controller.InputInterpreter;
 
 public class BattlefieldInputInterpreter extends InputInterpreter {
@@ -34,9 +34,9 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
 	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
 
-	boolean multipleSelection = false;
-	double dblclicTimer = 0;
-	Point2D dblclicCoord;
+	private boolean multipleSelection = false;
+	private double dblclicTimer = 0;
+	private Point2D dblclicCoord;
 
 	BattlefieldInputInterpreter(BattlefieldController controller) {
 		super(controller);
