@@ -24,7 +24,7 @@ public class OpenRTSServer extends SimpleApplication {
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
 
 	protected MapView view;
-	protected MultiplayerGameController fieldCtrl;
+	protected GameController fieldCtrl;
 	protected static Server myServer;
 	public static final int PORT = 6143;
 
@@ -48,7 +48,7 @@ public class OpenRTSServer extends SimpleApplication {
 		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		fieldCtrl = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
+		fieldCtrl = new GameController(view, niftyDisplay.getNifty(), cam);
 		EventManager.registerForClient(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);

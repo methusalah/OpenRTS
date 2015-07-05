@@ -20,9 +20,9 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 	private boolean multipleSelection = false;
 	private double dblclicTimer = 0;
 	private Point2D dblclicCoord;
-	private MultiplayerGameController ctrl;
+	private GameController ctrl;
 
-	public InputEventMessageListener(MultiplayerGameController ctl) {
+	public InputEventMessageListener(GameController ctl) {
 		this.ctrl = ctl;
 	}
 
@@ -72,7 +72,7 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 						CommandManager.setMultipleSelection(true);
 						break;
 					case MultiplayerGameInputInterpreter.SELECT:
-						ctrl.startSelectionZone();
+						ctrl.startSelectionZone(inputEvent.getX(), inputEvent.getY());
 						break;
 				}
 			}

@@ -10,12 +10,10 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import view.MapView;
-import view.math.Translator;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
@@ -28,22 +26,23 @@ import event.BattleFieldUpdateEvent;
 import event.ControllerChangeEvent;
 import event.EventManager;
 
-public class MultiplayerGameController extends AbstractAppState {
+public class GameController extends AbstractAppState {
 
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
 	private MapView view;
-	private InputManager inputManager;
+	// private InputManager inputManager;
 	private SpatialSelector spatialSelector;
 	private CameraManager cameraManager;
 	private GUIController guiController;
 
-	public MultiplayerGameController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	public GameController(MapView view, Nifty nifty, Camera cam) {
 		super();
 		this.view = view;
-		this.spatialSelector.centered = false;
-		guiController = new MultiplayerGameNiftyController(nifty);
+		spatialSelector = new SpatialSelector(cam, null, view);
+		spatialSelector.centered = false;
+		guiController = new GameNiftyController(nifty);
 
 		EventManager.registerForClient(this);
 
@@ -52,7 +51,7 @@ public class MultiplayerGameController extends AbstractAppState {
 
 	@Override
 	public void update(float elapsedTime) {
-		updateSelectionZone();
+		// updateSelectionZone();
 		updateContext();
 		guiController.update();
 
@@ -62,8 +61,8 @@ public class MultiplayerGameController extends AbstractAppState {
 		}
 	}
 
-	public void startSelectionZone() {
-		zoneStart = getMouseCoord();
+	public void startSelectionZone(double x, double y) {
+		zoneStart = new Point2D(x, y);
 	}
 
 	public void endSelectionZone() {
@@ -75,29 +74,29 @@ public class MultiplayerGameController extends AbstractAppState {
 		return drawingZone;
 	}
 
-	private void updateSelectionZone() {
-		if (zoneStart == null) {
-			view.getGuiNode().detachAllChildren();
-			return;
-		}
-
-		Point2D coord = getMouseCoord();
-		if (coord.equals(zoneStart)) {
-			return;
-		}
-
-		drawingZone = coord.getDistance(zoneStart) > 10;
-
-		AlignedBoundingBox rect = new AlignedBoundingBox(zoneStart, coord);
-		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
-			if (rect.contains(spatialSelector.getScreenCoord(u.getPos()))) {
-				inSelection.add(u);
-			}
-		}
-		CommandManager.select(inSelection);
-		view.drawSelectionArea(zoneStart, coord);
-	}
+	// private void updateSelectionZone(double x, double y) {
+	// if (zoneStart == null) {
+	// view.getGuiNode().detachAllChildren();
+	// return;
+	// }
+	//
+	// Point2D coord = new Point2D(x, y);
+	// if (coord.equals(zoneStart)) {
+	// return;
+	// }
+	//
+	// drawingZone = coord.getDistance(zoneStart) > 10;
+	//
+	// AlignedBoundingBox rect = new AlignedBoundingBox(zoneStart, coord);
+	// List<Unit> inSelection = new ArrayList<>();
+	// for (Unit u : ArmyManager.getUnits()) {
+	// if (rect.contains(spatialSelector.getScreenCoord(u.getPos()))) {
+	// inSelection.add(u);
+	// }
+	// }
+	// CommandManager.select(inSelection);
+	// view.drawSelectionArea(zoneStart, coord);
+	// }
 
 	private void updateContext() {
 		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
@@ -130,12 +129,7 @@ public class MultiplayerGameController extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		inputManager.setCursorVisible(true);
 		guiController.activate();
-	}
-
-	private Point2D getMouseCoord() {
-		return Translator.toPoint2D(inputManager.getCursorPosition());
 	}
 
 	public SpatialSelector getSpatialSelector() {

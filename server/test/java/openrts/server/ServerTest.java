@@ -1,10 +1,16 @@
 package openrts.server;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.jme3.system.JmeContext;
 
 /**
  * @author wuendsch
@@ -17,28 +23,30 @@ public class ServerTest {
 	@Test
 	public void testInput() throws Exception {
 
-		startSecondJVM(OpenRTSServer.class, true);
-		// Runtime r = Runtime.getRuntime();
-		// Process p = r.exec("java class network.server.OpentRTSServer arg0 arg1");
-		// p.waitFor();
+		OpenRTSServer app = new OpenRTSServer();
+		app.start(JmeContext.Type.Headless);
 
-		// boolean scanning = true;
-		// while (scanning) {
-		// Socket socket = new Socket();
-		// InetSocketAddress sa = new InetSocketAddress("localhost", OpenRTSServer.PORT);
-		// try {
-		// socket.connect(sa, 500);
-		// boolean connected = true;
-		// scanning = false;
-		// } catch (IOException e) {
-		// System.out.println("Connect failed, waiting and trying again");
-		// }
-		// try {
-		// Thread.sleep(2000);// 2 seconds
-		// } catch (InterruptedException ie) {
-		// ie.printStackTrace();
-		// }
-		// }
+		// startSecondJVM(OpenRTSServer.class, true);
+
+		boolean scanning = true;
+		while (scanning) {
+			Socket socket = new Socket();
+			InetSocketAddress sa = new InetSocketAddress("localhost", OpenRTSServer.PORT);
+			try {
+				socket.connect(sa, 500);
+				boolean connected = true;
+				scanning = false;
+			} catch (IOException e) {
+				System.out.println("Connect failed, waiting and trying again");
+			}
+			try {
+				Thread.sleep(2000);// 2 seconds
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+			socket.close();
+		}
+
 		//
 		// ClientEventListenerMock obj = new ClientEventListenerMock();
 		// EventManager.registerForClient(obj);
