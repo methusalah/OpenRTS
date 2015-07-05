@@ -18,7 +18,7 @@ import com.jme3.scene.Spatial;
 public class SpatialSelector {
 
 	Camera cam;
-	InputManager im;
+	private InputManager im;
 	MapView view;
 	public boolean centered = false;
 
