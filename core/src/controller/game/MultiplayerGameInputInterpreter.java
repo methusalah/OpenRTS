@@ -12,18 +12,18 @@ import event.EventManager;
 import event.InputEvent;
 import geometry.geom2d.Point2D;
 
-public class GameInputInterpreter extends InputInterpreter {
+public class MultiplayerGameInputInterpreter extends InputInterpreter {
 
-	private static final Logger logger = Logger.getLogger(GameInputInterpreter.class.getName());
+	private static final Logger logger = Logger.getLogger(MultiplayerGameInputInterpreter.class.getName());
 
-	protected final static String SELECT = "select";
-	protected final static String ACTION = "action";
-	protected final static String MOVE_ATTACK = "moveattack";
-	protected final static String MULTIPLE_SELECTION = "multipleselection";
-	protected final static String HOLD = "hold";
-	protected final static String PAUSE = "pause";
+	public final static String SELECT = "select";
+	public final static String ACTION = "action";
+	public final static String MOVE_ATTACK = "moveattack";
+	public final static String MULTIPLE_SELECTION = "multipleselection";
+	public final static String HOLD = "hold";
+	public final static String PAUSE = "pause";
 
-	GameInputInterpreter(GameController ctl) {
+	MultiplayerGameInputInterpreter(MultiplayerGameController ctl) {
 		super(ctl);
 		mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
@@ -54,6 +54,6 @@ public class GameInputInterpreter extends InputInterpreter {
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord((((GameController) ctrl).view.getRootNode()));
+		return ctrl.spatialSelector.getCoord((((MultiplayerGameController) ctrl).view.getRootNode()));
 	}
 }

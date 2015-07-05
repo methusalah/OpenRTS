@@ -2,19 +2,19 @@ package controller.game;
 
 import java.text.DecimalFormat;
 
-import model.CommandManager;
 import model.battlefield.army.components.Unit;
+import controller.CommandManager;
 import controller.Controller;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 
-public class GameNiftyController extends GUIController {
+public class MultiplayerGameNiftyController extends GUIController {
 
 	private static DecimalFormat df = new DecimalFormat("0");
 
-	public GameNiftyController(Controller ctrl, Nifty nifty) {
+	public MultiplayerGameNiftyController(Nifty nifty, Controller ctrl) {
 		super(ctrl, nifty);
 	}
 

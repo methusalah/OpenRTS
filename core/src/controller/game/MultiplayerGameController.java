@@ -6,7 +6,6 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CommandManager;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
@@ -18,27 +17,27 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
+import controller.CommandManager;
 import controller.Controller;
-import controller.battlefield.BattlefieldGUIController;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
 import event.BattleFieldUpdateEvent;
 import event.ControllerChangeEvent;
 import event.EventManager;
 
-public class GameController extends Controller {
+public class MultiplayerGameController extends Controller {
 
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
 	protected MapView view;
 
-	public GameController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	public MultiplayerGameController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
 		this.view = view;
-		inputInterpreter = new GameInputInterpreter(this);
+		inputInterpreter = new MultiplayerGameInputInterpreter(this);
 		this.spatialSelector.centered = false;
-		guiController = new BattlefieldGUIController(nifty, this);
+		guiController = new MultiplayerGameNiftyController(nifty, this);
 
 		EventManager.registerForClient(this);
 
