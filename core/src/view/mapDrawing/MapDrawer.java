@@ -11,8 +11,8 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
-import model.battlefield.map.parcel.ParcelManager;
-import model.battlefield.map.parcel.ParcelMesh;
+import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.ParcelMesh;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
@@ -104,7 +104,7 @@ public class MapDrawer {
 		}
 		coverTexture.buildMaterial();
 
-		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
+		for (ParcelMesh mesh : ParcelGrid.getMeshes()) {
 			Geometry g = new Geometry();
 			Mesh jmeMesh = Translator.toJMEMesh(mesh);
 			SilentTangentBinormalGenerator.generate(jmeMesh);

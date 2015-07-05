@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
+import model.battlefield.map.parcelling.ParcelGrid;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,19 +21,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public final class Map extends Grid3D<Tile> {
 
 	private MapStyle style;
-
 	private String mapStyleID;
 
 	private List<Ramp> ramps = new ArrayList<>();
-	
 	private List<TrinketMemento> initialTrinkets = new ArrayList<>();
-
 	private java.util.Map<Long, Trinket> trinkets = new HashMap<>();
+	
+	private ParcelGrid parcelManager;
 
 	private Atlas atlas, cover;
 
 	public Map(){
 		super();
+		parcelManager = new ParcelGrid();
 	}
 	
 	public Map(MapStyle style) {

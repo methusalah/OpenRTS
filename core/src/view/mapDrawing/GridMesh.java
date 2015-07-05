@@ -6,7 +6,7 @@ package view.mapDrawing;
 import geometry.geom3d.MyMesh;
 import geometry.geom3d.Point3D;
 import model.battlefield.map.Tile;
-import model.battlefield.map.parcel.ParcelMesh;
+import model.battlefield.map.parcelling.ParcelMesh;
 
 /**
  * @author Benoît

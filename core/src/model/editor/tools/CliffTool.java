@@ -22,7 +22,7 @@ public class CliffTool extends Tool {
 	private static final String RAISE_LOW_OP = "raise/low";
 	private static final String FLATTEN_OP = "flatten";
 
-	int maintainedlevel;
+	int maintainedLevel;
 
 	public CliffTool() {
 		super(RAISE_LOW_OP, FLATTEN_OP);
@@ -69,9 +69,9 @@ public class CliffTool extends Tool {
 	private void raise() {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedlevel = pencil.getCenterTile().level + 1;
-			if (maintainedlevel > 2) {
-				maintainedlevel = 2;
+			maintainedLevel = pencil.getCenterTile().level + 1;
+			if (maintainedLevel > 2) {
+				maintainedLevel = 2;
 			}
 		}
 		changeLevel();
@@ -80,9 +80,9 @@ public class CliffTool extends Tool {
 	private void low() {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedlevel = pencil.getCenterTile().level - 1;
-			if (maintainedlevel < 0) {
-				maintainedlevel = 0;
+			maintainedLevel = pencil.getCenterTile().level - 1;
+			if (maintainedLevel < 0) {
+				maintainedLevel = 0;
 			}
 		}
 		changeLevel();
@@ -91,22 +91,13 @@ public class CliffTool extends Tool {
 	private void flatten() {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedlevel = pencil.getCenterTile().level;
+			maintainedLevel = pencil.getCenterTile().level;
 		}
 		changeLevel();
 	}
-
-	private void changeLevel() {
-		List<Tile> group = pencil.getTiles();
-
-		List<Tile> toUpdate = new ArrayList<>();
-		for (Tile t : group) {
-			t.level = maintainedlevel;
-			if (t.ramp != null) {
-				toUpdate.addAll(t.ramp.destroy());
-			}
-		}
-		group.addAll(toUpdate);
-		TileArtisan.updatesElevation(group, set.actual);
+	
+	private void changeLevel(){
+		List<Tile> tiles = pencil.getTiles();
+		TileArtisan.changeLevel(tiles, maintainedLevel, tiles.get(0).getMap().getStyle().cliffShapeBuilders.get(set.actual).getId());
 	}
 }

@@ -10,6 +10,8 @@ import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.Cliff;
+import model.builders.entity.CliffShapeBuilder;
+import model.builders.entity.definitions.BuilderManager;
 
 public class TileArtisan {
 
@@ -27,7 +29,29 @@ public class TileArtisan {
 		}
 	}
 	
-	public static void updatesElevation(List<Tile> tiles, int clifShapeBuilderIndex){
+	public static void changeLevel(List<Tile> tiles, int level, String cliffShapeBuilderID) {
+		List<Tile> toUpdate = new ArrayList<>();
+		for (Tile t : tiles) {
+			t.level = level;
+			t.setCliffShapeID(cliffShapeBuilderID);
+			if (t.ramp != null) {
+				toUpdate.addAll(t.ramp.destroy());
+			}
+		}
+		tiles.addAll(toUpdate);
+
+		// setting the cliff shape build ID to neighbors if they have none
+		List<Tile> extended = getExtendedZone(tiles);
+		extended.removeAll(tiles);
+		for(Tile t : extended)
+			if(t.getCliffShapeID().isEmpty())
+				t.setCliffShapeID(cliffShapeBuilderID);
+
+		TileArtisan.updatesElevation(tiles);
+	}
+
+	
+	public static void updatesElevation(List<Tile> tiles){
 		List<Tile> extended = getExtendedZone(tiles);
 
 		for (Tile t : extended) {
@@ -52,7 +76,7 @@ public class TileArtisan {
 		}
 		for (Tile t : extended) {
 			for (Cliff c : t.getCliffs()) {
-				t.getMap().getStyle().cliffShapeBuilders.get(clifShapeBuilderIndex).build(c);
+				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
 			}
 		}
 		EventManager.post(new TilesEvent(extended));

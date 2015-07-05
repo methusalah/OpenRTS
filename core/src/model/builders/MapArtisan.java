@@ -14,8 +14,8 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.TrinketMemento;
 import model.battlefield.map.cliff.Ramp;
-import model.battlefield.map.parcel.ParcelManager;
-import model.battlefield.map.parcel.ParcelMesh;
+import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.ParcelMesh;
 import model.builders.entity.definitions.BuilderManager;
 
 public class MapArtisan {
@@ -83,7 +83,7 @@ public class MapArtisan {
 				}
 			}
 		}
-		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(extended);
+		List<ParcelMesh> toUpdate = ParcelGrid.updateParcelsFor(extended);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 	}
 	

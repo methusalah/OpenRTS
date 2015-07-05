@@ -29,7 +29,8 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class ModelPerformer extends Performer {
-	private static final float DEFAULT_SCALE = 0.0025f;
+//	private static final float DEFAULT_SCALE = 0.0025f;
+	private static final float DEFAULT_SCALE = 1;
 	public static final String ENTITYID_USERDATA = "entityid";
 
 	public ModelPerformer(ActorDrawer bs) {
@@ -54,7 +55,9 @@ public class ModelPerformer extends Performer {
 			AnimControl animControl = s.getControl(AnimControl.class);
 			if (animControl != null) {
 				animControl.update(0);
-			}
+			} else if(actor.getComp() instanceof Unit && 
+					!((Unit)actor.getComp()).getTurrets().isEmpty())
+				throw new RuntimeException("The unit "+(Unit)actor.getComp()+" attached to actor "+actor+" have one or more turret, but no AnimControl.");
 		}
 
 		if (actor.getComp() != null) {

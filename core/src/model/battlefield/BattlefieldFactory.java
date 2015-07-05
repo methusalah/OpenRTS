@@ -4,6 +4,7 @@ import geometry.tools.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +17,9 @@ import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
-import model.battlefield.map.parcel.ParcelManager;
+import model.battlefield.map.parcelling.ParcelGrid;
 import model.builders.MapArtisan;
+import model.builders.TileArtisan;
 import model.builders.entity.MapStyleBuilder;
 import model.builders.entity.definitions.BuilderManager;
 
@@ -68,10 +70,10 @@ public class BattlefieldFactory {
 		try {
 			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
 			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-			bField = mapper.readValue(file, Battlefield.class);
+				bField = mapper.readValue(file, Battlefield.class);
 			bField.setFileName(file.getCanonicalPath());
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		if (bField == null) {
@@ -82,33 +84,34 @@ public class BattlefieldFactory {
 		
 		MapArtisan.buildMap(bField);
 
-
-		for (Tile t : bField.getMap().getAll()) {
-			int minLevel = t.level;
-			int maxLevel = t.level;
-			for (Tile n : bField.getMap().get8Around(t)) {
-				maxLevel = Math.max(maxLevel, n.level);
-			}
-			if (minLevel != maxLevel) {
-				t.setCliff(minLevel, maxLevel);
-			}
-		}
-
-		LogUtil.logger.info("   cliffs' connexions");
-		for (Tile t : bField.getMap().getAll()) {
-			for (Cliff c : t.getCliffs()) {
-				c.connect(bField.getMap());
-			}
-		}
-
-		int i = 0;
-		for (Tile t : bField.getMap().getAll()) {
-			for (Cliff c : t.getCliffs()) {
-				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
-				i++;
-			}
-		}
-		LogUtil.logger.info("   cliffs' shapes (" + i+")");
+		TileArtisan.updatesElevation(bField.getMap().getAll());
+		
+//		for (Tile t : bField.getMap().getAll()) {
+//			int minLevel = t.level;
+//			int maxLevel = t.level;
+//			for (Tile n : bField.getMap().get8Around(t)) {
+//				maxLevel = Math.max(maxLevel, n.level);
+//			}
+//			if (minLevel != maxLevel) {
+//				t.setCliff(minLevel, maxLevel);
+//			}
+//		}
+//
+//		LogUtil.logger.info("   cliffs' connexions");
+//		for (Tile t : bField.getMap().getAll()) {
+//			for (Cliff c : t.getCliffs()) {
+//				c.connect(bField.getMap());
+//			}
+//		}
+//
+//		int i = 0;
+//		for (Tile t : bField.getMap().getAll()) {
+//			for (Cliff c : t.getCliffs()) {
+//				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
+//				i++;
+//			}
+//		}
+//		LogUtil.logger.info("   cliffs' shapes (" + i+")");
 
 		LogUtil.logger.info("   texture atlas");
 		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");

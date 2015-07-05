@@ -62,7 +62,6 @@ public class CliffShapeBuilder extends Builder {
 	}
 
 	public void build(Cliff cliff) {
-		cliff.getTile().setCliffShapeID(def.getId());
 		if (naturalFaceBuilder != null) {
 			cliff.face = naturalFaceBuilder.build(cliff);
 		} else {

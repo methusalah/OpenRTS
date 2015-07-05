@@ -35,6 +35,7 @@ public class Battlefield {
 
 	@JsonIgnore
 	private SunLight sunLight = new SunLight();
+	
 	@JsonIgnore
 	private ActorPool actorPool = new ActorPool();
 

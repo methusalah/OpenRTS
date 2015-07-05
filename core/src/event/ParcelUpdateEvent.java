@@ -2,7 +2,7 @@ package event;
 
 import java.util.List;
 
-import model.battlefield.map.parcel.ParcelMesh;
+import model.battlefield.map.parcelling.ParcelMesh;
 
 public class ParcelUpdateEvent extends Event {
 

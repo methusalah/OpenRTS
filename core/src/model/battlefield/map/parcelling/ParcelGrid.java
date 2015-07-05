@@ -1,4 +1,4 @@
-package model.battlefield.map.parcel;
+package model.battlefield.map.parcelling;
 
 import exception.TechnicalException;
 import geometry.collections.Ring;
@@ -25,17 +25,17 @@ import model.battlefield.map.cliff.Cliff.Type;
  * prevent the graphic car to draw it entirely at each frame. Other resolutions may offer better results. Resolution may become dynamic. The challenge here is
  * to smooth texture at parcels' frontiers (see ParcelMesh)
  */
-public class ParcelManager {
+public class ParcelGrid extends Grid<Parcel>{
 
 	private static int RESOLUTION = 10;
 
-	private static List<ParcelMesh> meshes = new ArrayList<>();
-	private static int WIDTHJUMP;
+	private List<Parcel> parcel = new ArrayList<>();
+	private int WIDTHJUMP;
 
-	private ParcelManager() {
+	public ParcelGrid() {
 	}
 
-	public static void createParcelMeshes(Map map) {
+	public void createParcelMeshes(Map map) {
 		meshes.clear();
 		if (map.xSize() < 10 || map.ySize() < 10) {
 			RESOLUTION = Math.min(map.xSize(), map.ySize());
@@ -61,7 +61,7 @@ public class ParcelManager {
 		}
 	}
 
-	public static List<ParcelMesh> getParcelsFor(List<Tile> tiles) {
+	public List<ParcelMesh> getParcelsFor(List<Tile> tiles) {
 		List<ParcelMesh> res = new ArrayList<>();
 		for (Tile t : tiles) {
 			Point2D p = t.getCoord();
@@ -73,7 +73,7 @@ public class ParcelManager {
 		return res;
 	}
 
-	public static List<ParcelMesh> updateParcelsFor(List<Tile> tiles) {
+	public List<ParcelMesh> updateParcelsFor(List<Tile> tiles) {
 		List<ParcelMesh> meshes = getParcelsFor(tiles);
 		for (ParcelMesh mesh : meshes) {
 			mesh.reset();
@@ -84,7 +84,7 @@ public class ParcelManager {
 		return meshes;
 	}
 
-	public static List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
+	public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
 		List<ParcelMesh> res = new ArrayList<>();
 		int index = meshes.indexOf(parcelMesh);
 		// TODO: this smells like a switch-case command
@@ -119,11 +119,11 @@ public class ParcelManager {
 		return res;
 	}
 
-	public static List<ParcelMesh> getMeshes() {
+	public List<ParcelMesh> getMeshes() {
 		return meshes;
 	}
 
-	private static List<Triangle3D> getGroundTriangles(Tile t, ParcelMesh mesh) {
+	private List<Triangle3D> getGroundTriangles(Tile t, ParcelMesh mesh) {
 		if (t.e() == null || t.n() == null) {
 			return new ArrayList<>();
 		}
@@ -152,7 +152,7 @@ public class ParcelManager {
 		throw new TechnicalException("Ground Triangle was not found, this must not happed. It's strange");
 	}
 
-	private static List<Triangle3D> getTileGround(Tile t) {
+	private List<Triangle3D> getTileGround(Tile t) {
 		Point3D sw = t.getPos();
 		Point3D se = t.e().getPos();
 		Point3D ne = t.e().n().getPos();
@@ -164,7 +164,7 @@ public class ParcelManager {
 		return triangles;
 	}
 
-	private static List<Triangle3D> getCliffGrounds(Tile t) {
+	private List<Triangle3D> getCliffGrounds(Tile t) {
 		if (t.getLowerCliff().type == Type.Bugged || t.getUpperCliff().type == Type.Bugged) {
 			return new ArrayList<Triangle3D>();
 		}
@@ -188,7 +188,7 @@ public class ParcelManager {
 		return res;
 	}
 
-	private static Polygon3D getGroundPolygon(Tile t, Cliff c, Ring<Point3D> groundPoints) {
+	private Polygon3D getGroundPolygon(Tile t, Cliff c, Ring<Point3D> groundPoints) {
 		Point2D sw = new Point2D(-0.5, -0.5);
 		Point2D se = new Point2D(0.5, -0.5);
 		Point2D ne = new Point2D(0.5, 0.5);
@@ -224,14 +224,14 @@ public class ParcelManager {
 
 	}
 
-	private static double getElevation(Tile t, Cliff c) {
+	private double getElevation(Tile t, Cliff c) {
 		if (t.getModifiedLevel() > c.level + 1) {
 			return (c.level + 1) * Tile.STAGE_HEIGHT;
 		}
 		return t.getModifiedElevation();
 	}
 
-	public static List<Triangle3D> getNearbyTriangles(Tile t, Map map, ParcelMesh mesh) {
+	public List<Triangle3D> getNearbyTriangles(Tile t, Map map, ParcelMesh mesh) {
 		List<Triangle3D> res = new ArrayList<>();
 		for (Tile n : map.get9Around(t)) {
 			// if(!neib.isCliff())
@@ -240,7 +240,7 @@ public class ParcelManager {
 		return res;
 	}
 
-	public static void compute(ParcelMesh mesh) {
+	public void compute(ParcelMesh mesh) {
 		Map map = ModelManager.getBattlefield().getMap();
 		double xScale = 1.0 / map.xSize();
 		double yScale = 1.0 / map.ySize();
