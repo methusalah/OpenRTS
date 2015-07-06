@@ -9,7 +9,7 @@ import java.util.List;
 
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
-import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.Parcelling;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,13 +27,15 @@ public final class Map extends Grid3D<Tile> {
 	private List<TrinketMemento> initialTrinkets = new ArrayList<>();
 	private java.util.Map<Long, Trinket> trinkets = new HashMap<>();
 	
-	private ParcelGrid parcelManager;
+	private Parcelling parcelling;
 
 	private Atlas atlas, cover;
 
+	/**
+	 * for deserialization purpose only
+	 */
 	public Map(){
 		super();
-		parcelManager = new ParcelGrid();
 	}
 	
 	public Map(MapStyle style) {
@@ -42,6 +44,7 @@ public final class Map extends Grid3D<Tile> {
 		for(int i = 0; i < xSize*ySize; i++)
 			set(i, new Tile(this, i));
 		mapStyleID = style.id;
+		parcelling = new Parcelling(this);
 	}
 
 	public boolean isBlocked(int x, int y) {

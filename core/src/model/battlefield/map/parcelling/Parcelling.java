@@ -25,130 +25,115 @@ import model.battlefield.map.cliff.Cliff.Type;
  * prevent the graphic car to draw it entirely at each frame. Other resolutions may offer better results. Resolution may become dynamic. The challenge here is
  * to smooth texture at parcels' frontiers (see ParcelMesh)
  */
-public class ParcelGrid extends Grid<Parcel>{
+public class Parcelling extends Grid<Parcel>{
 
 	private static int RESOLUTION = 10;
 
-	private List<Parcel> parcel = new ArrayList<>();
-	private int WIDTHJUMP;
-
-	public ParcelGrid() {
-	}
-
-	public void createParcelMeshes(Map map) {
-		meshes.clear();
-		if (map.xSize() < 10 || map.ySize() < 10) {
-			RESOLUTION = Math.min(map.xSize(), map.ySize());
-		} else {
-			RESOLUTION = 10;
-		}
-
-		WIDTHJUMP = (int) (Math.ceil((double) map.xSize() / RESOLUTION));
-		int nbParcel = WIDTHJUMP * (int) Math.ceil((double) map.ySize() / RESOLUTION);
+	public Parcelling(Map map) {
+		super((int) Math.ceil((double) map.xSize() / RESOLUTION), (int) Math.ceil((double) map.ySize() / RESOLUTION));
+		int nbParcel = xSize*ySize;
 		for (int i = 0; i < nbParcel; i++) {
-			meshes.add(new ParcelMesh());
+			set(i, new Parcel(this, i));
 		}
 
-		for (int i = 0; i < map.xSize(); i++) {
-			for (int j = 0; j < map.ySize(); j++) {
-				int index = (int) (Math.floor(j / RESOLUTION) * WIDTHJUMP + Math.floor(i / RESOLUTION));
-				meshes.get(index).add(map.get(i, j));
+		for (int x = 0; x < map.xSize(); x++) {
+			for (int y = 0; y < map.ySize(); y++) {
+				get(new Point2D(x, y)).add(map.get(x, y));
 			}
 		}
 
-		for (ParcelMesh mesh : meshes) {
-			compute(mesh);
+		for (Parcel p : getAll()) {
+			compute(p);
 		}
 	}
+	
+	private static int inParcellingSpace(double valInMapSpace){
+		return (int) (valInMapSpace / RESOLUTION);
+	}
+	
+	private static Point2D inParcellingSpace(Point2D pInMapSpace){
+		return new Point2D(inParcellingSpace(pInMapSpace.x), inParcellingSpace(pInMapSpace.y));
+	}
 
-	public List<ParcelMesh> getParcelsFor(List<Tile> tiles) {
-		List<ParcelMesh> res = new ArrayList<>();
+	public List<Parcel> getParcelsContaining(List<Tile> tiles) {
+		List<Parcel> res = new ArrayList<>();
 		for (Tile t : tiles) {
-			Point2D p = t.getCoord();
-			int index = (int) (Math.floor((p.y) / RESOLUTION) * WIDTHJUMP + Math.floor((p.x) / RESOLUTION));
-			if (!res.contains(meshes.get(index))) {
-				res.add(meshes.get(index));
+			Parcel container = get(inParcellingSpace(t.getCoord()));
+			if (!res.contains(container)) {
+				res.add(container);
 			}
 		}
 		return res;
 	}
 
-	public List<ParcelMesh> updateParcelsFor(List<Tile> tiles) {
-		List<ParcelMesh> meshes = getParcelsFor(tiles);
-		for (ParcelMesh mesh : meshes) {
-			mesh.reset();
+	public List<Parcel> updateParcelsContaining(List<Tile> tiles) {
+		List<Parcel> res = getParcelsContaining(tiles);
+		for (Parcel p : res) {
+			p.reset();
 		}
-		for (ParcelMesh mesh : meshes) {
-			compute(mesh);
+		for (Parcel p : res) {
+			compute(p);
 		}
-		return meshes;
-	}
-
-	public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
-		List<ParcelMesh> res = new ArrayList<>();
-		int index = meshes.indexOf(parcelMesh);
-		// TODO: this smells like a switch-case command
-		if (index + 1 < meshes.size()) {
-			res.add(meshes.get(index + 1));
-		}
-
-		if (index + WIDTHJUMP - 1 < meshes.size()) {
-			res.add(meshes.get(index + WIDTHJUMP - 1));
-		}
-		if (index + WIDTHJUMP < meshes.size()) {
-			res.add(meshes.get(index + WIDTHJUMP));
-		}
-		if (index + WIDTHJUMP + 1 < meshes.size()) {
-			res.add(meshes.get(index + WIDTHJUMP + 1));
-		}
-
-		if (index - 1 >= 0) {
-			res.add(meshes.get(index - 1));
-		}
-
-		if (index - WIDTHJUMP - 1 >= 0) {
-			res.add(meshes.get(index - WIDTHJUMP - 1));
-		}
-		if (index - WIDTHJUMP >= 0) {
-			res.add(meshes.get(index - WIDTHJUMP));
-		}
-		if (index - WIDTHJUMP + 1 >= 0) {
-			res.add(meshes.get(index - WIDTHJUMP + 1));
-		}
-
 		return res;
 	}
+//
+//	public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
+//		List<ParcelMesh> res = new ArrayList<>();
+//		int index = meshes.indexOf(parcelMesh);
+//		// TODO: this smells like a switch-case command
+//		if (index + 1 < meshes.size()) {
+//			res.add(meshes.get(index + 1));
+//		}
+//
+//		if (index + widthJump - 1 < meshes.size()) {
+//			res.add(meshes.get(index + widthJump - 1));
+//		}
+//		if (index + widthJump < meshes.size()) {
+//			res.add(meshes.get(index + widthJump));
+//		}
+//		if (index + widthJump + 1 < meshes.size()) {
+//			res.add(meshes.get(index + widthJump + 1));
+//		}
+//
+//		if (index - 1 >= 0) {
+//			res.add(meshes.get(index - 1));
+//		}
+//
+//		if (index - widthJump - 1 >= 0) {
+//			res.add(meshes.get(index - widthJump - 1));
+//		}
+//		if (index - widthJump >= 0) {
+//			res.add(meshes.get(index - widthJump));
+//		}
+//		if (index - widthJump + 1 >= 0) {
+//			res.add(meshes.get(index - widthJump + 1));
+//		}
+//
+//		return res;
+//	}
 
-	public List<ParcelMesh> getMeshes() {
-		return meshes;
-	}
-
-	private List<Triangle3D> getGroundTriangles(Tile t, ParcelMesh mesh) {
+	private List<Triangle3D> getGroundTriangles(Tile t, Parcel parcel) {
 		if (t.e() == null || t.n() == null) {
 			return new ArrayList<>();
 		}
 
-		if (mesh.tiles.containsKey(t)) {
-			if (mesh.tiles.get(t).isEmpty()) {
+		if (parcel.triangles.containsKey(t)) {
+			if (parcel.triangles.get(t).isEmpty()) {
 				if (t.hasCliff()) {
-					mesh.tiles.get(t).addAll(getCliffGrounds(t));
+					parcel.triangles.get(t).addAll(getCliffGrounds(t));
 				} else {
-					mesh.tiles.get(t).addAll(getTileGround(t));
+					parcel.triangles.get(t).addAll(getTileGround(t));
 				}
 			}
-			return mesh.tiles.get(t);
+			return parcel.triangles.get(t);
 		}
-		for (ParcelMesh n : getNeighbors(mesh)) {
-			for (Tile tile : n.tiles.keySet()) {
+		for (Parcel n : get4Around(parcel)) {
+			for (Tile tile : n.triangles.keySet()) {
 				if (tile.equals(t)) {
 					return getGroundTriangles(t, n);
 				}
 			}
-			// if (n.tiles.containsKey(t)) {
-			// return n.getGroundTriangles(t);
-			// }
 		}
-
 		throw new TechnicalException("Ground Triangle was not found, this must not happed. It's strange");
 	}
 
@@ -231,35 +216,35 @@ public class ParcelGrid extends Grid<Parcel>{
 		return t.getModifiedElevation();
 	}
 
-	public List<Triangle3D> getNearbyTriangles(Tile t, Map map, ParcelMesh mesh) {
+	public List<Triangle3D> getNearbyTriangles(Tile t, Map map, Parcel parcel) {
 		List<Triangle3D> res = new ArrayList<>();
 		for (Tile n : map.get9Around(t)) {
 			// if(!neib.isCliff())
-			res.addAll(getGroundTriangles(n, mesh));
+			res.addAll(getGroundTriangles(n, parcel));
 		}
 		return res;
 	}
 
-	public void compute(ParcelMesh mesh) {
+	public void compute(Parcel parcel) {
 		Map map = ModelManager.getBattlefield().getMap();
 		double xScale = 1.0 / map.xSize();
 		double yScale = 1.0 / map.ySize();
-		for (Tile tile : mesh.getTiles()) {
-			for (Triangle3D t : getGroundTriangles(tile, mesh)) {
-				int index = mesh.vertices.size();
-				mesh.vertices.add(t.a);
-				mesh.vertices.add(t.b);
-				mesh.vertices.add(t.c);
+		for (Tile tile : parcel.getTiles()) {
+			for (Triangle3D t : getGroundTriangles(tile, parcel)) {
+				int index = parcel.getMesh().vertices.size();
+				parcel.getMesh().vertices.add(t.a);
+				parcel.getMesh().vertices.add(t.b);
+				parcel.getMesh().vertices.add(t.c);
 
-				mesh.indices.add(index);
-				mesh.indices.add(index + 1);
-				mesh.indices.add(index + 2);
+				parcel.getMesh().indices.add(index);
+				parcel.getMesh().indices.add(index + 1);
+				parcel.getMesh().indices.add(index + 2);
 
 				Point3D normal1 = t.normal;
 				Point3D normal2 = t.normal;
 				Point3D normal3 = t.normal;
 
-				for (Triangle3D n : getNearbyTriangles(tile, map, mesh)) {
+				for (Triangle3D n : getNearbyTriangles(tile, map, parcel)) {
 					List<Point3D> shared = t.getCommonPoints(n);
 					if (t.normal.getAngleWith(n.normal) > Angle.RIGHT) {
 						continue;
@@ -281,26 +266,26 @@ public class ParcelGrid extends Grid<Parcel>{
 				}
 
 				if (normal1.isOrigin()) {
-					mesh.normals.add(t.normal);
+					parcel.getMesh().normals.add(t.normal);
 				} else {
-					mesh.normals.add(normal1.getNormalized());
+					parcel.getMesh().normals.add(normal1.getNormalized());
 				}
 
 				if (normal2.isOrigin()) {
-					mesh.normals.add(t.normal);
+					parcel.getMesh().normals.add(t.normal);
 				} else {
-					mesh.normals.add(normal2.getNormalized());
+					parcel.getMesh().normals.add(normal2.getNormalized());
 				}
 
 				if (normal3.isOrigin()) {
-					mesh.normals.add(t.normal);
+					parcel.getMesh().normals.add(t.normal);
 				} else {
-					mesh.normals.add(normal3.getNormalized());
+					parcel.getMesh().normals.add(normal3.getNormalized());
 				}
 
-				mesh.textCoord.add(t.a.get2D().getMult(xScale, yScale));
-				mesh.textCoord.add(t.b.get2D().getMult(xScale, yScale));
-				mesh.textCoord.add(t.c.get2D().getMult(xScale, yScale));
+				parcel.getMesh().textCoord.add(t.a.get2D().getMult(xScale, yScale));
+				parcel.getMesh().textCoord.add(t.b.get2D().getMult(xScale, yScale));
+				parcel.getMesh().textCoord.add(t.c.get2D().getMult(xScale, yScale));
 			}
 		}
 	}

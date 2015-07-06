@@ -7,7 +7,7 @@ import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.Parcelling;
 import model.battlefield.map.parcelling.ParcelMesh;
 import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;

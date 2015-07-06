@@ -17,7 +17,7 @@ import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
-import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.Parcelling;
 import model.builders.MapArtisan;
 import model.builders.TileArtisan;
 import model.builders.entity.MapStyleBuilder;

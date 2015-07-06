@@ -9,7 +9,7 @@ import java.util.Map;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
-import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.Parcelling;
 import model.battlefield.map.parcelling.ParcelMesh;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -58,7 +58,7 @@ public class EditorRenderer {
 		this.mm = mm;
 		EventManager.register(this);
 
-		for (ParcelMesh parcel : ParcelGrid.getMeshes()) {
+		for (ParcelMesh parcel : Parcelling.getMeshes()) {
 			GridMesh grid = new GridMesh(parcel);
 			gridMeshes.put(parcel, grid);
 

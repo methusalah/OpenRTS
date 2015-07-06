@@ -2,7 +2,7 @@ package model;
 
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
-import model.battlefield.map.parcelling.ParcelGrid;
+import model.battlefield.map.parcelling.Parcelling;
 import model.builders.MapArtisan;
 import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
@@ -64,7 +64,7 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;
-			ParcelGrid.createParcelMeshes(ModelManager.getBattlefield().getMap());
+			Parcelling.createParcelMeshes(ModelManager.getBattlefield().getMap());
 			MapArtisan.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
