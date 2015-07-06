@@ -3,6 +3,7 @@ package openrts.server;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 import network.client.ClientManager;
 
@@ -17,15 +18,17 @@ import com.jme3.system.JmeContext;
 
 import controller.game.MultiplayerGameInputInterpreter;
 import event.EventManager;
-import event.InputEvent;
+import event.MapInputEvent;
 import event.ServerEvent;
 import event.WorldChangedEvent;
-import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 
 /**
  * @author mario
  */
 public class ServerTest {
+
+	private static final Logger logger = Logger.getLogger(ServerTest.class.getName());
 
 	@Test
 	public void testInput() throws Exception {
@@ -39,24 +42,35 @@ public class ServerTest {
 		EventManager.registerForClient(obj);
 
 		ClientManager.startClient();
-		InputEvent evt = new InputEvent(MultiplayerGameInputInterpreter.SELECT, new Point2D(1, 1), true);
+		// see map => tank position hardcoded
+		// "pos" : {
+		// "x" : 8.292814254760742,
+		// "y" : 52.28246307373047,
+		// "z" : 0.0
+		// },
+
+		Point3D origin = new Point3D(8.292814254760742, 52.28246307373047, 0.0);
+		MapInputEvent evt = new MapInputEvent(MultiplayerGameInputInterpreter.SELECT, origin, false);
 		ClientManager.getInstance().manageEvent(evt);
 
-		waitUntilClientHasResponse(obj);
+		waitUntilClientHasResponse(obj, 0);
 		ServerEvent ev = obj.getEvent();
 		Assert.assertTrue(ev instanceof WorldChangedEvent);
 
 	}
 
-	private void waitUntilClientHasResponse(ClientEventListenerMock mock) throws IOException {
-		int waitingCounter = 0;
+
+	private void waitUntilClientHasResponse(ClientEventListenerMock mock, int times) throws IOException {
+		int waitingCounter = times;
 		boolean waiting = true;
 		while (waiting) {
 			waitingCounter++;
 			if (mock.getEvent() != null) {
 				waiting = false;
+			} else {
+				logger.info("Waiting for answer from server...");
 			}
-			if (waitingCounter > 10) {
+			if (times > 0 && waitingCounter > 10) {
 				Assert.fail("Client are waiting too long..");
 			}
 			try {
@@ -77,7 +91,7 @@ public class ServerTest {
 				socket.connect(sa, 500);
 				scanning = false;
 			} catch (IOException e) {
-				System.out.println("Connect failed, waiting and trying again");
+				logger.severe("Connect failed, waiting and trying again");
 			} finally {
 				socket.close();
 			}

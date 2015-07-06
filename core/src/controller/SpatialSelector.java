@@ -28,7 +28,7 @@ public class SpatialSelector {
 		view = v;
 	}
 
-	public Geometry getGeometry(Node n) {
+	private Geometry getGeometry(Node n) {
 		Ray r;
 		if (centered) {
 			r = getCameraRay();
@@ -48,11 +48,11 @@ public class SpatialSelector {
 		return view.getPointer().getPointedCoord(n, r);
 	}
 
-	public Point2D getCenterViewCoord(Node n) {
+	private Point2D getCenterViewCoord(Node n) {
 		return view.getPointer().getPointedCoord(n, getCameraRay());
 	}
 
-	public Point2D getCoord(Node n, Point2D screenCoord) {
+	private Point2D getCoord(Node n, Point2D screenCoord) {
 		Vector3f origin = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 0f);
 		Vector3f direction = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();

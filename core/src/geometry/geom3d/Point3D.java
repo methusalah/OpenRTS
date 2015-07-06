@@ -7,7 +7,6 @@ import java.text.DecimalFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class Point3D {
 	public static final Point3D ORIGIN = new Point3D(0, 0, 0);
@@ -19,7 +18,7 @@ public class Point3D {
 
 	@JsonProperty
 	public double x, y, z;
-	
+
 	public Point3D() {
 
 	}
@@ -42,6 +41,7 @@ public class Point3D {
 		this(p, val, param, Point2D.ORIGIN);
 	}
 
+	// FIXME: refactor param to Enum => noone know the supported values for params
 	public Point3D(Point2D p, double val, int param, Point2D pivot) {
 		if (param == 1) {
 			x = p.x;
@@ -81,7 +81,7 @@ public class Point3D {
 			throw new RuntimeException("Can't construct invalid " + this.getClass().getSimpleName() + " : " + this);
 		}
 	}
-	
+
 	@JsonIgnore
 	public double getDistance(Point3D other) {
 		double dx = x - other.x;

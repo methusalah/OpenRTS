@@ -6,7 +6,7 @@ import com.jme3.network.Client;
 import com.jme3.network.Message;
 
 import event.EventManager;
-import event.InputEvent;
+import event.MapInputEvent;
 
 public class MessageListener implements com.jme3.network.MessageListener<Client> {
 
@@ -14,9 +14,9 @@ public class MessageListener implements com.jme3.network.MessageListener<Client>
 
 	@Override
 	public void messageReceived(Client source, Message message) {
-		if (message instanceof InputEvent) {
+		if (message instanceof MapInputEvent) {
 			// do something with the message
-			InputEvent helloMessage = (InputEvent) message;
+			MapInputEvent helloMessage = (MapInputEvent) message;
 			logger.info("Client #" + source.getId() + " received: '" + helloMessage.getCommand() + "'");
 			EventManager.post(helloMessage);
 		} // else...

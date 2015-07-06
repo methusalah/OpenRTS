@@ -15,7 +15,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.JmeContext;
 
 import event.EventManager;
-import event.InputEvent;
+import event.MapInputEvent;
 import event.ToClientEvent;
 import event.ToServerEvent;
 
@@ -23,7 +23,7 @@ public class OpenRTSServer extends SimpleApplication {
 
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
 
-	protected MapView view;
+	// protected MapView view;
 	protected GameController fieldCtrl;
 	protected static Server myServer;
 	public static final int PORT = 6143;
@@ -45,7 +45,7 @@ public class OpenRTSServer extends SimpleApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		fieldCtrl = new GameController(view, niftyDisplay.getNifty(), cam);
@@ -71,9 +71,9 @@ public class OpenRTSServer extends SimpleApplication {
 		try {
 			Serializer.registerClass(ToServerEvent.class);
 			Serializer.registerClass(ToClientEvent.class);
-			Serializer.registerClass(InputEvent.class);
+			Serializer.registerClass(MapInputEvent.class);
 			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(fieldCtrl), ToServerEvent.class, InputEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(fieldCtrl), ToServerEvent.class, MapInputEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

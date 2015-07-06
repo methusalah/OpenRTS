@@ -10,6 +10,7 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import view.MapView;
+import view.math.Translator;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.state.AbstractAppState;
@@ -18,33 +19,28 @@ import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
 import controller.GUIController;
-import controller.SpatialSelector;
 import controller.cameraManagement.CameraManager;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
 import event.BattleFieldUpdateEvent;
 import event.ControllerChangeEvent;
-import event.EventManager;
 
 public class GameController extends AbstractAppState {
 
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
-	private MapView view;
-	// private InputManager inputManager;
+	// private MapView view;
 	private SpatialSelector spatialSelector;
 	private CameraManager cameraManager;
 	private GUIController guiController;
 
 	public GameController(MapView view, Nifty nifty, Camera cam) {
 		super();
-		this.view = view;
-		spatialSelector = new SpatialSelector(cam, null, view);
-		spatialSelector.centered = false;
+		// this.view = view;
+		spatialSelector = new SpatialSelector(view.getRootNode());
+		// spatialSelector.centered = false;
 		guiController = new GameNiftyController(nifty);
-
-		EventManager.registerForClient(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}
@@ -90,7 +86,7 @@ public class GameController extends AbstractAppState {
 	// AlignedBoundingBox rect = new AlignedBoundingBox(zoneStart, coord);
 	// List<Unit> inSelection = new ArrayList<>();
 	// for (Unit u : ArmyManager.getUnits()) {
-	// if (rect.contains(spatialSelector.getScreenCoord(u.getPos()))) {
+	// if (rect.contains(spatialSelector.getScreenCoord(Translator.toVector3f(u.getPos())))) {
 	// inSelection.add(u);
 	// }
 	// }
@@ -102,7 +98,7 @@ public class GameController extends AbstractAppState {
 		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
 		for (Unit u : ArmyManager.getUnits()) {
-			if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
+			if (screen.contains(spatialSelector.getScreenCoord(Translator.toVector3f(u.getPos())))) {
 				inScreen.add(u);
 			}
 		}
@@ -123,7 +119,8 @@ public class GameController extends AbstractAppState {
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
 	public void togglePause() {
 		paused = !paused;
-		view.getActorManager().pause(paused);
+		// FIXME: Pause is not support now
+		// view.getActorManager().pause(paused);
 	}
 
 	@Override
@@ -134,10 +131,6 @@ public class GameController extends AbstractAppState {
 
 	public SpatialSelector getSpatialSelector() {
 		return spatialSelector;
-	}
-
-	public void setSpatialSelector(SpatialSelector spatialSelector) {
-		this.spatialSelector = spatialSelector;
 	}
 
 }

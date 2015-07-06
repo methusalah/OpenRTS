@@ -8,8 +8,8 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
+import event.CameraInputEvent;
 import event.EventManager;
-import event.InputEvent;
 import geometry.geom2d.Point2D;
 
 public class MultiplayerGameInputInterpreter extends InputInterpreter {
@@ -49,7 +49,7 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 	@Override
 	public void onAction(String name, boolean isPressed, float tpf) {
 		logger.info("User create Event on Client:" + name);
-		InputEvent event = new InputEvent(name, getSpatialCoord(), isPressed);
+		CameraInputEvent event = new CameraInputEvent(name, getSpatialCoord(), isPressed);
 		EventManager.post(event);
 	}
 

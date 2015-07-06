@@ -41,8 +41,7 @@ public class MapView {
 	private Pointer pointer;
 
 	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
-
-		this.setRootNode(rootNode);
+		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
 		gui.attachChild(guiNode);
 
@@ -155,9 +154,9 @@ public class MapView {
 		return rootNode;
 	}
 
-	public void setRootNode(Node rootNode) {
-		this.rootNode = rootNode;
-	}
+	// public void setRootNode(Node rootNode) {
+	// this.rootNode = rootNode;
+	// }
 
 	public MapDrawer getMapRend() {
 		return mapDrawer;
@@ -171,8 +170,8 @@ public class MapView {
 		return pointer;
 	}
 
-	public void setPointer(Pointer pointer) {
-		this.pointer = pointer;
-	}
+	// public void setPointer(Pointer pointer) {
+	// this.pointer = pointer;
+	// }
 
 }

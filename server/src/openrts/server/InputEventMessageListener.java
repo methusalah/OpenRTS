@@ -1,6 +1,6 @@
 package openrts.server;
 
-import event.InputEvent;
+import event.MapInputEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
@@ -28,9 +28,9 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 
 	@Override
 	public void messageReceived(HostedConnection source, Message message) {
-		if (message instanceof InputEvent) {
+		if (message instanceof MapInputEvent) {
 			// do something with the message
-			InputEvent inputEvent = (InputEvent) message;
+			MapInputEvent inputEvent = (MapInputEvent) message;
 			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getCommand() + "'");
 
 			if (!inputEvent.getIsPressed()) {
@@ -39,21 +39,21 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 						CommandManager.setMultipleSelection(false);
 						break;
 					case MultiplayerGameInputInterpreter.SELECT:
-						if(System.currentTimeMillis()-dblclicTimer < DOUBLE_CLIC_DELAY &&
-								dblclicCoord.getDistance(new Point2D(inputEvent.getX(), inputEvent.getY())) < DOUBLE_CLIC_MAX_OFFSET){
-							// double clic
-							CommandManager.selectUnityInContext(ctrl.getSpatialSelector().getEntityId());
-						} else {
-							if (!ctrl.isDrawingZone()) {
-								CommandManager.select(ctrl.getSpatialSelector().getEntityId(), new Point2D(inputEvent.getX(), inputEvent.getY()));
-							}
+						if (System.currentTimeMillis() - dblclicTimer < DOUBLE_CLIC_DELAY
+								&& dblclicCoord.getDistance(new Point2D(inputEvent.getX(), inputEvent.getY())) < DOUBLE_CLIC_MAX_OFFSET) {
+							// double click
+							CommandManager.selectUnitInContext(ctrl.getSpatialSelector().getEntityId(inputEvent.getX(), inputEvent.getY(), inputEvent.getZ()));
+						} else if (!ctrl.isDrawingZone()) {
+							CommandManager.select(ctrl.getSpatialSelector().getEntityId(inputEvent.getX(), inputEvent.getY(), inputEvent.getZ()), new Point2D(
+									inputEvent.getX(), inputEvent.getY()));
 						}
 						ctrl.endSelectionZone();
 						dblclicTimer = System.currentTimeMillis();
 						dblclicCoord = new Point2D(inputEvent.getX(), inputEvent.getY());
 						break;
 					case MultiplayerGameInputInterpreter.ACTION:
-						CommandManager.act(ctrl.getSpatialSelector().getEntityId(), new Point2D(inputEvent.getX(), inputEvent.getY()));
+						CommandManager.act(ctrl.getSpatialSelector().getEntityId(inputEvent.getX(), inputEvent.getY(), inputEvent.getZ()), new Point2D(
+								inputEvent.getX(), inputEvent.getY()));
 						break;
 					case MultiplayerGameInputInterpreter.MOVE_ATTACK:
 						CommandManager.setMoveAttack();
@@ -67,7 +67,7 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 				}
 			} else {
 				// input pressed
-				switch(inputEvent.getCommand()){
+				switch (inputEvent.getCommand()) {
 					case MultiplayerGameInputInterpreter.MULTIPLE_SELECTION:
 						CommandManager.setMultipleSelection(true);
 						break;

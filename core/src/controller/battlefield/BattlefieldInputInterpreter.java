@@ -31,12 +31,12 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static String HOLD = "hold";
 	protected final static String PAUSE = "pause";
 
-	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
-	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
+	protected final static int DOUBLE_CLICK_DELAY = 200;// milliseconds
+	protected final static int DOUBLE_CLICK_MAX_OFFSET = 5;// in pixels on screen
 
 	private boolean multipleSelection = false;
-	private double dblclicTimer = 0;
-	private Point2D dblclicCoord;
+	private double dblclickTimer = 0;
+	private Point2D dblclickCoord;
 
 	BattlefieldInputInterpreter(BattlefieldController controller) {
 		super(controller);
@@ -88,18 +88,18 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					CommandManager.setMultipleSelection(false);
 					break;
 				case SELECT:
-					if(System.currentTimeMillis()-dblclicTimer < DOUBLE_CLIC_DELAY &&
-							dblclicCoord.getDistance(getSpatialCoord()) < DOUBLE_CLIC_MAX_OFFSET){
-						// double clic
-						CommandManager.selectUnityInContext(ctrl.spatialSelector.getEntityId());
+					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
+							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
+						// double click
+						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
 					} else {
 						if(!((BattlefieldController) ctrl).isDrawingZone()) {
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 						}
 					}
 					((BattlefieldController) ctrl).endSelectionZone();
-					dblclicTimer = System.currentTimeMillis();
-					dblclicCoord = getSpatialCoord();
+					dblclickTimer = System.currentTimeMillis();
+					dblclickCoord = getSpatialCoord();
 					break;
 				case ACTION:
 					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());

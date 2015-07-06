@@ -12,7 +12,6 @@ public class ClientStateListener implements com.jme3.network.ClientStateListener
 	@Override
 	public void clientConnected(Client c) {
 		logger.info("connection to Server successfully. There is a game name:" + c.getGameName());
-
 	}
 
 	@Override

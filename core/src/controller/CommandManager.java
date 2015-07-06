@@ -46,6 +46,7 @@ public class CommandManager {
 		}
 	}
 
+	// FIXME: this is the select method and not the act method, why the this method is calling act?
 	public static void select(long id, Point2D pos) {
 		if (pos == null) {
 			return;
@@ -171,17 +172,17 @@ public class CommandManager {
 	}
 
 	public static void selectUnityInContext(Unity unityID) {
-		selectUnityInContext(unityID.UIName);
+		selectUnitInContext(unityID.UIName);
 	}
 
-	public static void selectUnityInContext(Long unitID) {
+	public static void selectUnitInContext(Long unitID) {
 		Unit target = getUnit(unitID);
 		if (target != null) {
-			selectUnityInContext(target.UIName);
+			selectUnitInContext(target.UIName);
 		}
 	}
 
-	public static void selectUnityInContext(String id) {
+	public static void selectUnitInContext(String id) {
 		if (!multipleSelection) {
 			unselect();
 		}
