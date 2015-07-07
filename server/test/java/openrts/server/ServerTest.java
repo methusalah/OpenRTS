@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import model.ModelManager;
 import network.client.ClientManager;
 
 import org.testng.Assert;
@@ -29,12 +30,16 @@ import geometry.geom3d.Point3D;
 public class ServerTest {
 
 	private static final Logger logger = Logger.getLogger(ServerTest.class.getName());
+	protected static String mapfilename = "assets/maps/test.btf";
 
 	@Test
 	public void testInput() throws Exception {
 
 		OpenRTSServer app = new OpenRTSServer();
 		app.start(JmeContext.Type.Headless);
+		if (!mapfilename.isEmpty()) {
+			ModelManager.loadBattlefield(mapfilename);
+		}
 
 		waitUntilServerIsStarted();
 
