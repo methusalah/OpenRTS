@@ -3,9 +3,7 @@ package model.battlefield;
 import geometry.tools.LogUtil;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,19 +11,10 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.ModelManager;
-import model.battlefield.map.Map;
-import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.cliff.Ramp;
-import model.battlefield.map.parcelling.Parcelling;
 import model.builders.MapArtisan;
-import model.builders.TileArtisan;
-import model.builders.entity.MapStyleBuilder;
-import model.builders.entity.definitions.BuilderManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.smile.SmileFactory;
 
 /**
  * this class serializes and deserializes a battlefield into and from files everything is translated in and from XML format, except for the texture atlas of the
@@ -83,35 +72,6 @@ public class BattlefieldFactory {
 		}
 		
 		MapArtisan.buildMap(bField);
-
-		TileArtisan.updatesElevation(bField.getMap().getAll());
-		
-//		for (Tile t : bField.getMap().getAll()) {
-//			int minLevel = t.level;
-//			int maxLevel = t.level;
-//			for (Tile n : bField.getMap().get8Around(t)) {
-//				maxLevel = Math.max(maxLevel, n.level);
-//			}
-//			if (minLevel != maxLevel) {
-//				t.setCliff(minLevel, maxLevel);
-//			}
-//		}
-//
-//		LogUtil.logger.info("   cliffs' connexions");
-//		for (Tile t : bField.getMap().getAll()) {
-//			for (Cliff c : t.getCliffs()) {
-//				c.connect(bField.getMap());
-//			}
-//		}
-//
-//		int i = 0;
-//		for (Tile t : bField.getMap().getAll()) {
-//			for (Cliff c : t.getCliffs()) {
-//				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
-//				i++;
-//			}
-//		}
-//		LogUtil.logger.info("   cliffs' shapes (" + i+")");
 
 		LogUtil.logger.info("   texture atlas");
 		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");

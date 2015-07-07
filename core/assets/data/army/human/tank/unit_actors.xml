@@ -146,6 +146,7 @@
   <Actor id="TankWreck1">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece01.mesh.xml"/>
+      
       <MassCenterBone value="BRootDebris01"/>
       <Mass value="1"/>
       <Life value="4"/>
@@ -154,6 +155,7 @@
   <Actor id="TankWreck2">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece02.mesh.xml"/>
+      <Scale value="0.0025"/>
       <MassCenterBone value="BRootDebris02"/>      
       <Mass value="1"/>
       <Life value="4"/>
@@ -162,6 +164,7 @@
   <Actor id="TankWreck3">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece03.mesh.xml"/>
+    <Scale value="0.0025"/>
       <MassCenterBone value="BRootDebris03"/>      
       <Mass value="1"/>
       <Life value="4"/>
@@ -169,6 +172,7 @@
   <Actor id="TankWreck4">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece04.mesh.xml"/>
+    <Scale value="0.0025"/>
       <MassCenterBone value="BRootDebris04"/>      
       <Mass value="1"/>
       <Life value="4"/>
@@ -177,6 +181,7 @@
   <Actor id="TankWreck5">
       <Type value="Physic"/>
       <ModelPath value="human/htank/htank03c_piece05.mesh.xml"/>
+    <Scale value="0.0025"/>
       <MassCenterBone value="BRootDebris05"/>      
       <Mass value="1"/>
       <Life value="4"/>

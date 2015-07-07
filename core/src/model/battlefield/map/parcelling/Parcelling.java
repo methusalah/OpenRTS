@@ -135,7 +135,7 @@ public class Parcelling extends Grid<Parcel>{
 				}
 			}
 		}
-		throw new TechnicalException("Ground Triangle was not found, this must not happed. tile : "+t.getCoord());
+		throw new TechnicalException("Ground Triangle was not found, this must not happen. tile : "+t.getCoord());
 	}
 
 	private List<Triangle3D> getTileGround(Tile t) {

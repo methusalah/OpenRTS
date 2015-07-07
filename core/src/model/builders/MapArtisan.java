@@ -6,7 +6,6 @@ import geometry.geom3d.Point3D;
 
 import java.util.List;
 
-import model.ModelManager;
 import model.battlefield.Battlefield;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Map;
@@ -36,8 +35,9 @@ public class MapArtisan {
 	private static void finalizeMapOn(Battlefield b){
 		Map m = b.getMap();
 		m.setStyle(BuilderManager.getMapStyleBuilder(m.getMapStyleID()).build());
-		m.setParcelling(new Parcelling(m));
 		TileArtisan.finalizeTilesOn(m);
+		TileArtisan.readElevation(m.getAll());
+		m.setParcelling(new Parcelling(m));
 		
 		attachInitialTrinkets(m);
 		for(Ramp r : m.getRamps())
@@ -88,6 +88,4 @@ public class MapArtisan {
 		List<Parcel> toUpdate = m.getParcelling().updateParcelsContaining(extended);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 	}
-	
-	
 }

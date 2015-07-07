@@ -50,8 +50,13 @@ public class TileArtisan {
 		TileArtisan.updatesElevation(tiles);
 	}
 
-	
 	public static void updatesElevation(List<Tile> tiles){
+		readElevation(tiles);
+		EventManager.post(new TilesEvent(getExtendedZone(tiles)));
+		MapArtisan.updateParcelsFor(tiles);
+	}
+	
+	public static void readElevation(List<Tile> tiles){
 		List<Tile> extended = getExtendedZone(tiles);
 
 		for (Tile t : extended) {
@@ -79,8 +84,6 @@ public class TileArtisan {
 				BuilderManager.getCliffShapeBuilder(t.getCliffShapeID()).build(c);
 			}
 		}
-		EventManager.post(new TilesEvent(extended));
-		MapArtisan.updateParcelsFor(tiles);
 	}
 	
 	public static List<Tile> getExtendedZone(List<Tile> tiles) {

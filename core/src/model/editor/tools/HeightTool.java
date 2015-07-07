@@ -3,6 +3,8 @@
  */
 package model.editor.tools;
 
+import event.EventManager;
+import event.ParcelUpdateEvent;
 import geometry.geom2d.Point2D;
 import geometry.math.MyRandom;
 
