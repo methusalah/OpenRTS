@@ -64,7 +64,6 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;
-			Parcelling.createParcelMeshes(ModelManager.getBattlefield().getMap());
 			MapArtisan.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());

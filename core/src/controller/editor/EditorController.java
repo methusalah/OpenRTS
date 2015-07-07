@@ -43,12 +43,14 @@ public class EditorController extends Controller {
 		//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
 		ToolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
 		ToolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
-		Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
-		if (coord != null &&
-				ModelManager.battlefieldReady && 
-				ModelManager.getBattlefield().getMap().isInBounds(coord)) {
-			ToolManager.updatePencilsPos(coord);
-			view.editorRend.drawPencil();
+		if(view.editorRend != null){
+			Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
+			if (coord != null &&
+					ModelManager.battlefieldReady && 
+					ModelManager.getBattlefield().getMap().isInBounds(coord)) {
+				ToolManager.updatePencilsPos(coord);
+				view.editorRend.drawPencil();
+			}
 		}
 
 		guiController.update();
@@ -58,7 +60,7 @@ public class EditorController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(true);
-		view.getRootNode().attachChild(view.editorRend.mainNode);
+//		view.getRootNode().attachChild(view.editorRend.mainNode);
 		guiController.activate();
 		if (ModelManager.getBattlefield() != null) {
 			ModelManager.getBattlefield().getEngagement().reset();

@@ -11,8 +11,8 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
+import model.battlefield.map.parcelling.Parcel;
 import model.battlefield.map.parcelling.Parcelling;
-import model.battlefield.map.parcelling.ParcelMesh;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
@@ -47,8 +47,8 @@ public class MapDrawer {
 
 	private Map<String, Spatial> models = new HashMap<>();
 
-	private Map<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
-	private Map<ParcelMesh, Spatial> coverSpatial = new HashMap<>();
+	private Map<Parcel, Spatial> parcelsSpatial = new HashMap<>();
+	private Map<Parcel, Spatial> coverSpatial = new HashMap<>();
 	private Map<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
 	private TerrainSplatTexture groundTexture;
@@ -104,16 +104,16 @@ public class MapDrawer {
 		}
 		coverTexture.buildMaterial();
 
-		for (ParcelMesh mesh : Parcelling.getMeshes()) {
+		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
 			Geometry g = new Geometry();
-			Mesh jmeMesh = Translator.toJMEMesh(mesh);
+			Mesh jmeMesh = Translator.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
 			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
-			parcelsSpatial.put(mesh, g);
+			parcelsSpatial.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 			
@@ -122,7 +122,7 @@ public class MapDrawer {
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
 			g2.setLocalTranslation(0, 0, 0.01f);
-			coverSpatial.put(mesh, g2);
+			coverSpatial.put(parcel, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
 		updateTiles(ModelManager.getBattlefield().getMap().getAll());
@@ -137,7 +137,7 @@ public class MapDrawer {
 
 	@Subscribe
 	public void handleParcelUpdateEvent(ParcelUpdateEvent e) {
-		updateParcelsContaining(e.getToUpdate());
+		updateParcels(e.getToUpdate());
 	}
 
 	@Subscribe
@@ -243,9 +243,9 @@ public class MapDrawer {
 		n.attachChild(s);
 	}
 
-	private void updateParcelsFor(List<ParcelMesh> toUpdate) {
-		for (ParcelMesh parcel : toUpdate) {
-			Mesh jmeMesh = Translator.toJMEMesh(parcel);
+	private void updateParcels(List<Parcel> toUpdate) {
+		for (Parcel parcel : toUpdate) {
+			Mesh jmeMesh = Translator.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) parcelsSpatial.get(parcel));
 			g.setMesh(jmeMesh);

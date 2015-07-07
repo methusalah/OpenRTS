@@ -38,12 +38,12 @@ public class Parcelling extends Grid<Parcel>{
 
 		for (int x = 0; x < map.xSize(); x++) {
 			for (int y = 0; y < map.ySize(); y++) {
-				get(new Point2D(x, y)).add(map.get(x, y));
+				get(inParcellingSpace(new Point2D(x, y))).add(map.get(x, y));
 			}
 		}
 
 		for (Parcel p : getAll()) {
-			compute(p);
+			compute(map, p);
 		}
 	}
 	
@@ -67,12 +67,13 @@ public class Parcelling extends Grid<Parcel>{
 	}
 
 	public List<Parcel> updateParcelsContaining(List<Tile> tiles) {
+		Map m = tiles.get(0).getMap();
 		List<Parcel> res = getParcelsContaining(tiles);
 		for (Parcel p : res) {
 			p.reset();
 		}
 		for (Parcel p : res) {
-			compute(p);
+			compute(m, p);
 		}
 		return res;
 	}
@@ -127,14 +128,14 @@ public class Parcelling extends Grid<Parcel>{
 			}
 			return parcel.triangles.get(t);
 		}
-		for (Parcel n : get4Around(parcel)) {
+		for (Parcel n : get8Around(parcel)) {
 			for (Tile tile : n.triangles.keySet()) {
 				if (tile.equals(t)) {
 					return getGroundTriangles(t, n);
 				}
 			}
 		}
-		throw new TechnicalException("Ground Triangle was not found, this must not happed. It's strange");
+		throw new TechnicalException("Ground Triangle was not found, this must not happed. tile : "+t.getCoord());
 	}
 
 	private List<Triangle3D> getTileGround(Tile t) {
@@ -225,8 +226,7 @@ public class Parcelling extends Grid<Parcel>{
 		return res;
 	}
 
-	public void compute(Parcel parcel) {
-		Map map = ModelManager.getBattlefield().getMap();
+	public void compute(Map map, Parcel parcel) {
 		double xScale = 1.0 / map.xSize();
 		double yScale = 1.0 / map.ySize();
 		for (Tile tile : parcel.getTiles()) {

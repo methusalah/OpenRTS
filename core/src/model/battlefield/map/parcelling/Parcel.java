@@ -14,7 +14,7 @@ public class Parcel extends Node {
 
 	Map<Tile, List<Triangle3D>> triangles = new HashMap<Tile, List<Triangle3D>>();
 
-	private MyMesh mesh;
+	private MyMesh mesh = new MyMesh();
 	
 	public Parcel(Parcelling grid, int index) {
 		super(grid, index);

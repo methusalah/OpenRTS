@@ -6,7 +6,7 @@ package view.mapDrawing;
 import geometry.geom3d.MyMesh;
 import geometry.geom3d.Point3D;
 import model.battlefield.map.Tile;
-import model.battlefield.map.parcelling.ParcelMesh;
+import model.battlefield.map.parcelling.Parcel;
 
 /**
  * @author Benoît
@@ -14,11 +14,11 @@ import model.battlefield.map.parcelling.ParcelMesh;
 public class GridMesh extends MyMesh {
 
 	static final double Z_OFFSET = 0.1;
-	ParcelMesh parcelMesh;
+	Parcel parcel;
 
-	public GridMesh(ParcelMesh parcelMesh) {
-		this.parcelMesh = parcelMesh;
-		for (Tile t : parcelMesh.getTiles()) {
+	public GridMesh(Parcel parcel) {
+		this.parcel = parcel;
+		for (Tile t : parcel.getTiles()) {
 			if (t.n() == null || t.e() == null) {
 				continue;
 			}
@@ -50,7 +50,7 @@ public class GridMesh extends MyMesh {
 
 	public void update() {
 		vertices.clear();
-		for (Tile t : parcelMesh.getTiles()) {
+		for (Tile t : parcel.getTiles()) {
 			if (t.n() == null || t.e() == null) {
 				continue;
 			}

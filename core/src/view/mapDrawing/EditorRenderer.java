@@ -9,8 +9,8 @@ import java.util.Map;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
+import model.battlefield.map.parcelling.Parcel;
 import model.battlefield.map.parcelling.Parcelling;
-import model.battlefield.map.parcelling.ParcelMesh;
 import model.editor.Pencil;
 import model.editor.ToolManager;
 import view.EditorView;
@@ -50,15 +50,15 @@ public class EditorRenderer {
 	public Node CliffPencilNode = new Node();
 	public Node HeightPencilNode = new Node();
 	public Node AtlasPencilNode = new Node();
-	private Map<ParcelMesh, GridMesh> gridMeshes = new HashMap<>();
-	private Map<ParcelMesh, Geometry> gridGeoms = new HashMap<>();
+	private Map<Parcel, GridMesh> gridMeshes = new HashMap<>();
+	private Map<Parcel, Geometry> gridGeoms = new HashMap<>();
 
 	public EditorRenderer(EditorView view, MaterialManager mm) {
 		this.view = view;
 		this.mm = mm;
 		EventManager.register(this);
 
-		for (ParcelMesh parcel : Parcelling.getMeshes()) {
+		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
 			GridMesh grid = new GridMesh(parcel);
 			gridMeshes.put(parcel, grid);
 
@@ -286,8 +286,8 @@ public class EditorRenderer {
 
 	@Subscribe
 	public void actionPerformed(ParcelUpdateEvent e) {
-		List<ParcelMesh> updatedParcels = e.getToUpdate();
-		for (ParcelMesh parcel : updatedParcels) {
+		List<Parcel> updatedParcels = e.getToUpdate();
+		for (Parcel parcel : updatedParcels) {
 			GridMesh m = gridMeshes.get(parcel);
 			m.update();
 			gridGeoms.get(parcel).setMesh(Translator.toJMEMesh(m));

@@ -14,8 +14,8 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.TrinketMemento;
 import model.battlefield.map.cliff.Ramp;
+import model.battlefield.map.parcelling.Parcel;
 import model.battlefield.map.parcelling.Parcelling;
-import model.battlefield.map.parcelling.ParcelMesh;
 import model.builders.entity.definitions.BuilderManager;
 
 public class MapArtisan {
@@ -36,6 +36,7 @@ public class MapArtisan {
 	private static void finalizeMapOn(Battlefield b){
 		Map m = b.getMap();
 		m.setStyle(BuilderManager.getMapStyleBuilder(m.getMapStyleID()).build());
+		m.setParcelling(new Parcelling(m));
 		TileArtisan.finalizeTilesOn(m);
 		
 		attachInitialTrinkets(m);
@@ -71,6 +72,7 @@ public class MapArtisan {
 	}
 
 	public static void updateParcelsFor(List<Tile> tiles) {
+		Map m = tiles.get(0).getMap();
 		List<Tile> extended = TileArtisan.getExtendedZone(tiles);
 
 		for (Tile t : extended) {
@@ -83,7 +85,7 @@ public class MapArtisan {
 				}
 			}
 		}
-		List<ParcelMesh> toUpdate = Parcelling.updateParcelsContaining(extended);
+		List<Parcel> toUpdate = m.getParcelling().updateParcelsContaining(extended);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 	}
 	

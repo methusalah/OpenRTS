@@ -174,6 +174,16 @@ public final class Map extends Grid3D<Tile> {
 	public void setRamps(List<Ramp> ramps) {
 		this.ramps = ramps;
 	}
+
+	@JsonIgnore
+	public Parcelling getParcelling() {
+		return parcelling;
+	}
+
+	public void setParcelling(Parcelling parcelling) {
+		this.parcelling = parcelling;
+	}
+
 	
 	
 	

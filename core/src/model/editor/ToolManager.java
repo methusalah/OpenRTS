@@ -1,14 +1,6 @@
 package model.editor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.parcelling.Parcelling;
-import model.battlefield.map.parcelling.ParcelMesh;
 import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
@@ -18,13 +10,9 @@ import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
 import event.EventManager;
-import event.ParcelUpdateEvent;
 import event.SetToolEvent;
-import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
-import geometry.geom3d.Point3D;
-import geometry.tools.LogUtil;
 
 /**
  * @author Benoît
@@ -32,7 +20,6 @@ import geometry.tools.LogUtil;
 public class ToolManager {
 	private static String pointedSpatialLabel;
 	private static long pointedSpatialEntityId;
-	private static FieldComp pointedEntity;
 
 	private static HeightTool heightTool;
 	private static CliffTool cliffTool;
