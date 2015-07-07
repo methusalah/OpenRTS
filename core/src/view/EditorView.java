@@ -16,11 +16,13 @@ public class EditorView extends MapView {
 
 	public EditorView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
 		super(rootNode, gui, physicsSpace, am, vp);
+		editorRend = new EditorRenderer(this, materialManager);
 	}
 
 	@Override
 	public void reset() {
 		super.reset();
+		
 		if(editorRend != null)
 			rootNode.detachChild(editorRend.mainNode);
 			EventManager.unregister(editorRend);

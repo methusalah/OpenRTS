@@ -58,18 +58,19 @@ public class EditorRenderer {
 		this.mm = mm;
 		EventManager.register(this);
 
-		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
-			GridMesh grid = new GridMesh(parcel);
-			gridMeshes.put(parcel, grid);
-
-			Geometry g = new Geometry();
-			g.setMesh(Translator.toJMEMesh(grid));
-			Material mat = mm.getColor(ColorRGBA.Black);
-			mat.getAdditionalRenderState().setWireframe(true);
-			g.setMaterial(mat);
-			gridNode.attachChild(g);
-			gridGeoms.put(parcel, g);
-		}
+		if(ModelManager.getBattlefield() != null)
+			for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
+				GridMesh grid = new GridMesh(parcel);
+				gridMeshes.put(parcel, grid);
+	
+				Geometry g = new Geometry();
+				g.setMesh(Translator.toJMEMesh(grid));
+				Material mat = mm.getColor(ColorRGBA.Black);
+				mat.getAdditionalRenderState().setWireframe(true);
+				g.setMaterial(mat);
+				gridNode.attachChild(g);
+				gridGeoms.put(parcel, g);
+			}
 
 		mainNode.attachChild(gridNode);
 

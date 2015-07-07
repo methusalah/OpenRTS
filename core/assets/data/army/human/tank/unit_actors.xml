@@ -3,7 +3,7 @@
   <Actor id="Tank">
     <Type value="Model"/>
     <Scale value="0.0025"/>
-    <ModelPath value="human/htank/htank03c.j3o"/>
+    <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onMove" ActorLink="LeftDust"/>
     <ActorList Trigger="onMove" ActorLink="RightDust"/>
