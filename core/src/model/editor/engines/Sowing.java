@@ -2,7 +2,6 @@ package model.editor.engines;
 
 import geometry.geom2d.Point2D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,7 @@
 package view;
 
 import model.ModelManager;
+import tools.LogUtil;
 import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
@@ -20,7 +21,6 @@ import com.jme3.scene.shape.Line;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import geometry.geom2d.Point2D;
-import geometry.tools.LogUtil;
 
 public class MapView {
 

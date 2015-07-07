@@ -5,7 +5,6 @@ package view.acting;
 
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Projectile;

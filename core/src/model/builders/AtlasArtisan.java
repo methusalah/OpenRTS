@@ -1,7 +1,6 @@
 package model.builders;
 
 import geometry.geom2d.Point2D;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.List;
 import model.battlefield.map.Map;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasLayer;
+import tools.LogUtil;
 
 public class AtlasArtisan {
 

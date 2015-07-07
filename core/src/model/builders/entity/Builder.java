@@ -4,8 +4,8 @@
  */
 package model.builders.entity;
 
-import geometry.tools.LogUtil;
 import model.builders.entity.definitions.Definition;
+import tools.LogUtil;
 
 /**
  *

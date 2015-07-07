@@ -7,11 +7,11 @@ import geometry.geom2d.Point2D;
 import geometry.geom2d.algorithm.PoissonDiscSampler;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.map.Map;

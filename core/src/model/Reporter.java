@@ -4,10 +4,7 @@
  */
 package model;
 
-import geometry.tools.LogUtil;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.actors.Actor;
@@ -21,6 +18,7 @@ import model.battlefield.army.components.Unit;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
 import model.battlefield.warfare.Faction;
+import tools.LogUtil;
 
 /**
  *

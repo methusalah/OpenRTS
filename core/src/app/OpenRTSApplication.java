@@ -2,7 +2,6 @@ package app;
 
 import exception.TechnicalException;
 import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
 
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -12,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
+import tools.LogUtil;
 import network.client.ClientManager;
 
 import com.jme3.app.Application;
@@ -233,8 +233,6 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	public static void main(OpenRTSApplication app) {
 		appInstance = app;
-		Logger.getLogger("").setLevel(Level.INFO);
-		LogUtil.init();
 		LogUtil.logger.info("seed : " + MyRandom.SEED);
 
 		appInstance.start();
@@ -258,11 +256,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	}
 
 	public void startClient() {
-		try {
-			ClientManager.startClient();
-		} catch (IOException e) {
-			LogUtil.logger.info("Server not available");
-		}
+		ClientManager.startClient();
 	}
 
 	public void stopClient() {

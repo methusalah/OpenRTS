@@ -6,11 +6,11 @@ import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;

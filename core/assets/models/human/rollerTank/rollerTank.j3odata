@@ -1,3 +1,8 @@
 #
+<<<<<<< HEAD
 #Sat Jul 04 16:18:14 CEST 2015
 ORIGINAL_PATH=rollerTank.blend
+=======
+#Tue Jul 07 02:11:15 CEST 2015
+ORIGINAL_PATH=rollerTank.mesh.xml
+>>>>>>> branch 'master' of https://github.com/methusalah/OpenRTS

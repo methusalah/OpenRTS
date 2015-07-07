@@ -1,10 +1,9 @@
 package model.battlefield.map.cliff;
 
 import geometry.math.Angle;
-import geometry.structure.grid.Grid;
-import geometry.tools.LogUtil;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
+import tools.LogUtil;
 
 /**
  * Warning : this class is full of monstrous spiders and mysterious shadows in every corner. Proceed at your own risks. Compute magically the shape and angle of

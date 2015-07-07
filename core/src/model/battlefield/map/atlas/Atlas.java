@@ -7,11 +7,12 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import exception.TechnicalException;
-import geometry.tools.LogUtil;
 
 /**
  * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw

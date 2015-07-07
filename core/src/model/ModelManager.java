@@ -1,5 +1,6 @@
 package model;
 
+import tools.LogUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
 import model.battlefield.map.parcelling.Parcelling;
@@ -7,7 +8,6 @@ import model.builders.MapArtisan;
 import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
-import geometry.tools.LogUtil;
 
 public class ModelManager {
 	public static final String CONFIG_PATH = "assets/data";

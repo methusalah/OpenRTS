@@ -1,12 +1,11 @@
 package model.battlefield.army;
 
-import geometry.tools.LogUtil;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.battlefield.army.components.UnitMemento;
+import tools.LogUtil;
 import model.battlefield.army.components.Unit;
 import model.battlefield.warfare.Faction;
 

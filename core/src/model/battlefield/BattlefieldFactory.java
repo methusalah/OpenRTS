@@ -1,7 +1,5 @@
 package model.battlefield;
 
-import geometry.tools.LogUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -10,6 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import tools.LogUtil;
 import model.ModelManager;
 import model.builders.MapArtisan;
 

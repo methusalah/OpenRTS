@@ -6,7 +6,6 @@ import geometry.geom2d.Segment2D;
 import geometry.geom2d.intersection.Intersection;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 
 import java.util.List;
 

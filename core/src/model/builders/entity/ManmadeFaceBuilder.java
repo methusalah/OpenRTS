@@ -4,7 +4,6 @@
 package model.builders.entity;
 
 import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import model.battlefield.map.cliff.faces.manmade.OrthogonalManmadeFace;
 import model.battlefield.map.cliff.faces.manmade.SalientManmadeFace;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
+import tools.LogUtil;
 
 /**
  * @author Benoît

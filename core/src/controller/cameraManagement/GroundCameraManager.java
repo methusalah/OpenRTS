@@ -3,8 +3,8 @@ package controller.cameraManagement;
 
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
-import geometry.tools.LogUtil;
 import model.ModelManager;
+import tools.LogUtil;
 import view.math.Translator;
 
 import com.jme3.input.InputManager;

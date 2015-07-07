@@ -2,6 +2,7 @@ package app;
 
 import model.ModelManager;
 import model.editor.ToolManager;
+import tools.LogUtil;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
 
@@ -16,7 +17,6 @@ import controller.editor.EditorController;
 import controller.ground.GroundController;
 import event.EventManager;
 import event.ControllerChangeEvent;
-import geometry.tools.LogUtil;
 
 public class MainRTS extends OpenRTSApplication {
 

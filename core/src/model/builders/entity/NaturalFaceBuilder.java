@@ -4,8 +4,6 @@
  */
 package model.builders.entity;
 
-import geometry.tools.LogUtil;
-
 import java.awt.Color;
 
 import model.battlefield.map.cliff.Cliff;
@@ -15,6 +13,7 @@ import model.battlefield.map.cliff.faces.natural.Dug1Salient;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
+import tools.LogUtil;
 
 /**
  *

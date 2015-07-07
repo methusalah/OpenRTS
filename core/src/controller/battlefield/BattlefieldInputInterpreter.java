@@ -1,9 +1,9 @@
 package controller.battlefield;
 
+import tools.LogUtil;
 import event.ControllerChangeEvent;
 import event.EventManager;
 import geometry.geom2d.Point2D;
-import geometry.tools.LogUtil;
 import model.CommandManager;
 
 import com.jme3.input.InputManager;

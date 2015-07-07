@@ -4,11 +4,11 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tools.LogUtil;
 import model.ModelManager;
 import model.battlefield.map.Trinket;
 import model.builders.entity.TrinketBuilder;

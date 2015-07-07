@@ -9,16 +9,15 @@ import geometry.geom3d.Polygon3D;
 import geometry.geom3d.Triangle3D;
 import geometry.math.Angle;
 import geometry.structure.grid.Grid;
-import geometry.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Cliff.Type;
+import tools.LogUtil;
 
 /**
  * Divides the tile based grid into parcels for performance purpose. the objectives : - group tiles for the graphic card to manage less objects, - divide map to
