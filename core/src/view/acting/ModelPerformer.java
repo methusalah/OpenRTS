@@ -86,8 +86,10 @@ public class ModelPerformer extends Performer {
 				Vector3f u = Translator.toVector3f(pu).normalize();
 				Vector3f v = Translator.toVector3f(pv).normalize();
 				r.lookAt(v, u);
-//				double angle = Math.acos(pu.getDotProduct(pv) / (pu.getNorm() * pv.getNorm()));
-//				r = r.mult(new Quaternion().fromAngles(-(float) angle, 0, 0));
+				// we correct the pitch of the unit because the direction is always flatten
+				// this is only to follow the terrain relief
+				double angle = Math.acos(pu.getDotProduct(pv) / (pu.getNorm() * pv.getNorm()));
+				r = r.mult(new Quaternion().fromAngles(-(float) (angle-Angle.RIGHT+actor.getPitchFix()), -(float) (actor.getRollFix()), -(float) (actor.getYawFix())));
 			} else {
 				// the comp hasn't any up vector
 				// for projectiles
@@ -97,7 +99,6 @@ public class ModelPerformer extends Performer {
 				Vector3f w = u.cross(v);
 				r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
 			}
-			LogUtil.logger.info("rotations : roll x : "+comp.roll+"/ pitch y : "+comp.pitch+"/ yaw z : "+actor.getYaw());
 		} else {
 			r.fromAngles((float)comp.roll, (float)comp.pitch, (float) actor.getYaw());
 		}
@@ -155,7 +156,7 @@ public class ModelPerformer extends Performer {
 				throw new RuntimeException("Can't find the bone " + t.boneName + " for turret.");
 			}
 
-			Quaternion r = turretBone.getWorldBindRotation().mult(new Quaternion().fromAngleAxis((float) Angle.RIGHT, Vector3f.UNIT_Z))
+			Quaternion r = turretBone.getWorldBindRotation()//.mult(new Quaternion().fromAngleAxis((float) Angle.RIGHT, Vector3f.UNIT_Z))
 					.mult(new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y));
 
 			turretBone.setUserControl(true);

@@ -3,6 +3,8 @@
  */
 package model.builders.entity.actors;
 
+import geometry.math.Angle;
+
 import java.awt.Color;
 
 import model.battlefield.abstractComps.FieldComp;
@@ -20,6 +22,9 @@ public class ModelActorBuilder extends ActorBuilder {
 	private static final String SCALE_X = "ScaleX";
 	private static final String SCALE_Y = "ScaleY";
 	private static final String SCALE_Z = "ScaleZ";
+	private static final String YAW = "Yaw";
+	private static final String PITCH = "Pitch";
+	private static final String ROLL = "Roll";
 	private static final String COLOR = "Color";
 	private static final String RED = "R";
 	private static final String GREEN = "G";
@@ -29,6 +34,9 @@ public class ModelActorBuilder extends ActorBuilder {
 	private double scaleX = 1;
 	private double scaleY = 1;
 	private double scaleZ = 1;
+	private double yaw = 0;
+	private double pitch = 0;
+	private double roll = 0;
 	private Color color;
 
 	public ModelActorBuilder(Definition def) {
@@ -53,6 +61,15 @@ public class ModelActorBuilder extends ActorBuilder {
 					break;
 				case SCALE_Z:
 					scaleZ = de.getDoubleVal();
+					break;
+				case YAW:
+					yaw = Angle.toRadians(de.getDoubleVal());
+					break;
+				case PITCH:
+					pitch = Angle.toRadians(de.getDoubleVal());
+					break;
+				case ROLL:
+					roll = Angle.toRadians(de.getDoubleVal());
 					break;
 				case COLOR:
 					color = new Color(de.getIntVal(RED), de.getIntVal(GREEN), de.getIntVal(BLUE));
@@ -80,7 +97,11 @@ public class ModelActorBuilder extends ActorBuilder {
 		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders, localModelPath,
 				localScaleX,
 				localScaleY,
-				localScaleZ, localColor, comp);
+				localScaleZ,
+				yaw,
+				pitch,
+				roll,
+				localColor, comp);
 		res.debbug_id = getId();
 //		res.act();
 		return res;

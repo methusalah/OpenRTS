@@ -20,6 +20,9 @@ public class ModelActor extends Actor {
 	private final double scaleX;
 	private final double scaleY;
 	private final double scaleZ;
+	private final double yawFix;
+	private final double pitchFix;
+	private final double rollFix;
 	private final Color color;
 	final FieldComp comp;
 
@@ -33,6 +36,9 @@ public class ModelActor extends Actor {
 			double scaleX,
 			double scaleY,
 			double scaleZ,
+			double yaw,
+			double pitch,
+			double roll,
 			Color color,
 			FieldComp comp) {
 		super(parent, trigger, childrenTriggers, childrenBuilders);
@@ -40,6 +46,9 @@ public class ModelActor extends Actor {
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
 		this.scaleZ = scaleZ;
+		this.yawFix = yaw;
+		this.pitchFix = pitch;
+		this.rollFix = roll;
 		this.color = color;
 		this.comp = comp;
 	}
@@ -94,10 +103,6 @@ public class ModelActor extends Actor {
 		return comp.getYaw();
 	}
 
-	public Point3D getDirection(){
-		return comp.direction;
-	}
-
 	public Color getColor() {
 		return color;
 	}
@@ -117,4 +122,20 @@ public class ModelActor extends Actor {
 	public double getScaleY() {
 		return scaleY;
 	}
+
+
+	public double getYawFix() {
+		return yawFix;
+	}
+
+
+	public double getPitchFix() {
+		return pitchFix;
+	}
+
+
+	public double getRollFix() {
+		return rollFix;
+	}
+
 }

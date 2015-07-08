@@ -3,8 +3,8 @@
   <Unit id="rollerTank">
     <UIName value="WIP Tarask 2800"/>
     <Race value="human"/>
-    <Radius value="0.8"/>
-    <SeparationRadius value="0.8"/>
+    <Radius value="1"/>
+    <SeparationRadius value="1"/>
     <Speed value="3"/>
     <Mass value="1"/>
     <MaxHealth value="120"/>
@@ -26,7 +26,7 @@
   <Turret id="rollerTankTurret">
     <Speed value="150"/>
     <IdleSpeed value="50"/>
-    <OnIdle value="ResetOnMove"/>
+    <OnIdle value="Spin"/>
     <BoneName value="boneTurret01"/>
   </Turret>
 
