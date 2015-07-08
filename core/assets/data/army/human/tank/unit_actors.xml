@@ -4,7 +4,7 @@
     <Type value="Model"/>
     <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <Scale value="0.0025"/>
-    <Pitch value="90"/>
+    <Pitch value="-90"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onMove" ActorLink="LeftDust"/>
     <ActorList Trigger="onMove" ActorLink="RightDust"/>

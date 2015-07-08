@@ -17,6 +17,7 @@ public class TurretBuilder extends Builder {
 	private static final String IDLE_SPEED = "IdleSpeed";
 	private static final String ON_IDLE = "OnIdle";
 	private static final String BONE_NAME = "BoneName";
+	private static final String BONE_AXIS = "BoneAxis";
 
 	private static final String RESET_ON_MOVE = "ResetOnMove";
 	private static final String RESET = "Reset";
@@ -27,6 +28,7 @@ public class TurretBuilder extends Builder {
 	private double idleSpeed;
 	private Turret.OnIdleBehave onIdle;
 	private String boneName;
+	private String boneAxis = "Y";
 
 	public TurretBuilder(Definition def) {
 		super(def);
@@ -59,12 +61,15 @@ public class TurretBuilder extends Builder {
 				case BONE_NAME:
 					boneName = de.getVal();
 					break;
+				case BONE_AXIS:
+					boneAxis = de.getVal();
+					break;
 			}
 		}
 	}
 
 	public Turret build(Unit holder) {
-		return new Turret(speed, idleSpeed, onIdle, boneName, holder);
+		return new Turret(speed, idleSpeed, onIdle, boneName, boneAxis, holder);
 	}
 
 	@Override

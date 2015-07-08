@@ -20,6 +20,7 @@ public class Turret {
     final double idleSpeed;
     final OnIdleBehave onIdle;
     public final String boneName;
+    public final String boneAxis;
     final Unit holder;
     
     public double yaw = 0;
@@ -29,11 +30,12 @@ public class Turret {
     
     public boolean hasMoved;
 
-    public Turret(double speed, double idleSpeed, OnIdleBehave onIdle, String boneName, Unit holder) {
+    public Turret(double speed, double idleSpeed, OnIdleBehave onIdle, String boneName, String boneAxis, Unit holder) {
         this.speed = speed;
         this.idleSpeed = idleSpeed;
         this.onIdle = onIdle;
         this.boneName = boneName;
+        this.boneAxis = boneAxis;
         this.holder = holder;
     }
     
