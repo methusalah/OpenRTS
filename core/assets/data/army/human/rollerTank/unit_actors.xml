@@ -2,7 +2,7 @@
 <catalog>
   <Actor id="rollerTank">
     <Type value="Model"/>
-    <Scale value="150"/>
+    <Scale value="1"/>
     <ModelPath value="human/rollerTank/rollerTank.j3o"/>
 <!--     <ActorList Trigger="onMove" ActorLink="Move"/>
 	<ActorList Trigger="onWait" ActorLink="Idle"/>
