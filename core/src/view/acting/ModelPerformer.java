@@ -156,17 +156,15 @@ public class ModelPerformer extends Performer {
 				throw new RuntimeException("Can't find the bone " + t.boneName + " for turret.");
 			}
 
-			Vector3f axis;
-			switch (t.boneAxis){
-			case "X" : axis = Vector3f.UNIT_X; break;
-			case "Y" : axis = Vector3f.UNIT_Y; break;
-			case "Z" : axis = Vector3f.UNIT_Z; break;
-			default : throw new IllegalArgumentException("Wrong bone axis for "+((Unit)actor.getComp()).builderID+" : "+t.boneAxis);
-			}
-			Quaternion r = turretBone.getWorldBindRotation()
-					.mult(new Quaternion().fromAngles((float) (actor.getRollFix()), (float) (actor.getRollFix()), (float) (actor.getPitchFix())))
-					.mult(new Quaternion().fromAngleAxis((float) t.yaw, axis));
-
+//			Vector3f axis;
+//			switch (t.boneAxis){
+//			case "X" : axis = Vector3f.UNIT_X; break;
+//			case "Y" : axis = Vector3f.UNIT_Y; break;
+//			case "Z" : axis = Vector3f.UNIT_Z; break;
+//			default : throw new IllegalArgumentException("Wrong bone axis for "+((Unit)actor.getComp()).builderID+" : "+t.boneAxis);
+//			}
+//			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, axis);
+			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y);
 			turretBone.setUserControl(true);
 			turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
 		}

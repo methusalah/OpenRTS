@@ -5,6 +5,5 @@
     <IdleSpeed value="20"/>
     <OnIdle value="Spin"/>
     <BoneName value="BTurret01"/>
-    <BoneAxis value="X"/>
   </Turret>
 </catalog>
