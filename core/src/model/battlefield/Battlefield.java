@@ -72,10 +72,6 @@ public class Battlefield {
 		this.map = map;
 	}
 	
-	public void store(FieldComp fc){
-		map.get(fc.getCoord()).storedData.add(fc);
-	}
-	
 	public <T extends FieldComp> List<T> getCloseComps(T fc, double radius){
 		double fcX = fc.getCoord().x;
 		double fcY = fc.getCoord().y;
