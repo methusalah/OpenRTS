@@ -1,5 +1,7 @@
 package model.battlefield.actors;
 
+import java.awt.Color;
+import java.util.HashMap;
 import java.util.List;
 
 import model.builders.entity.actors.ActorBuilder;
@@ -19,9 +21,22 @@ public class PhysicActor extends ModelActor {
 	public long timer;
 	public boolean launched = false;
 
-	public PhysicActor(String modelPath, double scale, double startLife, double mass, String massCenterBone, Actor parent, String trigger,
-			List<String> childrenTriggers, List<ActorBuilder> childrenBuilders) {
-		super(parent, trigger, childrenTriggers, childrenBuilders, modelPath, scale, scale, scale, 0, 0, 0, null, null);
+	public PhysicActor(String modelPath,
+			double scale,
+			double startLife,
+			double mass,
+			String massCenterBone,
+			Actor parent,
+			String trigger,
+			List<String> childrenTriggers,
+			List<ActorBuilder> childrenBuilders,
+			double yaw,
+			double pitch,
+			double roll,
+			Color color,
+			HashMap<String, Color> subColorsByName,
+			HashMap<Integer, Color> subColorsByIndex) {
+		super(parent, trigger, childrenTriggers, childrenBuilders, modelPath, scale, scale, scale, yaw, pitch, roll, color, subColorsByName, subColorsByIndex, null);
 		this.startLife = startLife;
 		this.mass = mass;
 		this.massCenterBone = massCenterBone;

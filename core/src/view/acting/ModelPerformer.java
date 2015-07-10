@@ -3,8 +3,11 @@
  */
 package view.acting;
 
+import java.awt.Color;
+
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+import geometry.math.MyRandom;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -19,6 +22,7 @@ import view.mesh.Circle;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.Bone;
 import com.jme3.animation.Skeleton;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
@@ -44,7 +48,13 @@ public class ModelPerformer extends Performer {
 
 			if (actor.getColor() != null) {
 				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
+			} else{
+				for(Integer index : actor.getSubColorsByIndex().keySet())
+					applyToSubmesh(s, null, index, actor.getSubColorsByIndex().get(index));
+				for(String name : actor.getSubColorsByName().keySet())
+					applyToSubmesh(s, name, -1, actor.getSubColorsByName().get(name));
 			}
+			
 
 			s.setLocalScale((float) actor.getScaleX(), (float) actor.getScaleY(), (float) actor.getScaleZ());
 			s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -62,7 +72,24 @@ public class ModelPerformer extends Performer {
 		if (actor.getComp() != null) {
 			drawAsComp(actor);
 		}
-
+	}
+	
+	private void applyToSubmesh(Spatial s, String subMeshName, int subMeshIndex, Color color){
+		if(s instanceof Geometry){
+			if(((Geometry)s).getName().equals(subMeshName) || subMeshIndex == 0){
+				((Geometry)s).getMaterial().setColor("Diffuse", Translator.toColorRGBA(color));
+				return;
+			}
+		} else {
+			for(Spatial child : ((Node)s).getChildren()){
+				applyToSubmesh(child, subMeshName, --subMeshIndex, color);
+			}
+			return;
+		}
+		if(subMeshIndex > 0)
+			LogUtil.logger.warning("Sub mesh of index "+subMeshIndex+" doesn't seem to exist.");
+		if(subMeshName != null)
+			LogUtil.logger.warning("Sub mesh named "+subMeshName+" doesn't seem to exist.");
 	}
 
 	protected void drawAsComp(ModelActor actor) {

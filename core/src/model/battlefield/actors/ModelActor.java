@@ -24,6 +24,8 @@ public class ModelActor extends Actor {
 	private final double pitchFix;
 	private final double rollFix;
 	private final Color color;
+	private final HashMap<String, Color> subColorsByName;
+	private final HashMap<Integer, Color> subColorsByIndex;
 	final FieldComp comp;
 
 	private Map<String, Point3D> boneCoords = new HashMap<>();
@@ -40,6 +42,8 @@ public class ModelActor extends Actor {
 			double pitch,
 			double roll,
 			Color color,
+			HashMap<String, Color> subColorsByName,
+			HashMap<Integer, Color> subColorsByIndex,
 			FieldComp comp) {
 		super(parent, trigger, childrenTriggers, childrenBuilders);
 		this.modelPath = modelPath;
@@ -50,6 +54,8 @@ public class ModelActor extends Actor {
 		this.pitchFix = pitch;
 		this.rollFix = roll;
 		this.color = color;
+		this.subColorsByName = subColorsByName;
+		this.subColorsByIndex = subColorsByIndex;
 		this.comp = comp;
 	}
 
@@ -137,5 +143,17 @@ public class ModelActor extends Actor {
 	public double getRollFix() {
 		return rollFix;
 	}
+
+
+	public HashMap<String, Color> getSubColorsByName() {
+		return subColorsByName;
+	}
+
+
+	public HashMap<Integer, Color> getSubColorsByIndex() {
+		return subColorsByIndex;
+	}
+	
+	
 
 }

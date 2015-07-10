@@ -6,7 +6,11 @@ package model.builders.entity.actors;
 import geometry.math.Angle;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -26,6 +30,9 @@ public class ModelActorBuilder extends ActorBuilder {
 	private static final String PITCH = "Pitch";
 	private static final String ROLL = "Roll";
 	private static final String COLOR = "Color";
+	private static final String SUB_COLOR = "SubColor";
+	private static final String SUB_MESH_NAME = "SubMeshName";
+	private static final String SUB_MESH_INDEX = "SubMeshIndex";
 	private static final String RED = "R";
 	private static final String GREEN = "G";
 	private static final String BLUE = "B";
@@ -38,6 +45,8 @@ public class ModelActorBuilder extends ActorBuilder {
 	private double pitch = 0;
 	private double roll = 0;
 	private Color color;
+	private HashMap<String, Color> subColorsByName = new HashMap<>();
+	private HashMap<Integer, Color> subColorsByIndex = new HashMap<>();
 
 	public ModelActorBuilder(Definition def) {
 		super(def);
@@ -74,6 +83,20 @@ public class ModelActorBuilder extends ActorBuilder {
 				case COLOR:
 					color = new Color(de.getIntVal(RED), de.getIntVal(GREEN), de.getIntVal(BLUE));
 					break;
+				case SUB_COLOR:
+					Color subcolor = new Color(de.getIntVal(RED), de.getIntVal(GREEN), de.getIntVal(BLUE));
+					String name = de.getVal(SUB_MESH_NAME);
+					String indexString = de.getVal(SUB_MESH_INDEX);
+					int index = indexString == null?-1 : Integer.parseInt(indexString);
+					if(name != null)
+						subColorsByName.put(name, subcolor);
+					else if(index != -1){
+						if(index == 0)
+							LogUtil.logger.warning("the submesh index must be >= 1 in "+getId());
+						subColorsByIndex.put(index, subcolor);
+					} else
+						LogUtil.logger.warning("SubColor incorrect in "+getId());
+					break;
 				default:
 					printUnknownElement(de.name);
 			}
@@ -101,7 +124,10 @@ public class ModelActorBuilder extends ActorBuilder {
 				yaw,
 				pitch,
 				roll,
-				localColor, comp);
+				localColor,
+				subColorsByName,
+				subColorsByIndex,
+				comp);
 		res.debbug_id = getId();
 //		res.act();
 		return res;

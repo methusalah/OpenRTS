@@ -2,8 +2,9 @@
 <catalog>
   <Actor id="ArmouredCar">
     <Type value="Model"/>
-    <Scale value="1"/>
-    <ModelPath value="human/armoured_car/v1armoured_car.j3o"/>
+    <Scale value="0.25"/>
+    <Pitch value="-90"/>
+    <ModelPath value="human/armoured_car/armoured_car.j3o"/>
     <ActorList Trigger="onMove" ActorLink="ArmouredCarLeftMud"/>
     <ActorList Trigger="onMove" ActorLink="ArmouredCarRightMud"/>
 <!--     <ActorList Trigger="onMove" ActorLink="Move"/>
