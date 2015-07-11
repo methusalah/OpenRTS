@@ -2,7 +2,7 @@ package model.editor.engines;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class Sower implements Runnable {
 			Trinket candidate = s.trinketBuilders.get(MyRandom.between(0, s.trinketBuilders.size())).build(Point3D.ORIGIN);
 			for(int j = 0; j < MAX_PLACES_COUNT; j++){
 				double separationDistance = source.getRadius()+candidate.getRadius();
-				Point2D place = source.getCoord().getTranslation(MyRandom.between(0, Angle.FULL), MyRandom.between(separationDistance, separationDistance*2));
+				Point2D place = source.getCoord().getTranslation(MyRandom.between(0, AngleUtil.FULL), MyRandom.between(separationDistance, separationDistance*2));
 				if(!ModelManager.getBattlefield().getMap().isInBounds(place) ||
 						!s.isAllowed(place)) {
 					continue;

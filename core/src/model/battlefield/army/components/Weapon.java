@@ -1,7 +1,7 @@
 package model.battlefield.army.components;
 
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.PrecisionUtil;
 
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ public class Weapon implements EffectSource {
 		// if(!holder.getMover().holdPosition)
 		// ready = false;
 
-		if (turret != null && Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5)) {
+		if (turret != null && AngleUtil.getSmallestDifference(getTargetAngle(), getAngle()) > AngleUtil.toRadians(5)) {
 			ready = false;
 		}
 

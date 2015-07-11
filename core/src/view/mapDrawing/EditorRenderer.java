@@ -32,7 +32,7 @@ import event.SetToolEvent;
 import geometry.collections.PointRing;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 /**
  * @author Benoît
@@ -217,14 +217,14 @@ public class EditorRenderer {
 			if (s.shape == Pencil.SHAPE.Diamond) {
 				PointRing newPR = new PointRing();
 				for (Point2D p : pr) {
-					newPR.add(p.getRotation(Angle.RIGHT / 2, center));
+					newPR.add(p.getRotation(AngleUtil.RIGHT / 2, center));
 				}
 				pr = newPR;
 			}
 		} else {
 			Point2D revol = center.getAddition(s.size / 2, 0);
 			for (int i = 0; i < CIRCLE_PENCIL_SAMPLE_COUNT; i++) {
-				pr.add(revol.getRotation(Angle.FLAT * 2 * i / CIRCLE_PENCIL_SAMPLE_COUNT, center));
+				pr.add(revol.getRotation(AngleUtil.FLAT * 2 * i / CIRCLE_PENCIL_SAMPLE_COUNT, center));
 			}
 		}
 

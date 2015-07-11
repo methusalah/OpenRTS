@@ -7,7 +7,7 @@ import geometry.geom2d.algorithm.Triangulator;
 import geometry.geom3d.Point3D;
 import geometry.geom3d.Polygon3D;
 import geometry.geom3d.Triangle3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
@@ -247,7 +247,7 @@ public class Parcelling extends Grid<Parcel>{
 
 				for (Triangle3D n : getNearbyTriangles(tile, map, parcel)) {
 					List<Point3D> shared = t.getCommonPoints(n);
-					if (t.normal.getAngleWith(n.normal) > Angle.RIGHT) {
+					if (t.normal.getAngleWith(n.normal) > AngleUtil.RIGHT) {
 						continue;
 					}
 					if (shared.size() == 3) {

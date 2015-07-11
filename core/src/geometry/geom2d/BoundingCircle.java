@@ -1,6 +1,6 @@
 package geometry.geom2d;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 
@@ -71,9 +71,9 @@ public class BoundingCircle extends BoundingShape {
     public AlignedBoundingBox getABB(){
         ArrayList<Point2D> bounds = new ArrayList<>();
         bounds.add(center.getTranslation(0, radius));
-        bounds.add(center.getTranslation(Angle.RIGHT, radius));
-        bounds.add(center.getTranslation(-Angle.RIGHT, radius));
-        bounds.add(center.getTranslation(Angle.FLAT, radius));
+        bounds.add(center.getTranslation(AngleUtil.RIGHT, radius));
+        bounds.add(center.getTranslation(-AngleUtil.RIGHT, radius));
+        bounds.add(center.getTranslation(AngleUtil.FLAT, radius));
         return new AlignedBoundingBox(bounds);
     }
 

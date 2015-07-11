@@ -1,6 +1,6 @@
 package geometry.geom2d;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 /**
  * Facet is a Segment2D that manage the smoothing of its normal for the two vertices
@@ -12,7 +12,7 @@ import geometry.math.Angle;
  */
 public class Facet extends Segment2D {
 	
-	private static final double MAX_SMOOTH_ANGLE = Angle.toRadians(50);
+	private static final double MAX_SMOOTH_ANGLE = AngleUtil.toRadians(50);
 	
 	Point2D normal;
 	private Point2D smoothed0 = null;
@@ -20,7 +20,7 @@ public class Facet extends Segment2D {
 	
 	public Facet(Point2D p0, Point2D p1){
 		super(p0, p1);
-		normal = Point2D.ORIGIN.getTranslation(getAngle()+Angle.RIGHT, 1);
+		normal = Point2D.ORIGIN.getTranslation(getAngle()+AngleUtil.RIGHT, 1);
 	}
 	
 	public Facet(Segment2D seg) {
@@ -32,7 +32,7 @@ public class Facet extends Segment2D {
 		if(common == null)
 			throw new IllegalArgumentException("given "+this.getClass().getSimpleName()+" have no common point with this.");
 		
-		if(Angle.getSmallestDifference(normal.getAngle(), neighbor.normal.getAngle()) > MAX_SMOOTH_ANGLE)
+		if(AngleUtil.getSmallestDifference(normal.getAngle(), neighbor.normal.getAngle()) > MAX_SMOOTH_ANGLE)
 			return;
 		
 		Point2D smoothed = normal.getAddition(neighbor.normal).getNormalized();
@@ -72,7 +72,7 @@ public class Facet extends Segment2D {
 			if(smoothed1 == null)
 				smoothed0 = smoothed1 = normal;
 			else {
-				double a = Angle.normalize(normal.getAngle()-Angle.getOrientedDifference(normal.getAngle(), smoothed1.getAngle()));
+				double a = AngleUtil.normalize(normal.getAngle()-AngleUtil.getOrientedDifference(normal.getAngle(), smoothed1.getAngle()));
 				smoothed0 = Point2D.UNIT_X.getRotation(a);
 			}
 		return smoothed0;
@@ -83,7 +83,7 @@ public class Facet extends Segment2D {
 			if(smoothed0 == null)
 				smoothed0 = smoothed1 = normal;
 			else {
-				double a = Angle.normalize(normal.getAngle()-Angle.getOrientedDifference(normal.getAngle(), smoothed0.getAngle()));
+				double a = AngleUtil.normalize(normal.getAngle()-AngleUtil.getOrientedDifference(normal.getAngle(), smoothed0.getAngle()));
 				smoothed1 = Point2D.UNIT_X.getRotation(a);
 			}
 		return smoothed1;

@@ -4,7 +4,7 @@ import event.EventManager;
 import event.ProjectileArrivedEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.ModelActor;
@@ -113,7 +113,7 @@ public class Projectile extends Hiker {
 
 	public Point3D getOffset(Point3D pos, double offset){
 		Point2D pos2D = pos.get2D();
-		double angle = MyRandom.next()*Angle.FLAT*2;
+		double angle = MyRandom.next()*AngleUtil.FLAT*2;
 		double distance = MyRandom.next()*offset;
 		pos2D = pos2D.getTranslation(angle, distance);
 		return pos2D.get3D(pos.z);

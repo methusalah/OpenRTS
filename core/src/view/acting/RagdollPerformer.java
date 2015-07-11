@@ -5,7 +5,7 @@
 package view.acting;
 
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -59,7 +59,7 @@ public class RagdollPerformer extends Performer{
 
 			// rotation
 			Quaternion r = new Quaternion();
-			r.fromAngles(0, 0, (float)(ma.getYaw()+Angle.RIGHT));
+			r.fromAngles(0, 0, (float)(ma.getYaw()+AngleUtil.RIGHT));
 			control.setPhysicsRotation(r);
 
 			//            control.applyCentralForce(new Vector3f((float)MyRandom.next(), (float)MyRandom.next(), 1).mult(1000));

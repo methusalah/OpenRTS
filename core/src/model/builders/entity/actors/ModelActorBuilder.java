@@ -3,7 +3,7 @@
  */
 package model.builders.entity.actors;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -73,13 +73,13 @@ public class ModelActorBuilder extends ActorBuilder {
 					scaleZ = de.getDoubleVal();
 					break;
 				case YAW:
-					yaw = Angle.toRadians(de.getDoubleVal());
+					yaw = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case PITCH:
-					pitch = Angle.toRadians(de.getDoubleVal());
+					pitch = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case ROLL:
-					roll = Angle.toRadians(de.getDoubleVal());
+					roll = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case COLOR:
 					color = new Color(de.getIntVal(RED), de.getIntVal(GREEN), de.getIntVal(BLUE));

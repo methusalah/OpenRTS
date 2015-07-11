@@ -5,7 +5,7 @@ import geometry.geom2d.Point2D;
 import geometry.geom2d.Segment2D;
 import geometry.geom2d.intersection.Intersection;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.List;
 
@@ -195,7 +195,7 @@ public class SteeringMachine {
 
         Point2D toObstacle = obstacle.getCoord().getSubtraction(mover.hiker.getCoord()).getNormalized();
         
-        if(Angle.getOrientedDifference(new Point2D(steering).getAngle(), toObstacle.getAngle()) < 0)
+        if(AngleUtil.getOrientedDifference(new Point2D(steering).getAngle(), toObstacle.getAngle()) < 0)
             steering = new Point3D(toObstacle.getRotation(avoidanceAngle), steering.z);
         else
             steering = new Point3D(toObstacle.getRotation(-avoidanceAngle), steering.z);

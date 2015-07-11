@@ -1,7 +1,7 @@
 package geometry.geom2d.algorithm;
 
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class PoissonDiscSampler {
 			Point2D s = queue.get(MyRandom.nextInt(queue.size()));
 			boolean sampleFound = true;
 			for(int i = 0; i<MAX_SAMPLE_COUNT; i++){
-				Point2D c = s.getTranslation(MyRandom.between(0, Angle.FULL), MyRandom.between(2*radius, 6*radius));
+				Point2D c = s.getTranslation(MyRandom.between(0, AngleUtil.FULL), MyRandom.between(2*radius, 6*radius));
 				if(c.x<0 || c.x>=width || c.y<0 || c.y>=height)
 					continue;
 				sampleFound = true;

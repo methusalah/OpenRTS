@@ -1,7 +1,7 @@
 package model.battlefield.lighting;
 
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.awt.Color;
 
@@ -28,10 +28,10 @@ public class DirectionalLighting extends Lighting{
     }
 
     public void changePitch(double val){
-        pitch = Angle.normalize(pitch+val);
+        pitch = AngleUtil.normalize(pitch+val);
     }
     public void changeYaw(double val){
-        yaw = Angle.normalize(yaw+val);
+        yaw = AngleUtil.normalize(yaw+val);
     }
     
     

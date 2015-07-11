@@ -5,14 +5,14 @@ import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.algorithm.OffsetOperator;
 import geometry.geom2d.algorithm.Triangulator;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.logging.Logger;
 
 public class PolygonExtruder {
 
 	private static final Logger logger = Logger.getLogger(PolygonExtruder.class.getName());
-	private static final double NO_SMOOTH_ANGLE = Angle.toRadians(30);
+	private static final double NO_SMOOTH_ANGLE = AngleUtil.toRadians(30);
 
 	public MyMesh mesh;
 	Polygon bottomPolygon;
@@ -190,9 +190,9 @@ public class PolygonExtruder {
 
 			if(!horizontalNormalSet) {
 				if(height > top) {
-					topNormalAngle = new Point2D(offset, sum-base).getAngle()-Angle.RIGHT;
+					topNormalAngle = new Point2D(offset, sum-base).getAngle()-AngleUtil.RIGHT;
 				} else {
-					topNormalAngle = new Point2D(offset, sum-base).getAngle()+Angle.RIGHT;
+					topNormalAngle = new Point2D(offset, sum-base).getAngle()+AngleUtil.RIGHT;
 				}
 				bottomNormalAngle = topNormalAngle;
 			}
@@ -288,7 +288,7 @@ public class PolygonExtruder {
 	}
 
 	public void closeBaseWithChamfer(double startAngle, double endAngle, double size, boolean rounded) {
-		if(endAngle < -Angle.RIGHT || startAngle < endAngle) {
+		if(endAngle < -AngleUtil.RIGHT || startAngle < endAngle) {
 			throw new IllegalArgumentException();
 		}
 
@@ -320,7 +320,7 @@ public class PolygonExtruder {
 	}
 
 	public void closeSumWithChamfer(double startAngle, double endAngle, double size, boolean rounded) {
-		if(endAngle > Angle.RIGHT || startAngle > endAngle) {
+		if(endAngle > AngleUtil.RIGHT || startAngle > endAngle) {
 			throw new IllegalArgumentException();
 		}
 
@@ -351,11 +351,11 @@ public class PolygonExtruder {
 	}
 
 	private double getSmoothedNormal(Point2D prev, Point2D p, Point2D next, int normalIndex) {
-		double n = Angle.normalize(next.getSubtraction(p).getAngle()-Angle.RIGHT);
-		double prevN = Angle.normalize(p.getSubtraction(prev).getAngle()-Angle.RIGHT);
+		double n = AngleUtil.normalize(next.getSubtraction(p).getAngle()-AngleUtil.RIGHT);
+		double prevN = AngleUtil.normalize(p.getSubtraction(prev).getAngle()-AngleUtil.RIGHT);
 
-		double diff = Angle.getSmallestDifference(n, prevN);
-		double bissector = Angle.getBisector(prevN, n);
+		double diff = AngleUtil.getSmallestDifference(n, prevN);
+		double bissector = AngleUtil.getBisector(prevN, n);
 		double res;
 
 		if(diff > NO_SMOOTH_ANGLE) {

@@ -8,7 +8,7 @@ import geometry.geom2d.BoundingCircle;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.algorithm.PerlinNoise;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
@@ -256,7 +256,7 @@ public class Pencil {
 			case Square:
 				return new Polygon(pr);
 			case Diamond:
-				return new Polygon(pr).getRotation(Angle.RIGHT / 2, center);
+				return new Polygon(pr).getRotation(AngleUtil.RIGHT / 2, center);
 			default:
 				throw new RuntimeException();
 		}
@@ -264,7 +264,7 @@ public class Pencil {
 
 	public double getShapeAngle() {
 		if (shape == SHAPE.Diamond) {
-			return Angle.RIGHT / 2;
+			return AngleUtil.RIGHT / 2;
 		}
 		return 0;
 	}

@@ -2,7 +2,7 @@ package model.battlefield.army.components;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
@@ -194,8 +194,8 @@ public class Mover {
 			desiredYaw = velocity.get2D().getAngle();
 		}
 
-		if (!Angle.areSimilar(desiredYaw, hiker.yaw)) {
-			double diff = Angle.getOrientedDifference(hiker.yaw, desiredYaw);
+		if (!AngleUtil.areSimilar(desiredYaw, hiker.yaw)) {
+			double diff = AngleUtil.getOrientedDifference(hiker.yaw, desiredYaw);
 			if (diff > 0) {
 				hiker.yaw += Math.min(diff, hiker.getRotSpeed() * elapsedTime);
 			} else {

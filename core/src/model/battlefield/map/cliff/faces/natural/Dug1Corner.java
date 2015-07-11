@@ -2,7 +2,7 @@ package model.battlefield.map.cliff.faces.natural;
 
 import geometry.collections.Ring;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 import java.awt.Color;
@@ -29,10 +29,10 @@ public class Dug1Corner extends Dug1 {
             grid[0][i++] = v;
         i = 0;
         for(Point3D v : mirror(middleProfile))
-            grid[1][i++] = v.get2D().getRotation(Angle.RIGHT/2*ridgePos).getMult(ridgeDepth).get3D(v.z);
+            grid[1][i++] = v.get2D().getRotation(AngleUtil.RIGHT/2*ridgePos).getMult(ridgeDepth).get3D(v.z);
         i = 0;
         for(Point3D v : mirror(childProfile))
-            grid[2][i++] = v.get2D().getRotation(Angle.RIGHT).get3D(v.z);
+            grid[2][i++] = v.get2D().getRotation(AngleUtil.RIGHT).get3D(v.z);
         
         
     }

@@ -2,7 +2,7 @@ package geometry.geom2d;
 
 import geometry.collections.EdgeRing;
 import geometry.collections.PointRing;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.PrecisionUtil;
 
 public class Rectangle extends Polygon {
@@ -41,7 +41,7 @@ public class Rectangle extends Polygon {
 
 	private boolean isQuad() {
 		for(Segment2D e : getEdges()) {
-			if(!Angle.areSimilar(getEdges().getNext(e).getAngle()-e.getAngle(), Angle.RIGHT))
+			if(!AngleUtil.areSimilar(getEdges().getNext(e).getAngle()-e.getAngle(), AngleUtil.RIGHT))
 				return false;
 		}
 		return true;

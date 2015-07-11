@@ -4,7 +4,7 @@ import geometry.collections.EdgeRing;
 import geometry.collections.Ring;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.Segment2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class EdgeSelector {
 	 * Note that this method reset the outputs.
 	 */
 	public void setRelativeNormal() {
-		baseNormal = Angle.normalize(p.getEdges().getFirst().getAngle() - Angle.RIGHT);
+		baseNormal = AngleUtil.normalize(p.getEdges().getFirst().getAngle() - AngleUtil.RIGHT);
 		reset();
 	}
 	
@@ -60,7 +60,7 @@ public class EdgeSelector {
 	 * Note that this method reset the outputs.
 	 */
 	public void setWorldNormal() {
-		baseNormal = -Angle.RIGHT;
+		baseNormal = -AngleUtil.RIGHT;
 		reset();
 	}
 	
@@ -84,7 +84,7 @@ public class EdgeSelector {
 	public void selectByNormal(Direction d, double value) {
 		EdgeRing edges = p.getEdges();
 		for (int i = 0; i < p.size(); i++) {
-			double edgeNormal = Angle.normalize(edges.get(i).getAngle() - Math.PI/2);
+			double edgeNormal = AngleUtil.normalize(edges.get(i).getAngle() - Math.PI/2);
 			if((d == Direction.FRONT || d == Direction.NORTH || d == Direction.BOTTOM) && isNorth(edgeNormal))
 				edgeValues.set(i, value);
 			else if((d == Direction.BACK || d == Direction.SOUTH || d == Direction.TOP) && isSouth(edgeNormal))
@@ -105,28 +105,28 @@ public class EdgeSelector {
 	
 	private boolean isNorth(double angle) {
 		double north = baseNormal;
-		if(Angle.getSmallestDifference(north, angle) < Math.PI/4)
+		if(AngleUtil.getSmallestDifference(north, angle) < Math.PI/4)
 			return true;
 		else
 			return false;
 	}
 	private boolean isSouth(double angle) {
-		double south = Angle.normalize(baseNormal + Math.PI);
-		if(Angle.getSmallestDifference(south, angle) < Math.PI/4)
+		double south = AngleUtil.normalize(baseNormal + Math.PI);
+		if(AngleUtil.getSmallestDifference(south, angle) < Math.PI/4)
 			return true;
 		else
 			return false;
 	}
 	private boolean isEast(double angle) {
-		double east = Angle.normalize(baseNormal + Math.PI/2);
-		if(Angle.getSmallestDifference(east, angle) < Math.PI/4)
+		double east = AngleUtil.normalize(baseNormal + Math.PI/2);
+		if(AngleUtil.getSmallestDifference(east, angle) < Math.PI/4)
 			return true;
 		else
 			return false;
 	}
 	private boolean isWest(double angle) {
-		double west = Angle.normalize(baseNormal - Math.PI/2);
-		if(Angle.getSmallestDifference(west, angle) < Math.PI/4)
+		double west = AngleUtil.normalize(baseNormal - Math.PI/2);
+		if(AngleUtil.getSmallestDifference(west, angle) < Math.PI/4)
 			return true;
 		else
 			return false;

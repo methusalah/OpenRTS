@@ -5,7 +5,7 @@ package model.editor.tools;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class UnitTool extends Tool {
 		Point2D coord = pencil.getCoord();
 		for (Unit u : ArmyManager.getUnits()) {
 			if (u.getPos2D().equals(coord)) {
-				coord = coord.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
+				coord = coord.getTranslation(MyRandom.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
 			}
 		}
 		// TODO: what happend, if there is no Race named "human"?
@@ -89,7 +89,7 @@ public class UnitTool extends Tool {
 				ModelManager.getBattlefield().getEngagement().getFactions().get(0)
 				: ModelManager.getBattlefield().getEngagement().getFactions().get(1);
 
-		Unit u = BuilderManager.getAllUnitBuilders().get(set.actual).build(f, coord.get3D(0), MyRandom.between(-Angle.FLAT, Angle.FLAT));
+		Unit u = BuilderManager.getAllUnitBuilders().get(set.actual).build(f, coord.get3D(0), MyRandom.between(-AngleUtil.FLAT, AngleUtil.FLAT));
 		u.drawOnBattlefield();
 		ArmyManager.registerUnit(u);
 	}

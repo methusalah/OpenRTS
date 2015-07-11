@@ -1,7 +1,7 @@
 package model.editor.engines;
 
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +24,16 @@ public class Sowing {
 
 	public List<TrinketBuilder> trinketBuilders = new ArrayList<>();
 	List<Trinket> toGrow = new ArrayList<>();
-	
-	
+
+
 	public Sowing() {
-		
+
 	}
-	
+
 	public void addTrinket(String id){
 		trinketBuilders.add(BuilderManager.getTrinketBuilder(id));
 	}
-	
+
 	public void setMinSlope(double slope){
 		slopeMin = slope;
 	}
@@ -45,33 +45,37 @@ public class Sowing {
 	public void setCliffDist(double dist){
 		distFromCliff = dist;
 	}
-	
+
 	public boolean isAllowed(Point2D p){
 		Map map = ModelManager.getBattlefield().getMap();
 		// check if the point is near enough from a cliff.
 		if(distFromCliff > 0){
 			boolean hasCliff = false;
 			// ugly
-			for(Tile t : map.getAround(p, distFromCliff))
+			for(Tile t : map.getAround(p, distFromCliff)) {
 				if(t.hasCliff()){
 					hasCliff = true;
 					break;
 				}
-			if(!hasCliff)
+			}
+			if(!hasCliff) {
 				return false;
+			}
 		}
-			
+
 
 		// check if the point is on a correctly sloped terrain.
 		if(slopeMin > 0 || slopeMax > 0){
-			double dist = map.getNormalVectorAt(p).get2D().getLength(); 
-			double angle = Angle.RIGHT - new Point2D(dist, 1).getAngle();
-			if(slopeMin > 0 && angle < Angle.toRadians(slopeMin))
+			double dist = map.getNormalVectorAt(p).get2D().getLength();
+			double angle = AngleUtil.RIGHT - new Point2D(dist, 1).getAngle();
+			if (slopeMin > 0 && angle < AngleUtil.toRadians(slopeMin)) {
 				return false;
-			if(slopeMax > 0 && angle > Angle.toRadians(slopeMax))
+			}
+			if (slopeMax > 0 && angle > AngleUtil.toRadians(slopeMax)) {
 				return false;
+			}
 		}
-		
+
 		// check if the point is on allowed ground texture
 		if(!allowedGrounds.isEmpty()){
 			boolean allowedGroundFound = false;
@@ -83,13 +87,14 @@ public class Sowing {
 					break;
 				}
 			}
-			if(!allowedGroundFound)
+			if(!allowedGroundFound) {
 				return false;
+			}
 		}
-			
-		
+
+
 		return true;
-		
+
 	}
-	
+
 }

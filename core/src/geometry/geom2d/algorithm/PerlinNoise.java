@@ -2,7 +2,7 @@ package geometry.geom2d.algorithm;
 
 import geometry.collections.Map2D;
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 
@@ -15,7 +15,7 @@ public class PerlinNoise {
 	public PerlinNoise() {
 		gradients = new Map2D<>(RESOLUTION, RESOLUTION);
 		for(int i = 0; i<RESOLUTION*RESOLUTION; i++)
-			gradients.set(i, Point2D.ORIGIN.getTranslation(MyRandom.next()*Angle.FULL, 1));
+			gradients.set(i, Point2D.ORIGIN.getTranslation(MyRandom.next()*AngleUtil.FULL, 1));
 	}
 
 	

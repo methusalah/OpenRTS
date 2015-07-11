@@ -7,7 +7,7 @@ import geometry.geom2d.Line2D;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.Segment2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -101,14 +101,14 @@ public class OffsetOperator {
 			Segment2D prev = p.getEdges().getPrevious(s);
 			Segment2D next = p.getEdges().getNext(s);
 
-			double prevBisAngle = Angle.getBisector(prev.getAngle(), s.getAngle());
-			double nextBisAngle = Angle.getBisector(s.getAngle(), next.getAngle());
+			double prevBisAngle = AngleUtil.getBisector(prev.getAngle(), s.getAngle());
+			double nextBisAngle = AngleUtil.getBisector(s.getAngle(), next.getAngle());
 
 			Segment2D prevInnerBis = new Segment2D(s.getStart(), s.getStart().getTranslation(prevBisAngle, 100000));
 			Segment2D nextInnerBis = new Segment2D(s.getEnd(), s.getEnd().getTranslation(nextBisAngle, 100000));
 
-			Segment2D prevOutBis = new Segment2D(s.getStart(), s.getStart().getTranslation(prevBisAngle+Angle.FLAT, 100000));
-			Segment2D nextOutBis = new Segment2D(s.getEnd(), s.getEnd().getTranslation(nextBisAngle+Angle.FLAT, 100000));
+			Segment2D prevOutBis = new Segment2D(s.getStart(), s.getStart().getTranslation(prevBisAngle+AngleUtil.FLAT, 100000));
+			Segment2D nextOutBis = new Segment2D(s.getEnd(), s.getEnd().getTranslation(nextBisAngle+AngleUtil.FLAT, 100000));
 
 			Point2D innerIntersection = prevInnerBis.getAnyIntersection(nextInnerBis);
 			if(innerIntersection!=null) {
@@ -224,7 +224,7 @@ public class OffsetOperator {
 				continue;
 			}
 
-			double normal = line.getAngle() - Angle.RIGHT;
+			double normal = line.getAngle() - AngleUtil.RIGHT;
 			lines.add(line.getTranslation(normal, offset));
 		}
 	}
@@ -258,7 +258,7 @@ public class OffsetOperator {
 				end = line.getUniqueIntersection(lines.getNext(line));
 			}
 
-			if(!start.equals(end) && Angle.areSimilar(end.getSubtraction(start).getAngle(), line.getAngle())) {
+			if(!start.equals(end) && AngleUtil.areSimilar(end.getSubtraction(start).getAngle(), line.getAngle())) {
 				segments.add(new Segment2D(start, end));
 			} else {
 				segments.add(null);

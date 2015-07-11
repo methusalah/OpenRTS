@@ -2,7 +2,7 @@ package geometry.geom2d;
 
 import geometry.collections.EdgeRing;
 import geometry.collections.PointRing;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 
@@ -379,10 +379,10 @@ public class Polygon {
 	public boolean isRectangular(double tolerance) {
 		EdgeRing edges = getEdges();
 		for (Segment2D edge : edges) {
-			double angle = Angle.getSmallestDifference(edge.getAngle(), edges.getPrevious(edge).getAngle());
-			if (angle < Angle.RIGHT - tolerance)
+			double angle = AngleUtil.getSmallestDifference(edge.getAngle(), edges.getPrevious(edge).getAngle());
+			if (angle < AngleUtil.RIGHT - tolerance)
 				return false;
-			if (angle > Angle.RIGHT + tolerance && angle < Angle.FLAT - tolerance)
+			if (angle > AngleUtil.RIGHT + tolerance && angle < AngleUtil.FLAT - tolerance)
 				return false;
 		}
 		return true;
@@ -390,8 +390,8 @@ public class Polygon {
 
 	public boolean isConvex() {
 		for (Point2D point : points) {
-			int turn = Angle.getTurn(points.getPrevious(point), point, points.getNext(point));
-			if (turn == Angle.CLOCKWISE)
+			int turn = AngleUtil.getTurn(points.getPrevious(point), point, points.getNext(point));
+			if (turn == AngleUtil.CLOCKWISE)
 				return false;
 		}
 		return true;
@@ -434,16 +434,16 @@ public class Polygon {
 		Point2D previous = points.getPrevious(base);
 		Point2D next = points.getNext(base);
 
-		int turn = Angle.getTurn(previous, base, next);
+		int turn = AngleUtil.getTurn(previous, base, next);
 
-		if (turn == Angle.CLOCKWISE) {
+		if (turn == AngleUtil.CLOCKWISE) {
 			// At this point, we know that the angle at the base of the diagonal is reflex
-			return Angle.getTurn(sum, base, previous) == Angle.CLOCKWISE
-					|| Angle.getTurn(sum, base, next) == Angle.COUNTERCLOCKWISE;
-		} else if (turn == Angle.COUNTERCLOCKWISE) {
+			return AngleUtil.getTurn(sum, base, previous) == AngleUtil.CLOCKWISE
+					|| AngleUtil.getTurn(sum, base, next) == AngleUtil.COUNTERCLOCKWISE;
+		} else if (turn == AngleUtil.COUNTERCLOCKWISE) {
 			// At this point, we know that the angle at the base of the diagonal is convex
-			return Angle.getTurn(sum, base, previous) == Angle.CLOCKWISE
-					&& Angle.getTurn(sum, base, next) == Angle.COUNTERCLOCKWISE;
+			return AngleUtil.getTurn(sum, base, previous) == AngleUtil.CLOCKWISE
+					&& AngleUtil.getTurn(sum, base, next) == AngleUtil.COUNTERCLOCKWISE;
 		} else
 			return true;
 
@@ -542,7 +542,7 @@ public class Polygon {
 	
 	public boolean hasInside(Point2D p){
         for(Segment2D s: getEdges())
-            if(Angle.getTurn(s.getStart(), s.getEnd(), p) != Angle.COUNTERCLOCKWISE)
+            if(AngleUtil.getTurn(s.getStart(), s.getEnd(), p) != AngleUtil.COUNTERCLOCKWISE)
                 return false;
         return true;
 	}

@@ -2,7 +2,7 @@ package geometry.geom2d.algorithm;
 
 import geometry.geom2d.Line2D;
 import geometry.geom2d.Polygon;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class PolygonSplitter extends Splitter{
 		fitSplittings();
 		for(Splitting s : allSplittings) {
 			for(int i = 0; i<s.count; i++) {
-				axis = axis.getTranslation(axis.getAngle()+Angle.RIGHT, s.width);
+				axis = axis.getTranslation(axis.getAngle()+AngleUtil.RIGHT, s.width);
 				
 				if(axis.isCollinear(p.getFirstEdgeAlignedBoundingBox().getEdges().get(1))){
 					splits.get(s.label).add(p);

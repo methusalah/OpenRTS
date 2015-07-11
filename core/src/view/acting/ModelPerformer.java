@@ -4,7 +4,7 @@
 package view.acting;
 
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.awt.Color;
 import java.util.logging.Logger;
@@ -122,7 +122,7 @@ public class ModelPerformer extends Performer {
 				// we correct the pitch of the unit because the direction is always flatten
 				// this is only to follow the terrain relief
 				double angle = Math.acos(pu.getDotProduct(pv) / (pu.getNorm() * pv.getNorm()));
-				r = r.mult(new Quaternion().fromAngles((float) (-angle+Angle.RIGHT+actor.getPitchFix()), (float) (actor.getRollFix()), (float) (actor.getYawFix())));
+				r = r.mult(new Quaternion().fromAngles((float) (-angle+AngleUtil.RIGHT+actor.getPitchFix()), (float) (actor.getRollFix()), (float) (actor.getYawFix())));
 			} else {
 				// the comp hasn't any up vector
 				// for projectiles
@@ -165,7 +165,7 @@ public class ModelPerformer extends Performer {
 			Geometry g = new Geometry();
 			g.setMesh(new Circle((float) unit.getRadius(), 10));
 			g.setMaterial(actorDrawer.getMaterialManager().greenMaterial);
-			g.rotate((float) Angle.RIGHT, 0, 0);
+			g.rotate((float) AngleUtil.RIGHT, 0, 0);
 			Node n = new Node();
 			n.attachChild(g);
 			actor.getViewElements().selectionCircle = n;

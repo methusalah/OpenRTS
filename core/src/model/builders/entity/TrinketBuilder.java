@@ -5,7 +5,7 @@ package model.builders.entity;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.MyRandom;
 
 import java.awt.Color;
@@ -98,16 +98,16 @@ public class TrinketBuilder extends Builder {
 					actorBuilderID = de.getVal();
 					break;
 				case ROTATION_X:
-					minRotX = Angle.toRadians(de.getDoubleVal(MIN));
-					maxRotX = Angle.toRadians(de.getDoubleVal(MAX));
+					minRotX = AngleUtil.toRadians(de.getDoubleVal(MIN));
+					maxRotX = AngleUtil.toRadians(de.getDoubleVal(MAX));
 					break;
 				case ROTATION_Y:
-					minRotY = Angle.toRadians(de.getDoubleVal(MIN));
-					maxRotY = Angle.toRadians(de.getDoubleVal(MAX));
+					minRotY = AngleUtil.toRadians(de.getDoubleVal(MIN));
+					maxRotY = AngleUtil.toRadians(de.getDoubleVal(MAX));
 					break;
 				case ROTATION_Z:
-					minRotZ = Angle.toRadians(de.getDoubleVal(MIN));
-					maxRotZ = Angle.toRadians(de.getDoubleVal(MAX));
+					minRotZ = AngleUtil.toRadians(de.getDoubleVal(MIN));
+					maxRotZ = AngleUtil.toRadians(de.getDoubleVal(MAX));
 					break;
 
 				case POSITION_X:
@@ -192,11 +192,11 @@ public class TrinketBuilder extends Builder {
 				res.pos = res.pos.getAddition(0, posY, 0);
 				break;
 			case Salient:
-				res.pos = res.pos.getRotationAroundZ(Angle.RIGHT * posY);
+				res.pos = res.pos.getRotationAroundZ(AngleUtil.RIGHT * posY);
 				break;
 			case Corner:
 				res.pos = new Point3D(1 - res.pos.x, res.pos.y, res.pos.z);
-				res.pos = res.pos.getRotationAroundZ(Angle.RIGHT * posY);
+				res.pos = res.pos.getRotationAroundZ(AngleUtil.RIGHT * posY);
 				break;
 		}
 		if (cliff.getTile().ramp != null) {

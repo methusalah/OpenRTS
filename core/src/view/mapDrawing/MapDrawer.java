@@ -36,7 +36,7 @@ import event.EventManager;
 import event.ParcelUpdateEvent;
 import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 public class MapDrawer {
 
@@ -227,10 +227,10 @@ public class MapDrawer {
 		}
 		switch (c.type) {
 			case Orthogonal:
-				s.rotate(0, 0, (float) (c.angle + Angle.RIGHT));
+				s.rotate(0, 0, (float) (c.angle + AngleUtil.RIGHT));
 				break;
 			case Salient:
-				s.rotate(0, 0, (float) (c.angle + Angle.RIGHT));
+				s.rotate(0, 0, (float) (c.angle + AngleUtil.RIGHT));
 				break;
 			case Corner:
 				s.rotate(0, 0, (float) (c.angle));

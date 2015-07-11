@@ -3,7 +3,7 @@
  */
 package model.builders.entity.actors;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.awt.Color;
 
@@ -144,7 +144,7 @@ public class ParticleActorBuilder extends ActorBuilder {
 					startVariation = de.getDoubleVal();
 					break;
 				case ROTATION_SPEED:
-					rotationSpeed = Angle.toRadians(de.getDoubleVal());
+					rotationSpeed = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 
 				default:

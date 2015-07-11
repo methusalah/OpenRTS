@@ -2,7 +2,7 @@ package geometry.geom2d.intersection;
 
 import geometry.geom2d.Line2D;
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import geometry.math.PrecisionUtil;
 
 
@@ -141,14 +141,14 @@ public class LineLineIntersector {
 		// if two end points lie on opposite sides of the other line, then the lines are crossing.
 		// if all end points lie on opposite sides, then the segments are crossing.
 
-		double Pq0 = Angle.getTurn(p0, p1, q0);
-		double Pq1 = Angle.getTurn(p0, p1, q1);
+		double Pq0 = AngleUtil.getTurn(p0, p1, q0);
+		double Pq1 = AngleUtil.getTurn(p0, p1, q1);
 
-		double Qp0 = Angle.getTurn(q0, q1, p0);
-		double Qp1 = Angle.getTurn(q0, q1, p1);
+		double Qp0 = AngleUtil.getTurn(q0, q1, p0);
+		double Qp1 = AngleUtil.getTurn(q0, q1, p1);
 
 		// check if all turn have none angle. In this case, lines are collinear.
-		if (Pq0 == Angle.NONE && Pq1 == Angle.NONE || Qp0 == Angle.NONE && Qp1 == Angle.NONE) {
+		if (Pq0 == AngleUtil.NONE && Pq1 == AngleUtil.NONE || Qp0 == AngleUtil.NONE && Qp1 == AngleUtil.NONE) {
 			// at this point, we know that lines are collinear.
 			// we must check if they overlap for segments intersection
 			if (q0.getDistance(p0) <= p0.getDistance(p1) && q0.getDistance(p1) <= p0.getDistance(p1)) {
