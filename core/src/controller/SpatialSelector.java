@@ -3,8 +3,8 @@ package controller;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import model.EntityManager;
-import model.battlefield.abstractComps.FieldComp;
 import view.MapView;
+import view.PointUtil;
 import view.acting.ModelPerformer;
 import view.math.Translator;
 
@@ -36,7 +36,7 @@ public class SpatialSelector {
 		} else {
 			r = getMouseRay();
 		}
-		return view.getPointer().getPointedGeometry(n, r);
+		return PointUtil.getPointedGeometry(n, r);
 	}
 
 	public Point2D getCoord(Node n) {
@@ -46,11 +46,11 @@ public class SpatialSelector {
 		} else {
 			r = getMouseRay();
 		}
-		return view.getPointer().getPointedCoord(n, r);
+		return PointUtil.getPointedCoord(n, r);
 	}
 
 	private Point2D getCenterViewCoord(Node n) {
-		return view.getPointer().getPointedCoord(n, getCameraRay());
+		return PointUtil.getPointedCoord(n, getCameraRay());
 	}
 
 	private Point2D getCoord(Node n, Point2D screenCoord) {
@@ -58,7 +58,7 @@ public class SpatialSelector {
 		Vector3f direction = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
-		return view.getPointer().getPointedCoord(n, r);
+		return PointUtil.getPointedCoord(n, r);
 	}
 
 	public Point2D getScreenCoord(Point3D pos) {

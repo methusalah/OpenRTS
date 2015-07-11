@@ -38,7 +38,6 @@ public class MapView {
 	protected MaterialManager materialManager;
 	protected ViewPort vp;
 	protected AssetManager assetManager;
-	private Pointer pointer;
 
 	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
 		this.rootNode = rootNode;
@@ -48,7 +47,6 @@ public class MapView {
 		materialManager = new MaterialManager(am);
 		this.assetManager = am;
 		this.vp = vp;
-		pointer = new Pointer();
 
 		lightDrawer = new LightDrawer(this, am, rootNode, vp);
 
@@ -165,13 +163,5 @@ public class MapView {
 	public void setMapRend(MapDrawer mapRend) {
 		this.mapDrawer = mapRend;
 	}
-
-	public Pointer getPointer() {
-		return pointer;
-	}
-
-	// public void setPointer(Pointer pointer) {
-	// this.pointer = pointer;
-	// }
 
 }
