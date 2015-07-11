@@ -15,6 +15,7 @@ dependencies {
 sourceSets {
 	main {
 		java { srcDir 'src'}
+		resources { srcDir 'assets' }
 	}
 	test {
 		java { srcDir 'test/java' }
