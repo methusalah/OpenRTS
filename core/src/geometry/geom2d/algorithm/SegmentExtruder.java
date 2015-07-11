@@ -3,7 +3,7 @@ package geometry.geom2d.algorithm;
 import geometry.collections.PointRing;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.Segment2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 public class SegmentExtruder {
 
@@ -18,7 +18,7 @@ public class SegmentExtruder {
 	}
 
 	private void compute() {
-		double normal = segment.getAngle() - Angle.RIGHT;
+		double normal = segment.getAngle() - AngleUtil.RIGHT;
 		Segment2D projection = (Segment2D) segment.getTranslation(normal, extrudeWidth);
 		
 		PointRing ring = new PointRing();

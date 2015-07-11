@@ -2,7 +2,7 @@ package geometry.geom2d;
 
 import geometry.geom2d.intersection.Intersection;
 import geometry.geom2d.intersection.LineLineIntersector;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,12 +67,12 @@ public class Polyline2D extends ArrayList<Segment2D>{
 	public boolean hasInside(Point2D p){
 		if(!isLoop())
 			return false;
-		int turn = Angle.NONE;
+		int turn = AngleUtil.NONE;
 		for(Segment2D s : this){
-			int localTurn = Angle.getTurn(s.getStart(), s.getEnd(), p);
-			if(localTurn == Angle.NONE)
+			int localTurn = AngleUtil.getTurn(s.getStart(), s.getEnd(), p);
+			if(localTurn == AngleUtil.NONE)
 				return true;
-			if(turn == Angle.NONE)
+			if(turn == AngleUtil.NONE)
 				turn = localTurn;
 			else if(turn != localTurn)
 				return false;

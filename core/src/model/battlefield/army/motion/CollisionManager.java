@@ -5,7 +5,7 @@ import geometry.geom2d.BoundingCircle;
 import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +40,10 @@ import model.battlefield.map.Tile;
 public class CollisionManager {
 
 	private static final Logger logger = Logger.getLogger(CollisionManager.class.getName());
-	private static double MAX_ADAPT_TOLERANCE = Angle.toRadians(180);
-	private static double ADAPT_TOLERANCE = Angle.toRadians(100);
-	private static double ADAPT_TOLERANCE_INCRASE = Angle.toRadians(20);
-	private static double ADAPTATION_STEP = Angle.toRadians(1);
+	private static double MAX_ADAPT_TOLERANCE = AngleUtil.toRadians(180);
+	private static double ADAPT_TOLERANCE = AngleUtil.toRadians(100);
+	private static double ADAPT_TOLERANCE_INCRASE = AngleUtil.toRadians(20);
+	private static double ADAPTATION_STEP = AngleUtil.toRadians(1);
 
 	Mover mover;
 	ArrayList<BoundingShape> solidShapes = new ArrayList<>();

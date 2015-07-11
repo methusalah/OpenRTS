@@ -6,7 +6,7 @@ package model.editor.tools;
 import event.EventManager;
 import event.ParcelUpdateEvent;
 import geometry.geom2d.Point2D;
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.util.List;
 
@@ -112,7 +112,7 @@ public class HeightTool extends Tool {
 
 	private void noise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevate(MyRandom.between(-1.0, 1.0) * getAttenuatedAmplitude(t.getCoord()));
+			t.elevate(RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(t.getCoord()));
 		}
 	}
 

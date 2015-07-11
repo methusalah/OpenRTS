@@ -3,7 +3,7 @@
  */
 package model.builders.entity.actors;
 
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class ActorBuilder extends Builder {
 
 		int i = 0;
 		for (ActorBuilder b : childrenActorBuilders) {
-			if (MyRandom.next() < childrenProbs.get(i)) {
+			if (RandomUtil.next() < childrenProbs.get(i)) {
 				localChildrenActorBuilders.add(b);
 				localChildrenTriggers.add(childrenTriggers.get(i));
 			}

@@ -2,7 +2,7 @@ package controller.cameraManagement;
 
 
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.logging.Logger;
 
@@ -39,7 +39,7 @@ public class GroundCameraManager extends CameraManager {
 	public GroundCameraManager(Camera cam) {
 		super(cam);
 		pos = new Point3D(1, 1, 0);
-		rotation = new Quaternion().fromAngles((float)Angle.RIGHT, 0, (float)Angle.FLAT);
+		rotation = new Quaternion().fromAngles((float)AngleUtil.RIGHT, 0, (float)AngleUtil.FLAT);
 		cam.setFrustumPerspective(45, (float)cam.getWidth()/cam.getHeight(), 0.01f, 1000);
 
 		applyRotationToCam();

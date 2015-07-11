@@ -3,8 +3,10 @@ apply plugin: 'java'
 version = '1.0'
 
 allprojects {
-//	apply plugin: "eclipse"
-//	apply plugin: "idea"
+	apply plugin: "eclipse"
+	apply plugin: "idea"
+	apply plugin: 'pmd'
+	apply plugin: 'findbugs'
 
 	version = '0.0.1'
 	ext {
@@ -19,5 +21,13 @@ allprojects {
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 		maven { url 'http://updates.jmonkeyengine.org/maven' }		
+	}
+	
+	pmd {
+		ignoreFailures = true
+	}
+	
+	findbugs {
+		ignoreFailures = true
 	}
 }

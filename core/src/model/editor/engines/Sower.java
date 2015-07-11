@@ -2,8 +2,8 @@ package model.editor.engines;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
-import geometry.math.MyRandom;
+import geometry.math.AngleUtil;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,10 +84,10 @@ public class Sower implements Runnable {
 
 	private Trinket findNewPlace(Sowing s){
 		Point2D randomPos = new Point2D(
-				MyRandom.next()*ModelManager.getBattlefield().getMap().xSize(),
-				MyRandom.next()*ModelManager.getBattlefield().getMap().ySize());
+				RandomUtil.next()*ModelManager.getBattlefield().getMap().xSize(),
+				RandomUtil.next()*ModelManager.getBattlefield().getMap().ySize());
 		if(s.isAllowed(randomPos)){
-			TrinketBuilder tb = s.trinketBuilders.get(MyRandom.between(0, s.trinketBuilders.size()));
+			TrinketBuilder tb = s.trinketBuilders.get(RandomUtil.between(0, s.trinketBuilders.size()));
 			Trinket candidate = tb.build(randomPos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos)));
 			boolean isValid = true;
 			for(Trinket n : ModelManager.getBattlefield().getCloseComps(candidate, randomPos, 10)){
@@ -106,13 +106,13 @@ public class Sower implements Runnable {
 	}
 
 	private Trinket grow(Sowing s){
-		Trinket source = s.toGrow.get(MyRandom.nextInt(s.toGrow.size()));
+		Trinket source = s.toGrow.get(RandomUtil.nextInt(s.toGrow.size()));
 		List<Trinket> neibors = ModelManager.getBattlefield().getCloseComps(source, 10);
 		for(int i = 0; i < MAX_TRINKETS_COUNT; i++){
-			Trinket candidate = s.trinketBuilders.get(MyRandom.between(0, s.trinketBuilders.size())).build(Point3D.ORIGIN);
+			Trinket candidate = s.trinketBuilders.get(RandomUtil.between(0, s.trinketBuilders.size())).build(Point3D.ORIGIN);
 			for(int j = 0; j < MAX_PLACES_COUNT; j++){
 				double separationDistance = source.getRadius()+candidate.getRadius();
-				Point2D place = source.getCoord().getTranslation(MyRandom.between(0, Angle.FULL), MyRandom.between(separationDistance, separationDistance*2));
+				Point2D place = source.getCoord().getTranslation(RandomUtil.between(0, AngleUtil.FULL), RandomUtil.between(separationDistance, separationDistance*2));
 				if(!ModelManager.getBattlefield().getMap().isInBounds(place) ||
 						!s.isAllowed(place)) {
 					continue;

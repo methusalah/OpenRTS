@@ -3,7 +3,7 @@
  */
 package model.builders.entity;
 
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,14 +71,14 @@ public class CliffShapeBuilder extends Builder {
 		cliff.trinkets.clear();
 		if (cliff.getTile().ramp == null) {
 			for (TrinketBuilder tb : trinketBuilders) {
-				if (MyRandom.next() < trinketProbs.get(i)) {
+				if (RandomUtil.next() < trinketProbs.get(i)) {
 					cliff.trinkets.add(tb.build(cliff));
 				}
 			}
 			i++;
 		} else {
 			for (TrinketBuilder tb : rampTrinketBuilders) {
-				if (MyRandom.next() < rampTrinketProbs.get(i)) {
+				if (RandomUtil.next() < rampTrinketProbs.get(i)) {
 					cliff.trinkets.add(tb.build(cliff));
 				}
 			}

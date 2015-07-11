@@ -1,8 +1,8 @@
 package model.battlefield.army.components;
 
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
-import geometry.math.Precision;
+import geometry.math.AngleUtil;
+import geometry.math.PrecisionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +94,7 @@ public class Weapon implements EffectSource {
 				target = u;
 			} else {
 				double healthDiff = u.getHealthRate() - target.getHealthRate();
-				if (healthDiff < 0 || healthDiff < Precision.APPROX && holder.getDistance(u) < holder.getDistance(target)) {
+				if (healthDiff < 0 || healthDiff < PrecisionUtil.APPROX && holder.getDistance(u) < holder.getDistance(target)) {
 					target = u;
 				}
 			}
@@ -131,7 +131,7 @@ public class Weapon implements EffectSource {
 		// if(!holder.getMover().holdPosition)
 		// ready = false;
 
-		if (turret != null && Angle.getSmallestDifference(getTargetAngle(), getAngle()) > Angle.toRadians(5)) {
+		if (turret != null && AngleUtil.getSmallestDifference(getTargetAngle(), getAngle()) > AngleUtil.toRadians(5)) {
 			ready = false;
 		}
 

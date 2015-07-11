@@ -2,7 +2,7 @@ package geometry.math;
 
 import java.util.Random;
 
-public class MyRandom {
+public class RandomUtil {
 
 	public static long SEED = 2;//(long) (Math.random()*10000);
 

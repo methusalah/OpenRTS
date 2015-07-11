@@ -1,6 +1,6 @@
 package model.battlefield.map.cliff;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.logging.Logger;
 
@@ -36,7 +36,7 @@ public class CliffOrganizer {
 			// orthogonal
 			case "ns":
 				if (e.level > w.level) {
-					c.angle = Angle.FLAT;
+					c.angle = AngleUtil.FLAT;
 					c.link(s, n);
 				} else {
 					c.angle = 0;
@@ -46,10 +46,10 @@ public class CliffOrganizer {
 				break;
 			case "ew":
 				if (n.level > s.level) {
-					c.angle = -Angle.RIGHT;
+					c.angle = -AngleUtil.RIGHT;
 					c.link(e, w);
 				} else {
-					c.angle = Angle.RIGHT;
+					c.angle = AngleUtil.RIGHT;
 					c.link(w, e);
 				}
 				c.type = Cliff.Type.Orthogonal;
@@ -67,7 +67,7 @@ public class CliffOrganizer {
 				}
 				break;
 			case "se":
-				c.angle = Angle.RIGHT;
+				c.angle = AngleUtil.RIGHT;
 				if (s.getNeighborsMaxLevel() > t.getNeighborsMaxLevel()) {
 					c.link(s, e);
 					c.type = Cliff.Type.Salient;
@@ -77,7 +77,7 @@ public class CliffOrganizer {
 				}
 				break;
 			case "ne":
-				c.angle = Angle.FLAT;
+				c.angle = AngleUtil.FLAT;
 				if (e.getNeighborsMaxLevel() > t.getNeighborsMaxLevel()) {
 					c.link(e, n);
 					c.type = Cliff.Type.Salient;
@@ -87,7 +87,7 @@ public class CliffOrganizer {
 				}
 				break;
 			case "nw":
-				c.angle = -Angle.RIGHT;
+				c.angle = -AngleUtil.RIGHT;
 				if (n.getNeighborsMaxLevel() > t.getNeighborsMaxLevel()) {
 					c.link(n, w);
 					c.type = Cliff.Type.Salient;
@@ -100,7 +100,7 @@ public class CliffOrganizer {
 				// ending cliff (for ramp end)
 			case "n":
 				if (e.level > w.level) {
-					c.angle = Angle.FLAT;
+					c.angle = AngleUtil.FLAT;
 				} else {
 					c.angle = 0;
 					c.link(n, null);
@@ -109,7 +109,7 @@ public class CliffOrganizer {
 				break;
 			case "s":
 				if (e.level > w.level) {
-					c.angle = Angle.FLAT;
+					c.angle = AngleUtil.FLAT;
 					c.link(s, null);
 				} else {
 					c.angle = 0;
@@ -118,18 +118,18 @@ public class CliffOrganizer {
 				break;
 			case "e":
 				if (n.level > s.level) {
-					c.angle = -Angle.RIGHT;
+					c.angle = -AngleUtil.RIGHT;
 					c.link(e, null);
 				} else {
-					c.angle = Angle.RIGHT;
+					c.angle = AngleUtil.RIGHT;
 				}
 				c.type = Cliff.Type.Orthogonal;
 				break;
 			case "w":
 				if (n.level > s.level) {
-					c.angle = -Angle.RIGHT;
+					c.angle = -AngleUtil.RIGHT;
 				} else {
-					c.angle = Angle.RIGHT;
+					c.angle = AngleUtil.RIGHT;
 					c.link(w, null);
 				}
 				c.type = Cliff.Type.Orthogonal;

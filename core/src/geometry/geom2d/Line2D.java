@@ -3,7 +3,7 @@ package geometry.geom2d;
 import geometry.geom2d.intersection.Intersection;
 import geometry.geom2d.intersection.LineCircleIntersector;
 import geometry.geom2d.intersection.LineLineIntersector;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,8 +121,8 @@ public class Line2D {
 	}
 
 	public boolean isBetweenOrOver(Point2D q0, Point2D q1) {
-		double Pq0 = Angle.getTurn(p0, p1, q0);
-		double Pq1 = Angle.getTurn(p0, p1, q1);
+		double Pq0 = AngleUtil.getTurn(p0, p1, q0);
+		double Pq1 = AngleUtil.getTurn(p0, p1, q1);
 
 		return Pq0 <= 0 && Pq1 >= 0 || Pq0 >= 0 && Pq1 <= 0;
 	}
@@ -145,7 +145,7 @@ public class Line2D {
 	}
 
 	public boolean contains(Point2D p) {
-		return Angle.getTurn(p0, p1, p) == Angle.NONE;
+		return AngleUtil.getTurn(p0, p1, p) == AngleUtil.NONE;
 	}
 
 	public List<Point2D> getPoints() {

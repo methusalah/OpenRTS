@@ -2,8 +2,8 @@ package model.battlefield.map.cliff.faces.natural;
 
 import geometry.collections.Ring;
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
-import geometry.math.MyRandom;
+import geometry.math.AngleUtil;
+import geometry.math.RandomUtil;
 
 import java.awt.Color;
 
@@ -21,14 +21,14 @@ public class Dug1Salient extends Dug1 {
     @Override
     protected void extrudeProfile() {
         int i = 0;
-        double ridgeDepth = MyRandom.between(1+RIDGE_PROTRUDE*ridgeDepthRange, 1-RIDGE_RETREAT*ridgeDepthRange);
-        double ridgePos = MyRandom.between(1+MAX_RIDGE_POS*ridgePosRange, 1-MAX_RIDGE_POS*ridgePosRange);
+        double ridgeDepth = RandomUtil.between(1+RIDGE_PROTRUDE*ridgeDepthRange, 1-RIDGE_RETREAT*ridgeDepthRange);
+        double ridgePos = RandomUtil.between(1+MAX_RIDGE_POS*ridgePosRange, 1-MAX_RIDGE_POS*ridgePosRange);
 
         for(Point3D v : parentProfile)
-            grid[0][i++] = v.getRotationAroundZ(Angle.RIGHT);
+            grid[0][i++] = v.getRotationAroundZ(AngleUtil.RIGHT);
         i = 0;
         for(Point3D v : middleProfile)
-            grid[1][i++] = v.getRotationAroundZ(Angle.RIGHT/2*ridgePos).getMult(ridgeDepth, ridgeDepth, 1);
+            grid[1][i++] = v.getRotationAroundZ(AngleUtil.RIGHT/2*ridgePos).getMult(ridgeDepth, ridgeDepth, 1);
         i = 0;
         for(Point3D v : childProfile)
             grid[2][i++] = v;

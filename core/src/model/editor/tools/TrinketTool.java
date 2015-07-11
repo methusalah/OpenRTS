@@ -4,8 +4,8 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
-import geometry.math.MyRandom;
+import geometry.math.AngleUtil;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class TrinketTool extends Tool {
 		Point2D pos = pencil.getCoord();
 		for (Trinket t : ModelManager.getBattlefield().getMap().get(pos).getData(Trinket.class)) {
 			if (t.pos.equals(pos)) {
-				pos = pos.getTranslation(MyRandom.between(Angle.FLAT, -Angle.FLAT), 0.1);
+				pos = pos.getTranslation(RandomUtil.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
 			}
 		}
 		Trinket t = BuilderManager.getAllEditableTrinketBuilders().get(set.actual)

@@ -3,7 +3,7 @@
  */
 package model.builders.entity;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.builders.entity.definitions.DefElement;
@@ -35,10 +35,10 @@ public class TurretBuilder extends Builder {
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case SPEED:
-					speed = Angle.toRadians(de.getDoubleVal());
+					speed = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case IDLE_SPEED:
-					idleSpeed = Angle.toRadians(de.getDoubleVal());
+					idleSpeed = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case ON_IDLE:
 					switch (de.getVal()) {

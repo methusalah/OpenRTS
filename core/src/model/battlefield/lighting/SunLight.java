@@ -1,6 +1,6 @@
 package model.battlefield.lighting;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -17,8 +17,8 @@ public class SunLight {
 
 	private static final Logger logger = Logger.getLogger(SunLight.class.getName());
 
-	public static double DEFAULT_COMPASS_ANGLE = Angle.toRadians(20);
-	public static double DEFAULT_HOUR_ANGLE = Angle.toRadians(40);
+	public static double DEFAULT_COMPASS_ANGLE = AngleUtil.toRadians(20);
+	public static double DEFAULT_HOUR_ANGLE = AngleUtil.toRadians(40);
 	public static double DEFAULT_SUN_INTENSITY = 1.4;
 	public static double DEFAULT_SHADOW_INTENSITY = 0.7;
 
@@ -29,7 +29,7 @@ public class SunLight {
 
 	double delay = 5;
 	double lastAction = 0;
-	double angleIncrement = Angle.toRadians(1);
+	double angleIncrement = AngleUtil.toRadians(1);
 	double intensityIncrement = 0.02;
 	int colorIncrement = 1;
 

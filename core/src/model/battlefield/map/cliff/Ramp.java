@@ -1,7 +1,7 @@
 package model.battlefield.map.cliff;
 
 import geometry.geom2d.Point2D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,7 @@ public class Ramp {
 			if (p.y < minY) {
 				growSouth();
 			}
-		} else if (angle == Angle.FLAT) {
+		} else if (angle == AngleUtil.FLAT) {
 			if (p.x < minX) {
 				growWest();
 			}
@@ -108,7 +108,7 @@ public class Ramp {
 			if (p.y < minY) {
 				growSouth();
 			}
-		} else if (angle == Angle.RIGHT) {
+		} else if (angle == AngleUtil.RIGHT) {
 			if (p.x < minX) {
 				growWest();
 			}
@@ -118,7 +118,7 @@ public class Ramp {
 			if (p.y > maxY) {
 				growNorth();
 			}
-		} else if (angle == -Angle.RIGHT) {
+		} else if (angle == -AngleUtil.RIGHT) {
 			if (p.x < minX) {
 				growWest();
 			}
@@ -191,7 +191,7 @@ public class Ramp {
 			} else {
 				return (double) (p.x - minX) / (maxX - minX + 1);
 			}
-		} else if (angle == Angle.FLAT) {
+		} else if (angle == AngleUtil.FLAT) {
 			if (p.x > maxX) {
 				return 0;
 			} else if (p.x < minX) {
@@ -200,7 +200,7 @@ public class Ramp {
 				return (double) (maxX - p.x + 1) / (maxX - minX + 1);
 			}
 
-		} else if (angle == Angle.RIGHT) {
+		} else if (angle == AngleUtil.RIGHT) {
 			if (p.y > maxY) {
 				return 1;
 			} else if (p.y < minY) {
@@ -208,7 +208,7 @@ public class Ramp {
 			} else {
 				return (double) (p.y - minY) / (maxY - minY + 1);
 			}
-		} else if (angle == -Angle.RIGHT) {
+		} else if (angle == -AngleUtil.RIGHT) {
 			if (p.y > maxY) {
 				return 0;
 			} else if (p.y < minY) {
@@ -223,11 +223,11 @@ public class Ramp {
 	public double getCliffSlopeRate(Tile t) {
 		if (angle == 0) {
 			return getSlopeRate(t);
-		} else if (angle == Angle.FLAT) {
+		} else if (angle == AngleUtil.FLAT) {
 			return getSlopeRate(t.e());
-		} else if (angle == Angle.RIGHT) {
+		} else if (angle == AngleUtil.RIGHT) {
 			return getSlopeRate(t);
-		} else if (angle == -Angle.RIGHT) {
+		} else if (angle == -AngleUtil.RIGHT) {
 			return getSlopeRate(t.n());
 		}
 		throw new RuntimeException();

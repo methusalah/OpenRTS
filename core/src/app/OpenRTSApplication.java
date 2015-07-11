@@ -1,7 +1,7 @@
 package app;
 
 import exception.TechnicalException;
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -232,7 +232,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	public static void main(OpenRTSApplication app) {
 		appInstance = app;
-		logger.info("seed : " + MyRandom.SEED);
+		logger.info("seed : " + RandomUtil.SEED);
 
 		appInstance.start();
 	}

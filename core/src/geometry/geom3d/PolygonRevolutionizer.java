@@ -5,10 +5,10 @@ package geometry.geom3d;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.algorithm.Triangulator;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 public class PolygonRevolutionizer {
-	private static final double NO_SMOOTH_ANGLE = Angle.toRadians(30);
+	private static final double NO_SMOOTH_ANGLE = AngleUtil.toRadians(30);
 
 	public MyMesh mesh;
 	Polygon polygon;
@@ -48,7 +48,7 @@ public class PolygonRevolutionizer {
 		maxChord = 0;
 		faceAngle = (endAngle-startAngle)/nbFaces;
 		for(Point2D p : polygon.points) {
-			double chord = Angle.getChord(faceAngle)*nbFaces*p.x;
+			double chord = AngleUtil.getChord(faceAngle)*nbFaces*p.x;
 			if(chord > 0 && chord > maxChord ||
 					chord < 0 && chord < maxChord)
 				maxChord = chord;
@@ -116,13 +116,13 @@ public class PolygonRevolutionizer {
 				double pTextureVCoord = 1-(pLength-vOffset)/polygon.getLength()/vScale;
 				double nextTextureVCoord = 1-(nextLength-vOffset)/polygon.getLength()/vScale;
 
-				double pChord = Angle.getChord(faceAngle)*faceIndex*p.x;
-				double nextChord = Angle.getChord(faceAngle)*faceIndex*next.x;
-				double endPChord = Angle.getChord(faceAngle)*(faceIndex+1)*p.x;
-				double endNextChord = Angle.getChord(faceAngle)*(faceIndex+1)*next.x;
+				double pChord = AngleUtil.getChord(faceAngle)*faceIndex*p.x;
+				double nextChord = AngleUtil.getChord(faceAngle)*faceIndex*next.x;
+				double endPChord = AngleUtil.getChord(faceAngle)*(faceIndex+1)*p.x;
+				double endNextChord = AngleUtil.getChord(faceAngle)*(faceIndex+1)*next.x;
 				
-				double pTotalChord = Angle.getChord(faceAngle)*nbFaces*p.x;
-				double nextTotalChord = Angle.getChord(faceAngle)*nbFaces*next.x;
+				double pTotalChord = AngleUtil.getChord(faceAngle)*nbFaces*p.x;
+				double nextTotalChord = AngleUtil.getChord(faceAngle)*nbFaces*next.x;
 				
 				mesh.textCoord.add(new Point2D((endPChord-uOffset/maxChord*pTotalChord)/pTotalChord/uScale, pTextureVCoord));
 				mesh.textCoord.add(new Point2D((endNextChord-uOffset/maxChord*nextTotalChord)/nextTotalChord/uScale, nextTextureVCoord));
@@ -134,7 +134,7 @@ public class PolygonRevolutionizer {
 	
 	public void closeBase() {
 		Triangulator t = new Triangulator(polygon);
-		double startNormal = startAngle-Angle.RIGHT;
+		double startNormal = startAngle-AngleUtil.RIGHT;
 		double startCos = Math.cos(startNormal);
 		double startSin = Math.sin(startNormal);
 
@@ -153,7 +153,7 @@ public class PolygonRevolutionizer {
 	
 	public void closeSum() {
 		Triangulator t = new Triangulator(polygon);
-		double endNormal = endAngle+Angle.RIGHT;
+		double endNormal = endAngle+AngleUtil.RIGHT;
 		double endCos = Math.cos(endNormal);
 		double endSin = Math.sin(endNormal);
 
@@ -180,11 +180,11 @@ public class PolygonRevolutionizer {
 	}
 	
 	private double getSmoothedNormal(Point2D prev, Point2D p, Point2D next, int normalIndex) {
-		double n = Angle.normalize(next.getSubtraction(p).getAngle()-Angle.RIGHT);
-		double prevN = Angle.normalize(p.getSubtraction(prev).getAngle()-Angle.RIGHT);
+		double n = AngleUtil.normalize(next.getSubtraction(p).getAngle()-AngleUtil.RIGHT);
+		double prevN = AngleUtil.normalize(p.getSubtraction(prev).getAngle()-AngleUtil.RIGHT);
 
-		double diff = Angle.getSmallestDifference(n, prevN);
-		double bissector = Angle.getBisector(prevN, n);
+		double diff = AngleUtil.getSmallestDifference(n, prevN);
+		double bissector = AngleUtil.getBisector(prevN, n);
 		double res;
 		
 		if(diff > NO_SMOOTH_ANGLE) {

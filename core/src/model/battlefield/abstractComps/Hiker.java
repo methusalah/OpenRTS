@@ -1,7 +1,7 @@
 package model.battlefield.abstractComps;
 
 import geometry.geom3d.Point3D;
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 import model.battlefield.army.components.Mover;
 import model.builders.entity.MoverBuilder;
 
@@ -35,11 +35,11 @@ public abstract class Hiker extends FieldComp{
     }
 
     public double getRotSpeed() {
-        return Angle.toRadians(720);
+        return AngleUtil.toRadians(720);
     }
 
     public double getStationaryRotSpeed() {
-        return Angle.toRadians(360);
+        return AngleUtil.toRadians(360);
     }
 
     public double getMass() {

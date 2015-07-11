@@ -1,6 +1,6 @@
 package model.battlefield.army.components;
 
-import geometry.math.Angle;
+import geometry.math.AngleUtil;
 
 /**
  * Mobile element of the unit, the turret gives the view all needed information to
@@ -50,12 +50,12 @@ public class Turret {
                     if(holderMove)
                         reset();
                     break;
-                case SPIN : desiredYaw = yaw+Angle.RIGHT; break;
+                case SPIN : desiredYaw = yaw+AngleUtil.RIGHT; break;
             }
         }
 
-        if(!Angle.areSimilar(desiredYaw,yaw)){
-            double diff = Angle.getOrientedDifference(yaw, desiredYaw);
+        if(!AngleUtil.areSimilar(desiredYaw,yaw)){
+            double diff = AngleUtil.getOrientedDifference(yaw, desiredYaw);
             if(diff > 0)
                 yaw += Math.min(diff, localSpeed*elapsedTime);
             else

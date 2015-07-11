@@ -1,6 +1,6 @@
 package model.battlefield.army.effects;
 
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,7 @@ public class PersistentEffect extends Effect {
     }
     
     private void setNextPeriodDuration(){
-        currentPeriodDuration = durations.get(periodIndex)+ MyRandom.between(0, ranges.get(periodIndex));
+        currentPeriodDuration = durations.get(periodIndex)+ RandomUtil.between(0, ranges.get(periodIndex));
     }
     
 }
