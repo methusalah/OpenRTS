@@ -3,6 +3,7 @@ package model.battlefield.army.tacticalAI;
 import geometry.geom3d.Point3D;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.battlefield.army.components.Unit;
 
@@ -55,8 +56,8 @@ public class TacticalAI {
 
 	double disturbTime;
 
-	ArrayList<AttackEvent> aggressions = new ArrayList<>();
-	ArrayList<Unit> neighbors = new ArrayList<>();
+	List<AttackEvent> aggressions = new ArrayList<>();
+	List<Unit> neighbors = new ArrayList<>();
 
 	public TacticalAI(Unit unit) {
 		this.unit = unit;
@@ -162,7 +163,7 @@ public class TacticalAI {
 		}
 	}
 
-	void doAutoAttack(ArrayList<Unit> enemies) {
+	void doAutoAttack(List<Unit> enemies) {
 		if(isAttacked()) {
 			stateMachine.pushState(ATTACK_BACK);
 		} else if(getPostDistance() > PURSUE_RADIUS) {
@@ -242,7 +243,7 @@ public class TacticalAI {
 		return unit.getPos().getDistance(aggressionPlace);
 	}
 
-	private Unit getValidNearest(ArrayList<Unit> units){
+	private Unit getValidNearest(List<Unit> units) {
 		Unit res = null;
 		for(Unit u : units) {
 			if(!u.destroyed()) {
@@ -252,8 +253,8 @@ public class TacticalAI {
 		return res;
 	}
 
-	private ArrayList<Unit> getAttackers(){
-		ArrayList<Unit> res = new ArrayList<>();
+	private List<Unit> getAttackers() {
+		List<Unit> res = new ArrayList<>();
 		for(AttackEvent ae : aggressions) {
 			if(!ae.enemy.destroyed()) {
 				res.add(ae.enemy);
@@ -276,8 +277,8 @@ public class TacticalAI {
 		aggressionPlace = unit.getPos();
 	}
 
-	private ArrayList<Unit> getNeighbors() {
-		ArrayList<Unit> res = new ArrayList<>();
+	private List<Unit> getNeighbors() {
+		List<Unit> res = new ArrayList<>();
 		for (Unit u : unit.faction.getUnits()) {
 			if(unit.getDistance(u) <= SUPPORT_DIST) {
 				res.add(u);

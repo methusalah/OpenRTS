@@ -27,27 +27,15 @@ public class ModelActor extends Actor {
 	private final double pitchFix;
 	private final double rollFix;
 	private final Color color;
-	private final HashMap<String, Color> subColorsByName;
-	private final HashMap<Integer, Color> subColorsByIndex;
+	private final Map<String, Color> subColorsByName;
+	private final Map<Integer, Color> subColorsByIndex;
 	final FieldComp comp;
 
 	private Map<String, Point3D> boneCoords = new HashMap<>();
 
-	public ModelActor(Actor parent,
-			String trigger,
-			List<String> childrenTriggers,
-			List<ActorBuilder> childrenBuilders,
-			String modelPath,
-			double scaleX,
-			double scaleY,
-			double scaleZ,
-			double yaw,
-			double pitch,
-			double roll,
-			Color color,
-			HashMap<String, Color> subColorsByName,
-			HashMap<Integer, Color> subColorsByIndex,
-			FieldComp comp) {
+	public ModelActor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders, String modelPath, double scaleX,
+			double scaleY, double scaleZ, double yaw, double pitch, double roll, Color color, Map<String, Color> subColorsByName,
+			Map<Integer, Color> subColorsByIndex, FieldComp comp) {
 		super(parent, trigger, childrenTriggers, childrenBuilders);
 		this.modelPath = modelPath;
 		this.scaleX = scaleX;
@@ -62,8 +50,7 @@ public class ModelActor extends Actor {
 		this.comp = comp;
 	}
 
-
-	public String getLabel(){
+	public String getLabel() {
 		return "";
 	}
 
@@ -72,43 +59,44 @@ public class ModelActor extends Actor {
 		return true;
 	}
 
-	public Point3D getBoneCoord(String boneName){
+	public Point3D getBoneCoord(String boneName) {
 		Point3D res = boneCoords.get(boneName);
-		if(res == null) {
-			throw new IllegalArgumentException("Can't find bone "+boneName);
+		if (res == null) {
+			throw new IllegalArgumentException("Can't find bone " + boneName);
 		}
 		return res;
 	}
 
-	public void setBone(String name, Point3D coord){
+	public void setBone(String name, Point3D coord) {
 		boneCoords.put(name, coord);
 	}
 
-	public boolean hasBone(){
+	public boolean hasBone() {
 		return !boneCoords.isEmpty();
 	}
-	public boolean hasBone(String boneName){
+
+	public boolean hasBone(String boneName) {
 		return boneCoords.get(boneName) != null;
 	}
-	public void debbugWriteBoneNames(){
+
+	public void debbugWriteBoneNames() {
 		logger.info("" + boneCoords.keySet());
 	}
-
 
 	@Override
 	public String getType() {
 		return "model";
 	}
 
-	public FieldComp getComp(){
+	public FieldComp getComp() {
 		return comp;
 	}
 
-	public Point3D getPos(){
+	public Point3D getPos() {
 		return comp.getPos();
 	}
 
-	public double getYaw(){
+	public double getYaw() {
 		return comp.getYaw();
 	}
 
@@ -132,31 +120,24 @@ public class ModelActor extends Actor {
 		return scaleY;
 	}
 
-
 	public double getYawFix() {
 		return yawFix;
 	}
-
 
 	public double getPitchFix() {
 		return pitchFix;
 	}
 
-
 	public double getRollFix() {
 		return rollFix;
 	}
 
-
-	public HashMap<String, Color> getSubColorsByName() {
+	public Map<String, Color> getSubColorsByName() {
 		return subColorsByName;
 	}
 
-
-	public HashMap<Integer, Color> getSubColorsByIndex() {
+	public Map<Integer, Color> getSubColorsByIndex() {
 		return subColorsByIndex;
 	}
-
-
 
 }
