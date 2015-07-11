@@ -1,7 +1,8 @@
 package view;
 
+import java.util.logging.Logger;
+
 import model.ModelManager;
-import tools.LogUtil;
 import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
@@ -23,6 +24,8 @@ import event.EventManager;
 import geometry.geom2d.Point2D;
 
 public class MapView {
+
+	private static final Logger logger = Logger.getLogger(MapView.class.getName());
 
 	// External ressources
 	protected Node rootNode;
@@ -56,7 +59,7 @@ public class MapView {
 	}
 
 	public void reset() {
-		LogUtil.logger.info("reset");
+		logger.info("reset");
 		// Light drawer
 		lightDrawer.reset();
 		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);

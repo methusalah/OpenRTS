@@ -4,18 +4,14 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
-import geometry.geom2d.algorithm.PoissonDiscSampler;
 import geometry.math.Angle;
 import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tools.LogUtil;
 import model.EntityManager;
 import model.ModelManager;
-import model.battlefield.map.Map;
-import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.builders.MapArtisan;
 import model.builders.entity.TrinketBuilder;
@@ -23,12 +19,12 @@ import model.builders.entity.definitions.BuilderManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
-import model.editor.engines.Sower;
 
 /**
  * @author bedu
  */
 public class TrinketTool extends Tool {
+
 	private static final String ADD_REMOVE_OP = "add/remove";
 	private static final String MOVE_ROTATE_OP = "move/rotate";
 
@@ -104,8 +100,9 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = getPointedTrinket();
-			if(actualTrinket != null)
+			if(actualTrinket != null) {
 				moveOffset = pencil.getCoord().getSubtraction(actualTrinket.getCoord());
+			}
 		}
 		if (actualTrinket != null) {
 			// TODO attention, l'elevation n'est pas forcement juste avec ce calcul
@@ -142,7 +139,7 @@ public class TrinketTool extends Tool {
 		super.toggleOperation();
 		analog = actualOp.equals(MOVE_ROTATE_OP);
 	}
-	
+
 	private Trinket getPointedTrinket(){
 		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
 			return ModelManager.getBattlefield().getMap().getTrinket(ToolManager.getPointedSpatialEntityId());

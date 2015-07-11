@@ -3,8 +3,10 @@ package controller.cameraManagement;
 
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+
+import java.util.logging.Logger;
+
 import model.ModelManager;
-import tools.LogUtil;
 import view.math.TranslateUtil;
 
 import com.jme3.input.InputManager;
@@ -18,6 +20,8 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 
 public class GroundCameraManager extends CameraManager {
+
+	private static final Logger logger = Logger.getLogger(GroundCameraManager.class.getName());
 	protected final static String ROTATE_LEFT = "rotateleft";
 	protected final static String ROTATE_RIGHT = "rotateright";
 	protected final static String ROTATE_UP = "rotateup";

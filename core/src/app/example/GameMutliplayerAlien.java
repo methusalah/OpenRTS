@@ -1,5 +1,5 @@
 package app.example;
-import tools.LogUtil;
+
 import model.ModelManager;
 import network.server.OpenRTSServer;
 import app.OpenRTSApplication;
@@ -14,9 +14,9 @@ public class GameMutliplayerAlien extends Game {
 			mapfilename = args[0];
 		}
 
-		OpenRTSServer.main(args); 
-		
-		
+		OpenRTSServer.main(args);
+
+
 		GameMutliplayerAlien app = new GameMutliplayerAlien();
 
 		OpenRTSApplication.main(app);

@@ -5,6 +5,7 @@
 package model.builders.entity;
 
 import java.awt.Color;
+import java.util.logging.Logger;
 
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.natural.Dug1Corner;
@@ -13,13 +14,15 @@ import model.battlefield.map.cliff.faces.natural.Dug1Salient;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
-import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
 public class NaturalFaceBuilder extends Builder{
+
+	private static final Logger logger = Logger.getLogger(NaturalFaceBuilder.class.getName());
+
 	private static final String STYLE = "Style";
 	private static final String COLOR = "Color";
 	private static final String TEXTURE_PATH = "TexturePath";
@@ -82,7 +85,7 @@ public class NaturalFaceBuilder extends Builder{
 			}
 		}
 		if(color == null && texturePath == null){
-			LogUtil.logger.warning("Natural face '"+getId()+"'has no specified color nor texture. Applying debbuging color.");
+			logger.warning("Natural face '" + getId() + "'has no specified color nor texture. Applying debbuging color.");
 			color = Color.ORANGE;
 		}
 	}
@@ -107,11 +110,10 @@ public class NaturalFaceBuilder extends Builder{
 	private boolean checkRange(DefElement de){
 		double val = de.getDoubleVal();
 		if(val>1 || val<0){
-			LogUtil.logger.warning("Range value ("+val+") incorrect for "+def.getId()+". Must be between 0 an 1.");
+			logger.warning("Range value (" + val + ") incorrect for " + def.getId() + ". Must be between 0 an 1.");
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 

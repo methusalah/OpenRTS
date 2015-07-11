@@ -12,12 +12,12 @@ import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Cliff.Type;
-import tools.LogUtil;
 
 /**
  * Divides the tile based grid into parcels for performance purpose. the objectives : - group tiles for the graphic card to manage less objects, - divide map to
@@ -25,6 +25,8 @@ import tools.LogUtil;
  * to smooth texture at parcels' frontiers (see ParcelMesh)
  */
 public class Parcelling extends Grid<Parcel>{
+
+	private static final Logger logger = Logger.getLogger(Parcelling.class.getName());
 
 	private static int RESOLUTION = 10;
 
@@ -45,11 +47,11 @@ public class Parcelling extends Grid<Parcel>{
 			compute(map, p);
 		}
 	}
-	
+
 	private static int inParcellingSpace(double valInMapSpace){
 		return (int) (valInMapSpace / RESOLUTION);
 	}
-	
+
 	private static Point2D inParcellingSpace(Point2D pInMapSpace){
 		return new Point2D(inParcellingSpace(pInMapSpace.x), inParcellingSpace(pInMapSpace.y));
 	}
@@ -76,41 +78,41 @@ public class Parcelling extends Grid<Parcel>{
 		}
 		return res;
 	}
-//
-//	public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
-//		List<ParcelMesh> res = new ArrayList<>();
-//		int index = meshes.indexOf(parcelMesh);
-//		// TODO: this smells like a switch-case command
-//		if (index + 1 < meshes.size()) {
-//			res.add(meshes.get(index + 1));
-//		}
-//
-//		if (index + widthJump - 1 < meshes.size()) {
-//			res.add(meshes.get(index + widthJump - 1));
-//		}
-//		if (index + widthJump < meshes.size()) {
-//			res.add(meshes.get(index + widthJump));
-//		}
-//		if (index + widthJump + 1 < meshes.size()) {
-//			res.add(meshes.get(index + widthJump + 1));
-//		}
-//
-//		if (index - 1 >= 0) {
-//			res.add(meshes.get(index - 1));
-//		}
-//
-//		if (index - widthJump - 1 >= 0) {
-//			res.add(meshes.get(index - widthJump - 1));
-//		}
-//		if (index - widthJump >= 0) {
-//			res.add(meshes.get(index - widthJump));
-//		}
-//		if (index - widthJump + 1 >= 0) {
-//			res.add(meshes.get(index - widthJump + 1));
-//		}
-//
-//		return res;
-//	}
+	//
+	//	public List<ParcelMesh> getNeighbors(ParcelMesh parcelMesh) {
+	//		List<ParcelMesh> res = new ArrayList<>();
+	//		int index = meshes.indexOf(parcelMesh);
+	//		// TODO: this smells like a switch-case command
+	//		if (index + 1 < meshes.size()) {
+	//			res.add(meshes.get(index + 1));
+	//		}
+	//
+	//		if (index + widthJump - 1 < meshes.size()) {
+	//			res.add(meshes.get(index + widthJump - 1));
+	//		}
+	//		if (index + widthJump < meshes.size()) {
+	//			res.add(meshes.get(index + widthJump));
+	//		}
+	//		if (index + widthJump + 1 < meshes.size()) {
+	//			res.add(meshes.get(index + widthJump + 1));
+	//		}
+	//
+	//		if (index - 1 >= 0) {
+	//			res.add(meshes.get(index - 1));
+	//		}
+	//
+	//		if (index - widthJump - 1 >= 0) {
+	//			res.add(meshes.get(index - widthJump - 1));
+	//		}
+	//		if (index - widthJump >= 0) {
+	//			res.add(meshes.get(index - widthJump));
+	//		}
+	//		if (index - widthJump + 1 >= 0) {
+	//			res.add(meshes.get(index - widthJump + 1));
+	//		}
+	//
+	//		return res;
+	//	}
 
 	private List<Triangle3D> getGroundTriangles(Tile t, Parcel parcel) {
 		if (t.e() == null || t.n() == null) {
@@ -197,13 +199,13 @@ public class Parcelling extends Grid<Parcel>{
 			elevatedRing.add(p.getAddition(0, 0, elevation));
 		}
 		if (elevatedRing.isEmpty()) {
-			LogUtil.logger.warning("ground is empty");
+			logger.warning("ground is empty");
 		}
 		Polygon3D res = null;
 		try {
 			res = new Polygon3D(elevatedRing);
 		} catch (Exception e) {
-			LogUtil.logger.info("can't generate cliff ground at " + t + " because " + e);
+			logger.info("can't generate cliff ground at " + t + " because " + e);
 		}
 		return res;
 

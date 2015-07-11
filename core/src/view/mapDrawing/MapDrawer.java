@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.battlefield.map.MapStyle;
@@ -12,8 +13,6 @@ import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.battlefield.map.parcelling.Parcel;
-import model.battlefield.map.parcelling.Parcelling;
-import tools.LogUtil;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
@@ -41,6 +40,7 @@ import geometry.math.Angle;
 
 public class MapDrawer {
 
+	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
 	MapView view;
 	MaterialManager mm;
 	AssetManager am;
@@ -84,7 +84,7 @@ public class MapDrawer {
 				normal = am.loadTexture(style.normals.get(index));
 			}
 			double scale = style.scales.get(index);
-			
+
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
@@ -98,7 +98,7 @@ public class MapDrawer {
 				normal = am.loadTexture(style.coverNormals.get(index));
 			}
 			double scale = style.coverScales.get(index);
-			
+
 			coverTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
@@ -116,7 +116,7 @@ public class MapDrawer {
 			parcelsSpatial.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
-			
+
 			Geometry g2 = new Geometry();
 			g2.setMesh(jmeMesh);
 			g2.setMaterial(coverTexture.getMaterial());
@@ -222,7 +222,7 @@ public class MapDrawer {
 		ManmadeFace face = (ManmadeFace) (c.face);
 		Spatial s = getModel(face.modelPath);
 		if (s == null) {
-			LogUtil.logger.warning("Can't find model " + face.modelPath);
+			logger.warning("Can't find model " + face.modelPath);
 			return;
 		}
 		switch (c.type) {
@@ -251,7 +251,7 @@ public class MapDrawer {
 			g.setMesh(jmeMesh);
 			mainPhysicsSpace.remove(g);
 			mainPhysicsSpace.add(g);
-			
+
 			Geometry g2 = ((Geometry) coverSpatial.get(parcel));
 			g2.setMesh(jmeMesh);
 		}

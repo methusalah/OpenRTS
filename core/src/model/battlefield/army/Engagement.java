@@ -3,10 +3,10 @@ package model.battlefield.army;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-import model.battlefield.army.components.UnitMemento;
-import tools.LogUtil;
 import model.battlefield.army.components.Unit;
+import model.battlefield.army.components.UnitMemento;
 import model.battlefield.warfare.Faction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 public class Engagement {
+
+	private static final Logger logger = Logger.getLogger(Engagement.class.getName());
+
 	@JsonIgnore
 	private List<Faction> factions = new ArrayList<>();
 
@@ -32,7 +35,7 @@ public class Engagement {
 	}
 
 	public void reset() {
-		LogUtil.logger.info("reseting engagement");
+		logger.info("reseting engagement");
 		ArmyManager.reset();
 
 		for (UnitMemento su : initialEngagement) {

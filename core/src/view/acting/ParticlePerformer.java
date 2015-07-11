@@ -5,11 +5,12 @@
 package view.acting;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
-import tools.LogUtil;
+import view.mapDrawing.MapDrawer;
 import view.math.TranslateUtil;
 
 import com.jme3.effect.Particle;
@@ -25,6 +26,9 @@ import com.jme3.math.Vector3f;
  * @author Benoît
  */
 public class ParticlePerformer extends Performer{
+
+	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
+
 	public ParticlePerformer(ActorDrawer bs){
 		super(bs);
 	}
@@ -39,14 +43,14 @@ public class ParticlePerformer extends Performer{
 
 		ModelActor ma = actor.getParentModelActor();
 		if (ma.getViewElements().spatial == null) {
-			LogUtil.logger.info(actor+" parent misses spatial for "+ma);
+			logger.info(actor + " parent misses spatial for " + ma);
 		}
 
 		Vector3f emissionPoint;
 		Vector3f direction;
 		if(actor.emissionBone != null){
 			if(!ma.hasBone(actor.emissionBone)){
-				LogUtil.logger.info(actor+" misses bone "+actor.emissionBone+" in "+ma);
+				logger.info(actor + " misses bone " + actor.emissionBone + " in " + ma);
 				return;
 			}
 

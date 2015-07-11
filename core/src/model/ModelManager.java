@@ -1,15 +1,18 @@
 package model;
 
-import tools.LogUtil;
+import java.util.logging.Logger;
+
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
-import model.battlefield.map.parcelling.Parcelling;
 import model.builders.MapArtisan;
 import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 
 public class ModelManager {
+
+	private static final Logger logger = Logger.getLogger(ModelManager.class.getName());
+
 	public static final String CONFIG_PATH = "assets/data";
 	public static final String DEFAULT_MAP_PATH = "assets/maps/";
 	private static final double UPDATE_DELAY = 1000;
@@ -67,8 +70,8 @@ public class ModelManager {
 			MapArtisan.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
-			LogUtil.logger.info("Done.");
-			
+			logger.info("Done.");
+
 		}
 	}
 
@@ -79,12 +82,13 @@ public class ModelManager {
 	}
 
 	public static Battlefield getBattlefield() {
-		if(battlefieldReady)
+		if(battlefieldReady) {
 			return battlefield;
-		else
+		} else {
 			throw new RuntimeException("Trying to acces to battlefield while it is unavailable");
+		}
 	}
-	
+
 	public static void setBattlefieldUnavailable(){
 		battlefieldReady = false;
 	}

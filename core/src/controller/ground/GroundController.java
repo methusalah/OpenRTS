@@ -4,7 +4,8 @@
  */
 package controller.ground;
 
-import tools.LogUtil;
+import java.util.logging.Logger;
+
 import view.EditorView;
 
 import com.jme3.app.state.AppStateManager;
@@ -19,6 +20,8 @@ import controller.cameraManagement.GroundCameraManager;
  * @author Benoît
  */
 public class GroundController extends Controller {
+
+	private static final Logger logger = Logger.getLogger(GroundController.class.getName());
 
 	public GroundController(EditorView view, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
@@ -36,7 +39,7 @@ public class GroundController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);
-		LogUtil.logger.info("ground controller on line");
+		logger.info("ground controller on line");
 	}
 
 

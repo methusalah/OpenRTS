@@ -7,14 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import tools.LogUtil;
+import java.util.logging.Logger;
 
 /**
  * Sun light is a multi-component light defining : - directional light - directional shadow caster - ambient light This class is mainly done for edition purpose
  * and should be refactored
  */
 public class SunLight {
+
+	private static final Logger logger = Logger.getLogger(SunLight.class.getName());
+
 	public static double DEFAULT_COMPASS_ANGLE = Angle.toRadians(20);
 	public static double DEFAULT_HOUR_ANGLE = Angle.toRadians(40);
 	public static double DEFAULT_SUN_INTENSITY = 1.4;
@@ -52,23 +54,23 @@ public class SunLight {
 			case 0:
 				actualLights.add(sun);
 				confIndex = 1;
-				LogUtil.logger.info("Light switch to sun.");
+				logger.info("Light switch to sun.");
 				break;
 			case 1:
 				actualLights.add(shadowCaster);
 				confIndex = 2;
-				LogUtil.logger.info("Light switch to shadow caster.");
+				logger.info("Light switch to shadow caster.");
 				break;
 			case 2:
 				actualLights.add(sun);
 				actualLights.add(shadowCaster);
 				confIndex = 3;
-				LogUtil.logger.info("Light switch to both sun and shadow caster.");
+				logger.info("Light switch to both sun and shadow caster.");
 				break;
 			case 3:
 				actualLights.add(ambient);
 				confIndex = 0;
-				LogUtil.logger.info("Light switch to ambiant.");
+				logger.info("Light switch to ambiant.");
 				break;
 		}
 	}
@@ -199,10 +201,10 @@ public class SunLight {
 	public void toggleSpeed() {
 		if (delay == 50) {
 			delay = 5;
-			LogUtil.logger.info("High speed set.");
+			logger.info("High speed set.");
 		} else {
 			delay = 50;
-			LogUtil.logger.info("low speed set.");
+			logger.info("low speed set.");
 		}
 	}
 

@@ -4,19 +4,23 @@ import geometry.geom2d.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.map.Map;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasLayer;
-import tools.LogUtil;
 
+// FIXME:this is a Util class
 public class AtlasArtisan {
 
+	private static final Logger logger = Logger.getLogger(AtlasArtisan.class.getName());
+
 	public static void buildAtlas(Map m) {
-		if(m.getAtlas() == null)
+		if(m.getAtlas() == null) {
 			createNewAtlasOn(m);
-		else
+		} else {
 			finalizeAtlasOn(m);
+		}
 	}
 
 	private static void createNewAtlasOn(Map m) {
@@ -29,7 +33,7 @@ public class AtlasArtisan {
 		m.getAtlas().finalize();
 		m.getCover().finalize();
 	}
-	
+
 	public static void incrementPixel(Atlas atlas, Point2D p, AtlasLayer layer, double increment) {
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
@@ -40,8 +44,9 @@ public class AtlasArtisan {
 			if (l == layer) {
 				valueToDitribute -= l.addAndReturnExcess(x, y, increment);
 			} else {
-				if(l.get(x, y) > 0)
+				if(l.get(x, y) > 0) {
 					availableLayers.add(l);
+				}
 			}
 		}
 		int secur = 0;
@@ -57,13 +62,13 @@ public class AtlasArtisan {
 			}
 			availableLayers.removeAll(unavailableLayers);
 			if(secur++ > 40){
-				LogUtil.logger.warning("Impossible to distribute value");
+				logger.warning("Impossible to distribute value");
 				break;
 			}
 		}
 		atlas.updatePixel(x, y);
 	}
-	
+
 	public static void decrementPixel(Atlas atlas, Point2D p, AtlasLayer layer, double increment) {
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);
@@ -94,13 +99,13 @@ public class AtlasArtisan {
 			}
 			availableLayers.removeAll(unavailableLayers);
 			if(secur++ > 40){
-				LogUtil.logger.warning("Impossible to distribute value");
+				logger.warning("Impossible to distribute value");
 				break;
 			}
 		}
 		atlas.updatePixel(x, y);
 	}
-	
+
 	public static void smoothPixel(Atlas atlas, Point2D p, double increment){
 		int x = (int) Math.round(p.x);
 		int y = (int) Math.round(p.y);

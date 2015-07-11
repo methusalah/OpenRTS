@@ -1,8 +1,9 @@
 package app;
 
+import java.util.logging.Logger;
+
 import model.ModelManager;
 import model.editor.ToolManager;
-import tools.LogUtil;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
 
@@ -15,10 +16,12 @@ import controller.Controller;
 import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
-import event.EventManager;
 import event.ControllerChangeEvent;
+import event.EventManager;
 
 public class MainRTS extends OpenRTSApplication {
+
+	private static final Logger logger = Logger.getLogger(MainRTS.class.getName());
 
 	EditorView view;
 	MapDrawer tr;
@@ -95,7 +98,7 @@ public class MainRTS extends OpenRTSApplication {
 			default:
 				return;
 		}
-		LogUtil.logger.info("switching controller to " + desiredCtrl.getClass().getSimpleName());
+		logger.info("switching controller to " + desiredCtrl.getClass().getSimpleName());
 
 		stateManager.detach(actualCtrl);
 		actualCtrl.setEnabled(false);

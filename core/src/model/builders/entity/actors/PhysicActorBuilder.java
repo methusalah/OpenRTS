@@ -7,8 +7,8 @@ import geometry.math.Angle;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
-import tools.LogUtil;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.PhysicActor;
@@ -19,6 +19,9 @@ import model.builders.entity.definitions.Definition;
  * @author Benoît
  */
 public class PhysicActorBuilder extends ActorBuilder {
+
+	private static final Logger logger = Logger.getLogger(PhysicActorBuilder.class.getName());
+
 	private static final String MODEL_PATH = "ModelPath";
 	private static final String SCALE = "Scale";
 	private static final String MASS = "Mass";
@@ -89,14 +92,15 @@ public class PhysicActorBuilder extends ActorBuilder {
 					String name = de.getVal(SUB_MESH_NAME);
 					String indexString = de.getVal(SUB_MESH_INDEX);
 					int index = indexString == null?-1 : Integer.parseInt(indexString);
-					if(name != null)
+					if(name != null) {
 						subColorsByName.put(name, subcolor);
-					else if(index != -1)
+					} else if(index != -1) {
 						subColorsByIndex.put(index, subcolor);
-					else
-						LogUtil.logger.warning("SubColor incorrect in "+getId());
+					} else {
+						logger.warning("SubColor incorrect in " + getId());
+					}
 					break;
-					
+
 				default:
 					printUnknownElement(de.name);
 			}

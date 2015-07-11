@@ -4,14 +4,17 @@
  */
 package model.builders.entity;
 
+import java.util.logging.Logger;
+
 import model.builders.entity.definitions.Definition;
-import tools.LogUtil;
 
 /**
  *
  * @author Benoît
  */
 public abstract class Builder {
+
+	private static final Logger logger = Logger.getLogger(Builder.class.getName());
 	protected Definition def;
 
 	public Builder(Definition def) {
@@ -25,14 +28,14 @@ public abstract class Builder {
 	}
 
 	public void printUnknownElement(String elementName){
-		LogUtil.logger.warning("Element '"+elementName+"' unknown in definition '"+getId()+"'.");
+		logger.warning("Element '" + elementName + "' unknown in definition '" + getId() + "'.");
 	}
 
 	public void printUnknownArgument(String elementName, String argumentName){
-		LogUtil.logger.warning("Argument '"+argumentName+"' unknown for element '"+elementName+"' in definition '"+getId()+"'.");
+		logger.warning("Argument '" + argumentName + "' unknown for element '" + elementName + "' in definition '" + getId() + "'.");
 	}
 
 	public void printUnknownValue(String elementName, String value){
-		LogUtil.logger.warning("value '"+value+"' unknown for element '"+elementName+"' in definition '"+getId()+"'.");
+		logger.warning("value '" + value + "' unknown for element '" + elementName + "' in definition '" + getId() + "'.");
 	}
 }

@@ -1,9 +1,11 @@
 package controller.battlefield;
 
-import tools.LogUtil;
 import event.ControllerChangeEvent;
 import event.EventManager;
 import geometry.geom2d.Point2D;
+
+import java.util.logging.Logger;
+
 import model.CommandManager;
 
 import com.jme3.input.InputManager;
@@ -14,6 +16,9 @@ import com.jme3.input.controls.MouseButtonTrigger;
 import controller.InputInterpreter;
 
 public class BattlefieldInputInterpreter extends InputInterpreter {
+
+	private static final Logger logger = Logger.getLogger(BattlefieldInputInterpreter.class.getName());
+
 	protected final static String SWITCH_CTRL_1 = "ctrl1";
 	protected final static String SWITCH_CTRL_2 = "ctrl2";
 	protected final static String SWITCH_CTRL_3 = "ctrl3";
@@ -57,7 +62,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 		inputManager.addListener(this, mappings);
 
-		LogUtil.logger.info("battlefield controller online");
+		logger.info("battlefield controller online");
 	}
 
 	@Override

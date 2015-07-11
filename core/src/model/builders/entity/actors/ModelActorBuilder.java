@@ -6,11 +6,9 @@ package model.builders.entity.actors;
 import geometry.math.Angle;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.logging.Logger;
 
-import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -21,6 +19,9 @@ import model.builders.entity.definitions.Definition;
  * @author Benoît
  */
 public class ModelActorBuilder extends ActorBuilder {
+
+	private static final Logger logger = Logger.getLogger(ModelActorBuilder.class.getName());
+
 	private static final String MODEL_PATH = "ModelPath";
 	private static final String SCALE = "Scale";
 	private static final String SCALE_X = "ScaleX";
@@ -88,14 +89,16 @@ public class ModelActorBuilder extends ActorBuilder {
 					String name = de.getVal(SUB_MESH_NAME);
 					String indexString = de.getVal(SUB_MESH_INDEX);
 					int index = indexString == null?-1 : Integer.parseInt(indexString);
-					if(name != null)
+					if(name != null) {
 						subColorsByName.put(name, subcolor);
-					else if(index != -1){
-						if(index == 0)
-							LogUtil.logger.warning("the submesh index must be >= 1 in "+getId());
+					} else if(index != -1){
+						if(index == 0) {
+							logger.warning("the submesh index must be >= 1 in "+getId());
+						}
 						subColorsByIndex.put(index, subcolor);
-					} else
-						LogUtil.logger.warning("SubColor incorrect in "+getId());
+					} else {
+						logger.warning("SubColor incorrect in "+getId());
+					}
 					break;
 				default:
 					printUnknownElement(de.name);
@@ -129,7 +132,7 @@ public class ModelActorBuilder extends ActorBuilder {
 				subColorsByIndex,
 				comp);
 		res.debbug_id = getId();
-//		res.act();
+		//		res.act();
 		return res;
 	}
 
