@@ -10,7 +10,6 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import view.MapView;
-import view.math.Translator;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.state.AbstractAppState;
@@ -98,7 +97,7 @@ public class GameController extends AbstractAppState {
 		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
 		for (Unit u : ArmyManager.getUnits()) {
-			if (screen.contains(spatialSelector.getScreenCoord(Translator.toVector3f(u.getPos())))) {
+			if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
 				inScreen.add(u);
 			}
 		}
@@ -113,7 +112,7 @@ public class GameController extends AbstractAppState {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCameraManager) cameraManager).move(ModelManager.getBattlefield().getMap().width / 2, ModelManager.getBattlefield().getMap().height / 2);
+		((IsometricCameraManager) cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
