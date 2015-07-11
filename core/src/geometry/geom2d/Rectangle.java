@@ -3,7 +3,7 @@ package geometry.geom2d;
 import geometry.collections.EdgeRing;
 import geometry.collections.PointRing;
 import geometry.math.Angle;
-import geometry.math.Precision;
+import geometry.math.PrecisionUtil;
 
 public class Rectangle extends Polygon {
 
@@ -31,7 +31,7 @@ public class Rectangle extends Polygon {
 		String valid = "";
 		if (points.size() != 4)
 			valid += "illegal size ";
-		if(!super.isRectangular(Precision.APPROX))
+		if(!super.isRectangular(PrecisionUtil.APPROX))
 			valid += "not quadrilateral ";
 		
 		if (valid != "")

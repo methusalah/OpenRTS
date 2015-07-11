@@ -1,7 +1,7 @@
 package geometry.geom3d;
 
 import geometry.geom2d.Point2D;
-import geometry.math.Precision;
+import geometry.math.PrecisionUtil;
 
 import java.text.DecimalFormat;
 
@@ -148,7 +148,7 @@ public class Point3D {
 			return false;
 		}
 		Point3D p = (Point3D) o;
-		return Math.abs(x - p.x) < Precision.APPROX && Math.abs(y - p.y) < Precision.APPROX && Math.abs(z - p.z) < Precision.APPROX;
+		return Math.abs(x - p.x) < PrecisionUtil.APPROX && Math.abs(y - p.y) < PrecisionUtil.APPROX && Math.abs(z - p.z) < PrecisionUtil.APPROX;
 	}
 
 	@Override

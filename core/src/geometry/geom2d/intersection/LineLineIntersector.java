@@ -3,7 +3,7 @@ package geometry.geom2d.intersection;
 import geometry.geom2d.Line2D;
 import geometry.geom2d.Point2D;
 import geometry.math.Angle;
-import geometry.math.Precision;
+import geometry.math.PrecisionUtil;
 
 
 /**
@@ -185,7 +185,7 @@ public class LineLineIntersector {
 		// We now check the slope to know if lines are Type.PARALLEL
 		double pSlope = p0.getSlope(p1);
 		double qSlope = q0.getSlope(q1);
-		if (Precision.areEquals(pSlope, qSlope))
+		if (PrecisionUtil.areEquals(pSlope, qSlope))
 			// TODO check the infinity case
 			// this test works even if the slopes are "Double.infinity" due to the verticality of the lines and division
 			// by 0

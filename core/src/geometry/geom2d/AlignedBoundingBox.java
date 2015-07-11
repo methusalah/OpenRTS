@@ -2,7 +2,7 @@ package geometry.geom2d;
 
 import geometry.collections.EdgeRing;
 import geometry.collections.PointRing;
-import geometry.math.Precision;
+import geometry.math.PrecisionUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class AlignedBoundingBox extends BoundingShape {
 	}
 
 	private boolean shareX(double x) {
-		if (x - maxX <= Precision.APPROX && x - minX >= -Precision.APPROX) {
+		if (x - maxX <= PrecisionUtil.APPROX && x - minX >= -PrecisionUtil.APPROX) {
 			return true;
 		} else {
 			return false;
@@ -99,7 +99,7 @@ public class AlignedBoundingBox extends BoundingShape {
 	}
 
 	private boolean shareY(double y) {
-		if (y - maxY <= Precision.APPROX && y - minY >= -Precision.APPROX) {
+		if (y - maxY <= PrecisionUtil.APPROX && y - minY >= -PrecisionUtil.APPROX) {
 			return true;
 		} else {
 			return false;

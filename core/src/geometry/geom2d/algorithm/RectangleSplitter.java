@@ -5,7 +5,7 @@ import geometry.geom2d.Line2D;
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.Rectangle;
-import geometry.math.Precision;
+import geometry.math.PrecisionUtil;
 
 public class RectangleSplitter extends Splitter {
 	private Rectangle r;
@@ -44,7 +44,7 @@ public class RectangleSplitter extends Splitter {
 		
 		fitSplittings();
 		for(Splitting s : allSplittings) {
-			if(Precision.areEquals(s.width, 0))
+			if(PrecisionUtil.areEquals(s.width, 0))
 				continue;
 			for(int i = 0; i<s.count; i++) {
 				splits.get(s.label).add(getLeftSplit(aar, s.width).getRotation(axis.getAngle(), origin));
@@ -66,7 +66,7 @@ public class RectangleSplitter extends Splitter {
 	}
 
 	private Rectangle getRightSplit(Rectangle rectangle, double distance) {
-		if(Precision.areEquals(distance, rectangle.getWidth()))
+		if(PrecisionUtil.areEquals(distance, rectangle.getWidth()))
 				return null;
 		PointRing res = new PointRing();
 		res.add(rectangle.points.getFirst().getTranslation(0, distance));

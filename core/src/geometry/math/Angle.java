@@ -31,9 +31,9 @@ public class Angle {
 	public static int getTurn(Point2D p0, Point2D p1, Point2D q) {
 		double turn = p1.getSubtraction(p0).getDeterminant(q.getSubtraction(p1));
 		
-		if(turn > Precision.APPROX)
+		if(turn > PrecisionUtil.APPROX)
 			return COUNTERCLOCKWISE;
-		else if(turn < -Precision.APPROX)
+		else if(turn < -PrecisionUtil.APPROX)
 			return CLOCKWISE;
 		else
 			return NONE;
@@ -103,7 +103,7 @@ public class Angle {
 	  }
 	  
 	  public static boolean areSimilar(double ang1, double ang2) {
-		  return getSmallestDifference(ang1, ang2) < Precision.APPROX;
+		  return getSmallestDifference(ang1, ang2) < PrecisionUtil.APPROX;
 	  }
 	  
 	  /**

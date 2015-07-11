@@ -1,7 +1,7 @@
 package geometry.geom2d;
 
 import geometry.geom3d.Point3D;
-import geometry.math.Precision;
+import geometry.math.PrecisionUtil;
 
 import java.text.DecimalFormat;
 
@@ -100,7 +100,7 @@ public class Point2D {
 		if (!(o instanceof Point2D))
 			return false;
 		Point2D p = (Point2D) o;
-		return Math.abs(x - p.x) < Precision.APPROX && Math.abs(y - p.y) < Precision.APPROX;
+		return Math.abs(x - p.x) < PrecisionUtil.APPROX && Math.abs(y - p.y) < PrecisionUtil.APPROX;
 	}
 
 	public double getDotProduct(Point2D other) {
