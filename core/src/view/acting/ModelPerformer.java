@@ -16,7 +16,7 @@ import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.map.Trinket;
 import tools.LogUtil;
-import view.math.Translator;
+import view.math.TranslateUtil;
 import view.mesh.Circle;
 
 import com.jme3.animation.AnimControl;
@@ -47,7 +47,7 @@ public class ModelPerformer extends Performer {
 			Spatial s = actorDrawer.buildSpatial(actor.getModelPath());
 
 			if (actor.getColor() != null) {
-				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
+				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
 			} else{
 				for(Integer index : actor.getSubColorsByIndex().keySet())
 					applyToSubmesh(s, null, index, actor.getSubColorsByIndex().get(index));
@@ -77,7 +77,7 @@ public class ModelPerformer extends Performer {
 	private void applyToSubmesh(Spatial s, String subMeshName, int subMeshIndex, Color color){
 		if(s instanceof Geometry){
 			if(((Geometry)s).getName().equals(subMeshName) || subMeshIndex == 0){
-				((Geometry)s).getMaterial().setColor("Diffuse", Translator.toColorRGBA(color));
+				((Geometry)s).getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA(color));
 				return;
 			}
 		} else {
@@ -100,7 +100,7 @@ public class ModelPerformer extends Performer {
 		s.setUserData(ENTITYID_USERDATA, comp.getId());
 
 		// translation
-		s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
+		s.setLocalTranslation(TranslateUtil.toVector3f(actor.getPos()));
 
 		// rotation
 		Quaternion r = new Quaternion();
@@ -110,8 +110,8 @@ public class ModelPerformer extends Performer {
 			if (pu != null) {
 				// the comp has a up vector
 				// for ground comps or horitonally flying units 
-				Vector3f u = Translator.toVector3f(pu).normalize();
-				Vector3f v = Translator.toVector3f(pv).normalize();
+				Vector3f u = TranslateUtil.toVector3f(pu).normalize();
+				Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 				r.lookAt(v, u);
 				// we correct the pitch of the unit because the direction is always flatten
 				// this is only to follow the terrain relief
@@ -121,7 +121,7 @@ public class ModelPerformer extends Performer {
 				// the comp hasn't any up vector
 				// for projectiles
 				Vector3f u = new Vector3f(0, -1, 0);
-				Vector3f v = Translator.toVector3f(pv).normalize();
+				Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 				float real = 1 + u.dot(v);
 				Vector3f w = u.cross(v);
 				r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
@@ -165,7 +165,7 @@ public class ModelPerformer extends Performer {
 			actor.getViewElements().selectionCircle = n;
 		}
 		Node n = actor.getViewElements().selectionCircle;
-		n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
+		n.setLocalTranslation(TranslateUtil.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
 		if (unit.selected) {
 			if (!actorDrawer.mainNode.hasChild(n)) {
@@ -229,6 +229,6 @@ public class ModelPerformer extends Performer {
 		// Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
 		// p3D = p3D.getAddition(actorPos);
 		// return p3D;
-		return Translator.toPoint3D(modelSpacePos);
+		return TranslateUtil.toPoint3D(modelSpacePos);
 	}
 }

@@ -2,7 +2,7 @@ package controller.cameraManagement;
 
 import geometry.geom3d.Point3D;
 import model.ModelManager;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -53,8 +53,8 @@ public class IsometricCameraManager extends CameraManager {
 	}
 
 	private void placeCam(){
-		cam.setLocation(Translator.toVector3f(pos));
-		cam.lookAt(Translator.toVector3f(target), Vector3f.UNIT_Z);
+		cam.setLocation(TranslateUtil.toVector3f(pos));
+		cam.lookAt(TranslateUtil.toVector3f(target), Vector3f.UNIT_Z);
 	}
 
 	@Override

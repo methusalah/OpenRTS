@@ -18,7 +18,7 @@ import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.asset.AssetManager;
@@ -106,7 +106,7 @@ public class MapDrawer {
 
 		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
 			Geometry g = new Geometry();
-			Mesh jmeMesh = Translator.toJMEMesh(parcel.getMesh());
+			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
@@ -202,9 +202,9 @@ public class MapDrawer {
 
 		NaturalFace face = (NaturalFace) (c.face);
 		Geometry g = new Geometry();
-		g.setMesh(Translator.toJMEMesh(face.mesh));
+		g.setMesh(TranslateUtil.toJMEMesh(face.mesh));
 		if (face.color != null) {
-			g.setMaterial(mm.getLightingColor(Translator.toColorRGBA(face.color)));
+			g.setMaterial(mm.getLightingColor(TranslateUtil.toColorRGBA(face.color)));
 		} else {
 			g.setMaterial(mm.getLightingTexture(face.texturePath));
 		}
@@ -245,7 +245,7 @@ public class MapDrawer {
 
 	private void updateParcels(List<Parcel> toUpdate) {
 		for (Parcel parcel : toUpdate) {
-			Mesh jmeMesh = Translator.toJMEMesh(parcel.getMesh());
+			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) parcelsSpatial.get(parcel));
 			g.setMesh(jmeMesh);

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import model.ModelManager;
 import view.MapView;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.light.AmbientLight;
@@ -70,9 +70,9 @@ public class LightDrawer implements ActionListener {
 		rootNode.removeLight(sun);
 		rootNode.removeLight(shadowCaster);
 
-		al = Translator.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
-		sun = Translator.toJMELight(ModelManager.getBattlefield().getSunLight().sun);
-		shadowCaster = Translator.toJMELight(ModelManager.getBattlefield().getSunLight().shadowCaster);
+		al = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
+		sun = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().sun);
+		shadowCaster = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().shadowCaster);
 //		sr.setLight(shadowCaster);
 		sf.setLight(shadowCaster);
 
@@ -95,9 +95,9 @@ public class LightDrawer implements ActionListener {
 	}
 
 	public void updateLights() {
-		Translator.toJMELight(al, ModelManager.getBattlefield().getSunLight().ambient);
-		Translator.toJMELight(sun, ModelManager.getBattlefield().getSunLight().sun);
-		Translator.toJMELight(shadowCaster, ModelManager.getBattlefield().getSunLight().shadowCaster);
+		TranslateUtil.toJMELight(al, ModelManager.getBattlefield().getSunLight().ambient);
+		TranslateUtil.toJMELight(sun, ModelManager.getBattlefield().getSunLight().sun);
+		TranslateUtil.toJMELight(shadowCaster, ModelManager.getBattlefield().getSunLight().shadowCaster);
 		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
 //		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 		sf.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);

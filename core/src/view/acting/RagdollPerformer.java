@@ -10,7 +10,7 @@ import geometry.math.MyRandom;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.PhysicActor;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.animation.AnimControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -54,7 +54,7 @@ public class RagdollPerformer extends Performer{
 			double massVecLength = massVec.length();
 			double massVecAngle = new Point2D(massVec.x, massVec.y).getAngle();
 			Point2D unitPos2D = ma.getPos().get2D().getTranslation(massVecAngle, massVecLength);
-			control.setPhysicsLocation(Translator.toVector3f(unitPos2D.get3D(ma.getPos().z+0.1)));
+			control.setPhysicsLocation(TranslateUtil.toVector3f(unitPos2D.get3D(ma.getPos().z+0.1)));
 
 
 			// rotation

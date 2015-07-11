@@ -10,7 +10,7 @@ import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import tools.LogUtil;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
@@ -50,15 +50,15 @@ public class ParticlePerformer extends Performer{
 				return;
 			}
 
-			emissionPoint = Translator.toVector3f(ma.getBoneCoord(actor.emissionBone));
+			emissionPoint = TranslateUtil.toVector3f(ma.getBoneCoord(actor.emissionBone));
 			if(actor.directionBone != null) {
-				direction = Translator.toVector3f(ma.getBoneCoord(actor.directionBone));
+				direction = TranslateUtil.toVector3f(ma.getBoneCoord(actor.directionBone));
 			} else {
 				direction = new Vector3f(emissionPoint);
 			}
 		} else {
-			emissionPoint = Translator.toVector3f(ma.getPos());
-			direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getYaw(), 1).get3D(emissionPoint.z));
+			emissionPoint = TranslateUtil.toVector3f(ma.getPos());
+			direction = TranslateUtil.toVector3f(ma.getPos().get2D().getTranslation(ma.getYaw(), 1).get3D(emissionPoint.z));
 		}
 		direction = direction.subtract(emissionPoint).normalize();
 		Vector3f velocity = direction.mult((float)actor.velocity);
@@ -117,8 +117,8 @@ public class ParticlePerformer extends Performer{
 		emitter.setImagesX(actor.nbRow);
 		emitter.setImagesY(actor.nbCol);
 
-		emitter.setStartColor(Translator.toColorRGBA(actor.startColor));
-		emitter.setEndColor(Translator.toColorRGBA(actor.endColor));
+		emitter.setStartColor(TranslateUtil.toColorRGBA(actor.startColor));
+		emitter.setEndColor(TranslateUtil.toColorRGBA(actor.endColor));
 
 		emitter.setStartSize((float)actor.startSize);
 		emitter.setEndSize((float)actor.endSize);

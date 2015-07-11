@@ -15,7 +15,7 @@ import model.editor.Pencil;
 import model.editor.ToolManager;
 import view.EditorView;
 import view.material.MaterialManager;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.material.Material;
@@ -64,7 +64,7 @@ public class EditorRenderer {
 				gridMeshes.put(parcel, grid);
 	
 				Geometry g = new Geometry();
-				g.setMesh(Translator.toJMEMesh(grid));
+				g.setMesh(TranslateUtil.toJMEMesh(grid));
 				Material mat = mm.getColor(ColorRGBA.Black);
 				mat.getAdditionalRenderState().setWireframe(true);
 				g.setMaterial(mat);
@@ -169,7 +169,7 @@ public class EditorRenderer {
 		int index = 0;
 		for (Spatial s : CliffPencilNode.getChildren()) {
 			if (index < tiles.size()) {
-				s.setLocalTranslation(Translator.toVector3f(tiles.get(index).getCoord(), (float) ToolManager.getCliffTool().pencil.getElevation() + 0.1f));
+				s.setLocalTranslation(TranslateUtil.toVector3f(tiles.get(index).getCoord(), (float) ToolManager.getCliffTool().pencil.getElevation() + 0.1f));
 			} else {
 				s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 			}
@@ -184,7 +184,7 @@ public class EditorRenderer {
 			if (index < tiles.size()) {
 				Point3D start = tiles.get(index).getPos();
 				Point3D end = tiles.get(index).getPos().getAddition(0, 0, 0.5);
-				Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
+				Line l = new Line(TranslateUtil.toVector3f(start), TranslateUtil.toVector3f(end));
 				l.setLineWidth(PENCIL_THICKNESS);
 				((Geometry) s).setMesh(l);
 				s.setLocalTranslation(Vector3f.ZERO);
@@ -234,7 +234,7 @@ public class EditorRenderer {
 					&& ModelManager.getBattlefield().getMap().isInBounds(pr.getNext(index))) {
 				Point3D start = pr.get(index).get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pr.get(index)) + 0.1);
 				Point3D end = pr.getNext(index).get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pr.getNext(index)) + 0.1);
-				Line l = new Line(Translator.toVector3f(start), Translator.toVector3f(end));
+				Line l = new Line(TranslateUtil.toVector3f(start), TranslateUtil.toVector3f(end));
 				l.setLineWidth(PENCIL_THICKNESS);
 				((Geometry) spatial).setMesh(l);
 				spatial.setLocalTranslation(Vector3f.ZERO);
@@ -291,7 +291,7 @@ public class EditorRenderer {
 		for (Parcel parcel : updatedParcels) {
 			GridMesh m = gridMeshes.get(parcel);
 			m.update();
-			gridGeoms.get(parcel).setMesh(Translator.toJMEMesh(m));
+			gridGeoms.get(parcel).setMesh(TranslateUtil.toJMEMesh(m));
 		}
 	}
 }

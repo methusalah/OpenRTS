@@ -9,11 +9,9 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 
-public class Pointer {
-	public Pointer() {
-	}
+public abstract class PointUtil {
 
-	public Geometry getPointedGeometry(Node n, Ray r) {
+	public static Geometry getPointedGeometry(Node n, Ray r) {
 		CollisionResult collision = getCollision(n, r);
 		if (collision == null) {
 			return null;
@@ -21,7 +19,7 @@ public class Pointer {
 		return collision.getGeometry();
 	}
 
-	public Point2D getPointedCoord(Node n, Ray r) {
+	public static Point2D getPointedCoord(Node n, Ray r) {
 		CollisionResult collision = getCollision(n, r);
 		if (collision == null) {
 			return null;
@@ -31,7 +29,7 @@ public class Pointer {
 		return new Point2D(p.x, p.y);
 	}
 
-	private CollisionResult getCollision(Node n, Ray r) {
+	private static CollisionResult getCollision(Node n, Ray r) {
 		CollisionResults results = new CollisionResults();
 		n.collideWith(r, results);
 		if (results.size() == 0) {
