@@ -9,7 +9,7 @@ import java.util.Map;
 
 import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 /**
  * Contains the path to a model to draw. This actor also hold the model bone coordinates given by the view. These coordinates may be useful in the model. IE :
@@ -20,7 +20,12 @@ public class ModelActor extends Actor {
 	private final double scaleX;
 	private final double scaleY;
 	private final double scaleZ;
+	private final double yawFix;
+	private final double pitchFix;
+	private final double rollFix;
 	private final Color color;
+	private final HashMap<String, Color> subColorsByName;
+	private final HashMap<Integer, Color> subColorsByIndex;
 	final FieldComp comp;
 
 	private Map<String, Point3D> boneCoords = new HashMap<>();
@@ -33,14 +38,24 @@ public class ModelActor extends Actor {
 			double scaleX,
 			double scaleY,
 			double scaleZ,
+			double yaw,
+			double pitch,
+			double roll,
 			Color color,
+			HashMap<String, Color> subColorsByName,
+			HashMap<Integer, Color> subColorsByIndex,
 			FieldComp comp) {
 		super(parent, trigger, childrenTriggers, childrenBuilders);
 		this.modelPath = modelPath;
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
 		this.scaleZ = scaleZ;
+		this.yawFix = yaw;
+		this.pitchFix = pitch;
+		this.rollFix = roll;
 		this.color = color;
+		this.subColorsByName = subColorsByName;
+		this.subColorsByIndex = subColorsByIndex;
 		this.comp = comp;
 	}
 
@@ -94,10 +109,6 @@ public class ModelActor extends Actor {
 		return comp.getYaw();
 	}
 
-	public Point3D getDirection(){
-		return comp.direction;
-	}
-
 	public Color getColor() {
 		return color;
 	}
@@ -117,4 +128,32 @@ public class ModelActor extends Actor {
 	public double getScaleY() {
 		return scaleY;
 	}
+
+
+	public double getYawFix() {
+		return yawFix;
+	}
+
+
+	public double getPitchFix() {
+		return pitchFix;
+	}
+
+
+	public double getRollFix() {
+		return rollFix;
+	}
+
+
+	public HashMap<String, Color> getSubColorsByName() {
+		return subColorsByName;
+	}
+
+
+	public HashMap<Integer, Color> getSubColorsByIndex() {
+		return subColorsByIndex;
+	}
+	
+	
+
 }

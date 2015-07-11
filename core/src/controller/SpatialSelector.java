@@ -3,6 +3,7 @@ package controller;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import model.EntityManager;
+import model.battlefield.abstractComps.FieldComp;
 import view.MapView;
 import view.acting.ModelPerformer;
 import view.math.Translator;

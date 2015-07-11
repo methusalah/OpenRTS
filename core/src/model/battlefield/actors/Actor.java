@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
-import model.builders.actors.ActorBuilder;
-import tools.LogUtil;
+import model.builders.entity.actors.ActorBuilder;
 import view.acting.ActorViewElements;
 
 /**

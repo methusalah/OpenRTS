@@ -3,7 +3,7 @@ package model.battlefield.abstractComps;
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
 import model.battlefield.army.components.Mover;
-import model.builders.MoverBuilder;
+import model.builders.entity.MoverBuilder;
 
 /**
  * A basic abstract entity, containing all needed attributes and methods to set a moving object on the battlefield

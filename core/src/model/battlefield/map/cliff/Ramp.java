@@ -1,5 +1,6 @@
 package model.battlefield.map.cliff;
 
+import geometry.geom2d.Point2D;
 import geometry.math.Angle;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Ramp {
 	private List<Integer> tilesRef = new ArrayList<>();
 
 	public Ramp(Tile t) {
-		ModelManager.getBattlefield().getMap().ramps.add(this);
+		ModelManager.getBattlefield().getMap().getRamps().add(this);
 		if (!t.hasCliff()) {
 			throw new IllegalArgumentException("Ramp must be first created on a cliff.");
 		}
@@ -50,7 +51,7 @@ public class Ramp {
 	 */
 	public void connect(Map map) {
 		for (Integer ref : tilesRef) {
-			tiles.add(map.getTile(ref));
+			tiles.add((Tile)map.get(ref));
 		}
 		compute();
 	}
@@ -61,17 +62,18 @@ public class Ramp {
 		minY = Integer.MAX_VALUE;
 		maxY = 0;
 		for (Tile t : tiles) {
-			minX = t.x < minX ? t.x : minX;
-			maxX = t.x > maxX ? t.x : maxX;
-			minY = t.y < minY ? t.y : minY;
-			maxY = t.y > maxY ? t.y : maxY;
+			Point2D p = t.getCoord();
+			minX = (int)p.x < minX ? (int)p.x : minX;
+			maxX = (int)p.x > maxX ? (int)p.x : maxX;
+			minY = (int)p.y < minY ? (int)p.y : minY;
+			maxY = (int)p.y > maxY ? (int)p.y : maxY;
 		}
 		tilesRef.clear();
 		for (Tile t : tiles) {
-			tilesRef.add(ModelManager.getBattlefield().getMap().getRef(t));
+			tilesRef.add(t.getIndex());
 			t.ramp = this;
 			t.level = level;
-			t.elevation = -Tile.STAGE_HEIGHT * getSlopeRate(t);
+			t.setElevation(-Tile.STAGE_HEIGHT * getSlopeRate(t));
 			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				n.ramp = this;
 			}
@@ -85,44 +87,45 @@ public class Ramp {
 	}
 
 	public void grow(Tile t) {
+		Point2D p = t.getCoord();
 		if (angle == 0) {
-			if (t.x > maxX) {
+			if (p.x > maxX) {
 				growEast();
 			}
-			if (t.y > maxY) {
+			if (p.y > maxY) {
 				growNorth();
 			}
-			if (t.y < minY) {
+			if (p.y < minY) {
 				growSouth();
 			}
 		} else if (angle == Angle.FLAT) {
-			if (t.x < minX) {
+			if (p.x < minX) {
 				growWest();
 			}
-			if (t.y > maxY) {
+			if (p.y > maxY) {
 				growNorth();
 			}
-			if (t.y < minY) {
+			if (p.y < minY) {
 				growSouth();
 			}
 		} else if (angle == Angle.RIGHT) {
-			if (t.x < minX) {
+			if (p.x < minX) {
 				growWest();
 			}
-			if (t.x > maxX) {
+			if (p.x > maxX) {
 				growEast();
 			}
-			if (t.y > maxY) {
+			if (p.y > maxY) {
 				growNorth();
 			}
 		} else if (angle == -Angle.RIGHT) {
-			if (t.x < minX) {
+			if (p.x < minX) {
 				growWest();
 			}
-			if (t.x > maxX) {
+			if (p.x > maxX) {
 				growEast();
 			}
-			if (t.y < minY) {
+			if (p.y < minY) {
 				growSouth();
 			}
 		}
@@ -131,8 +134,8 @@ public class Ramp {
 	private void growNorth() {
 		ArrayList<Tile> grown = new ArrayList<>();
 		for (Tile t : tiles) {
-			if (t.n != null && !tiles.contains(t.n)) {
-				grown.add(t.n);
+			if (t.n() != null && !tiles.contains(t.n())) {
+				grown.add(t.n());
 			}
 		}
 		add(grown);
@@ -141,8 +144,8 @@ public class Ramp {
 	private void growSouth() {
 		ArrayList<Tile> grown = new ArrayList<>();
 		for (Tile t : tiles) {
-			if (t.s != null && !tiles.contains(t.s)) {
-				grown.add(t.s);
+			if (t.s() != null && !tiles.contains(t.s())) {
+				grown.add(t.s());
 			}
 		}
 		add(grown);
@@ -151,8 +154,8 @@ public class Ramp {
 	private void growEast() {
 		ArrayList<Tile> grown = new ArrayList<>();
 		for (Tile t : tiles) {
-			if (t.e != null && !tiles.contains(t.e)) {
-				grown.add(t.e);
+			if (t.e() != null && !tiles.contains(t.e())) {
+				grown.add(t.e());
 			}
 		}
 		add(grown);
@@ -161,8 +164,8 @@ public class Ramp {
 	private void growWest() {
 		ArrayList<Tile> grown = new ArrayList<>();
 		for (Tile t : tiles) {
-			if (t.w != null && !tiles.contains(t.w)) {
-				grown.add(t.w);
+			if (t.w() != null && !tiles.contains(t.w())) {
+				grown.add(t.w());
 			}
 		}
 		add(grown);
@@ -172,45 +175,46 @@ public class Ramp {
 	/**
 	 * Get the slope rate at the given tile coords. At the top of the ramp, slope is 0, and 1 at the bottom.
 	 *
-	 * @param t
+	 * @param p
 	 * @return
 	 */
 	public double getSlopeRate(Tile t) {
+		Point2D p = t.getCoord();
 		if (t.ramp != this) {
 			return 0;
 		}
 		if (angle == 0) {
-			if (t.x > maxX) {
+			if (p.x > maxX) {
 				return 1;
-			} else if (t.x < minX) {
+			} else if (p.x < minX) {
 				return 0;
 			} else {
-				return (double) (t.x - minX) / (maxX - minX + 1);
+				return (double) (p.x - minX) / (maxX - minX + 1);
 			}
 		} else if (angle == Angle.FLAT) {
-			if (t.x > maxX) {
+			if (p.x > maxX) {
 				return 0;
-			} else if (t.x < minX) {
+			} else if (p.x < minX) {
 				return 1;
 			} else {
-				return (double) (maxX - t.x + 1) / (maxX - minX + 1);
+				return (double) (maxX - p.x + 1) / (maxX - minX + 1);
 			}
 
 		} else if (angle == Angle.RIGHT) {
-			if (t.y > maxY) {
+			if (p.y > maxY) {
 				return 1;
-			} else if (t.y < minY) {
+			} else if (p.y < minY) {
 				return 0;
 			} else {
-				return (double) (t.y - minY) / (maxY - minY + 1);
+				return (double) (p.y - minY) / (maxY - minY + 1);
 			}
 		} else if (angle == -Angle.RIGHT) {
-			if (t.y > maxY) {
+			if (p.y > maxY) {
 				return 0;
-			} else if (t.y < minY) {
+			} else if (p.y < minY) {
 				return 1;
 			} else {
-				return (double) (maxY - t.y + 1) / (maxY - minY + 1);
+				return (double) (maxY - p.y + 1) / (maxY - minY + 1);
 			}
 		}
 		throw new RuntimeException();
@@ -220,11 +224,11 @@ public class Ramp {
 		if (angle == 0) {
 			return getSlopeRate(t);
 		} else if (angle == Angle.FLAT) {
-			return getSlopeRate(t.e);
+			return getSlopeRate(t.e());
 		} else if (angle == Angle.RIGHT) {
 			return getSlopeRate(t);
 		} else if (angle == -Angle.RIGHT) {
-			return getSlopeRate(t.n);
+			return getSlopeRate(t.n());
 		}
 		throw new RuntimeException();
 	}
@@ -235,17 +239,17 @@ public class Ramp {
 		for (Tile t : tiles) {
 			t.ramp = null;
 			t.level--;
-			t.elevation = 0;
+			t.setElevation(0);
 			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
 				if (!res.contains(n)) {
 					res.add(n);
 
 					n.ramp = null;
-					n.elevation = 0;
+					n.setElevation(0);
 				}
 			}
 		}
-		ModelManager.getBattlefield().getMap().ramps.remove(this);
+		ModelManager.getBattlefield().getMap().getRamps().remove(this);
 		return res;
 
 	}

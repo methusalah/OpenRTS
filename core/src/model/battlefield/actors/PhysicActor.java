@@ -1,8 +1,10 @@
 package model.battlefield.actors;
 
+import java.awt.Color;
+import java.util.HashMap;
 import java.util.List;
 
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 /**
  * A special Model Actor that must be managed by the physical engine. The life of this actor is limited and managed by the view. The life decrease only when the
@@ -19,9 +21,22 @@ public class PhysicActor extends ModelActor {
 	public long timer;
 	public boolean launched = false;
 
-	public PhysicActor(String modelPath, double scale, double startLife, double mass, String massCenterBone, Actor parent, String trigger,
-			List<String> childrenTriggers, List<ActorBuilder> childrenBuilders) {
-		super(parent, trigger, childrenTriggers, childrenBuilders, modelPath, scale, scale, scale, null, null);
+	public PhysicActor(String modelPath,
+			double scale,
+			double startLife,
+			double mass,
+			String massCenterBone,
+			Actor parent,
+			String trigger,
+			List<String> childrenTriggers,
+			List<ActorBuilder> childrenBuilders,
+			double yaw,
+			double pitch,
+			double roll,
+			Color color,
+			HashMap<String, Color> subColorsByName,
+			HashMap<Integer, Color> subColorsByIndex) {
+		super(parent, trigger, childrenTriggers, childrenBuilders, modelPath, scale, scale, scale, yaw, pitch, roll, color, subColorsByName, subColorsByIndex, null);
 		this.startLife = startLife;
 		this.mass = mass;
 		this.massCenterBone = massCenterBone;

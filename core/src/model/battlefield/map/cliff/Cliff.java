@@ -1,5 +1,7 @@
 package model.battlefield.map.cliff;
 
+import geometry.structure.grid.Grid;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +42,16 @@ public class Cliff {
 
 	public String getConnexionConfiguration(Map map) {
 		String res = new String();
-		if (isNeighborCliff(tile.n, map)) {
+		if (isNeighborCliff(tile.n(), map)) {
 			res = res.concat("n");
 		}
-		if (isNeighborCliff(tile.s, map)) {
+		if (isNeighborCliff(tile.s(), map)) {
 			res = res.concat("s");
 		}
-		if (isNeighborCliff(tile.e, map)) {
+		if (isNeighborCliff(tile.e(), map)) {
 			res = res.concat("e");
 		}
-		if (isNeighborCliff(tile.w, map)) {
+		if (isNeighborCliff(tile.w(), map)) {
 			res = res.concat("w");
 		}
 		return res;

@@ -2,7 +2,7 @@ package model.battlefield.army.effects;
 
 import java.util.ArrayList;
 
-import model.builders.EffectBuilder;
+import model.builders.entity.EffectBuilder;
 
 
 /**

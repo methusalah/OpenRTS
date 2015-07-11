@@ -2,18 +2,18 @@ package event;
 
 import java.util.List;
 
-import model.battlefield.map.parcel.ParcelMesh;
+import model.battlefield.map.parcelling.Parcel;
 
 public class ParcelUpdateEvent extends ClientEvent {
 
-	private final List<ParcelMesh> toUpdate;
+	private final List<Parcel> toUpdate;
 
-	public ParcelUpdateEvent(List<ParcelMesh> toUpdate) {
+	public ParcelUpdateEvent(List<Parcel> toUpdate) {
 		super();
 		this.toUpdate = toUpdate;
 	}
 
-	public List<ParcelMesh> getToUpdate() {
+	public List<Parcel> getToUpdate() {
 		return toUpdate;
 	}
 

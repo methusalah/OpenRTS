@@ -1,6 +1,7 @@
 package model.battlefield.map.atlas;
 
 import geometry.collections.Map2D;
+import geometry.geom2d.Point2D;
 
 import java.util.List;
 
@@ -43,6 +44,11 @@ public class AtlasLayer {
 
 	public double get(int x, int y){
 		return ((double)values.get(x, y)+128);
+	}
+
+	public double getInMapSpace(Point2D p){
+		p = p.getMult(Atlas.RESOLUTION_RATIO);
+		return get((int)Math.round(p.x), (int)Math.round(p.y));
 	}
 	
 	public void set(int x, int y, double val){

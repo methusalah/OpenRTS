@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import model.ModelManager;
+import model.battlefield.map.MapStyle;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.ManmadeFace;
 import model.battlefield.map.cliff.faces.natural.NaturalFace;
-import model.battlefield.map.parcel.ParcelManager;
-import model.battlefield.map.parcel.ParcelMesh;
+import model.battlefield.map.parcelling.Parcel;
+import model.battlefield.map.parcelling.Parcelling;
 import tools.LogUtil;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
@@ -46,8 +47,8 @@ public class MapDrawer {
 
 	private Map<String, Spatial> models = new HashMap<>();
 
-	private Map<ParcelMesh, Spatial> parcelsSpatial = new HashMap<>();
-	private Map<ParcelMesh, Spatial> layerSpatial = new HashMap<>();
+	private Map<Parcel, Spatial> parcelsSpatial = new HashMap<>();
+	private Map<Parcel, Spatial> coverSpatial = new HashMap<>();
 	private Map<Tile, List<Spatial>> tilesSpatial = new HashMap<>();
 
 	private TerrainSplatTexture groundTexture;
@@ -61,8 +62,8 @@ public class MapDrawer {
 
 	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
 		this.view = view;
-		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().atlas, am);
-		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().cover, am);
+		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
+		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);
 		coverTexture.transp = true;
 		this.mm = mm;
 		this.am = am;
@@ -74,14 +75,15 @@ public class MapDrawer {
 	}
 
 	public void renderTiles() {
+		MapStyle style = ModelManager.getBattlefield().getMap().getStyle();
 		int index = 0;
-		for (String s : ModelManager.getBattlefield().getMap().style.diffuses) {
+		for (String s : style.diffuses) {
 			Texture diffuse = am.loadTexture(s);
 			Texture normal = null;
-			if (ModelManager.getBattlefield().getMap().style.normals.get(index) != null) {
-				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.normals.get(index));
+			if (style.normals.get(index) != null) {
+				normal = am.loadTexture(style.normals.get(index));
 			}
-			double scale = ModelManager.getBattlefield().getMap().style.scales.get(index);
+			double scale = style.scales.get(index);
 			
 			groundTexture.addTexture(diffuse, normal, scale);
 			index++;
@@ -89,29 +91,29 @@ public class MapDrawer {
 		groundTexture.buildMaterial();
 
 		index = 0;
-		for (String s : ModelManager.getBattlefield().getMap().style.coverDiffuses) {
+		for (String s : style.coverDiffuses) {
 			Texture diffuse = am.loadTexture(s);
 			Texture normal = null;
-			if (ModelManager.getBattlefield().getMap().style.coverNormals.get(index) != null) {
-				normal = am.loadTexture(ModelManager.getBattlefield().getMap().style.coverNormals.get(index));
+			if (style.coverNormals.get(index) != null) {
+				normal = am.loadTexture(style.coverNormals.get(index));
 			}
-			double scale = ModelManager.getBattlefield().getMap().style.coverScales.get(index);
+			double scale = style.coverScales.get(index);
 			
 			coverTexture.addTexture(diffuse, normal, scale);
 			index++;
 		}
 		coverTexture.buildMaterial();
 
-		for (ParcelMesh mesh : ParcelManager.getMeshes()) {
+		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
 			Geometry g = new Geometry();
-			Mesh jmeMesh = Translator.toJMEMesh(mesh);
+			Mesh jmeMesh = Translator.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
 			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
-			parcelsSpatial.put(mesh, g);
+			parcelsSpatial.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 			
@@ -120,10 +122,10 @@ public class MapDrawer {
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
 			g2.setLocalTranslation(0, 0, 0.01f);
-			layerSpatial.put(mesh, g2);
+			coverSpatial.put(parcel, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
-		updateTiles(ModelManager.getBattlefield().getMap().getTiles());
+		updateTiles(ModelManager.getBattlefield().getMap().getAll());
 	}
 
 	private Spatial getModel(String path) {
@@ -135,7 +137,7 @@ public class MapDrawer {
 
 	@Subscribe
 	public void handleParcelUpdateEvent(ParcelUpdateEvent e) {
-		updateParcelsFor(e.getToUpdate());
+		updateParcels(e.getToUpdate());
 	}
 
 	@Subscribe
@@ -185,7 +187,7 @@ public class MapDrawer {
 		Geometry g = new Geometry();
 		g.setMesh(new Box(0.5f, 0.5f, 1));
 		g.setMaterial(mm.redMaterial);
-		g.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
+		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
 
 		Node n = new Node();
 		n.attachChild(g);
@@ -208,7 +210,7 @@ public class MapDrawer {
 		}
 		// g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
 		g.rotate(0, 0, (float) (c.angle));
-		g.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT));
+		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT));
 		n.attachChild(g);
 	}
 
@@ -237,20 +239,20 @@ public class MapDrawer {
 				break;
 		}
 		s.scale(0.005f);
-		s.setLocalTranslation(c.getTile().x + 0.5f, c.getTile().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);
+		s.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);
 		n.attachChild(s);
 	}
 
-	private void updateParcelsFor(List<ParcelMesh> toUpdate) {
-		for (ParcelMesh parcel : toUpdate) {
-			Mesh jmeMesh = Translator.toJMEMesh(parcel);
+	private void updateParcels(List<Parcel> toUpdate) {
+		for (Parcel parcel : toUpdate) {
+			Mesh jmeMesh = Translator.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) parcelsSpatial.get(parcel));
 			g.setMesh(jmeMesh);
 			mainPhysicsSpace.remove(g);
 			mainPhysicsSpace.add(g);
 			
-			Geometry g2 = ((Geometry) layerSpatial.get(parcel));
+			Geometry g2 = ((Geometry) coverSpatial.get(parcel));
 			g2.setMesh(jmeMesh);
 		}
 	}

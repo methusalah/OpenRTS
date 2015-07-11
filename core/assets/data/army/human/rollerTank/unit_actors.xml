@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Actor id="rollerTank">
+    <Type value="Model"/>
+    <Scale value="0.25"/>
+    <ModelPath value="human/rollerTank/rollerTank.j3o"/>
+<!--     <ActorList Trigger="onMove" ActorLink="Move"/>
+	<ActorList Trigger="onWait" ActorLink="Idle"/>
+-->
+    <ActorList Trigger="onMove" ActorLink="rollerTankLeftDust"/>
+    <ActorList Trigger="onMove" ActorLink="rollerTankRightDust"/>
+    <ActorList Trigger="onMove" ActorLink="rollerTankLeftMud"/>
+    <ActorList Trigger="onMove" ActorLink="rollerTankRightMud"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankDestroyed"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankDestroyedGlow"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankWreck"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankExplosion"/>
+  </Actor>
+
+  <Actor id="rollerTankLeftMud">
+    <Type value="Particle"/>
+    <SpritePath value="particles/mudd.png"/>
+    <Add value="false"/>
+    <EmissionBone value="boneDust01"/>
+    <DirectionBone value="boneDustVec01"/>
+    <Velocity value="0.8"/>
+    <Fanning value="0.5"/>
+    <MaxCount value="60"/>
+    <PerSecond value="40"/>
+    <StartSize value="0.05"/>
+    <EndSize value="0.05"/>
+    <StartColor R="144" G="108" B="63" A="255"/>
+    <EndColor R="144" G="108" B="63" A="255"/>
+    <MinLife value="0.4"/>
+    <MaxLife value="0.8"/>
+    <Gravity value="true"/>
+    <StartVariation value="0.1"/>
+  </Actor>
+  
+  <Actor id="rollerTankRightMud">
+    <Type value="Particle"/>
+    <SpritePath value="particles/mudd.png"/>
+    <Add value="false"/>
+    <EmissionBone value="boneDust02"/>
+    <DirectionBone value="boneDustVec02"/>
+    <Velocity value="0.8"/>
+    <Fanning value="0.5"/>
+    <MaxCount value="60"/>
+    <PerSecond value="40"/>
+    <StartSize value="0.05"/>
+    <EndSize value="0.05"/>
+    <StartColor R="144" G="108" B="63" A="255"/>
+    <EndColor R="144" G="108" B="63" A="255"/>
+    <MinLife value="0.4"/>
+    <MaxLife value="0.8"/>
+    <Gravity value="true"/>
+    <StartVariation value="0.1"/>
+  </Actor>
+  
+  <Actor id="rollerTankLeftDust">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <Add value="false"/>
+    <EmissionBone value="boneDust01"/>
+    <DirectionBone value="boneDustVec01"/>
+    <MaxCount value="60"/>
+    <PerSecond value="30"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="128"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="0.6"/>
+    <MaxLife value="1.1"/>
+    <StartVariation value="0.1"/>
+    <RotationSpeed value="360"/>
+  </Actor>
+  
+  <Actor id="rollerTankRightDust">
+    <Type value="Particle"/>
+    <SpritePath value="particles/smoke01.png"/>
+    <Add value="false"/>
+    <EmissionBone value="boneDust02"/>
+    <DirectionBone value="boneDustVec02"/>
+    <MaxCount value="60"/>
+    <PerSecond value="30"/>
+    <StartSize value="0.1"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="128"/>
+    <EndColor R="255" G="255" B="255" A="0"/>
+    <MinLife value="0.6"/>
+    <MaxLife value="1.1"/>
+    <StartVariation value="0.1"/>
+    <RotationSpeed value="360"/>
+  </Actor>
+
+  <Actor id="rollerTankDestroyed">
+    <Type value="Particle"/>
+<!--    <SpritePath value="particles/flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>-->
+    <SpritePath value="particles/explosion01.png"/>
+    <NbCol value="7"/>
+    <NbRow value="7"/>
+    <Add value="false"/>
+    <Duration value="600"/>
+    <MaxCount value="200"/>
+    <PerSecond value="400"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.2"/>
+    <StartColor R="255" G="255" B="255" A="200"/>
+    <EndColor R="255" G="255" B="255" A="100"/>
+    <StartVariation value="0.6"/>
+    <MinLife value="0.8"/>
+    <MaxLife value="0.8"/>
+  </Actor>
+  
+  <Actor id="rollerTankDestroyedGlow">
+    <Type value="Particle"/>
+    <SpritePath value="particles/glow01.png"/>
+    <EmissionBone value="B03"/>
+    <DirectionBone value="B04"/>
+    <Add value="true"/>
+    <MaxCount value="1"/>
+    <PerSecond value="0"/>
+    <Duration value="0"/>
+    <StartSize value="1.5"/>
+    <EndSize value="0.7"/>
+    <StartColor R="255" G="255" B="0" A="255"/>
+    <EndColor R="100" G="0" B="0" A="200"/>
+    <MinLife value="2"/>
+    <MaxLife value="2"/>
+  </Actor>   
+  
+  <Actor id="rollerTankWreck">
+      <ActorList Trigger="onDestroyed" ActorLink="rollerTankWreck1" Prob="0.4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="rollerTankWreck2" Prob="0.4"/>
+  </Actor>
+  
+  <Actor id="rollerTankWreck1">
+      <Type value="Physic"/>
+      <ModelPath value="human/rollerTank/rollerTank_piece01.j3o"/>
+      <MassCenterBone value="boneRootDebris01"/>
+      <Mass value="1"/>
+      <Life value="4"/>
+  </Actor>
+ 
+  <Actor id="rollerTankWreck2">
+      <Type value="Physic"/>
+      <ModelPath value="human/rollerTank/rollerTank_piece02.j3o"/>
+      <MassCenterBone value="boneRootDebris02"/>      
+      <Mass value="0.5"/>
+      <Life value="4"/>
+  </Actor>
+  
+  <Actor id="rollerTankExplosion">
+    <Type value="Sound"/>
+    <SoundPath value="monoexplosion1.wav"/>
+    <Volume value="1"/>
+    <Looping value="false"/>
+    <Positional value="true"/>
+  </Actor>
+  
+</catalog>

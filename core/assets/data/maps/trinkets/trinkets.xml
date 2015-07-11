@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
     <Trinket id="Rock">
+    	<ActorLink value="3dsmaxActor"/>
         <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <Color R="76" G="63" B="44"/>
@@ -9,6 +10,7 @@
 	    <Radius value="0.8"/>
     </Trinket>
     <Trinket id="LittleRock">
+    	<ActorLink value="3dsmaxActor"/>
         <ModelList value="env/exterior01/rockA.mesh.xml"/>
         <Color R="76" G="63" B="44"/>
         <RotationZ min="0" max="360"/>
@@ -16,12 +18,14 @@
 	    <Radius value="0.8"/>
     </Trinket>
     <Trinket id="Plant">
+    	<ActorLink value="3dsmaxActor"/>
         <ModelList value="env/exterior01/GrassB.mesh.xml"/>
         <RotationZ min="0" max="360"/>
         <Scale min="0.7" max="1"/>
 	    <Radius value="0.6"/>
     </Trinket>
     <Trinket id="Tree">
+    	<ActorLink value="3dsmaxActor"/>
         <ModelList value="env/exterior01/treeA.mesh.xml"/>
         <RotationZ min="0" max="360"/>
         <Scale min="0.7" max="1.4"/>

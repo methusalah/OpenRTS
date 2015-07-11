@@ -9,7 +9,8 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Cliff;
-import model.builders.CliffShapeBuilder;
+import model.builders.TileArtisan;
+import model.builders.entity.CliffShapeBuilder;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -21,12 +22,12 @@ public class CliffTool extends Tool {
 	private static final String RAISE_LOW_OP = "raise/low";
 	private static final String FLATTEN_OP = "flatten";
 
-	int maintainedlevel;
+	int maintainedLevel;
 
 	public CliffTool() {
 		super(RAISE_LOW_OP, FLATTEN_OP);
 		ArrayList<String> iconPaths = new ArrayList<>();
-		for (CliffShapeBuilder b : ModelManager.getBattlefield().getMap().style.cliffShapeBuilders) {
+		for (CliffShapeBuilder b : ModelManager.getBattlefield().getMap().getStyle().cliffShapeBuilders) {
 			iconPaths.add(b.getIconPath());
 		}
 		set = new AssetSet(iconPaths, true);
@@ -68,9 +69,9 @@ public class CliffTool extends Tool {
 	private void raise() {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedlevel = pencil.getCenterTile().level + 1;
-			if (maintainedlevel > 2) {
-				maintainedlevel = 2;
+			maintainedLevel = pencil.getCenterTile().level + 1;
+			if (maintainedLevel > 2) {
+				maintainedLevel = 2;
 			}
 		}
 		changeLevel();
@@ -79,9 +80,9 @@ public class CliffTool extends Tool {
 	private void low() {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedlevel = pencil.getCenterTile().level - 1;
-			if (maintainedlevel < 0) {
-				maintainedlevel = 0;
+			maintainedLevel = pencil.getCenterTile().level - 1;
+			if (maintainedLevel < 0) {
+				maintainedLevel = 0;
 			}
 		}
 		changeLevel();
@@ -90,27 +91,13 @@ public class CliffTool extends Tool {
 	private void flatten() {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedlevel = pencil.getCenterTile().level;
+			maintainedLevel = pencil.getCenterTile().level;
 		}
 		changeLevel();
 	}
-
-	private void changeLevel() {
-		List<Tile> group = pencil.getTiles();
-
-		List<Tile> toUpdate = new ArrayList<>();
-		for (Tile t : group) {
-			t.level = maintainedlevel;
-			if (t.ramp != null) {
-				toUpdate.addAll(t.ramp.destroy());
-			}
-		}
-		group.addAll(toUpdate);
-		ToolManager.updateTiles(group);
+	
+	private void changeLevel(){
+		List<Tile> tiles = pencil.getTiles();
+		TileArtisan.changeLevel(tiles, maintainedLevel, tiles.get(0).getMap().getStyle().cliffShapeBuilders.get(set.actual).getId());
 	}
-
-	public void buildShape(Cliff cliff) {
-		ModelManager.getBattlefield().getMap().style.cliffShapeBuilders.get(set.actual).build(cliff);
-	}
-
 }

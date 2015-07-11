@@ -3,7 +3,7 @@ package model.battlefield.army.effects;
 import java.util.ArrayList;
 
 import model.battlefield.army.components.Projectile;
-import model.builders.EffectBuilder;
+import model.builders.entity.EffectBuilder;
 
 import com.google.common.eventbus.Subscribe;
 

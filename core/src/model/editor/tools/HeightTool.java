@@ -3,12 +3,16 @@
  */
 package model.editor.tools;
 
+import event.EventManager;
+import event.ParcelUpdateEvent;
+import geometry.geom2d.Point2D;
 import geometry.math.MyRandom;
 
 import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
+import model.builders.MapArtisan;
 import model.editor.Pencil;
 import model.editor.ToolManager;
 
@@ -52,7 +56,7 @@ public class HeightTool extends Tool {
 				uniform(group);
 				break;
 		}
-		ToolManager.updateParcels(group);
+		MapArtisan.updateParcelsFor(group);
 	}
 
 	@Override
@@ -69,23 +73,23 @@ public class HeightTool extends Tool {
 				reset(group);
 				break;
 		}
-		ToolManager.updateParcels(group);
+		MapArtisan.updateParcelsFor(group);
 	}
 
 	private void raise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation += amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-			if(t.elevation > MAX_HEIGHT) {
-				t.elevation = MAX_HEIGHT;
+			t.elevate(getAttenuatedAmplitude(t.getCoord()));
+			if(t.getElevation() > MAX_HEIGHT) {
+				t.setElevation(MAX_HEIGHT);
 			}
 		}
 	}
 
 	private void low(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation -= amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
-			if(t.elevation < MIN_HEIGHT) {
-				t.elevation = MIN_HEIGHT;
+			t.elevate(-getAttenuatedAmplitude(t.getCoord()));
+			if(t.getElevation() < MIN_HEIGHT) {
+				t.setElevation(MIN_HEIGHT);
 			}
 		}
 	}
@@ -96,19 +100,19 @@ public class HeightTool extends Tool {
 			maintainedElevation = ModelManager.getBattlefield().getMap().getAltitudeAt(pencil.getCoord());
 		}
 		for (Tile t : tiles) {
-			double diff = maintainedElevation - t.elevation;
-			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
+			double diff = maintainedElevation - t.getElevation();
+			double attenuatedAmplitude = getAttenuatedAmplitude(t.getCoord());
 			if (diff > 0) {
-				t.elevation += Math.min(diff, attenuatedAmplitude);
+				t.elevate(Math.min(diff, attenuatedAmplitude));
 			} else if (diff < 0) {
-				t.elevation += Math.max(diff, -attenuatedAmplitude);
+				t.elevate(Math.max(diff, -attenuatedAmplitude));
 			}
 		}
 	}
 
 	private void noise(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation += amplitude * pencil.strength * MyRandom.between(-1.0, 1.0) * pencil.getApplicationRatio(t.getCoord());
+			t.elevate(MyRandom.between(-1.0, 1.0) * getAttenuatedAmplitude(t.getCoord()));
 		}
 	}
 
@@ -116,23 +120,26 @@ public class HeightTool extends Tool {
 		for (Tile t : tiles) {
 			double average = 0;
 			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(t)) {
-				average += n.elevation;
+				average += n.getElevation();
 			}
 			average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
 
-			double diff = average - t.elevation;
-			double attenuatedAmplitude = amplitude * pencil.strength * pencil.getApplicationRatio(t.getCoord());
+			double diff = average - t.getElevation();
 			if (diff > 0) {
-				t.elevation += Math.min(diff, attenuatedAmplitude);
+				t.elevate(Math.min(diff, getAttenuatedAmplitude(t.getCoord())));
 			} else if (diff < 0) {
-				t.elevation += Math.max(diff, -attenuatedAmplitude);
+				t.elevate(Math.max(diff, -getAttenuatedAmplitude(t.getCoord())));
 			}
 		}
 	}
 
 	private void reset(List<Tile> tiles) {
 		for (Tile t : tiles) {
-			t.elevation = 0;
+			t.setElevation(0);
 		}
+	}
+	
+	private double getAttenuatedAmplitude(Point2D p){
+		return amplitude * pencil.strength * pencil.getApplicationRatio(p);
 	}
 }

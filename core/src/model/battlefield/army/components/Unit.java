@@ -13,10 +13,10 @@ import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.tacticalAI.TacticalAI;
 import model.battlefield.warfare.Faction;
-import model.builders.MoverBuilder;
-import model.builders.TurretBuilder;
-import model.builders.WeaponBuilder;
-import model.builders.actors.ModelActorBuilder;
+import model.builders.entity.MoverBuilder;
+import model.builders.entity.TurretBuilder;
+import model.builders.entity.WeaponBuilder;
+import model.builders.entity.actors.ModelActorBuilder;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

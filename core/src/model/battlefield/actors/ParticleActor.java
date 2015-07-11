@@ -3,7 +3,7 @@ package model.battlefield.actors;
 import java.awt.Color;
 import java.util.List;
 
-import model.builders.actors.ActorBuilder;
+import model.builders.entity.actors.ActorBuilder;
 
 /**
  * Has everything needed by the view to configure a particle emitter.

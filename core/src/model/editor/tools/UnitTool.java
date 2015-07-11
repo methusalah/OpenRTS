@@ -15,9 +15,10 @@ import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
+import model.battlefield.map.Trinket;
 import model.battlefield.warfare.Faction;
-import model.builders.UnitBuilder;
-import model.builders.definitions.BuilderManager;
+import model.builders.entity.UnitBuilder;
+import model.builders.entity.definitions.BuilderManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -94,11 +95,9 @@ public class UnitTool extends Tool {
 	}
 
 	private void remove() {
-		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
-			Unit u = ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
-			if (u != null) {
-				ArmyManager.unregisterUnit(u);
-			}
+		Unit u = getPointedUnit(); 
+		if (u != null) {
+			ArmyManager.unregisterUnit(u);
 		}
 	}
 
@@ -106,12 +105,10 @@ public class UnitTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualUnit = null;
-			if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
-				Unit u = ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
-				if (u != null) {
-					actualUnit = u;
-					moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
-				}
+			Unit u = getPointedUnit();
+			if (u != null) {
+				actualUnit = u;
+				moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
 			}
 		}
 		if (actualUnit != null) {
@@ -123,11 +120,9 @@ public class UnitTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualUnit = null;
-			if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
-				Unit u = ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
-				if (u != null) {
-					actualUnit = u;
-				}
+			Unit u = getPointedUnit();
+			if (u != null) {
+				actualUnit = u;
 			}
 		}
 		if (actualUnit != null) {
@@ -135,6 +130,14 @@ public class UnitTool extends Tool {
 			actualUnit.direction = Point3D.UNIT_X.getRotationAroundZ(actualUnit.yaw);
 		}
 	}
+	
+	private Unit getPointedUnit(){
+		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
+			return ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
+		}
+		return null;
+	}
+
 
 	@Override
 	public boolean isAnalog() {

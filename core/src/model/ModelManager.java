@@ -3,8 +3,9 @@ package model;
 import tools.LogUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
-import model.battlefield.map.parcel.ParcelManager;
-import model.builders.definitions.DefParser;
+import model.battlefield.map.parcelling.Parcelling;
+import model.builders.MapArtisan;
+import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
 
@@ -20,7 +21,7 @@ public class ModelManager {
 	private static Battlefield battlefield;
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
-	private static boolean battlefieldReady = true;
+	public static boolean battlefieldReady = true;
 
 	static {
 		parser = new DefParser(CONFIG_PATH);
@@ -63,8 +64,7 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;
-			ParcelManager.createParcelMeshes(ModelManager.getBattlefield().getMap());
-			getBattlefield().getMap().resetTrinkets();
+			MapArtisan.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
 			LogUtil.logger.info("Done.");

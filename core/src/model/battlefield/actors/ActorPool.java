@@ -32,4 +32,12 @@ public class ActorPool {
         ArrayList<Actor> res = new ArrayList<>(activeActors);
         return res;
     }
+    
+    public <T extends Actor> List<T> getActorsOfType(Class<T> clazz){
+    	List<T> res = new ArrayList<>(); 
+    	for(Actor a : activeActors)
+    		if(a.getClass() == clazz)
+    			res.add((T)a);
+    	return res;
+    }
 }

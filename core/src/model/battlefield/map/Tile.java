@@ -1,14 +1,12 @@
 package model.battlefield.map;
 
-import geometry.geom2d.AlignedBoundingBox;
-import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
+import geometry.structure.grid3D.Node3D;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ModelManager;
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 
@@ -21,20 +19,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * a tile is placed by its lower left coordinate. This has many non-intuitive consequents and must be kept in mind. for example, tiles at the east side of a
  * plateau will have thier coord at the upper ground, when tiles at the west will have their coord at the lower ground.
  */
-public class Tile {
+public class Tile extends Node3D {
 	public static final double STAGE_HEIGHT = 2;
 
-	@JsonIgnore
-	public Tile n, s, e, w;
-
-	@JsonProperty
-	public int x;
-	@JsonProperty
-	public int y;
 	@JsonProperty
 	public int level;
-	@JsonProperty
-	public double elevation = 0;
 	@JsonProperty
 	private String cliffShapeID = "";
 
@@ -45,7 +34,7 @@ public class Tile {
 	@JsonIgnore
 	private Cliff cliff2;
 	@JsonIgnore
-	private int modifiedLevel = 0;
+	protected int modifiedLevel = 0;
 	@JsonIgnore
 	public Ramp ramp;
 	@JsonIgnore
@@ -54,48 +43,24 @@ public class Tile {
 	@JsonIgnore
 	public List<Object> storedData = new ArrayList<>();
 
-	public Tile() {
-
+	public Tile(){
+		super(null, 0);
 	}
-
-	public Tile(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Tile(Map map, int index) {
+		super(map, index);
 		level = 0;
 	}
-
-	public Tile(int x, int y, int level, double elevation, String cliffShapeID) {
-		this.x = x;
-		this.y = y;
-		this.level = level;
-		this.elevation = elevation;
-		this.setCliffShapeID(cliffShapeID);
-	}
-
+	
 	@JsonIgnore
-	public int getNeighborsMaxLevel() {
-		int res = Integer.MIN_VALUE;
-		if (ModelManager.getBattlefield() != null) {
-			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
-				if (n.level > res) {
-					res = n.level;
-				}
-			}
-		}
-		return res;
+	public Map getMap(){
+		return (Map)grid;
 	}
-
+	
 	@JsonIgnore
-	public int getNeighborsMinLevel() {
-		int res = Integer.MAX_VALUE;
-		for (Tile n : ModelManager.getBattlefield().getMap().get4Around(this)) {
-			if (n.level < res) {
-				res = n.level;
-			}
-		}
-		return res;
+	public void setMap(Map m){
+		grid = m;
 	}
-
+	
 	@JsonIgnore
 	public boolean isBlocked() {
 		return hasCliff() || hasBlockingTrinket;
@@ -110,43 +75,33 @@ public class Tile {
 		}
 		return false;
 	}
+	
+	@JsonIgnore
+	public int getNeighborsMaxLevel() {
+		int res = Integer.MIN_VALUE;
+		for (Tile n : getMap().get4Around(this)) {
+			if (n.level > res) {
+				res = n.level;
+			}
+		}
+		return res;
+	}
+
+	@JsonIgnore
+	public int getNeighborsMinLevel() {
+		int res = Integer.MAX_VALUE;
+		for (Tile n : getMap().get4Around(this)) {
+			if (n.level < res) {
+				res = n.level;
+			}
+		}
+		return res;
+	}
+
 
 	@JsonIgnore
 	public boolean hasCliffOnLevel(int level) {
 		return getCliff(level) != null;
-	}
-
-	@JsonIgnore
-	public Point3D getPos() {
-		return new Point3D(x, y, getZ());
-	}
-
-	@JsonIgnore
-	public Point2D getCoord() {
-		return new Point2D(x, y);
-	}
-
-	@JsonIgnore
-	public BoundingShape getBounds() {
-		ArrayList<Point2D> points = new ArrayList<>();
-		points.add(getCoord());
-		points.add(getCoord().getAddition(1, 0));
-		points.add(getCoord().getAddition(1, 1));
-		points.add(getCoord().getAddition(0, 1));
-		return new AlignedBoundingBox(points);
-	}
-
-	public void setCliff(int minLevel, int maxLevel) {
-		if (ramp != null && ramp.getCliffSlopeRate(this) == 1) {
-			return;
-		}
-		for (int level = minLevel; level < maxLevel; level++) {
-			if (getCliff(level) == null) {
-				setCliff(level, new Cliff(this, level));
-			}
-		}
-		modifyLevel();
-
 	}
 
 	@JsonIgnore
@@ -163,7 +118,8 @@ public class Tile {
 		}
 	}
 
-	private void setCliff(int level, Cliff cliff) {
+	@JsonIgnore
+	public void setCliff(int level, Cliff cliff) {
 		switch (level) {
 			case 0:
 				cliff0 = cliff;
@@ -179,6 +135,39 @@ public class Tile {
 		}
 	}
 
+	@JsonIgnore
+	public double getModifiedElevation() {
+			if (modifiedLevel != 0) {
+				return modifiedLevel * STAGE_HEIGHT + elevation;
+			} else {
+				return level * STAGE_HEIGHT + elevation;
+			}
+	}
+
+	@JsonIgnore
+	public int getModifiedLevel() {
+		if (modifiedLevel != 0) {
+			return modifiedLevel;
+		} else {
+			return level;
+		}
+	}
+
+	@JsonIgnore
+	public void setCliff(int minLevel, int maxLevel) {
+		if (ramp != null && ramp.getCliffSlopeRate(this) == 1) {
+			return;
+		}
+		for (int level = minLevel; level < maxLevel; level++) {
+			if (getCliff(level) == null) {
+				setCliff(level, new Cliff(this, level));
+			}
+		}
+		modifyLevel();
+
+	}
+	
+	@JsonIgnore
 	public void unsetCliff() {
 		for (int level = 0; level < 3; level++) {
 			if (getCliff(level) != null) {
@@ -189,35 +178,19 @@ public class Tile {
 		modifyLevel();
 	}
 
-	public void modifyLevel() {
+	@JsonIgnore
+	private void modifyLevel() {
 		modifiedLevel = 0;
 		for (int i = 0; i < 3; i++) {
 			Cliff c = getCliff(i);
-			if (c == null || w == null || s == null || w.s == null) {
+			if (c == null || w() == null || s() == null || w().s() == null) {
 				continue;
 			}
-			if (w.level > c.level || s.level > c.level || w.s.level > c.level) {
+			if (w().level > c.level || s().level > c.level || w().s().level > c.level) {
 				modifiedLevel = c.level + 1;
 			}
 		}
-	}
-
-	@JsonIgnore
-	public double getZ() {
-		if (modifiedLevel != 0) {
-			return modifiedLevel * STAGE_HEIGHT + elevation;
-		} else {
-			return level * STAGE_HEIGHT + elevation;
-		}
-	}
-
-	@JsonIgnore
-	public int getModifiedLevel() {
-		if (modifiedLevel != 0) {
-			return modifiedLevel;
-		} else {
-			return level;
-		}
+		
 	}
 
 	@JsonIgnore
@@ -250,19 +223,73 @@ public class Tile {
 			}
 		}
 		return res;
-
 	}
-
+	
+	@JsonIgnore
+	public Point2D getCoord(){
+		return getMap().getCoord(index);
+	}
+	
+	@JsonIgnore
+	public Point2D getCenter(){
+		return getMap().getCoord(index).getAddition(0.5, 0.5);
+	}
+	
+	@JsonIgnore
+	public Point3D getPos(){
+		return getMap().getCoord(index).get3D(getModifiedElevation());
+	}
+	
+	
+	@JsonIgnore
 	public String getCliffShapeID() {
 		return cliffShapeID;
 	}
 
+	@JsonIgnore
 	public void setCliffShapeID(String cliffShapeID) {
 		this.cliffShapeID = cliffShapeID;
 	}
 
+	@JsonIgnore
 	@Override
 	public String toString() {
-		return "Tile [x=" + x + ", y=" + y + ", level=" + level + "]";
+		return "Tile [level=" + level + "]";
+	}
+	
+	@JsonIgnore
+	public Tile n() {
+		return getMap().getNorthNode(this);
+	}
+	@JsonIgnore
+	public Tile s() {
+		return getMap().getSouthNode(this);
+	}
+	@JsonIgnore
+	public Tile e() {
+		return getMap().getEastNode(this);
+	}
+	@JsonIgnore
+	public Tile w() {
+		return getMap().getWestNode(this);
+	}
+	
+	@JsonIgnore
+	public <T> List<T> getData(Class<T> clazz){
+		List<T> res = new ArrayList<>();
+		for(Object o : storedData)
+			if(o.getClass() == clazz.getClass())
+				res.add((T)o);
+		return res;
+	}
+	
+	@JsonIgnore
+	public void addData(Object o){
+		storedData.add(o);
+	}
+
+	@JsonIgnore
+	public void removeData(Object o){
+		storedData.remove(o);
 	}
 }

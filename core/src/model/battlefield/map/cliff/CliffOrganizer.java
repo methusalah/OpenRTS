@@ -1,9 +1,9 @@
 package model.battlefield.map.cliff;
 
-import tools.LogUtil;
 import geometry.math.Angle;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
+import tools.LogUtil;
 
 /**
  * Warning : this class is full of monstrous spiders and mysterious shadows in every corner. Proceed at your own risks. Compute magically the shape and angle of
@@ -13,10 +13,10 @@ public class CliffOrganizer {
 
 	public static void organize(Cliff c, Map map) {
 		Tile t = c.getTile();
-		Tile n = c.getTile().n;
-		Tile s = c.getTile().s;
-		Tile e = c.getTile().e;
-		Tile w = c.getTile().w;
+		Tile n = c.getTile().n();
+		Tile s = c.getTile().s();
+		Tile e = c.getTile().e();
+		Tile w = c.getTile().w();
 
 		if (n == null || s == null || e == null || w == null) {
 			c.type = Cliff.Type.Border;

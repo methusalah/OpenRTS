@@ -5,6 +5,7 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 
 import model.battlefield.map.Map;
+import model.battlefield.map.MapTraversor;
 
 /**
  * This PathFinder works with A* algorithm.
@@ -12,7 +13,7 @@ import model.battlefield.map.Map;
  * It is unused in OpenRTS at this time but may be usefull for local blockades.
  */
 public class PathFinder {
-    Map m;
+    Map map;
     private Node[][] nodes;
     private int tx, ty, sx, sy;
     
@@ -20,7 +21,7 @@ public class PathFinder {
     ArrayList<Node> open = new ArrayList<Node>();
     
     public PathFinder(Map map) {
-        m = map;
+        this.map = map;
     }
     
     public Path findPath(Point2D start, Point2D dest) {
@@ -29,7 +30,7 @@ public class PathFinder {
         this.sx = (int)Math.floor(start.x);
         this.sy = (int)Math.floor(start.y);
         
-        if(m.isBlocked(tx, ty))
+        if(map.isBlocked(tx, ty))
             return new Path();
 
         Path res;
@@ -41,9 +42,9 @@ public class PathFinder {
     }
     
     private void initialize() {
-        nodes = new Node[m.width][m.height];
-        for(int x=0; x<m.width; x++)
-            for(int y=0; y<m.height; y++)
+        nodes = new Node[map.xSize()][map.ySize()];
+        for(int x=0; x<map.xSize(); x++)
+            for(int y=0; y<map.ySize(); y++)
                 nodes[x][y] = new Node(x, y);
         
         nodes[sx][sy].cost = 0;
@@ -111,9 +112,9 @@ public class PathFinder {
 
     private boolean isValidLocation(int x, int y) {
         return x>=0 && y>=0 &&
-                x<m.width && y<m.height &&
+                x<map.xSize() && y<map.ySize() &&
                 !(x==sx && y==sy) &&
-                !m.isBlocked(x, y);
+                !map.isBlocked(x, y);
     }
 
     private double getCost(int x, int y, int x0, int y0) {
@@ -132,7 +133,7 @@ public class PathFinder {
             Point2D lastInRes = res.getLastWaypoint();
             if(path.indexOf(p) == 0)
                     continue;
-            if(m.meetObstacle(lastInRes, p))// ||
+            if(MapTraversor.meetObstacle(map, lastInRes, p))// ||
 //                    m.getTile(p).n.isCliff() ||
 //                    m.getTile(p).s.isCliff() ||
 //                    m.getTile(p).e.isCliff() ||

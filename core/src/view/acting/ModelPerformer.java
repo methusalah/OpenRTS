@@ -3,20 +3,26 @@
  */
 package view.acting;
 
+import java.awt.Color;
+
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+import geometry.math.MyRandom;
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.map.Trinket;
+import tools.LogUtil;
 import view.math.Translator;
 import view.mesh.Circle;
 
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.Bone;
 import com.jme3.animation.Skeleton;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
@@ -28,7 +34,6 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class ModelPerformer extends Performer {
-	private static final float DEFAULT_SCALE = 0.0025f;
 	public static final String ENTITYID_USERDATA = "entityid";
 
 	public ModelPerformer(ActorDrawer bs) {
@@ -43,9 +48,15 @@ public class ModelPerformer extends Performer {
 
 			if (actor.getColor() != null) {
 				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
+			} else{
+				for(Integer index : actor.getSubColorsByIndex().keySet())
+					applyToSubmesh(s, null, index, actor.getSubColorsByIndex().get(index));
+				for(String name : actor.getSubColorsByName().keySet())
+					applyToSubmesh(s, name, -1, actor.getSubColorsByName().get(name));
 			}
+			
 
-			s.setLocalScale((float) actor.getScaleX() * DEFAULT_SCALE, (float) actor.getScaleY() * DEFAULT_SCALE, (float) actor.getScaleZ() * DEFAULT_SCALE);
+			s.setLocalScale((float) actor.getScaleX(), (float) actor.getScaleY(), (float) actor.getScaleZ());
 			s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 			s.setName(actor.getLabel());
 			actor.getViewElements().spatial = s;
@@ -53,19 +64,40 @@ public class ModelPerformer extends Performer {
 			AnimControl animControl = s.getControl(AnimControl.class);
 			if (animControl != null) {
 				animControl.update(0);
-			}
+			} else if(actor.getComp() instanceof Unit && 
+					!((Unit)actor.getComp()).getTurrets().isEmpty())
+				throw new RuntimeException("The unit "+(Unit)actor.getComp()+" attached to actor "+actor+" have one or more turret, but no AnimControl.");
 		}
 
 		if (actor.getComp() != null) {
 			drawAsComp(actor);
 		}
-
+	}
+	
+	private void applyToSubmesh(Spatial s, String subMeshName, int subMeshIndex, Color color){
+		if(s instanceof Geometry){
+			if(((Geometry)s).getName().equals(subMeshName) || subMeshIndex == 0){
+				((Geometry)s).getMaterial().setColor("Diffuse", Translator.toColorRGBA(color));
+				return;
+			}
+		} else {
+			for(Spatial child : ((Node)s).getChildren()){
+				applyToSubmesh(child, subMeshName, --subMeshIndex, color);
+			}
+			return;
+		}
+		if(subMeshIndex > 0)
+			LogUtil.logger.warning("Sub mesh of index "+subMeshIndex+" doesn't seem to exist.");
+		if(subMeshName != null)
+			LogUtil.logger.warning("Sub mesh named "+subMeshName+" doesn't seem to exist.");
 	}
 
 	protected void drawAsComp(ModelActor actor) {
 		Spatial s = actor.getViewElements().spatial;
+		FieldComp comp = actor.getComp(); 
 		// save the unitid in the userdata
-		s.setUserData(ENTITYID_USERDATA, actor.getComp().getId());
+		// TODO, may be set once in the spatial creation
+		s.setUserData(ENTITYID_USERDATA, comp.getId());
 
 		// translation
 		s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
@@ -75,21 +107,27 @@ public class ModelPerformer extends Performer {
 		if (actor.getComp().direction != null) {
 			Point3D pu = actor.getComp().upDirection;
 			Point3D pv = actor.getComp().direction;
-			Vector3f u = new Vector3f(0, -1, 0);
-			Vector3f v = Translator.toVector3f(pv).normalize();
 			if (pu != null) {
-				u = Translator.toVector3f(pu).normalize();
+				// the comp has a up vector
+				// for ground comps or horitonally flying units 
+				Vector3f u = Translator.toVector3f(pu).normalize();
+				Vector3f v = Translator.toVector3f(pv).normalize();
 				r.lookAt(v, u);
+				// we correct the pitch of the unit because the direction is always flatten
+				// this is only to follow the terrain relief
 				double angle = Math.acos(pu.getDotProduct(pv) / (pu.getNorm() * pv.getNorm()));
-				r = r.mult(new Quaternion().fromAngles(-(float) angle, 0, 0));
+				r = r.mult(new Quaternion().fromAngles((float) (-angle+Angle.RIGHT+actor.getPitchFix()), (float) (actor.getRollFix()), (float) (actor.getYawFix())));
 			} else {
+				// the comp hasn't any up vector
+				// for projectiles
+				Vector3f u = new Vector3f(0, -1, 0);
+				Vector3f v = Translator.toVector3f(pv).normalize();
 				float real = 1 + u.dot(v);
 				Vector3f w = u.cross(v);
 				r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
 			}
-
 		} else {
-			r.fromAngles(0, 0, (float) (actor.getYaw() + Angle.RIGHT));
+			r.fromAngles((float)comp.roll, (float)comp.pitch, (float) actor.getYaw());
 		}
 		s.setLocalRotation(r);
 
@@ -145,16 +183,25 @@ public class ModelPerformer extends Performer {
 				throw new RuntimeException("Can't find the bone " + t.boneName + " for turret.");
 			}
 
-			Quaternion r = turretBone.getWorldBindRotation().mult(new Quaternion().fromAngleAxis((float) Angle.RIGHT, Vector3f.UNIT_Z))
-					.mult(new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y));
-
+//			Vector3f axis;
+//			switch (t.boneAxis){
+//			case "X" : axis = Vector3f.UNIT_X; break;
+//			case "Y" : axis = Vector3f.UNIT_Y; break;
+//			case "Z" : axis = Vector3f.UNIT_Z; break;
+//			default : throw new IllegalArgumentException("Wrong bone axis for "+((Unit)actor.getComp()).builderID+" : "+t.boneAxis);
+//			}
+//			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, axis);
+			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y);
 			turretBone.setUserControl(true);
 			turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
 		}
 	}
 
 	private void updateBoneCoords(ModelActor actor) {
-		Skeleton sk = actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton();
+		AnimControl ctrl = actor.getViewElements().spatial.getControl(AnimControl.class);
+		if(ctrl == null)
+			return;
+		Skeleton sk = ctrl.getSkeleton();
 		for (int i = 0; i < sk.getBoneCount(); i++) {
 			Bone b = sk.getBone(i);
 			actor.setBone(b.getName(), getBoneWorldPos(actor, i));

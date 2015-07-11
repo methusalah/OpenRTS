@@ -1,5 +1,6 @@
 package model.battlefield.army.motion;
 
+import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.BoundingCircle;
 import geometry.geom2d.BoundingShape;
 import geometry.geom2d.Point2D;
@@ -189,12 +190,22 @@ public class CollisionManager {
 				if (!ModelManager.getBattlefield().getMap().isInBounds(tilePos)) {
 					continue;
 				}
-				Tile t = ModelManager.getBattlefield().getMap().getTile(tilePos);
+				Tile t = ModelManager.getBattlefield().getMap().get(tilePos);
 				if(t.isBlocked()) {
-					solidShapes.add(t.getBounds());
+					solidShapes.add(getTileBoundingBox(t));
 				}
 			}
 		}
+	}
+	
+	private AlignedBoundingBox getTileBoundingBox(Tile t){
+		Point2D p = t.getCoord();
+		ArrayList<Point2D> points = new ArrayList<>();
+		points.add(p);
+		points.add(p.getAddition(1, 0));
+		points.add(p.getAddition(1, 1));
+		points.add(p.getAddition(0, 1));
+		return new AlignedBoundingBox(points);
 	}
 
 	private void updateBlockingShapes(List<FieldComp> blockers){

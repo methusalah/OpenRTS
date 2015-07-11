@@ -1,4 +1,4 @@
-/RTSForGit/nbproject/private/
+**/nbproject/private/
 
 .gradle
 # Class Files #
@@ -23,3 +23,28 @@ local.properties
 **/*.dylib
 /build/
 
+.gradle
+# Class Files #
+*.class
+
+# Package Files #
+#*.jar
+*.war
+*.ear
+lib/jME3*
+**/bin/
+
+.project
+.classpath
+.settings
+
+**/gen/
+
+**/Thumbs.db
+local.properties
+
+**/*.dylib
+/build/
+*.log
+/.nb-gradle/private/
+*.dll

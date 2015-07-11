@@ -1,15 +1,6 @@
 package model.editor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import tools.LogUtil;
-import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.map.Tile;
-import model.battlefield.map.cliff.Cliff;
-import model.battlefield.map.parcel.ParcelManager;
-import model.battlefield.map.parcel.ParcelMesh;
 import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
@@ -19,12 +10,9 @@ import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
 import event.EventManager;
-import event.ParcelUpdateEvent;
 import event.SetToolEvent;
-import event.TilesEvent;
 import event.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
-import geometry.geom3d.Point3D;
 
 /**
  * @author Benoît
@@ -57,9 +45,9 @@ public class ToolManager {
 		setRampTool(new RampTool());
 		unitTool = new UnitTool();
 		trinketTool = new TrinketTool();
-
-		actualTool = getCliffTool();
 		
+		actualTool = getCliffTool();
+
 		new Thread(sower).start();
 	}
 
@@ -133,70 +121,6 @@ public class ToolManager {
 		}
 	}
 
-	public static void updateTiles(List<Tile> tiles) {
-		List<Tile> extended = getExtendedZone(tiles);
-
-		for (Tile t : extended) {
-			int minLevel = t.level;
-			int maxLevel = t.level;
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
-				maxLevel = Math.max(maxLevel, n.level);
-			}
-			if (t.hasCliff()) {
-				t.unsetCliff();
-			}
-
-			if (minLevel != maxLevel) {
-				t.setCliff(minLevel, maxLevel);
-			}
-		}
-
-		for (Tile t : extended) {
-			for (Cliff c : t.getCliffs()) {
-				c.connect(ModelManager.getBattlefield().getMap());
-			}
-		}
-		for (Tile t : extended) {
-			for (Cliff c : t.getCliffs()) {
-				getCliffTool().buildShape(c);
-			}
-		}
-		EventManager.post(new TilesEvent(extended));
-		updateParcelsForExtended(tiles);
-	}
-
-	public static void updateParcelsForExtended(List<Tile> tiles) {
-		for (Tile t : tiles) {
-			for (Object o : t.storedData) {
-				if(o instanceof FieldComp){
-					FieldComp fc = (FieldComp)o;
-					fc.setPos(new Point3D(fc.getPos().x,
-							fc.getPos().y,
-							ModelManager.getBattlefield().getMap().getAltitudeAt(fc.getPos().get2D())));
-				}
-			}
-		}
-		List<ParcelMesh> toUpdate = ParcelManager.updateParcelsFor(tiles);
-		EventManager.post(new ParcelUpdateEvent(toUpdate));
-	}
-
-	public static void updateParcels(List<Tile> tiles) {
-		updateParcelsForExtended(getExtendedZone(tiles));
-	}
-
-	private static List<Tile> getExtendedZone(List<Tile> tiles) {
-		List<Tile> res = new ArrayList<>();
-		res.addAll(tiles);
-		for (Tile t : tiles) {
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
-				if (!res.contains(n)) {
-					res.add(n);
-				}
-			}
-		}
-		return res;
-	}
-
 	public static void toggleSower(){
 		synchronized (sower) {
 			if(sower.isPaused()){
@@ -242,7 +166,7 @@ public class ToolManager {
 	public static Tool getActualTool() {
 		return actualTool;
 	}
-
+	
 	public static CliffTool getCliffTool() {
 		return cliffTool;
 	}

@@ -1,6 +1,7 @@
 package controller.editor;
 
 import model.ModelManager;
+import model.Reporter;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
 
@@ -56,6 +57,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 	protected final static String SAVE = "save";
 	protected final static String LOAD = "load";
 	protected final static String NEW = "new";
+	protected final static String REPORT = "report";
 
 	boolean analogUnpressed = false;
 
@@ -74,7 +76,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 				TOGGLE_GRID, TOGGLE_SOWER, TOGGLE_SET, TOGGLE_OPERATION, INC_AIRBRUSH_FALLOF, DEC_AIRBRUSH_FALLOF,
 
 				TOGGLE_LIGHT_COMP, INC_DAYTIME, DEC_DAYTIME, COMPASS_EAST, COMPASS_WEST, INC_INTENSITY, DEC_INTENSITY, TOGGLE_SPEED, DEC_RED, DEC_GREEN,
-				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, };
+				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, REPORT};
 	}
 
 	@Override
@@ -116,6 +118,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(SAVE, new KeyTrigger(KeyInput.KEY_F5));
 		inputManager.addMapping(LOAD, new KeyTrigger(KeyInput.KEY_F9));
 		inputManager.addMapping(NEW, new KeyTrigger(KeyInput.KEY_F12));
+		inputManager.addMapping(REPORT, new KeyTrigger(KeyInput.KEY_SPACE));
 
 		inputManager.addListener(this, mappings);
 	}
@@ -260,6 +263,9 @@ public class EditorInputInterpreter extends InputInterpreter {
 					break;
 				case NEW:
 					ModelManager.setNewBattlefield();
+					break;
+				case REPORT:
+					Reporter.reportAll();
 					break;
 			}
 			ctrl.guiController.askRedraw();

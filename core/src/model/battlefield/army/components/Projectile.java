@@ -10,8 +10,8 @@ import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
-import model.builders.MoverBuilder;
-import model.builders.actors.ModelActorBuilder;
+import model.builders.entity.MoverBuilder;
+import model.builders.entity.actors.ModelActorBuilder;
 
 /**
  * Projectile is a special Hiker that flies to a target accordingly to a flight plan.

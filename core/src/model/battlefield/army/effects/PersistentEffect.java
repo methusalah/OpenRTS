@@ -4,7 +4,7 @@ import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 
-import model.builders.EffectBuilder;
+import model.builders.entity.EffectBuilder;
 
 /**
  * This effect is made to launch its children with temporality.
