@@ -6,8 +6,6 @@ import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
 
-import tools.LogUtil;
-
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -63,7 +61,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 		inputManager.addListener(this, mappings);
 
-		LogUtil.logger.info("battlefield controller online");
+		logger.info("battlefield controller online");
 	}
 
 	@Override

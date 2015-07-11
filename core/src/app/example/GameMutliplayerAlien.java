@@ -1,4 +1,5 @@
 package app.example;
+
 import model.ModelManager;
 import app.OpenRTSApplication;
 

@@ -6,8 +6,8 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
-import tools.LogUtil;
 import model.battlefield.abstractComps.FieldComp;
 import model.builders.entity.actors.ActorBuilder;
 
@@ -16,6 +16,9 @@ import model.builders.entity.actors.ActorBuilder;
  * Only the view knows where is the canon muzzle bone where the projectile needs to appear.
  */
 public class ModelActor extends Actor {
+
+	private static final Logger logger = Logger.getLogger(ModelActor.class.getName());
+
 	private final String modelPath;
 	private final double scaleX;
 	private final double scaleY;
@@ -88,7 +91,7 @@ public class ModelActor extends Actor {
 		return boneCoords.get(boneName) != null;
 	}
 	public void debbugWriteBoneNames(){
-		LogUtil.logger.info(""+boneCoords.keySet());
+		logger.info("" + boneCoords.keySet());
 	}
 
 
@@ -153,7 +156,7 @@ public class ModelActor extends Actor {
 	public HashMap<Integer, Color> getSubColorsByIndex() {
 		return subColorsByIndex;
 	}
-	
-	
+
+
 
 }

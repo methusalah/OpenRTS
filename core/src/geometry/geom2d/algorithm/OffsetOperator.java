@@ -10,10 +10,12 @@ import geometry.geom2d.Segment2D;
 import geometry.math.Angle;
 
 import java.util.ArrayList;
-
-import tools.LogUtil;
+import java.util.logging.Logger;
 
 public class OffsetOperator {
+
+	private static final Logger logger = Logger.getLogger(OffsetOperator.class.getName());
+
 	// inputs
 	private Polygon p;
 	private Ring<Double> offsets;
@@ -23,19 +25,19 @@ public class OffsetOperator {
 	private ArrayList<Polygon> borders;
 	private ArrayList<Polygon> loneBorders;
 	public Ring<Integer> correspondences = new Ring<Integer>();
-	
+
 	// internal data
-	private Ring<Line2D> lines; 
-	private EdgeRing segments; 
+	private Ring<Line2D> lines;
+	private EdgeRing segments;
 	boolean computed;
-	
+
 	private Point2D borderStart;
-	
+
 	public OffsetOperator(Polygon p) {
 		this.p = p;
 		reset();
 	}
-	
+
 	private void reset() {
 		borders = new ArrayList<Polygon>();
 
@@ -43,10 +45,10 @@ public class OffsetOperator {
 
 		lines = new Ring<Line2D>();
 		segments = new EdgeRing();
-		
+
 		computed = false;
 	}
-	
+
 	public void offsetAll(double offset) {
 		offsets = new Ring<Double>();
 		for (int i = 0; i < p.size(); i++) {
@@ -54,17 +56,17 @@ public class OffsetOperator {
 		}
 		reset();
 	}
-	
+
 	public void setOffsets(Ring<Double> offsets) {
 		this.offsets = offsets;
 		reset();
 	}
-	
+
 	public void setOffsets(EdgeSelector selector) {
 		offsets = selector.edgeValues;
 		reset();
 	}
-	
+
 	public Polygon getRemainder() {
 		compute();
 		return remainder;
@@ -73,10 +75,11 @@ public class OffsetOperator {
 	public ArrayList<Polygon> getBorders() {
 		compute();
 		if(borders.size() == 0) {
-			LogUtil.logger.severe("Error : no border computed. " + p + p.toRefactoringString());
-			LogUtil.logger.severe("offsets : ");
-			for(Double v : offsets)
-				LogUtil.logger.severe("    " + v);
+			logger.severe("Error : no border computed. " + p + p.toRefactoringString());
+			logger.severe("offsets : ");
+			for(Double v : offsets) {
+				logger.severe("    " + v);
+			}
 		}
 		return borders;
 	}
@@ -84,11 +87,12 @@ public class OffsetOperator {
 		compute();
 		return loneBorders;
 	}
-	
+
 	private void compute() {
-		if(computed)
+		if(computed) {
 			return;
-		
+		}
+
 		// transforming to max offset
 		// this method doesn't allow to much topology transform
 		double maxSetBack = -100000;
@@ -96,57 +100,61 @@ public class OffsetOperator {
 		for(Segment2D s : p.getEdges()){
 			Segment2D prev = p.getEdges().getPrevious(s);
 			Segment2D next = p.getEdges().getNext(s);
-			
+
 			double prevBisAngle = Angle.getBisector(prev.getAngle(), s.getAngle());
 			double nextBisAngle = Angle.getBisector(s.getAngle(), next.getAngle());
-			
+
 			Segment2D prevInnerBis = new Segment2D(s.getStart(), s.getStart().getTranslation(prevBisAngle, 100000));
 			Segment2D nextInnerBis = new Segment2D(s.getEnd(), s.getEnd().getTranslation(nextBisAngle, 100000));
 
 			Segment2D prevOutBis = new Segment2D(s.getStart(), s.getStart().getTranslation(prevBisAngle+Angle.FLAT, 100000));
 			Segment2D nextOutBis = new Segment2D(s.getEnd(), s.getEnd().getTranslation(nextBisAngle+Angle.FLAT, 100000));
-			
+
 			Point2D innerIntersection = prevInnerBis.getAnyIntersection(nextInnerBis);
-			if(innerIntersection!=null)
-				if(innerIntersection.getDistance(s.getStart())>maxSetBack)
+			if(innerIntersection!=null) {
+				if(innerIntersection.getDistance(s.getStart())>maxSetBack) {
 					maxSetBack = -innerIntersection.getDistance(s.getStart());
+				}
+			}
 
 			Point2D outIntersection = prevOutBis.getAnyIntersection(nextOutBis);
-			if(outIntersection!=null)
-				if(outIntersection.getDistance(s.getStart())<maxSetOut)
+			if(outIntersection!=null) {
+				if(outIntersection.getDistance(s.getStart())<maxSetOut) {
 					maxSetOut = outIntersection.getDistance(s.getStart());
+				}
+			}
 		}
-		
+
 		for(Double o : offsets) {
 			if(o > maxSetOut){
 				offsets.set(offsets.indexOf(o), maxSetOut);
 			}
 			if(o < maxSetBack){
 				offsets.set(offsets.indexOf(o), maxSetBack);
-				LogUtil.logger.info("offset set to : "+maxSetBack);
+				logger.info("offset set to : " + maxSetBack);
 			}
 		}
-		
-		
+
+
 		computeLines();
 		computeSegments();
-		
+
 		EdgeRing edges = p.getEdges();
 		EdgeRing remainderEdges = new EdgeRing();
 		PointRing borderPoints = new PointRing();
-		
+
 		for (int i = 0; i < segments.size(); i++) {
 			Segment2D s = segments.get(i);
 			Segment2D edge = edges.get(i);
 			double offset = offsets.get(i);
-			
+
 			if(s != null) {
 				remainderEdges.add(s);
-				if(offset == 0)// || offsets.get(i)*offsets.getPrevious(i) < 0)
+				if(offset == 0) {
 					// In this test, we check if the segment is offset or not
 					// we also test if two consecutive offsets have opposite directions.
 					endBorder(borderPoints);
-				else {
+				} else {
 					createLoneBorder(s, edge);
 					completeBorder(borderPoints, s, edge);
 				}
@@ -193,8 +201,9 @@ public class OffsetOperator {
 	}
 
 	private void endBorder(PointRing points) {
-		if(points.isEmpty())
+		if(points.isEmpty()) {
 			return;
+		}
 		points.shiftTo(borderStart);
 		borders.add(new Polygon(points));
 		points.clear();
@@ -214,7 +223,7 @@ public class OffsetOperator {
 				lines.add(line);
 				continue;
 			}
-			
+
 			double normal = line.getAngle() - Angle.RIGHT;
 			lines.add(line.getTranslation(normal, offset));
 		}
@@ -231,45 +240,50 @@ public class OffsetOperator {
 			Point2D end;
 			// We create each segment with the intersection points between lines
 			// We must check if the lines are collinear because polygon allow collinear consecutives edges.
-			if(line.isCollinear(lines.getPrevious(line)))
+			if(line.isCollinear(lines.getPrevious(line))) {
 				start = line.getStart();
-			else {
-				if(!line.intersectAtSinglePoint(lines.getPrevious(line)))
-					LogUtil.logger.warning("les lignes n'ont pas d'intersection ??"+line+lines.getPrevious(line));
+			} else {
+				if(!line.intersectAtSinglePoint(lines.getPrevious(line))) {
+					logger.warning("les lignes n'ont pas d'intersection ??" + line + lines.getPrevious(line));
+				}
 				start = line.getUniqueIntersection(lines.getPrevious(line));
 			}
-			
-			if(line.isCollinear(lines.getNext(line)))
+
+			if(line.isCollinear(lines.getNext(line))) {
 				end = line.getEnd();
-			else {
-				if(!line.intersectAtSinglePoint(lines.getNext(line)))
-					LogUtil.logger.warning("les lignes n'ont pas d'intersection ??"+line+lines.getNext(line));
+			} else {
+				if(!line.intersectAtSinglePoint(lines.getNext(line))) {
+					logger.warning("les lignes n'ont pas d'intersection ??" + line + lines.getNext(line));
+				}
 				end = line.getUniqueIntersection(lines.getNext(line));
 			}
-			
+
 			if(!start.equals(end) && Angle.areSimilar(end.getSubtraction(start).getAngle(), line.getAngle())) {
 				segments.add(new Segment2D(start, end));
 			} else {
 				segments.add(null);
 				correspondence--;
-				if(correspondence <0)
+				if(correspondence <0) {
 					correspondence = p.points.size()-1;
+				}
 			}
 			correspondences.add(new Integer(correspondence));
 			correspondence++;
 		}
-		
-		
+
+
 		// Now we have to manage the collapsed edges, for the surrounding edge to intersect properly
-		// We find the first non null edge  
+		// We find the first non null edge
 		Segment2D lastValid = segments.getFirst();
-		if(lastValid == null)
+		if(lastValid == null) {
 			lastValid = getNextValidSegment(0);
-		
+		}
+
 		// we throw an exception in the case where no valid edge can be found
-		if(lastValid == null)
+		if(lastValid == null) {
 			throw new RuntimeException("There is no valid edge.");
-		
+		}
+
 		int start = segments.indexOf(lastValid);
 		int index = start;
 		do {
@@ -280,24 +294,24 @@ public class OffsetOperator {
 			// it means that there is on or more collapsed edge between it.
 			if(nextValid != segments.getNext(lastValid)) {
 				Point2D intersection = new Line2D(lastValid).getUniqueIntersection(new Line2D(nextValid));
-				
+
 				int lastValidIndex = segments.indexOf(lastValid);
 				int nextValidIndex = segments.indexOf(nextValid);
 				segments.set(lastValidIndex, new Segment2D(lastValid.getStart(), intersection));
 				segments.set(nextValidIndex, new Segment2D(intersection, nextValid.getEnd()));
 				nextValid = segments.get(nextValidIndex);
 			}
-			
+
 			// Else, there is no collapsed edge and we do nothing.
 			index = segments.indexOf(nextValid);
 			lastValid = segments.get(segments.indexOf(nextValid));
 		} while(index != start);
-		
+
 		//debug
-//		for(Segment2D s : segments)
-//			LogUtil.logger.info("ahhh"+s);
+		//		for(Segment2D s : segments)
+		//			LogUtil.logger.info("ahhh"+s);
 	}
-	
+
 	// BEN ici, tant que je ne sais pas comparer les objets par leur reference, je doit fonctionner avec les index
 	private Segment2D getNextValidSegment(int start) {
 		Segment2D prev = segments.get(start);
@@ -305,9 +319,10 @@ public class OffsetOperator {
 		Segment2D res = null;
 		do {
 			index++;
-			if(index == segments.size())
+			if(index == segments.size()) {
 				index = 0;
-			
+			}
+
 			res = segments.get(index);
 		} while(res == null && index != start);
 		return res;

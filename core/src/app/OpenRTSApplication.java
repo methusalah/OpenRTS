@@ -6,12 +6,9 @@ import geometry.math.MyRandom;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
-import tools.LogUtil;
 import network.client.ClientManager;
 
 import com.jme3.app.Application;
@@ -36,6 +33,8 @@ import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
 public abstract class OpenRTSApplication extends Application implements PhysicsTickListener {
+
+	private static final Logger logger = Logger.getLogger(OpenRTSApplication.class.getName());
 
 	public static OpenRTSApplication appInstance;
 
@@ -233,7 +232,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	public static void main(OpenRTSApplication app) {
 		appInstance = app;
-		LogUtil.logger.info("seed : " + MyRandom.SEED);
+		logger.info("seed : " + MyRandom.SEED);
 
 		appInstance.start();
 	}
@@ -241,7 +240,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	public void changeSettings() {
 		JmeSystem.showSettingsDialog(settings, false);
 		if (settings.isFullscreen()) {
-			LogUtil.logger.info("Fullscreen not yet supported");
+			logger.info("Fullscreen not yet supported");
 			settings.setFullscreen(false);
 		}
 

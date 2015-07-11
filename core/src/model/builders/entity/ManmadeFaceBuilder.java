@@ -7,6 +7,7 @@ import geometry.math.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.faces.manmade.CornerManmadeFace;
@@ -15,12 +16,14 @@ import model.battlefield.map.cliff.faces.manmade.OrthogonalManmadeFace;
 import model.battlefield.map.cliff.faces.manmade.SalientManmadeFace;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
-import tools.LogUtil;
 
 /**
  * @author Benoît
  */
 public class ManmadeFaceBuilder extends Builder {
+
+	private static final Logger logger = Logger.getLogger(ManmadeFaceBuilder.class.getName());
+
 	private static final String ORTHOGONAL_LIST = "OrthogonalList";
 	private static final String SALIENT_LIST = "SalientList";
 	private static final String CORNER_LIST = "CornerList";
@@ -76,7 +79,7 @@ public class ManmadeFaceBuilder extends Builder {
 
 	private void addWithWheight(String s, int weight, List<String> list) {
 		if (weight <= 0 || weight > 50) {
-			LogUtil.logger.warning("Invalid weight (" + weight + ") for manmade face " + def.getId() + ". Weight must be between 1 and 50.");
+			logger.warning("Invalid weight (" + weight + ") for manmade face " + def.getId() + ". Weight must be between 1 and 50.");
 			return;
 		}
 		for (int i = 0; i < weight; i++) {

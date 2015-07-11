@@ -3,11 +3,12 @@
  */
 package view.acting;
 
-import java.awt.Color;
-
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
-import geometry.math.MyRandom;
+
+import java.awt.Color;
+import java.util.logging.Logger;
+
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -15,14 +16,13 @@ import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.map.Trinket;
-import tools.LogUtil;
-import view.math.Translator;
+import view.mapDrawing.MapDrawer;
+import view.math.TranslateUtil;
 import view.mesh.Circle;
 
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.Bone;
 import com.jme3.animation.Skeleton;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
@@ -34,6 +34,7 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class ModelPerformer extends Performer {
+	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
 	public static final String ENTITYID_USERDATA = "entityid";
 
 	public ModelPerformer(ActorDrawer bs) {
@@ -47,14 +48,16 @@ public class ModelPerformer extends Performer {
 			Spatial s = actorDrawer.buildSpatial(actor.getModelPath());
 
 			if (actor.getColor() != null) {
-				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(Translator.toColorRGBA(actor.getColor())));
+				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
 			} else{
-				for(Integer index : actor.getSubColorsByIndex().keySet())
+				for(Integer index : actor.getSubColorsByIndex().keySet()) {
 					applyToSubmesh(s, null, index, actor.getSubColorsByIndex().get(index));
-				for(String name : actor.getSubColorsByName().keySet())
+				}
+				for(String name : actor.getSubColorsByName().keySet()) {
 					applyToSubmesh(s, name, -1, actor.getSubColorsByName().get(name));
+				}
 			}
-			
+
 
 			s.setLocalScale((float) actor.getScaleX(), (float) actor.getScaleY(), (float) actor.getScaleZ());
 			s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -64,20 +67,21 @@ public class ModelPerformer extends Performer {
 			AnimControl animControl = s.getControl(AnimControl.class);
 			if (animControl != null) {
 				animControl.update(0);
-			} else if(actor.getComp() instanceof Unit && 
-					!((Unit)actor.getComp()).getTurrets().isEmpty())
-				throw new RuntimeException("The unit "+(Unit)actor.getComp()+" attached to actor "+actor+" have one or more turret, but no AnimControl.");
+			} else if(actor.getComp() instanceof Unit &&
+					!((Unit)actor.getComp()).getTurrets().isEmpty()) {
+				throw new RuntimeException("The unit "+actor.getComp()+" attached to actor "+actor+" have one or more turret, but no AnimControl.");
+			}
 		}
 
 		if (actor.getComp() != null) {
 			drawAsComp(actor);
 		}
 	}
-	
+
 	private void applyToSubmesh(Spatial s, String subMeshName, int subMeshIndex, Color color){
 		if(s instanceof Geometry){
 			if(((Geometry)s).getName().equals(subMeshName) || subMeshIndex == 0){
-				((Geometry)s).getMaterial().setColor("Diffuse", Translator.toColorRGBA(color));
+				((Geometry)s).getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA(color));
 				return;
 			}
 		} else {
@@ -86,21 +90,23 @@ public class ModelPerformer extends Performer {
 			}
 			return;
 		}
-		if(subMeshIndex > 0)
-			LogUtil.logger.warning("Sub mesh of index "+subMeshIndex+" doesn't seem to exist.");
-		if(subMeshName != null)
-			LogUtil.logger.warning("Sub mesh named "+subMeshName+" doesn't seem to exist.");
+		if(subMeshIndex > 0) {
+			logger.warning("Sub mesh of index "+subMeshIndex+" doesn't seem to exist.");
+		}
+		if(subMeshName != null) {
+			logger.warning("Sub mesh named "+subMeshName+" doesn't seem to exist.");
+		}
 	}
 
 	protected void drawAsComp(ModelActor actor) {
 		Spatial s = actor.getViewElements().spatial;
-		FieldComp comp = actor.getComp(); 
+		FieldComp comp = actor.getComp();
 		// save the unitid in the userdata
 		// TODO, may be set once in the spatial creation
 		s.setUserData(ENTITYID_USERDATA, comp.getId());
 
 		// translation
-		s.setLocalTranslation(Translator.toVector3f(actor.getPos()));
+		s.setLocalTranslation(TranslateUtil.toVector3f(actor.getPos()));
 
 		// rotation
 		Quaternion r = new Quaternion();
@@ -109,9 +115,9 @@ public class ModelPerformer extends Performer {
 			Point3D pv = actor.getComp().direction;
 			if (pu != null) {
 				// the comp has a up vector
-				// for ground comps or horitonally flying units 
-				Vector3f u = Translator.toVector3f(pu).normalize();
-				Vector3f v = Translator.toVector3f(pv).normalize();
+				// for ground comps or horitonally flying units
+				Vector3f u = TranslateUtil.toVector3f(pu).normalize();
+				Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 				r.lookAt(v, u);
 				// we correct the pitch of the unit because the direction is always flatten
 				// this is only to follow the terrain relief
@@ -121,7 +127,7 @@ public class ModelPerformer extends Performer {
 				// the comp hasn't any up vector
 				// for projectiles
 				Vector3f u = new Vector3f(0, -1, 0);
-				Vector3f v = Translator.toVector3f(pv).normalize();
+				Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 				float real = 1 + u.dot(v);
 				Vector3f w = u.cross(v);
 				r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
@@ -165,7 +171,7 @@ public class ModelPerformer extends Performer {
 			actor.getViewElements().selectionCircle = n;
 		}
 		Node n = actor.getViewElements().selectionCircle;
-		n.setLocalTranslation(Translator.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
+		n.setLocalTranslation(TranslateUtil.toVector3f(actor.getPos().getAddition(0, 0, 0.2)));
 
 		if (unit.selected) {
 			if (!actorDrawer.mainNode.hasChild(n)) {
@@ -183,14 +189,14 @@ public class ModelPerformer extends Performer {
 				throw new RuntimeException("Can't find the bone " + t.boneName + " for turret.");
 			}
 
-//			Vector3f axis;
-//			switch (t.boneAxis){
-//			case "X" : axis = Vector3f.UNIT_X; break;
-//			case "Y" : axis = Vector3f.UNIT_Y; break;
-//			case "Z" : axis = Vector3f.UNIT_Z; break;
-//			default : throw new IllegalArgumentException("Wrong bone axis for "+((Unit)actor.getComp()).builderID+" : "+t.boneAxis);
-//			}
-//			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, axis);
+			//			Vector3f axis;
+			//			switch (t.boneAxis){
+			//			case "X" : axis = Vector3f.UNIT_X; break;
+			//			case "Y" : axis = Vector3f.UNIT_Y; break;
+			//			case "Z" : axis = Vector3f.UNIT_Z; break;
+			//			default : throw new IllegalArgumentException("Wrong bone axis for "+((Unit)actor.getComp()).builderID+" : "+t.boneAxis);
+			//			}
+			//			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, axis);
 			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y);
 			turretBone.setUserControl(true);
 			turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
@@ -199,8 +205,9 @@ public class ModelPerformer extends Performer {
 
 	private void updateBoneCoords(ModelActor actor) {
 		AnimControl ctrl = actor.getViewElements().spatial.getControl(AnimControl.class);
-		if(ctrl == null)
+		if(ctrl == null) {
 			return;
+		}
 		Skeleton sk = ctrl.getSkeleton();
 		for (int i = 0; i < sk.getBoneCount(); i++) {
 			Bone b = sk.getBone(i);
@@ -229,6 +236,6 @@ public class ModelPerformer extends Performer {
 		// Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
 		// p3D = p3D.getAddition(actorPos);
 		// return p3D;
-		return Translator.toPoint3D(modelSpacePos);
+		return TranslateUtil.toPoint3D(modelSpacePos);
 	}
 }

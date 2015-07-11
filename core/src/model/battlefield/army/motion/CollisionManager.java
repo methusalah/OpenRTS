@@ -9,8 +9,8 @@ import geometry.math.Angle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-import tools.LogUtil;
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
@@ -38,6 +38,8 @@ import model.battlefield.map.Tile;
  * @author Benoît
  */
 public class CollisionManager {
+
+	private static final Logger logger = Logger.getLogger(CollisionManager.class.getName());
 	private static double MAX_ADAPT_TOLERANCE = Angle.toRadians(180);
 	private static double ADAPT_TOLERANCE = Angle.toRadians(100);
 	private static double ADAPT_TOLERANCE_INCRASE = Angle.toRadians(20);
@@ -58,7 +60,7 @@ public class CollisionManager {
 	public void applySteering(Point3D steering, double elapsedTime, List<FieldComp> blockers) {
 		double traveledDistance = mover.getSpeed()*elapsedTime;
 		if(traveledDistance < 0.001) {
-			LogUtil.logger.info("very short traveled distance...");
+			logger.info("very short traveled distance...");
 		}
 
 
@@ -197,7 +199,7 @@ public class CollisionManager {
 			}
 		}
 	}
-	
+
 	private AlignedBoundingBox getTileBoundingBox(Tile t){
 		Point2D p = t.getCoord();
 		ArrayList<Point2D> points = new ArrayList<>();

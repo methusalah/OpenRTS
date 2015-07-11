@@ -1,6 +1,6 @@
 package view.acting;
 
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.audio.AudioNode;
 
@@ -19,7 +19,7 @@ public class SoundPerformer extends Performer{
 		AudioNode audio = actorDrawer.getAudioNode(actor.soundPath);
 		audio.setPositional(actor.positional);
 		if(actor.positional)
-			audio.setLocalTranslation(Translator.toVector3f(actor.getParentModelActor().getPos()));
+			audio.setLocalTranslation(TranslateUtil.toVector3f(actor.getParentModelActor().getPos()));
 		
 		audio.setLooping(actor.looping);
 		audio.setVolume((float)(actor.volume));

@@ -1,15 +1,19 @@
 package model.battlefield.map.cliff;
 
 import geometry.math.Angle;
+
+import java.util.logging.Logger;
+
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
-import tools.LogUtil;
 
 /**
  * Warning : this class is full of monstrous spiders and mysterious shadows in every corner. Proceed at your own risks. Compute magically the shape and angle of
  * a cliff, according to its neighborhood. Don't touch anything or it will explode !
  */
 public class CliffOrganizer {
+
+	private static final Logger logger = Logger.getLogger(CliffOrganizer.class.getName());
 
 	public static void organize(Cliff c, Map map) {
 		Tile t = c.getTile();
@@ -131,7 +135,7 @@ public class CliffOrganizer {
 				c.type = Cliff.Type.Orthogonal;
 				break;
 			default:
-				LogUtil.logger.info("Cliff neighboring is strange at " + c.getTile().getCoord() + " : " + c.getConnexionConfiguration(map));
+				logger.info("Cliff neighboring is strange at " + c.getTile().getCoord() + " : " + c.getConnexionConfiguration(map));
 				c.type = Cliff.Type.Bugged;
 		}
 	}

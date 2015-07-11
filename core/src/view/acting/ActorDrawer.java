@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
-import tools.LogUtil;
 import view.material.MaterialManager;
 
 import com.jme3.animation.AnimChannel;
@@ -28,6 +28,8 @@ import com.jme3.scene.Spatial;
  * @author Benoît
  */
 public class ActorDrawer implements AnimEventListener {
+
+	private static final Logger logger = Logger.getLogger(ActorDrawer.class.getName());
 
 	private AssetManager assetManager;
 	private MaterialManager materialManager;
@@ -75,7 +77,7 @@ public class ActorDrawer implements AnimEventListener {
 				mainNode.detachChild(a.getViewElements().selectionCircle);
 			}
 		}
-//		LogUtil.logger.info("nb attached spatial to "+this+" : "+mainNode.getChildren().size());
+		//		LogUtil.logger.info("nb attached spatial to "+this+" : "+mainNode.getChildren().size());
 		List<ParticleEmitter> deleted = new ArrayList<>();
 		for (ParticleEmitter pe : dyingEmitters) {
 			if (pe.getNumVisibleParticles() == 0) {
@@ -146,7 +148,7 @@ public class ActorDrawer implements AnimEventListener {
 		}
 		Spatial res = models.get(modelPath).clone();
 		if (res == null) {
-			LogUtil.logger.info(modelPath);
+			logger.info(modelPath);
 		}
 		AnimControl control = res.getControl(AnimControl.class);
 		if (control != null) {

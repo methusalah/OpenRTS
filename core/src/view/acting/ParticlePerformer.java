@@ -5,12 +5,13 @@
 package view.acting;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
-import tools.LogUtil;
-import view.math.Translator;
+import view.mapDrawing.MapDrawer;
+import view.math.TranslateUtil;
 
 import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
@@ -25,6 +26,9 @@ import com.jme3.math.Vector3f;
  * @author Benoît
  */
 public class ParticlePerformer extends Performer{
+
+	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
+
 	public ParticlePerformer(ActorDrawer bs){
 		super(bs);
 	}
@@ -39,26 +43,26 @@ public class ParticlePerformer extends Performer{
 
 		ModelActor ma = actor.getParentModelActor();
 		if (ma.getViewElements().spatial == null) {
-			LogUtil.logger.info(actor+" parent misses spatial for "+ma);
+			logger.info(actor + " parent misses spatial for " + ma);
 		}
 
 		Vector3f emissionPoint;
 		Vector3f direction;
 		if(actor.emissionBone != null){
 			if(!ma.hasBone(actor.emissionBone)){
-				LogUtil.logger.info(actor+" misses bone "+actor.emissionBone+" in "+ma);
+				logger.info(actor + " misses bone " + actor.emissionBone + " in " + ma);
 				return;
 			}
 
-			emissionPoint = Translator.toVector3f(ma.getBoneCoord(actor.emissionBone));
+			emissionPoint = TranslateUtil.toVector3f(ma.getBoneCoord(actor.emissionBone));
 			if(actor.directionBone != null) {
-				direction = Translator.toVector3f(ma.getBoneCoord(actor.directionBone));
+				direction = TranslateUtil.toVector3f(ma.getBoneCoord(actor.directionBone));
 			} else {
 				direction = new Vector3f(emissionPoint);
 			}
 		} else {
-			emissionPoint = Translator.toVector3f(ma.getPos());
-			direction = Translator.toVector3f(ma.getPos().get2D().getTranslation(ma.getYaw(), 1).get3D(emissionPoint.z));
+			emissionPoint = TranslateUtil.toVector3f(ma.getPos());
+			direction = TranslateUtil.toVector3f(ma.getPos().get2D().getTranslation(ma.getYaw(), 1).get3D(emissionPoint.z));
 		}
 		direction = direction.subtract(emissionPoint).normalize();
 		Vector3f velocity = direction.mult((float)actor.velocity);
@@ -117,8 +121,8 @@ public class ParticlePerformer extends Performer{
 		emitter.setImagesX(actor.nbRow);
 		emitter.setImagesY(actor.nbCol);
 
-		emitter.setStartColor(Translator.toColorRGBA(actor.startColor));
-		emitter.setEndColor(Translator.toColorRGBA(actor.endColor));
+		emitter.setStartColor(TranslateUtil.toColorRGBA(actor.startColor));
+		emitter.setEndColor(TranslateUtil.toColorRGBA(actor.endColor));
 
 		emitter.setStartSize((float)actor.startSize);
 		emitter.setEndSize((float)actor.endSize);

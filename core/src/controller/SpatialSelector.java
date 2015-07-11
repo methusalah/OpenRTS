@@ -6,7 +6,7 @@ import model.EntityManager;
 import view.MapView;
 import view.PointUtil;
 import view.acting.ModelPerformer;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.input.InputManager;
 import com.jme3.math.Ray;
@@ -54,17 +54,17 @@ public class SpatialSelector {
 	}
 
 	private Point2D getCoord(Node n, Point2D screenCoord) {
-		Vector3f origin = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 0f);
-		Vector3f direction = cam.getWorldCoordinates(Translator.toVector2f(screenCoord), 1f);
+		Vector3f origin = cam.getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
+		Vector3f direction = cam.getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
 		return PointUtil.getPointedCoord(n, r);
 	}
 
 	public Point2D getScreenCoord(Point3D pos) {
-		Vector3f vPos = Translator.toVector3f(pos);
+		Vector3f vPos = TranslateUtil.toVector3f(pos);
 		Vector3f screenCoord = cam.getScreenCoordinates(vPos);
-		return Translator.toPoint3D(screenCoord).get2D();
+		return TranslateUtil.toPoint3D(screenCoord).get2D();
 	}
 
 	private Ray getMouseRay() {

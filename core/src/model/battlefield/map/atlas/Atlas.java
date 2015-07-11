@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
-import tools.LogUtil;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,6 +19,7 @@ import exception.TechnicalException;
  * common XML format.
  */
 public class Atlas {
+	private static final Logger logger = Logger.getLogger(Atlas.class.getName());
 	private static int LAYER_COUNT = 8;
 	public static int RESOLUTION_RATIO = 8;
 
@@ -30,17 +30,17 @@ public class Atlas {
 	private int width, height;
 	@JsonIgnore
 	private List<AtlasLayer> layers = new ArrayList<>();
-	
+
 	@JsonIgnore
 	List<ByteBuffer> buffers = new ArrayList<>();
-	
+
 	@JsonIgnore
 	private boolean toUpdate = false;
 
 	@JsonIgnore
 	private boolean finalized = false;
-	
-	
+
+
 
 	public Atlas() {
 
@@ -77,8 +77,9 @@ public class Atlas {
 	}
 
 	public ByteBuffer getBuffer(int index) {
-		if(!finalized)
-			LogUtil.logger.warning("You access to unfinalized atlas.");
+		if(!finalized) {
+			logger.warning("You access to unfinalized atlas.");
+		}
 		return buffers.get(index);
 	}
 
@@ -140,8 +141,9 @@ public class Atlas {
 	}
 
 	public List<AtlasLayer> getLayers() {
-		if(!finalized)
-			LogUtil.logger.warning("You access to unfinalized atlas.");
+		if(!finalized) {
+			logger.warning("You access to unfinalized atlas.");
+		}
 		return layers;
 	}
 

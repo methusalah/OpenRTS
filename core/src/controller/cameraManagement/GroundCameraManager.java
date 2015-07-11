@@ -3,9 +3,11 @@ package controller.cameraManagement;
 
 import geometry.geom3d.Point3D;
 import geometry.math.Angle;
+
+import java.util.logging.Logger;
+
 import model.ModelManager;
-import tools.LogUtil;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -18,6 +20,8 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 
 public class GroundCameraManager extends CameraManager {
+
+	private static final Logger logger = Logger.getLogger(GroundCameraManager.class.getName());
 	protected final static String ROTATE_LEFT = "rotateleft";
 	protected final static String ROTATE_RIGHT = "rotateright";
 	protected final static String ROTATE_UP = "rotateup";
@@ -62,7 +66,7 @@ public class GroundCameraManager extends CameraManager {
 		} else {
 			pos.z = 0;
 		}
-		cam.setLocation(Translator.toVector3f(pos));
+		cam.setLocation(TranslateUtil.toVector3f(pos));
 	}
 
 	@Override
@@ -135,7 +139,7 @@ public class GroundCameraManager extends CameraManager {
 
 	protected void changeRotation(float value, Point3D axis){
 		Matrix3f mat = new Matrix3f();
-		mat.fromAngleNormalAxis(value, Translator.toVector3f(axis));
+		mat.fromAngleNormalAxis(value, TranslateUtil.toVector3f(axis));
 
 		Vector3f up = cam.getUp();
 		Vector3f left = cam.getLeft();
@@ -158,15 +162,15 @@ public class GroundCameraManager extends CameraManager {
 
 
 	private Point3D getLeft(){
-		return Translator.toPoint3D(cam.getLeft());
+		return TranslateUtil.toPoint3D(cam.getLeft());
 	}
 	private Point3D getRight(){
-		return Translator.toPoint3D(cam.getLeft()).getNegation();
+		return TranslateUtil.toPoint3D(cam.getLeft()).getNegation();
 	}
 	private Point3D getDir(){
-		return Translator.toPoint3D(cam.getDirection());
+		return TranslateUtil.toPoint3D(cam.getDirection());
 	}
 	private Point3D getRear(){
-		return Translator.toPoint3D(cam.getDirection()).getNegation();
+		return TranslateUtil.toPoint3D(cam.getDirection()).getNegation();
 	}
 }

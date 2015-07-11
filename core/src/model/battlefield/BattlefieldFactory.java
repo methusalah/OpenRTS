@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import tools.LogUtil;
 import model.ModelManager;
 import model.builders.MapArtisan;
 
@@ -20,18 +19,20 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * ground (buffer array)
  */
 public class BattlefieldFactory {
+
+	private static final Logger logger = Logger.getLogger(BattlefieldFactory.class.getName());
 	private static final String BATTLEFIELD_FILE_EXTENSION = "btf";
 
 	public BattlefieldFactory() {
 	}
 
 	public Battlefield getNew(int width, int height) {
-		LogUtil.logger.info("Creating new battlefield...");
+		logger.info("Creating new battlefield...");
 
 		Battlefield res = new Battlefield();
 		MapArtisan.buildMap(res);
 
-		LogUtil.logger.info("Loading done.");
+		logger.info("Loading done.");
 		return res;
 	}
 
@@ -56,26 +57,26 @@ public class BattlefieldFactory {
 		ModelManager.setBattlefieldUnavailable();
 		Battlefield bField = null;
 		try {
-			LogUtil.logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
+			logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
 			ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-				bField = mapper.readValue(file, Battlefield.class);
+			bField = mapper.readValue(file, Battlefield.class);
 			bField.setFileName(file.getCanonicalPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		if (bField == null) {
-			LogUtil.logger.info("Load failed");
+			logger.info("Load failed");
 			ModelManager.setBattlefieldReady();
 			return null;
 		}
-		
+
 		MapArtisan.buildMap(bField);
 
-		LogUtil.logger.info("   texture atlas");
+		logger.info("   texture atlas");
 		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");
 		bField.getMap().getCover().loadFromFile(bField.getFileName(), "cover");
-		LogUtil.logger.info("Loading done.");
+		logger.info("Loading done.");
 		return bField;
 	}
 
@@ -87,7 +88,7 @@ public class BattlefieldFactory {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		try {
 			if (battlefield.getFileName() != null) {
-				LogUtil.logger.info("Saving battlefield overwriting " + battlefield.getFileName() + "...");
+				logger.info("Saving battlefield overwriting " + battlefield.getFileName() + "...");
 				mapper.writeValue(new File(battlefield.getFileName()), battlefield);
 			} else {
 				final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
@@ -104,16 +105,16 @@ public class BattlefieldFactory {
 					}
 
 					battlefield.setFileName(f.getCanonicalPath());
-					LogUtil.logger.info("Saving map as " + battlefield.getFileName() + "...");
+					logger.info("Saving map as " + battlefield.getFileName() + "...");
 					mapper.writeValue(new File(battlefield.getFileName()), battlefield);
 				}
 			}
 		} catch (Exception ex) {
 			Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		LogUtil.logger.info("Saving texture atlas...");
+		logger.info("Saving texture atlas...");
 		battlefield.getMap().getAtlas().saveToFile(battlefield.getFileName(), "atlas");
 		battlefield.getMap().getCover().saveToFile(battlefield.getFileName(), "cover");
-		LogUtil.logger.info("Done.");
+		logger.info("Done.");
 	}
 }
