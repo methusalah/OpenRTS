@@ -6,7 +6,7 @@ package model.builders.entity;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -161,23 +161,23 @@ public class TrinketBuilder extends Builder {
 	}
 
 	public Trinket build(Point3D position) {
-		Point3D offsetPos = new Point3D(MyRandom.between(minPosX, maxPosX), MyRandom.between(minPosY, maxPosY), MyRandom.between(minPosZ, maxPosZ))
+		Point3D offsetPos = new Point3D(RandomUtil.between(minPosX, maxPosX), RandomUtil.between(minPosY, maxPosY), RandomUtil.between(minPosZ, maxPosZ))
 		.getAddition(position);
-		double rotX = MyRandom.between(minRotX, maxRotX);
-		double rotY = MyRandom.between(minRotY, maxRotY);
-		double rotZ = MyRandom.between(minRotZ, maxRotZ);
+		double rotX = RandomUtil.between(minRotX, maxRotX);
+		double rotY = RandomUtil.between(minRotY, maxRotY);
+		double rotZ = RandomUtil.between(minRotZ, maxRotZ);
 		double scaleX, scaleY, scaleZ;
 		if (Double.isNaN(minScale)) {
-			scaleX = MyRandom.between(minScaleX, maxScaleX);
-			scaleY = MyRandom.between(minScaleY, maxScaleY);
-			scaleZ = MyRandom.between(minScaleZ, maxScaleZ);
+			scaleX = RandomUtil.between(minScaleX, maxScaleX);
+			scaleY = RandomUtil.between(minScaleY, maxScaleY);
+			scaleZ = RandomUtil.between(minScaleZ, maxScaleZ);
 		} else {
-			scaleX = scaleY = scaleZ = MyRandom.between(minScale, maxScale);
+			scaleX = scaleY = scaleZ = RandomUtil.between(minScale, maxScale);
 		}
 
 		int i = 0;
 		if (modelPaths.size() > 1) {
-			i = MyRandom.nextInt(modelPaths.size() - 1);
+			i = RandomUtil.nextInt(modelPaths.size() - 1);
 		}
 		String randomModelPath = modelPaths.get(i);
 		return new Trinket(editable, radius, getId(), randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);

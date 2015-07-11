@@ -1,7 +1,7 @@
 package model.battlefield.map.cliff.faces.natural;
 
 import geometry.geom3d.Point3D;
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -52,9 +52,9 @@ public abstract class Dug1 extends NaturalFace {
         	if(profile.indexOf(v)==0)
         		res.add(v);
     		else
-	            res.add(v.getAddition((MyRandom.next()-0.5)*MAX_NOISE*noiseX,
-	                    (MyRandom.next()-0.5)*MAX_NOISE*noiseY,
-	                    (MyRandom.next()-0.5)*(MAX_NOISE/10)*noiseZ));
+	            res.add(v.getAddition((RandomUtil.next()-0.5)*MAX_NOISE*noiseX,
+	                    (RandomUtil.next()-0.5)*MAX_NOISE*noiseY,
+	                    (RandomUtil.next()-0.5)*(MAX_NOISE/10)*noiseZ));
         return res;
     }
     
@@ -137,7 +137,7 @@ public abstract class Dug1 extends NaturalFace {
         ArrayList<Point3D> res = new ArrayList<>();
         for(Point3D p : profile){
             if(ratio == 1)
-                res.add(new Point3D(0.5+MyRandom.next()*0.001, 0, 0));
+                res.add(new Point3D(0.5+RandomUtil.next()*0.001, 0, 0));
             else
                 res.add(p.getAddition(0, 0, -Tile.STAGE_HEIGHT*ratio*p.z/Tile.STAGE_HEIGHT));
         }

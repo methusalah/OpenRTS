@@ -6,7 +6,7 @@ package view.acting;
 
 import geometry.geom2d.Point2D;
 import geometry.math.AngleUtil;
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.PhysicActor;
@@ -63,8 +63,8 @@ public class RagdollPerformer extends Performer{
 			control.setPhysicsRotation(r);
 
 			//            control.applyCentralForce(new Vector3f((float)MyRandom.next(), (float)MyRandom.next(), 1).mult(1000));
-			control.applyForce(massVec.multLocal((float)MyRandom.next(), (float)MyRandom.next(), (float)MyRandom.next()).mult(3000),
-					new Vector3f((float)MyRandom.between(-0.1, 0.1), (float)MyRandom.between(-0.1, 0.1), (float)MyRandom.between(-0.1, 0.1)));
+			control.applyForce(massVec.multLocal((float)RandomUtil.next(), (float)RandomUtil.next(), (float)RandomUtil.next()).mult(3000),
+					new Vector3f((float)RandomUtil.between(-0.1, 0.1), (float)RandomUtil.between(-0.1, 0.1), (float)RandomUtil.between(-0.1, 0.1)));
 			actor.launched = true;
 			actor.getViewElements().spatial = massCenter;
 		}

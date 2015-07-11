@@ -3,7 +3,7 @@
  */
 package model.builders.entity;
 
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,17 +56,17 @@ public class ManmadeFaceBuilder extends Builder {
 		switch (cliff.type) {
 			case Orthogonal:
 				if (orthos.size() > 1) {
-					index = MyRandom.nextInt(orthos.size() - 1);
+					index = RandomUtil.nextInt(orthos.size() - 1);
 				}
 				return new OrthogonalManmadeFace(cliff, orthos.get(index));
 			case Salient:
 				if (salients.size() > 1) {
-					index = MyRandom.nextInt(salients.size() - 1);
+					index = RandomUtil.nextInt(salients.size() - 1);
 				}
 				return new SalientManmadeFace(cliff, salients.get(index));
 			case Corner:
 				if (corners.size() > 1) {
-					index = MyRandom.nextInt(corners.size() - 1);
+					index = RandomUtil.nextInt(corners.size() - 1);
 				}
 				return new CornerManmadeFace(cliff, corners.get(index));
 			case Border:

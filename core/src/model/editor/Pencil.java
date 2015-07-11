@@ -9,7 +9,7 @@ import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.algorithm.PerlinNoise;
 import geometry.math.AngleUtil;
-import geometry.math.MyRandom;
+import geometry.math.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
