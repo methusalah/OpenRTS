@@ -1,7 +1,6 @@
 package controller.editor;
 
 import model.ModelManager;
-import model.Reporter;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
 
@@ -11,6 +10,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
+import controller.Reporter;
 import event.ControllerChangeEvent;
 import event.EventManager;
 
