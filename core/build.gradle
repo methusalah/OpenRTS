@@ -7,27 +7,25 @@ if (!hasProperty('mainClass')) {
 	ext.mainClass = 'app.MainRTS'
 }
 
-
-
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 
-	compile "com.jme3:jme3-core:$jmonkeyengine_version.+"
-	compile "com.jme3:jme3-effects:$jmonkeyengine_version.+"
-	compile "com.jme3:jme3-networking:$jmonkeyengine_version.+"
-	//    	compile "com.jme3:jme3-plugins:$jmonkeyengine_version.+"
-	////    	compile "com.jme3:jme3-jogg:$jmonkeyengine_version.+"
-	////    	compile "com.jme3:jme3-terrain:$jmonkeyengine_version.+"
-	compile "com.jme3:jme3-blender:$jmonkeyengine_version.+"
-	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
-	//    	compile "com.jme3:jme3-desktop:$jmonkeyengine_version.+"
-	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-core:$jmonkeyengine_version"
+	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
+	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
+	//    	compile "com.jme3:jme3-plugins:$jmonkeyengine_version"
+	////    	compile "com.jme3:jme3-jogg:$jmonkeyengine_version"
+	////    	compile "com.jme3:jme3-terrain:$jmonkeyengine_version"
+	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
+	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
+	//    	compile "com.jme3:jme3-desktop:$jmonkeyengine_version"
+	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
 	    	//
-	    	//	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version.+"
-	    	//	compile "com.jme3:jme3-bullet-natives:$jmonkeyengine_version.+"
+	    	//	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
+	    	//	compile "com.jme3:jme3-bullet-natives:$jmonkeyengine_version"
 	    	//
 
-	compile "com.jme3:jme3-niftygui:$jmonkeyengine_version.+"
+	compile "com.jme3:jme3-niftygui:$jmonkeyengine_version"
 
 	//	compile 'com.google.code.gson:gson:2.3.1'
 	compile 'org.bushe:eventbus:1.4'

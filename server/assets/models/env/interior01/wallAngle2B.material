@@ -1,0 +1,48 @@
+material MetalA
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.137255 0.137255 0.137255 1
+			diffuse 0.172549 0.172549 0.172549 1
+			specular 0.337255 0.337255 0.337255 0.2 10
+		}
+
+	}
+
+}
+
+
+
+material MetalB
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.027451 0.027451 0.027451 1
+			diffuse 0.0705882 0.0705882 0.0705882 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}
+
+
+
+material NotVisible
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0 0 0 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}

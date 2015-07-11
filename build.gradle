@@ -9,7 +9,7 @@ allprojects {
 	version = '0.0.1'
 	ext {
 		appName = 'OpenRTS'
-		jmonkeyengine_version = '3.0'
+		jmonkeyengine_version = '3.0.10'
 	}
 	sourceCompatibility = 1.8
 

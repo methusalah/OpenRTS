@@ -1,0 +1,12 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="BRootDebris02">
+            <position x="2.58057" y="-51.1171" z="127.767"/>
+            <rotation angle="1.5708">
+                <axis x="0" y="0" z="-1"/>
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy/>
+    <animations/>
+</skeleton>

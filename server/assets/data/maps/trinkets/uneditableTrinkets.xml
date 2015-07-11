@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <Trinket id="StdTopRock">
+        <Editable value="false"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
+        <Color R="76" G="63" B="44"/>
+        <RotationX min="0" max="360"/>
+        <RotationY min="0" max="360"/>
+        <RotationZ min="0" max="360"/>
+
+        <PositionX min="-0.3" max="0.3"/>
+        <PositionY min="0" max="1"/>
+        <PositionZ min="1.2" max="1.8"/>
+
+        <Scale min="0.5" max="0.9"/>
+    </Trinket>
+    <Trinket id="StdSideRock">
+        <Editable value="false"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
+        <Color R="76" G="63" B="44"/>
+        <RotationX min="0" max="360"/>
+        <RotationY min="0" max="360"/>
+        <RotationZ min="0" max="360"/>
+
+        <PositionX min="-0.2" max="0.2"/>
+        <PositionY min="0" max="1"/>
+        <PositionZ min="0.2" max="1.2"/>
+
+        <ScaleX min="0.7" max="1.4"/>
+        <ScaleY min="0.7" max="1.4"/>
+        <ScaleZ min="0.7" max="1.4"/>
+    </Trinket>
+    <Trinket id="StdBottomRock">
+        <Editable value="false"/>
+        <ModelList value="env/exterior01/rockA.mesh.xml"/>
+        <Color R="76" G="63" B="44"/>
+        <RotationX min="0" max="360"/>
+        <RotationY min="0" max="360"/>
+        <RotationZ min="0" max="360"/>
+
+        <PositionX min="0.3" max="0.8"/>
+        <PositionY min="0" max="1"/>
+        <PositionZ min="-0.4" max="0"/>
+
+        <ScaleX min="0.7" max="1.4"/>
+        <ScaleY min="0.7" max="1.4"/>
+        <ScaleZ min="0.7" max="1.4"/>
+    </Trinket>
+    
+    
+    
+    
+    <Trinket id="StdTopPlant">
+        <Editable value="false"/>
+        <ModelList value="env/exterior01/GrassB.mesh.xml"/>
+        <RotationX min="0" max="0"/>
+        <RotationY min="0" max="0"/>
+        <RotationZ min="0" max="360"/>
+
+        <PositionX min="-0.3" max="0.3"/>
+        <PositionY min="0" max="1"/>
+        <PositionZ min="2" max="2"/>
+
+        <ScaleX min="0.7" max="1.4"/>
+        <ScaleY min="0.7" max="1.4"/>
+        <ScaleZ min="0.7" max="1.4"/>
+    </Trinket>
+    <Trinket id="StdBottomPlant">
+        <Editable value="false"/>
+        <ModelList value="env/exterior01/GrassB.mesh.xml"/>
+        <RotationX min="0" max="0"/>
+        <RotationY min="0" max="0"/>
+        <RotationZ min="0" max="360"/>
+
+        <PositionX min="0.7" max="1.5"/>
+        <PositionY min="0" max="1"/>
+        <PositionZ min="0" max="0"/>
+
+        <ScaleX min="0.7" max="1.4"/>
+        <ScaleY min="0.7" max="1.4"/>
+        <ScaleZ min="0.7" max="1.4"/>
+    </Trinket>
+
+</catalog>

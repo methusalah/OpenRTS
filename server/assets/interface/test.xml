@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<nifty>
+    <useControls filename="nifty-default-controls.xml"/>
+    <useStyles filename="nifty-default-styles.xml"/>
+    <screen id="GScreen1">
+    </screen>
+    <screen id="GScreen2">
+        <layer id="mainlayer" childLayout="vertical">
+            <panel id="menupanel" childLayout="horizontal" width="100%" x="62" y="42" style="nifty-panel-simple" height="50px">
+                <control name="button" id="new" childLayout="center" backgroundImage="button/button.png" x="53" width="80px" y="19" label="New" height="30px"/>
+                <control name="button" id="save" childLayout="center" width="80px" label="Save" height="30px"/>
+                <control name="button" id="load" childLayout="center" width="80px" label="Load" height="30px"/>
+            </panel>
+            <panel id="toolbox" childLayout="vertical" width="180px" style="nifty-panel-simple" height="*">
+                <panel id="toolselection1" childLayout="horizontal" childClip="10" width="*" x="20" y="15" style="nifty-panel-simple" align="left" height="50px">
+                    <control name="button" id="clifftool" childLayout="center" childClip="10" backgroundImage="button/button.png" x="73" width="40px" y="76" label="cliff" align="center" height="40px"/>
+                    <control name="button" id="heighttool" childLayout="center" width="40px" label="height" height="40px"/>
+                    <control name="button" id="atlastool" childLayout="center" width="40px" label="tex." height="40px"/>
+                    <control name="button" id="ramptool" childLayout="center" width="40px" label="ramp" height="40px"/>
+                </panel>
+                <panel id="toolselection2" childLayout="horizontal" width="100%" style="nifty-panel-simple" height="50px">
+                    <control name="button" id="unittool" childLayout="center" width="40px" x="46" y="34" label="units" height="40px"/>
+                </panel>
+                <panel id="toolop" childLayout="vertical" width="100%" style="nifty-panel-simple" height="101px">
+                    <control name="button" id="operation1" childLayout="center" width="80%" label="operation 1" align="center" height="30px"/>
+                    <control name="button" id="operation2" childLayout="center" width="80%" label="operation 2" align="center" height="30px"/>
+                    <control name="button" id="operation3" childLayout="center" width="80%" label="operation 3" align="center" height="30px"/>
+                </panel>
+                <panel id="GPanel6" childLayout="absolute" width="100%" style="nifty-panel-simple" height="320px"/>
+            </panel>
+        </layer>
+    </screen>
+    <screen id="GScreen3">
+    </screen>
+</nifty>

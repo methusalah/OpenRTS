@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <ManmadeFace id="StdWall">
+        <OrthogonalList path="models/env/interior01/wallA.mesh.xml" weight="1"/>
+        <OrthogonalList path="models/env/interior01/wallB.mesh.xml" weight="1"/>
+        <OrthogonalList path="models/env/interior01/wallC.mesh.xml" weight="1"/>
+        <SalientList path="models/env/interior01/wallAngle1A.mesh.xml" weight="1"/>
+        <SalientList path="models/env/interior01/wallAngle1B.mesh.xml" weight="1"/>
+        <SalientList path="models/env/interior01/wallAngle1C.mesh.xml" weight="1"/>
+        <CornerList path="models/env/interior01/wallAngle2A.mesh.xml" weight="1"/>
+        <CornerList path="models/env/interior01/wallAngle2B.mesh.xml" weight="1"/>
+        <CornerList path="models/env/interior01/wallAngle2C.mesh.xml" weight="1"/>
+    </ManmadeFace>
+</catalog>

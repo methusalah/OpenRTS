@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene formatVersion="1.0" upAxis="z" unitsPerMeter="100" unitType="centimeters" minOgreVersion="1.7" ogreMaxVersion="2.6.3" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
+    <nodes>
+        <node name="hmissileT1_02">
+            <position x="-4.02396e-007" y="0" z="4.02396e-007"/>
+            <scale x="1" y="1" z="1"/>
+            <rotation qx="0" qy="0" qz="0" qw="1"/>
+            <entity name="hmissileT1_02" castShadows="true" receiveShadows="true" meshFile="hmissileT1_02.mesh">
+                <subentities>
+                    <subentity index="0" materialName="Fuselage"/>
+                    <subentity index="1" materialName="Reacteur"/>
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>
