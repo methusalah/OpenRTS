@@ -6,5 +6,10 @@
         <ActorList Trigger="onAllTime" ActorLink=""/>
 -->
     </Actor>
+    <Actor id="3dsmaxActor">
+        <Type value="Model"/>
+	    <Pitch value="-90"/>
+        <Scale value=" 0.0025"/>
+    </Actor>
     
 </catalog>

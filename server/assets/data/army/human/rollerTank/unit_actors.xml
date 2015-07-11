@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
-  <Actor id="Tank">
+  <Actor id="rollerTank">
     <Type value="Model"/>
-    <ModelPath value="human/htank/htank03c.mesh.xml"/>
-    <Scale value="0.0025"/>
-    <Pitch value="-90"/>
-    <SubColor SubMeshIndex="0" R="255" G="0" B="0"/>
-    <SubColor SubMeshName="submesh1" R="255" G="255" B="0"/>
-    <SubColor SubMeshName="toto" R="0" G="0" B="255"/>
-    <SubColor SubMeshIndex="6" R="0" G="0" B="255"/>
-    <ActorList Trigger="onMove" ActorLink="Move"/>
-    <ActorList Trigger="onMove" ActorLink="LeftDust"/>
-    <ActorList Trigger="onMove" ActorLink="RightDust"/>
-    <ActorList Trigger="onMove" ActorLink="LeftMud"/>
-    <ActorList Trigger="onMove" ActorLink="RightMud"/>
-    <ActorList Trigger="onWait" ActorLink="Idle"/>
-    <ActorList Trigger="onDestroyed" ActorLink="TankDestroyed"/>
-    <ActorList Trigger="onDestroyed" ActorLink="TankDestroyedGlow"/>
-    <ActorList Trigger="onDestroyed" ActorLink="TankWreck"/>
-    <ActorList Trigger="onDestroyed" ActorLink="TankExplosion"/>
+    <Scale value="0.25"/>
+    <ModelPath value="human/rollerTank/rollerTank.j3o"/>
+<!--     <ActorList Trigger="onMove" ActorLink="Move"/>
+	<ActorList Trigger="onWait" ActorLink="Idle"/>
+-->
+    <ActorList Trigger="onMove" ActorLink="rollerTankLeftDust"/>
+    <ActorList Trigger="onMove" ActorLink="rollerTankRightDust"/>
+    <ActorList Trigger="onMove" ActorLink="rollerTankLeftMud"/>
+    <ActorList Trigger="onMove" ActorLink="rollerTankRightMud"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankDestroyed"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankDestroyedGlow"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankWreck"/>
+    <ActorList Trigger="onDestroyed" ActorLink="rollerTankExplosion"/>
   </Actor>
 
-  <Actor id="LeftMud">
+  <Actor id="rollerTankLeftMud">
     <Type value="Particle"/>
     <SpritePath value="particles/mudd.png"/>
     <Add value="false"/>
-    <EmissionBone value="BDust01"/>
-    <DirectionBone value="BDustVec01"/>
+    <EmissionBone value="boneDust01"/>
+    <DirectionBone value="boneDustVec01"/>
     <Velocity value="0.8"/>
     <Fanning value="0.5"/>
     <MaxCount value="60"/>
@@ -35,18 +31,18 @@
     <EndSize value="0.05"/>
     <StartColor R="144" G="108" B="63" A="255"/>
     <EndColor R="144" G="108" B="63" A="255"/>
-    <MinLife value="0.5"/>
+    <MinLife value="0.4"/>
     <MaxLife value="0.8"/>
     <Gravity value="true"/>
     <StartVariation value="0.1"/>
   </Actor>
   
-  <Actor id="RightMud">
+  <Actor id="rollerTankRightMud">
     <Type value="Particle"/>
     <SpritePath value="particles/mudd.png"/>
     <Add value="false"/>
-    <EmissionBone value="BDust02"/>
-    <DirectionBone value="BDustVec02"/>
+    <EmissionBone value="boneDust02"/>
+    <DirectionBone value="boneDustVec02"/>
     <Velocity value="0.8"/>
     <Fanning value="0.5"/>
     <MaxCount value="60"/>
@@ -55,54 +51,49 @@
     <EndSize value="0.05"/>
     <StartColor R="144" G="108" B="63" A="255"/>
     <EndColor R="144" G="108" B="63" A="255"/>
-    <MinLife value="0.5"/>
+    <MinLife value="0.4"/>
     <MaxLife value="0.8"/>
     <Gravity value="true"/>
     <StartVariation value="0.1"/>
   </Actor>
   
-  <Actor id="LeftDust">
+  <Actor id="rollerTankLeftDust">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
     <Add value="false"/>
-    <EmissionBone value="BDust01"/>
-    <DirectionBone value="BDustVec01"/>
+    <EmissionBone value="boneDust01"/>
+    <DirectionBone value="boneDustVec01"/>
     <MaxCount value="60"/>
     <PerSecond value="30"/>
     <StartSize value="0.1"/>
     <EndSize value="0.2"/>
     <StartColor R="255" G="255" B="255" A="128"/>
     <EndColor R="255" G="255" B="255" A="0"/>
-    <MinLife value="1.1"/>
+    <MinLife value="0.6"/>
     <MaxLife value="1.1"/>
     <StartVariation value="0.1"/>
     <RotationSpeed value="360"/>
   </Actor>
   
-  <Actor id="RightDust">
+  <Actor id="rollerTankRightDust">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
     <Add value="false"/>
-    <EmissionBone value="BDust02"/>
-    <DirectionBone value="BDustVec02"/>
+    <EmissionBone value="boneDust02"/>
+    <DirectionBone value="boneDustVec02"/>
     <MaxCount value="60"/>
     <PerSecond value="30"/>
     <StartSize value="0.1"/>
     <EndSize value="0.2"/>
     <StartColor R="255" G="255" B="255" A="128"/>
     <EndColor R="255" G="255" B="255" A="0"/>
-    <MinLife value="1.1"/>
-    <MaxLife value="1.3"/>
+    <MinLife value="0.6"/>
+    <MaxLife value="1.1"/>
     <StartVariation value="0.1"/>
     <RotationSpeed value="360"/>
   </Actor>
 
-
-
-
-
-
-  <Actor id="TankDestroyed">
+  <Actor id="rollerTankDestroyed">
     <Type value="Particle"/>
 <!--    <SpritePath value="particles/flame.png"/>
     <NbCol value="2"/>
@@ -123,7 +114,7 @@
     <MaxLife value="0.8"/>
   </Actor>
   
-  <Actor id="TankDestroyedGlow">
+  <Actor id="rollerTankDestroyedGlow">
     <Type value="Particle"/>
     <SpritePath value="particles/glow01.png"/>
     <EmissionBone value="B03"/>
@@ -140,59 +131,28 @@
     <MaxLife value="2"/>
   </Actor>   
   
-  <Actor id="TankWreck">
-      <ActorList Trigger="onDestroyed" ActorLink="TankWreck1" Prob="0.4"/>
-      <ActorList Trigger="onDestroyed" ActorLink="TankWreck2" Prob="0.4"/>
-      <ActorList Trigger="onDestroyed" ActorLink="TankWreck3" Prob="0.4"/>
-      <ActorList Trigger="onDestroyed" ActorLink="TankWreck4" Prob="0.4"/>
-      <ActorList Trigger="onDestroyed" ActorLink="TankWreck5" Prob="0.4"/>
+  <Actor id="rollerTankWreck">
+      <ActorList Trigger="onDestroyed" ActorLink="rollerTankWreck1" Prob="0.4"/>
+      <ActorList Trigger="onDestroyed" ActorLink="rollerTankWreck2" Prob="0.4"/>
   </Actor>
   
-  <Actor id="TankWreck1">
+  <Actor id="rollerTankWreck1">
       <Type value="Physic"/>
-      <ModelPath value="human/htank/htank03c_piece01.mesh.xml"/>
-      
-      <MassCenterBone value="BRootDebris01"/>
+      <ModelPath value="human/rollerTank/rollerTank_piece01.j3o"/>
+      <MassCenterBone value="boneRootDebris01"/>
       <Mass value="1"/>
       <Life value="4"/>
   </Actor>
-  
-  <Actor id="TankWreck2">
+ 
+  <Actor id="rollerTankWreck2">
       <Type value="Physic"/>
-      <ModelPath value="human/htank/htank03c_piece02.mesh.xml"/>
-      <Scale value="0.0025"/>
-      <MassCenterBone value="BRootDebris02"/>      
-      <Mass value="1"/>
+      <ModelPath value="human/rollerTank/rollerTank_piece02.j3o"/>
+      <MassCenterBone value="boneRootDebris02"/>      
+      <Mass value="0.5"/>
       <Life value="4"/>
   </Actor>
   
-  <Actor id="TankWreck3">
-      <Type value="Physic"/>
-      <ModelPath value="human/htank/htank03c_piece03.mesh.xml"/>
-    <Scale value="0.0025"/>
-      <MassCenterBone value="BRootDebris03"/>      
-      <Mass value="1"/>
-      <Life value="4"/>
-  </Actor>
-  <Actor id="TankWreck4">
-      <Type value="Physic"/>
-      <ModelPath value="human/htank/htank03c_piece04.mesh.xml"/>
-    <Scale value="0.0025"/>
-      <MassCenterBone value="BRootDebris04"/>      
-      <Mass value="1"/>
-      <Life value="4"/>
-  </Actor>
-  
-  <Actor id="TankWreck5">
-      <Type value="Physic"/>
-      <ModelPath value="human/htank/htank03c_piece05.mesh.xml"/>
-    <Scale value="0.0025"/>
-      <MassCenterBone value="BRootDebris05"/>      
-      <Mass value="1"/>
-      <Life value="4"/>
-  </Actor>
-  
-  <Actor id="TankExplosion">
+  <Actor id="rollerTankExplosion">
     <Type value="Sound"/>
     <SoundPath value="monoexplosion1.wav"/>
     <Volume value="1"/>
