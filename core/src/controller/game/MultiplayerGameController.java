@@ -10,7 +10,7 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import view.MapView;
-import view.math.Translator;
+import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.state.AppStateManager;
@@ -129,7 +129,7 @@ public class MultiplayerGameController extends Controller {
 	}
 
 	private Point2D getMouseCoord() {
-		return Translator.toPoint2D(inputManager.getCursorPosition());
+		return TranslateUtil.toPoint2D(inputManager.getCursorPosition());
 	}
 
 }
