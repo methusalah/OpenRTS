@@ -44,7 +44,7 @@ public class PolygonFiller {
 					x = Double.NaN;
 				} else if (slope == Double.POSITIVE_INFINITY) {
 					// vertical line
-					x = s.getStart().x;
+					x = s.getStart().getX();
 				} else {
 					x = (polyY - s.getOrdinate()) / s.getSlope();
 				}
@@ -103,10 +103,10 @@ public class PolygonFiller {
 		Point2D q1 = s1.getOppositeEnd(p);
 		Point2D q2 = s2.getOppositeEnd(p);
 
-		if (q1.y <= p.y && q2.y <= p.y) {
+		if (q1.getY() <= p.getY() && q2.getY() <= p.getY()) {
 			return true;
 		}
-		if (q1.y >= p.y && q2.y >= p.y) {
+		if (q1.getY() >= p.getY() && q2.getY() >= p.getY()) {
 			return true;
 		}
 		return false;
@@ -123,7 +123,7 @@ public class PolygonFiller {
 	private ArrayList<Segment2D> getInvolvedEdges(double y) {
 		ArrayList<Segment2D> res = new ArrayList<Segment2D>();
 		for (Segment2D s : p.getEdges()) {
-			if (s.getStart().y > y && s.getEnd().y < y || s.getStart().y < y && s.getEnd().y > y) {
+			if (s.getStart().getY() > y && s.getEnd().getY() < y || s.getStart().getY() < y && s.getEnd().getY() > y) {
 				res.add(s);
 			}
 		}

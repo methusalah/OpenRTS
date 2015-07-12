@@ -112,7 +112,7 @@ public class Polygon {
 			area = 0;
 			int j = points.size()-1;
 			for (int i = 0; i < points.size(); i++) {
-				area += (points.get(j).x + points.get(i).x) * (points.get(j).y - points.get(i).y);
+				area += (points.get(j).getX() + points.get(i).getX()) * (points.get(j).getY() - points.get(i).getY());
 				j = i;
 			}
 			area *= 0.5;
@@ -133,9 +133,9 @@ public class Polygon {
 	
 			for (int i = 0; i < points.size(); i++) {
 				j = (i + 1) % points.size();
-				factor = (points.get(i).x * points.get(j).y - points.get(j).x * points.get(i).y);
-				cx += (points.get(i).x + points.get(j).x) * factor;
-				cy += (points.get(i).y + points.get(j).y) * factor;
+				factor = (points.get(i).getX() * points.get(j).getY() - points.get(j).getX() * points.get(i).getY());
+				cx += (points.get(i).getX() + points.get(j).getX()) * factor;
+				cy += (points.get(i).getY() + points.get(j).getY()) * factor;
 			}
 	
 			A *= 6f;
@@ -203,13 +203,13 @@ public class Polygon {
 			AlignedBoundingBox bb = p.getBoundingBox();
 //			double width = bb.width;
 //			double height = bb.height;
-			double xTranslation = bb.getPoints().getFirst().x;
-			double yTranslation = bb.getPoints().getFirst().y;
+			double xTranslation = bb.getPoints().getFirst().getX();
+			double yTranslation = bb.getPoints().getFirst().getY();
 	
 			textureMap = new PointRing();
 			for (Point2D point : p.points) {
-				double x = point.x;
-				double y = point.y;
+				double x = point.getX();
+				double y = point.getY();
 				// move the origin
 				x -= xTranslation;
 				y -= yTranslation;
@@ -368,7 +368,7 @@ public class Polygon {
 		String res = new String();
 		res = "string to copy : 'new double[][]{";
 		for (Point2D point : points) {
-			res += "{" + point.x + "," + point.y + "}";
+			res += "{" + point.getX() + "," + point.getY() + "}";
 			if (point != points.getLast())
 				res += ",";
 		}

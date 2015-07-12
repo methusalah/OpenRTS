@@ -180,8 +180,8 @@ public class Pencil {
 
 	private Point2D getContainerTilePos() {
 		if (containerTilePos == null) {
-			int x = (int) Math.floor(pos.x);
-			int y = (int) Math.floor(pos.y);
+			int x = (int) Math.floor(pos.getX());
+			int y = (int) Math.floor(pos.getY());
 			if (size > 1 && snapPair) {
 				if (x % 2 != 0) {
 					x--;
@@ -197,8 +197,8 @@ public class Pencil {
 
 	private Point2D getNearestTilePos() {
 		if (nearestTilePos == null) {
-			int x = (int) Math.round(pos.x);
-			int y = (int) Math.round(pos.y);
+			int x = (int) Math.round(pos.getX());
+			int y = (int) Math.round(pos.getY());
 			nearestTilePos = new Point2D(x, y);
 		}
 		return nearestTilePos;
@@ -216,7 +216,7 @@ public class Pencil {
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(center);
-				if (ModelManager.getBattlefield().getMap().isInBounds(p) && circle.contains(new Point2D(Math.floor(p.x), Math.floor(p.y)))) {
+				if (ModelManager.getBattlefield().getMap().isInBounds(p) && circle.contains(new Point2D(Math.floor(p.getX()), Math.floor(p.getY())))) {
 					res.add(ModelManager.getBattlefield().getMap().get(p));
 				}
 			}
@@ -237,7 +237,7 @@ public class Pencil {
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(center);
-				if (ModelManager.getBattlefield().getMap().isInBounds(p) && quad.hasInside(new Point2D(Math.floor(p.x), Math.floor(p.y)))) {
+				if (ModelManager.getBattlefield().getMap().isInBounds(p) && quad.hasInside(new Point2D(Math.floor(p.getX()), Math.floor(p.getY())))) {
 					res.add(ModelManager.getBattlefield().getMap().get(p));
 				}
 			}
@@ -276,12 +276,12 @@ public class Pencil {
 	private double getEccentricity(Point2D p) {
 		switch (shape) {
 			case Square:
-				double xDist = Math.abs(p.x - pos.x);
-				double yDist = Math.abs(p.y - pos.y);
+				double xDist = Math.abs(p.getX() - pos.getX());
+				double yDist = Math.abs(p.getY() - pos.getY());
 				return ((size / 2) - Math.max(xDist, yDist)) / (size / 2);
 			case Diamond:
-				xDist = Math.abs(p.x - pos.x);
-				yDist = Math.abs(p.y - pos.y);
+				xDist = Math.abs(p.getX() - pos.getX());
+				yDist = Math.abs(p.getY() - pos.getY());
 				return ((size / 2) * 1.414 - xDist - yDist) / ((size / 2) * 1.414);
 			case Circle:
 				return ((size / 2) - p.getDistance(pos)) / (size / 2);

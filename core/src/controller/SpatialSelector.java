@@ -18,10 +18,10 @@ import com.jme3.scene.Spatial;
 
 public class SpatialSelector {
 
-	Camera cam;
+	private Camera cam;
 	private InputManager im;
-	MapView view;
-	public boolean centered = false;
+	private MapView view;
+	private boolean centered = false;
 
 	public SpatialSelector(Camera c, InputManager im, MapView v) {
 		cam = c;
@@ -99,6 +99,14 @@ public class SpatialSelector {
 			s = s.getParent();
 		}
 		return EntityManager.NOT_VALID_ID;
+	}
+
+	public boolean isCentered() {
+		return centered;
+	}
+
+	public void setCentered(boolean centered) {
+		this.centered = centered;
 	}
 
 }

@@ -187,7 +187,7 @@ public class MapDrawer {
 		Geometry g = new Geometry();
 		g.setMesh(new Box(0.5f, 0.5f, 1));
 		g.setMaterial(mm.redMaterial);
-		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
+		g.setLocalTranslation((float)c.getTile().getCoord().getX() + 0.5f, (float)c.getTile().getCoord().getY() + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
 
 		Node n = new Node();
 		n.attachChild(g);
@@ -210,7 +210,7 @@ public class MapDrawer {
 		}
 		// g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
 		g.rotate(0, 0, (float) (c.angle));
-		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT));
+		g.setLocalTranslation((float)c.getTile().getCoord().getX() + 0.5f, (float)c.getTile().getCoord().getY() + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT));
 		n.attachChild(g);
 	}
 
@@ -239,7 +239,7 @@ public class MapDrawer {
 				break;
 		}
 		s.scale(0.005f);
-		s.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);
+		s.setLocalTranslation((float)c.getTile().getCoord().getX() + 0.5f, (float)c.getTile().getCoord().getY() + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 0.1f);
 		n.attachChild(s);
 	}
 

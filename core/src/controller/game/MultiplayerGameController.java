@@ -36,7 +36,7 @@ public class MultiplayerGameController extends Controller {
 		super(view, inputManager, cam);
 		this.view = view;
 		inputInterpreter = new MultiplayerGameInputInterpreter(this);
-		this.spatialSelector.centered = false;
+		this.spatialSelector.setCentered(false);
 		guiController = new MultiplayerGameNiftyController(nifty, this);
 
 		EventManager.registerForClient(this);

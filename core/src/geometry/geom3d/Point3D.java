@@ -24,7 +24,7 @@ public class Point3D {
 	}
 
 	public Point3D(Point2D p, double elevation) {
-		this(p.x, p.y, elevation);
+		this(p.getX(), p.getY(), elevation);
 	}
 
 	public Point3D(Point3D o) {
@@ -44,17 +44,17 @@ public class Point3D {
 	// FIXME: refactor param to Enum => noone know the supported values for params
 	public Point3D(Point2D p, double val, int param, Point2D pivot) {
 		if (param == 1) {
-			x = p.x;
-			y = p.y;
+			x = p.getX();
+			y = p.getY();
 			z = val;
 		} else if (param == 2) {
-			x = (p.x - pivot.x) * Math.cos(val) + pivot.x;
-			y = (p.x - pivot.x) * Math.sin(val) + pivot.x;
-			z = p.y;
+			x = (p.getX() - pivot.getX()) * Math.cos(val) + pivot.getX();
+			y = (p.getX() - pivot.getX()) * Math.sin(val) + pivot.getX();
+			z = p.getY();
 		} else if (param == 3) {
-			x = p.x * Math.cos(val);
+			x = p.getX() * Math.cos(val);
 			y = Point2D.ORIGIN.getDistance(p) * Math.sin(val);
-			z = p.y * Math.cos(val);
+			z = p.getY() * Math.cos(val);
 		} else {
 			throw new IllegalArgumentException("Invalid param");
 		}

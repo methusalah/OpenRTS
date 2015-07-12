@@ -48,7 +48,7 @@ public class AtlasLayer {
 
 	public double getInMapSpace(Point2D p){
 		p = p.getMult(Atlas.RESOLUTION_RATIO);
-		return get((int)Math.round(p.x), (int)Math.round(p.y));
+		return get((int)Math.round(p.getX()), (int)Math.round(p.getY()));
 	}
 	
 	public void set(int x, int y, double val){

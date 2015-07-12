@@ -32,23 +32,23 @@ public class AlignedBoundingBox extends BoundingShape {
 	}
 
 	protected void computeWith(ArrayList<Point2D> points) {
-		maxX = points.get(0).x;
-		minX = points.get(0).x;
-		maxY = points.get(0).y;
-		minY = points.get(0).y;
+		maxX = points.get(0).getX();
+		minX = points.get(0).getX();
+		maxY = points.get(0).getY();
+		minY = points.get(0).getY();
 
 		for (Point2D p : points) {
-			if (p.x < minX) {
-				minX = p.x;
+			if (p.getX() < minX) {
+				minX = p.getX();
 			}
-			if (p.x > maxX) {
-				maxX = p.x;
+			if (p.getX() > maxX) {
+				maxX = p.getX();
 			}
-			if (p.y < minY) {
-				minY = p.y;
+			if (p.getY() < minY) {
+				minY = p.getY();
 			}
-			if (p.y > maxY) {
-				maxY = p.y;
+			if (p.getY() > maxY) {
+				maxY = p.getY();
 			}
 		}
 		height = maxY - minY;
@@ -107,11 +107,11 @@ public class AlignedBoundingBox extends BoundingShape {
 	}
 
 	public boolean shareX(Point2D p) {
-		return shareX(p.x);
+		return shareX(p.getX());
 	}
 
 	public boolean shareY(Point2D p) {
-		return shareY(p.y);
+		return shareY(p.getY());
 	}
 
 	public boolean shareX(AlignedBoundingBox b) {

@@ -21,15 +21,15 @@ import com.jme3.scene.VertexBuffer.Type;
 public class TranslateUtil {
 
 	public static Vector2f toVector2f(Point2D p) {
-		return new Vector2f((float) p.x, (float) p.y);
+		return new Vector2f((float) p.getX(), (float) p.getY());
 	}
 
 	public static Vector3f toVector3f(Point2D p) {
-		return new Vector3f((float) p.x, (float) p.y, 0);
+		return new Vector3f((float) p.getX(), (float) p.getY(), 0);
 	}
 
 	public static Vector3f toVector3f(Point2D p, double elevation) {
-		return new Vector3f((float) p.x, (float) p.y, (float) elevation);
+		return new Vector3f((float) p.getX(), (float) p.getY(), (float) elevation);
 	}
 
 	public static ColorRGBA toColorRGBA(Color color) {
@@ -57,23 +57,23 @@ public class TranslateUtil {
 	}
 
 	public static Vector3f toVector3fWithRelativeAngle(Point2D p, double angle) {
-		double x = p.x * Math.cos(angle);
+		double x = p.getX() * Math.cos(angle);
 		double y = Point2D.ORIGIN.getDistance(p) * Math.sin(angle);
-		double z = p.y * Math.cos(angle);
+		double z = p.getY() * Math.cos(angle);
 		return new Vector3f((float) x, (float) y, (float) z);
 	}
 
 	public static Vector3f toAngledVector3f(Point2D p, double angleXY) {
-		double x = p.x * Math.cos(angleXY);
-		double y = p.x * Math.sin(angleXY);
-		double z = p.y;
+		double x = p.getX() * Math.cos(angleXY);
+		double y = p.getX() * Math.sin(angleXY);
+		double z = p.getY();
 		return new Vector3f((float) x, (float) y, (float) z);
 	}
 
 	public static Vector3f toAngledVector3f(Point2D p, Point2D pivot, double angleXY) {
-		double x = (p.x - pivot.x) * Math.cos(angleXY) + pivot.x;
-		double y = (p.x - pivot.x) * Math.sin(angleXY) + pivot.x;
-		double z = p.y;
+		double x = (p.getX() - pivot.getX()) * Math.cos(angleXY) + pivot.getX();
+		double y = (p.getX() - pivot.getX()) * Math.sin(angleXY) + pivot.getX();
+		double z = p.getY();
 		return new Vector3f((float) x, (float) y, (float) z);
 	}
 
@@ -93,8 +93,8 @@ public class TranslateUtil {
 
 		j = 0;
 		for (int i = 0; i < m.textCoord.size() * 2; i += 2) {
-			textCoord[i] = (float) m.textCoord.get(j).x;
-			textCoord[i + 1] = (float) m.textCoord.get(j).y;
+			textCoord[i] = (float) m.textCoord.get(j).getX();
+			textCoord[i + 1] = (float) m.textCoord.get(j).getY();
 			j++;
 		}
 

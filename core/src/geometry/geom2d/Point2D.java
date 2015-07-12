@@ -10,12 +10,13 @@ public class Point2D {
 	public static final Point2D UNIT_X = new Point2D(1, 0);
 	public static final Point2D UNIT_Y = new Point2D(0, 1);
 	public static final Point2D UNIT_XY = new Point2D(1, 1);
-	public double x;
-	public double y;
+	private double x;
+	private double y;
 
 	public Point2D(){
 
 	}
+
 	public Point2D(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -194,5 +195,21 @@ public class Point2D {
 		double dx = Math.abs(x - other.x);
 		double dy = Math.abs(y - other.y);
 		return dx + dy;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
 	}
 }

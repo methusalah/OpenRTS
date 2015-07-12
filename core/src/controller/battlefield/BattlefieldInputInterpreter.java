@@ -38,7 +38,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	BattlefieldInputInterpreter(BattlefieldController controller) {
 		super(controller);
-		controller.spatialSelector.centered = false;
+		controller.spatialSelector.setCentered(false);
 		setMappings();
 	}
 

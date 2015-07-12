@@ -72,8 +72,8 @@ public class Battlefield {
 	}
 
 	public <T extends FieldComp> List<T> getCloseComps(T fc, double radius){
-		double fcX = fc.getCoord().x;
-		double fcY = fc.getCoord().y;
+		double fcX = fc.getCoord().getX();
+		double fcY = fc.getCoord().getY();
 		List<T> res = new ArrayList<>();
 		for(int x = (int)(fcX-radius); x < (int)(fcX+radius); x++)
 			for(int y = (int)(fcY-radius); y < (int)(fcY+radius); y++)
@@ -87,8 +87,8 @@ public class Battlefield {
 	}
 
 	public <T extends FieldComp> List<T> getCloseComps(T c, Point2D p, double radius){
-		double fcX = p.x;
-		double fcY = p.y;
+		double fcX = p.getX();
+		double fcY = p.getY();
 		List<T> res = new ArrayList<>();
 		for(int x = (int)(fcX-radius); x < (int)(fcX+radius); x++)
 			for(int y = (int)(fcY-radius); y < (int)(fcY+radius); y++)

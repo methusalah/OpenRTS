@@ -204,7 +204,7 @@ public class TrinketBuilder extends Builder {
 			res.pos = res.pos.getAddition(0, 0, -Tile.STAGE_HEIGHT * ratio * res.pos.z / Tile.STAGE_HEIGHT);
 		}
 		res.pos = res.pos.getRotationAroundZ(cliff.angle, new Point2D(0.5, 0.5));
-		res.pos = res.pos.getAddition(cliff.getTile().getCoord().x, cliff.getTile().getCoord().y, cliff.getTile().level * Tile.STAGE_HEIGHT);
+		res.pos = res.pos.getAddition(cliff.getTile().getCoord().getX(), cliff.getTile().getCoord().getY(), cliff.getTile().level * Tile.STAGE_HEIGHT);
 		return res;
 	}
 

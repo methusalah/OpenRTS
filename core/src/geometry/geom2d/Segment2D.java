@@ -58,11 +58,11 @@ public class Segment2D extends Line2D {
 	}
 
 	public double getOrdinate() {
-		return p0.y - getSlope() * p0.x;
+		return p0.getY() - getSlope() * p0.getX();
 	}
 
 	public double getShortestDistance(Point2D p) {
-		double sqrLength = (p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y); // just to avoid a sqrt
+		double sqrLength = (p0.getX() - p1.getX()) * (p0.getX() - p1.getX()) + (p0.getY() - p1.getY()) * (p0.getY() - p1.getY()); // just to avoid a sqrt
 		if (sqrLength == 0)
 			return p0.getDistance(p);
 		double t = p.getSubtraction(p0).getDotProduct(p1.getSubtraction(p0)) / sqrLength;
@@ -85,10 +85,10 @@ public class Segment2D extends Line2D {
 	}
 	
 	public boolean isHorinzontal() {
-        return p0.y == p1.y;
+        return p0.getY() == p1.getY();
     }
     public boolean isVertical() {
-        return p0.x == p1.x;
+        return p0.getX() == p1.getX();
     }
 
     public boolean containsProjected(Point2D p) {

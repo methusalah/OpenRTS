@@ -156,7 +156,7 @@ public class Line2D {
 	}
 
 	public double getShortestDistance(Point2D p) {
-		double sqrLength = (p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y); // just to avoid a sqrt
+		double sqrLength = (p0.getX() - p1.getX()) * (p0.getX() - p1.getX()) + (p0.getY() - p1.getY()) * (p0.getY() - p1.getY()); // just to avoid a sqrt
 		double t = p.getSubtraction(p0).getDotProduct(p1.getSubtraction(p0)) / sqrLength;
 		Point2D proj = p0.getAddition(p1.getSubtraction(p0).getMult(t));
 		return p.getDistance(proj);

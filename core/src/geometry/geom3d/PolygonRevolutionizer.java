@@ -1,7 +1,5 @@
 package geometry.geom3d;
 
-
-
 import geometry.geom2d.Point2D;
 import geometry.geom2d.Polygon;
 import geometry.geom2d.algorithm.Triangulator;
@@ -18,13 +16,12 @@ public class PolygonRevolutionizer {
 	private int nbFaces;
 	public double maxChord = 0;
 	private double faceAngle;
-	
+
 	double uOffset = 0;
 	double vOffset = 0;
 	double uScale = 1;
 	double vScale = 1;
-	
-	
+
 	public PolygonRevolutionizer(Polygon polygon, double startAngle, double endAngle, Point2D pivot) {
 		mesh = new MyMesh();
 		this.polygon = polygon;
@@ -33,68 +30,69 @@ public class PolygonRevolutionizer {
 		this.pivot = pivot;
 		setNbFaces(5);
 	}
-	
+
 	public PolygonRevolutionizer(Polygon p, double startAngle, double endAngle) {
 		this(p, startAngle, endAngle, Point2D.ORIGIN);
 	}
-	
+
 	public void setU(double uOffset, double uScale) {
 		this.uOffset = uOffset;
 		this.uScale = uScale;
 	}
-	
+
 	public void setNbFaces(int nbFaces) {
 		this.nbFaces = nbFaces;
 		maxChord = 0;
-		faceAngle = (endAngle-startAngle)/nbFaces;
-		for(Point2D p : polygon.points) {
-			double chord = AngleUtil.getChord(faceAngle)*nbFaces*p.x;
-			if(chord > 0 && chord > maxChord ||
-					chord < 0 && chord < maxChord)
+		faceAngle = (endAngle - startAngle) / nbFaces;
+		for (Point2D p : polygon.points) {
+			double chord = AngleUtil.getChord(faceAngle) * nbFaces * p.getX();
+			if (chord > 0 && chord > maxChord || chord < 0 && chord < maxChord) {
 				maxChord = chord;
+			}
 		}
 	}
-	
+
 	public void setVFromPointToPoint(Point2D start, Point2D end) {
 		Polygon p = polygon;
-				
+
 		double startLength = p.getLengthTo(start);
 		double endLength = p.getLengthTo(end);
 		double length;
-		
-		if(endLength > startLength)
-			length = endLength-startLength;
-		else if(startLength > endLength)
-			length = p.getLength()-startLength+endLength;
-		else 
+
+		if (endLength > startLength) {
+			length = endLength - startLength;
+		} else if (startLength > endLength) {
+			length = p.getLength() - startLength + endLength;
+		} else {
 			length = p.getLength();
+		}
 
 		vOffset = startLength;
-		vScale = length/p.getLength();
+		vScale = length / p.getLength();
 	}
 
 	public void setVFromPointWithSize(Point2D start, double size) {
 		Polygon p = polygon;
-				
+
 		double startLength = p.getLengthTo(start);
 
 		vOffset = startLength;
-		vScale = size/p.getLength();
+		vScale = size / p.getLength();
 	}
 
 	public void extrude() {
 
-		for(int faceIndex = 0; faceIndex<nbFaces; faceIndex++) {
-			double faceStartAngle = startAngle+faceAngle*faceIndex;
-			double faceEndAngle = startAngle+faceAngle*faceIndex+faceAngle;
-			
-			for(Point2D p : polygon.points) {
+		for (int faceIndex = 0; faceIndex < nbFaces; faceIndex++) {
+			double faceStartAngle = startAngle + faceAngle * faceIndex;
+			double faceEndAngle = startAngle + faceAngle * faceIndex + faceAngle;
+
+			for (Point2D p : polygon.points) {
 				add6Indices(mesh.vertices.size());
-				
+
 				Point2D prev = polygon.points.getPrevious(p);
 				Point2D next = polygon.points.getNext(p);
 				Point2D nextNext = polygon.points.getNext(next);
-				
+
 				// add 4 vertices
 				mesh.vertices.add(new Point3D(p, faceEndAngle, 2, pivot));
 				mesh.vertices.add(new Point3D(next, faceEndAngle, 2, pivot));
@@ -109,32 +107,32 @@ public class PolygonRevolutionizer {
 				mesh.normals.add(new Point3D(Point2D.ORIGIN.getTranslation(wNextNormal, 1), faceEndAngle, 2));
 				mesh.normals.add(new Point3D(Point2D.ORIGIN.getTranslation(wPrevNormal, 1), faceStartAngle, 2));
 				mesh.normals.add(new Point3D(Point2D.ORIGIN.getTranslation(wNextNormal, 1), faceStartAngle, 2));
-				
+
 				// add 4 textCoord
 				double pLength = polygon.getLengthTo(p);
 				double nextLength = polygon.getLengthTo(next);
-				double pTextureVCoord = 1-(pLength-vOffset)/polygon.getLength()/vScale;
-				double nextTextureVCoord = 1-(nextLength-vOffset)/polygon.getLength()/vScale;
+				double pTextureVCoord = 1 - (pLength - vOffset) / polygon.getLength() / vScale;
+				double nextTextureVCoord = 1 - (nextLength - vOffset) / polygon.getLength() / vScale;
 
-				double pChord = AngleUtil.getChord(faceAngle)*faceIndex*p.x;
-				double nextChord = AngleUtil.getChord(faceAngle)*faceIndex*next.x;
-				double endPChord = AngleUtil.getChord(faceAngle)*(faceIndex+1)*p.x;
-				double endNextChord = AngleUtil.getChord(faceAngle)*(faceIndex+1)*next.x;
-				
-				double pTotalChord = AngleUtil.getChord(faceAngle)*nbFaces*p.x;
-				double nextTotalChord = AngleUtil.getChord(faceAngle)*nbFaces*next.x;
-				
-				mesh.textCoord.add(new Point2D((endPChord-uOffset/maxChord*pTotalChord)/pTotalChord/uScale, pTextureVCoord));
-				mesh.textCoord.add(new Point2D((endNextChord-uOffset/maxChord*nextTotalChord)/nextTotalChord/uScale, nextTextureVCoord));
-				mesh.textCoord.add(new Point2D((pChord-uOffset/maxChord*pTotalChord)/pTotalChord/uScale, pTextureVCoord));
-				mesh.textCoord.add(new Point2D((nextChord-uOffset/maxChord*nextTotalChord)/nextTotalChord/uScale, nextTextureVCoord));
+				double pChord = AngleUtil.getChord(faceAngle) * faceIndex * p.getX();
+				double nextChord = AngleUtil.getChord(faceAngle) * faceIndex * next.getX();
+				double endPChord = AngleUtil.getChord(faceAngle) * (faceIndex + 1) * p.getX();
+				double endNextChord = AngleUtil.getChord(faceAngle) * (faceIndex + 1) * next.getX();
+
+				double pTotalChord = AngleUtil.getChord(faceAngle) * nbFaces * p.getX();
+				double nextTotalChord = AngleUtil.getChord(faceAngle) * nbFaces * next.getX();
+
+				mesh.textCoord.add(new Point2D((endPChord - uOffset / maxChord * pTotalChord) / pTotalChord / uScale, pTextureVCoord));
+				mesh.textCoord.add(new Point2D((endNextChord - uOffset / maxChord * nextTotalChord) / nextTotalChord / uScale, nextTextureVCoord));
+				mesh.textCoord.add(new Point2D((pChord - uOffset / maxChord * pTotalChord) / pTotalChord / uScale, pTextureVCoord));
+				mesh.textCoord.add(new Point2D((nextChord - uOffset / maxChord * nextTotalChord) / nextTotalChord / uScale, nextTextureVCoord));
 			}
 		}
 	}
-	
+
 	public void closeBase() {
 		Triangulator t = new Triangulator(polygon);
-		double startNormal = startAngle-AngleUtil.RIGHT;
+		double startNormal = startAngle - AngleUtil.RIGHT;
 		double startCos = Math.cos(startNormal);
 		double startSin = Math.sin(startNormal);
 
@@ -145,15 +143,16 @@ public class PolygonRevolutionizer {
 			mesh.normals.add(new Point3D(startCos, startSin, 0));
 		}
 
-		for (int i = (t.getIndices().size() - 1); i >= 0; i--)
+		for (int i = (t.getIndices().size() - 1); i >= 0; i--) {
 			mesh.indices.add(t.getIndices().get(i) + lastIndex);
-		
+		}
+
 		mesh.textCoord.addAll(polygon.getTextureMap());
 	}
-	
+
 	public void closeSum() {
 		Triangulator t = new Triangulator(polygon);
-		double endNormal = endAngle+AngleUtil.RIGHT;
+		double endNormal = endAngle + AngleUtil.RIGHT;
 		double endCos = Math.cos(endNormal);
 		double endSin = Math.sin(endNormal);
 
@@ -162,13 +161,14 @@ public class PolygonRevolutionizer {
 			mesh.vertices.add(new Point3D(p, endAngle, 2, pivot));
 			mesh.normals.add(new Point3D(endCos, endSin, 0));
 		}
-		
-		for (int i = 0; i < t.getIndices().size(); i++)
+
+		for (int i = 0; i < t.getIndices().size(); i++) {
 			mesh.indices.add(t.getIndices().get(i) + lastIndex);
-		
+		}
+
 		mesh.textCoord.addAll(polygon.getTextureMap());
 	}
-	
+
 	private void add6Indices(int lastIndex) {
 		mesh.indices.add(lastIndex); // topLeftCorner
 		mesh.indices.add(lastIndex + 1); // topRightCorner
@@ -178,27 +178,26 @@ public class PolygonRevolutionizer {
 		mesh.indices.add(lastIndex + 1); // topRightCorner
 		mesh.indices.add(lastIndex + 3); // bottomRightCorner
 	}
-	
+
 	private double getSmoothedNormal(Point2D prev, Point2D p, Point2D next, int normalIndex) {
-		double n = AngleUtil.normalize(next.getSubtraction(p).getAngle()-AngleUtil.RIGHT);
-		double prevN = AngleUtil.normalize(p.getSubtraction(prev).getAngle()-AngleUtil.RIGHT);
+		double n = AngleUtil.normalize(next.getSubtraction(p).getAngle() - AngleUtil.RIGHT);
+		double prevN = AngleUtil.normalize(p.getSubtraction(prev).getAngle() - AngleUtil.RIGHT);
 
 		double diff = AngleUtil.getSmallestDifference(n, prevN);
 		double bissector = AngleUtil.getBisector(prevN, n);
 		double res;
-		
-		if(diff > NO_SMOOTH_ANGLE) {
-			if(normalIndex == 0)
+
+		if (diff > NO_SMOOTH_ANGLE) {
+			if (normalIndex == 0) {
 				res = n;
-			else
+			} else {
 				res = prevN;
+			}
 		} else {
 			res = bissector;
 		}
 
 		return res;
 	}
-
-	
 
 }

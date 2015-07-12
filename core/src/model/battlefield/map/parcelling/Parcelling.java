@@ -53,7 +53,7 @@ public class Parcelling extends Grid<Parcel>{
 	}
 
 	private static Point2D inParcellingSpace(Point2D pInMapSpace){
-		return new Point2D(inParcellingSpace(pInMapSpace.x), inParcellingSpace(pInMapSpace.y));
+		return new Point2D(inParcellingSpace(pInMapSpace.getX()), inParcellingSpace(pInMapSpace.getY()));
 	}
 
 	public List<Parcel> getParcelsContaining(List<Tile> tiles) {

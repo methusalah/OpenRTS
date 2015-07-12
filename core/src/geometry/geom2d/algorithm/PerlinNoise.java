@@ -37,8 +37,8 @@ public class PerlinNoise {
 	
 	public double noise(Point2D p){
 		
-		int x = (int)p.x;
-		int y = (int)p.y;
+		int x = (int)p.getX();
+		int y = (int)p.getY();
 		
 		Point2D sw = new Point2D(x, y);
 		Point2D se = new Point2D(x+1, y);
@@ -60,11 +60,11 @@ public class PerlinNoise {
 		double u = g3.getDotProduct(sub3);
 		double v = g4.getDotProduct(sub4);
 		
-		double Sx = ease(p.x);
+		double Sx = ease(p.getX());
 		double a = s+Sx*(t-s);
 		double b = u+Sx*(v-u);
 		
-		double Sy = ease(p.y);
+		double Sy = ease(p.getY());
 		double res = a+Sy*(b-a);
 		return (res+1)/2;
 	}

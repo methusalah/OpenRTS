@@ -63,10 +63,10 @@ public class Ramp {
 		maxY = 0;
 		for (Tile t : tiles) {
 			Point2D p = t.getCoord();
-			minX = (int)p.x < minX ? (int)p.x : minX;
-			maxX = (int)p.x > maxX ? (int)p.x : maxX;
-			minY = (int)p.y < minY ? (int)p.y : minY;
-			maxY = (int)p.y > maxY ? (int)p.y : maxY;
+			minX = (int)p.getX() < minX ? (int)p.getX() : minX;
+			maxX = (int)p.getX() > maxX ? (int)p.getX() : maxX;
+			minY = (int)p.getY() < minY ? (int)p.getY() : minY;
+			maxY = (int)p.getY() > maxY ? (int)p.getY() : maxY;
 		}
 		tilesRef.clear();
 		for (Tile t : tiles) {
@@ -89,43 +89,43 @@ public class Ramp {
 	public void grow(Tile t) {
 		Point2D p = t.getCoord();
 		if (angle == 0) {
-			if (p.x > maxX) {
+			if (p.getX() > maxX) {
 				growEast();
 			}
-			if (p.y > maxY) {
+			if (p.getY() > maxY) {
 				growNorth();
 			}
-			if (p.y < minY) {
+			if (p.getY() < minY) {
 				growSouth();
 			}
 		} else if (angle == AngleUtil.FLAT) {
-			if (p.x < minX) {
+			if (p.getX() < minX) {
 				growWest();
 			}
-			if (p.y > maxY) {
+			if (p.getY() > maxY) {
 				growNorth();
 			}
-			if (p.y < minY) {
+			if (p.getY() < minY) {
 				growSouth();
 			}
 		} else if (angle == AngleUtil.RIGHT) {
-			if (p.x < minX) {
+			if (p.getX() < minX) {
 				growWest();
 			}
-			if (p.x > maxX) {
+			if (p.getX() > maxX) {
 				growEast();
 			}
-			if (p.y > maxY) {
+			if (p.getY() > maxY) {
 				growNorth();
 			}
 		} else if (angle == -AngleUtil.RIGHT) {
-			if (p.x < minX) {
+			if (p.getX() < minX) {
 				growWest();
 			}
-			if (p.x > maxX) {
+			if (p.getX() > maxX) {
 				growEast();
 			}
-			if (p.y < minY) {
+			if (p.getY() < minY) {
 				growSouth();
 			}
 		}
@@ -184,37 +184,37 @@ public class Ramp {
 			return 0;
 		}
 		if (angle == 0) {
-			if (p.x > maxX) {
+			if (p.getX() > maxX) {
 				return 1;
-			} else if (p.x < minX) {
+			} else if (p.getX() < minX) {
 				return 0;
 			} else {
-				return (double) (p.x - minX) / (maxX - minX + 1);
+				return (double) (p.getX() - minX) / (maxX - minX + 1);
 			}
 		} else if (angle == AngleUtil.FLAT) {
-			if (p.x > maxX) {
+			if (p.getX() > maxX) {
 				return 0;
-			} else if (p.x < minX) {
+			} else if (p.getX() < minX) {
 				return 1;
 			} else {
-				return (double) (maxX - p.x + 1) / (maxX - minX + 1);
+				return (double) (maxX - p.getX() + 1) / (maxX - minX + 1);
 			}
 
 		} else if (angle == AngleUtil.RIGHT) {
-			if (p.y > maxY) {
+			if (p.getY() > maxY) {
 				return 1;
-			} else if (p.y < minY) {
+			} else if (p.getY() < minY) {
 				return 0;
 			} else {
-				return (double) (p.y - minY) / (maxY - minY + 1);
+				return (double) (p.getY() - minY) / (maxY - minY + 1);
 			}
 		} else if (angle == -AngleUtil.RIGHT) {
-			if (p.y > maxY) {
+			if (p.getY() > maxY) {
 				return 0;
-			} else if (p.y < minY) {
+			} else if (p.getY() < minY) {
 				return 1;
 			} else {
-				return (double) (maxY - p.y + 1) / (maxY - minY + 1);
+				return (double) (maxY - p.getY() + 1) / (maxY - minY + 1);
 			}
 		}
 		throw new RuntimeException();

@@ -19,8 +19,8 @@ public class CameraInputEvent extends ToServerEvent {
 
 	public CameraInputEvent(String command, Point2D point, Boolean isPressed) {
 		this.command = command;
-		this.x = point.x;
-		this.y = point.y;
+		this.x = point.getX();
+		this.y = point.getY();
 		this.isPressed = isPressed;
 	}
 

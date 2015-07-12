@@ -213,8 +213,8 @@ public class LineLineIntersector {
 
 			double pSlope = p0.getSlope(p1);
 			double qSlope = q0.getSlope(q1);
-			double pOrdinate = p0.y - pSlope * p0.x;
-			double qOrdinate = q0.y - qSlope * q0.x;
+			double pOrdinate = p0.getY() - pSlope * p0.getX();
+			double qOrdinate = q0.getY() - qSlope * q0.getX();
 
 			// At this point, we already know that pSlope != qSlope (checked in previously launched method)
 			// So the divide by 0 case should never happen.
@@ -226,10 +226,10 @@ public class LineLineIntersector {
 				throw new RuntimeException("The two lines have infinte slope (collinear), not intersecting.");
 			
 			else if (Double.isInfinite(pSlope)) {
-				x = p0.x;
+				x = p0.getX();
 				y = qSlope * x + qOrdinate;
 			} else if (Double.isInfinite(qSlope)) {
-				x = q0.x;
+				x = q0.getX();
 				y = pSlope * x + pOrdinate;
 			} else {
 				x = (pOrdinate - qOrdinate) / (qSlope - pSlope);

@@ -35,8 +35,8 @@ public class AtlasArtisan {
 	}
 
 	public static void incrementPixel(Atlas atlas, Point2D p, AtlasLayer layer, double increment) {
-		int x = (int) Math.round(p.x);
-		int y = (int) Math.round(p.y);
+		int x = (int) Math.round(p.getX());
+		int y = (int) Math.round(p.getY());
 
 		double valueToDitribute = increment;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
@@ -70,8 +70,8 @@ public class AtlasArtisan {
 	}
 
 	public static void decrementPixel(Atlas atlas, Point2D p, AtlasLayer layer, double increment) {
-		int x = (int) Math.round(p.x);
-		int y = (int) Math.round(p.y);
+		int x = (int) Math.round(p.getX());
+		int y = (int) Math.round(p.getY());
 
 		double valueToDitribute = increment;
 		ArrayList<AtlasLayer> availableLayers = new ArrayList<>();
@@ -107,8 +107,8 @@ public class AtlasArtisan {
 	}
 
 	public static void smoothPixel(Atlas atlas, Point2D p, double increment){
-		int x = (int) Math.round(p.x);
-		int y = (int) Math.round(p.y);
+		int x = (int) Math.round(p.getX());
+		int y = (int) Math.round(p.getY());
 		List<AtlasLayer> painted = new ArrayList<>();
 		for (AtlasLayer l : atlas.getLayers()) {
 			if (l.get(x, y) != 0) {

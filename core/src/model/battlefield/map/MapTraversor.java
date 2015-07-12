@@ -9,8 +9,8 @@ public class MapTraversor {
 	 */
 	public static boolean meetObstacle(Map map, Point2D p1, Point2D p2) {
 		// calculate the direction of the ray (linear algebra)
-		double dirX = p2.x - p1.x;
-		double dirY = p2.y - p1.y;
+		double dirX = p2.getX() - p1.getX();
+		double dirY = p2.getY() - p1.getY();
 		double length = Math.sqrt(dirX * dirX + dirY * dirY);
 		dirX /= length; // normalize the direction vector
 		dirY /= length;
@@ -18,12 +18,12 @@ public class MapTraversor {
 		double tDeltaY = 1 / Math.abs(dirY); // same but y-direction
 
 		// start voxel coordinates
-		int x = (int) Math.floor(p1.x); // use your transformer function here
-		int y = (int) Math.floor(p1.y);
+		int x = (int) Math.floor(p1.getX()); // use your transformer function here
+		int y = (int) Math.floor(p1.getY());
 
 		// end voxel coordinates
-		int endX = (int) Math.floor(p2.x);
-		int endY = (int) Math.floor(p2.y);
+		int endX = (int) Math.floor(p2.getX());
+		int endY = (int) Math.floor(p2.getY());
 
 		// decide which direction to start walking in
 		int stepX = (int) Math.signum(dirX);
@@ -32,15 +32,15 @@ public class MapTraversor {
 		double tMaxX, tMaxY;
 		// calculate distance to first intersection in the voxel we start from
 		if (dirX < 0) {
-			tMaxX = (x - p1.x) / dirX;
+			tMaxX = (x - p1.getX()) / dirX;
 		} else {
-			tMaxX = (x + 1 - p1.x) / dirX;
+			tMaxX = (x + 1 - p1.getX()) / dirX;
 		}
 
 		if (dirY < 0) {
-			tMaxY = (y - p1.y) / dirY;
+			tMaxY = (y - p1.getY()) / dirY;
 		} else {
-			tMaxY = (y + 1 - p1.y) / dirY;
+			tMaxY = (y + 1 - p1.getY()) / dirY;
 		}
 
 		// check if first is occupied

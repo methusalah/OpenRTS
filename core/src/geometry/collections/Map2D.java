@@ -37,7 +37,7 @@ public class Map2D<E> {
 	}
 	
 	public void set(Point2D coord, E val){
-		set((int)coord.x, (int)coord.y, val);
+		set((int)coord.getX(), (int)coord.getY(), val);
 	}
 
 	
@@ -51,7 +51,7 @@ public class Map2D<E> {
 	}
 
 	public E get(Point2D coord){
-		return get((int)coord.x, (int)coord.y);
+		return get((int)coord.getX(), (int)coord.getY());
 	}
 
 	
@@ -68,7 +68,7 @@ public class Map2D<E> {
     }
     
     public boolean isInBounds(Point2D p){
-    	return isInBounds((int)p.x, (int)p.y);
+    	return isInBounds((int)p.getX(), (int)p.getY());
     }
     
     private void setAllAs(E value){

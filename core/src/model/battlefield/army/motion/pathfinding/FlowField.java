@@ -83,14 +83,14 @@ public class FlowField {
     }
     
     private void setHeat(Tile t, int heat){
-        heatMap[(int)t.getCoord().x][(int)t.getCoord().y] = heat;
+        heatMap[(int)t.getCoord().getX()][(int)t.getCoord().getY()] = heat;
         if(heat > maxHeat)
             maxHeat = heat;
     }
 
     
     public int getHeat(Tile t){
-        return heatMap[(int)t.getCoord().x][(int)t.getCoord().y];
+        return heatMap[(int)t.getCoord().getX()][(int)t.getCoord().getY()];
     }
     
     public int getHeat(int x, int y) {
@@ -148,7 +148,7 @@ public class FlowField {
     }
     
     public Point2D getVector(Tile t){
-        return vectorMap[(int)t.getCoord().x][(int)t.getCoord().y];
+        return vectorMap[(int)t.getCoord().getX()][(int)t.getCoord().getY()];
     }
     
     public Point2D getVector(Point2D p){

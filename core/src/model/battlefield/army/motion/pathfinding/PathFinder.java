@@ -25,10 +25,10 @@ public class PathFinder {
     }
     
     public Path findPath(Point2D start, Point2D dest) {
-        this.tx = (int)Math.floor(dest.x);
-        this.ty = (int)Math.floor(dest.y);
-        this.sx = (int)Math.floor(start.x);
-        this.sy = (int)Math.floor(start.y);
+        this.tx = (int)Math.floor(dest.getX());
+        this.ty = (int)Math.floor(dest.getY());
+        this.sx = (int)Math.floor(start.getX());
+        this.sy = (int)Math.floor(start.getY());
         
         if(map.isBlocked(tx, ty))
             return new Path();
@@ -98,14 +98,14 @@ public class PathFinder {
             return res;
 
         
-        res.add(0, new Point2D(dest.x, dest.y));
+        res.add(0, new Point2D(dest.getX(), dest.getY()));
 
         Node target = nodes[tx][ty].parent;
         while (target != nodes[sx][sy]) {
             res.add(0, new Point2D(target.x+0.5, target.y+0.5));
             target = target.parent;
         }
-        res.add(0, new Point2D(start.x, start.y));
+        res.add(0, new Point2D(start.getX(), start.getY()));
 
         return res;
     }

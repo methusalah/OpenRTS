@@ -105,11 +105,11 @@ public class MapView {
 	}
 
 	public void drawSelectionArea(Point2D c1, Point2D c2) {
-		float minX = (float) Math.min(c1.x, c2.x);
-		float maxX = (float) Math.max(c1.x, c2.x);
+		float minX = (float) Math.min(c1.getX(), c2.getX());
+		float maxX = (float) Math.max(c1.getX(), c2.getX());
 
-		float minY = (float) Math.min(c1.y, c2.y);
-		float maxY = (float) Math.max(c1.y, c2.y);
+		float minY = (float) Math.min(c1.getY(), c2.getY());
+		float maxY = (float) Math.max(c1.getY(), c2.getY());
 
 		guiNode.detachAllChildren();
 

@@ -34,9 +34,9 @@ public class Circle2D {
     }
     
     public Circle2D getTransformed(Transform2D transform){
-    	if(transform.scale.x != transform.scale.y)
+    	if(transform.scale.getX() != transform.scale.getY())
     		throw new IllegalArgumentException("Can't scale a "+this.getClass().getSimpleName()+" with different x and y factors.");
-    	return new Circle2D(center.getTransformed(transform), radius*transform.scale.x);
+    	return new Circle2D(center.getTransformed(transform), radius*transform.scale.getX());
     }
 
 

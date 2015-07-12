@@ -9,7 +9,7 @@ import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
 import event.EventManager;
-import event.MapInputEvent;
+import event.ScreenInputEvent;
 import event.ToClientEvent;
 import event.ToServerEvent;
 import exception.TechnicalException;
@@ -23,7 +23,7 @@ public class ClientManager {
 
 	public static void startClient() {
 		Serializer.registerClass(ToServerEvent.class);
-		Serializer.registerClass(MapInputEvent.class);
+		Serializer.registerClass(ScreenInputEvent.class);
 		Serializer.registerClass(ToClientEvent.class);
 		EventManager.registerForClient(instance);
 		try {

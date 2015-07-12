@@ -14,27 +14,27 @@ public class Grid<T extends Node> extends Map2D<T> {
 	public Grid(int width, int height) {
 		super(width, height);
 	}
-	
+
 	public T getNorthNode(T n){
 		Point2D p = getCoord(n.index).getAddition(0, 1);
-		return isInBounds(p)? get(p) : null; 
+		return isInBounds(p)? get(p) : null;
 	}
 
 	public T getSouthNode(T n){
 		Point2D p = getCoord(n.index).getAddition(0, -1);
-		return isInBounds(p)? get(p) : null; 
+		return isInBounds(p)? get(p) : null;
 	}
 
 	public T getEastNode(T n){
 		Point2D p = getCoord(n.index).getAddition(1, 0);
-		return isInBounds(p)? get(p) : null; 
+		return isInBounds(p)? get(p) : null;
 	}
 
 	public T getWestNode(T n){
 		Point2D p = getCoord(n.index).getAddition(-1, 0);
-		return isInBounds(p)? get(p) : null; 
+		return isInBounds(p)? get(p) : null;
 	}
-	
+
 	private List<T> getAround(T n, int distance) {
 		List<T> res = new ArrayList<>();
 		for (int x = -distance; x <= distance; x++) {
@@ -43,9 +43,10 @@ public class Grid<T extends Node> extends Map2D<T> {
 					continue;
 				}
 				Point2D p = getCoord(n.index).getAddition(x, y);
-				if(!isInBounds(p))
+				if(!isInBounds(p)) {
 					continue;
-				res.add((T)get(p));
+				}
+				res.add(get(p));
 			}
 		}
 		return res;
@@ -55,7 +56,7 @@ public class Grid<T extends Node> extends Map2D<T> {
 		List<T> res = getAround(n, 1);
 		return res;
 	}
-	
+
 	public List<T> get9Around(T n) {
 		List<T> res = getAround(n, 1);
 		res.add(n);
@@ -96,13 +97,14 @@ public class Grid<T extends Node> extends Map2D<T> {
 
 	public List<T> getAround(Point2D p, double distance) {
 		List<T> res = new ArrayList<>();
-		
+
 		int ceiled = (int)Math.ceil(distance);
-		for (int x = (int)Math.round(p.x)-ceiled; x < (int)Math.round(p.x)+ceiled; x++) {
-			for (int y = (int)Math.round(p.y)-ceiled; y < (int)Math.round(p.y)+ceiled; y++) {
+		for (int x = (int) Math.round(p.getX()) - ceiled; x < (int) Math.round(p.getX()) + ceiled; x++) {
+			for (int y = (int) Math.round(p.getY()) - ceiled; y < (int) Math.round(p.getY()) + ceiled; y++) {
 				Point2D tileCenter = new Point2D(x+0.5, y+0.5);
-				if(tileCenter.getDistance(p)<distance && isInBounds(new Point2D(x, y)))
-					res.add((T)get(x, y));
+				if(tileCenter.getDistance(p)<distance && isInBounds(new Point2D(x, y))) {
+					res.add(get(x, y));
+				}
 			}
 		}
 		return res;

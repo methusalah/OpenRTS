@@ -41,10 +41,10 @@ public class AtlasExplorer {
 		center = getInAtlasSpace(center);
 		radius = getInAtlasSpace(radius);
 		ArrayList<Point2D> res = new ArrayList<>();
-		int minX = (int)Math.round(Math.max(center.x-radius, 0));
-		int maxX = (int) Math.round(Math.min(center.x + radius, map.getAtlas().getWidth() - 1));
-		int minY = (int)Math.round(Math.max(center.y-radius, 0));
-		int maxY = (int) Math.round(Math.min(center.y + radius, map.getAtlas().getHeight() - 1));
+		int minX = (int)Math.round(Math.max(center.getX()-radius, 0));
+		int maxX = (int) Math.round(Math.min(center.getX() + radius, map.getAtlas().getWidth() - 1));
+		int minY = (int)Math.round(Math.max(center.getY()-radius, 0));
+		int maxY = (int) Math.round(Math.min(center.getY() + radius, map.getAtlas().getHeight() - 1));
 		for(int x=minX; x<maxX; x++) {
 			for(int y=minY; y<maxY; y++){
 				Point2D p = new Point2D(x, y);

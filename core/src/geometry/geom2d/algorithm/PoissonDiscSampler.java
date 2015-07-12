@@ -42,7 +42,7 @@ public class PoissonDiscSampler {
 			boolean sampleFound = true;
 			for(int i = 0; i<MAX_SAMPLE_COUNT; i++){
 				Point2D c = s.getTranslation(RandomUtil.between(0, AngleUtil.FULL), RandomUtil.between(2*radius, 6*radius));
-				if(c.x<0 || c.x>=width || c.y<0 || c.y>=height)
+				if(c.getX()<0 || c.getX()>=width || c.getY()<0 || c.getY()>=height)
 					continue;
 				sampleFound = true;
 				for(Point2D p : grid){

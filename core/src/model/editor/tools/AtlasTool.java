@@ -113,8 +113,8 @@ public class AtlasTool extends Tool {
 			pencil.maintain();
 			autoLayer = atlas.getLayers().get(0);
 			Point2D center = explorer.getInAtlasSpace(pencil.getCoord());
-			int centerX = (int) Math.round(center.x);
-			int centerY = (int) Math.round(center.y);
+			int centerX = (int) Math.round(center.getX());
+			int centerY = (int) Math.round(center.getY());
 			for (AtlasLayer l : atlas.getLayers()) {
 				if (l.get(centerX, centerY) > autoLayer.get(centerX, centerY)) {
 					autoLayer = l;

@@ -45,8 +45,8 @@ public class Triangle3D {
 	 */
 	public Point3D getElevated(Point2D p) {
 		double factorD = -(normal.x*a.x+normal.y*a.y+normal.z*a.z);
-		double z = -(normal.x*p.x+normal.y*p.y+factorD)/normal.z;
-		return new Point3D(p.x, p.y, z);
+		double z = -(normal.x*p.getX()+normal.y*p.getY()+factorD)/normal.z;
+		return new Point3D(p.getX(), p.getY(), z);
 	}
 	public Point3D getElevated(Point3D p) {
 		return getElevated(p.get2D());
