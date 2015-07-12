@@ -9,7 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.ModelManager;
-import model.builders.MapArtisan;
+import model.builders.MapArtisanUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -30,7 +30,7 @@ public class BattlefieldFactory {
 		logger.info("Creating new battlefield...");
 
 		Battlefield res = new Battlefield();
-		MapArtisan.buildMap(res);
+		MapArtisanUtil.buildMap(res);
 
 		logger.info("Loading done.");
 		return res;
@@ -71,7 +71,7 @@ public class BattlefieldFactory {
 			return null;
 		}
 
-		MapArtisan.buildMap(bField);
+		MapArtisanUtil.buildMap(bField);
 
 		logger.info("   texture atlas");
 		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");

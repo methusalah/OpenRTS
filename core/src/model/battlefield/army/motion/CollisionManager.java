@@ -46,9 +46,8 @@ public class CollisionManager {
 	private static double ADAPTATION_STEP = AngleUtil.toRadians(1);
 
 	Mover mover;
-	ArrayList<BoundingShape> solidShapes = new ArrayList<>();
-	ArrayList<BoundingShape> blockingShapes = new ArrayList<>();
-
+	List<BoundingShape> solidShapes = new ArrayList<>();
+	List<BoundingShape> blockingShapes = new ArrayList<>();
 
 	double tolerance = ADAPT_TOLERANCE;
 	boolean directionIsClockwise = true;
@@ -58,7 +57,7 @@ public class CollisionManager {
 	}
 
 	public void applySteering(Point3D steering, double elapsedTime, List<FieldComp> blockers) {
-		double traveledDistance = mover.getSpeed()*elapsedTime;
+		double traveledDistance = mover.getSpeed()*elapsedTime; 
 		if(traveledDistance < 0.001) {
 			logger.info("very short traveled distance...");
 		}

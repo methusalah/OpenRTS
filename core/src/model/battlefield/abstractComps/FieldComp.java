@@ -60,9 +60,8 @@ public class FieldComp {
 	public FieldComp getNearest(FieldComp o1, FieldComp o2) {
 		if (getDistance(o1) < getDistance(o2)) {
 			return o1;
-		} else {
-			return o2;
 		}
+		return o2;
 	}
 
 	public BoundingCircle getBounds() {
@@ -84,7 +83,7 @@ public class FieldComp {
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setPos(Point3D newPos){
 		pos = newPos;
 	}

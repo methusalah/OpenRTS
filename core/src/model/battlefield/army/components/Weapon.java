@@ -41,8 +41,8 @@ public class Weapon implements EffectSource {
 	public double lastStrikeTime = 0;
 	boolean attacking = false;
 
-	protected List<Unit> onScan = new ArrayList<>();
-	protected List<Unit> atRange = new ArrayList<>();
+	protected List<Unit> onScan = new ArrayList<Unit>();
+	protected List<Unit> atRange = new ArrayList<Unit>();
 
 	public Weapon(String UIName, double range, double scanRange, double period, EffectBuilder effectBuilder, String sourceBone, String directionBone,
 			Unit holder, ActorBuilder actorBuilder, Turret turret) {

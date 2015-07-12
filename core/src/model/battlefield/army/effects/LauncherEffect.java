@@ -1,6 +1,6 @@
 package model.battlefield.army.effects;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import model.battlefield.army.components.Projectile;
 import model.builders.entity.EffectBuilder;
@@ -19,7 +19,7 @@ import event.ProjectileArrivedEvent;
 public class LauncherEffect extends Effect {
 	protected final Projectile projectile;
 
-	public LauncherEffect(Projectile projectile, ArrayList<EffectBuilder> effectBuilders, EffectSource source, EffectTarget target) {
+	public LauncherEffect(Projectile projectile, List<EffectBuilder> effectBuilders, EffectSource source, EffectTarget target) {
 		super(effectBuilders, source, target);
 		this.projectile = projectile;
 		EventManager.registerForServer(this);

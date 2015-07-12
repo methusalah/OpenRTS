@@ -13,7 +13,7 @@ import java.util.List;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.map.Trinket;
-import model.builders.MapArtisan;
+import model.builders.MapArtisanUtil;
 import model.builders.entity.TrinketBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.editor.AssetSet;
@@ -84,14 +84,14 @@ public class TrinketTool extends Tool {
 		}
 		Trinket t = BuilderManager.getAllEditableTrinketBuilders().get(set.actual)
 				.build(pos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pos)));
-		MapArtisan.attachTrinket(t, ModelManager.getBattlefield().getMap());
+		MapArtisanUtil.attachTrinket(t, ModelManager.getBattlefield().getMap());
 		t.drawOnBattlefield();
 	}
 
 	private void remove() {
 		Trinket toRemove = getPointedTrinket();
 		if (toRemove != null) {
-			MapArtisan.dettachTrinket(toRemove, ModelManager.getBattlefield().getMap());
+			MapArtisanUtil.dettachTrinket(toRemove, ModelManager.getBattlefield().getMap());
 			toRemove.removeFromBattlefield();
 		}
 	}
