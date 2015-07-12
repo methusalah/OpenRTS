@@ -12,7 +12,7 @@ import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.AtlasLayer;
-import model.builders.AtlasArtisan;
+import model.builders.AtlasArtisanUtil;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -34,8 +34,9 @@ public class AtlasTool extends Tool {
 		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
 		List<String> allTextures = new ArrayList<>();
 		allTextures.addAll(ModelManager.getBattlefield().getMap().getStyle().diffuses);
-		while(allTextures.size() < 8)
+		while(allTextures.size() < 8) {
 			allTextures.add(null);
+		}
 		allTextures.addAll(ModelManager.getBattlefield().getMap().getStyle().coverDiffuses);
 		set = new AssetSet(allTextures, true);
 	}
@@ -92,21 +93,21 @@ public class AtlasTool extends Tool {
 	private void increment(ArrayList<Point2D> pixels) {
 		Atlas toPaint = getAtlasToPaint();
 		AtlasLayer layer = getActualLayer(toPaint);
-		
+
 		for (Point2D p : pixels) {
-			AtlasArtisan.incrementPixel(toPaint, p, layer, getAttenuatedIncrement(p));
+			AtlasArtisanUtil.incrementPixel(toPaint, p, layer, getAttenuatedIncrement(p));
 		}
 	}
 
 	private void decrement(ArrayList<Point2D> pixels) {
 		Atlas toPaint = getAtlasToPaint();
 		AtlasLayer layer = getActualLayer(toPaint);
-		
+
 		for (Point2D p : pixels) {
-			AtlasArtisan.decrementPixel(toPaint, p, layer, getAttenuatedIncrement(p));
+			AtlasArtisanUtil.decrementPixel(toPaint, p, layer, getAttenuatedIncrement(p));
 		}
 	}
-	
+
 	private void propagate(ArrayList<Point2D> pixels) {
 		Atlas atlas = ModelManager.getBattlefield().getMap().getAtlas();
 		if (!pencil.maintained) {
@@ -122,30 +123,31 @@ public class AtlasTool extends Tool {
 			}
 		}
 		for (Point2D p : pixels) {
-			AtlasArtisan.incrementPixel(atlas, p, autoLayer, getAttenuatedIncrement(p));
+			AtlasArtisanUtil.incrementPixel(atlas, p, autoLayer, getAttenuatedIncrement(p));
 		}
 	}
 
 	private void smooth(ArrayList<Point2D> pixels) {
 		for (Point2D p : pixels) {
-			AtlasArtisan.smoothPixel(ModelManager.getBattlefield().getMap().getAtlas(), p, getAttenuatedIncrement(p));
+			AtlasArtisanUtil.smoothPixel(ModelManager.getBattlefield().getMap().getAtlas(), p, getAttenuatedIncrement(p));
 		}
 
 	}
-	
+
 	private AtlasLayer getActualLayer(Atlas atlas){
-		if(set.actual > 8)
+		if(set.actual > 8) {
 			return atlas.getLayers().get(set.actual-8);
+		}
 		return atlas.getLayers().get(set.actual);
 	}
-	
+
 	private Atlas getAtlasToPaint(){
-		if(set.actual > 8)
+		if(set.actual > 8) {
 			return ModelManager.getBattlefield().getMap().getCover();
-		else
-			return ModelManager.getBattlefield().getMap().getAtlas();
+		}
+		return ModelManager.getBattlefield().getMap().getAtlas();
 	}
-	
+
 	private double getAttenuatedIncrement(Point2D p){
 		return Math.round(increment * pencil.strength * pencil.getApplicationRatio(explorer.getInMapSpace(p)));
 	}

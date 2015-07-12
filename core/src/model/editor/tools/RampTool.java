@@ -9,9 +9,8 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Ramp;
-import model.builders.MapArtisan;
+import model.builders.MapArtisanUtil;
 import model.editor.Pencil;
-import model.editor.ToolManager;
 
 /**
  * @author Benoît
@@ -55,7 +54,7 @@ public class RampTool extends Tool {
 				}
 			}
 		}
-		MapArtisan.updateParcelsFor(changed);
+		MapArtisanUtil.updateParcelsFor(changed);
 	}
 
 	@Override

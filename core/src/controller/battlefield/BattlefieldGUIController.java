@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.CommandManager;
-import model.Reporter;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
 import controller.Controller;
 import controller.GUIController;
+import controller.Reporter;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;

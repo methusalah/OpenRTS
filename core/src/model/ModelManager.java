@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
-import model.builders.MapArtisan;
+import model.builders.MapArtisanUtil;
 import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
@@ -67,7 +67,7 @@ public class ModelManager {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;
-			MapArtisan.act(getBattlefield().getMap());
+			MapArtisanUtil.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new BattleFieldUpdateEvent());
 			logger.info("Done.");

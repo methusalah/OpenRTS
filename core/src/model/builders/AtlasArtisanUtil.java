@@ -10,10 +10,9 @@ import model.battlefield.map.Map;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasLayer;
 
-// FIXME:this is a Util class
-public class AtlasArtisan {
+public abstract class AtlasArtisanUtil {
 
-	private static final Logger logger = Logger.getLogger(AtlasArtisan.class.getName());
+	private static final Logger logger = Logger.getLogger(AtlasArtisanUtil.class.getName());
 
 	public static void buildAtlas(Map m) {
 		if(m.getAtlas() == null) {

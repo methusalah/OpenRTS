@@ -12,7 +12,7 @@ import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
-import model.builders.MapArtisan;
+import model.builders.MapArtisanUtil;
 import model.editor.Pencil;
 import model.editor.ToolManager;
 
@@ -56,7 +56,7 @@ public class HeightTool extends Tool {
 				uniform(group);
 				break;
 		}
-		MapArtisan.updateParcelsFor(group);
+		MapArtisanUtil.updateParcelsFor(group);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class HeightTool extends Tool {
 				reset(group);
 				break;
 		}
-		MapArtisan.updateParcelsFor(group);
+		MapArtisanUtil.updateParcelsFor(group);
 	}
 
 	private void raise(List<Tile> tiles) {

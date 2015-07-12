@@ -2,12 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package controller;
 
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
+import model.CommandManager;
+import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.AnimationActor;
@@ -69,7 +71,7 @@ public class Reporter {
 		return CommandManager.selection.isEmpty();
 	}
 
-	public static void reportAll(){
+	public static void reportAll() {
 		Engagement eng = ModelManager.getBattlefield().getEngagement();
 		logger.info("*** ENGAGEMENT ***");
 		logger.info("Factions (" + eng.getFactions().size() + ") : ");
