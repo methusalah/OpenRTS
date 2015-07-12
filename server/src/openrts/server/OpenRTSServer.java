@@ -1,6 +1,8 @@
 package openrts.server;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import view.MapView;
@@ -15,7 +17,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.JmeContext;
 
 import event.EventManager;
-import event.MapInputEvent;
+import event.ScreenInputEvent;
 import event.ToClientEvent;
 import event.ToServerEvent;
 
@@ -24,9 +26,13 @@ public class OpenRTSServer extends SimpleApplication {
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
 
 	// protected MapView view;
-	protected GameController fieldCtrl;
 	protected static Server myServer;
 	public static final int PORT = 6143;
+	private Map<Integer, Player> players = new HashMap<Integer, Player>();
+
+	public Player getPlayer(Integer id) {
+		return players.get(id);
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Server starting...");
@@ -47,33 +53,24 @@ public class OpenRTSServer extends SimpleApplication {
 
 		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
-		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		fieldCtrl = new GameController(view, niftyDisplay.getNifty(), cam);
 		EventManager.registerForClient(this);
 
-		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
-		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
-		try {
-			niftyDisplay.getNifty().validateXml("interface/gamescreen.xml");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		niftyDisplay.getNifty().fromXml("interface/gamescreen.xml", "hud");
+		NiftyJmeDisplay clientDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		Player p1 = new Player(clientDisplay, view, cam);
+		stateManager.attach(p1.getFieldCtrl());
 
-		stateManager.attach(fieldCtrl);
-		fieldCtrl.setEnabled(true);
 		if (view.getMapRend() != null) {
 			view.getMapRend().renderTiles();
 		}
-		guiViewPort.addProcessor(niftyDisplay);
+
+		guiViewPort.addProcessor(clientDisplay);
 
 		try {
 			Serializer.registerClass(ToServerEvent.class);
 			Serializer.registerClass(ToClientEvent.class);
-			Serializer.registerClass(MapInputEvent.class);
+			Serializer.registerClass(ScreenInputEvent.class);
 			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(fieldCtrl), ToServerEvent.class, MapInputEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(p1.getFieldCtrl()), ToServerEvent.class, ScreenInputEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

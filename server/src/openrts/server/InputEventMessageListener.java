@@ -1,6 +1,6 @@
 package openrts.server;
 
-import event.MapInputEvent;
+import event.ScreenInputEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
@@ -28,9 +28,9 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 
 	@Override
 	public void messageReceived(HostedConnection source, Message message) {
-		if (message instanceof MapInputEvent) {
+		if (message instanceof ScreenInputEvent) {
 			// do something with the message
-			MapInputEvent inputEvent = (MapInputEvent) message;
+			ScreenInputEvent inputEvent = (ScreenInputEvent) message;
 			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getCommand() + "'");
 
 			if (!inputEvent.getIsPressed()) {
@@ -42,17 +42,18 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 						if (System.currentTimeMillis() - dblclicTimer < DOUBLE_CLIC_DELAY
 								&& dblclicCoord.getDistance(new Point2D(inputEvent.getX(), inputEvent.getY())) < DOUBLE_CLIC_MAX_OFFSET) {
 							// double click
-							CommandManager.selectUnitInContext(ctrl.getSpatialSelector().getEntityId(inputEvent.getX(), inputEvent.getY(), inputEvent.getZ()));
+							CommandManager.selectUnitInContext(ctrl.getSpatialSelector().getEntityId(inputEvent.getCoord()));
 						} else if (!ctrl.isDrawingZone()) {
-							CommandManager.select(ctrl.getSpatialSelector().getEntityId(inputEvent.getX(), inputEvent.getY(), inputEvent.getZ()), new Point2D(
-									inputEvent.getX(), inputEvent.getY()));
+							CommandManager.select(ctrl.getSpatialSelector().getEntityId(inputEvent.getCoord()),
+									new Point2D(
+											inputEvent.getX(), inputEvent.getY()));
 						}
 						ctrl.endSelectionZone();
 						dblclicTimer = System.currentTimeMillis();
 						dblclicCoord = new Point2D(inputEvent.getX(), inputEvent.getY());
 						break;
 					case MultiplayerGameInputInterpreter.ACTION:
-						CommandManager.act(ctrl.getSpatialSelector().getEntityId(inputEvent.getX(), inputEvent.getY(), inputEvent.getZ()), new Point2D(
+						CommandManager.act(ctrl.getSpatialSelector().getEntityId(inputEvent.getCoord()), new Point2D(
 								inputEvent.getX(), inputEvent.getY()));
 						break;
 					case MultiplayerGameInputInterpreter.MOVE_ATTACK:

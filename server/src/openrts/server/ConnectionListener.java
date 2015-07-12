@@ -13,7 +13,7 @@ public class ConnectionListener implements com.jme3.network.ConnectionListener {
 	@Override
 	public void connectionAdded(Server server, HostedConnection conn) {
 		logger.info(server.getGameName() + " has a new connection:" + conn.getId());
-
+		// FIXME: add player to player List
 	}
 
 	@Override

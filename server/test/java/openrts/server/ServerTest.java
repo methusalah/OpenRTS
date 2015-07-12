@@ -19,9 +19,10 @@ import com.jme3.system.JmeContext;
 
 import controller.game.MultiplayerGameInputInterpreter;
 import event.EventManager;
-import event.MapInputEvent;
+import event.ScreenInputEvent;
 import event.ServerEvent;
 import event.WorldChangedEvent;
+import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 
 /**
@@ -55,7 +56,8 @@ public class ServerTest {
 		// },
 
 		Point3D origin = new Point3D(8.292814254760742, 52.28246307373047, 0.0);
-		MapInputEvent evt = new MapInputEvent(MultiplayerGameInputInterpreter.SELECT, origin, false);
+		Point2D screenCoord = new Point2D();
+		ScreenInputEvent evt = new ScreenInputEvent(MultiplayerGameInputInterpreter.SELECT, screenCoord, false);
 		ClientManager.getInstance().manageEvent(evt);
 
 		waitUntilClientHasResponse(obj, 0);

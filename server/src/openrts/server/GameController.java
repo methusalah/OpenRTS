@@ -29,7 +29,6 @@ public class GameController extends AbstractAppState {
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
-	// private MapView view;
 	private SpatialSelector spatialSelector;
 	private CameraManager cameraManager;
 	private GUIController guiController;
@@ -37,7 +36,7 @@ public class GameController extends AbstractAppState {
 	public GameController(MapView view, Nifty nifty, Camera cam) {
 		super();
 		// this.view = view;
-		spatialSelector = new SpatialSelector(view.getRootNode());
+		spatialSelector = new SpatialSelector(cam, view);
 		// spatialSelector.centered = false;
 		guiController = new GameNiftyController(nifty);
 
