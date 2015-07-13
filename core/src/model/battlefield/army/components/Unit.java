@@ -42,7 +42,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 
 	// variables
 	public Faction faction;
-	public ArrayList<Unit> group = new ArrayList<>();
+	public List<Unit> group = new ArrayList<Unit>();
 	public int health;
 	public STATE state = STATE.IDLING;
 	public boolean selected = false;

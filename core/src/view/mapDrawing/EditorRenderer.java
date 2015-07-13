@@ -56,7 +56,7 @@ public class EditorRenderer {
 	public EditorRenderer(EditorView view, MaterialManager mm) {
 		this.view = view;
 		this.mm = mm;
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 
 		if(ModelManager.getBattlefield() != null)
 			for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
@@ -82,7 +82,7 @@ public class EditorRenderer {
 		BuildHeightPencil();
 		BuildAtlasPencil();
 
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 	}
 
 	private void BuildCliffPencil() {

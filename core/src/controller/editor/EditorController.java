@@ -35,7 +35,7 @@ public class EditorController extends Controller {
 		guiController = new EditorGUIController(nifty, this);
 		cameraManager = new IsometricCameraManager(cam, 10);
 
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 	}
 
 	@Override

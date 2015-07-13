@@ -29,15 +29,12 @@ public class GameController extends AbstractAppState {
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
-	private SpatialSelector spatialSelector;
 	private CameraManager cameraManager;
 	private GUIController guiController;
 
 	public GameController(MapView view, Nifty nifty, Camera cam) {
 		super();
 		// this.view = view;
-		spatialSelector = new SpatialSelector(cam, view);
-		// spatialSelector.centered = false;
 		guiController = new GameNiftyController(nifty);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
@@ -95,11 +92,11 @@ public class GameController extends AbstractAppState {
 	private void updateContext() {
 		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
-			if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
-				inScreen.add(u);
-			}
-		}
+		// for (Unit u : ArmyManager.getUnits()) {
+		// if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
+		// inScreen.add(u);
+		// }
+		// }
 		CommandManager.createContextualUnities(inScreen);
 
 	}
@@ -127,8 +124,5 @@ public class GameController extends AbstractAppState {
 		guiController.activate();
 	}
 
-	public SpatialSelector getSpatialSelector() {
-		return spatialSelector;
-	}
 
 }

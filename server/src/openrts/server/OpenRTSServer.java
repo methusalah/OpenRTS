@@ -17,7 +17,8 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.JmeContext;
 
 import event.EventManager;
-import event.ScreenInputEvent;
+import event.SelectEntityEvent;
+import event.SelectEntityServerEvent;
 import event.ToClientEvent;
 import event.ToServerEvent;
 
@@ -53,7 +54,7 @@ public class OpenRTSServer extends SimpleApplication {
 
 		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 
 		NiftyJmeDisplay clientDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		Player p1 = new Player(clientDisplay, view, cam);
@@ -68,9 +69,11 @@ public class OpenRTSServer extends SimpleApplication {
 		try {
 			Serializer.registerClass(ToServerEvent.class);
 			Serializer.registerClass(ToClientEvent.class);
-			Serializer.registerClass(ScreenInputEvent.class);
+			Serializer.registerClass(SelectEntityEvent.class);
+			Serializer.registerClasses(SelectEntityServerEvent.class);
 			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(p1.getFieldCtrl()), ToServerEvent.class, ScreenInputEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(p1.getFieldCtrl()), ToServerEvent.class, SelectEntityEvent.class,
+					SelectEntityServerEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

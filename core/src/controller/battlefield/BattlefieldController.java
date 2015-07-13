@@ -40,7 +40,7 @@ public class BattlefieldController extends Controller {
 		inputInterpreter = new BattlefieldInputInterpreter(this);
 		guiController = new BattlefieldGUIController(nifty, this);
 
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}

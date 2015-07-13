@@ -36,7 +36,7 @@ public class Game extends OpenRTSApplication {
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		fieldCtrl = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices

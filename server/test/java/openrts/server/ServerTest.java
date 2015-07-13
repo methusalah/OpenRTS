@@ -5,7 +5,9 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import model.EntityManager;
 import model.ModelManager;
+import model.battlefield.abstractComps.FieldComp;
 import network.client.ClientManager;
 
 import org.testng.Assert;
@@ -17,13 +19,10 @@ import org.testng.annotations.Test;
 
 import com.jme3.system.JmeContext;
 
-import controller.game.MultiplayerGameInputInterpreter;
 import event.EventManager;
-import event.ScreenInputEvent;
-import event.ServerEvent;
-import event.WorldChangedEvent;
-import geometry.geom2d.Point2D;
-import geometry.geom3d.Point3D;
+import event.SelectEntityEvent;
+import event.SelectEntityServerEvent;
+import event.ToClientEvent;
 
 /**
  * @author mario
@@ -45,27 +44,22 @@ public class ServerTest {
 		waitUntilServerIsStarted();
 
 		ClientEventListenerMock obj = new ClientEventListenerMock();
-		EventManager.registerForClient(obj);
+		EventManager.register(obj);
 
 		ClientManager.startClient();
-		// see map => tank position hardcoded
-		// "pos" : {
-		// "x" : 8.292814254760742,
-		// "y" : 52.28246307373047,
-		// "z" : 0.0
-		// },
 
-		Point3D origin = new Point3D(8.292814254760742, 52.28246307373047, 0.0);
-		Point2D screenCoord = new Point2D();
-		ScreenInputEvent evt = new ScreenInputEvent(MultiplayerGameInputInterpreter.SELECT, screenCoord, false);
+		int id = 1;
+		FieldComp entity = EntityManager.getEntity(id);
+		Assert.assertNotNull(entity);
+
+		SelectEntityEvent evt = new SelectEntityEvent(id);
 		ClientManager.getInstance().manageEvent(evt);
 
 		waitUntilClientHasResponse(obj, 0);
-		ServerEvent ev = obj.getEvent();
-		Assert.assertTrue(ev instanceof WorldChangedEvent);
+		ToClientEvent ev = obj.getEvent();
+		Assert.assertTrue(ev instanceof SelectEntityServerEvent);
 
 	}
-
 
 	private void waitUntilClientHasResponse(ClientEventListenerMock mock, int times) throws IOException {
 		int waitingCounter = times;

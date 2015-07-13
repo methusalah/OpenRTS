@@ -79,8 +79,7 @@ public class MultiplayerGameNiftyController extends GUIController {
 	private String getHolding(Unit u) {
 		if (u.getMover().holdPosition) {
 			return "Holding : Yes";
-		} else {
-			return "Holding : No";
 		}
+		return "Holding : No";
 	}
 }

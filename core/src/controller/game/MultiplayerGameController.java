@@ -39,7 +39,7 @@ public class MultiplayerGameController extends Controller {
 		this.spatialSelector.setCentered(false);
 		guiController = new MultiplayerGameNiftyController(nifty, this);
 
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}

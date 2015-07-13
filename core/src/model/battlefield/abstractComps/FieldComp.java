@@ -30,7 +30,7 @@ public class FieldComp {
 		this.pos = pos;
 		this.yaw = yaw;
 		this.radius = radius;
-		this.id = EntityManager.getNewEntityId();
+		this.id = EntityManager.registerEntity(this);
 	}
 
 	public Point2D getCoord() {

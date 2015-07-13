@@ -9,7 +9,8 @@ import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
 import event.EventManager;
-import event.ScreenInputEvent;
+import event.SelectEntityEvent;
+import event.SelectEntityServerEvent;
 import event.ToClientEvent;
 import event.ToServerEvent;
 import exception.TechnicalException;
@@ -23,13 +24,14 @@ public class ClientManager {
 
 	public static void startClient() {
 		Serializer.registerClass(ToServerEvent.class);
-		Serializer.registerClass(ScreenInputEvent.class);
+		Serializer.registerClass(SelectEntityEvent.class);
 		Serializer.registerClass(ToClientEvent.class);
-		EventManager.registerForClient(instance);
+		Serializer.registerClasses(SelectEntityServerEvent.class);
+		EventManager.register(instance);
 		try {
 			client = Network.connectToServer("localhost", 6143);
 			client.addClientStateListener(new ClientStateListener());
-			client.addMessageListener(new MessageListener(), ToServerEvent.class);
+			client.addMessageListener(new MessageListener(), ToServerEvent.class, SelectEntityServerEvent.class);
 		} catch (IOException e) {
 			logger.severe(e.getLocalizedMessage());
 		}
@@ -46,7 +48,7 @@ public class ClientManager {
 	}
 
 	@Subscribe
-	public void manageEvent(ToServerEvent ev) {
+	public void manageEvent(SelectEntityEvent ev) {
 		if (client.isConnected()) {
 			client.send(ev);
 		}

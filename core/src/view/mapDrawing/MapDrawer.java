@@ -71,7 +71,7 @@ public class MapDrawer {
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
 		mainNode.attachChild(castAndReceiveNode);
 		mainNode.attachChild(receiveNode);
-		EventManager.registerForClient(this);
+		EventManager.register(this);
 	}
 
 	public void renderTiles() {

@@ -2,18 +2,18 @@ package openrts.server;
 
 import com.google.common.eventbus.Subscribe;
 
-import event.ServerEvent;
+import event.ToClientEvent;
 
 public class ClientEventListenerMock {
 
-	private ServerEvent event;
+	private ToClientEvent event;
 
 	@Subscribe
-	public void handleServerEvents(ServerEvent event) {
+	public void handleServerEvents(ToClientEvent event) {
 		this.event = event;
 	}
 
-	public ServerEvent getEvent() {
+	public ToClientEvent getEvent() {
 		return event;
 	}
 

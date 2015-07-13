@@ -1,5 +1,9 @@
 package controller.game;
 
+import event.ControllerChangeEvent;
+import event.EventManager;
+import geometry.geom2d.Point2D;
+
 import java.util.logging.Logger;
 
 import com.jme3.input.InputManager;
@@ -7,22 +11,27 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
+import controller.CommandManager;
 import controller.InputInterpreter;
-import event.CameraInputEvent;
-import event.EventManager;
-import geometry.geom2d.Point2D;
 
 public class MultiplayerGameInputInterpreter extends InputInterpreter {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGameInputInterpreter.class.getName());
 
-	public final static String SELECT = "select";
-	public final static String ACTION = "action";
-	public final static String MOVE_ATTACK = "moveattack";
-	public final static String MULTIPLE_SELECTION = "multipleselection";
-	public final static String HOLD = "hold";
-	public final static String PAUSE = "pause";
+	protected final static String SELECT = "select";
+	protected final static String ACTION = "action";
+	protected final static String MOVE_ATTACK = "moveattack";
+	protected final static String MULTIPLE_SELECTION = "multipleselection";
+	protected final static String HOLD = "hold";
+	protected final static String PAUSE = "pause";
 
+	protected final static int DOUBLE_CLICK_DELAY = 200;// milliseconds
+	protected final static int DOUBLE_CLICK_MAX_OFFSET = 5;// in pixels on screen
+
+	private boolean multipleSelection = false;
+	private double dblclickTimer = 0;
+	private Point2D dblclickCoord;
+	
 	MultiplayerGameInputInterpreter(MultiplayerGameController ctl) {
 		super(ctl);
 		mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
@@ -40,6 +49,8 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
 
 		inputManager.addListener(this, mappings);
+
+		logger.info("multiplayer controller online");
 	}
 
 	@Override
@@ -48,9 +59,50 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 
 	@Override
 	public void onAction(String name, boolean isPressed, float tpf) {
-		logger.info("User create Event on Client:" + name);
-		CameraInputEvent event = new CameraInputEvent(name, getSpatialCoord(), isPressed);
-		EventManager.post(event);
+		if (!isPressed) {
+			switch (name) {
+
+				case MULTIPLE_SELECTION:
+					CommandManager.setMultipleSelection(false);
+					break;
+				case SELECT:
+					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
+							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
+						// double click
+						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
+					} else {
+						if(!((MultiplayerGameController) ctrl).isDrawingZone()) {
+							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+						}
+					}
+					((MultiplayerGameController) ctrl).endSelectionZone();
+					dblclickTimer = System.currentTimeMillis();
+					dblclickCoord = getSpatialCoord();
+					break;
+				case ACTION:
+					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+					break;
+				case MOVE_ATTACK:
+					CommandManager.setMoveAttack();
+					break;
+				case HOLD:
+					CommandManager.orderHold();
+					break;
+				case PAUSE:
+					((MultiplayerGameController) ctrl).togglePause();
+					break;
+			}
+		} else {
+			// input pressed
+			switch(name){
+				case MULTIPLE_SELECTION:
+					CommandManager.setMultipleSelection(true);
+					break;
+				case SELECT:
+					((MultiplayerGameController) ctrl).startSelectionZone();
+					break;
+			}
+		}
 	}
 
 	private Point2D getSpatialCoord() {
