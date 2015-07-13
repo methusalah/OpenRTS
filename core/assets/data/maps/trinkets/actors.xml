@@ -11,5 +11,8 @@
 	    <Pitch value="-90"/>
         <Scale value=" 0.0025"/>
     </Actor>
-    
+    <Actor id="blenderActor">
+        <Type value="Model"/>
+        <Scale value="0.25"/>
+    </Actor>
 </catalog>
