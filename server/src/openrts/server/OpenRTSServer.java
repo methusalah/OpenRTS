@@ -14,13 +14,10 @@ import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.system.JmeContext;
 
 import event.EventManager;
 import event.SelectEntityEvent;
 import event.SelectEntityServerEvent;
-import event.ToClientEvent;
-import event.ToServerEvent;
 
 public class OpenRTSServer extends SimpleApplication {
 
@@ -38,7 +35,8 @@ public class OpenRTSServer extends SimpleApplication {
 	public static void main(String[] args) {
 		System.out.println("Server starting...");
 		OpenRTSServer app = new OpenRTSServer();
-		app.start(JmeContext.Type.Headless); // headless type for servers!
+		// app.start(JmeContext.Type.Headless); // headless type for servers!
+		app.start();
 	}
 
 	@Override
@@ -67,13 +65,9 @@ public class OpenRTSServer extends SimpleApplication {
 		guiViewPort.addProcessor(clientDisplay);
 
 		try {
-			Serializer.registerClass(ToServerEvent.class);
-			Serializer.registerClass(ToClientEvent.class);
-			Serializer.registerClass(SelectEntityEvent.class);
-			Serializer.registerClasses(SelectEntityServerEvent.class);
+			Serializer.registerClasses(SelectEntityEvent.class, SelectEntityServerEvent.class);
 			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(p1.getFieldCtrl()), ToServerEvent.class, SelectEntityEvent.class,
-					SelectEntityServerEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, SelectEntityServerEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

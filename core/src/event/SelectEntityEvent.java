@@ -11,6 +11,10 @@ public class SelectEntityEvent extends ToServerEvent {
 
 	}
 
+	public SelectEntityEvent(long id) {
+		this.id = (int) id;
+	}
+
 	public SelectEntityEvent(int id) {
 		this.id = id;
 	}

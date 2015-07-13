@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
-import network.client.ClientManager;
+import network.client.ClientAppState;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -46,14 +46,15 @@ public class ServerTest {
 		ClientEventListenerMock obj = new ClientEventListenerMock();
 		EventManager.register(obj);
 
-		ClientManager.startClient();
+		ClientAppState state = new ClientAppState();
+		state.initialize(app.getStateManager(), app);
 
 		int id = 1;
 		FieldComp entity = EntityManager.getEntity(id);
 		Assert.assertNotNull(entity);
 
 		SelectEntityEvent evt = new SelectEntityEvent(id);
-		ClientManager.getInstance().manageEvent(evt);
+		state.manageEvent(evt);
 
 		waitUntilClientHasResponse(obj, 0);
 		ToClientEvent ev = obj.getEvent();

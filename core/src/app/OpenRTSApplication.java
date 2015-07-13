@@ -255,7 +255,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	}
 
 	public void startClient() {
-		ClientManager.startClient();
+		ClientManager.startClient(stateManager, this);
 	}
 
 	public void stopClient() {
