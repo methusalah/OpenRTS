@@ -44,7 +44,7 @@ public class Grid3D<T extends Node3D> extends Grid<T> {
 
 	public double getAltitudeAt(Point2D coord) {
 		Triangle3D tr = getTriangleAt(coord);
-		return tr == null ? 0 : getTriangleAt(coord).getElevated(coord).z;
+		return tr == null ? 0 : tr.getElevated(coord).z;
 	}
 
 	public Point3D getNormalVectorAt(Point2D coord) {
@@ -54,6 +54,6 @@ public class Grid3D<T extends Node3D> extends Grid<T> {
 
 
 	public Point3D getPos(T n){
-		return getCoord(n.getIndex()).get3D(n.elevation);
+		return getCoord(n.getIndex()).get3D(n.getElevation());
 	}
 }
