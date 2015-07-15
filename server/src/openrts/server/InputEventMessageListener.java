@@ -25,8 +25,8 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 			// do something with the message
 			SelectEntityEvent inputEvent = (SelectEntityEvent) message;
 			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getId() + "'");
-			source.getServer().broadcast(new AckEvent(inputEvent.getId()));
 			CommandManager.select(inputEvent.getId(), new Point2D());
+			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
 		} else {
 			logger.warning("Client send unsupported Message:" + message);
 		}

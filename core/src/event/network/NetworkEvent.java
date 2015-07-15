@@ -4,17 +4,25 @@
  */
 package event.network;
 
+import java.util.Date;
+
 import com.jme3.network.AbstractMessage;
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
 public abstract class NetworkEvent extends AbstractMessage {
 
+	private Date date;
+
 	public NetworkEvent() {
 	}
 
-	public String getName() {
-		return this.getClass().getSimpleName();
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

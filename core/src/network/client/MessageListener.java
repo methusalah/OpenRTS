@@ -17,7 +17,7 @@ public class MessageListener implements com.jme3.network.MessageListener<Client>
 		if (message instanceof AckEvent) {
 			// do something with the message
 			AckEvent evt = (AckEvent) message;
-			logger.info("Client #" + source.getId() + " received: '" + evt.getEventId() + "'");
+			logger.info("Client #" + source.getId() + " received: '" + evt.getAckDate() + "'");
 			EventManager.post(evt);
 		} // else...
 	}

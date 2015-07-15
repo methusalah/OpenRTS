@@ -4,6 +4,7 @@
 package event;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -21,6 +22,7 @@ public class EventManager {
 
 	public static void post(NetworkEvent event) {
 		logger.info("Event posted:" + event);
+		event.setDate(new Date());
 		eventBus.post(event);
 	}
 
