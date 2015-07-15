@@ -1,9 +1,9 @@
-package event;
+package event.network;
 
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
-public class SelectEntityEvent extends ToServerEvent {
+public class SelectEntityEvent extends NetworkEvent {
 
 	private int id;
 

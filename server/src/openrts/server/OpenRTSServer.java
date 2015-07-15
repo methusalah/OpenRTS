@@ -18,8 +18,8 @@ import com.jme3.network.serializing.Serializer;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
 import event.EventManager;
-import event.SelectEntityEvent;
-import event.SelectEntityServerEvent;
+import event.network.AckEvent;
+import event.network.SelectEntityEvent;
 
 public class OpenRTSServer extends GuiceApplication {
 
@@ -83,9 +83,9 @@ public class OpenRTSServer extends GuiceApplication {
 		guiViewPort.addProcessor(niftyDisplay);
 
 		try {
-			Serializer.registerClasses(SelectEntityEvent.class, SelectEntityServerEvent.class);
+			Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class);
 			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, SelectEntityServerEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

@@ -1,6 +1,6 @@
 package controller.game;
 
-import event.SelectEntityEvent;
+import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;

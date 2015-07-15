@@ -7,8 +7,8 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 
 import controller.InputInterpreter;
-import event.ControllerChangeEvent;
 import event.EventManager;
+import event.client.ControllerChangeEvent;
 
 public class GroundInputInterpreter extends InputInterpreter {
 

@@ -16,8 +16,8 @@ import controller.Controller;
 import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
-import event.ControllerChangeEvent;
 import event.EventManager;
+import event.client.ControllerChangeEvent;
 
 public class MainRTS extends OpenRTSApplication {
 

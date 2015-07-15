@@ -9,7 +9,7 @@ import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.Cliff;
 import model.builders.entity.definitions.BuilderManager;
 import event.EventManager;
-import event.TilesEvent;
+import event.client.TilesEvent;
 
 public abstract class TileArtisanUtil {
 

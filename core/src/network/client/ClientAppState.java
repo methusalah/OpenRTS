@@ -12,8 +12,8 @@ import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
 import event.EventManager;
-import event.SelectEntityEvent;
-import event.SelectEntityServerEvent;
+import event.network.AckEvent;
+import event.network.SelectEntityEvent;
 
 public class ClientAppState extends AbstractAppState {
 
@@ -26,12 +26,12 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 
-		Serializer.registerClasses(SelectEntityEvent.class, SelectEntityServerEvent.class);
+		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class);
 
 		try {
 			networkClient = Network.connectToServer("localhost", 6143);
 			networkClient.addClientStateListener(new ClientStateListener());
-			networkClient.addMessageListener(new MessageListener(), SelectEntityServerEvent.class);
+			networkClient.addMessageListener(new MessageListener(), AckEvent.class);
 		} catch (IOException e) {
 			logger.severe(e.getLocalizedMessage());
 		}

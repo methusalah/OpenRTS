@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.battlefield.army.components.Unit;
 
-public class WorldChangedEvent extends ServerEvent {
+public class WorldChangedEvent {
 
 	private List<Unit> units;
 

@@ -21,8 +21,8 @@ import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
 import event.BattleFieldUpdateEvent;
-import event.ControllerChangeEvent;
 import event.EventManager;
+import event.client.ControllerChangeEvent;
 
 public class GameController extends Controller {
 

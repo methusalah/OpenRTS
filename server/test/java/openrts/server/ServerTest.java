@@ -20,9 +20,9 @@ import org.testng.annotations.Test;
 import com.jme3.system.JmeContext;
 
 import event.EventManager;
-import event.SelectEntityEvent;
-import event.SelectEntityServerEvent;
-import event.ToClientEvent;
+import event.network.AckEvent;
+import event.network.NetworkEvent;
+import event.network.SelectEntityEvent;
 
 /**
  * @author mario
@@ -57,8 +57,8 @@ public class ServerTest {
 		state.manageEvent(evt);
 
 		waitUntilClientHasResponse(obj, 0);
-		ToClientEvent ev = obj.getEvent();
-		Assert.assertTrue(ev instanceof SelectEntityServerEvent);
+		NetworkEvent ev = obj.getEvent();
+		Assert.assertTrue(ev instanceof AckEvent);
 
 	}
 

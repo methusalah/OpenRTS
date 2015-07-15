@@ -1,7 +1,7 @@
 package model.builders;
 
 import event.EventManager;
-import event.ParcelUpdateEvent;
+import event.client.ParcelUpdateEvent;
 import geometry.geom3d.Point3D;
 
 import java.util.List;

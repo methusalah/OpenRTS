@@ -33,9 +33,9 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 
 import event.EventManager;
-import event.ParcelUpdateEvent;
-import event.TilesEvent;
-import event.UpdateGroundAtlasEvent;
+import event.client.ParcelUpdateEvent;
+import event.client.TilesEvent;
+import event.client.UpdateGroundAtlasEvent;
 import geometry.math.AngleUtil;
 
 public class MapDrawer {

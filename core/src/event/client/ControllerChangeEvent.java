@@ -1,6 +1,7 @@
-package event;
+package event.client;
 
-public class ControllerChangeEvent extends ClientEvent {
+
+public class ControllerChangeEvent extends Event {
 
 	private final int index;
 

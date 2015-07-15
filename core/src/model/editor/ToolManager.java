@@ -10,8 +10,8 @@ import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
 import event.EventManager;
-import event.SetToolEvent;
-import event.UpdateGroundAtlasEvent;
+import event.client.SetToolEvent;
+import event.client.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
 
 /**

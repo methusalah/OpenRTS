@@ -1,7 +1,7 @@
 package controller.battlefield;
 
-import event.ControllerChangeEvent;
 import event.EventManager;
+import event.client.ControllerChangeEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;

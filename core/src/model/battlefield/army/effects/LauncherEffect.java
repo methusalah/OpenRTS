@@ -8,7 +8,7 @@ import model.builders.entity.EffectBuilder;
 import com.google.common.eventbus.Subscribe;
 
 import event.EventManager;
-import event.ProjectileArrivedEvent;
+import event.client.ProjectileArrivedEvent;
 
 /**
  * That effect is created with a new projectile and subscribe to the projectiles events.

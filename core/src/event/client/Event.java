@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package event;
+package event.client;
 
 
-public abstract class ClientEvent {
+public abstract class Event {
 
-	public ClientEvent() {
+	public Event() {
 	}
 
 	public String getName() {

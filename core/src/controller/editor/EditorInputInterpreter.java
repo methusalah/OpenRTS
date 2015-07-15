@@ -11,8 +11,8 @@ import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
 import controller.Reporter;
-import event.ControllerChangeEvent;
 import event.EventManager;
+import event.client.ControllerChangeEvent;
 
 public class EditorInputInterpreter extends InputInterpreter {
 	protected final static String SWITCH_CTRL_1 = "ctrl1";

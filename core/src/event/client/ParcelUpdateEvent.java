@@ -1,10 +1,10 @@
-package event;
+package event.client;
 
 import java.util.List;
 
 import model.battlefield.map.parcelling.Parcel;
 
-public class ParcelUpdateEvent extends ClientEvent {
+public class ParcelUpdateEvent extends Event {
 
 	private final List<Parcel> toUpdate;
 

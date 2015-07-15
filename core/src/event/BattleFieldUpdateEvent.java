@@ -1,5 +1,7 @@
 package event;
 
-public class BattleFieldUpdateEvent extends ClientEvent {
+import event.client.Event;
+
+public class BattleFieldUpdateEvent extends Event {
 
 }

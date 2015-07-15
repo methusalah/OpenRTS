@@ -27,8 +27,8 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 
 import event.EventManager;
-import event.ParcelUpdateEvent;
-import event.SetToolEvent;
+import event.client.ParcelUpdateEvent;
+import event.client.SetToolEvent;
 import geometry.collections.PointRing;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;

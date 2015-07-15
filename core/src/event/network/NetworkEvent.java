@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package event;
+package event.network;
 
 import com.jme3.network.AbstractMessage;
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
-public abstract class ServerEvent extends AbstractMessage {
+public abstract class NetworkEvent extends AbstractMessage {
 
-	public ServerEvent() {
+	public NetworkEvent() {
 	}
 
 	public String getName() {
