@@ -10,6 +10,7 @@ if (!hasProperty('mainClass')) {
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 	compile project(':core')
+	compile 'com.google.inject:guice:4.0'
 }
 
 sourceSets {

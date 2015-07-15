@@ -1,4 +1,10 @@
 package app.example;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.LogManager;
+
 import model.ModelManager;
 import model.battlefield.warfare.Faction;
 import view.MapView;
@@ -19,6 +25,15 @@ public class Game extends OpenRTSApplication {
 	protected Faction faction;
 
 	public static void main(String[] args) {
+		Properties preferences = new Properties();
+		try {
+			FileInputStream configFile = new FileInputStream("logging.properties");
+			preferences.load(configFile);
+			LogManager.getLogManager().readConfiguration(configFile);
+		} catch (IOException ex) {
+			System.err.println("WARNING: Could not open configuration file");
+			System.err.println("WARNING: Logging not configured (console output only)");
+		}
 		OpenRTSApplication.main(new Game());
 	}
 

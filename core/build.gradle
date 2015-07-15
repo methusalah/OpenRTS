@@ -21,7 +21,6 @@ dependencies {
 	//    	compile "com.jme3:jme3-desktop:$jmonkeyengine_version"
 	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
 	    	//
-	    	//	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
 	    	//	compile "com.jme3:jme3-bullet-natives:$jmonkeyengine_version"
 	    	//
 

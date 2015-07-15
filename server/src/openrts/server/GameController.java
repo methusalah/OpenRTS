@@ -12,30 +12,33 @@ import model.battlefield.army.components.Unit;
 import view.MapView;
 
 import com.google.common.eventbus.Subscribe;
-import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
-import controller.GUIController;
-import controller.cameraManagement.CameraManager;
+import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
 import de.lessvoid.nifty.Nifty;
 import event.BattleFieldUpdateEvent;
 import event.ControllerChangeEvent;
+import event.EventManager;
 
-public class GameController extends AbstractAppState {
+public class GameController extends Controller {
 
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
-	private CameraManager cameraManager;
-	private GUIController guiController;
+	protected MapView view;
 
-	public GameController(MapView view, Nifty nifty, Camera cam) {
-		super();
-		// this.view = view;
+	public GameController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
+		super(view, inputManager, cam);
+		this.view = view;
+		inputInterpreter = new GameInputInterpreter(this);
+		this.spatialSelector.setCentered(false);
 		guiController = new GameNiftyController(nifty);
+
+		EventManager.register(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
 	}
@@ -114,13 +117,13 @@ public class GameController extends AbstractAppState {
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
 	public void togglePause() {
 		paused = !paused;
-		// FIXME: Pause is not support now
 		// view.getActorManager().pause(paused);
 	}
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
+		inputManager.setCursorVisible(true);
 		guiController.activate();
 	}
 
