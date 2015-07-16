@@ -280,11 +280,12 @@ public class Tile extends Node3D {
 		return getMap().getWestNode(this);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	public <T> List<T> getData(Class<T> clazz){
 		List<T> res = new ArrayList<>();
 		for(Object o : storedData)
-			if(o.getClass() == clazz.getClass())
+			if(o.getClass() == clazz)
 				res.add((T)o);
 		return res;
 	}

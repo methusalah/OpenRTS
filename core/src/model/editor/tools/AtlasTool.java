@@ -13,6 +13,7 @@ import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.AtlasLayer;
 import model.builders.AtlasArtisanUtil;
+import model.builders.MapArtisanUtil;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
@@ -62,6 +63,7 @@ public class AtlasTool extends Tool {
 		}
 
 		ToolManager.updateGroundAtlas();
+		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size / 2);
 	}
 
 	@Override
@@ -75,6 +77,7 @@ public class AtlasTool extends Tool {
 				break;
 		}
 		ToolManager.updateGroundAtlas();
+		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size / 2);
 	}
 
 	public ArrayList<Point2D> getInvolvedPixels() {

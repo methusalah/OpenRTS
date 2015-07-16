@@ -43,6 +43,7 @@ public class Sower implements Runnable {
 	}
 
 	private void sowTrinket(Sowing s, Trinket t) {
+		t.sowed = true;
 		t.drawOnBattlefield();
 		s.toGrow.add(t);
 	}
