@@ -2,8 +2,6 @@ package model.builders;
 
 import event.EventManager;
 import event.client.ParcelUpdateEvent;
-
-import event.ParcelUpdateEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 
