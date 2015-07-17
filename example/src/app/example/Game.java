@@ -25,6 +25,7 @@ public class Game extends OpenRTSApplication {
 	protected Faction faction;
 
 	private static String NiftyInterfaceFile = "interface/MulitplayerScreen.xml";
+	private static String NiftyInterfaceFile2 = "interface/nifty_loading.xml";
 	private static String NiftyScreen = "network";
 
 	public static void main(String[] args) {
@@ -67,6 +68,7 @@ public class Game extends OpenRTSApplication {
 			e.printStackTrace();
 		}
 		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen);
+		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
 		if (view.getMapRend() != null) {
 			view.getMapRend().renderTiles();
