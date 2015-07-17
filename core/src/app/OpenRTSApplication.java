@@ -9,8 +9,6 @@ import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
-import network.client.ClientManager;
-
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
 import com.jme3.bullet.BulletAppState;
@@ -85,12 +83,12 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 			setSettings(new AppSettings(true));
 			settings.setWidth(1024);
 			settings.setHeight(768);
-			try {
-				settings.load("openrts.example");
-			} catch (BackingStoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			// try {
+			// settings.load("openrts.example");
+			// } catch (BackingStoreException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 		}
 
 	}
@@ -260,12 +258,12 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		cam.resize(settings.getWidth(), settings.getHeight(), true);
 	}
 
-	public void startClient() {
-		ClientManager.startClient(stateManager, this);
-	}
+	// public void startClient() {
+	// // ClientManager.startClient(stateManager, this);
+	// }
 
-	public void stopClient() {
-		ClientManager.stopClient();
-	}
+	// public void stopClient() {
+	// ClientManager.stopClient();
+	// }
 
 }

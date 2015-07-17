@@ -46,7 +46,7 @@ public class MultiplayerGameController extends Controller {
 
 	@Override
 	public void update(float elapsedTime) {
-		updateSelectionZone();
+		// updateSelectionZone();
 		updateContext();
 		guiController.update();
 

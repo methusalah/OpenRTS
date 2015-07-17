@@ -6,27 +6,26 @@ import java.util.Properties;
 import java.util.logging.LogManager;
 
 import model.ModelManager;
-import model.battlefield.warfare.Faction;
-import view.MapView;
 import app.OpenRTSApplication;
 
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.system.AppSettings;
+import com.jme3.system.JmeSystem;
 
-import controller.game.MultiplayerGameController;
+import controller.game.NetworkScreenState;
 import event.EventManager;
 
 public class Game extends OpenRTSApplication {
 
-	protected MapView view;
-	protected MultiplayerGameController fieldCtrl;
-	// TODO: I'm not sure, if this is the correct place for faction
-	protected Faction faction;
+	// protected MapView view;
+	protected NetworkScreenState networkState;
 
 	private static String NiftyInterfaceFile = "interface/MulitplayerScreen.xml";
 	private static String NiftyInterfaceFile2 = "interface/nifty_loading.xml";
 	private static String NiftyScreen = "network";
+	protected boolean showSettings = true;
 
 	public static void main(String[] args) {
 		Properties preferences = new Properties();
@@ -38,8 +37,10 @@ public class Game extends OpenRTSApplication {
 			System.err.println("WARNING: Could not open configuration file - please create a logging.properties for correct logging");
 			System.err.println("WARNING: Logging not configured (console output only)");
 		}
-		OpenRTSApplication.main(new Game());
+		Game app = new Game();
+		OpenRTSApplication.main(app);
 	}
+
 
 	@Override
 	public void simpleInitApp() {
@@ -51,14 +52,10 @@ public class Game extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		// view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		// view.reset();
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		fieldCtrl = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
-		stateManager.attach(fieldCtrl);
-		fieldCtrl.setEnabled(true);
-		EventManager.register(this);
-
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
 		try {
@@ -70,9 +67,15 @@ public class Game extends OpenRTSApplication {
 		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen);
 		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
-		if (view.getMapRend() != null) {
-			view.getMapRend().renderTiles();
-		}
+		networkState = new NetworkScreenState(this);
+		// view, niftyDisplay.getNifty(), inputManager, cam);
+		stateManager.attach(networkState);
+		networkState.setEnabled(true);
+		EventManager.register(this);
+		// FIXME later this must activate
+		// if (view.getMapRend() != null) {
+		// view.getMapRend().renderTiles();
+		// }
 		guiViewPort.addProcessor(niftyDisplay);
 	}
 
@@ -81,8 +84,29 @@ public class Game extends OpenRTSApplication {
 		float maxedTPF = Math.min(tpf, 0.1f);
 		listener.setLocation(cam.getLocation());
 		listener.setRotation(cam.getRotation());
-		view.getActorManager().render();
-		fieldCtrl.update(maxedTPF);
+		// view.getActorManager().render();
+		networkState.update(maxedTPF);
 		ModelManager.updateConfigs();
+	}
+
+	@Override
+	public void start() {
+		// set some default settings in-case
+		// settings dialog is not shown
+		boolean loadSettings = false;
+		if (settings == null) {
+			setSettings(new AppSettings(true));
+			loadSettings = true;
+		}
+
+		// show settings dialog
+		if (showSettings) {
+			if (!JmeSystem.showSettingsDialog(settings, loadSettings)) {
+				return;
+			}
+		}
+		// re-setting settings they can have been merged from the registry.
+		setSettings(settings);
+		super.start();
 	}
 }

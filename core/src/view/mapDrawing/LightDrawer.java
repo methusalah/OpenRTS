@@ -21,7 +21,6 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
-import com.jme3.shadow.EdgeFilteringMode;
 
 /**
  * @author Benoît
@@ -44,14 +43,14 @@ public class LightDrawer implements ActionListener {
 		FilterPostProcessor fpp = new FilterPostProcessor(am);
 
 		int SHADOWMAP_SIZE = 4096;
-//		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
-//		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
-//		vp.addProcessor(sr);
+		//		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
+		//		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+		//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
+		//		vp.addProcessor(sr);
 
 		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
 		sf.setEnabled(true);
-//		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+		//		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
 		fpp.addFilter(sf);
 
@@ -70,17 +69,20 @@ public class LightDrawer implements ActionListener {
 		rootNode.removeLight(sun);
 		rootNode.removeLight(shadowCaster);
 
-		al = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
-		sun = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().sun);
-		shadowCaster = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().shadowCaster);
-//		sr.setLight(shadowCaster);
+		if (ModelManager.getBattlefield() != null) {
+			al = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
+			sun = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().sun);
+			shadowCaster = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().shadowCaster);
+		}
 		sf.setLight(shadowCaster);
 
 		rootNode.addLight(al);
 		rootNode.addLight(sun);
 		rootNode.addLight(shadowCaster);
-		
-		updateLights();
+
+		if (ModelManager.getBattlefield() != null) {
+			updateLights();
+		}
 	}
 
 	@Override
@@ -99,7 +101,7 @@ public class LightDrawer implements ActionListener {
 		TranslateUtil.toJMELight(sun, ModelManager.getBattlefield().getSunLight().sun);
 		TranslateUtil.toJMELight(shadowCaster, ModelManager.getBattlefield().getSunLight().shadowCaster);
 		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
+		//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 		sf.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 
 	}

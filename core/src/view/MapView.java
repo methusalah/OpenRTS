@@ -21,6 +21,7 @@ import com.jme3.scene.shape.Line;
 
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
+import exception.TechnicalException;
 import geometry.geom2d.Point2D;
 
 public class MapView {
@@ -61,7 +62,12 @@ public class MapView {
 		logger.info("reset");
 		// Light drawer
 		lightDrawer.reset();
+
+		if (ModelManager.getBattlefield() == null) {
+			throw new TechnicalException("MapView must not be reseted before Battlefield is loaded");
+		}
 		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
+
 
 		// map drawer
 		if(mapDrawer != null){

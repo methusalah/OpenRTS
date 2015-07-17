@@ -4,19 +4,18 @@ import java.text.DecimalFormat;
 
 import model.battlefield.army.components.Unit;
 import controller.CommandManager;
-import controller.Controller;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 
-public class MultiplayerGameNiftyController extends GUIController {
+public class NetworkNiftyController extends GUIController {
 
 	private static DecimalFormat df = new DecimalFormat("0");
 
-	public MultiplayerGameNiftyController(Nifty nifty, Controller ctrl) {
-		super(ctrl, nifty);
-	}
+	// public NetworkNiftyController(Nifty nifty, Controller ctrl) {
+	// super(ctrl, nifty);
+	// }
 
 	@Override
 	public void activate() {
@@ -46,7 +45,7 @@ public class MultiplayerGameNiftyController extends GUIController {
 
 	@Override
 	public void bind(Nifty nifty, Screen screen) {
-
+		this.nifty = nifty;
 	}
 
 	@Override
