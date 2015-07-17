@@ -143,7 +143,13 @@ public class Tile extends Node3D {
 				return level * STAGE_HEIGHT + elevation;
 			}
 	}
-
+	
+	@JsonIgnore
+	@Override
+	public double getElevation() {
+		return getModifiedElevation();
+	}
+	
 	@JsonIgnore
 	public int getModifiedLevel() {
 		if (modifiedLevel != 0) {
@@ -237,7 +243,7 @@ public class Tile extends Node3D {
 	
 	@JsonIgnore
 	public Point3D getPos(){
-		return getMap().getCoord(index).get3D(getModifiedElevation());
+		return getMap().getPos(this);
 	}
 	
 	
@@ -274,11 +280,12 @@ public class Tile extends Node3D {
 		return getMap().getWestNode(this);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	public <T> List<T> getData(Class<T> clazz){
 		List<T> res = new ArrayList<>();
 		for(Object o : storedData)
-			if(o.getClass() == clazz.getClass())
+			if(o.getClass() == clazz)
 				res.add((T)o);
 		return res;
 	}

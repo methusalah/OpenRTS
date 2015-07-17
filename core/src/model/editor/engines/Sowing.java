@@ -17,12 +17,15 @@ import model.builders.entity.definitions.BuilderManager;
 
 public class Sowing {
 
-	public double distFromCliff = 0;
-	public double slopeMin = 0, slopeMax = 0;
-	public List<String> allowedGrounds = new ArrayList<>();
-	public List<String> forbiddenCovers = new ArrayList<>();
+	private double distFromCliff = 0;
+	private double slopeMin = 0, slopeMax = 0;
+	private List<String> textures = new ArrayList<>();
+	private List<Double> textureMin = new ArrayList<>();
+	private List<Double> textureMax = new ArrayList<>();
 
 	public List<TrinketBuilder> trinketBuilders = new ArrayList<>();
+	public List<Double> probs = new ArrayList<>();
+	public List<Double> spacings = new ArrayList<>();
 	List<Trinket> toGrow = new ArrayList<>();
 
 
@@ -30,8 +33,17 @@ public class Sowing {
 
 	}
 
-	public void addTrinket(String id){
-		trinketBuilders.add(BuilderManager.getTrinketBuilder(id));
+	public void addTrinket(String id, double weight, double spacing){
+		for (int i = 0; i < weight; i++) {
+			trinketBuilders.add(BuilderManager.getTrinketBuilder(id));
+			spacings.add(spacing);
+		}
+	}
+	
+	public void addTexture(String texture, double min, double max){
+		textures.add(texture);
+		textureMin.add(min);
+		textureMax.add(max);
 	}
 
 	public void setMinSlope(double slope){
@@ -77,24 +89,24 @@ public class Sowing {
 		}
 
 		// check if the point is on allowed ground texture
-		if(!allowedGrounds.isEmpty()){
-			boolean allowedGroundFound = false;
-			for(String s : allowedGrounds){
-				int i = Integer.parseInt(s);
-				AtlasLayer l = map.getAtlas().getLayers().get(i);
-				if(l.getInMapSpace(p) > 0){
-					allowedGroundFound = true;
-					break;
+		if(!textures.isEmpty()){
+			int i=0;
+			for(String s : textures){
+				AtlasLayer l;
+				int texIndex = Integer.parseInt(s);
+				if(texIndex >= 8)
+					l = map.getCover().getLayers().get(texIndex-8);
+				else
+					l = map.getAtlas().getLayers().get(texIndex);
+					
+				if(l.getInMapSpace(p) < textureMin.get(i) ||
+						l.getInMapSpace(p) > textureMax.get(i)){
+					return false;
 				}
-			}
-			if(!allowedGroundFound) {
-				return false;
+				i++;
 			}
 		}
-
-
 		return true;
-
 	}
 
 }

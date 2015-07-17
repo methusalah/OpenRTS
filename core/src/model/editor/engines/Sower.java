@@ -28,21 +28,22 @@ public class Sower implements Runnable {
 
 	public Sower() {
 		Sowing tree = new Sowing();
-		tree.addTrinket("Tree");
-		tree.addTrinket("Plant");
-		tree.setCliffDist(2);
+		tree.addTrinket("Tree", 1, 1);
+		tree.addTrinket("Plant", 10, 1.5);
+		tree.setCliffDist(5);
 		tree.setMaxSlope(30);
+//		tree.addTexture("0", 0.5, 1);
 		sowings.add(tree);
 
 		Sowing rocks = new Sowing();
-		rocks.addTrinket("LittleRock");
+		rocks.addTrinket("LittleRock", 1, 0.6);
 		rocks.setMinSlope(20);
-		rocks.allowedGrounds.add("1");
-		rocks.allowedGrounds.add("2");
+		tree.addTexture("1", 0.5, 1);
 		sowings.add(rocks);
 	}
 
 	private void sowTrinket(Sowing s, Trinket t) {
+		t.sowed = true;
 		t.drawOnBattlefield();
 		s.toGrow.add(t);
 	}
@@ -76,7 +77,7 @@ public class Sower implements Runnable {
 						}
 					}
 				}
-				// Thread.sleep(50);
+//				Thread.sleep(50);
 			}
 		} catch (InterruptedException e) {
 		}
@@ -86,11 +87,13 @@ public class Sower implements Runnable {
 		Point2D randomPos = new Point2D(RandomUtil.next() * ModelManager.getBattlefield().getMap().xSize(), RandomUtil.next()
 				* ModelManager.getBattlefield().getMap().ySize());
 		if (s.isAllowed(randomPos)) {
-			TrinketBuilder tb = s.trinketBuilders.get(RandomUtil.between(0, s.trinketBuilders.size()));
+			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
+			TrinketBuilder tb = s.trinketBuilders.get(trinketIndex);
 			Trinket candidate = tb.build(randomPos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos)));
+			candidate.separationRadius *= s.spacings.get(trinketIndex);
 			boolean isValid = true;
 			for (Trinket n : ModelManager.getBattlefield().getCloseComps(candidate, randomPos, 10)) {
-				double separationDistance = n.getRadius() + candidate.getRadius();
+				double separationDistance = n.getSpacing(candidate);
 				if (n.getDistance(candidate) < separationDistance) {
 					isValid = false;
 					break;
@@ -106,11 +109,13 @@ public class Sower implements Runnable {
 
 	private Trinket grow(Sowing s) {
 		Trinket source = s.toGrow.get(RandomUtil.nextInt(s.toGrow.size()));
-		List<Trinket> neibors = ModelManager.getBattlefield().getCloseComps(source, 10);
+		List<Trinket> neibors = ModelManager.getBattlefield().getCloseComps(source, 20);
 		for (int i = 0; i < MAX_TRINKETS_COUNT; i++) {
-			Trinket candidate = s.trinketBuilders.get(RandomUtil.between(0, s.trinketBuilders.size())).build(Point3D.ORIGIN);
+			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
+			Trinket candidate = s.trinketBuilders.get(trinketIndex).build(Point3D.ORIGIN);
+			candidate.separationRadius *= s.spacings.get(trinketIndex);
 			for (int j = 0; j < MAX_PLACES_COUNT; j++) {
-				double separationDistance = source.getRadius() + candidate.getRadius();
+				double separationDistance = source.getSpacing(candidate);
 				Point2D place = source.getCoord().getTranslation(RandomUtil.between(0, AngleUtil.FULL),
 						RandomUtil.between(separationDistance, separationDistance * 2));
 				if (!ModelManager.getBattlefield().getMap().isInBounds(place) || !s.isAllowed(place)) {
@@ -119,7 +124,7 @@ public class Sower implements Runnable {
 
 				boolean isValidePlace = true;
 				for (Trinket n : neibors) {
-					if (n.getCoord().getDistance(place) < n.getRadius() + candidate.getRadius()) {
+					if (n.getCoord().getDistance(place) < n.getSpacing(candidate)) {
 						isValidePlace = false;
 						break;
 					}

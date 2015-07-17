@@ -76,14 +76,14 @@ public class TrinketTool extends Tool {
 	}
 
 	private void add() {
-		Point2D pos = pencil.getCoord();
-		for (Trinket t : ModelManager.getBattlefield().getMap().get(pos).getData(Trinket.class)) {
-			if (t.pos.equals(pos)) {
-				pos = pos.getTranslation(RandomUtil.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
+		Point2D coord = pencil.getCoord();
+		for (Trinket t : ModelManager.getBattlefield().getMap().get(coord).getData(Trinket.class)) {
+			if (t.pos.equals(coord)) {
+				coord = coord.getTranslation(RandomUtil.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
 			}
 		}
 		Trinket t = BuilderManager.getAllEditableTrinketBuilders().get(set.actual)
-				.build(pos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pos)));
+				.build(coord.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(coord)));
 		MapArtisanUtil.attachTrinket(t, ModelManager.getBattlefield().getMap());
 		t.drawOnBattlefield();
 	}

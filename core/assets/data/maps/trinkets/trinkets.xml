@@ -30,5 +30,12 @@
         <RotationZ min="0" max="360"/>
         <Scale min="0.7" max="1.4"/>
         <Radius value="0.8"/>
-    </Trinket>
+    </Trinket>    
+    <Trinket id="Lun Tree">
+    	<ActorLink value="blenderActor"/>
+        <ModelList value="env/exterior01/aot/LunTree.j3o"/>
+        <RotationZ min="0" max="360"/>
+        <Scale min="0.7" max="1.4"/>
+        <Radius value="0.8"/>
+    </Trinket> 
 </catalog>

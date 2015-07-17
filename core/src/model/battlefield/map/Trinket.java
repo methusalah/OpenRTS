@@ -15,6 +15,8 @@ public class Trinket extends FieldComp{
     public final boolean editable;
     private final ModelActor actor;
     public final String builderID;
+    public double separationRadius;
+    public boolean sowed = false;
     
     public Trinket(boolean editable, double radius, String builderID, String modelPath, Point3D pos, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, Color color, ModelActorBuilder actorBuilder) {
         super(pos, rotZ, radius*Math.max(scaleX, scaleY));
@@ -29,12 +31,18 @@ public class Trinket extends FieldComp{
         this.pitch = rotY;
         this.color = color;
         actor = actorBuilder.build(this);
+        separationRadius = radius;
     }
     
     public void removeFromBattlefield(){
     	actor.stopActingAndChildren();
     }
+    
     public void drawOnBattlefield(){
     	actor.act();
+    }
+    
+    public double getSpacing(Trinket o) {
+    	return separationRadius+o.separationRadius;
     }
 }

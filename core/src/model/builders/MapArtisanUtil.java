@@ -2,6 +2,9 @@ package model.builders;
 
 import event.EventManager;
 import event.client.ParcelUpdateEvent;
+
+import event.ParcelUpdateEvent;
+import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 
 import java.util.List;
@@ -84,11 +87,20 @@ public abstract class MapArtisanUtil {
 					FieldComp fc = (FieldComp)o;
 					fc.setPos(new Point3D(fc.getPos().x,
 							fc.getPos().y,
-							t.getMap().getAltitudeAt(fc.getPos().get2D())));
+							t.getMap().getAltitudeAt(fc.getCoord())));
 				}
 			}
 		}
 		List<Parcel> toUpdate = m.getParcelling().updateParcelsContaining(extended);
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
+	}
+	
+	public static void cleanSowing(Map m, Point2D coord, double radius){
+		for(Tile tile : m.getAround(m.get(coord), (int)radius*2)){
+			for(Trinket trinket : tile.getData(Trinket.class)){
+				dettachTrinket(trinket, m);
+				trinket.removeFromBattlefield();
+			}
+		}
 	}
 }
