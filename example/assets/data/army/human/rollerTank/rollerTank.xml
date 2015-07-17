@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Unit id="rollerTank">
+    <UIName value="WIP Tarask 2800"/>
+    <Race value="human"/>
+    <Radius value="1"/>
+    <SeparationRadius value="1"/>
+    <Speed value="3"/>
+    <Mass value="1"/>
+    <MaxHealth value="120"/>
+    <Sight value="10"/>
+    <MoverLink value="GroundProne"/>
+    <WeaponList WeaponLink="rollerTankCanon" TurretLink="rollerTankTurret"/>
+    <ActorLink value="rollerTank"/>
+  </Unit>
+  <Weapon id="rollerTankCanon">
+    <UIName value="Orion Canon"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="6"/>
+    <ScanRange value="9"/>
+    <Period value="1.2"/>
+    <ActorLink value="rollerTankCanonMainActor"/>
+    <SourceBone value="boneMuzzle01"/>
+    <DirectionBone value="boneMuzzleVec01"/>
+  </Weapon>
+  <Turret id="rollerTankTurret">
+    <Speed value="150"/>
+    <IdleSpeed value="50"/>
+    <OnIdle value="Spin"/>
+    <BoneName value="boneTurret01"/>
+  </Turret>
+
+</catalog>

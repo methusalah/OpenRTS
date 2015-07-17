@@ -6,13 +6,14 @@
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
     
-    
-    
-    <GroundTexture diffuse="textures/grass.png" normal="textures/grassnorm.png" scale="8"/>
+    <GroundTexture diffuse="textures/grass02.jpg" normal="textures/grassnorm.png" scale="32"/>
     <GroundTexture diffuse="textures/road.jpg" normal="textures/road_normal.png" scale="32"/>
     <GroundTexture diffuse="textures/dirt.png" scale="8"/>
-    <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
-<!-- 	<GroundTexture diffuse="textures/trans.png" scale="1"/> -->
+    <GroundTexture diffuse="textures/paving3full.png" scale="64"/>
+    
+    <CoverTexture diffuse="textures/grass02transp.png" scale="32"/>
+    <CoverTexture diffuse="textures/paving2.png" scale="64"/>
+    <CoverTexture diffuse="textures/paving3transp2.png" scale="64"/>
   </MapStyle>
 
   <MapStyle id="AnotherMapStyle">
@@ -25,6 +26,5 @@
     <GroundTexture diffuse="textures/grass.png" normal="textures/road_normal.png" scale="32"/>
     <GroundTexture diffuse="textures/dirt.png" scale="8"/>
     <GroundTexture diffuse="textures/bitume.jpg" scale="32"/>
-<!-- 	<GroundTexture diffuse="textures/trans.png" scale="1"/> -->
   </MapStyle>
 </catalog>

@@ -1,0 +1,22 @@
+Mover GroundProne {
+    pathfindingMode Walk
+    heightmap Ground
+    standingMode "Prone"}  
+ 
+Mover GroundMover { 
+    pathfindingMode Walk
+    heightmap Ground
+    standingMode "Stand"
+} 
+  
+Mover FlyMover {
+    pathfindingMode Fly
+    heightmap Air
+    standingMode "Stand"  
+}
+
+Mover ProjectileMover {
+    pathfindingMode Fly
+    heightmap Air
+    standingMode "Stand"   
+}

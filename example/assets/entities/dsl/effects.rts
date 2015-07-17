@@ -1,0 +1,41 @@
+Effect StdDoubleShot {
+    type persistent
+    periodCount 2
+    duration 0.0
+    duration 0.5  
+    range 0.0    
+    range 0.1 
+    effects StdLauncher StdLauncher StdLauncher 
+}
+    
+ Effect StdDamage {
+    type damage
+    amount 9
+  }
+  
+Effect StdHeavyDamage {
+    type damage
+    amount 8
+}
+
+  Effect StdLauncher {
+    type launcher
+    
+    effect StdDamage
+    projectile StdProjectile
+}
+
+  Effect BatteryPersistent {
+    type persistent
+    periodCount 6
+    duration 0.2
+    duration 0.2
+    range 0.0
+    range 0.1
+    effects BatteryLaunch BatteryLaunch
+}
+  Effect BatteryLaunch {
+    type launcher
+    effect StdDamage
+    projectile BatteryMissile
+}

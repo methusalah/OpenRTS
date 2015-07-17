@@ -1,0 +1,15 @@
+Projectile StdProjectile {	
+    speed 4
+    mass 1
+    precision Center
+	mover ProjectileMover	 
+    actorLink StdMissile 
+} 
+
+Projectile BatteryMissile {
+    speed 6
+    mass 3
+    precision InRadius
+	mover ProjectileMover
+    actorLink StdMissile
+}

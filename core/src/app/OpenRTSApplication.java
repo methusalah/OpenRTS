@@ -78,6 +78,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	@Override
 	public void start() {
+		super.start();
 		// set some default settings in-case
 		// settings dialog is not shown
 		if (settings == null) {
@@ -91,8 +92,9 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 				e.printStackTrace();
 			}
 		}
-		super.start();
+
 	}
+
 
 	public AzertyFlyByCamera getFlyByCamera() {
 		return flyCam;
@@ -101,6 +103,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	public Node getGuiNode() {
 		return guiNode;
 	}
+
 
 	public Node getRootNode() {
 		return rootNode;
@@ -194,10 +197,13 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		stateManager.postRender();
 	}
 
+
 	public abstract void simpleInitApp();
+
 
 	public void simpleUpdate(float tpf) {
 	}
+
 
 	public void simpleRender(RenderManager rm) {
 	}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Unit id="ArmouredCar">
+    <UIName value="Armoured Car"/>
+    <Race value="human"/>
+    <Radius value="0.8"/>
+    <SeparationRadius value="0.8"/>
+    <Speed value="4"/>
+    <Mass value="1"/>
+    <MaxHealth value="120"/>
+    <Sight value="10"/>
+    <MoverLink value="GroundProne"/>
+    <WeaponList WeaponLink="MountedMachinegun"/>
+    <ActorLink value="ArmouredCar"/>
+  </Unit>
+  <Weapon id="MountedMachinegun">
+    <UIName value="Mounted Machinegun"/>
+    <EffectLink value="StdDamage"/>
+    <Range value="3"/>
+    <ScanRange value="3"/>
+    <Period value="0.3"/>
+    <ActorLink value="MountedMachinegunActor"/>
+  </Weapon>
+</catalog>

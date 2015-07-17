@@ -1,0 +1,205 @@
+ Actor Aircraft{  
+    type Model 
+    modelPath "human/adav/adav02b.mesh.xml" 
+    actorList {    
+      trigger "onMove" actor AdavJet01
+    }
+    actorList { trigger "onMove" actor AdavJet02 }
+    actorList { trigger "onMove" actor AdavJet03 } 
+    actorList { trigger "onMove" actor AdavJet04 }
+    actorList { trigger "onMove" actor AdavContrail01}    
+    scale 1 
+ }
+    
+Actor AdavJet01 {  
+    type Particle
+    spritePath "particles/smoke01.png"  
+    emissionBone "BJet01"    
+    directionBone "BJetVec01"
+    maxCount 100
+    perSecond 80 
+    startSize 0.06 
+    endSize 0.01
+    startColor { r 245 g 205 b 0 a 255 }
+    endColor { r 200 g 0 b 0 a 0 }
+    minLife 0.2
+    maxLife 0.2
+    startVariation 0.05
+ }
+  
+  Actor AdavJet02 {
+    type Particle
+    spritePath "particles/smoke01.png"
+    emissionBone "BJet02"
+    directionBone "BJetVec02"
+    maxCount 100
+    perSecond 80
+    startSize 0.06
+    endSize 0.01
+    startColor { r 245 g 205 b 0 a 255 }
+    endColor { r 200 g 0 b 0 a 0 }
+    minLife 0.2
+    maxLife 0.2
+    startVariation 0.05
+ }
+  
+  Actor AdavJet03  {
+    type Particle
+    spritePath "particles/smoke01.png"
+    emissionBone "BJet03"
+    directionBone "BJetVec03"
+    maxCount 100
+    perSecond 80
+    startSize 0.06
+    endSize 0.01
+    startColor { r 245 g 205 b 0 a 255 }
+    endColor { r 200 g 0 b 0 a 0 }
+    minLife 0.2
+    maxLife 0.2
+    startVariation 0.05
+ }
+  
+  Actor AdavJet04 {
+    type Particle
+    spritePath "particles/smoke01.png"
+    emissionBone "BJet04"
+    directionBone "BJetVec04"
+    maxCount 100
+    perSecond 80
+    startSize 0.06
+    endSize 0.01
+    startColor { r 245 g 205 b 0 a 255 }
+    endColor { r 200 g 0 b 0 a 0 }
+    minLife 0.2
+    maxLife 0.2
+    startVariation 0.05
+ }
+  
+  Actor AdavContrail01 {
+    type Particle
+    spritePath "particles/contrail02.png"
+    nbCol 1
+    nbRow 1
+    add false
+    emissionBone "BContrail01"
+    directionBone "BContrailVec01"
+    maxCount 5000
+    perSecond 1000
+    startSize 0.02
+    endSize 0.02
+    startColor { r 255 g 255 b 255 a 255 }
+    endColor { r 255 g 255 b 255 a 0 }
+    minLife 1.0
+    maxLife 1.0
+ }
+  
+  Actor Marine  {
+    type Model
+    modelPath "human/infantry01.mesh.xml"
+    actorList { trigger "onMove" actor Move }
+    actorList { trigger "onWait" actor Idle }
+    scale 1
+ }
+ 
+  Actor Move {
+    type Animation
+    animName "run"
+    speed 2.0
+    cycle "Cycle"
+ }
+  Actor Idle {
+    type Animation
+    animName "le"
+    speed 0.8
+    cycle "Loop"
+ }
+
+  Actor SmallAlien {
+    type Model
+    modelPath "alien/miniwalker/miniwalker02a.mesh.xml"    
+    actorList { trigger "onMove" actor Move }
+    actorList { trigger "onWait" actor Idle }
+    scale 1
+ }
+  Actor BigAlien {
+    type Model
+    modelPath "alien/vehicule01.mesh.xml"
+    scale 1
+ }
+  
+  Actor StdMissile {
+    type Model
+    modelPath "human/hmissileT1/hmissileT1_02.mesh.xml"
+    actorList { trigger "onMove" actor StdJetFlame } 
+    actorList { trigger "onMove" actor StdJetSmoke }
+    actorList { trigger "onDestroyed" actor StdMissileExpl }
+    actorList { trigger "onDestroyed" actor StdMissileExplGlow }
+    scale 1    
+ }
+  Actor StdJetFlame {
+    type Particle
+    spritePath "particles/smoke01.png"
+    add false
+    emissionBone "BJet01"
+    directionBone "BJetVec01"
+    maxCount 100
+    perSecond 80
+    startSize 0.08
+    endSize 0.01
+    startColor { r 245 g 205 b 0 a 255 }
+    endColor { r 200 g 0 b 0 a 0 }
+    minLife 0.2
+    maxLife 0.2
+ }
+ 
+  Actor StdJetSmoke {
+    type Particle
+    spritePath "particles/smoke.png"
+    add false
+    emissionBone "BJet01"
+    directionBone "BJetVec01"
+    maxCount 100
+    perSecond 100
+    startSize 0.01
+    endSize 0.08
+    startColor { r 250 g 250 b 250 a 180 }
+    endColor { r 150 g 150 b 150 a 50 }
+    minLife 0.8
+    maxLife 0.8
+ }
+ 
+  Actor StdMissileExpl {
+    type Particle
+    spritePath "particles/explosion01.png"
+    nbCol 7
+    nbRow 7
+    add false
+    emissionBone "BRoot"
+    directionBone "BJet01"
+    maxCount 1
+    perSecond 0
+    duration 0
+    startSize 0.3
+    endSize 0.3
+    startColor { r 255 g 255 b 255 a 255 }
+    endColor { r 255 g 255 b 255 a 255 }
+    minLife 2.0
+    maxLife 2.0
+ }
+ 
+  Actor StdMissileExplGlow {
+    type Particle
+    spritePath "particles/glow01.png"
+    add true
+    emissionBone "BRoot"
+    directionBone "BJet01"
+    maxCount 1
+    perSecond 0
+    duration 0
+    startSize 0.6
+    endSize 0.3
+    startColor { r 255 g 255 b 0 a 200}
+    endColor { r 100 g 0 b 0 a 75 }
+    minLife 2.0
+    maxLife 2.0
+ }

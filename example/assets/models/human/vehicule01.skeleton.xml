@@ -1,0 +1,58 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="BoneVehicule_Base">
+            <position x="-2.86093e-008" y="-0.654505" z="40.7031"/>
+            <rotation angle="2.10097">
+                <axis x="-0.579525" y="-0.572977" z="0.579525"/>
+            </rotation>
+        </bone>
+        <bone id="1" name="BoneVehicule_Corps">
+            <position x="59.8997" y="-0.000324249" z="-5.23627e-006"/>
+            <rotation angle="1.2604">
+                <axis x="8.14527e-009" y="1.11667e-008" z="-1"/>
+            </rotation>
+        </bone>
+        <bone id="2" name="BoneTourelle_Base">
+            <position x="47.3516" y="-3.8147e-006" z="-4.54747e-013"/>
+            <rotation angle="0.271797">
+                <axis x="2.91796e-015" y="6.66185e-015" z="-1"/>
+            </rotation>
+        </bone>
+        <bone id="3" name="BoneTourelle_Corps">
+            <position x="27.259" y="-0.000350952" z="6.33606e-007"/>
+            <rotation angle="1.64115">
+                <axis x="1.35366e-008" y="-1.45242e-008" z="-1"/>
+            </rotation>
+        </bone>
+        <bone id="4" name="BoneCanon_Base">
+            <position x="66.7158" y="-7.62939e-006" z="5.44135e-006"/>
+            <rotation angle="0.0118402">
+                <axis x="-5.8569e-015" y="5.22423e-014" z="1"/>
+            </rotation>
+        </bone>
+        <bone id="5" name="BoneCanon_Bout">
+            <position x="159.274" y="0" z="1.29895e-005"/>
+            <rotation angle="0">
+                <axis x="0" y="-1" z="0"/>
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy>
+        <boneparent bone="BoneVehicule_Corps" parent="BoneVehicule_Base"/>
+        <boneparent bone="BoneTourelle_Base" parent="BoneVehicule_Corps"/>
+        <boneparent bone="BoneTourelle_Corps" parent="BoneTourelle_Base"/>
+        <boneparent bone="BoneCanon_Base" parent="BoneTourelle_Corps"/>
+        <boneparent bone="BoneCanon_Bout" parent="BoneCanon_Base"/>
+    </bonehierarchy>
+    <animations>
+        <animation name="attack1" length="0.0333333">
+            <tracks/>
+        </animation>
+        <animation name="idle" length="0.0333333">
+            <tracks/>
+        </animation>
+        <animation name="run" length="0.0333333">
+            <tracks/>
+        </animation>
+    </animations>
+</skeleton>

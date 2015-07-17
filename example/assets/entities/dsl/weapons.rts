@@ -1,0 +1,31 @@
+Weapon StdWeapon {
+	uIName "Arme standard qui pue"
+  	effect StdDoubleShot 	    
+    range 5.0
+    scanRange 7
+    period 5 
+  }
+  
+Weapon MeleeWeapon {
+    uIName "attaque au corps a corps"
+    effect StdDamage
+    range 0.1
+    scanRange 5
+    period 4
+  }
+
+Weapon Rifle {
+    uIName "fusil standard"
+    effect StdDamage
+    range 5.0
+    scanRange 5
+    period 4
+  }
+
+Weapon Battery {
+    uIName "battery de missile"
+    effect StdLauncher
+    range 6.0
+    scanRange 8
+    period 1
+  }

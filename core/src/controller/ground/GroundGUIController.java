@@ -20,7 +20,7 @@ public class GroundGUIController extends GUIController {
 
 	@Override
 	public void activate(){
-//		nifty.gotoScreen("network");
+		nifty.gotoScreen("network");
 	}
 
 	@Override
