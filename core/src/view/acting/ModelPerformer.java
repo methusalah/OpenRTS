@@ -45,23 +45,7 @@ public class ModelPerformer extends Performer {
 	public void perform(Actor a) {
 		ModelActor actor = (ModelActor) a;
 		if (actor.getViewElements().spatial == null) {
-			Spatial s = actorDrawer.buildSpatial(actor.getModelPath());
-
-			if (actor.getColor() != null) {
-				s.setMaterial(actorDrawer.getMaterialManager().getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
-			} else{
-				for(Integer index : actor.getSubColorsByIndex().keySet()) {
-					applyToSubmesh(s, null, index, actor.getSubColorsByIndex().get(index));
-				}
-				for(String name : actor.getSubColorsByName().keySet()) {
-					applyToSubmesh(s, name, -1, actor.getSubColorsByName().get(name));
-				}
-			}
-
-
-			s.setLocalScale((float) actor.getScaleX(), (float) actor.getScaleY(), (float) actor.getScaleZ());
-			s.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-			s.setName(actor.getLabel());
+			Spatial s = actorDrawer.buildSpatial(actor);
 			actor.getViewElements().spatial = s;
 			// We force update here because we need imediatly to have access to bones' absolute position.
 			AnimControl animControl = s.getControl(AnimControl.class);
@@ -75,26 +59,6 @@ public class ModelPerformer extends Performer {
 
 		if (actor.getComp() != null) {
 			drawAsComp(actor);
-		}
-	}
-
-	private void applyToSubmesh(Spatial s, String subMeshName, int subMeshIndex, Color color){
-		if(s instanceof Geometry){
-			if(((Geometry)s).getName().equals(subMeshName) || subMeshIndex == 0){
-				((Geometry)s).getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA(color));
-				return;
-			}
-		} else {
-			for(Spatial child : ((Node)s).getChildren()){
-				applyToSubmesh(child, subMeshName, --subMeshIndex, color);
-			}
-			return;
-		}
-		if(subMeshIndex > 0) {
-			logger.warning("Sub mesh of index "+subMeshIndex+" doesn't seem to exist.");
-		}
-		if(subMeshName != null) {
-			logger.warning("Sub mesh named "+subMeshName+" doesn't seem to exist.");
 		}
 	}
 

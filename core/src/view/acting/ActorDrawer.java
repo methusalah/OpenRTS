@@ -1,5 +1,6 @@
 package view.acting;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,7 +11,10 @@ import java.util.logging.Logger;
 import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
+import model.battlefield.actors.ModelActor;
+import model.battlefield.army.components.Unit;
 import view.material.MaterialManager;
+import view.math.TranslateUtil;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
@@ -21,6 +25,8 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
@@ -142,22 +148,71 @@ public class ActorDrawer implements AnimEventListener {
 		}
 	}
 
-	protected Spatial buildSpatial(String modelPath) {
-		if (!models.containsKey(modelPath)) {
-			models.put(modelPath, assetManager.loadModel("models/" + modelPath));
+	protected Spatial buildSpatial(ModelActor actor) {
+		if (!models.containsKey(actor.getModelPath())) {
+			models.put(actor.getModelPath(), assetManager.loadModel("models/" + actor.getModelPath()));
 		}
-		Spatial res = models.get(modelPath).clone();
-		if (res == null) {
-			logger.info(modelPath);
-		}
+		Spatial res = models.get(actor.getModelPath()).clone();
+		
 		AnimControl control = res.getControl(AnimControl.class);
 		if (control != null) {
 			control.addListener(this);
 			control.createChannel();
 		}
+
+		for(Integer index : actor.getMaterialsByIndex().keySet()) {
+			applyToSubmesh(res, null, index, actor.getMaterialsByIndex().get(index));
+		}
+		for(String name : actor.getMaterialsByName().keySet()) {
+			applyToSubmesh(res, name, -1, actor.getMaterialsByName().get(name));
+		}
+
+		if (actor.getColor() != null) {
+			res.setMaterial(materialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
+		} else{
+			for(Integer index : actor.getSubColorsByIndex().keySet()) {
+				applyToSubmesh(res, null, index, actor.getSubColorsByIndex().get(index));
+			}
+			for(String name : actor.getSubColorsByName().keySet()) {
+				applyToSubmesh(res, name, -1, actor.getSubColorsByName().get(name));
+			}
+		}
+
+
+		res.setLocalScale((float) actor.getScaleX(), (float) actor.getScaleY(), (float) actor.getScaleZ());
+		res.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+		res.setName(actor.getLabel());
 		mainNode.attachChild(res);
 		return res;
 	}
+	
+	private void applyToSubmesh(Spatial s, String subMeshName, int subMeshIndex, Object colorOrMaterial){
+		if(s instanceof Geometry){
+			Geometry g = (Geometry)s; 
+			if(g.getName().equals(subMeshName) || subMeshIndex == 0){
+				if(colorOrMaterial instanceof Color)
+					g.getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA((Color)colorOrMaterial));
+				else if (colorOrMaterial instanceof String)
+					g.setMaterial(materialManager.getMaterial((String)colorOrMaterial));
+				else
+					throw new IllegalArgumentException();
+					
+				return;
+			}
+		} else {
+			for(Spatial child : ((Node)s).getChildren()){
+				applyToSubmesh(child, subMeshName, --subMeshIndex, colorOrMaterial);
+			}
+			return;
+		}
+		if(subMeshIndex > 0) {
+			logger.warning("Sub mesh of index "+subMeshIndex+" doesn't seem to exist.");
+		}
+		if(subMeshName != null) {
+			logger.warning("Sub mesh named "+subMeshName+" doesn't seem to exist.");
+		}
+	}
+
 
 	protected Material getParticleMat(String texturePath) {
 		Material m = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");

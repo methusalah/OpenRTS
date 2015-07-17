@@ -29,13 +29,27 @@ public class ModelActor extends Actor {
 	private final Color color;
 	private final Map<String, Color> subColorsByName;
 	private final Map<Integer, Color> subColorsByIndex;
+
+	private final Map<String, String> materialsByName;
+	private final Map<Integer, String> materialsByIndex;
 	final FieldComp comp;
 
 	private Map<String, Point3D> boneCoords = new HashMap<>();
 
-	public ModelActor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders, String modelPath, double scaleX,
-			double scaleY, double scaleZ, double yaw, double pitch, double roll, Color color, Map<String, Color> subColorsByName,
-			Map<Integer, Color> subColorsByIndex, FieldComp comp) {
+	public ModelActor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders,
+			String modelPath,
+			double scaleX,
+			double scaleY,
+			double scaleZ,
+			double yaw,
+			double pitch,
+			double roll,
+			Color color,
+			Map<String, Color> subColorsByName,
+			Map<Integer, Color> subColorsByIndex,
+			Map<String, String> materialsByName,
+			Map<Integer, String> materialsByIndex,
+			FieldComp comp) {
 		super(parent, trigger, childrenTriggers, childrenBuilders);
 		this.modelPath = modelPath;
 		this.scaleX = scaleX;
@@ -47,6 +61,8 @@ public class ModelActor extends Actor {
 		this.color = color;
 		this.subColorsByName = subColorsByName;
 		this.subColorsByIndex = subColorsByIndex;
+		this.materialsByName = materialsByName;
+		this.materialsByIndex = materialsByIndex;
 		this.comp = comp;
 	}
 
@@ -138,6 +154,14 @@ public class ModelActor extends Actor {
 
 	public Map<Integer, Color> getSubColorsByIndex() {
 		return subColorsByIndex;
+	}
+
+	public Map<String, String> getMaterialsByName() {
+		return materialsByName;
+	}
+
+	public Map<Integer, String> getMaterialsByIndex() {
+		return materialsByIndex;
 	}
 
 }

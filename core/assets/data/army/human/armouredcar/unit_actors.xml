@@ -4,7 +4,9 @@
     <Type value="Model"/>
     <Scale value="0.25"/>
     <Pitch value="-90"/>
-    <ModelPath value="human/armoured_car/armoured_car.j3o"/>
+    <ModelPath value="human/armouredcar/armoured_car.j3o"/>
+    <Material SubMeshIndex="4" Path="models/human/armouredcar/leaf.j3m"/>
+    
     <ActorList Trigger="onMove" ActorLink="ArmouredCarLeftMud"/>
     <ActorList Trigger="onMove" ActorLink="ArmouredCarRightMud"/>
 <!--     <ActorList Trigger="onMove" ActorLink="Move"/>

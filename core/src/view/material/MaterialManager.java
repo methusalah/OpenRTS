@@ -2,6 +2,7 @@ package view.material;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jme3.asset.AssetManager;
@@ -18,6 +19,7 @@ public class MaterialManager {
 	Map<String, Material> texturesMap = new HashMap<String, Material>();
 	Map<String, Texture> textureFileMap = new HashMap<String, Texture>();
 	Map<ColorRGBA, Material> colorsMap = new HashMap<ColorRGBA, Material>();
+	Map<String, Material> materials = new HashMap<>();
 
 	// Materials
 	public Material concreteMaterial;
@@ -202,5 +204,11 @@ public class MaterialManager {
 			gradientMaterial.add(new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md"));
 			gradientMaterial.get(i).setColor("Color", new ColorRGBA(i * 30 / 255f, i * 30 / 255f, i * 85 / 255f, 1));
 		}
+	}
+
+	public Material getMaterial(String materialPath) {
+		if(materials.get(materialPath) == null)
+			materials.put(materialPath, assetManager.loadMaterial(materialPath));
+		return materials.get(materialPath);
 	}
 }

@@ -31,12 +31,14 @@ public class ModelActorBuilder extends ActorBuilder {
 	private static final String PITCH = "Pitch";
 	private static final String ROLL = "Roll";
 	private static final String COLOR = "Color";
+	private static final String MATERIAL = "Material";
 	private static final String SUB_COLOR = "SubColor";
 	private static final String SUB_MESH_NAME = "SubMeshName";
 	private static final String SUB_MESH_INDEX = "SubMeshIndex";
 	private static final String RED = "R";
 	private static final String GREEN = "G";
 	private static final String BLUE = "B";
+	private static final String PATH = "Path";
 
 	private String modelPath;
 	private double scaleX = 1;
@@ -48,6 +50,8 @@ public class ModelActorBuilder extends ActorBuilder {
 	private Color color;
 	private HashMap<String, Color> subColorsByName = new HashMap<>();
 	private HashMap<Integer, Color> subColorsByIndex = new HashMap<>();
+	private HashMap<String, String> materialsByName = new HashMap<>();
+	private HashMap<Integer, String> materialsByIndex = new HashMap<>();
 
 	public ModelActorBuilder(Definition def) {
 		super(def);
@@ -100,6 +104,20 @@ public class ModelActorBuilder extends ActorBuilder {
 						logger.warning("SubColor incorrect in "+getId());
 					}
 					break;
+				case MATERIAL:
+					String material = de.getVal(PATH);
+					name = de.getVal(SUB_MESH_NAME);
+					indexString = de.getVal(SUB_MESH_INDEX);
+					index = indexString == null?-1 : Integer.parseInt(indexString);
+					if(name != null) {
+						materialsByName.put(name, material);
+					} else if(index != -1) {
+						materialsByIndex.put(index, material);
+					} else {
+						logger.warning("Material incorrect in " + getId());
+					}
+					break;
+					
 				default:
 					printUnknownElement(de.name);
 			}
@@ -120,7 +138,8 @@ public class ModelActorBuilder extends ActorBuilder {
 		double localScaleY = scaleY * comp.scaleY;
 		double localScaleZ = scaleZ * comp.scaleZ;
 
-		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders, localModelPath,
+		ModelActor res = new ModelActor(null, "", childrenTriggers, childrenActorBuilders,
+				localModelPath,
 				localScaleX,
 				localScaleY,
 				localScaleZ,
@@ -130,6 +149,8 @@ public class ModelActorBuilder extends ActorBuilder {
 				localColor,
 				subColorsByName,
 				subColorsByIndex,
+				materialsByName,
+				materialsByIndex,
 				comp);
 		res.debbug_id = getId();
 		//		res.act();

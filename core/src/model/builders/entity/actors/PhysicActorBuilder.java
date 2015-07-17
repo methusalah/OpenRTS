@@ -31,12 +31,14 @@ public class PhysicActorBuilder extends ActorBuilder {
 	private static final String PITCH = "Pitch";
 	private static final String ROLL = "Roll";
 	private static final String COLOR = "Color";
+	private static final String MATERIAL = "Material";
 	private static final String SUB_COLOR = "SubColor";
-	private static final String SUB_MESH_NAME = "SubMeshColor";
+	private static final String SUB_MESH_NAME = "SubMeshName";
 	private static final String SUB_MESH_INDEX = "SubMeshIndex";
 	private static final String RED = "R";
 	private static final String GREEN = "G";
 	private static final String BLUE = "B";
+	private static final String PATH = "Path";
 
 
 	private String modelPath;
@@ -50,6 +52,8 @@ public class PhysicActorBuilder extends ActorBuilder {
 	private Color color;
 	private HashMap<String, Color> subColorsByName = new HashMap<>();
 	private HashMap<Integer, Color> subColorsByIndex = new HashMap<>();
+	private HashMap<String, String> materialsByName = new HashMap<>();
+	private HashMap<Integer, String> materialsByIndex = new HashMap<>();
 
 
 	public PhysicActorBuilder(Definition def) {
@@ -100,6 +104,19 @@ public class PhysicActorBuilder extends ActorBuilder {
 						logger.warning("SubColor incorrect in " + getId());
 					}
 					break;
+				case MATERIAL:
+					String material = de.getVal(PATH);
+					name = de.getVal(SUB_MESH_NAME);
+					indexString = de.getVal(SUB_MESH_INDEX);
+					index = indexString == null?-1 : Integer.parseInt(indexString);
+					if(name != null) {
+						materialsByName.put(name, material);
+					} else if(index != -1) {
+						materialsByIndex.put(index, material);
+					} else {
+						logger.warning("Material incorrect in " + getId());
+					}
+					break;
 
 				default:
 					printUnknownElement(de.name);
@@ -113,7 +130,24 @@ public class PhysicActorBuilder extends ActorBuilder {
 	}
 
 	public Actor build(String trigger, Hiker movable, Actor parent) {
-		Actor res = new PhysicActor(modelPath, scale, life, mass, massCenterBone, parent, trigger, childrenTriggers, childrenActorBuilders, yaw, pitch, roll, color, subColorsByName, subColorsByIndex);
+		Actor res = new PhysicActor(modelPath,
+				scale, 
+				life,
+				mass, 
+				massCenterBone, 
+				parent, 
+				trigger, 
+				childrenTriggers, 
+				childrenActorBuilders, 
+				yaw, 
+				pitch, 
+				roll,
+				color, 
+				subColorsByName, 
+				subColorsByIndex,
+				materialsByName, 
+				materialsByIndex
+				);
 		res.debbug_id = getId();
 		return res;
 	}

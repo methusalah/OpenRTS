@@ -50,7 +50,7 @@ public class MainRTS extends OpenRTSApplication {
 
 		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
-		groundCtrl = new GroundController(view, inputManager, cam);
+		groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
 		EventManager.register(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
