@@ -84,7 +84,7 @@ public abstract class MapArtisanUtil {
 					FieldComp fc = (FieldComp)o;
 					fc.setPos(new Point3D(fc.getPos().x,
 							fc.getPos().y,
-							t.getMap().getAltitudeAt(fc.getPos().get2D())));
+							t.getMap().getAltitudeAt(fc.getCoord())));
 				}
 			}
 		}

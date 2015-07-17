@@ -14,6 +14,7 @@ import com.jme3.renderer.Camera;
 
 import controller.Controller;
 import controller.cameraManagement.GroundCameraManager;
+import de.lessvoid.nifty.Nifty;
 
 /**
  *
@@ -23,11 +24,12 @@ public class GroundController extends Controller {
 
 	private static final Logger logger = Logger.getLogger(GroundController.class.getName());
 
-	public GroundController(EditorView view, InputManager inputManager, Camera cam) {
+	public GroundController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
 		super(view, inputManager, cam);
 
 		inputInterpreter = new GroundInputInterpreter(this);
 		cameraManager = new GroundCameraManager(cam);
+		guiController = new GroundGUIController(nifty, this);
 	}
 
 
@@ -39,6 +41,7 @@ public class GroundController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);
+		guiController.activate();
 		logger.info("ground controller on line");
 	}
 

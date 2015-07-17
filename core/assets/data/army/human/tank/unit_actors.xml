@@ -5,11 +5,10 @@
     <ModelPath value="human/htank/htank03c.mesh.xml"/>
     <Scale value="0.0025"/>
     <Pitch value="-90"/>
-    <SubColor SubMeshIndex="0" R="255" G="0" B="0"/>
-    <SubColor SubMeshName="submesh1" R="255" G="255" B="0"/>
+<!--     <SubColor SubMeshName="submesh1" R="255" G="255" B="0"/>
     <SubColor SubMeshName="toto" R="0" G="0" B="255"/>
     <SubColor SubMeshIndex="6" R="0" G="0" B="255"/>
-    <ActorList Trigger="onMove" ActorLink="Move"/>
+ -->    <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onMove" ActorLink="LeftDust"/>
     <ActorList Trigger="onMove" ActorLink="RightDust"/>
     <ActorList Trigger="onMove" ActorLink="LeftMud"/>

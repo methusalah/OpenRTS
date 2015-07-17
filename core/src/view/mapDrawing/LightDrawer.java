@@ -51,7 +51,7 @@ public class LightDrawer implements ActionListener {
 
 		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
 		sf.setEnabled(true);
-		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+//		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
 		fpp.addFilter(sf);
 

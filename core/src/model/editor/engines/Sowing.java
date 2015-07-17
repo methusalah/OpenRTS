@@ -23,6 +23,8 @@ public class Sowing {
 	public List<String> forbiddenCovers = new ArrayList<>();
 
 	public List<TrinketBuilder> trinketBuilders = new ArrayList<>();
+	public List<Double> probs = new ArrayList<>();
+	public List<Double> spacings = new ArrayList<>();
 	List<Trinket> toGrow = new ArrayList<>();
 
 
@@ -30,8 +32,11 @@ public class Sowing {
 
 	}
 
-	public void addTrinket(String id){
-		trinketBuilders.add(BuilderManager.getTrinketBuilder(id));
+	public void addTrinket(String id, double weight, double spacing){
+		for (int i = 0; i < weight; i++) {
+			trinketBuilders.add(BuilderManager.getTrinketBuilder(id));
+			spacings.add(spacing);
+		}
 	}
 
 	public void setMinSlope(double slope){
