@@ -1,4 +1,4 @@
-package app.example;
+package controller.game;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,10 +7,15 @@ import java.util.Properties;
 import model.ModelManager;
 import model.battlefield.Battlefield;
 import model.builders.MapArtisanUtil;
+import openrts.guice.annotation.GuiNodeRef;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jme3.app.SimpleApplication;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.input.FlyByCamera;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.renderer.ViewPort;
 
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
@@ -22,45 +27,55 @@ import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
 
-public class TestLoadingScreen extends SimpleApplication implements ScreenController, Controller {
+public class MapLoadingScreen extends AbstractAppState implements ScreenController, Controller {
 
-	private NiftyJmeDisplay niftyDisplay;
+	// private NiftyJmeDisplay niftyDisplay;
 	private Nifty nifty;
+
+	@Inject
+	@Named("NiftyJmeDisplay")
+	private NiftyJmeDisplay niftyDisplay;
 	private Element progressBarElement;
 	private float frameCount = 0;
 	private boolean load = false;
 	private TextRenderer textRenderer;
 	protected static String mapfilename = "assets/maps/test.btf";
 	Battlefield bField = null;
+	@Inject
+	@GuiNodeRef
+	private ViewPort guiViewPort;
+	@Inject
+	@Named("flyCam")
+	private FlyByCamera flyCam;
 
-	public static void main(String[] args) {
-		TestLoadingScreen app = new TestLoadingScreen();
-		app.start();
-	}
+	// public static void main(String[] args) {
+	// MapLoadingScreen app = new MapLoadingScreen();
+	// app.start();
+	// }
+	//
+	// @Override
+	// public void simpleInitApp() {
+	// flyCam.setEnabled(false);
+	// niftyDisplay = new NiftyJmeDisplay(assetManager,
+	// inputManager,
+	// audioRenderer,
+	// guiViewPort);
+	// nifty = niftyDisplay.getNifty();
+	//
+	// nifty.fromXml("Interface/nifty_loading.xml", "start", this);
+	//
+	// guiViewPort.addProcessor(niftyDisplay);
+	// }
 
 	@Override
-	public void simpleInitApp() {
-		flyCam.setEnabled(false);
-		niftyDisplay = new NiftyJmeDisplay(assetManager,
-				inputManager,
-				audioRenderer,
-				guiViewPort);
-		nifty = niftyDisplay.getNifty();
-
-		nifty.fromXml("Interface/nifty_loading.xml", "start", this);
-
-		guiViewPort.addProcessor(niftyDisplay);
-	}
-
-	@Override
-	public void simpleUpdate(float tpf) {
+	public void update(float tpf) {
 
 		if (load) { //loading is done over many frames
 			if (frameCount == 1) {
 				File file = new File(mapfilename);
 				Element element = nifty.getScreen("loadlevel").findElementByName("loadingtext");
 				textRenderer = element.getRenderer(TextRenderer.class);
-				
+
 				ModelManager.setBattlefieldUnavailable();
 
 				try {

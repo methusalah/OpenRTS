@@ -6,14 +6,19 @@ import java.util.logging.Logger;
 import model.battlefield.army.components.Unit;
 import network.client.ClientManager;
 
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 
 import controller.CommandManager;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.Button;
+import de.lessvoid.nifty.controls.TextField;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import event.EventManager;
+import event.client.ClientIsConnectedEvent;
+import event.client.ClientIsDisconnectedEvent;
 import event.network.CreateGameEvent;
 
 public class NetworkNiftyController extends GUIController {
@@ -26,7 +31,7 @@ public class NetworkNiftyController extends GUIController {
 	private ClientManager clientManager;
 
 	public NetworkNiftyController() {
-		// TODO Auto-generated constructor stub
+		EventManager.register(this);
 	}
 	// public NetworkNiftyController(Nifty nifty, Controller ctrl) {
 	// super(ctrl, nifty);
@@ -73,11 +78,15 @@ public class NetworkNiftyController extends GUIController {
 
 	public void connectToServer() {
 		logger.info("connect to Server was clicked");
-		clientManager.startClient();
+		TextField textField = nifty.getCurrentScreen().findNiftyControl("serveradress", TextField.class);
+
+		String textValue = textField.getRealText();
+		clientManager.startClient(textValue);
 	}
 
 	public void create() {
 		logger.info("create was clicked");
+		nifty.gotoScreen("loadmap");
 		CreateGameEvent evt = new CreateGameEvent(mapfilename);
 		EventManager.post(evt);
 	}
@@ -116,4 +125,32 @@ public class NetworkNiftyController extends GUIController {
 		}
 		return "Holding : No";
 	}
+
+	@Subscribe
+	public void clientIsConnected(ClientIsConnectedEvent evt) {
+		// find old image
+		// Element niftyElement = nifty.getCurrentScreen().findElementByName("serveradress");
+		// TextField textField = nifty.getCurrentScreen().findNiftyControl("serveradress", TextField.class);
+		//
+		// String textValue = textField.getRealText();
+
+		Button b1 = nifty.getCurrentScreen().findNiftyControl("connectBtn", Button.class);
+		b1.disable();
+
+		Button b2 = nifty.getCurrentScreen().findNiftyControl("createBtn", Button.class);
+		b2.enable();
+
+	}
+
+	@Subscribe
+	public void clientIsConnected(ClientIsDisconnectedEvent evt) {
+
+		Button b1 = nifty.getCurrentScreen().findNiftyControl("connectBtn", Button.class);
+		b1.enable();
+
+		Button b2 = nifty.getCurrentScreen().findNiftyControl("createBtn", Button.class);
+		b2.disable();
+
+	}
+
 }

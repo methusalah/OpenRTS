@@ -1,29 +1,35 @@
 package app.example;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import model.ModelManager;
 import openrts.guice.GuiceApplication;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
+import com.google.inject.Module;
+import com.google.inject.name.Names;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
+import controller.game.NetworkAppState;
 import controller.game.NetworkNiftyController;
-import controller.game.NetworkScreenState;
 import event.EventManager;
 
-public class Game extends GuiceApplication {
+public class MultiplayerGame extends GuiceApplication {
 
 	// protected MapView view;
-	protected NetworkScreenState networkState;
+	protected NetworkAppState networkState;
 
 	@Inject
 	private BulletAppState bulletAppState;
 	// @Inject
 	// private MessageManager messageManager;;
 
-	private static String NiftyInterfaceFile = "interface/MulitplayerScreen.xml";
-	private static String NiftyInterfaceFile2 = "interface/nifty_loading.xml";
+	private static String NiftyInterfaceFile = "interface/MultiplayerScreen.xml";
+	private static String NiftyInterfaceFile2 = "interface/map_loading.xml";
 	@Inject
 	private NetworkNiftyController networkNiftyController;
 	private static String NiftyScreen = "network";
@@ -40,7 +46,7 @@ public class Game extends GuiceApplication {
 		// System.err.println("WARNING: Could not open configuration file - please create a logging.properties for correct logging");
 		// System.err.println("WARNING: Logging not configured (console output only)");
 		// }
-		Game app = new Game();
+		MultiplayerGame app = new MultiplayerGame();
 		app.start();
 	}
 
@@ -58,7 +64,7 @@ public class Game extends GuiceApplication {
 		// view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 		// view.reset();
 
-		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		final NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
 		try {
@@ -70,7 +76,17 @@ public class Game extends GuiceApplication {
 		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
 		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
-		networkState = new NetworkScreenState(this);
+		Collection<Module> modules = new LinkedList<Module>();
+		modules.add(new AbstractModule() {
+
+			@Override
+			protected void configure() {
+				bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
+			}
+		});
+		this.addApplicationModules(modules);
+
+		networkState = new NetworkAppState(this);
 		// view, niftyDisplay.getNifty(), inputManager, cam);
 		stateManager.attach(networkState);
 		networkState.setEnabled(true);
@@ -92,24 +108,5 @@ public class Game extends GuiceApplication {
 		ModelManager.updateConfigs();
 	}
 
-	// @Override
-	// public void start() {
-	// // set some default settings in-case
-	// // settings dialog is not shown
-	// boolean loadSettings = false;
-	// if (settings == null) {
-	// setSettings(new AppSettings(true));
-	// loadSettings = true;
-	// }
-	//
-	// // show settings dialog
-	// if (showSettings) {
-	// if (!JmeSystem.showSettingsDialog(settings, loadSettings)) {
-	// return;
-	// }
-	// }
-	// // re-setting settings they can have been merged from the registry.
-	// setSettings(settings);
-	// super.start();
-	// }
+
 }

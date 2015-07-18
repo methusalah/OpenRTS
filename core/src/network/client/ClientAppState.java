@@ -19,10 +19,17 @@ import event.network.SelectEntityEvent;
 public class ClientAppState extends AbstractAppState {
 
 	private static final Logger logger = Logger.getLogger(ClientAppState.class.getName());
+	private static final String gameName = "OpenRTS";
+	private static String host = "localhost";
+	private static final int version = 1;
 	private Client networkClient;
 	private int currentTick = 0;
 
 	private float tickTimer = 0;
+
+	public ClientAppState(String host) {
+		this.host = host;
+	}
 
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
@@ -30,7 +37,7 @@ public class ClientAppState extends AbstractAppState {
 		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
 
 		try {
-			networkClient = Network.connectToServer("localhost", 6143);
+			networkClient = Network.connectToServer(gameName, version, host, 6143);
 			networkClient.addClientStateListener(new ClientStateListener());
 			networkClient.addMessageListener(new MessageListener(), AckEvent.class);
 		} catch (IOException e) {

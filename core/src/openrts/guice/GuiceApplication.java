@@ -25,15 +25,18 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
+import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
+import controller.game.NetworkNiftyController;
+
 public abstract class GuiceApplication extends SimpleApplication {
 
-	private Injector injector;
+	protected Injector injector;
 
 	@Override
 	public final void simpleInitApp() {
@@ -55,10 +58,13 @@ public abstract class GuiceApplication extends SimpleApplication {
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
 				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
 				bind(Camera.class).annotatedWith(Names.named("camera")).toInstance(cam);
+				bind(FlyByCamera.class).annotatedWith(Names.named("flyCam")).toInstance(flyCam);
 
 				bind(Application.class).toInstance(app);
 
 				bind(ClientManager.class).in(Singleton.class);
+				bind(NetworkNiftyController.class).in(Singleton.class);
+
 			}
 		});
 

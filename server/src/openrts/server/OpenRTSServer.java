@@ -23,6 +23,8 @@ public class OpenRTSServer extends GuiceApplication {
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
+	private static final String gameName = "OpenRTS";
+	private static int version = 1;
 
 	protected static Server myServer;
 	public static final int PORT = 6143;
@@ -65,7 +67,7 @@ public class OpenRTSServer extends GuiceApplication {
 
 		try {
 			Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
-			myServer = Network.createServer(PORT, PORT);
+			myServer = Network.createServer(gameName, version, PORT, PORT);
 			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 

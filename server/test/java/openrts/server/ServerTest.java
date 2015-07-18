@@ -46,7 +46,7 @@ public class ServerTest {
 		ClientEventListenerMock obj = new ClientEventListenerMock();
 		EventManager.register(obj);
 
-		ClientAppState state = new ClientAppState();
+		ClientAppState state = new ClientAppState("");
 		state.initialize(app.getStateManager(), app);
 
 		int id = 1;

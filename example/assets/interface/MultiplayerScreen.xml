@@ -5,28 +5,28 @@
     <useControls filename="interface/myNifty/myControls.xml" />
     <useControls filename="nifty-default-controls.xml" />
     
-    <screen id="network" controller="controller.game.NetworkNiftyController">
+    <screen id="network" controller="controller.game.NetworkNiftyController"  >
         <layer id="mainlayer" childLayout="center">
             <panel id="menupanel" childLayout="vertical" width="800px" style="nifty-panel-simple" height="600px">
 
-            	<control name="textfield" id="serveradress" text="Server Adress" childLayout="center" width="100%" height="30px"/>
+            	<control name="textfield" id="serveradress" text="localhost" childLayout="center" width="100%" height="30px" visibleToMouse="true"/>
 
 				<control name="listBox" id="gamelist" displayItems="10" vertical="on" horizontal="optional" selection="Single" forceSelection="false"/>
 
 				<panel id="actionpanel" childLayout="horizontal" width="100%" style="nifty-panel-simple" height="30px">
-					<control name="myButton" id="create" childLayout="center" width="80px" label="Connect to Server">
+					<control name="myButton" id="connectBtn" childLayout="center" width="150px" label="Connect to Server">
 	                  <interact onClick="connectToServer()"/>
 	                </control>
 				
-	                <control name="myButton" id="create" childLayout="center" width="80px" label="Create Game">
+	                <control name="myButton" id="createBtn" childLayout="center" width="80px" label="Create Game" >
 	                  <interact onClick="create()"/>
 	                </control>
 	
-	                <control name="myButton" id="join" childLayout="center" width="80px" label="Join Game">
+	                <control name="myButton" id="joinBtn" childLayout="center" width="80px" label="Join Game">
 	                	<interact onClick="join()"/>
 	                </control>
 	
-	                <control name="myButton" id="exit" childLayout="center" width="80px" label="Exit">
+	                <control name="myButton" id="exitBtn" childLayout="center" width="80px" label="Exit">
 	                  <interact onClick="exit()"/>
 	                </control>
 				</panel>

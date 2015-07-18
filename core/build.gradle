@@ -40,6 +40,7 @@ dependencies {
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
 	
 	compile 'com.google.inject:guice:4.0'
+	compile 'tonegodgui:tonegodgui:0.0.1'
 	
 }
 
@@ -62,6 +63,7 @@ eclipse.classpath.file {
 					)
 		}
 	}
+	
 }
 
 sourceSets {
@@ -119,6 +121,9 @@ eclipse {
 	sourceSets {
 		main { java.srcDirs "src" }
 	}
+	classpath {
+		downloadSources=true
+	 }
 
 	jdt {
 		sourceCompatibility = 1.8
@@ -127,3 +132,4 @@ eclipse {
 
 	project { name = appName + "-core" }
 }
+

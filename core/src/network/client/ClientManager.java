@@ -20,12 +20,13 @@ public class ClientManager {
 	@Inject
 	private Application app;
 
-	public void startClient() {
-		client = new ClientAppState();
+	public void startClient(String host) {
+		client = new ClientAppState(host);
 		client.initialize(app.getStateManager(), app);
 		app.getStateManager().attach(client);
 		instance.waitUntilClientIsConnected(10);
 	}
+
 
 	// public void stopClient() {
 	// stateManager.detach(client);
