@@ -1,7 +1,7 @@
 package controller.game;
 
 
-import app.OpenRTSApplication;
+import openrts.guice.GuiceApplication;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -21,7 +21,7 @@ public class NetworkScreenState extends AbstractAppState {
 	private Node localGuiNode = new Node("Start Screen GuiNode");
 	private final ColorRGBA backgroundColor = ColorRGBA.Gray;
 
-	public NetworkScreenState(OpenRTSApplication app) {
+	public NetworkScreenState(GuiceApplication app) {
 		this.rootNode     = app.getRootNode();
 		this.viewPort     = app.getViewPort();
 		this.guiNode      = app.getGuiNode();

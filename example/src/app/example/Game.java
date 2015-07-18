@@ -1,49 +1,52 @@
 package app.example;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.logging.LogManager;
-
 import model.ModelManager;
-import app.OpenRTSApplication;
+import openrts.guice.GuiceApplication;
 
+import com.google.inject.Inject;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
 
+import controller.game.NetworkNiftyController;
 import controller.game.NetworkScreenState;
 import event.EventManager;
 
-public class Game extends OpenRTSApplication {
+public class Game extends GuiceApplication {
 
 	// protected MapView view;
 	protected NetworkScreenState networkState;
 
+	@Inject
+	private BulletAppState bulletAppState;
+	// @Inject
+	// private MessageManager messageManager;;
+
 	private static String NiftyInterfaceFile = "interface/MulitplayerScreen.xml";
 	private static String NiftyInterfaceFile2 = "interface/nifty_loading.xml";
+	@Inject
+	private NetworkNiftyController networkNiftyController;
 	private static String NiftyScreen = "network";
-	protected boolean showSettings = true;
+
+	// protected boolean showSettings = true;
 
 	public static void main(String[] args) {
-		Properties preferences = new Properties();
-		try {
-			FileInputStream configFile = new FileInputStream("logging.properties");
-			preferences.load(configFile);
-			LogManager.getLogManager().readConfiguration(configFile);
-		} catch (IOException ex) {
-			System.err.println("WARNING: Could not open configuration file - please create a logging.properties for correct logging");
-			System.err.println("WARNING: Logging not configured (console output only)");
-		}
+		// Properties preferences = new Properties();
+		// try {
+		// FileInputStream configFile = new FileInputStream("logging.properties");
+		// preferences.load(configFile);
+		// LogManager.getLogManager().readConfiguration(configFile);
+		// } catch (IOException ex) {
+		// System.err.println("WARNING: Could not open configuration file - please create a logging.properties for correct logging");
+		// System.err.println("WARNING: Logging not configured (console output only)");
+		// }
 		Game app = new Game();
-		OpenRTSApplication.main(app);
+		app.start();
 	}
 
 
 	@Override
-	public void simpleInitApp() {
+	public void guiceAppInit() {
 		BulletAppState bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
@@ -64,7 +67,7 @@ public class Game extends OpenRTSApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen);
+		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
 		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
 		networkState = new NetworkScreenState(this);
@@ -89,24 +92,24 @@ public class Game extends OpenRTSApplication {
 		ModelManager.updateConfigs();
 	}
 
-	@Override
-	public void start() {
-		// set some default settings in-case
-		// settings dialog is not shown
-		boolean loadSettings = false;
-		if (settings == null) {
-			setSettings(new AppSettings(true));
-			loadSettings = true;
-		}
-
-		// show settings dialog
-		if (showSettings) {
-			if (!JmeSystem.showSettingsDialog(settings, loadSettings)) {
-				return;
-			}
-		}
-		// re-setting settings they can have been merged from the registry.
-		setSettings(settings);
-		super.start();
-	}
+	// @Override
+	// public void start() {
+	// // set some default settings in-case
+	// // settings dialog is not shown
+	// boolean loadSettings = false;
+	// if (settings == null) {
+	// setSettings(new AppSettings(true));
+	// loadSettings = true;
+	// }
+	//
+	// // show settings dialog
+	// if (showSettings) {
+	// if (!JmeSystem.showSettingsDialog(settings, loadSettings)) {
+	// return;
+	// }
+	// }
+	// // re-setting settings they can have been merged from the registry.
+	// setSettings(settings);
+	// super.start();
+	// }
 }

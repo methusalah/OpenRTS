@@ -1,6 +1,5 @@
 package app.example;
 
-import app.OpenRTSApplication;
 
 public class GameMutliplayerAlien extends Game {
 
@@ -14,17 +13,17 @@ public class GameMutliplayerAlien extends Game {
 
 		GameMutliplayerAlien client = new GameMutliplayerAlien();
 
-		OpenRTSApplication.main(client);
+		// OpenRTSApplication.main(client);
 		// client.startClient();
 	}
 
-	@Override
-	public void simpleInitApp() {
-		super.simpleInitApp();
-		// if (!mapfilename.isEmpty()) {
-		// ModelManager.loadBattlefield(mapfilename);
-		// faction = ModelManager.getBattlefield().getEngagement().getFactions().get(1);
-		// }
+	//	@Override
+	//	public void simpleInitApp() {
+	//		super.simpleInitApp();
+	// if (!mapfilename.isEmpty()) {
+	// ModelManager.loadBattlefield(mapfilename);
+	// faction = ModelManager.getBattlefield().getEngagement().getFactions().get(1);
+	// }
 
-	}
+	// }
 }

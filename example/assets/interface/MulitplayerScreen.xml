@@ -5,7 +5,7 @@
     <useControls filename="interface/myNifty/myControls.xml" />
     <useControls filename="nifty-default-controls.xml" />
     
-    <screen id="network" controller="controller.game.MultiplayerGameNiftyController">
+    <screen id="network" controller="controller.game.NetworkNiftyController">
         <layer id="mainlayer" childLayout="center">
             <panel id="menupanel" childLayout="vertical" width="800px" style="nifty-panel-simple" height="600px">
 

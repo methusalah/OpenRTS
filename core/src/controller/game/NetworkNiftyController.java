@@ -1,8 +1,13 @@
 package controller.game;
 
 import java.text.DecimalFormat;
+import java.util.logging.Logger;
 
 import model.battlefield.army.components.Unit;
+import network.client.ClientManager;
+
+import com.google.inject.Inject;
+
 import controller.CommandManager;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
@@ -11,8 +16,15 @@ import de.lessvoid.nifty.screen.Screen;
 
 public class NetworkNiftyController extends GUIController {
 
+	private static final Logger logger = Logger.getLogger(NetworkNiftyController.class.getName());
 	private static DecimalFormat df = new DecimalFormat("0");
 
+	@Inject
+	private ClientManager clientManager;
+
+	public NetworkNiftyController() {
+		// TODO Auto-generated constructor stub
+	}
 	// public NetworkNiftyController(Nifty nifty, Controller ctrl) {
 	// super(ctrl, nifty);
 	// }
@@ -54,6 +66,19 @@ public class NetworkNiftyController extends GUIController {
 
 	@Override
 	public void onEndScreen() {
+	}
+
+	public void create() {
+		logger.info("create was clicked");
+		clientManager.startClient();
+	}
+
+	public void join() {
+		logger.info("join was clicked");
+	}
+
+	public void exit() {
+		logger.info("exit was clicked");
 	}
 
 	private String getName(Unit u) {
