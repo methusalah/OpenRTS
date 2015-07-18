@@ -31,10 +31,6 @@ public class ClientManager {
 	// stateManager.detach(client);
 	// }
 
-	public ClientManager getInstance() {
-		return instance;
-	}
-
 
 	private void waitUntilClientIsConnected(int times) {
 		int waitingCounter = times;

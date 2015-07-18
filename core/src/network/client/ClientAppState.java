@@ -13,6 +13,7 @@ import com.jme3.network.serializing.Serializer;
 
 import event.EventManager;
 import event.network.AckEvent;
+import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
 
 public class ClientAppState extends AbstractAppState {
@@ -26,7 +27,7 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 
-		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class);
+		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
 
 		try {
 			networkClient = Network.connectToServer("localhost", 6143);
@@ -62,6 +63,14 @@ public class ClientAppState extends AbstractAppState {
 
 	@Subscribe
 	public void manageEvent(SelectEntityEvent ev) {
+		if (!networkClient.isConnected()) {
+			networkClient.start();
+		}
+		networkClient.send(ev);
+	}
+
+	@Subscribe
+	public void manageEvent(CreateGameEvent ev) {
 		if (!networkClient.isConnected()) {
 			networkClient.start();
 		}

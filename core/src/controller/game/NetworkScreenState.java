@@ -16,6 +16,7 @@ public class NetworkScreenState extends AbstractAppState {
 	private ViewPort viewPort;
 	private Node rootNode;
 	private Node guiNode;
+
 	private AssetManager assetManager;
 	private Node localRootNode = new Node("Start Screen RootNode");
 	private Node localGuiNode = new Node("Start Screen GuiNode");

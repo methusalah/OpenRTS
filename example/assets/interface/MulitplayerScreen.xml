@@ -14,6 +14,10 @@
 				<control name="listBox" id="gamelist" displayItems="10" vertical="on" horizontal="optional" selection="Single" forceSelection="false"/>
 
 				<panel id="actionpanel" childLayout="horizontal" width="100%" style="nifty-panel-simple" height="30px">
+					<control name="myButton" id="create" childLayout="center" width="80px" label="Connect to Server">
+	                  <interact onClick="connectToServer()"/>
+	                </control>
+				
 	                <control name="myButton" id="create" childLayout="center" width="80px" label="Create Game">
 	                  <interact onClick="create()"/>
 	                </control>

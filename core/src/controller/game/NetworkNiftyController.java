@@ -13,11 +13,14 @@ import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
+import event.EventManager;
+import event.network.CreateGameEvent;
 
 public class NetworkNiftyController extends GUIController {
 
 	private static final Logger logger = Logger.getLogger(NetworkNiftyController.class.getName());
 	private static DecimalFormat df = new DecimalFormat("0");
+	protected static String mapfilename = "assets/maps/test.btf";
 
 	@Inject
 	private ClientManager clientManager;
@@ -68,9 +71,15 @@ public class NetworkNiftyController extends GUIController {
 	public void onEndScreen() {
 	}
 
+	public void connectToServer() {
+		logger.info("connect to Server was clicked");
+		clientManager.startClient();
+	}
+
 	public void create() {
 		logger.info("create was clicked");
-		clientManager.startClient();
+		CreateGameEvent evt = new CreateGameEvent(mapfilename);
+		EventManager.post(evt);
 	}
 
 	public void join() {
