@@ -52,12 +52,12 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		// networkClient.start();
+		networkClient.start();
 	}
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		// networkClient.close();
+		networkClient.close();
 	}
 
 	@Subscribe

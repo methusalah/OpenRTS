@@ -12,7 +12,8 @@ public class ClientManager {
 	private static final Logger logger = Logger.getLogger(ClientManager.class.getName());
 
 	private final static ClientManager instance = new ClientManager();
-	protected static ClientAppState client = new ClientAppState();
+
+	protected ClientAppState client;
 
 
 	// @ApplicationRef
@@ -20,6 +21,7 @@ public class ClientManager {
 	private Application app;
 
 	public void startClient() {
+		client = new ClientAppState();
 		client.initialize(app.getStateManager(), app);
 		app.getStateManager().attach(client);
 		instance.waitUntilClientIsConnected(10);
@@ -57,8 +59,5 @@ public class ClientManager {
 		}
 	}
 
-	public static ClientAppState getClient() {
-		return client;
-	}
 
 }

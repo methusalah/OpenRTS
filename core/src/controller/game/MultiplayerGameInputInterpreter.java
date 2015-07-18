@@ -1,11 +1,8 @@
 package controller.game;
 
-import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
-
-import network.client.ClientManager;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -74,7 +71,7 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					} else {
 						if(!((MultiplayerGameController) ctrl).isDrawingZone()) {
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-							ClientManager.getClient().manageEvent(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
+							// ClientManager.getClient().manageEvent(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 							//							EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 						}
 					}
