@@ -40,6 +40,8 @@ public class MultiplayerGame extends GuiceApplication {
 	private NetworkNiftyController networkNiftyController;
 	private static String NiftyScreen = "network";
 
+	private NiftyJmeDisplay niftyDisplay;
+
 	// @Inject
 	// private NiftyJmeDisplay niftyDisplay;
 
@@ -73,7 +75,7 @@ public class MultiplayerGame extends GuiceApplication {
 		// view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 		// view.reset();
 
-		final NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
 		try {
@@ -126,9 +128,9 @@ public class MultiplayerGame extends GuiceApplication {
 		logger.info("sounds perfect. Server has loaded Map at time:" + ev.getAckDate());
 		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
-		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		// NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		// game = new Game(niftyDisplay, view, inputManager, cam);
-		EventManager.register(this);
+		// EventManager.register(this);
 
 		if (view.getMapRend() != null) {
 			view.getMapRend().renderTiles();

@@ -3,6 +3,7 @@ package controller.game;
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
+import model.ModelManager;
 import model.battlefield.army.components.Unit;
 import network.client.ClientManager;
 
@@ -66,6 +67,12 @@ public class NetworkNiftyController extends GUIController {
 	@Override
 	public void bind(Nifty nifty, Screen screen) {
 		this.nifty = nifty;
+
+		Button b2 = nifty.getCurrentScreen().findNiftyControl("createBtn", Button.class);
+		b2.disable();
+
+		Button b3 = nifty.getCurrentScreen().findNiftyControl("joinBtn", Button.class);
+		b3.disable();
 	}
 
 	@Override
@@ -89,6 +96,8 @@ public class NetworkNiftyController extends GUIController {
 		nifty.gotoScreen("loadmap");
 		CreateGameEvent evt = new CreateGameEvent(mapfilename);
 		EventManager.post(evt);
+		ModelManager.loadBattlefield(mapfilename);
+
 	}
 
 	public void join() {
