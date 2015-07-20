@@ -1,7 +1,6 @@
 package app.example;
 
 import java.util.Collection;
-import java.util.LinkedList;
 
 import model.ModelManager;
 import openrts.guice.GuiceApplication;
@@ -33,6 +32,9 @@ public class MultiplayerGame extends GuiceApplication {
 	@Inject
 	private NetworkNiftyController networkNiftyController;
 	private static String NiftyScreen = "network";
+
+	// @Inject
+	// private NiftyJmeDisplay niftyDisplay;
 
 	// protected boolean showSettings = true;
 
@@ -73,18 +75,16 @@ public class MultiplayerGame extends GuiceApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
-		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
-		Collection<Module> modules = new LinkedList<Module>();
-		modules.add(new AbstractModule() {
-
+		this.modules.add(new AbstractModule() {
 			@Override
 			protected void configure() {
 				bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
 			}
 		});
-		this.addApplicationModules(modules);
+
+		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
+		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
 		networkState = new NetworkAppState(this);
 		// view, niftyDisplay.getNifty(), inputManager, cam);
@@ -108,5 +108,10 @@ public class MultiplayerGame extends GuiceApplication {
 		ModelManager.updateConfigs();
 	}
 
+
+	@Override
+	protected void addApplicationModules(Collection<Module> modules) {
+		super.addApplicationModules(modules);
+	}
 
 }

@@ -37,12 +37,13 @@ import controller.game.NetworkNiftyController;
 public abstract class GuiceApplication extends SimpleApplication {
 
 	protected Injector injector;
+	protected Collection<Module> modules;
 
 	@Override
 	public final void simpleInitApp() {
 		Application app = this;
 		/* building modules */
-		Collection<Module> modules = new LinkedList<Module>();
+		modules = new LinkedList<Module>();
 		modules.add(new AbstractModule() {
 
 			@Override

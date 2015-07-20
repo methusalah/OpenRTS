@@ -21,6 +21,7 @@ import com.jme3.system.JmeContext;
 
 import event.EventManager;
 import event.network.AckEvent;
+import event.network.CreateGameEvent;
 import event.network.NetworkEvent;
 import event.network.SelectEntityEvent;
 
@@ -54,6 +55,30 @@ public class ServerTest {
 		Assert.assertNotNull(entity);
 
 		SelectEntityEvent evt = new SelectEntityEvent(id);
+		state.manageEvent(evt);
+
+		waitUntilClientHasResponse(obj, 0);
+		NetworkEvent ev = obj.getEvent();
+		Assert.assertTrue(ev instanceof AckEvent);
+
+	}
+
+	@Test
+	public void testStartMap() throws Exception {
+
+		OpenRTSServer app = new OpenRTSServer();
+		// app.start(JmeContext.Type.Headless);
+		app.start();
+
+		waitUntilServerIsStarted();
+
+		ClientEventListenerMock obj = new ClientEventListenerMock();
+		EventManager.register(obj);
+
+		ClientAppState state = new ClientAppState("");
+		state.initialize(app.getStateManager(), app);
+
+		CreateGameEvent evt = new CreateGameEvent("assets/maps/test.btf");
 		state.manageEvent(evt);
 
 		waitUntilClientHasResponse(obj, 0);

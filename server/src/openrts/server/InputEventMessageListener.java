@@ -35,7 +35,7 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 			CreateGameEvent inputEvent = (CreateGameEvent) message;
 			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getPath() + "'");
 			ModelManager.loadBattlefield(inputEvent.getPath());
-			Game game = new Game();
+			// Game game = new Game();
 			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
 		} else {
 			logger.warning("Client send unsupported Message:" + message);
