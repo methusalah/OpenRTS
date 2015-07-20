@@ -3,7 +3,6 @@ package controller.game;
 
 import network.client.ClientManager;
 import openrts.guice.GuiceApplication;
-import tonegod.gui.core.Screen;
 
 import com.google.inject.Inject;
 import com.jme3.app.Application;
@@ -15,8 +14,6 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 
 public class NetworkAppState extends AbstractAppState {
-
-	Screen screen;
 
 	private ViewPort viewPort;
 	private Node rootNode;
