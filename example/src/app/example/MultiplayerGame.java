@@ -1,10 +1,13 @@
 package app.example;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import openrts.guice.GuiceApplication;
+import view.MapView;
 
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Module;
@@ -13,11 +16,15 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
+import controller.game.MultiplayerGameController;
 import controller.game.NetworkAppState;
 import controller.game.NetworkNiftyController;
 import event.EventManager;
+import event.network.AckEvent;
 
 public class MultiplayerGame extends GuiceApplication {
+
+	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
 
 	// protected MapView view;
 	protected NetworkAppState networkState;
@@ -112,6 +119,23 @@ public class MultiplayerGame extends GuiceApplication {
 	@Override
 	protected void addApplicationModules(Collection<Module> modules) {
 		super.addApplicationModules(modules);
+	}
+
+	@Subscribe
+	public void manageAckEvent(AckEvent ev) {
+		logger.info("sounds perfect. Server has loaded Map at time:" + ev.getAckDate());
+		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+
+		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		// game = new Game(niftyDisplay, view, inputManager, cam);
+		EventManager.register(this);
+
+		if (view.getMapRend() != null) {
+			view.getMapRend().renderTiles();
+		}
+		MultiplayerGameController game = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
+		stateManager.detach(networkState);
+		stateManager.attach(game);
 	}
 
 }

@@ -84,8 +84,5 @@ public class ClientAppState extends AbstractAppState {
 		networkClient.send(ev);
 	}
 
-	@Subscribe
-	public void manageAckEvent(AckEvent ev) {
-		logger.info("sounds perfect. Server has loaded Map at time:" + ev.getAckDate());
-	}
+
 }
