@@ -10,6 +10,7 @@ if (!hasProperty('mainClass')) {
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 	compile project(':core')
+	testCompile 'org.testng:testng:6.8'
 
 }
 
