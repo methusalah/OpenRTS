@@ -1,0 +1,22 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="Bone001">
+            <position x="-0.182404" y="-86.7127" z="0"/>
+            <rotation angle="1.5708">
+                <axis x="0" y="0" z="1"/>
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy/>
+    <animations>
+        <animation name="attack01" length="0.0333333">
+            <tracks/>
+        </animation>
+        <animation name="idle" length="0.0333333">
+            <tracks/>
+        </animation>
+        <animation name="run" length="0.0333333">
+            <tracks/>
+        </animation>
+    </animations>
+</skeleton>

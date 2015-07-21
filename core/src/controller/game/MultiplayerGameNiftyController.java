@@ -20,12 +20,12 @@ public class MultiplayerGameNiftyController extends GUIController {
 
 	@Override
 	public void activate() {
-		nifty.gotoScreen("hud");
+		nifty.gotoScreen("network");
 	}
 
 	@Override
 	public void update() {
-		if (!nifty.isActive("interface/screen.xml", "hud")) {
+		if (!nifty.isActive("interface/MultiplayerScreen.xml", "network")) {
 			return;
 		}
 
@@ -46,6 +46,7 @@ public class MultiplayerGameNiftyController extends GUIController {
 
 	@Override
 	public void bind(Nifty nifty, Screen screen) {
+
 	}
 
 	@Override

@@ -3,12 +3,13 @@
   <Actor id="Aircraft">
     <Type value="Model"/>
     <ModelPath value="human/adav/adav02b.mesh.xml"/>
+    <Pitch value="-90"/>
     <ActorList Trigger="onMove" ActorLink="AdavJet01"/>
     <ActorList Trigger="onMove" ActorLink="AdavJet02"/>
     <ActorList Trigger="onMove" ActorLink="AdavJet03"/>
     <ActorList Trigger="onMove" ActorLink="AdavJet04"/>
     <ActorList Trigger="onMove" ActorLink="AdavContrail01"/>    
-    <Scale value="1"/>
+    <Scale value="0.0025"/>
   </Actor>
   
   <Actor id="AdavJet01">
@@ -104,16 +105,19 @@
   <Actor id="Marine">
     <Type value="Model"/>
     <ModelPath value="human/infantry01.mesh.xml"/>
+    <Pitch value="-90"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
-    <Scale value="1"/>
+    <Scale value="0.0025"/>
   </Actor>
+  
   <Actor id="Move">
     <Type value="Animation"/>
     <AnimName value="run"/>
     <Speed value="2"/>
     <Cycle value="Cycle"/>
   </Actor>
+  
   <Actor id="Idle">
     <Type value="Animation"/>
     <AnimName value="idle"/>
@@ -124,25 +128,31 @@
   <Actor id="SmallAlien">
     <Type value="Model"/>
     <ModelPath value="alien/miniwalker/miniwalker02a.mesh.xml"/>
-    <Scale value="1"/>
+    <Pitch value="-90"/>
+    <Scale value="0.0025"/>
     <ActorList Trigger="onMove" ActorLink="Move"/>
     <ActorList Trigger="onWait" ActorLink="Idle"/>
   </Actor>
+  
   <Actor id="BigAlien">
     <Type value="Model"/>
     <ModelPath value="alien/vehicule01.mesh.xml"/>
-    <Scale value="1"/>
+    <Pitch value="-90"/>
+    
+    <Scale value="0.0025"/>
   </Actor>
   
   <Actor id="StdMissile">
     <Type value="Model"/>
     <ModelPath value="human/hmissileT1/hmissileT1_02.mesh.xml"/>
-    <Scale value="1"/>
+    <Pitch value="-90"/>
+    <Scale value="0.0025"/>
     <ActorList Trigger="onMove" ActorLink="StdJetFlame"/>
     <ActorList Trigger="onMove" ActorLink="StdJetSmoke"/>
     <ActorList Trigger="onDestroyed" ActorLink="StdMissileExpl"/>
     <ActorList Trigger="onDestroyed" ActorLink="StdMissileExplGlow"/>    
   </Actor>
+  
   <Actor id="StdJetFlame">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke01.png"/>
@@ -158,6 +168,7 @@
     <MinLife value="0.2"/>
     <MaxLife value="0.2"/>
   </Actor>
+  
   <Actor id="StdJetSmoke">
     <Type value="Particle"/>
     <SpritePath value="particles/smoke.png"/>
@@ -173,6 +184,7 @@
     <MinLife value="0.8"/>
     <MaxLife value="0.8"/>
   </Actor>
+  
   <Actor id="StdMissileExpl">
     <Type value="Particle"/>
     <SpritePath value="particles/explosion01.png"/>
@@ -191,6 +203,7 @@
     <MinLife value="2"/>
     <MaxLife value="2"/>
   </Actor>
+  
   <Actor id="StdMissileExplGlow">
     <Type value="Particle"/>
     <SpritePath value="particles/glow01.png"/>

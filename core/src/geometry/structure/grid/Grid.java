@@ -35,7 +35,7 @@ public class Grid<T extends Node> extends Map2D<T> {
 		return isInBounds(p)? get(p) : null;
 	}
 
-	private List<T> getAround(T n, int distance) {
+	public List<T> getAround(T n, int distance) {
 		List<T> res = new ArrayList<>();
 		for (int x = -distance; x <= distance; x++) {
 			for (int y = -distance; y <= distance; y++) {

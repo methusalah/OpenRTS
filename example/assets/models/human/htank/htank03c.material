@@ -1,0 +1,48 @@
+material Armature
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.117647 0.117647 0.117647 1
+			diffuse 0.117647 0.117647 0.117647 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}
+
+
+
+material Chenille
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.0392157 0.0392157 0.0392157 1
+			diffuse 0.0392157 0.0392157 0.0392157 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}
+
+
+
+material Coque
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.0705882 0.0901961 0.196078 1
+			diffuse 0.0705882 0.0901961 0.196078 1
+			specular 0.9 0.9 0.9 0 10
+		}
+
+	}
+
+}

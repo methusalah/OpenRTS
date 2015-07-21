@@ -2,11 +2,14 @@ package openrts.server;
 
 import java.util.logging.Logger;
 
+import model.ModelManager;
+
 import com.jme3.network.HostedConnection;
 import com.jme3.network.Message;
 
 import controller.CommandManager;
 import event.network.AckEvent;
+import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
@@ -27,8 +30,16 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getId() + "'");
 			CommandManager.select(inputEvent.getId(), new Point2D());
 			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
+		} else if (message instanceof CreateGameEvent) {
+			// do something with the message
+			CreateGameEvent inputEvent = (CreateGameEvent) message;
+			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getPath() + "'");
+			ModelManager.loadBattlefield(inputEvent.getPath());
+			// Game game = new Game();
+			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
 		} else {
 			logger.warning("Client send unsupported Message:" + message);
 		}
 	}
+
 }

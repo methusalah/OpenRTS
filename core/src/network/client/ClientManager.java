@@ -2,8 +2,8 @@ package network.client;
 
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
 import com.jme3.app.Application;
-import com.jme3.app.state.AppStateManager;
 
 import exception.TechnicalException;
 
@@ -12,23 +12,25 @@ public class ClientManager {
 	private static final Logger logger = Logger.getLogger(ClientManager.class.getName());
 
 	private final static ClientManager instance = new ClientManager();
-	protected static ClientAppState client = new ClientAppState();
-	protected static AppStateManager stateManager;
 
-	public static void startClient(AppStateManager stateManager, Application app) {
-		client.initialize(stateManager, app);
-		ClientManager.stateManager = stateManager;
-		stateManager.attach(client);
+	protected ClientAppState client;
+
+
+	// @ApplicationRef
+	@Inject
+	private Application app;
+
+	public void startClient(String host) {
+		client = new ClientAppState(host);
+		client.initialize(app.getStateManager(), app);
+		app.getStateManager().attach(client);
 		instance.waitUntilClientIsConnected(10);
 	}
 
-	public static void stopClient() {
-		stateManager.detach(client);
-	}
 
-	public static ClientManager getInstance() {
-		return instance;
-	}
+	// public void stopClient() {
+	// stateManager.detach(client);
+	// }
 
 
 	private void waitUntilClientIsConnected(int times) {
@@ -54,8 +56,5 @@ public class ClientManager {
 		}
 	}
 
-	public static ClientAppState getClient() {
-		return client;
-	}
 
 }

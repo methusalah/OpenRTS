@@ -48,6 +48,7 @@ public class GameController extends Controller {
 		// updateSelectionZone();
 		updateContext();
 		guiController.update();
+		view.getActorManager().render();
 
 		// update army
 		if (!paused) {

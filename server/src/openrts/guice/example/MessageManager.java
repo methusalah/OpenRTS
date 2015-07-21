@@ -5,9 +5,9 @@
 
 package openrts.guice.example;
 
-import openrts.guice.AppSettingsRef;
-import openrts.guice.AssetManagerRef;
-import openrts.guice.GuiNodeRef;
+import openrts.guice.annotation.AppSettingsRef;
+import openrts.guice.annotation.AssetManagerRef;
+import openrts.guice.annotation.GuiNodeRef;
 
 import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;

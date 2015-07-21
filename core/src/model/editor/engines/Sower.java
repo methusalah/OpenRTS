@@ -32,17 +32,18 @@ public class Sower implements Runnable {
 		tree.addTrinket("Plant", 10, 1.5);
 		tree.setCliffDist(5);
 		tree.setMaxSlope(30);
+//		tree.addTexture("0", 0.5, 1);
 		sowings.add(tree);
 
 		Sowing rocks = new Sowing();
-		rocks.addTrinket("LittleRock", 1, 1);
+		rocks.addTrinket("LittleRock", 1, 0.6);
 		rocks.setMinSlope(20);
-		rocks.allowedGrounds.add("1");
-		rocks.allowedGrounds.add("2");
+		tree.addTexture("1", 0.5, 1);
 		sowings.add(rocks);
 	}
 
 	private void sowTrinket(Sowing s, Trinket t) {
+		t.sowed = true;
 		t.drawOnBattlefield();
 		s.toGrow.add(t);
 	}
@@ -76,7 +77,7 @@ public class Sower implements Runnable {
 						}
 					}
 				}
-				// Thread.sleep(50);
+//				Thread.sleep(50);
 			}
 		} catch (InterruptedException e) {
 		}

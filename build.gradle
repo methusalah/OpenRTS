@@ -20,7 +20,8 @@ allprojects {
 		mavenCentral()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		maven { url 'http://updates.jmonkeyengine.org/maven' }		
+		maven { url 'http://updates.jmonkeyengine.org/maven' }	
+		maven { url 'http://jcenter.bintray.com' }
 	}
 	
 	pmd {

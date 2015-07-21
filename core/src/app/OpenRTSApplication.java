@@ -9,8 +9,6 @@ import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
-import network.client.ClientManager;
-
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
 import com.jme3.bullet.BulletAppState;
@@ -78,21 +76,23 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 
 	@Override
 	public void start() {
+		super.start();
 		// set some default settings in-case
 		// settings dialog is not shown
 		if (settings == null) {
 			setSettings(new AppSettings(true));
 			settings.setWidth(1024);
 			settings.setHeight(768);
-			try {
-				settings.load("openrts.example");
-			} catch (BackingStoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			// try {
+			// settings.load("openrts.example");
+			// } catch (BackingStoreException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 		}
-		super.start();
+
 	}
+
 
 	public AzertyFlyByCamera getFlyByCamera() {
 		return flyCam;
@@ -101,6 +101,7 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 	public Node getGuiNode() {
 		return guiNode;
 	}
+
 
 	public Node getRootNode() {
 		return rootNode;
@@ -194,10 +195,13 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		stateManager.postRender();
 	}
 
+
 	public abstract void simpleInitApp();
+
 
 	public void simpleUpdate(float tpf) {
 	}
+
 
 	public void simpleRender(RenderManager rm) {
 	}
@@ -254,12 +258,12 @@ public abstract class OpenRTSApplication extends Application implements PhysicsT
 		cam.resize(settings.getWidth(), settings.getHeight(), true);
 	}
 
-	public void startClient() {
-		ClientManager.startClient(stateManager, this);
-	}
+	// public void startClient() {
+	// // ClientManager.startClient(stateManager, this);
+	// }
 
-	public void stopClient() {
-		ClientManager.stopClient();
-	}
+	// public void stopClient() {
+	// ClientManager.stopClient();
+	// }
 
 }

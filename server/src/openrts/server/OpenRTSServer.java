@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import model.ModelManager;
 import openrts.guice.GuiceApplication;
-import view.MapView;
 
 import com.google.inject.Inject;
 import com.jme3.bullet.BulletAppState;
@@ -15,29 +14,27 @@ import com.jme3.math.Vector3f;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
-import com.jme3.niftygui.NiftyJmeDisplay;
 
-import event.EventManager;
 import event.network.AckEvent;
+import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
 
 public class OpenRTSServer extends GuiceApplication {
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
-
-	protected MapView view;
-	protected Player p1;
+	private static final String gameName = "OpenRTS";
+	private static int version = 1;
 
 	protected static Server myServer;
 	public static final int PORT = 6143;
-	private Map<Integer, Player> players = new HashMap<Integer, Player>();
+	private Map<Integer, Game> games = new HashMap<Integer, Game>();
 
 	@Inject
 	private BulletAppState bulletAppState;
 
-	public Player getPlayer(Integer id) {
-		return players.get(id);
+	public Game getPlayer(Integer id) {
+		return games.get(id);
 	}
 
 	public static void main(String[] args) {
@@ -68,24 +65,10 @@ public class OpenRTSServer extends GuiceApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
-
-		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		p1 = new Player(niftyDisplay, view, inputManager, cam);
-		EventManager.register(this);
-
-		if (view.getMapRend() != null) {
-			view.getMapRend().renderTiles();
-		}
-
-		stateManager.attach(p1.getFieldCtrl());
-		p1.getFieldCtrl().setEnabled(true);
-		guiViewPort.addProcessor(niftyDisplay);
-
 		try {
-			Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class);
-			myServer = Network.createServer(PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class);
+			Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
+			myServer = Network.createServer(gameName, version, PORT, PORT);
+			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();
@@ -96,18 +79,17 @@ public class OpenRTSServer extends GuiceApplication {
 			e.printStackTrace();
 		}
 
-		if (!mapfilename.isEmpty()) {
-			ModelManager.loadBattlefield(mapfilename);
-		}
 	}
+
 
 	@Override
 	public void simpleUpdate(float tpf) {
 		float maxedTPF = Math.min(tpf, 0.1f);
 		listener.setLocation(cam.getLocation());
 		listener.setRotation(cam.getRotation());
-		view.getActorManager().render();
-		p1.getFieldCtrl().update(maxedTPF);
+		stateManager.update(maxedTPF);
+		// view.getActorManager().render();
+		// p1.getFieldCtrl().update(maxedTPF);
 		ModelManager.updateConfigs();
 	}
 

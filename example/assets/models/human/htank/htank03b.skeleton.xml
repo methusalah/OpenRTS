@@ -1,0 +1,102 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="BoneVehicule_Base">
+            <position x="-0.384644" y="-49.0466" z="9.08952"/>
+            <rotation angle="4.18267">
+                <axis x="0.579376" y="0.573277" z="-0.579376"/>
+            </rotation>
+        </bone>
+        <bone id="1" name="BoneVehicule_Corps">
+            <position x="138.724" y="-0.00018692" z="0"/>
+            <rotation angle="1.485">
+                <axis x="2.98902e-016" y="6.17907e-016" z="-1"/>
+            </rotation>
+        </bone>
+        <bone id="2" name="BoneTourelle_Base">
+            <position x="45.7153" y="-6.10352e-005" z="0"/>
+            <rotation angle="0.0963803">
+                <axis x="7.30155e-015" y="-4.668e-015" z="-1"/>
+            </rotation>
+        </bone>
+        <bone id="3" name="BoneTourelle_Corps">
+            <position x="19.082" y="0" z="0"/>
+            <rotation angle="1.57079">
+                <axis x="5.96213e-009" y="-5.96211e-009" z="-1"/>
+            </rotation>
+        </bone>
+        <bone id="4" name="BoneCanon_Base">
+            <position x="152.656" y="-4.57764e-005" z="0"/>
+            <rotation angle="0.00951836">
+                <axis x="3.16575e-008" y="-1.50668e-010" z="-1"/>
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy>
+        <boneparent bone="BoneVehicule_Corps" parent="BoneVehicule_Base"/>
+        <boneparent bone="BoneTourelle_Base" parent="BoneVehicule_Corps"/>
+        <boneparent bone="BoneTourelle_Corps" parent="BoneTourelle_Base"/>
+        <boneparent bone="BoneCanon_Base" parent="BoneTourelle_Corps"/>
+    </bonehierarchy>
+    <animations>
+        <animation name="attack01" length="0.0333333">
+            <tracks>
+                <track bone="BoneVehicule_Corps">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="-0.00457764" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.999797" y="-0.0201357" z="4.41682e-016"/>
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.0333333">
+                            <translate x="-0.00457764" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.999797" y="-0.0201357" z="4.41682e-016"/>
+                            </rotate>
+                        </keyframe>
+                    </keyframes>
+                </track>
+            </tracks>
+        </animation>
+        <animation name="idle" length="0.0333333">
+            <tracks>
+                <track bone="BoneVehicule_Corps">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="-0.00457764" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.999797" y="-0.0201357" z="4.41682e-016"/>
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.0333333">
+                            <translate x="-0.00457764" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.999797" y="-0.0201357" z="4.41682e-016"/>
+                            </rotate>
+                        </keyframe>
+                    </keyframes>
+                </track>
+            </tracks>
+        </animation>
+        <animation name="run" length="0.0333333">
+            <tracks>
+                <track bone="BoneVehicule_Corps">
+                    <keyframes>
+                        <keyframe time="0">
+                            <translate x="-0.00457764" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.999797" y="-0.0201357" z="4.41682e-016"/>
+                            </rotate>
+                        </keyframe>
+                        <keyframe time="0.0333333">
+                            <translate x="-0.00457764" y="0" z="0"/>
+                            <rotate angle="0">
+                                <axis x="0.999797" y="-0.0201357" z="4.41682e-016"/>
+                            </rotate>
+                        </keyframe>
+                    </keyframes>
+                </track>
+            </tracks>
+        </animation>
+    </animations>
+</skeleton>
