@@ -17,9 +17,7 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
@@ -27,7 +25,6 @@ import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
@@ -37,12 +34,12 @@ public abstract class OpenRTSApplicationWithDI extends GuiceApplication implemen
 
 	public static OpenRTSApplicationWithDI appInstance;
 
-	protected Node rootNode = new Node("Root Node");
-	protected Node guiNode = new Node("Gui Node");
+	// protected Node rootNode = new Node("Root Node");
+	// protected Node guiNode = new Node("Gui Node");
 
 	protected float secondCounter = 0.0f;
 
-	protected BitmapText fpsText;
+	// protected BitmapText fpsText;
 	protected MyDebugger debugger;
 	protected StatsView statsView;
 
@@ -143,22 +140,22 @@ public abstract class OpenRTSApplicationWithDI extends GuiceApplication implemen
 		viewPort.attachScene(rootNode);
 		guiViewPort.attachScene(guiNode);
 
-		if (inputManager != null) {
-			flyCam = new AzertyFlyByCamera(cam);
-			flyCam.setMoveSpeed(1f);
-			flyCam.registerWithInput(inputManager);
-
-			if (context.getType() == Type.Display) {
-				inputManager.addMapping("SIMPLEAPP_Exit", new KeyTrigger(KeyInput.KEY_ESCAPE));
-			}
-
-			inputManager.addMapping("SIMPLEAPP_CameraPos", new KeyTrigger(KeyInput.KEY_C));
-			inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
-			inputManager.addListener(actionListener, "SIMPLEAPP_Exit", "SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
-		}
+		// if (inputManager != null) {
+		// flyCam = new AzertyFlyByCamera(cam);
+		// flyCam.setMoveSpeed(1f);
+		// flyCam.registerWithInput(inputManager);
+		//
+		// if (context.getType() == Type.Display) {
+		// inputManager.addMapping("SIMPLEAPP_Exit", new KeyTrigger(KeyInput.KEY_ESCAPE));
+		// }
+		//
+		// inputManager.addMapping("SIMPLEAPP_CameraPos", new KeyTrigger(KeyInput.KEY_C));
+		// inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
+		// inputManager.addListener(actionListener, "SIMPLEAPP_Exit", "SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
+		// }
 
 		// call user code
-		simpleInitApp();
+		// guiceAppInit();
 		stateManager.attach(bulletAppState);
 		getPhysicsSpace().addTickListener(this);
 	}
