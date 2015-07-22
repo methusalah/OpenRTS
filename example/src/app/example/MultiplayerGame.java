@@ -17,6 +17,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
 import controller.game.MultiplayerGameController;
+import controller.game.MultiplayerGameInputInterpreter;
 import controller.game.NetworkAppState;
 import controller.game.NetworkNiftyController;
 import event.EventManager;
@@ -136,6 +137,7 @@ public class MultiplayerGame extends GuiceApplication {
 			view.getMapRend().renderTiles();
 		}
 		MultiplayerGameController game = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
+		MultiplayerGameInputInterpreter inputInterpreter = new MultiplayerGameInputInterpreter(game);
 		stateManager.detach(networkState);
 		stateManager.attach(game);
 	}

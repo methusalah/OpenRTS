@@ -33,7 +33,7 @@ public class MapLoadingScreen extends AbstractAppState implements ScreenControll
 	private Nifty nifty;
 
 	@Inject
-	@Named("NiftyJmeDisplay")
+
 	private NiftyJmeDisplay niftyDisplay;
 	private Element progressBarElement;
 	private float frameCount = 0;

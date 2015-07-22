@@ -6,15 +6,18 @@ package controller.ground;
 
 import java.util.logging.Logger;
 
+import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
 import controller.cameraManagement.GroundCameraManager;
-import de.lessvoid.nifty.Nifty;
 
 /**
  *
@@ -24,12 +27,17 @@ public class GroundController extends Controller {
 
 	private static final Logger logger = Logger.getLogger(GroundController.class.getName());
 
-	public GroundController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	private GroundInputInterpreter inputInterpreter;
+
+	@Inject
+	public GroundController(@Named("EditorView") EditorView view, @Named("NiftyJmeDisplay") NiftyJmeDisplay niftyDisplay,
+			@InputManagerRef InputManager inputManager,
+			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 
-		inputInterpreter = new GroundInputInterpreter(this);
+		this.inputInterpreter = inputInterpreter;
 		cameraManager = new GroundCameraManager(cam);
-		guiController = new GroundGUIController(nifty, this);
+		guiController = new GroundGUIController(niftyDisplay.getNifty(), this);
 	}
 
 
@@ -46,5 +54,10 @@ public class GroundController extends Controller {
 	}
 
 
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		inputInterpreter.unregisterInputs(inputManager);
+		cameraManager.unregisterInputs(inputManager);
+	}
 
 }

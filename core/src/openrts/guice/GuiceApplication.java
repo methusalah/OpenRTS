@@ -54,12 +54,12 @@ public abstract class GuiceApplication extends SimpleApplication {
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
 				bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
 				bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
-				bind(ViewPort.class).annotatedWith(Names.named("viewPort")).toInstance(viewPort);
+				bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
 				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
 				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
-				bind(Camera.class).annotatedWith(Names.named("camera")).toInstance(cam);
-				bind(FlyByCamera.class).annotatedWith(Names.named("flyCam")).toInstance(flyCam);
+				bind(Camera.class).annotatedWith(Names.named("Camera")).toInstance(cam);
+				bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
 
 				bind(Application.class).toInstance(app);
 

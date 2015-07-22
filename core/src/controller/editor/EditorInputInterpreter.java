@@ -4,6 +4,8 @@ import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -61,9 +63,12 @@ public class EditorInputInterpreter extends InputInterpreter {
 
 	boolean analogUnpressed = false;
 
-	EditorInputInterpreter(EditorController controller) {
-		super(controller);
-		controller.spatialSelector.setCentered(false);
+	EditorController ctrl;
+
+	@Inject
+	EditorInputInterpreter(@Named("EditorController") EditorController ctrl) {
+		super();
+		this.ctrl = ctrl;
 		setMappings();
 	}
 
@@ -81,6 +86,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 
 	@Override
 	protected void registerInputs(InputManager inputManager) {
+
 		inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
 		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
 		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
@@ -123,10 +129,10 @@ public class EditorInputInterpreter extends InputInterpreter {
 		inputManager.addListener(this, mappings);
 	}
 
-	@Override
-	protected void unregisterInputs(InputManager inputManager) {
-
-	}
+	// @Override
+	// protected void unregisterInputs(InputManager inputManager) {
+	//
+	// }
 
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
@@ -241,7 +247,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ToolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
-					((EditorController) ctrl).view.editorRend.toggleGrid();
+					ctrl.view.editorRend.toggleGrid();
 					break;
 				case TOGGLE_SOWER:
 					ToolManager.toggleSower();

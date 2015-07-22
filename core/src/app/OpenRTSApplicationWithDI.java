@@ -91,7 +91,6 @@ public abstract class OpenRTSApplicationWithDI extends GuiceApplication implemen
 
 	}
 
-
 	// @Override
 	// public AzertyFlyByCamera getFlyByCamera() {
 	// return flyCam;
@@ -101,7 +100,6 @@ public abstract class OpenRTSApplicationWithDI extends GuiceApplication implemen
 	public Node getGuiNode() {
 		return guiNode;
 	}
-
 
 	@Override
 	public Node getRootNode() {
@@ -196,11 +194,9 @@ public abstract class OpenRTSApplicationWithDI extends GuiceApplication implemen
 		stateManager.postRender();
 	}
 
-
 	@Override
 	public void simpleUpdate(float tpf) {
 	}
-
 
 	@Override
 	public void simpleRender(RenderManager rm) {

@@ -1,5 +1,8 @@
 package controller.battlefield;
 
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
+import event.client.ControllerChangeEvent;
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 
@@ -9,21 +12,21 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
+import openrts.guice.annotation.InputManagerRef;
 import view.MapView;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
-import de.lessvoid.nifty.Nifty;
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 /**
  *
@@ -34,12 +37,16 @@ public class BattlefieldController extends Controller {
 	private boolean drawingZone = false;
 	protected MapView view;
 
-	public BattlefieldController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	private BattlefieldInputInterpreter inputInterpreter;
+
+	@Inject
+	public BattlefieldController(@Named("MapView") MapView view, @Named("NiftyJmeDisplay") NiftyJmeDisplay niftyDisplay,
+			@InputManagerRef InputManager inputManager,
+			@Named("Camera") Camera cam, @Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;
-		inputInterpreter = new BattlefieldInputInterpreter(this);
-		guiController = new BattlefieldGUIController(nifty, this);
-
+		guiController = new BattlefieldGUIController(niftyDisplay.getNifty(), this);
+		this.inputInterpreter = inputInterpreter;
 		EventManager.register(this);
 
 		cameraManager = new IsometricCameraManager(cam, 10);
@@ -132,5 +139,11 @@ public class BattlefieldController extends Controller {
 
 	private Point2D getMouseCoord(){
 		return TranslateUtil.toPoint2D(inputManager.getCursorPosition());
+	}
+
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		inputInterpreter.unregisterInputs(inputManager);
+		cameraManager.unregisterInputs(inputManager);
 	}
 }

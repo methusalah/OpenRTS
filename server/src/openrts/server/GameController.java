@@ -12,6 +12,8 @@ import model.battlefield.army.components.Unit;
 import view.MapView;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
@@ -31,10 +33,14 @@ public class GameController extends Controller {
 	private boolean drawingZone = false;
 	protected MapView view;
 
-	public GameController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	GameInputInterpreter inputInterpreter;
+
+	@Inject
+	public GameController(@Named("MapView") MapView view, @Named("Nifty") Nifty nifty, @Named("InputManager") InputManager inputManager,
+			@Named("Camera") Camera cam, @Named("GameInputInterpreter") GameInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
+		this.inputInterpreter = inputInterpreter;
 		this.view = view;
-		inputInterpreter = new GameInputInterpreter(this);
 		this.spatialSelector.setCentered(false);
 		guiController = new GameNiftyController(nifty);
 
@@ -128,5 +134,10 @@ public class GameController extends Controller {
 		guiController.activate();
 	}
 
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		inputInterpreter.unregisterInputs(inputManager);
+		cameraManager.unregisterInputs(inputManager);
+	}
 
 }

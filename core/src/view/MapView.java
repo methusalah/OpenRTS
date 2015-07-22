@@ -3,12 +3,17 @@ package view;
 import java.util.logging.Logger;
 
 import model.ModelManager;
+import openrts.guice.annotation.AssetManagerRef;
+import openrts.guice.annotation.GuiNodeRef;
+import openrts.guice.annotation.RootNodeRef;
+import openrts.guice.annotation.ViewPortRef;
 import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.ColorRGBA;
@@ -43,7 +48,8 @@ public class MapView {
 	protected ViewPort vp;
 	protected AssetManager assetManager;
 
-	public MapView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
+	@Inject
+	public MapView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, @AssetManagerRef AssetManager am, @ViewPortRef ViewPort vp) {
 		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
 		gui.attachChild(guiNode);

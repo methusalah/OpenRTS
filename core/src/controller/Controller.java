@@ -19,12 +19,12 @@ import controller.cameraManagement.CameraManager;
  */
 public abstract class Controller extends AbstractAppState {
 
-	protected InputInterpreter inputInterpreter;
+	// protected InputInterpreter inputInterpreter;
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;
-	public GUIController guiController;
 
+	public GUIController guiController;
 
 	public Controller(MapView view, InputManager inputManager, Camera cam) {
 		super();
@@ -34,14 +34,11 @@ public abstract class Controller extends AbstractAppState {
 	}
 
 	@Override
-	public void stateDetached(AppStateManager stateManager) {
-		inputInterpreter.unregisterInputs(inputManager);
-		cameraManager.unregisterInputs(inputManager);
-	}
+	abstract public void stateDetached(AppStateManager stateManager);
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
-		inputInterpreter.registerInputs(inputManager);
+		// inputInterpreter.registerInputs(inputManager);
 		cameraManager.registerInputs(inputManager);
 		cameraManager.activate();
 	}

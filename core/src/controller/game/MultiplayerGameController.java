@@ -13,6 +13,7 @@ import view.MapView;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
@@ -32,10 +33,11 @@ public class MultiplayerGameController extends Controller {
 	private boolean drawingZone = false;
 	protected MapView view;
 
-	public MultiplayerGameController(MapView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	public MultiplayerGameController(@Named("MapView") MapView view, @Named("Nifty") Nifty nifty, @Named("InputManager") InputManager inputManager,
+			@Named("Camera") Camera cam) {
 		super(view, inputManager, cam);
 		this.view = view;
-		inputInterpreter = new MultiplayerGameInputInterpreter(this);
+		// this.inputInterpreter = inputInterpreter;
 		this.spatialSelector.setCentered(false);
 		guiController = new MultiplayerGameNiftyController(nifty, this);
 
@@ -130,6 +132,12 @@ public class MultiplayerGameController extends Controller {
 
 	private Point2D getMouseCoord() {
 		return TranslateUtil.toPoint2D(inputManager.getCursorPosition());
+	}
+
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

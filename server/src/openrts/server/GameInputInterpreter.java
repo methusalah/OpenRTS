@@ -4,6 +4,7 @@ import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
 
+import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 
 import controller.InputInterpreter;
@@ -26,8 +27,11 @@ public class GameInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	GameInputInterpreter(GameController ctl) {
-		super(ctl);
+	GameController ctrl;
+
+	GameInputInterpreter(@Named("GameController") GameController ctrl) {
+		super();
+		this.ctrl = ctrl;
 		// mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
 
@@ -102,6 +106,6 @@ public class GameInputInterpreter extends InputInterpreter {
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord((((GameController) ctrl).view.getRootNode()));
+		return ctrl.spatialSelector.getCoord((ctrl.view.getRootNode()));
 	}
 }

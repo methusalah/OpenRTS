@@ -18,8 +18,9 @@ public class GroundInputInterpreter extends InputInterpreter {
 	protected final static String SWITCH_CTRL_2 = "ctrl2";
 	protected final static String SWITCH_CTRL_3 = "ctrl3";
 
-	GroundInputInterpreter(GroundController controller) {
-		super(controller);
+
+	GroundInputInterpreter() {
+		super();
 		setMappings();
 	}
 
@@ -41,7 +42,7 @@ public class GroundInputInterpreter extends InputInterpreter {
 	}
 
 	@Override
-	protected void unregisterInputs(InputManager inputManager) {
+	public void unregisterInputs(InputManager inputManager) {
 		for (String s : mappings) {
 			if (inputManager.hasMapping(s)) {
 				inputManager.deleteMapping(s);

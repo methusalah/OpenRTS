@@ -48,9 +48,9 @@ public class MainRTS extends OpenRTSApplication {
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
-		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
-		groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
+		// fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
+		// editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
+		// groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
 		EventManager.register(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);

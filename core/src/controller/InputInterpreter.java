@@ -6,15 +6,16 @@ import com.jme3.input.controls.AnalogListener;
 
 public abstract class InputInterpreter implements AnalogListener, ActionListener {
 	protected String[] mappings;
-	protected Controller ctrl;
 
-	protected InputInterpreter(Controller controller) {
-		this.ctrl = controller;
+	// protected Controller ctrl;
+
+	protected InputInterpreter() {
+		// this.ctrl = controller;
 	}
 
 	protected abstract void registerInputs(InputManager inputManager);
 
-	protected void unregisterInputs(InputManager inputManager) {
+	public void unregisterInputs(InputManager inputManager) {
 		for (String s : mappings) {
 			if (inputManager.hasMapping(s)) {
 				inputManager.deleteMapping(s);

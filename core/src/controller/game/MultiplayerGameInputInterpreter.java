@@ -4,6 +4,7 @@ import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
 
+import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -30,8 +31,11 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	MultiplayerGameInputInterpreter(MultiplayerGameController ctl) {
-		super(ctl);
+	private MultiplayerGameController ctrl;
+
+	public MultiplayerGameInputInterpreter(@Named("MultiplayerGameController") MultiplayerGameController ctrl) {
+		super();
+		this.ctrl = ctrl;
 		mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
 
@@ -69,13 +73,13 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 						// double click
 						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
 					} else {
-						if(!((MultiplayerGameController) ctrl).isDrawingZone()) {
+						if(!ctrl.isDrawingZone()) {
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 							// ClientManager.getClient().manageEvent(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 							//							EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 						}
 					}
-					((MultiplayerGameController) ctrl).endSelectionZone();
+					ctrl.endSelectionZone();
 					dblclickTimer = System.currentTimeMillis();
 					dblclickCoord = getSpatialCoord();
 					break;
@@ -89,7 +93,7 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					CommandManager.orderHold();
 					break;
 				case PAUSE:
-					((MultiplayerGameController) ctrl).togglePause();
+					ctrl.togglePause();
 					break;
 			}
 		} else {
@@ -99,13 +103,13 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					CommandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
-					((MultiplayerGameController) ctrl).startSelectionZone();
+					ctrl.startSelectionZone();
 					break;
 			}
 		}
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord((((MultiplayerGameController) ctrl).view.getRootNode()));
+		return ctrl.spatialSelector.getCoord((ctrl.view.getRootNode()));
 	}
 }
