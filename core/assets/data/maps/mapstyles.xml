@@ -6,7 +6,8 @@
     <CliffShapeLink value="StdManmade"/>
     <CliffShapeLink value="StdRockyVegyDug"/>
     
-    <GroundTexture diffuse="textures/grass02.jpg" normal="textures/grassnorm.png" scale="32"/>
+    <GroundTexture diffuse="textures/grass02.jpg" normal="textures/grassnorm.png" scale="64"/>
+    <GroundTexture diffuse="textures/grass.png" scale="32"/>
     <GroundTexture diffuse="textures/road.jpg" normal="textures/road_normal.png" scale="32"/>
     <GroundTexture diffuse="textures/dirt.png" scale="8"/>
     <GroundTexture diffuse="textures/paving3full.png" scale="64"/>

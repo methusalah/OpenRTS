@@ -99,8 +99,8 @@ public class Sowing {
 				else
 					l = map.getAtlas().getLayers().get(texIndex);
 					
-				if(l.getInMapSpace(p) < textureMin.get(i) ||
-						l.getInMapSpace(p) > textureMax.get(i)){
+				if(l.getInAtlasSpace(p) < textureMin.get(i)*255 ||
+						l.getInAtlasSpace(p) > textureMax.get(i)*255){
 					return false;
 				}
 				i++;

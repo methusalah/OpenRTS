@@ -29,17 +29,38 @@ public class Sower implements Runnable {
 	public Sower() {
 		Sowing tree = new Sowing();
 		tree.addTrinket("Tree", 1, 1);
-		tree.addTrinket("Plant", 10, 1.5);
-		tree.setCliffDist(5);
-		tree.setMaxSlope(30);
-//		tree.addTexture("0", 0.5, 1);
+		tree.addTrinket("Plant", 1, 1);
+		tree.setCliffDist(4);
+		tree.addTexture("0", 0.5, 1);
+		tree.addTexture("11", 0, 0);
 		sowings.add(tree);
 
+		Sowing grass = new Sowing();
+		grass.addTrinket("Tree", 1, 2);
+		grass.addTrinket("Plant", 20, 1.5);
+		grass.addTexture("1", 0.5, 1);
+		grass.addTexture("11", 0, 0);
+		sowings.add(grass);
+
 		Sowing rocks = new Sowing();
-		rocks.addTrinket("LittleRock", 1, 0.6);
-		rocks.setMinSlope(20);
-		tree.addTexture("1", 0.5, 1);
+		rocks.addTrinket("LittleRock", 1, 1.5);
+		rocks.addTexture("11", 0, 0);
+		rocks.addTexture("3", 0.6, 1);
 		sowings.add(rocks);
+
+		Sowing rocksOnSlope = new Sowing();
+		rocksOnSlope.addTrinket("LittleRock", 1, 0.3);
+		rocksOnSlope.setMinSlope(20);
+		rocksOnSlope.addTexture("11", 0, 0);
+		rocksOnSlope.addTexture("3", 0.6, 1);
+		sowings.add(rocksOnSlope);
+
+		Sowing rocksAtCliffFoot = new Sowing();
+		rocksAtCliffFoot.addTrinket("LittleRock", 1, 0.3);
+		rocksAtCliffFoot.addTexture("11", 0, 0);
+		rocksAtCliffFoot.addTexture("3", 0.6, 1);
+		rocksAtCliffFoot.setCliffDist(3);
+		sowings.add(rocksAtCliffFoot);
 	}
 
 	private void sowTrinket(Sowing s, Trinket t) {
@@ -84,8 +105,12 @@ public class Sower implements Runnable {
 	}
 
 	private Trinket findNewPlace(Sowing s) {
-		Point2D randomPos = new Point2D(RandomUtil.next() * ModelManager.getBattlefield().getMap().xSize(), RandomUtil.next()
-				* ModelManager.getBattlefield().getMap().ySize());
+		double r1 = RandomUtil.next();
+		double r2 = RandomUtil.next();
+		Point2D randomPos = new Point2D(r1 * (ModelManager.getBattlefield().getMap().xSize()-1),
+				r2 * (ModelManager.getBattlefield().getMap().ySize()-1));
+		if(!ModelManager.getBattlefield().getMap().isInBounds(randomPos))
+			return null;
 		if (s.isAllowed(randomPos)) {
 			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
 			TrinketBuilder tb = s.trinketBuilders.get(trinketIndex);
