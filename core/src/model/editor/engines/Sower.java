@@ -27,17 +27,27 @@ public class Sower implements Runnable {
 	private volatile Thread thread;
 
 	public Sower() {
-		Sowing tree = new Sowing();
-		tree.addTrinket("Tree", 1, 1);
-		tree.addTrinket("Plant", 1, 1);
-		tree.setCliffDist(4);
-		tree.addTexture("0", 0.5, 1);
-		tree.addTexture("11", 0, 0);
-		sowings.add(tree);
+		Sowing treeOnCliff = new Sowing();
+		treeOnCliff.addTrinket("Tree", 1, 1.5);
+		treeOnCliff.addTrinket("Lun Tree", 1, 1.5);
+		treeOnCliff.addTrinket("Plant", 1, 1);
+		treeOnCliff.setCliffDist(4);
+		treeOnCliff.setMaxSlope(10);
+		treeOnCliff.addTexture("0", 0.5, 1);
+		treeOnCliff.addTexture("11", 0, 0);
+		sowings.add(treeOnCliff);
+
+		Sowing treeOnGrass = new Sowing();
+		treeOnGrass.addTrinket("Tree", 1, 3);
+		treeOnGrass.addTrinket("Lun Tree", 1, 3);
+		treeOnGrass.addTexture("1", 0.5, 1);
+		treeOnGrass.addTexture("11", 0, 0);
+		sowings.add(treeOnGrass);
 
 		Sowing grass = new Sowing();
 		grass.addTrinket("Tree", 1, 2);
-		grass.addTrinket("Plant", 20, 1.5);
+		grass.addTrinket("Lun Tree", 1, 2);
+		grass.addTrinket("Herb", 48, 1);
 		grass.addTexture("1", 0.5, 1);
 		grass.addTexture("11", 0, 0);
 		sowings.add(grass);
@@ -84,18 +94,20 @@ public class Sower implements Runnable {
 				}
 
 				for (Sowing s : sowings) {
-					Trinket newTrinket;
-					if (s.toGrow.isEmpty()) {
-						newTrinket = findNewPlace(s);
-						// LogUtil.logger.info("find new place : "+newTrinket);
-					} else {
-						newTrinket = grow(s);
-						// LogUtil.logger.info("grow : "+newTrinket);
-					}
-					if (newTrinket != null) {
-						synchronized (ModelManager.getBattlefield().getMap()) {
-							MapArtisanUtil.attachTrinket(newTrinket, ModelManager.getBattlefield().getMap());
+					try{
+						Trinket newTrinket;
+						if (!s.toGrow.isEmpty() && RandomUtil.next()>0.5) {
+							newTrinket = grow(s);
+						} else {
+							newTrinket = findNewPlace(s);
 						}
+						if (newTrinket != null) {
+							synchronized (ModelManager.getBattlefield().getMap()) {
+								MapArtisanUtil.attachTrinket(newTrinket, ModelManager.getBattlefield().getMap());
+							}
+						}
+					}catch(RuntimeException e){
+						
 					}
 				}
 //				Thread.sleep(50);
