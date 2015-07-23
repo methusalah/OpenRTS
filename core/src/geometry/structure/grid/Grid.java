@@ -35,7 +35,7 @@ public class Grid<T extends Node> extends Map2D<T> {
 		return isInBounds(p)? get(p) : null; 
 	}
 	
-	public List<T> getAround(T n, int distance) {
+	public List<T> getInSquareWithourCenter(T n, int distance) {
 		List<T> res = new ArrayList<>();
 		for (int x = -distance; x <= distance; x++) {
 			for (int y = -distance; y <= distance; y++) {
@@ -50,26 +50,24 @@ public class Grid<T extends Node> extends Map2D<T> {
 		}
 		return res;
 	}
-
-	public List<T> get8Around(T n) {
-		List<T> res = getAround(n, 1);
-		return res;
-	}
-	
-	public List<T> get9Around(T n) {
-		List<T> res = getAround(n, 1);
+	public List<T> getInSquare(T n, int distance) {
+		List<T> res = getInSquareWithourCenter(n, distance);
 		res.add(n);
 		return res;
 	}
 
-	public List<T> get16Around(T n) {
-		List<T> res = getAround(n, 2);
-		res.removeAll(getAround(n, 1));
+	public List<T> get8Around(T n) {
+		List<T> res = getInSquareWithourCenter(n, 1);
+		return res;
+	}
+	
+	public List<T> get9Around(T n) {
+		List<T> res = getInSquare(n, 1);
 		return res;
 	}
 
 	public List<T> get25Around(T n) {
-		List<T> res = getAround(n, 2);
+		List<T> res = getInSquare(n, 2);
 		return res;
 	}
 
@@ -94,16 +92,13 @@ public class Grid<T extends Node> extends Map2D<T> {
 		return res;
 	}
 
-	public List<T> getAround(Point2D p, double distance) {
-		List<T> res = new ArrayList<>();
-		
+	public List<T> getInCircle(Point2D p, double distance) {
 		int ceiled = (int)Math.ceil(distance);
-		for (int x = (int)Math.round(p.x)-ceiled; x < (int)Math.round(p.x)+ceiled; x++) {
-			for (int y = (int)Math.round(p.y)-ceiled; y < (int)Math.round(p.y)+ceiled; y++) {
-				Point2D tileCenter = new Point2D(x+0.5, y+0.5);
-				if(tileCenter.getDistance(p)<distance && isInBounds(new Point2D(x, y)))
-					res.add((T)get(x, y));
-			}
+		List<T> res = new ArrayList<>();
+		for(T node : getInSquare(get(p), ceiled)){
+			Point2D nodeCenter = getCoord(node.getIndex()).getAddition(0.5);
+			if(nodeCenter.getDistance(p) < distance)
+				res.add(node);
 		}
 		return res;
 	}

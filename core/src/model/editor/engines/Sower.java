@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import model.ModelManager;
+import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
 import model.builders.MapArtisanUtil;
 import model.builders.entity.TrinketBuilder;
@@ -117,19 +118,18 @@ public class Sower implements Runnable {
 	}
 
 	private Trinket findNewPlace(Sowing s) {
-		double r1 = RandomUtil.next();
-		double r2 = RandomUtil.next();
-		Point2D randomPos = new Point2D(r1 * (ModelManager.getBattlefield().getMap().xSize()-1),
-				r2 * (ModelManager.getBattlefield().getMap().ySize()-1));
-		if(!ModelManager.getBattlefield().getMap().isInBounds(randomPos))
-			return null;
+		Map m = ModelManager.getBattlefield().getMap();
+		Point2D randomPos = new Point2D(RandomUtil.next() * (m.xSize()-1),
+				RandomUtil.next() * (m.ySize()-1));
+		
 		if (s.isAllowed(randomPos)) {
 			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
 			TrinketBuilder tb = s.trinketBuilders.get(trinketIndex);
-			Trinket candidate = tb.build(randomPos.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(randomPos)));
+			Trinket candidate = tb.build(randomPos.get3D(m.getAltitudeAt(randomPos)));
 			candidate.separationRadius *= s.spacings.get(trinketIndex);
 			boolean isValid = true;
-			for (Trinket n : ModelManager.getBattlefield().getCloseComps(candidate, randomPos, 10)) {
+			
+			for (Trinket n : m.getInCircle(Trinket.class, randomPos, 10)) {
 				double separationDistance = n.getSpacing(candidate);
 				if (n.getDistance(candidate) < separationDistance) {
 					isValid = false;
@@ -145,8 +145,10 @@ public class Sower implements Runnable {
 	}
 
 	private Trinket grow(Sowing s) {
+		Map m = ModelManager.getBattlefield().getMap();
+		
 		Trinket source = s.toGrow.get(RandomUtil.nextInt(s.toGrow.size()));
-		List<Trinket> neibors = ModelManager.getBattlefield().getCloseComps(source, 20);
+		List<Trinket> neibors = m.getInCircle(Trinket.class, source.getCoord(), 20);
 		for (int i = 0; i < MAX_TRINKETS_COUNT; i++) {
 			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
 			Trinket candidate = s.trinketBuilders.get(trinketIndex).build(Point3D.ORIGIN);
@@ -155,7 +157,7 @@ public class Sower implements Runnable {
 				double separationDistance = source.getSpacing(candidate);
 				Point2D place = source.getCoord().getTranslation(RandomUtil.between(0, AngleUtil.FULL),
 						RandomUtil.between(separationDistance, separationDistance * 2));
-				if (!ModelManager.getBattlefield().getMap().isInBounds(place) || !s.isAllowed(place)) {
+				if (!m.isInBounds(place) || !s.isAllowed(place)) {
 					continue;
 				}
 
@@ -168,7 +170,7 @@ public class Sower implements Runnable {
 				}
 
 				if (isValidePlace) {
-					candidate.setPos(place.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(place)));
+					candidate.setPos(place.get3D(m.getAltitudeAt(place)));
 					sowTrinket(s, candidate);
 					return candidate;
 

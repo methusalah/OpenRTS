@@ -64,7 +64,7 @@ public class Sowing {
 		if(distFromCliff > 0){
 			boolean hasCliff = false;
 			// ugly
-			for(Tile t : map.getAround(p, distFromCliff)) {
+			for(Tile t : map.getInCircle(p, distFromCliff)) {
 				if(t.hasCliff()){
 					hasCliff = true;
 					break;
