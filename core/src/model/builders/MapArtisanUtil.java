@@ -94,11 +94,11 @@ public abstract class MapArtisanUtil {
 	}
 	
 	public static void cleanSowing(Map m, Point2D coord, double radius){
-		for(Tile tile : m.getAround(m.get(coord), (int)radius*2)){
-			for(Trinket trinket : tile.getData(Trinket.class)){
-				dettachTrinket(trinket, m);
-				trinket.removeFromBattlefield();
-			}
-		}
+		for(Tile tile : m.getInCircle(coord, radius*2))
+			for(Trinket trinket : tile.getData(Trinket.class))
+				if(trinket.sowed){
+					dettachTrinket(trinket, m);
+					trinket.removeFromBattlefield();
+				}
 	}
 }

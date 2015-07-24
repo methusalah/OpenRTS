@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.cliff.Ramp;
 import model.battlefield.map.parcelling.Parcelling;
@@ -182,6 +183,16 @@ public final class Map extends Grid3D<Tile> {
 
 	public void setParcelling(Parcelling parcelling) {
 		this.parcelling = parcelling;
+	}
+	
+	@JsonIgnore
+	public <T extends FieldComp> List<T> getInCircle(Class<T> clazz, Point2D coord, double distance){
+		List<T> res = new ArrayList<>();
+		for(Tile t : getInCircle(coord, distance))
+			for(T fieldComp : t.getData(clazz))
+				if(fieldComp.getCoord().getDistance(coord) < distance)
+					res.add(fieldComp);
+		return res;
 	}
 
 	
