@@ -25,6 +25,7 @@ import model.builders.entity.definitions.Definition;
  */
 public class TrinketBuilder extends Builder {
 	private static final String EDITABLE = "Editable";
+	private static final String BLOCKING = "Blocking";
 	private static final String RADIUS = "Radius";
 	private static final String MODEL_LIST = "ModelList";
 	private static final String COLOR = "Color";
@@ -51,6 +52,7 @@ public class TrinketBuilder extends Builder {
 	private static final String BLUE = "B";
 
 	private boolean editable = true;
+	private boolean blocking = true;
 	private double radius = 0;
 	private List<String> modelPaths = new ArrayList<>();
 	private String actorBuilderID = "StdTrinket";
@@ -87,6 +89,9 @@ public class TrinketBuilder extends Builder {
 			switch (de.name) {
 				case EDITABLE:
 					editable = de.getBoolVal();
+					break;
+				case BLOCKING:
+					blocking = de.getBoolVal();
 					break;
 				case RADIUS:
 					radius = de.getDoubleVal();
@@ -157,7 +162,7 @@ public class TrinketBuilder extends Builder {
 	 * @return
 	 */
 	public Trinket build(Point3D pos, double yaw, String modelPath, double scaleX, double scaleY, double scaleZ) {
-		return new Trinket(editable, radius, getId(), modelPath, pos, scaleX, scaleY, scaleZ, 0, 0, yaw, color, actorBuilder);
+		return new Trinket(editable, blocking, radius, getId(), modelPath, pos, scaleX, scaleY, scaleZ, 0, 0, yaw, color, actorBuilder);
 	}
 
 	public Trinket build(Point3D position) {
@@ -180,7 +185,7 @@ public class TrinketBuilder extends Builder {
 			i = RandomUtil.nextInt(modelPaths.size() - 1);
 		}
 		String randomModelPath = modelPaths.get(i);
-		return new Trinket(editable, radius, getId(), randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
+		return new Trinket(editable, blocking, radius, getId(), randomModelPath, offsetPos, scaleX, scaleY, scaleZ, rotX, rotY, rotZ, color, actorBuilder);
 	}
 
 	public Trinket build(Cliff cliff) {

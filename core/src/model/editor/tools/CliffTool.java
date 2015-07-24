@@ -8,6 +8,7 @@ import java.util.List;
 
 import model.ModelManager;
 import model.battlefield.map.Tile;
+import model.builders.MapArtisanUtil;
 import model.builders.TileArtisanUtil;
 import model.builders.entity.CliffShapeBuilder;
 import model.editor.AssetSet;
@@ -97,5 +98,6 @@ public class CliffTool extends Tool {
 	private void changeLevel(){
 		List<Tile> tiles = pencil.getTiles();
 		TileArtisanUtil.changeLevel(tiles, maintainedLevel, tiles.get(0).getMap().getStyle().cliffShapeBuilders.get(set.actual).getId());
+		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
 	}
 }

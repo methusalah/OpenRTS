@@ -1,0 +1,31 @@
+material grassC
+{
+    AdditionalRenderState {
+      Blend Alpha
+    }
+
+	technique
+	{
+		pass
+		{
+             // by increase this number, we will get more transparent objects
+             alpha_rejection greater 128
+             depth_write on
+
+			ambient 0.521569 0.603922 0.133333 1
+			diffuse 0.521569 0.603922 0.133333 1
+			specular 0.9 0.9 0.9 0 10
+			emissive 0.3 0.3 0.3 1
+			scene_blend one one_minus_src_alpha
+			cull_hardware none
+			cull_software none
+
+			texture_unit
+			{
+				texture grass02b.png
+			}
+		}
+
+	}
+
+}
