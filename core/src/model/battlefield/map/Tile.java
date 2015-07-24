@@ -136,7 +136,6 @@ public class Tile extends Node3D {
 	}
 
 	@JsonIgnore
-	@Override
 	public double getCliffDependantElevation() {
 		if (modifiedLevel != 0) {
 			return modifiedLevel * STAGE_HEIGHT + elevation;

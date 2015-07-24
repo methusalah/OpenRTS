@@ -111,6 +111,7 @@ public class TrinketTool extends Tool {
 			Point2D newPos = pencil.getCoord().getSubtraction(moveOffset);
 			double z = ModelManager.getBattlefield().getMap().getAltitudeAt(newPos) + elevation;
 			actualTrinket.pos = newPos.get3D(z);
+			MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), actualTrinket.getRadius());
 		}
 	}
 
