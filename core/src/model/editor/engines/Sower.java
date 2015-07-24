@@ -38,17 +38,18 @@ public class Sower implements Runnable {
 		treeOnCliff.addTexture("11", 0, 0);
 		sowings.add(treeOnCliff);
 
-		Sowing treeOnGrass = new Sowing();
-		treeOnGrass.addTrinket("Tree", 1, 3);
-		treeOnGrass.addTrinket("Lun Tree", 1, 3);
-		treeOnGrass.addTexture("1", 0.5, 1);
-		treeOnGrass.addTexture("11", 0, 0);
-		sowings.add(treeOnGrass);
+//		Sowing treeOnGrass = new Sowing();
+//		treeOnGrass.addTrinket("Tree", 1, 3);
+//		treeOnGrass.addTrinket("Lun Tree", 1, 3);
+//		treeOnGrass.addTexture("1", 0.5, 1);
+//		treeOnGrass.addTexture("11", 0, 0);
+//		sowings.add(treeOnGrass);
 
 		Sowing grass = new Sowing();
 		grass.addTrinket("Tree", 1, 2);
-		grass.addTrinket("Lun Tree", 1, 2);
-		grass.addTrinket("Herb", 48, 1);
+		grass.addTrinket("LittleRock", 10, 0.5);
+		grass.addTrinket("Herb2", 20, 0.8);
+		grass.addTrinket("Herb", 20, 0.8);
 		grass.addTexture("1", 0.5, 1);
 		grass.addTexture("11", 0, 0);
 		sowings.add(grass);
@@ -97,7 +98,7 @@ public class Sower implements Runnable {
 				for (Sowing s : sowings) {
 					try{
 						Trinket newTrinket;
-						if (!s.toGrow.isEmpty() && RandomUtil.next()>0.5) {
+						if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
 							newTrinket = grow(s);
 						} else {
 							newTrinket = findNewPlace(s);
