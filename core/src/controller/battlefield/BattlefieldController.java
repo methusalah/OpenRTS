@@ -41,8 +41,8 @@ public class BattlefieldController extends Controller {
 
 	@Inject
 	public BattlefieldController(@Named("MapView") MapView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController,
-			@InputManagerRef InputManager inputManager,
-			@Named("Camera") Camera cam, @Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
+			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
+			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;
 		this.guiController = guiController;
@@ -133,6 +133,7 @@ public class BattlefieldController extends Controller {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
+		inputInterpreter.registerInputs(inputManager);
 		inputManager.setCursorVisible(true);
 		guiController.activate();
 	}

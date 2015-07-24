@@ -3,6 +3,7 @@ package controller.editor;
 import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
+import view.EditorView;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -63,12 +64,14 @@ public class EditorInputInterpreter extends InputInterpreter {
 
 	boolean analogUnpressed = false;
 
-	EditorController ctrl;
+	protected EditorGUIController guiController;
+	protected EditorView view;
 
 	@Inject
-	EditorInputInterpreter(@Named("EditorController") EditorController ctrl) {
+	EditorInputInterpreter(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController) {
 		super();
-		this.ctrl = ctrl;
+		this.view = view;
+		this.guiController = guiController;
 		setMappings();
 	}
 
@@ -81,7 +84,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 				TOGGLE_GRID, TOGGLE_SOWER, TOGGLE_SET, TOGGLE_OPERATION, INC_AIRBRUSH_FALLOF, DEC_AIRBRUSH_FALLOF,
 
 				TOGGLE_LIGHT_COMP, INC_DAYTIME, DEC_DAYTIME, COMPASS_EAST, COMPASS_WEST, INC_INTENSITY, DEC_INTENSITY, TOGGLE_SPEED, DEC_RED, DEC_GREEN,
-				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, REPORT};
+				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, REPORT };
 	}
 
 	@Override
@@ -247,7 +250,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ToolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
-					ctrl.view.editorRend.toggleGrid();
+					view.editorRend.toggleGrid();
 					break;
 				case TOGGLE_SOWER:
 					ToolManager.toggleSower();
@@ -274,7 +277,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					Reporter.reportAll();
 					break;
 			}
-			ctrl.guiController.askRedraw();
+			guiController.askRedraw();
 		}
 	}
 }

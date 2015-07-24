@@ -50,6 +50,7 @@ public class GroundController extends Controller {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);
 		guiController.activate();
+		inputInterpreter.registerInputs(inputManager);
 		logger.info("ground controller on line");
 	}
 

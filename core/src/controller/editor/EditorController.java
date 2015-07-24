@@ -32,13 +32,16 @@ public class EditorController extends Controller {
 	protected EditorView view;
 
 	protected EditorGUIController guiController;
+	protected EditorInputInterpreter inputInterpreter;
 
 	@Inject
 	public EditorController(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
-			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam) {
+			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
+			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;
 		this.guiController = guiController;
+		this.inputInterpreter = inputInterpreter;
 		cameraManager = new IsometricCameraManager(cam, 10);
 		spatialSelector.setCentered(false);
 		EventManager.register(this);
@@ -71,6 +74,7 @@ public class EditorController extends Controller {
 		if (ModelManager.getBattlefield() != null) {
 			ModelManager.getBattlefield().getEngagement().reset();
 		}
+		inputInterpreter.registerInputs(inputManager);
 	}
 
 	@Override

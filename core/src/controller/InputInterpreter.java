@@ -7,7 +7,6 @@ import com.jme3.input.controls.AnalogListener;
 public abstract class InputInterpreter implements AnalogListener, ActionListener {
 	protected String[] mappings;
 
-
 	protected InputInterpreter() {
 	}
 
