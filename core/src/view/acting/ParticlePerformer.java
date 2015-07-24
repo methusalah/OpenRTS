@@ -20,6 +20,7 @@ import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 
 /**
  *
@@ -146,6 +147,7 @@ public class ParticlePerformer extends Performer{
 		if(actor.velocity != 0) {
 			emitter.setFacingVelocity(true);
 		}
+		emitter.setQueueBucket(Bucket.Translucent);
 		actorDrawer.mainNode.attachChild(emitter);
 		actor.getViewElements().particleEmitter = emitter;
 	}
