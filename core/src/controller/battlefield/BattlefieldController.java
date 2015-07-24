@@ -47,9 +47,7 @@ public class BattlefieldController extends Controller {
 		this.view = view;
 		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;
-		EventManager.register(this);
 
-		cameraManager = new IsometricCameraManager(cam, 10);
 	}
 
 	@Override
@@ -134,8 +132,11 @@ public class BattlefieldController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputInterpreter.registerInputs(inputManager);
+		inputInterpreter.setBattlefieldController(this);
 		inputManager.setCursorVisible(true);
 		guiController.activate();
+		EventManager.register(this);
+
 	}
 
 	private Point2D getMouseCoord(){
@@ -146,5 +147,6 @@ public class BattlefieldController extends Controller {
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
 		cameraManager.unregisterInputs(inputManager);
+		EventManager.unregister(this);
 	}
 }

@@ -46,9 +46,7 @@ public class GameController extends Controller {
 		this.spatialSelector.setCentered(false);
 		this.guiController = guiController;
 
-		EventManager.register(this);
 
-		cameraManager = new IsometricCameraManager(cam, 10);
 	}
 
 	@Override
@@ -134,12 +132,14 @@ public class GameController extends Controller {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(true);
 		guiController.activate();
+		EventManager.register(this);
 	}
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
 		cameraManager.unregisterInputs(inputManager);
+		EventManager.unregister(this);
 	}
 
 }

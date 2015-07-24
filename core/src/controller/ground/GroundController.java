@@ -17,6 +17,7 @@ import com.jme3.renderer.Camera;
 
 import controller.Controller;
 import controller.cameraManagement.GroundCameraManager;
+import event.EventManager;
 
 /**
  *
@@ -34,9 +35,7 @@ public class GroundController extends Controller {
 			@InputManagerRef InputManager inputManager,
 			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
-
 		this.inputInterpreter = inputInterpreter;
-		cameraManager = new GroundCameraManager(cam);
 		this.guiController = guiController;
 	}
 
@@ -47,6 +46,7 @@ public class GroundController extends Controller {
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
+		cameraManager = new GroundCameraManager(cam);
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);
 		guiController.activate();
@@ -59,6 +59,7 @@ public class GroundController extends Controller {
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
 		cameraManager.unregisterInputs(inputManager);
+		EventManager.unregister(this);
 	}
 
 }

@@ -45,8 +45,6 @@ public class MultiplayerGameController extends Controller {
 		this.guiController = guiController;
 
 		EventManager.register(this);
-
-		cameraManager = new IsometricCameraManager(cam, 10);
 	}
 
 	@Override

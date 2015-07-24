@@ -100,6 +100,7 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		view = injector.getInstance(EditorView.class);
 		editorCtrl = injector.getInstance(EditorController.class);
 		fieldCtrl = injector.getInstance(BattlefieldController.class);
+		groundCtrl = injector.getInstance(GroundController.class);
 		// fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 		// editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
 		// groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);

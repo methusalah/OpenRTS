@@ -42,9 +42,6 @@ public class EditorController extends Controller {
 		this.view = view;
 		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;
-		cameraManager = new IsometricCameraManager(cam, 10);
-		spatialSelector.setCentered(false);
-		EventManager.register(this);
 	}
 
 	@Override
@@ -75,6 +72,9 @@ public class EditorController extends Controller {
 			ModelManager.getBattlefield().getEngagement().reset();
 		}
 		inputInterpreter.registerInputs(inputManager);
+
+		spatialSelector.setCentered(false);
+		EventManager.register(this);
 	}
 
 	@Override
@@ -82,6 +82,7 @@ public class EditorController extends Controller {
 		ModelManager.getBattlefield().getEngagement().save();
 		// super.stateDetached(stateManager);
 		view.getRootNode().detachChild(view.editorRend.mainNode);
+		EventManager.unregister(this);
 	}
 
 	@Subscribe
