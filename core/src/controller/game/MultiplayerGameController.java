@@ -1,5 +1,8 @@
 package controller.game;
 
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
+import event.client.ControllerChangeEvent;
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 
@@ -13,6 +16,7 @@ import view.MapView;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -21,10 +25,6 @@ import com.jme3.renderer.Camera;
 import controller.CommandManager;
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
-import de.lessvoid.nifty.Nifty;
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 public class MultiplayerGameController extends Controller {
 
@@ -32,14 +32,17 @@ public class MultiplayerGameController extends Controller {
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
 	protected MapView view;
+	protected MultiplayerGameNiftyController guiController;
 
-	public MultiplayerGameController(@Named("MapView") MapView view, @Named("Nifty") Nifty nifty, @Named("InputManager") InputManager inputManager,
+	@Inject
+	public MultiplayerGameController(@Named("MapView") MapView view, @Named("MultiplayerGameNiftyController") MultiplayerGameNiftyController guiController,
+			@Named("InputManager") InputManager inputManager,
 			@Named("Camera") Camera cam) {
 		super(view, inputManager, cam);
 		this.view = view;
 		// this.inputInterpreter = inputInterpreter;
 		this.spatialSelector.setCentered(false);
-		guiController = new MultiplayerGameNiftyController(nifty, this);
+		this.guiController = guiController;
 
 		EventManager.register(this);
 

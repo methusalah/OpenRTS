@@ -13,6 +13,7 @@ import view.mapDrawing.MapDrawer;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
@@ -22,9 +23,12 @@ import com.jme3.scene.Node;
 
 import controller.Controller;
 import controller.battlefield.BattlefieldController;
+import controller.battlefield.BattlefieldGUIController;
 import controller.battlefield.BattlefieldInputInterpreter;
 import controller.editor.EditorController;
+import controller.editor.EditorGUIController;
 import controller.ground.GroundController;
+import controller.ground.GroundGUIController;
 import controller.ground.GroundInputInterpreter;
 import de.lessvoid.nifty.Nifty;
 import event.EventManager;
@@ -71,10 +75,21 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
 				bind(EditorView.class).annotatedWith(Names.named("EditorView")).to(EditorView.class);
 				bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
-				bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class);
-				bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class);
+
+				bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
+				bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
+				bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
+				.in(Singleton.class);
+
+				bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
+				bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
+
+				// bind(ClientManager.class).in(Singleton.class);
+				// bind(NetworkNiftyController.class).in(Singleton.class);
+
 				bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class);
-				bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class);
+				bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
+				.in(Singleton.class);;
 				bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class);
 				bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class);
 

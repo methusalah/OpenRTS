@@ -17,7 +17,6 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
@@ -32,13 +31,14 @@ public class EditorController extends Controller {
 
 	protected EditorView view;
 
+	protected EditorGUIController guiController;
+
 	@Inject
-	public EditorController(@Named("EditorView") EditorView view, @Named("NiftyJmeDisplay") NiftyJmeDisplay niftyDisplay,
-			@InputManagerRef InputManager inputManager,
-			@Named("Camera") Camera cam) {
+	public EditorController(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
+			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam) {
 		super(view, inputManager, cam);
 		this.view = view;
-		guiController = new EditorGUIController(niftyDisplay.getNifty(), this);
+		this.guiController = guiController;
 		cameraManager = new IsometricCameraManager(cam, 10);
 		spatialSelector.setCentered(false);
 		EventManager.register(this);

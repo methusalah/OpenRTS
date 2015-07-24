@@ -11,7 +11,11 @@ import model.builders.entity.definitions.BuilderManager;
 import model.editor.ToolManager;
 import model.editor.tools.Tool;
 import app.MainRTS;
-import controller.Controller;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.name.Named;
+
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
@@ -25,8 +29,12 @@ import de.lessvoid.nifty.screen.Screen;
  */
 public class EditorGUIController extends GUIController {
 
-	public EditorGUIController(Nifty nifty, Controller controller) {
-		super(controller, nifty);
+	@Inject
+	private Injector injector;
+
+	@Inject
+	public EditorGUIController(@Named("Nifty") Nifty nifty) {
+		super(nifty);
 		drawer = new EditorGUIDrawer(this);
 	}
 
@@ -120,7 +128,7 @@ public class EditorGUIController extends GUIController {
 	}
 
 	public void toggleGrid() {
-		((EditorController) ctrl).view.editorRend.toggleGrid();
+		injector.getInstance(EditorController.class).view.editorRend.toggleGrid();
 	}
 
 	public void setCliffTool() {

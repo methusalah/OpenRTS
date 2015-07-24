@@ -13,7 +13,6 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
@@ -27,17 +26,18 @@ public class GroundController extends Controller {
 
 	private static final Logger logger = Logger.getLogger(GroundController.class.getName());
 
-	private GroundInputInterpreter inputInterpreter;
+	protected GroundInputInterpreter inputInterpreter;
+	protected GroundGUIController guiController;
 
 	@Inject
-	public GroundController(@Named("EditorView") EditorView view, @Named("NiftyJmeDisplay") NiftyJmeDisplay niftyDisplay,
+	public GroundController(@Named("EditorView") EditorView view, @Named("GroundGUIController") GroundGUIController guiController,
 			@InputManagerRef InputManager inputManager,
 			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 
 		this.inputInterpreter = inputInterpreter;
 		cameraManager = new GroundCameraManager(cam);
-		guiController = new GroundGUIController(niftyDisplay.getNifty(), this);
+		this.guiController = guiController;
 	}
 
 

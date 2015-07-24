@@ -1,5 +1,8 @@
 package openrts.server;
 
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
+import event.client.ControllerChangeEvent;
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 
@@ -20,11 +23,8 @@ import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
 import controller.Controller;
+import controller.GUIController;
 import controller.cameraManagement.IsometricCameraManager;
-import de.lessvoid.nifty.Nifty;
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 public class GameController extends Controller {
 
@@ -33,16 +33,18 @@ public class GameController extends Controller {
 	private boolean drawingZone = false;
 	protected MapView view;
 
-	GameInputInterpreter inputInterpreter;
+	protected GameInputInterpreter inputInterpreter;
+	protected GUIController guiController;
 
 	@Inject
-	public GameController(@Named("MapView") MapView view, @Named("Nifty") Nifty nifty, @Named("InputManager") InputManager inputManager,
+	public GameController(@Named("MapView") MapView view, @Named("GameNiftyController") GameNiftyController guiController,
+			@Named("InputManager") InputManager inputManager,
 			@Named("Camera") Camera cam, @Named("GameInputInterpreter") GameInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.inputInterpreter = inputInterpreter;
 		this.view = view;
 		this.spatialSelector.setCentered(false);
-		guiController = new GameNiftyController(nifty);
+		this.guiController = guiController;
 
 		EventManager.register(this);
 

@@ -6,8 +6,6 @@ import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -38,12 +36,10 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	BattlefieldController ctrl;
+	private BattlefieldController ctrl;
 
-	@Inject
-	BattlefieldInputInterpreter(@Named("BattlefieldController") BattlefieldController ctrl) {
+	BattlefieldInputInterpreter() {
 		super();
-		this.ctrl = ctrl;
 		setMappings();
 	}
 
@@ -132,5 +128,9 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	private Point2D getSpatialCoord() {
 		return ctrl.spatialSelector.getCoord((ctrl.view.getRootNode()));
+	}
+
+	void setBattlefieldController(BattlefieldController ctl) {
+		this.ctrl = ctl;
 	}
 }

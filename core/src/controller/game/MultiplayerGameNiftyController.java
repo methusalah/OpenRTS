@@ -3,8 +3,11 @@ package controller.game;
 import java.text.DecimalFormat;
 
 import model.battlefield.army.components.Unit;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 import controller.CommandManager;
-import controller.Controller;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -14,8 +17,9 @@ public class MultiplayerGameNiftyController extends GUIController {
 
 	private static DecimalFormat df = new DecimalFormat("0");
 
-	public MultiplayerGameNiftyController(Nifty nifty, Controller ctrl) {
-		super(ctrl, nifty);
+	@Inject
+	public MultiplayerGameNiftyController(@Named("Nifty") Nifty nifty) {
+		super(nifty);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import view.MapView;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.jme3.bullet.BulletAppState;
@@ -42,6 +43,9 @@ public class MultiplayerGame extends GuiceApplication {
 	private static String NiftyScreen = "network";
 
 	private NiftyJmeDisplay niftyDisplay;
+
+	@Inject
+	protected Injector injector;
 
 	// @Inject
 	// private NiftyJmeDisplay niftyDisplay;
@@ -136,7 +140,7 @@ public class MultiplayerGame extends GuiceApplication {
 		if (view.getMapRend() != null) {
 			view.getMapRend().renderTiles();
 		}
-		MultiplayerGameController game = new MultiplayerGameController(view, niftyDisplay.getNifty(), inputManager, cam);
+		MultiplayerGameController game = injector.getInstance(MultiplayerGameController.class);
 		MultiplayerGameInputInterpreter inputInterpreter = new MultiplayerGameInputInterpreter(game);
 		stateManager.detach(networkState);
 		stateManager.attach(game);

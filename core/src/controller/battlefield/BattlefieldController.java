@@ -21,7 +21,6 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
@@ -38,14 +37,15 @@ public class BattlefieldController extends Controller {
 	protected MapView view;
 
 	private BattlefieldInputInterpreter inputInterpreter;
+	private BattlefieldGUIController guiController;
 
 	@Inject
-	public BattlefieldController(@Named("MapView") MapView view, @Named("NiftyJmeDisplay") NiftyJmeDisplay niftyDisplay,
+	public BattlefieldController(@Named("MapView") MapView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController,
 			@InputManagerRef InputManager inputManager,
 			@Named("Camera") Camera cam, @Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;
-		guiController = new BattlefieldGUIController(niftyDisplay.getNifty(), this);
+		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;
 		EventManager.register(this);
 
