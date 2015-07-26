@@ -37,7 +37,7 @@ public class GameInputInterpreter extends InputInterpreter {
 
 
 	@Override
-	protected void registerInputs(InputManager inputManager) {
+	public void registerInputs(InputManager inputManager) {
 
 		// inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
 		// inputManager.addMapping(ACTION, new MouseButtonTrigger(1));

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import model.ModelManager;
-import openrts.guice.GuiceApplication;
+import app.OpenRTSApplicationWithDI;
 
 import com.google.inject.Inject;
 import com.jme3.bullet.BulletAppState;
@@ -19,7 +19,7 @@ import event.network.AckEvent;
 import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
 
-public class OpenRTSServer extends GuiceApplication {
+public class OpenRTSServer extends OpenRTSApplicationWithDI {
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
@@ -56,7 +56,7 @@ public class OpenRTSServer extends GuiceApplication {
 	}
 
 	@Override
-	public void guiceAppInit() {
+	public void simpleInitApp() {
 
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));

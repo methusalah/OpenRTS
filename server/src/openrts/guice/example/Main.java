@@ -1,6 +1,6 @@
 package openrts.guice.example;
 
-import openrts.guice.GuiceApplication;
+import app.OpenRTSApplicationWithDI;
 
 import com.google.inject.Inject;
 import com.jme3.bullet.BulletAppState;
@@ -9,7 +9,7 @@ import com.jme3.math.Vector3f;
 /**
  * Paying with JMonkeyEngine and Guice
  */
-public class Main extends GuiceApplication {
+public class Main extends OpenRTSApplicationWithDI {
 
 	public static void main(String[] args) {
 		Main app = new Main();
@@ -23,7 +23,7 @@ public class Main extends GuiceApplication {
 
 
 	@Override
-	public void guiceAppInit() {
+	public void simpleInitApp() {
 		/** Set up Physics */
 		this.stateManager.attach(bulletAppState);
 
