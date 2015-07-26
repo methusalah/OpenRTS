@@ -4,6 +4,7 @@
 package controller.editor;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.builders.entity.MapStyleBuilder;
@@ -29,8 +30,14 @@ import de.lessvoid.nifty.screen.Screen;
  */
 public class EditorGUIController extends GUIController {
 
+	private static final Logger logger = Logger.getLogger(EditorGUIController.class.getName());
+
 	@Inject
 	private Injector injector;
+
+	public EditorGUIController() {
+
+	}
 
 	@Inject
 	public EditorGUIController(@Named("Nifty") Nifty nifty) {
@@ -58,14 +65,18 @@ public class EditorGUIController extends GUIController {
 
 	@Override
 	public void bind(Nifty nifty, Screen screen) {
+		logger.info("bind");
+		this.nifty = nifty;
 	}
 
 	@Override
 	public void onStartScreen() {
+		logger.info("onStartScreen");
 	}
 
 	@Override
 	public void onEndScreen() {
+		logger.info("onEndScreen");
 	}
 
 	@NiftyEventSubscriber(pattern = ".*slider")

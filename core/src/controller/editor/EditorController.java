@@ -32,7 +32,8 @@ public class EditorController extends Controller {
 	protected EditorView view;
 
 	protected EditorGUIController guiController;
-	protected EditorInputInterpreter inputInterpreter;
+
+	// protected EditorInputInterpreter inputInterpreter;
 
 	@Inject
 	public EditorController(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
@@ -71,7 +72,7 @@ public class EditorController extends Controller {
 		if (ModelManager.getBattlefield() != null) {
 			ModelManager.getBattlefield().getEngagement().reset();
 		}
-		inputInterpreter.registerInputs(inputManager);
+		// inputInterpreter.registerInputs(inputManager);
 
 		spatialSelector.setCentered(false);
 		EventManager.register(this);
@@ -80,7 +81,7 @@ public class EditorController extends Controller {
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		ModelManager.getBattlefield().getEngagement().save();
-		// super.stateDetached(stateManager);
+		super.stateDetached(stateManager);
 		view.getRootNode().detachChild(view.editorRend.mainNode);
 		EventManager.unregister(this);
 	}

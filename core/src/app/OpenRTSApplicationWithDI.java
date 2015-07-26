@@ -9,8 +9,7 @@ import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
-import openrts.guice.GuiceApplication;
-
+import com.jme3.app.Application;
 import com.jme3.app.StatsView;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
@@ -31,7 +30,7 @@ import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
-public abstract class OpenRTSApplicationWithDI extends GuiceApplication implements PhysicsTickListener {
+public abstract class OpenRTSApplicationWithDI extends Application implements PhysicsTickListener {
 
 	private static final Logger logger = Logger.getLogger(OpenRTSApplicationWithDI.class.getName());
 
@@ -193,6 +192,9 @@ public abstract class OpenRTSApplicationWithDI extends GuiceApplication implemen
 		simpleRender(renderManager);
 		stateManager.postRender();
 	}
+
+	public abstract void simpleInitApp();
+
 
 	public void simpleUpdate(float tpf) {
 	}

@@ -20,7 +20,7 @@ import controller.cameraManagement.IsometricCameraManager;
  */
 public abstract class Controller extends AbstractAppState {
 
-	// protected InputInterpreter inputInterpreter;
+	protected InputInterpreter inputInterpreter;
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;
@@ -37,7 +37,10 @@ public abstract class Controller extends AbstractAppState {
 	}
 
 	@Override
-	abstract public void stateDetached(AppStateManager stateManager);
+	public void stateDetached(AppStateManager stateManager) {
+		inputInterpreter.unregisterInputs(inputManager);
+		cameraManager.unregisterInputs(inputManager);
+	}
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {

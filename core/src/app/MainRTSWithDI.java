@@ -1,11 +1,11 @@
 package app;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.editor.ToolManager;
-import network.client.ClientManager;
 import openrts.guice.annotation.AppSettingsRef;
 import openrts.guice.annotation.AssetManagerRef;
 import openrts.guice.annotation.AudioRendererRef;
@@ -21,7 +21,9 @@ import view.mapDrawing.MapDrawer;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.jme3.app.Application;
@@ -45,7 +47,6 @@ import controller.battlefield.BattlefieldInputInterpreter;
 import controller.editor.EditorController;
 import controller.editor.EditorGUIController;
 import controller.editor.EditorInputInterpreter;
-import controller.game.NetworkNiftyController;
 import controller.ground.GroundController;
 import controller.ground.GroundGUIController;
 import controller.ground.GroundInputInterpreter;
@@ -63,13 +64,15 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 	private EditorController editorCtrl;
 	private GroundController groundCtrl;
 	Controller actualCtrl;
+	protected Injector injector;
+	protected Collection<Module> modules;
 
 	public static void main(String[] args) {
 		OpenRTSApplicationWithDI.main(new MainRTSWithDI());
 	}
 
 	@Override
-	public void guiceAppInit() {
+	public void simpleInitApp() {
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
@@ -79,11 +82,6 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		flyCam.setEnabled(false);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-
-		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
-		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
-		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
-		niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
 
 		Application app = this;
 
@@ -109,14 +107,10 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 
 				bind(Application.class).toInstance(app);
 
-				bind(ClientManager.class).in(Singleton.class);
-				bind(NetworkNiftyController.class).in(Singleton.class);
+				// bind(ClientManager.class).in(Singleton.class);
+				// bind(NetworkNiftyController.class).in(Singleton.class);
 
-				bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
-				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
-				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
-				bind(EditorView.class).annotatedWith(Names.named("EditorView")).to(EditorView.class).in(Singleton.class);;
-				bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
+				bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
 
 				bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
 				bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
@@ -124,15 +118,21 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 				bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
 				.in(Singleton.class);
 
-				bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
 				bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
 				bind(EditorInputInterpreter.class).annotatedWith(Names.named("EditorInputInterpreter")).to(EditorInputInterpreter.class).in(Singleton.class);;
+				bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
 
+				bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);
 				bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
-				bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);;
 				bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class).in(Singleton.class);;
 
-				bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
+				bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
+				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
+				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
+
+				bind(EditorView.class).in(Scopes.SINGLETON);
+				bind(EditorView.class).annotatedWith(Names.named("EditorView")).to(EditorView.class);
+				bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
 
 			}
 		});
@@ -140,9 +140,17 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		injector.injectMembers(this);
 
 		view = injector.getInstance(EditorView.class);
+
+
+		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
+		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
+		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
+		niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
+
 		editorCtrl = injector.getInstance(EditorController.class);
 		fieldCtrl = injector.getInstance(BattlefieldController.class);
 		groundCtrl = injector.getInstance(GroundController.class);
+
 		// fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
 		// editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
 		// groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
@@ -151,7 +159,6 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		actualCtrl = editorCtrl;
 		stateManager.attach(actualCtrl);
 		actualCtrl.setEnabled(true);
-
 		guiViewPort.addProcessor(niftyDisplay);
 
 		ModelManager.setNewBattlefield();
