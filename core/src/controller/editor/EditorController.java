@@ -72,7 +72,7 @@ public class EditorController extends Controller {
 		if (ModelManager.getBattlefield() != null) {
 			ModelManager.getBattlefield().getEngagement().reset();
 		}
-		// inputInterpreter.registerInputs(inputManager);
+		inputInterpreter.registerInputs(inputManager);
 
 		spatialSelector.setCentered(false);
 		EventManager.register(this);

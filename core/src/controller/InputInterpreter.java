@@ -10,7 +10,7 @@ public abstract class InputInterpreter implements AnalogListener, ActionListener
 	protected InputInterpreter() {
 	}
 
-	protected abstract void registerInputs(InputManager inputManager);
+	public abstract void registerInputs(InputManager inputManager);
 
 	public void unregisterInputs(InputManager inputManager) {
 		for (String s : mappings) {

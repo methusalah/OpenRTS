@@ -33,7 +33,7 @@ public class GroundInputInterpreter extends InputInterpreter {
 	}
 
 	@Override
-	protected void registerInputs(InputManager inputManager) {
+	public void registerInputs(InputManager inputManager) {
 		inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
 		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
 		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
