@@ -25,7 +25,9 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -150,7 +152,16 @@ public class ActorDrawer implements AnimEventListener {
 
 	protected Spatial buildSpatial(ModelActor actor) {
 		if (!models.containsKey(actor.getModelPath())) {
-			models.put(actor.getModelPath(), assetManager.loadModel("models/" + actor.getModelPath()));
+			Spatial s = assetManager.loadModel("models/" + actor.getModelPath());
+			models.put(actor.getModelPath(), s);
+			
+			// TODO to refactor. all models don't need to be transparent, neither all materials in a model.
+			s.setQueueBucket(Bucket.Transparent);
+			for(Spatial n : ((Node)s).getChildren())
+				if(n instanceof Geometry){
+					((Geometry)n).getMaterial().getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+					((Geometry)n).getMaterial().setFloat("AlphaDiscardThreshold", 0.5f);
+				}
 		}
 		Spatial res = models.get(actor.getModelPath()).clone();
 		

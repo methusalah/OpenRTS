@@ -13,9 +13,9 @@ import model.builders.entity.actors.ModelActorBuilder;
  */
 public class Trinket extends FieldComp{
     public final boolean editable;
+    public final boolean blocking;
     private final ModelActor actor;
     public final String builderID;
-    public final boolean blocking;
     public double separationRadius;
     public boolean sowed = false;
     
