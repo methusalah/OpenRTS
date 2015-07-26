@@ -77,7 +77,7 @@ public class Game {
 
 		this.clientDisplay = clientDisplay;
 
-		fieldCtrl = new GameController(view, clientDisplay.getNifty(), inputManager, cam);
+		// fieldCtrl = new GameController(view, clientDisplay.getNifty(), inputManager, cam);
 
 		clientDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices

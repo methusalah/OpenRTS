@@ -3,7 +3,10 @@ package controller.editor;
 import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
+import view.EditorView;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -61,9 +64,14 @@ public class EditorInputInterpreter extends InputInterpreter {
 
 	boolean analogUnpressed = false;
 
-	EditorInputInterpreter(EditorController controller) {
-		super(controller);
-		controller.spatialSelector.setCentered(false);
+	protected EditorGUIController guiController;
+	protected EditorView view;
+
+	@Inject
+	EditorInputInterpreter(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController) {
+		super();
+		this.view = view;
+		this.guiController = guiController;
 		setMappings();
 	}
 
@@ -76,11 +84,12 @@ public class EditorInputInterpreter extends InputInterpreter {
 				TOGGLE_GRID, TOGGLE_SOWER, TOGGLE_SET, TOGGLE_OPERATION, INC_AIRBRUSH_FALLOF, DEC_AIRBRUSH_FALLOF,
 
 				TOGGLE_LIGHT_COMP, INC_DAYTIME, DEC_DAYTIME, COMPASS_EAST, COMPASS_WEST, INC_INTENSITY, DEC_INTENSITY, TOGGLE_SPEED, DEC_RED, DEC_GREEN,
-				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, REPORT};
+				DEC_BLUE, RESET_COLOR, SAVE, LOAD, NEW, REPORT };
 	}
 
 	@Override
-	protected void registerInputs(InputManager inputManager) {
+	public void registerInputs(InputManager inputManager) {
+
 		inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
 		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
 		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
@@ -123,10 +132,10 @@ public class EditorInputInterpreter extends InputInterpreter {
 		inputManager.addListener(this, mappings);
 	}
 
-	@Override
-	protected void unregisterInputs(InputManager inputManager) {
-
-	}
+	// @Override
+	// protected void unregisterInputs(InputManager inputManager) {
+	//
+	// }
 
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
@@ -241,7 +250,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ToolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
-					((EditorController) ctrl).view.editorRend.toggleGrid();
+					view.editorRend.toggleGrid();
 					break;
 				case TOGGLE_SOWER:
 					ToolManager.toggleSower();
@@ -268,7 +277,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					Reporter.reportAll();
 					break;
 			}
-			ctrl.guiController.askRedraw();
+			guiController.askRedraw();
 		}
 	}
 }

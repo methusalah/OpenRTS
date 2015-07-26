@@ -64,7 +64,7 @@ public class Sowing {
 		if(distFromCliff > 0){
 			boolean hasCliff = false;
 			// ugly
-			for(Tile t : map.getAround(p, distFromCliff)) {
+			for(Tile t : map.getInCircle(p, distFromCliff)) {
 				if(t.hasCliff()){
 					hasCliff = true;
 					break;
@@ -99,8 +99,8 @@ public class Sowing {
 				else
 					l = map.getAtlas().getLayers().get(texIndex);
 					
-				if(l.getInMapSpace(p) < textureMin.get(i) ||
-						l.getInMapSpace(p) > textureMax.get(i)){
+				if(l.getInAtlasSpace(p) < textureMin.get(i)*255 ||
+						l.getInAtlasSpace(p) > textureMax.get(i)*255){
 					return false;
 				}
 				i++;

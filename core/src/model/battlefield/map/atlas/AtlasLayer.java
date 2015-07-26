@@ -7,8 +7,8 @@ import java.util.List;
 
 public class AtlasLayer {
 	public static double MAX_VALUE = 255;
-	
-	
+
+
 	Map2D<Byte> values;
 
 	public AtlasLayer(int xSize, int ySize) {
@@ -16,7 +16,7 @@ public class AtlasLayer {
 	}
 
 	public AtlasLayer(int xSize, int ySize, double val) {
-//		values = new Map2D<Byte>(xSize, ySize, (byte)(val*255-128));
+		//		values = new Map2D<Byte>(xSize, ySize, (byte)(val*255-128));
 		values = new Map2D<Byte>(xSize, ySize, (byte)(val-128));
 	}
 
@@ -46,21 +46,21 @@ public class AtlasLayer {
 		return ((double)values.get(x, y)+128);
 	}
 
-	public double getInMapSpace(Point2D p){
-		p = p.getMult(Atlas.RESOLUTION_RATIO);
-		return get((int)Math.round(p.getX()), (int)Math.round(p.getY()));
+	public double getInAtlasSpace(Point2D mapCoord){
+		mapCoord = mapCoord.getMult(Atlas.RESOLUTION_RATIO);
+		return get((int) Math.round(mapCoord.getX()), (int) Math.round(mapCoord.getY()));
 	}
-	
+
 	public void set(int x, int y, double val){
 		values.set(x, y, (byte)(val-128));
 	}
-	
+
 	public List<Byte> getBytes(){
 		return values.getAll();
 	}
-	
+
 	public void setByte(int i, byte val){
 		values.set(i, val);
 	}
-	
+
 }

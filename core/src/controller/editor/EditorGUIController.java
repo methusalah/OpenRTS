@@ -4,6 +4,7 @@
 package controller.editor;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.builders.entity.MapStyleBuilder;
@@ -11,7 +12,11 @@ import model.builders.entity.definitions.BuilderManager;
 import model.editor.ToolManager;
 import model.editor.tools.Tool;
 import app.MainRTS;
-import controller.Controller;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.name.Named;
+
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
@@ -25,8 +30,18 @@ import de.lessvoid.nifty.screen.Screen;
  */
 public class EditorGUIController extends GUIController {
 
-	public EditorGUIController(Nifty nifty, Controller controller) {
-		super(controller, nifty);
+	private static final Logger logger = Logger.getLogger(EditorGUIController.class.getName());
+
+	@Inject
+	private Injector injector;
+
+	public EditorGUIController() {
+
+	}
+
+	@Inject
+	public EditorGUIController(@Named("Nifty") Nifty nifty) {
+		super(nifty);
 		drawer = new EditorGUIDrawer(this);
 	}
 
@@ -50,14 +65,18 @@ public class EditorGUIController extends GUIController {
 
 	@Override
 	public void bind(Nifty nifty, Screen screen) {
+		logger.info("bind");
+		this.nifty = nifty;
 	}
 
 	@Override
 	public void onStartScreen() {
+		logger.info("onStartScreen");
 	}
 
 	@Override
 	public void onEndScreen() {
+		logger.info("onEndScreen");
 	}
 
 	@NiftyEventSubscriber(pattern = ".*slider")
@@ -120,7 +139,7 @@ public class EditorGUIController extends GUIController {
 	}
 
 	public void toggleGrid() {
-		((EditorController) ctrl).view.editorRend.toggleGrid();
+		injector.getInstance(EditorController.class).view.editorRend.toggleGrid();
 	}
 
 	public void setCliffTool() {

@@ -5,13 +5,16 @@ package event;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.EventBus;
 
 import event.client.Event;
 import event.network.NetworkEvent;
+import exception.TechnicalException;
 
 public class EventManager {
 
@@ -19,6 +22,7 @@ public class EventManager {
 
 	private static final EventBus eventBus = new EventBus(new RethrowingExceptionHandler());
 	private static EventHistory eventhistory = new EventHistory();
+	private static Set<Object> registeredIntances = new HashSet<Object>();
 
 	public static void post(NetworkEvent event) {
 		logger.info("Event posted:" + event);
@@ -33,7 +37,11 @@ public class EventManager {
 	}
 
 	public static void register(Object obj) {
+		if (registeredIntances.contains(obj)) {
+			throw new TechnicalException(" The object is already registered" + obj);
+		}
 		logger.info("register for ClientEvents:" + obj);
+
 		eventBus.register(obj);
 	}
 

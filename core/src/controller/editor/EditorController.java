@@ -4,21 +4,23 @@
  */
 package controller.editor;
 
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
 import geometry.geom2d.Point2D;
 import model.ModelManager;
 import model.editor.ToolManager;
+import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
 import controller.cameraManagement.IsometricCameraManager;
-import de.lessvoid.nifty.Nifty;
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
 
 /**
  *
@@ -26,16 +28,21 @@ import event.EventManager;
  */
 public class EditorController extends Controller {
 	protected Point2D screenCoord;
+
 	protected EditorView view;
 
-	public EditorController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
+	protected EditorGUIController guiController;
+
+	// protected EditorInputInterpreter inputInterpreter;
+
+	@Inject
+	public EditorController(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
+			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
+			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;
-		inputInterpreter = new EditorInputInterpreter(this);
-		guiController = new EditorGUIController(nifty, this);
-		cameraManager = new IsometricCameraManager(cam, 10);
-
-		EventManager.register(this);
+		this.guiController = guiController;
+		this.inputInterpreter = inputInterpreter;
 	}
 
 	@Override
@@ -46,7 +53,7 @@ public class EditorController extends Controller {
 		if(view.editorRend != null){
 			Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
 			if (coord != null &&
-					ModelManager.battlefieldReady && 
+					ModelManager.battlefieldReady &&
 					ModelManager.getBattlefield().getMap().isInBounds(coord)) {
 				ToolManager.updatePencilsPos(coord);
 				view.editorRend.drawPencil();
@@ -60,11 +67,15 @@ public class EditorController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(true);
-//		view.getRootNode().attachChild(view.editorRend.mainNode);
+		//		view.getRootNode().attachChild(view.editorRend.mainNode);
 		guiController.activate();
 		if (ModelManager.getBattlefield() != null) {
 			ModelManager.getBattlefield().getEngagement().reset();
 		}
+		inputInterpreter.registerInputs(inputManager);
+
+		spatialSelector.setCentered(false);
+		EventManager.register(this);
 	}
 
 	@Override
@@ -72,6 +83,7 @@ public class EditorController extends Controller {
 		ModelManager.getBattlefield().getEngagement().save();
 		super.stateDetached(stateManager);
 		view.getRootNode().detachChild(view.editorRend.mainNode);
+		EventManager.unregister(this);
 	}
 
 	@Subscribe

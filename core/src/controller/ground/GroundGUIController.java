@@ -4,7 +4,9 @@
  */
 package controller.ground;
 
-import controller.Controller;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
@@ -14,8 +16,9 @@ import de.lessvoid.nifty.screen.Screen;
  * @author Benoît
  */
 public class GroundGUIController extends GUIController {
-	public GroundGUIController(Nifty nifty, Controller controller) {
-		super(controller, nifty);
+	@Inject
+	public GroundGUIController(@Named("Nifty") Nifty nifty) {
+		super(nifty);
 	}
 
 	@Override

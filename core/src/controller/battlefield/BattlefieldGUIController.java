@@ -6,8 +6,11 @@ package controller.battlefield;
 import java.text.DecimalFormat;
 
 import model.battlefield.army.components.Unit;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 import controller.CommandManager;
-import controller.Controller;
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -20,8 +23,10 @@ public class BattlefieldGUIController extends GUIController {
 
 	private static DecimalFormat df = new DecimalFormat("0");
 
-	public BattlefieldGUIController(Nifty nifty, Controller controller) {
-		super(controller, nifty);
+	@Inject
+	public BattlefieldGUIController(@Named("Nifty") Nifty nifty) {
+		// TODO please check: Must we do niftybinding in the bind method?
+		super(nifty);
 	}
 
 	@Override

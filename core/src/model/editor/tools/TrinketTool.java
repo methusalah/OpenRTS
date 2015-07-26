@@ -100,6 +100,7 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = getPointedTrinket();
+			actualTrinket.sowed = false;
 			if(actualTrinket != null) {
 				moveOffset = pencil.getCoord().getSubtraction(actualTrinket.getCoord());
 			}
@@ -110,6 +111,7 @@ public class TrinketTool extends Tool {
 			Point2D newPos = pencil.getCoord().getSubtraction(moveOffset);
 			double z = ModelManager.getBattlefield().getMap().getAltitudeAt(newPos) + elevation;
 			actualTrinket.pos = newPos.get3D(z);
+			MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), actualTrinket.getRadius());
 		}
 	}
 
@@ -117,6 +119,7 @@ public class TrinketTool extends Tool {
 		if (!pencil.maintained) {
 			pencil.maintain();
 			actualTrinket = getPointedTrinket();
+			actualTrinket.sowed = false;
 		}
 		if (actualTrinket != null) {
 			actualTrinket.yaw = pencil.getCoord().getSubtraction(actualTrinket.pos.get2D()).getAngle();

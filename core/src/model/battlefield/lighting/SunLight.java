@@ -19,7 +19,7 @@ public class SunLight {
 
 	public static double DEFAULT_COMPASS_ANGLE = AngleUtil.toRadians(20);
 	public static double DEFAULT_HOUR_ANGLE = AngleUtil.toRadians(40);
-	public static double DEFAULT_SUN_INTENSITY = 1.4;
+	public static double DEFAULT_SUN_INTENSITY = 1.8;
 	public static double DEFAULT_SHADOW_INTENSITY = 0.7;
 
 	public DirectionalLighting sun;
@@ -43,6 +43,7 @@ public class SunLight {
 		shadowCaster = new DirectionalLighting(Color.WHITE, DEFAULT_COMPASS_ANGLE, DEFAULT_HOUR_ANGLE, 0.7);
 
 		ambient = new AmbientLighting(Color.WHITE);
+		ambient.intensity = 0.4;
 
 		actualLights.add(sun);
 		actualLights.add(shadowCaster);

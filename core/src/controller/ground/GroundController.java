@@ -6,15 +6,18 @@ package controller.ground;
 
 import java.util.logging.Logger;
 
+import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
 import controller.cameraManagement.GroundCameraManager;
-import de.lessvoid.nifty.Nifty;
+import event.EventManager;
 
 /**
  *
@@ -24,12 +27,16 @@ public class GroundController extends Controller {
 
 	private static final Logger logger = Logger.getLogger(GroundController.class.getName());
 
-	public GroundController(EditorView view, Nifty nifty, InputManager inputManager, Camera cam) {
-		super(view, inputManager, cam);
+	protected GroundInputInterpreter inputInterpreter;
+	protected GroundGUIController guiController;
 
-		inputInterpreter = new GroundInputInterpreter(this);
-		cameraManager = new GroundCameraManager(cam);
-		guiController = new GroundGUIController(nifty, this);
+	@Inject
+	public GroundController(@Named("EditorView") EditorView view, @Named("GroundGUIController") GroundGUIController guiController,
+			@InputManagerRef InputManager inputManager,
+			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
+		super(view, inputManager, cam);
+		this.inputInterpreter = inputInterpreter;
+		this.guiController = guiController;
 	}
 
 
@@ -39,12 +46,20 @@ public class GroundController extends Controller {
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
+		cameraManager = new GroundCameraManager(cam);
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);
 		guiController.activate();
+		inputInterpreter.registerInputs(inputManager);
 		logger.info("ground controller on line");
 	}
 
 
+	@Override
+	public void stateDetached(AppStateManager stateManager) {
+		inputInterpreter.unregisterInputs(inputManager);
+		cameraManager.unregisterInputs(inputManager);
+		EventManager.unregister(this);
+	}
 
 }

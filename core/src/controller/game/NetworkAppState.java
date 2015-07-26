@@ -2,7 +2,7 @@ package controller.game;
 
 
 import network.client.ClientManager;
-import openrts.guice.GuiceApplication;
+import app.OpenRTSApplicationWithDI;
 
 import com.google.inject.Inject;
 import com.jme3.app.Application;
@@ -27,7 +27,7 @@ public class NetworkAppState extends AbstractAppState {
 	@Inject
 	private ClientManager clientManager;
 
-	public NetworkAppState(GuiceApplication app) {
+	public NetworkAppState(OpenRTSApplicationWithDI app) {
 		this.rootNode     = app.getRootNode();
 		this.viewPort     = app.getViewPort();
 		this.guiNode      = app.getGuiNode();

@@ -36,9 +36,10 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	BattlefieldInputInterpreter(BattlefieldController controller) {
-		super(controller);
-		controller.spatialSelector.setCentered(false);
+	private BattlefieldController ctrl;
+
+	BattlefieldInputInterpreter() {
+		super();
 		setMappings();
 	}
 
@@ -47,7 +48,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	@Override
-	protected void registerInputs(InputManager inputManager) {
+	public void registerInputs(InputManager inputManager) {
 		inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
 		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
 		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
@@ -91,11 +92,11 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 						// double click
 						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
 					} else {
-						if(!((BattlefieldController) ctrl).isDrawingZone()) {
+						if(!ctrl.isDrawingZone()) {
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 						}
 					}
-					((BattlefieldController) ctrl).endSelectionZone();
+					ctrl.endSelectionZone();
 					dblclickTimer = System.currentTimeMillis();
 					dblclickCoord = getSpatialCoord();
 					break;
@@ -109,7 +110,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					CommandManager.orderHold();
 					break;
 				case PAUSE:
-					((BattlefieldController) ctrl).togglePause();
+					ctrl.togglePause();
 					break;
 			}
 		} else {
@@ -119,13 +120,17 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					CommandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
-					((BattlefieldController) ctrl).startSelectionZone();
+					ctrl.startSelectionZone();
 					break;
 			}
 		}
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord((((BattlefieldController) ctrl).view.getRootNode()));
+		return ctrl.spatialSelector.getCoord((ctrl.view.getRootNode()));
+	}
+
+	void setBattlefieldController(BattlefieldController ctl) {
+		this.ctrl = ctl;
 	}
 }
