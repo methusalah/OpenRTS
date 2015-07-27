@@ -11,24 +11,29 @@ import model.builders.entity.MoverBuilder;
  */
 public abstract class Hiker extends FieldComp{
     public final double speed;
+    public final double acceleration;
+    public final double rotationSpeed;
+    public final double rotationAcceleration;
     public final double mass;
     public final Mover mover;
 
-    public Hiker(double radius, double speed, double mass, Point3D pos, double yaw, MoverBuilder moverBuilder) {
+    public Hiker(double radius,
+    		double speed,
+    		double acceleration,
+    		double rotationSpeed,
+    		double rotationAcceleration,
+    		double mass, Point3D pos,
+    		double yaw,
+    		MoverBuilder moverBuilder) {
         super(pos, yaw, radius);
         this.speed = speed;
+        this.acceleration = acceleration;
+        this.rotationSpeed = rotationSpeed;
+        this.rotationAcceleration = rotationAcceleration;
         this.mass = mass;
         this.mover = moverBuilder.build(this);
         mover.desiredYaw = yaw;
     }
-    public Hiker(double radius, double speed, double mass, Point3D pos, double yaw, Mover mover) {
-        super(pos, yaw, radius);
-        this.speed = speed;
-        this.mass = mass;
-        this.mover = new Mover(mover, this);
-        mover.desiredYaw = yaw;
-    }
-    
     
     public double getSpeed() {
         return speed;

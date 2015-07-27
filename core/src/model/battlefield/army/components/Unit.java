@@ -47,9 +47,22 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	public STATE state = STATE.IDLING;
 	public boolean selected = false;
 
-	public Unit(double radius, double speed, double mass, Point3D pos, double yaw, MoverBuilder moverBuilder, String UIName, String BuilderID, String race,
-			int maxHealth, Faction faction, ModelActorBuilder actorBuilder) {
-		super(radius, speed, mass, pos, yaw, moverBuilder);
+	public Unit(double radius,
+			double speed,
+    		double acceleration,
+    		double rotationSpeed,
+    		double rotationAcceleration,
+			double mass,
+			Point3D pos,
+			double yaw,
+			MoverBuilder moverBuilder,
+			String UIName,
+			String BuilderID,
+			String race,
+			int maxHealth,
+			Faction faction,
+			ModelActorBuilder actorBuilder) {
+		super(radius, speed, acceleration, rotationSpeed, rotationAcceleration, mass, pos, yaw, moverBuilder);
 		this.UIName = UIName;
 		this.builderID = BuilderID;
 		this.race = race;
@@ -59,19 +72,6 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 		setFaction(faction);
 		health = maxHealth;
 		actor = actorBuilder.build(this);
-	}
-
-	public Unit(Unit o) {
-		super(o.radius, o.speed, o.mass, o.pos, o.yaw, o.mover);
-		UIName = o.UIName;
-		builderID = o.builderID;
-		race = o.race;
-		maxHealth = o.maxHealth;
-		ai = new TacticalAI(this);
-		arming = new Arming(this);
-		setFaction(o.faction);
-		health = maxHealth;
-		actor = o.actor;
 	}
 
 	private void setFaction(Faction faction) {
