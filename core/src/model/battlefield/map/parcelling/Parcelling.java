@@ -215,7 +215,7 @@ public class Parcelling extends Grid<Parcel>{
 		if (t.getModifiedLevel() > c.level + 1) {
 			return (c.level + 1) * Tile.STAGE_HEIGHT;
 		}
-		return t.getCliffDependantElevation();
+		return t.getElevation();
 	}
 
 	public List<Triangle3D> getNearbyTriangles(Tile t, Map map, Parcel parcel) {

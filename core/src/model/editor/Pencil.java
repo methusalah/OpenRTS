@@ -270,7 +270,7 @@ public class Pencil {
 	}
 
 	public double getElevation() {
-		return ModelManager.getBattlefield().getMap().get(getContainerTilePos()).getCliffDependantElevation();
+		return ModelManager.getBattlefield().getMap().get(getContainerTilePos()).getElevation();
 	}
 
 	private double getEccentricity(Point2D p) {

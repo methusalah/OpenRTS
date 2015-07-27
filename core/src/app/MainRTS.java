@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.editor.ToolManager;
+import model.editor.engines.CollisionTester;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
 
@@ -64,6 +65,9 @@ public class MainRTS extends OpenRTSApplication {
 
 		guiViewPort.addProcessor(niftyDisplay);
 
+		CollisionTester.setAssetManager(assetManager);
+		CollisionTester.root = rootNode;
+		
 		ModelManager.setNewBattlefield();
 	}
 

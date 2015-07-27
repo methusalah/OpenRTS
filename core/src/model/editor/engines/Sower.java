@@ -1,5 +1,7 @@
 package model.editor.engines;
 
+import event.EventManager;
+import event.GenericEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
@@ -47,9 +49,9 @@ public class Sower implements Runnable {
 
 		Sowing grass = new Sowing();
 		grass.addTrinket("Tree", 1, 2);
-		grass.addTrinket("LittleRock", 10, 0.5);
-		grass.addTrinket("Herb2", 20, 0.8);
-		grass.addTrinket("Herb", 20, 0.8);
+		grass.addTrinket("LittleRock", 10, 1);
+		grass.addTrinket("Herb2", 20, 1);
+		grass.addTrinket("Herb", 20, 1);
 		grass.addTexture("1", 0.5, 1);
 		grass.addTexture("11", 0, 0);
 		sowings.add(grass);
@@ -109,7 +111,8 @@ public class Sower implements Runnable {
 							}
 						}
 					}catch(RuntimeException e){
-						
+						throw(e);
+//						logger.info("exception in sower : "+e.);
 					}
 				}
 //				Thread.sleep(50);
@@ -130,15 +133,20 @@ public class Sower implements Runnable {
 			candidate.separationRadius *= s.spacings.get(trinketIndex);
 			boolean isValid = true;
 			
+			Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.yaw, candidate.getPos());
 			for (Trinket n : m.getInCircle(Trinket.class, randomPos, 10)) {
-				double separationDistance = n.getSpacing(candidate);
-				if (n.getDistance(candidate) < separationDistance) {
+				Asset aN = new Asset(n.modelPath, n.getActor().getScaleX()*n.scaleX, n.yaw, n.getPos());
+				if(CollisionTester.areColliding(aN, aCand, stepByStep)){
+//				double separationDistance = n.getSpacing(candidate);
+//				if (n.getDistance(candidate) < separationDistance) {
 					isValid = false;
 					break;
 				}
 			}
 			if (isValid) {
 				sowTrinket(s, candidate);
+				if(aCand.s != null)
+					EventManager.post(new GenericEvent(aCand.s));
 				return candidate;
 			}
 		}
@@ -157,22 +165,27 @@ public class Sower implements Runnable {
 			for (int j = 0; j < MAX_PLACES_COUNT; j++) {
 				double separationDistance = source.getSpacing(candidate);
 				Point2D place = source.getCoord().getTranslation(RandomUtil.between(0, AngleUtil.FULL),
-						RandomUtil.between(separationDistance, separationDistance * 2));
+						RandomUtil.between(0, separationDistance * 4));
 				if (!m.isInBounds(place) || !s.isAllowed(place)) {
 					continue;
 				}
 
+				candidate.setPos(place.get3D(m.getAltitudeAt(place)));
+				Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.yaw, candidate.getPos());
 				boolean isValidePlace = true;
 				for (Trinket n : neibors) {
-					if (n.getCoord().getDistance(place) < n.getSpacing(candidate)) {
+					Asset aN = new Asset(n.modelPath, n.getActor().getScaleX()*n.scaleX, n.yaw, n.getPos());
+					if(CollisionTester.areColliding(aN, aCand, stepByStep)){
+//					if (n.getCoord().getDistance(place) < n.getSpacing(candidate)) {
 						isValidePlace = false;
 						break;
 					}
 				}
 
 				if (isValidePlace) {
-					candidate.setPos(place.get3D(m.getAltitudeAt(place)));
 					sowTrinket(s, candidate);
+					if(aCand.s != null)
+						EventManager.post(new GenericEvent(aCand.s));
 					return candidate;
 
 				}
@@ -188,6 +201,30 @@ public class Sower implements Runnable {
 
 	public void unpause() {
 		this.notify();
+		stepByStep = false;
+	}
+	
+	
+	boolean stepByStep = false;
+	public void stepByStep(){
+		stepByStep = true;
+		Sowing s = sowings.get(RandomUtil.nextInt(sowings.size()));
+		try{
+			Trinket newTrinket;
+			if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
+				newTrinket = grow(s);
+			} else {
+				newTrinket = findNewPlace(s);
+			}
+			if (newTrinket != null) {
+				synchronized (ModelManager.getBattlefield().getMap()) {
+					MapArtisanUtil.attachTrinket(newTrinket, ModelManager.getBattlefield().getMap());
+				}
+			}
+		}catch(RuntimeException e){
+			throw(e);
+		}
+
 	}
 
 	public boolean isPaused() {
