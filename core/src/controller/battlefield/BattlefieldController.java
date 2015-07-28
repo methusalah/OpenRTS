@@ -13,7 +13,7 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import openrts.guice.annotation.InputManagerRef;
-import view.MapView;
+import view.EditorView;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
@@ -34,13 +34,13 @@ public class BattlefieldController extends Controller {
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
-	protected MapView view;
+	protected EditorView view;
 
 	private BattlefieldInputInterpreter inputInterpreter;
 	private BattlefieldGUIController guiController;
 
 	@Inject
-	public BattlefieldController(@Named("MapView") MapView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController,
+	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController,
 			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
 			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
