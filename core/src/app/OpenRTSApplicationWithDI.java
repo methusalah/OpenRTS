@@ -351,7 +351,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
 				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
 
-				bind(EditorView.class).in(Singleton.class);;
+				bind(EditorView.class).in(Singleton.class);
 				bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
 
 			}

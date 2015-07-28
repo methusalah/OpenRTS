@@ -12,6 +12,7 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
+import view.EditorView;
 import view.MapView;
 import view.math.TranslateUtil;
 
@@ -35,7 +36,7 @@ public class MultiplayerGameController extends Controller {
 	protected MultiplayerGameNiftyController guiController;
 
 	@Inject
-	public MultiplayerGameController(@Named("MapView") MapView view, @Named("MultiplayerGameNiftyController") MultiplayerGameNiftyController guiController,
+	public MultiplayerGameController(EditorView view, @Named("MultiplayerGameNiftyController") MultiplayerGameNiftyController guiController,
 			@Named("InputManager") InputManager inputManager,
 			@Named("Camera") Camera cam) {
 		super(view, inputManager, cam);

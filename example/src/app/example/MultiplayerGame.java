@@ -3,7 +3,7 @@ package app.example;
 import java.util.logging.Logger;
 
 import model.ModelManager;
-import view.MapView;
+import view.EditorView;
 import app.OpenRTSApplicationWithDI;
 
 import com.google.common.eventbus.Subscribe;
@@ -12,8 +12,8 @@ import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
 import controller.game.MultiplayerGameController;
-import controller.game.MultiplayerGameInputInterpreter;
 import controller.game.NetworkAppState;
+import controller.game.NetworkNiftyController;
 import event.EventManager;
 import event.network.AckEvent;
 
@@ -31,8 +31,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static String NiftyInterfaceFile = "interface/MultiplayerScreen.xml";
 	private static String NiftyInterfaceFile2 = "interface/map_loading.xml";
-	// @Inject
-	// private NetworkNiftyController networkNiftyController;
+
 	private static String NiftyScreen = "network";
 
 
@@ -82,8 +81,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 			e.printStackTrace();
 		}
 
-		// niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
-		// niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
+		NetworkNiftyController networkNiftyController = injector.getInstance(NetworkNiftyController.class);
+
+		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
+		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
 		networkState = new NetworkAppState(this);
 		// view, niftyDisplay.getNifty(), inputManager, cam);
@@ -111,7 +112,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Subscribe
 	public void manageAckEvent(AckEvent ev) {
 		logger.info("sounds perfect. Server has loaded Map at time:" + ev.getAckDate());
-		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		EditorView view = injector.getInstance(EditorView.class);
 
 		// NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		// game = new Game(niftyDisplay, view, inputManager, cam);
@@ -121,7 +122,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 			view.getMapRend().renderTiles();
 		}
 		MultiplayerGameController game = injector.getInstance(MultiplayerGameController.class);
-		MultiplayerGameInputInterpreter inputInterpreter = new MultiplayerGameInputInterpreter(game);
+		// MultiplayerGameInputInterpreter inputInterpreter = injector.getInstance(MultiplayerGameInputInterpreter.class);
 		stateManager.detach(networkState);
 		stateManager.attach(game);
 	}
