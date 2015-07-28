@@ -36,7 +36,7 @@ public class EditorController extends Controller {
 	// protected EditorInputInterpreter inputInterpreter;
 
 	@Inject
-	public EditorController(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
+	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
 			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
 			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);

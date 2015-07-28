@@ -68,7 +68,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 	protected EditorView view;
 
 	@Inject
-	EditorInputInterpreter(@Named("EditorView") EditorView view, @Named("EditorGUIController") EditorGUIController guiController) {
+	EditorInputInterpreter(EditorView view, @Named("EditorGUIController") EditorGUIController guiController) {
 		super();
 		this.view = view;
 		this.guiController = guiController;

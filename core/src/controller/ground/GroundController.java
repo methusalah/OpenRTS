@@ -31,7 +31,7 @@ public class GroundController extends Controller {
 	protected GroundGUIController guiController;
 
 	@Inject
-	public GroundController(@Named("EditorView") EditorView view, @Named("GroundGUIController") GroundGUIController guiController,
+	public GroundController(EditorView view, @Named("GroundGUIController") GroundGUIController guiController,
 			@InputManagerRef InputManager inputManager,
 			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
