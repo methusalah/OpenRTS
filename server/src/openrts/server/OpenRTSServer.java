@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import model.ModelManager;
 import app.OpenRTSApplicationWithDI;
 
-import com.google.inject.Inject;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.network.Network;
@@ -29,9 +28,6 @@ public class OpenRTSServer extends OpenRTSApplicationWithDI {
 	protected static Server myServer;
 	public static final int PORT = 6143;
 	private Map<Integer, Game> games = new HashMap<Integer, Game>();
-
-	@Inject
-	private BulletAppState bulletAppState;
 
 	public Game getPlayer(Integer id) {
 		return games.get(id);
@@ -57,7 +53,7 @@ public class OpenRTSServer extends OpenRTSApplicationWithDI {
 
 	@Override
 	public void simpleInitApp() {
-
+		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
 		// stateManager.detach(bulletAppState);

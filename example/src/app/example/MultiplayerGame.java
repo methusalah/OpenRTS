@@ -7,8 +7,6 @@ import view.MapView;
 import app.OpenRTSApplicationWithDI;
 
 import com.google.common.eventbus.Subscribe;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -16,7 +14,6 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import controller.game.MultiplayerGameController;
 import controller.game.MultiplayerGameInputInterpreter;
 import controller.game.NetworkAppState;
-import controller.game.NetworkNiftyController;
 import event.EventManager;
 import event.network.AckEvent;
 
@@ -27,21 +24,17 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	// protected MapView view;
 	protected NetworkAppState networkState;
 
-	@Inject
-	private BulletAppState bulletAppState;
+	// @Inject
+	// private BulletAppState bulletAppState;
 	// @Inject
 	// private MessageManager messageManager;;
 
 	private static String NiftyInterfaceFile = "interface/MultiplayerScreen.xml";
 	private static String NiftyInterfaceFile2 = "interface/map_loading.xml";
-	@Inject
-	private NetworkNiftyController networkNiftyController;
+	// @Inject
+	// private NetworkNiftyController networkNiftyController;
 	private static String NiftyScreen = "network";
 
-	private NiftyJmeDisplay niftyDisplay;
-
-	@Inject
-	protected Injector injector;
 
 	// @Inject
 	// private NiftyJmeDisplay niftyDisplay;
@@ -65,7 +58,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	@Override
 	public void simpleInitApp() {
-		BulletAppState bulletAppState = new BulletAppState();
+		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
 		// stateManager.detach(bulletAppState);
@@ -77,6 +70,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		// view.reset();
 
 		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+
+		initGuice();
+
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
 		try {
@@ -85,13 +81,6 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// this.modules.add(new AbstractModule() {
-		// @Override
-		// protected void configure() {
-		// bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
-		// }
-		// });
 
 		// niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
 		// niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
