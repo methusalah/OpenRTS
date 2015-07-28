@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.jme3.scene.Spatial;
+
 import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
@@ -99,16 +101,10 @@ public class Sower implements Runnable {
 
 				for (Sowing s : sowings) {
 					try{
-						Trinket newTrinket;
 						if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
-							newTrinket = grow(s);
+							grow(s);
 						} else {
-							newTrinket = findNewPlace(s);
-						}
-						if (newTrinket != null) {
-							synchronized (ModelManager.getBattlefield().getMap()) {
-								MapArtisanUtil.attachTrinket(newTrinket, ModelManager.getBattlefield().getMap());
-							}
+							findNewPlace(s);
 						}
 					}catch(RuntimeException e){
 						throw(e);
@@ -121,7 +117,7 @@ public class Sower implements Runnable {
 		}
 	}
 
-	private Trinket findNewPlace(Sowing s) {
+	private void findNewPlace(Sowing s) {
 		Map m = ModelManager.getBattlefield().getMap();
 		Point2D randomPos = new Point2D(RandomUtil.next() * (m.xSize()-1),
 				RandomUtil.next() * (m.ySize()-1));
@@ -131,33 +127,16 @@ public class Sower implements Runnable {
 			TrinketBuilder tb = s.trinketBuilders.get(trinketIndex);
 			Trinket candidate = tb.build(randomPos.get3D(m.getAltitudeAt(randomPos)));
 			candidate.separationRadius *= s.spacings.get(trinketIndex);
-			boolean isValid = true;
-			
-			Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.yaw, candidate.getPos());
-			for (Trinket n : m.getInCircle(Trinket.class, randomPos, 10)) {
-				Asset aN = new Asset(n.modelPath, n.getActor().getScaleX()*n.scaleX, n.yaw, n.getPos());
-				if(CollisionTester.areColliding(aN, aCand, stepByStep)){
-//				double separationDistance = n.getSpacing(candidate);
-//				if (n.getDistance(candidate) < separationDistance) {
-					isValid = false;
-					break;
-				}
-			}
-			if (isValid) {
-				sowTrinket(s, candidate);
-				if(aCand.s != null)
-					EventManager.post(new GenericEvent(aCand.s));
-				return candidate;
-			}
+
+			if(checkCandidateAndValid(s, candidate))
+				return;
 		}
-		return null;
 	}
 
-	private Trinket grow(Sowing s) {
+	private void grow(Sowing s) {
 		Map m = ModelManager.getBattlefield().getMap();
 		
 		Trinket source = s.toGrow.get(RandomUtil.nextInt(s.toGrow.size()));
-		List<Trinket> neibors = m.getInCircle(Trinket.class, source.getCoord(), 20);
 		for (int i = 0; i < MAX_TRINKETS_COUNT; i++) {
 			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
 			Trinket candidate = s.trinketBuilders.get(trinketIndex).build(Point3D.ORIGIN);
@@ -169,30 +148,34 @@ public class Sower implements Runnable {
 				if (!m.isInBounds(place) || !s.isAllowed(place)) {
 					continue;
 				}
-
 				candidate.setPos(place.get3D(m.getAltitudeAt(place)));
-				Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.yaw, candidate.getPos());
-				boolean isValidePlace = true;
-				for (Trinket n : neibors) {
-					Asset aN = new Asset(n.modelPath, n.getActor().getScaleX()*n.scaleX, n.yaw, n.getPos());
-					if(CollisionTester.areColliding(aN, aCand, stepByStep)){
-//					if (n.getCoord().getDistance(place) < n.getSpacing(candidate)) {
-						isValidePlace = false;
-						break;
-					}
-				}
-
-				if (isValidePlace) {
-					sowTrinket(s, candidate);
-					if(aCand.s != null)
-						EventManager.post(new GenericEvent(aCand.s));
-					return candidate;
-
-				}
+				if(checkCandidateAndValid(s, candidate))
+					return;
 			}
 		}
 		s.toGrow.remove(source);
-		return null;
+	}
+	
+	private boolean checkCandidateAndValid(Sowing s, Trinket candidate){
+		Map m = ModelManager.getBattlefield().getMap();
+
+		Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.yaw, candidate.getPos());
+		for (Trinket n : m.getInCircle(Trinket.class, candidate.getCoord(), 10)) {
+			Asset aN = new Asset(n.modelPath, n.getActor().getScaleX(), n.yaw, n.getPos());
+			if(CollisionTester.areColliding(aN, aCand, stepByStep))
+				return false;
+		}
+
+		sowTrinket(s, candidate);
+		synchronized (m) {
+			MapArtisanUtil.attachTrinket(candidate, m);
+		}
+		if(aCand.s != null){
+			EventManager.post(new GenericEvent(aCand.s));
+			for(Spatial link : aCand.links)
+				EventManager.post(new GenericEvent(link));
+		}
+		return true;
 	}
 
 	public void askForPause() {
@@ -210,16 +193,10 @@ public class Sower implements Runnable {
 		stepByStep = true;
 		Sowing s = sowings.get(RandomUtil.nextInt(sowings.size()));
 		try{
-			Trinket newTrinket;
 			if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
-				newTrinket = grow(s);
+				grow(s);
 			} else {
-				newTrinket = findNewPlace(s);
-			}
-			if (newTrinket != null) {
-				synchronized (ModelManager.getBattlefield().getMap()) {
-					MapArtisanUtil.attachTrinket(newTrinket, ModelManager.getBattlefield().getMap());
-				}
+				findNewPlace(s);
 			}
 		}catch(RuntimeException e){
 			throw(e);
