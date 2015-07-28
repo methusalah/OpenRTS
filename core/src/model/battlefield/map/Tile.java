@@ -135,8 +135,14 @@ public class Tile extends Node3D {
 		}
 	}
 
+	@JsonProperty("elevation")
+	public double getUnmodifiedElevation() {
+		return super.getElevation();
+	}
+	
 	@JsonIgnore
-	public double getCliffDependantElevation() {
+	@Override
+	public double getElevation() {
 		if (modifiedLevel != 0) {
 			return modifiedLevel * STAGE_HEIGHT + elevation;
 		} else {

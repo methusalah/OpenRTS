@@ -1,6 +1,7 @@
 package model.battlefield.map;
 
 import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.structure.grid3D.Grid3D;
 
 import java.util.ArrayList;
@@ -194,12 +195,4 @@ public final class Map extends Grid3D<Tile> {
 					res.add(fieldComp);
 		return res;
 	}
-
-	
-	
-	
-	
-	
-	
-	
 }

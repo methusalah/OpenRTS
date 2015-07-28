@@ -81,7 +81,7 @@ public class HeightTool extends Tool {
 	private void raise(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			t.elevate(getAttenuatedAmplitude(t.getCoord()));
-			if(t.getCliffDependantElevation() > MAX_HEIGHT) {
+			if(t.getElevation() > MAX_HEIGHT) {
 				t.setElevation(MAX_HEIGHT);
 			}
 		}
@@ -90,7 +90,7 @@ public class HeightTool extends Tool {
 	private void low(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			t.elevate(-getAttenuatedAmplitude(t.getCoord()));
-			if(t.getCliffDependantElevation() < MIN_HEIGHT) {
+			if(t.getElevation() < MIN_HEIGHT) {
 				t.setElevation(MIN_HEIGHT);
 			}
 		}
@@ -102,7 +102,7 @@ public class HeightTool extends Tool {
 			maintainedElevation = ModelManager.getBattlefield().getMap().getAltitudeAt(pencil.getCoord());
 		}
 		for (Tile t : tiles) {
-			double diff = maintainedElevation - t.getCliffDependantElevation();
+			double diff = maintainedElevation - t.getElevation();
 			double attenuatedAmplitude = getAttenuatedAmplitude(t.getCoord());
 			if (diff > 0) {
 				t.elevate(Math.min(diff, attenuatedAmplitude));
@@ -122,11 +122,11 @@ public class HeightTool extends Tool {
 		for (Tile t : tiles) {
 			double average = 0;
 			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(t)) {
-				average += n.getCliffDependantElevation();
+				average += n.getElevation();
 			}
 			average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
 
-			double diff = average - t.getCliffDependantElevation();
+			double diff = average - t.getElevation();
 			if (diff > 0) {
 				t.elevate(Math.min(diff, getAttenuatedAmplitude(t.getCoord())));
 			} else if (diff < 0) {
