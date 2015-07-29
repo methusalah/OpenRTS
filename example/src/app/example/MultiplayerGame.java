@@ -1,12 +1,16 @@
 package app.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import model.ModelManager;
+import openrts.guice.NetworkClientModule;
 import view.EditorView;
 import app.OpenRTSApplicationWithDI;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Module;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -30,7 +34,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	// private MessageManager messageManager;;
 
 	private static String NiftyInterfaceFile = "interface/MultiplayerScreen.xml";
-	private static String NiftyInterfaceFile2 = "interface/map_loading.xml";
+
+	// private static String NiftyInterfaceFile2 = "interface/map_loading.xml";
 
 	private static String NiftyScreen = "network";
 
@@ -70,7 +75,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-		initGuice();
+		List<Module> modules = new ArrayList<Module>();
+		modules.add(new NetworkClientModule());
+		initGuice(modules);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
@@ -84,7 +91,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		NetworkNiftyController networkNiftyController = injector.getInstance(NetworkNiftyController.class);
 
 		niftyDisplay.getNifty().fromXml(NiftyInterfaceFile, NiftyScreen, networkNiftyController);
-		niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
+		// niftyDisplay.getNifty().addXml(NiftyInterfaceFile2);
 
 		networkState = new NetworkAppState(this);
 		// view, niftyDisplay.getNifty(), inputManager, cam);

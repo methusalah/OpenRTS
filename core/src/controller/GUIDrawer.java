@@ -35,16 +35,18 @@ public abstract class GUIDrawer {
     
     protected void changeLabelText(String id, String text){
         Element e = guiCtrl.getElement(id);
-        if(e == null || e.getRenderer(TextRenderer.class) == null)
-            throw new IllegalArgumentException("can't find label '"+id+"'.");
+        if(e == null || e.getRenderer(TextRenderer.class) == null) {
+			throw new IllegalArgumentException("can't find label '"+id+"'.");
+		}
         
         e.getRenderer(TextRenderer.class).setText(text);
     }
     
     protected void changeButtonText(String id, String text){
         Element e = guiCtrl.getElement(id+"#text");
-        if(e == null || e.getRenderer(TextRenderer.class) == null)
-            throw new IllegalArgumentException("can't find button's text '"+id+"'.");
+        if(e == null || e.getRenderer(TextRenderer.class) == null) {
+			throw new IllegalArgumentException("can't find button's text '"+id+"'.");
+		}
         e.getRenderer(TextRenderer.class).setText(text);
     }
 
@@ -55,29 +57,33 @@ public abstract class GUIDrawer {
         float b = color.getBlue();
         de.lessvoid.nifty.tools.Color niftyColor = new de.lessvoid.nifty.tools.Color(r/255, g/255, b/255, 1);
         Element e = guiCtrl.getElement(id+"#text");
-        if(e == null || e.getRenderer(TextRenderer.class) == null)
-            throw new IllegalArgumentException("can't find button's text '"+id+"'.");
+        if(e == null || e.getRenderer(TextRenderer.class) == null) {
+			throw new IllegalArgumentException("can't find button's text '"+id+"'.");
+		}
         e.getRenderer(TextRenderer.class).setColor(niftyColor);
     }
     
     protected void setButtonCustomEffet(String id, boolean val){
         Element e = guiCtrl.getElement(id);
-        if(e == null)
-            throw new IllegalArgumentException("can't find button '"+id+"'.");
-        if(val)
-            e.startEffect(EffectEventId.onCustom);
-        else
-            e.stopEffect(EffectEventId.onCustom);
+        if(e == null) {
+			throw new IllegalArgumentException("can't find button '"+id+"'.");
+		}
+        if(val) {
+			e.startEffect(EffectEventId.onCustom);
+		} else {
+			e.stopEffect(EffectEventId.onCustom);
+		}
     }
     
     protected void fillList(String id, List<String> strings){
         ListBox lb = guiCtrl.getControl(id, ListBox.class);
         List<Integer> selected = lb.getSelectedIndices();
         int index;
-        if(!selected.isEmpty())
-            index = selected.get(0);
-        else
-            index = 0;
+        if(!selected.isEmpty()) {
+			index = selected.get(0);
+		} else {
+			index = 0;
+		}
         lb.clear();
         lb.addAllItems(strings);
         lb.selectItemByIndex(index);
@@ -94,8 +100,9 @@ public abstract class GUIDrawer {
 
     protected void setBackground(String id, String backgroundPath){
         Element e = guiCtrl.getElement(id);
-        if(e == null || e.getRenderer(ImageRenderer.class) == null)
-            throw new IllegalArgumentException("can't find element with background '"+id+"'.");
+        if(e == null || e.getRenderer(ImageRenderer.class) == null) {
+			throw new IllegalArgumentException("can't find element with background '"+id+"'.");
+		}
         e.getRenderer(ImageRenderer.class).setImage(guiCtrl.nifty.createImage(backgroundPath, false));
     }
     

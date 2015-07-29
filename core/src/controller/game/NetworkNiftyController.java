@@ -94,10 +94,9 @@ public class NetworkNiftyController extends GUIController {
 	public void create() {
 		logger.info("create was clicked");
 		nifty.gotoScreen("loadmap");
+		ModelManager.loadBattlefield(mapfilename);
 		CreateGameEvent evt = new CreateGameEvent(mapfilename);
 		EventManager.post(evt);
-		ModelManager.loadBattlefield(mapfilename);
-
 	}
 
 	public void join() {

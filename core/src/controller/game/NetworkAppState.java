@@ -4,7 +4,6 @@ package controller.game;
 import network.client.ClientManager;
 import app.OpenRTSApplicationWithDI;
 
-import com.google.inject.Inject;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -24,7 +23,6 @@ public class NetworkAppState extends AbstractAppState {
 	private Node localGuiNode = new Node("Start Screen GuiNode");
 	private final ColorRGBA backgroundColor = ColorRGBA.Gray;
 
-	@Inject
 	private ClientManager clientManager;
 
 	public NetworkAppState(OpenRTSApplicationWithDI app) {

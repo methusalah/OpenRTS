@@ -16,7 +16,7 @@ import model.battlefield.map.parcelling.Parcel;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
-import view.material.MaterialManager;
+import view.material.MaterialUtil;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
@@ -42,7 +42,7 @@ public class MapDrawer {
 
 	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
 	MapView view;
-	MaterialManager mm;
+	MaterialUtil mm;
 	AssetManager am;
 
 	private Map<String, Spatial> models = new HashMap<>();
@@ -60,7 +60,7 @@ public class MapDrawer {
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
-	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
+	public MapDrawer(MapView view, MaterialUtil mm, AssetManager am) {
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
 		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);

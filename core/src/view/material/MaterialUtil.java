@@ -2,9 +2,11 @@ package view.material;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import openrts.guice.annotation.AssetManagerRef;
+
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.material.Material;
@@ -13,7 +15,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 
-public class MaterialManager {
+public class MaterialUtil {
 	AssetManager assetManager;
 
 	Map<String, Material> texturesMap = new HashMap<String, Material>();
@@ -50,7 +52,8 @@ public class MaterialManager {
 	public Material whiteConcreteMaterial;
 	public ArrayList<Material> gradientMaterial = new ArrayList<Material>();
 
-	public MaterialManager(AssetManager assetManager) {
+	@Inject
+	public MaterialUtil(@AssetManagerRef AssetManager assetManager) {
 		this.assetManager = assetManager;
 		initBaseMaterials();
 	}
@@ -207,8 +210,9 @@ public class MaterialManager {
 	}
 
 	public Material getMaterial(String materialPath) {
-		if(materials.get(materialPath) == null)
+		if(materials.get(materialPath) == null) {
 			materials.put(materialPath, assetManager.loadMaterial(materialPath));
+		}
 		return materials.get(materialPath);
 	}
 }

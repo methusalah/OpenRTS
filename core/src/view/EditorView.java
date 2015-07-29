@@ -7,6 +7,7 @@ import openrts.guice.annotation.ViewPortRef;
 import view.mapDrawing.EditorRenderer;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.renderer.ViewPort;
@@ -17,10 +18,14 @@ public class EditorView extends MapView {
 	// Renderers
 	public EditorRenderer editorRend;
 
+	private Injector injector;
+
 	@Inject
-	public EditorView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, @AssetManagerRef AssetManager am, @ViewPortRef ViewPort vp) {
+	public EditorView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, @AssetManagerRef AssetManager am, @ViewPortRef ViewPort vp,
+			Injector injector) {
 		super(rootNode, gui, physicsSpace, am, vp);
-		editorRend = new EditorRenderer(this, materialManager);
+		this.injector = injector;
+		editorRend = injector.getInstance(EditorRenderer.class);
 	}
 
 	@Override
@@ -31,7 +36,7 @@ public class EditorView extends MapView {
 			rootNode.detachChild(editorRend.mainNode);
 		}
 
-		editorRend = new EditorRenderer(this, materialManager);
+		editorRend = injector.getInstance(EditorRenderer.class);
 		rootNode.attachChild(editorRend.mainNode);
 	}
 

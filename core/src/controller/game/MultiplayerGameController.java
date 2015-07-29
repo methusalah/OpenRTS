@@ -12,6 +12,7 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
+import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 import view.MapView;
 import view.math.TranslateUtil;
@@ -36,8 +37,8 @@ public class MultiplayerGameController extends Controller {
 	protected MultiplayerGameNiftyController guiController;
 
 	@Inject
-	public MultiplayerGameController(EditorView view, @Named("MultiplayerGameNiftyController") MultiplayerGameNiftyController guiController,
-			@Named("InputManager") InputManager inputManager,
+	public MultiplayerGameController(EditorView view, MultiplayerGameNiftyController guiController,
+			@InputManagerRef InputManager inputManager,
 			@Named("Camera") Camera cam) {
 		super(view, inputManager, cam);
 		this.view = view;
@@ -130,6 +131,7 @@ public class MultiplayerGameController extends Controller {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(true);
 		guiController.activate();
+		view.reset();
 	}
 
 	private Point2D getMouseCoord() {
@@ -139,7 +141,8 @@ public class MultiplayerGameController extends Controller {
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		// TODO Auto-generated method stub
-
+		super.stateDetached(stateManager);
+		inputManager.setCursorVisible(false);
 	}
 
 }

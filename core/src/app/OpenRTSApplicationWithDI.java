@@ -7,8 +7,10 @@ import geometry.math.RandomUtil;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
@@ -21,6 +23,8 @@ import openrts.guice.annotation.RootNodeRef;
 import openrts.guice.annotation.StateManagerRef;
 import openrts.guice.annotation.ViewPortRef;
 import view.EditorView;
+import view.mapDrawing.EditorRenderer;
+import view.material.MaterialUtil;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -304,6 +308,10 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 	// }
 
 	protected void initGuice() {
+		initGuice(new ArrayList<Module>());
+	}
+
+	protected void initGuice(List<Module> newModules) {
 		Application app = this;
 
 		this.modules = new LinkedList<Module>();
@@ -354,8 +362,15 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(EditorView.class).in(Singleton.class);
 				bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
 
+				bind(MaterialUtil.class).in(Singleton.class);
+
+				// no singleton needed here => it easier for resetting
+				bind(EditorRenderer.class).in(Singleton.class);
+
 			}
 		});
+		modules.addAll(newModules);
+
 		injector = Guice.createInjector(modules);
 		injector.injectMembers(this);
 	}

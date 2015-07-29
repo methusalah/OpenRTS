@@ -10,7 +10,7 @@ import openrts.guice.annotation.ViewPortRef;
 import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
-import view.material.MaterialManager;
+import view.material.MaterialUtil;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -44,7 +44,7 @@ public class MapView {
 	protected LightDrawer lightDrawer;
 
 	// Internal ressources
-	protected MaterialManager materialManager;
+	protected MaterialUtil materialUtil;
 	protected ViewPort vp;
 	protected AssetManager assetManager;
 
@@ -54,7 +54,7 @@ public class MapView {
 		this.physicsSpace = physicsSpace;
 		gui.attachChild(guiNode);
 
-		materialManager = new MaterialManager(am);
+		materialUtil = new MaterialUtil(am);
 		this.assetManager = am;
 		this.vp = vp;
 
@@ -80,7 +80,7 @@ public class MapView {
 			rootNode.detachChild(mapDrawer.mainNode);
 			EventManager.unregister(mapDrawer);
 		}
-		mapDrawer = new MapDrawer(this, materialManager, assetManager);
+		mapDrawer = new MapDrawer(this, materialUtil, assetManager);
 		rootNode.attachChild(mapDrawer.mainNode);
 		mapDrawer.mainPhysicsSpace = physicsSpace;
 
@@ -88,7 +88,7 @@ public class MapView {
 		if(actorDrawer != null){
 			rootNode.detachChild(actorDrawer.mainNode);
 		}
-		actorDrawer = new ActorDrawer(assetManager, materialManager);
+		actorDrawer = new ActorDrawer(assetManager, materialUtil);
 		rootNode.attachChild(actorDrawer.mainNode);
 		actorDrawer.mainPhysicsSpace = physicsSpace;
 
@@ -99,19 +99,19 @@ public class MapView {
 		vp.setBackgroundColor(new ColorRGBA(135f / 255f, 206f / 255f, 250f / 255f, 1));
 		Geometry xAxe = new Geometry();
 		xAxe.setMesh(new Box(5, 0.1f, 0.1f));
-		xAxe.setMaterial(materialManager.getColor(ColorRGBA.Brown));
+		xAxe.setMaterial(materialUtil.getColor(ColorRGBA.Brown));
 		xAxe.setLocalTranslation(5, 0, 0);
 		getRootNode().attachChild(xAxe);
 
 		Geometry zAxe = new Geometry();
 		zAxe.setMesh(new Box(0.1f, 0.1f, 5));
-		zAxe.setMaterial(materialManager.greenMaterial);
+		zAxe.setMaterial(materialUtil.greenMaterial);
 		zAxe.setLocalTranslation(0, 0, 5);
 		rootNode.attachChild(zAxe);
 
 		Geometry yAxe = new Geometry();
 		yAxe.setMesh(new Box(0.1f, 5, 0.1f));
-		yAxe.setMaterial(materialManager.redMaterial);
+		yAxe.setMaterial(materialUtil.redMaterial);
 		yAxe.setLocalTranslation(0, 5, 0);
 		rootNode.attachChild(yAxe);
 	}
@@ -127,22 +127,22 @@ public class MapView {
 
 		Geometry g1 = new Geometry();
 		g1.setMesh(new Line(new Vector3f(minX, minY, 0), new Vector3f(maxX, minY, 0)));
-		g1.setMaterial(materialManager.getColor(ColorRGBA.White));
+		g1.setMaterial(materialUtil.getColor(ColorRGBA.White));
 		guiNode.attachChild(g1);
 
 		Geometry g2 = new Geometry();
 		g2.setMesh(new Line(new Vector3f(minX, maxY, 0), new Vector3f(maxX, maxY, 0)));
-		g2.setMaterial(materialManager.getColor(ColorRGBA.White));
+		g2.setMaterial(materialUtil.getColor(ColorRGBA.White));
 		guiNode.attachChild(g2);
 
 		Geometry g3 = new Geometry();
 		g3.setMesh(new Line(new Vector3f(minX, minY, 0), new Vector3f(minX, maxY, 0)));
-		g3.setMaterial(materialManager.getColor(ColorRGBA.White));
+		g3.setMaterial(materialUtil.getColor(ColorRGBA.White));
 		guiNode.attachChild(g3);
 
 		Geometry g4 = new Geometry();
 		g4.setMesh(new Line(new Vector3f(maxX, minY, 0), new Vector3f(maxX, maxY, 0)));
-		g4.setMaterial(materialManager.getColor(ColorRGBA.White));
+		g4.setMaterial(materialUtil.getColor(ColorRGBA.White));
 		guiNode.attachChild(g4);
 	}
 

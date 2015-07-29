@@ -45,13 +45,13 @@ public class MainRTS extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		// view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
-//		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
-//		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
-//		groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
+		//		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
+		//		editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
+		//		groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
 		EventManager.register(this);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
@@ -67,7 +67,7 @@ public class MainRTS extends OpenRTSApplication {
 
 		CollisionTester.setAssetManager(assetManager);
 		CollisionTester.root = rootNode;
-		
+
 		ModelManager.setNewBattlefield();
 	}
 

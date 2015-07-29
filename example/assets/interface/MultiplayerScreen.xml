@@ -34,7 +34,7 @@
         </layer>
     </screen>
     
-    <screen id="hud" controller="controller.battlefield.BattlefieldGUIController">
+    <screen id="hud" controller="controller.game.MultiplayerGameNiftyController">
         <layer childLayout="horizontal">
             <image filename="interface/bg.png" width="100%" height="100%"></image>
         </layer>

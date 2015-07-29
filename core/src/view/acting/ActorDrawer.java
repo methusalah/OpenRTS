@@ -12,8 +12,7 @@ import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.ModelActor;
-import model.battlefield.army.components.Unit;
-import view.material.MaterialManager;
+import view.material.MaterialUtil;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
@@ -33,7 +32,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
-import event.BattleFieldUpdateEvent;
 import event.EventManager;
 import event.GenericEvent;
 
@@ -45,7 +43,7 @@ public class ActorDrawer implements AnimEventListener {
 	private static final Logger logger = Logger.getLogger(ActorDrawer.class.getName());
 
 	private AssetManager assetManager;
-	private MaterialManager materialManager;
+	private MaterialUtil materialUtil;
 
 	public Node mainNode;
 	public Node abandoned;
@@ -64,9 +62,9 @@ public class ActorDrawer implements AnimEventListener {
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 	private List<Spatial> abandonedTrinkets = new ArrayList<>(); 
 
-	public ActorDrawer(AssetManager assetManager, MaterialManager materialManager) {
+	public ActorDrawer(AssetManager assetManager, MaterialUtil materialUtil) {
 		this.assetManager = assetManager;
-		this.materialManager = materialManager;
+		this.materialUtil = materialUtil;
 		mainNode = new Node();
 		abandoned = new Node();
 		mainNode.attachChild(abandoned);
@@ -91,15 +89,17 @@ public class ActorDrawer implements AnimEventListener {
 	public void render() {
 		synchronized (abandonedTrinkets){
 			if(!abandonedTrinkets.isEmpty()){
-				for(Spatial s : abandonedTrinkets)
+				for(Spatial s : abandonedTrinkets) {
 					abandoned.attachChild(s);
+				}
 				abandonedTrinkets.clear();
 			}
 		}
 		for(Spatial s : abandoned.getChildren()){
 			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
-			if(s.getLocalTranslation().z <= -3)
+			if(s.getLocalTranslation().z <= -3) {
 				abandoned.detachChild(s);
+			}
 		}
 			
 		// first, the spatials attached to interrupted actor are detached
@@ -189,11 +189,12 @@ public class ActorDrawer implements AnimEventListener {
 			
 			// TODO to refactor. all models don't need to be transparent, neither all materials in a model.
 			s.setQueueBucket(Bucket.Transparent);
-			for(Spatial n : ((Node)s).getChildren())
+			for(Spatial n : ((Node)s).getChildren()) {
 				if(n instanceof Geometry){
 					((Geometry)n).getMaterial().getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 					((Geometry)n).getMaterial().setFloat("AlphaDiscardThreshold", 0.5f);
 				}
+			}
 		}
 		Spatial res = models.get(actor.getModelPath()).clone();
 		
@@ -211,7 +212,7 @@ public class ActorDrawer implements AnimEventListener {
 		}
 
 		if (actor.getColor() != null) {
-			res.setMaterial(materialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
+			res.setMaterial(materialUtil.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
 		} else{
 			for(Integer index : actor.getSubColorsByIndex().keySet()) {
 				applyToSubmesh(res, null, index, actor.getSubColorsByIndex().get(index));
@@ -233,12 +234,13 @@ public class ActorDrawer implements AnimEventListener {
 		if(s instanceof Geometry){
 			Geometry g = (Geometry)s; 
 			if(g.getName().equals(subMeshName) || subMeshIndex == 0){
-				if(colorOrMaterial instanceof Color)
+				if(colorOrMaterial instanceof Color) {
 					g.getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA((Color)colorOrMaterial));
-				else if (colorOrMaterial instanceof String)
-					g.setMaterial(materialManager.getMaterial((String)colorOrMaterial));
-				else
+				} else if (colorOrMaterial instanceof String) {
+					g.setMaterial(materialUtil.getMaterial((String)colorOrMaterial));
+				} else {
 					throw new IllegalArgumentException();
+				}
 					
 				return;
 			}
@@ -280,8 +282,8 @@ public class ActorDrawer implements AnimEventListener {
 		// LogUtil.logger.info("anim changed to "+animName);
 	}
 
-	public MaterialManager getMaterialManager() {
-		return materialManager;
+	public MaterialUtil getMaterialManager() {
+		return materialUtil;
 	}
 
 }

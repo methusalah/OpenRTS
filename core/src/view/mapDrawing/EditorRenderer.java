@@ -10,14 +10,13 @@ import java.util.Map;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.parcelling.Parcel;
-import model.battlefield.map.parcelling.Parcelling;
 import model.editor.Pencil;
 import model.editor.ToolManager;
-import view.EditorView;
-import view.material.MaterialManager;
+import view.material.MaterialUtil;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -42,8 +41,8 @@ public class EditorRenderer {
 	public static final double QUAD_PENCIL_SAMPLE_LENGTH = 0.5;
 	public static final int PENCIL_THICKNESS = 3;
 
-	EditorView view;
-	private final MaterialManager mm;
+	// EditorView view;
+	private final MaterialUtil mm;
 
 	public Node mainNode = new Node();
 	public Node gridNode = new Node();
@@ -53,16 +52,17 @@ public class EditorRenderer {
 	private Map<Parcel, GridMesh> gridMeshes = new HashMap<>();
 	private Map<Parcel, Geometry> gridGeoms = new HashMap<>();
 
-	public EditorRenderer(EditorView view, MaterialManager mm) {
-		this.view = view;
+	@Inject
+	public EditorRenderer(MaterialUtil mm) {
+		// this.view = view;
 		this.mm = mm;
 		EventManager.register(this);
 
-		if(ModelManager.getBattlefield() != null)
+		if(ModelManager.getBattlefield() != null) {
 			for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
 				GridMesh grid = new GridMesh(parcel);
 				gridMeshes.put(parcel, grid);
-	
+
 				Geometry g = new Geometry();
 				g.setMesh(TranslateUtil.toJMEMesh(grid));
 				Material mat = mm.getColor(ColorRGBA.Black);
@@ -71,6 +71,7 @@ public class EditorRenderer {
 				gridNode.attachChild(g);
 				gridGeoms.put(parcel, g);
 			}
+		}
 
 		mainNode.attachChild(gridNode);
 
