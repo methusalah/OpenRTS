@@ -74,22 +74,21 @@ public class Mover {
 		updateElevation();
 	}
 
-	public Mover(Mover o, Hiker movable) {
-		this.heightmap = o.heightmap;
-		this.pathfindingMode = o.pathfindingMode;
-		this.standingMode = o.standingMode;
-		this.hiker = movable;
-		cm = new CollisionManager(this);
-		sm = new SteeringMachine(this);
-		updateElevation();
-	}
-
 	public void updatePosition(double elapsedTime) {
 		double lastYaw = hiker.yaw;
 		Point3D lastPos = new Point3D(hiker.pos);
 
 		if (!holdPosition) {
-			Point3D steering = sm.getSteeringAndReset(elapsedTime);
+			Point3D steering = sm.collectSteering();
+			// hiker accelerates and rotates if there is steering
+			if(!steering.equals(Point3D.ORIGIN)){
+				hiker.incSpeed(elapsedTime);
+				if(!AngleUtil.areSimilar(steering.get2D().getAngle(), hiker.yaw))
+					hiker.incRotationSpeed(elapsedTime);
+			}
+			steering = steering.getMult(hiker.speed*elapsedTime/1000);
+			steering = steering.getDivision(mover.hiker.getMass());
+
 			cm.applySteering(steering, elapsedTime, toAvoid);
 		}
 		head(elapsedTime);
@@ -189,7 +188,7 @@ public class Mover {
 		return null;
 	}
 
-	public void head(double elapsedTime) {
+	private void head(double elapsedTime) {
 		if (!velocity.isOrigin()) {
 			desiredYaw = velocity.get2D().getAngle();
 		}
@@ -197,9 +196,9 @@ public class Mover {
 		if (!AngleUtil.areSimilar(desiredYaw, hiker.yaw)) {
 			double diff = AngleUtil.getOrientedDifference(hiker.yaw, desiredYaw);
 			if (diff > 0) {
-				hiker.yaw += Math.min(diff, hiker.getRotSpeed() * elapsedTime);
+				hiker.yaw += Math.min(diff, hiker.getMaxRotationSpeed() * elapsedTime);
 			} else {
-				hiker.yaw -= Math.min(-diff, hiker.getRotSpeed() * elapsedTime);
+				hiker.yaw -= Math.min(-diff, hiker.getMaxRotationSpeed() * elapsedTime);
 			}
 		} else {
 			hiker.yaw = desiredYaw;
@@ -277,7 +276,7 @@ public class Mover {
 	}
 
 	public double getSpeed() {
-		return hiker.getSpeed();
+		return hiker.getMaxSpeed();
 	}
 
 	public void changeCoord(Point2D p) {

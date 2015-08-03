@@ -49,6 +49,7 @@ public class ActorDrawer implements AnimEventListener {
 
 	public Node mainNode;
 	public Node abandoned;
+	public boolean askClearAbandoned = false;
 	public PhysicsSpace mainPhysicsSpace;
 
 	ModelPerformer modelPfm;
@@ -82,9 +83,12 @@ public class ActorDrawer implements AnimEventListener {
 	
 	@Subscribe
 	public void handleBuggingSpatial(GenericEvent e) {
-		synchronized (abandonedTrinkets) {
-			abandonedTrinkets.add((Spatial)e.getObject());
-		}
+		if(e.getObject() == null)
+			askClearAbandoned = true;
+		else
+			synchronized (abandonedTrinkets) {
+				abandonedTrinkets.add((Spatial)e.getObject());
+			}
 	}
 
 
@@ -96,11 +100,15 @@ public class ActorDrawer implements AnimEventListener {
 				abandonedTrinkets.clear();
 			}
 		}
-		for(Spatial s : abandoned.getChildren()){
-			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
-			if(s.getLocalTranslation().z <= -3)
-				abandoned.detachChild(s);
+		if(askClearAbandoned){
+			askClearAbandoned = false;
+			abandoned.detachAllChildren();
 		}
+//		for(Spatial s : abandoned.getChildren()){
+//			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
+//			if(s.getLocalTranslation().z <= -3)
+//				abandoned.detachChild(s);
+//		}
 			
 		// first, the spatials attached to interrupted actor are detached
 		ActorPool pool = ModelManager.getBattlefield().getActorPool();

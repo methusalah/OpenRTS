@@ -45,10 +45,8 @@ public class SteeringMachine {
 		mover = m;
 	}
 
-	public Point3D getSteeringAndReset(double elapsedTime) {
-		steering = steering.getTruncation(elapsedTime);
-		steering = steering.getDivision(mover.hiker.getMass());
-		Point3D res = new Point3D(steering);
+	public Point3D collectSteering() {
+		Point3D res = new Point3D(steering.getNormalized());
 
 		steering = Point3D.ORIGIN;
 		return res;

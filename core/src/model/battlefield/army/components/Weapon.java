@@ -32,6 +32,7 @@ public class Weapon implements EffectSource {
 	final Actor actor;
 
 	protected final Turret turret;
+	private final boolean turretMounted;
 
 	// variables
 	Point3D turretPivot;
@@ -60,6 +61,7 @@ public class Weapon implements EffectSource {
 			this.actor = null;
 		}
 		this.turret = turret;
+		turretMounted = turret != null;
 	}
 
 	public void update(List<Unit> enemiesNearby) {
@@ -131,9 +133,11 @@ public class Weapon implements EffectSource {
 		// if(!holder.getMover().holdPosition)
 		// ready = false;
 
-		if (turret != null && AngleUtil.getSmallestDifference(getTargetAngle(), getAngle()) > AngleUtil.toRadians(5)) {
+		if (turretMounted){
+			if(!turret.heading(target.getCoord(), 5))
+				ready = false;
+		} else if(!holder.heading(target.getCoord(), 5))
 			ready = false;
-		}
 
 		if (lastStrikeTime + 1000 * period > System.currentTimeMillis()) {
 			ready = false;
@@ -152,20 +156,11 @@ public class Weapon implements EffectSource {
 	}
 
 	private void setDesiredYaw() {
-		double desiredYaw = getTargetAngle();
-		if (turret != null) {
-			turret.setYaw(desiredYaw);
+		if (turretMounted) {
+			turret.head(target.getCoord());
 		} else {
-			holder.setYaw(desiredYaw);
+			holder.head(target.getCoord());
 		}
-	}
-
-	private double getTargetAngle() {
-		return target.getPos2D().getSubtraction(turretPivot.get2D()).getAngle();
-	}
-
-	private double getAngle() {
-		return directionVector.get2D().getAngle();
 	}
 
 	public boolean hasTargetAtRange(Unit specificTarget) {

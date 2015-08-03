@@ -2,6 +2,7 @@ package model.battlefield.army.components;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,13 +108,21 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 
 	}
 
-	protected boolean isMoving() {
-		return state == STATE.MOVING;
-	}
-
-	protected void setYaw(double yaw) {
+    public void head(Point2D target) {
+        orient(getAngleTo(target));
+    }
+    
+    public boolean heading(Point2D target, double toleranceInDegrees){
+    	return AngleUtil.getSmallestDifference(getAngleTo(target), yaw) <= AngleUtil.toRadians(toleranceInDegrees);
+    }
+    
+    private double getAngleTo(Point2D p){
+    	return p.getSubtraction(getCoord()).getAngle();
+    }
+    
+    private void orient(double yaw){
 		mover.desiredYaw = yaw;
-	}
+    }
 
 	public void idle() {
 		state = STATE.IDLING;
@@ -182,10 +191,6 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 
 	public Mover getMover() {
 		return mover;
-	}
-
-	public Point2D getPos2D() {
-		return getPos().get2D();
 	}
 
 	public ArrayList<Turret> getTurrets() {

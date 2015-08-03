@@ -124,7 +124,7 @@ public class CommandManager {
 	}
 
 	private static void orderAttack(Unit enemy) {
-		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), enemy.getPos2D());
+		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), enemy.getCoord());
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {

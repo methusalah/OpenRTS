@@ -169,7 +169,7 @@ public class Point3D {
 	@JsonIgnore
 	public Point3D getTruncation(double val) {
 		if (getNorm() > val) {
-			return getNormalized().getMult(val);
+			return getScaled(val);
 		}
 		return new Point3D(this);
 	}

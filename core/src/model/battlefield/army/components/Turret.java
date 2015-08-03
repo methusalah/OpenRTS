@@ -1,5 +1,6 @@
 package model.battlefield.army.components;
 
+import geometry.geom2d.Point2D;
 import geometry.math.AngleUtil;
 
 /**
@@ -65,12 +66,26 @@ public class Turret {
         idle = true;
     }
     
-    public void setYaw(double yaw) {
+    
+    // TODO DRY : repetition with Unit code
+    public void head(Point2D target) {
+        orient(getAngleTo(target));
+    }
+    
+    public boolean heading(Point2D target, double toleranceInDegrees){
+    	return AngleUtil.getSmallestDifference(getAngleTo(target), yaw) <= AngleUtil.toRadians(toleranceInDegrees);
+    }
+    
+    private double getAngleTo(Point2D p){
+    	return p.getSubtraction(holder.actor.getBoneCoord(boneName).get2D()).getAngle();
+    }
+    
+    private void orient(double yaw){
         idle = false;
         desiredYaw = yaw-holder.getYaw();
     }
     
     private void reset(){
-        setYaw(holder.getYaw());
+        orient(holder.getYaw());
     }
 }

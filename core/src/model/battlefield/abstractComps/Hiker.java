@@ -10,41 +10,40 @@ import model.builders.entity.MoverBuilder;
  * 
  */
 public abstract class Hiker extends FieldComp{
-    public final double speed;
+    public final double maxSpeed;
     public final double acceleration;
-    public final double rotationSpeed;
+    public final double maxRotationSpeed;
     public final double rotationAcceleration;
     public final double mass;
     public final Mover mover;
+    
+    public double speed = 0;
+    public double rotationSpeed = 0;
 
     public Hiker(double radius,
-    		double speed,
+    		double maxSpeed,
     		double acceleration,
-    		double rotationSpeed,
+    		double maxRotationSpeed,
     		double rotationAcceleration,
     		double mass, Point3D pos,
     		double yaw,
     		MoverBuilder moverBuilder) {
         super(pos, yaw, radius);
-        this.speed = speed;
+        this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;
-        this.rotationSpeed = rotationSpeed;
+        this.maxRotationSpeed = maxRotationSpeed;
         this.rotationAcceleration = rotationAcceleration;
         this.mass = mass;
         this.mover = moverBuilder.build(this);
         mover.desiredYaw = yaw;
     }
     
-    public double getSpeed() {
-        return speed;
+    public double getMaxSpeed() {
+        return maxSpeed;
     }
 
-    public double getRotSpeed() {
+    public double getMaxRotationSpeed() {
         return AngleUtil.toRadians(720);
-    }
-
-    public double getStationaryRotSpeed() {
-        return AngleUtil.toRadians(360);
     }
 
     public double getMass() {
@@ -54,5 +53,17 @@ public abstract class Hiker extends FieldComp{
     public boolean hasMoved(Point3D lastPos, double lastYaw){
         return lastYaw != yaw || !lastPos.equals(pos);
     }
+    
+    public void incSpeed(double elapsedTime){
+		speed += acceleration*elapsedTime/1000;
+		speed = Math.min(maxSpeed, speed);
+    }
+
+    public void incRotationSpeed(double elapsedTime){
+    	rotationSpeed += rotationAcceleration*elapsedTime/1000;
+    	rotationSpeed = Math.min(maxRotationSpeed, rotationSpeed);
+    }
+    
+    
     
 }

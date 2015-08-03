@@ -80,7 +80,7 @@ public class UnitTool extends Tool {
 	private void add() {
 		Point2D coord = pencil.getCoord();
 		for (Unit u : ArmyManager.getUnits()) {
-			if (u.getPos2D().equals(coord)) {
+			if (u.getCoord().equals(coord)) {
 				coord = coord.getTranslation(RandomUtil.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
 			}
 		}
@@ -108,7 +108,7 @@ public class UnitTool extends Tool {
 			Unit u = getPointedUnit();
 			if (u != null) {
 				actualUnit = u;
-				moveOffset = pencil.getCoord().getSubtraction(u.getPos2D());
+				moveOffset = pencil.getCoord().getSubtraction(u.getCoord());
 			}
 		}
 		if (actualUnit != null) {
@@ -126,7 +126,7 @@ public class UnitTool extends Tool {
 			}
 		}
 		if (actualUnit != null) {
-			actualUnit.yaw = pencil.getCoord().getSubtraction(actualUnit.getPos2D()).getAngle();
+			actualUnit.yaw = pencil.getCoord().getSubtraction(actualUnit.getCoord()).getAngle();
 			actualUnit.direction = Point3D.UNIT_X.getRotationAroundZ(actualUnit.yaw);
 		}
 	}
