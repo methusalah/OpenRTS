@@ -62,7 +62,7 @@ public class GroundCameraManager extends CameraManager {
 
 	private void placeCam(){
 		if (ModelManager.getBattlefield().getMap().isInBounds(pos.get2D())) {
-			pos.z = ModelManager.getBattlefield().getMap().getAltitudeAt(pos.get2D()) + 0.5;
+			pos.z = ModelManager.getBattlefield().getMap().getAltitudeAt(pos.get2D()) + 0.6;
 		} else {
 			pos.z = 0;
 		}

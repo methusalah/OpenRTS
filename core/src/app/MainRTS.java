@@ -68,6 +68,7 @@ public class MainRTS extends OpenRTSApplication {
 		CollisionTester.setAssetManager(assetManager);
 		CollisionTester.root = rootNode;
 		
+		
 		ModelManager.setNewBattlefield();
 	}
 
