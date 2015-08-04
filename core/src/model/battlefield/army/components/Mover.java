@@ -7,6 +7,7 @@ import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
@@ -16,6 +17,7 @@ import model.battlefield.army.motion.SteeringMachine;
 import model.battlefield.army.motion.pathfinding.FlowField;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
+import model.editor.engines.Sower;
 
 /**
  * Mover is module to connect to hiker to create motion and placement. The mover knows the map, is supplied with neighbors at each frame and provide movement
@@ -25,6 +27,8 @@ import model.battlefield.map.Trinket;
  * their arrival point. One mover is associated with one hiker. It is defined by XML and is only instanciated by associate builder.
  */
 public class Mover {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
+
 	public enum Heightmap {
 		SKY, AIR, GROUND
 	};
@@ -81,13 +85,22 @@ public class Mover {
 		if (!holdPosition) {
 			Point3D steering = sm.collectSteering();
 			// hiker accelerates and rotates if there is steering
-			if(!steering.equals(Point3D.ORIGIN)){
+			
+			if(!steering.isOrigin()){
 				hiker.incSpeed(elapsedTime);
 				if(!AngleUtil.areSimilar(steering.get2D().getAngle(), hiker.yaw))
 					hiker.incRotationSpeed(elapsedTime);
+				else
+					hiker.decRotationSpeed(elapsedTime);
+			} else {
+				hiker.decSpeed(elapsedTime);
+				hiker.decRotationSpeed(elapsedTime);
 			}
-			steering = steering.getMult(hiker.speed*elapsedTime/1000);
-			steering = steering.getDivision(mover.hiker.getMass());
+				
+			logger.info("steering : " +steering+ " speed and rot speed : "+hiker.speed+" / "+hiker.rotationSpeed);
+			logger.info("elapsed time : " +elapsedTime);
+			steering = steering.getMult(hiker.speed*elapsedTime);///hiker.getMass());
+			logger.info("new steering : " +steering);
 
 			cm.applySteering(steering, elapsedTime, toAvoid);
 		}

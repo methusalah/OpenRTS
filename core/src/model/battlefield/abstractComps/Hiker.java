@@ -55,13 +55,23 @@ public abstract class Hiker extends FieldComp{
     }
     
     public void incSpeed(double elapsedTime){
-		speed += acceleration*elapsedTime/1000;
+		speed += acceleration*elapsedTime;
 		speed = Math.min(maxSpeed, speed);
     }
 
+    public void decSpeed(double elapsedTime){
+		speed -= acceleration*elapsedTime;
+		speed = Math.max(0, speed);
+    }
+
     public void incRotationSpeed(double elapsedTime){
-    	rotationSpeed += rotationAcceleration*elapsedTime/1000;
+    	rotationSpeed += rotationAcceleration*elapsedTime;
     	rotationSpeed = Math.min(maxRotationSpeed, rotationSpeed);
+    }
+
+    public void decRotationSpeed(double elapsedTime){
+    	rotationSpeed -= rotationAcceleration*elapsedTime;
+    	rotationSpeed = Math.max(0, rotationSpeed);
     }
     
     

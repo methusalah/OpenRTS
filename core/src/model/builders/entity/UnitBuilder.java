@@ -44,9 +44,9 @@ public class UnitBuilder extends Builder {
 	private double radius;
 	private double speed;
 	private double mass;
-	private double acceleration = 100;
+	private double acceleration = 0.1;
 	private double rotationSpeed = 720;
-	private double rotationAcceleration = 10000;
+	private double rotationAcceleration = 150;
 	private String moverBuilderID;
 	private MoverBuilder moverBuilder;
 	private List<String> weaponBuildersID = new ArrayList<>();

@@ -8,6 +8,7 @@ import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
@@ -45,8 +46,9 @@ public class SteeringMachine {
 		mover = m;
 	}
 
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 	public Point3D collectSteering() {
-		Point3D res = new Point3D(steering.getNormalized());
+		Point3D res = steering.isOrigin()? steering : steering.getNormalized();
 
 		steering = Point3D.ORIGIN;
 		return res;
