@@ -4,6 +4,7 @@
 package model.builders.entity;
 
 import geometry.geom3d.Point3D;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +45,9 @@ public class UnitBuilder extends Builder {
 	private double radius;
 	private double speed;
 	private double mass;
-	private double acceleration = 0.1;
-	private double rotationSpeed = 720;
-	private double rotationAcceleration = 150;
+	private double acceleration = 2;
+	private double rotationSpeed = AngleUtil.toRadians(720);
+	private double rotationAcceleration = AngleUtil.toRadians(2000);
 	private String moverBuilderID;
 	private MoverBuilder moverBuilder;
 	private List<String> weaponBuildersID = new ArrayList<>();

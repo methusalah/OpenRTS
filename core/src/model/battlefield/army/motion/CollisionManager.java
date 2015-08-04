@@ -56,12 +56,8 @@ public class CollisionManager {
 		this.mover = m;
 	}
 
-	public void applySteering(Point3D desiredVelocity, double elapsedTime, List<FieldComp> blockers) {
-		double traveledDistance = desiredVelocity.getNorm(); 
-		if(traveledDistance < 0.001) {
-			logger.info("very short traveled distance...");
-		}
-
+	public void applyVelocity(Point3D possibleVelocity, double elapsedTime, List<FieldComp> blockers) {
+		double traveledDistance = possibleVelocity.getNorm(); 
 
 		updateBlockingShapes(blockers);
 		updateSolidShapes();
@@ -73,13 +69,13 @@ public class CollisionManager {
 			mover.hiker.pos = mover.hiker.pos.getAddition(getAntiOverlapVector().getScaled(traveledDistance));
 			mover.velocity = Point3D.ORIGIN;
 		} else {
-			if(desiredVelocity.isOrigin()) {
+			if(possibleVelocity.isOrigin()) {
 				mover.velocity = Point3D.ORIGIN;
 			} else {
 				if(mover.fly()) {
-					mover.velocity = desiredVelocity;
+					mover.velocity = possibleVelocity;
 				} else {
-					mover.velocity = adaptVelocity(desiredVelocity);
+					mover.velocity = adaptVelocity(possibleVelocity);
 				}
 
 				// TODO this is a behavioral code and must be elsewhere

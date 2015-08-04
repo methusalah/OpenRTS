@@ -85,24 +85,9 @@ public class Mover {
 		if (!holdPosition) {
 			Point3D steering = sm.collectSteering();
 			// hiker accelerates and rotates if there is steering
-			
-			if(!steering.isOrigin()){
-				hiker.incSpeed(elapsedTime);
-				if(!AngleUtil.areSimilar(steering.get2D().getAngle(), hiker.yaw))
-					hiker.incRotationSpeed(elapsedTime);
-				else
-					hiker.decRotationSpeed(elapsedTime);
-			} else {
-				hiker.decSpeed(elapsedTime);
-				hiker.decRotationSpeed(elapsedTime);
-			}
-				
-			logger.info("steering : " +steering+ " speed and rot speed : "+hiker.speed+" / "+hiker.rotationSpeed);
-			logger.info("elapsed time : " +elapsedTime);
-			steering = steering.getMult(hiker.speed*elapsedTime);///hiker.getMass());
-			logger.info("new steering : " +steering);
-
-			cm.applySteering(steering, elapsedTime, toAvoid);
+			Point2D target = flowfield == null? null : flowfield.destination;
+			Point3D possibleMotion = hiker.getNearestPossibleVelocity(steering, target, elapsedTime); 
+			cm.applyVelocity(possibleMotion, elapsedTime, toAvoid);
 		}
 		head(elapsedTime);
 
@@ -228,7 +213,6 @@ public class Mover {
 
 	public void seek(Mover target) {
 		flock();
-		separate();
 		sm.seek(target);
 
 		List<FieldComp> toAvoidExceptTarget = new ArrayList<>(toAvoid);
@@ -238,21 +222,18 @@ public class Mover {
 
 	public void seek(Point3D position) {
 		flock();
-		separate();
 		sm.seek(position);
 		sm.avoidBlockers(toAvoid);
 	}
 
 	public void followPath() {
 		flock();
-		separate();
 		sm.proceedToDestination();
 		sm.avoidBlockers(toAvoid);
 	}
 
 	public void followPath(Mover target) {
 		flock();
-		separate();
 		sm.proceedToDestination();
 
 		List<FieldComp> toAvoidExceptTarget = new ArrayList<>(toAvoid);

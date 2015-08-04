@@ -47,6 +47,7 @@ public class SteeringMachine {
 	}
 
 	private static final Logger logger = Logger.getLogger(Mover.class.getName());
+	
 	public Point3D collectSteering() {
 		Point3D res = steering.isOrigin()? steering : steering.getNormalized();
 
