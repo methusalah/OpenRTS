@@ -45,9 +45,9 @@ public class UnitBuilder extends Builder {
 	private double radius;
 	private double speed;
 	private double mass;
-	private double acceleration = 2;
-	private double rotationSpeed = AngleUtil.toRadians(720);
-	private double rotationAcceleration = AngleUtil.toRadians(2000);
+	private double acceleration = 0.5;
+	private double rotationSpeed = AngleUtil.toRadians(200);
+	private double rotationAcceleration = AngleUtil.toRadians(200);
 	private String moverBuilderID;
 	private MoverBuilder moverBuilder;
 	private List<String> weaponBuildersID = new ArrayList<>();

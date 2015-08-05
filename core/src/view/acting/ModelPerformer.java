@@ -17,6 +17,7 @@ import model.battlefield.army.components.Turret;
 import model.battlefield.army.components.Unit;
 import model.battlefield.map.Trinket;
 import view.mapDrawing.MapDrawer;
+import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import view.mesh.Circle;
 
@@ -128,7 +129,7 @@ public class ModelPerformer extends Performer {
 		if (actor.getViewElements().selectionCircle == null) {
 			Geometry g = new Geometry();
 			g.setMesh(new Circle((float) unit.getRadius(), 10));
-			g.setMaterial(actorDrawer.getMaterialManager().greenMaterial);
+			g.setMaterial(MaterialManager.greenMaterial);
 			g.rotate((float) AngleUtil.RIGHT, 0, 0);
 			Node n = new Node();
 			n.attachChild(g);

@@ -45,7 +45,6 @@ public class ActorDrawer implements AnimEventListener {
 	private static final Logger logger = Logger.getLogger(ActorDrawer.class.getName());
 
 	private AssetManager assetManager;
-	private MaterialManager materialManager;
 
 	public Node mainNode;
 	public Node abandoned;
@@ -65,9 +64,8 @@ public class ActorDrawer implements AnimEventListener {
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 	private List<Spatial> abandonedTrinkets = new ArrayList<>(); 
 
-	public ActorDrawer(AssetManager assetManager, MaterialManager materialManager) {
+	public ActorDrawer(AssetManager assetManager) {
 		this.assetManager = assetManager;
-		this.materialManager = materialManager;
 		mainNode = new Node();
 		abandoned = new Node();
 		mainNode.attachChild(abandoned);
@@ -219,7 +217,7 @@ public class ActorDrawer implements AnimEventListener {
 		}
 
 		if (actor.getColor() != null) {
-			res.setMaterial(materialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
+			res.setMaterial(MaterialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
 		} else{
 			for(Integer index : actor.getSubColorsByIndex().keySet()) {
 				applyToSubmesh(res, null, index, actor.getSubColorsByIndex().get(index));
@@ -244,7 +242,7 @@ public class ActorDrawer implements AnimEventListener {
 				if(colorOrMaterial instanceof Color)
 					g.getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA((Color)colorOrMaterial));
 				else if (colorOrMaterial instanceof String)
-					g.setMaterial(materialManager.getMaterial((String)colorOrMaterial));
+					g.setMaterial(MaterialManager.getMaterial((String)colorOrMaterial));
 				else
 					throw new IllegalArgumentException();
 					
@@ -287,9 +285,4 @@ public class ActorDrawer implements AnimEventListener {
 	public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
 		// LogUtil.logger.info("anim changed to "+animName);
 	}
-
-	public MaterialManager getMaterialManager() {
-		return materialManager;
-	}
-
 }

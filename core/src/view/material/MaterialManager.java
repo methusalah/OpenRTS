@@ -14,54 +14,57 @@ import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 
 public class MaterialManager {
-	AssetManager assetManager;
+	public static AssetManager am;
 
-	Map<String, Material> texturesMap = new HashMap<String, Material>();
-	Map<String, Texture> textureFileMap = new HashMap<String, Texture>();
-	Map<ColorRGBA, Material> colorsMap = new HashMap<ColorRGBA, Material>();
-	Map<String, Material> materials = new HashMap<>();
+	static Map<String, Material> texturesMap = new HashMap<String, Material>();
+	static Map<String, Texture> textureFileMap = new HashMap<String, Texture>();
+	static Map<ColorRGBA, Material> colorsMap = new HashMap<ColorRGBA, Material>();
+	static Map<String, Material> materials = new HashMap<>();
 
 	// Materials
-	public Material concreteMaterial;
-	public Material streetLaneMaterial;
-	public Material sidewalkMaterial;
+	public static Material concreteMaterial;
+	public static Material streetLaneMaterial;
+	public static Material sidewalkMaterial;
 
-	public Material contourMaterial;
-	public Material lotMaterial1;
-	public Material lotMaterial2;
-	public Material lotMaterial3;
-	public Material debugMaterial;
-	public Material lotContourMaterial;
-	public Material blockContourMaterial;
-	public Material debugTextureMaterial;
-	public Material blueMaterial;
-	public Material blue2Material;
-	public Material blue3Material;
-	public Material redMaterial;
-	public Material yellowMaterial;
-	public Material cyanMaterial;
-	public Material blackMaterial;
-	public Material greenMaterial;
-	public Material floorMaterial;
-	public Material windowsMaterial;
-	public Material itemMaterial;
-	public Material terrainMaterial;
-	public Material roadsMaterial;
-	public Material whiteConcreteMaterial;
-	public ArrayList<Material> gradientMaterial = new ArrayList<Material>();
+	public static Material contourMaterial;
+	public static Material lotMaterial1;
+	public static Material lotMaterial2;
+	public static Material lotMaterial3;
+	public static Material debugMaterial;
+	public static Material lotContourMaterial;
+	public static Material blockContourMaterial;
+	public static Material debugTextureMaterial;
+	public static Material blueMaterial;
+	public static Material blue2Material;
+	public static Material blue3Material;
+	public static Material redMaterial;
+	public static Material yellowMaterial;
+	public static Material cyanMaterial;
+	public static Material blackMaterial;
+	public static Material greenMaterial;
+	public static Material floorMaterial;
+	public static Material windowsMaterial;
+	public static Material itemMaterial;
+	public static Material terrainMaterial;
+	public static Material roadsMaterial;
+	public static Material whiteConcreteMaterial;
+	public static ArrayList<Material> gradientMaterial = new ArrayList<Material>();
 
-	public MaterialManager(AssetManager assetManager) {
-		this.assetManager = assetManager;
+	private MaterialManager() {
+	}
+	
+	public static void setAssetManager(AssetManager assetManager){
+		am = assetManager;
 		initBaseMaterials();
 	}
 
-	public Material getColor(ColorRGBA color) {
-		Material res = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+	public static Material getColor(ColorRGBA color) {
+		Material res = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		res.setColor("Color", color);
 		return res;
 	}
 
-	public Material getLightingColor(ColorRGBA color) {
+	public static Material getLightingColor(ColorRGBA color) {
 		// We first check if the requested color exist in the map
 		if (colorsMap.containsKey(color)) {
 			return colorsMap.get(color);
@@ -69,7 +72,7 @@ public class MaterialManager {
 
 		// At this point, we know that the color doesn't exist.
 		// We must create a new material, add it to the map and return it.
-		Material res = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+		Material res = new Material(am, "Common/MatDefs/Light/Lighting.j3md");
 		res.setColor("Diffuse", color);
 		res.setFloat("Shininess", 10f);
 		res.setBoolean("UseMaterialColors", true);
@@ -79,17 +82,17 @@ public class MaterialManager {
 		return res;
 	}
 
-	private Texture getTexture(String path) {
+	private static Texture getTexture(String path) {
 		Texture res = textureFileMap.get(path);
 		if (res == null) {
-			res = assetManager.loadTexture(path);
+			res = am.loadTexture(path);
 			textureFileMap.put(path, res);
 		}
 		return res;
 
 	}
 
-	public Material getLightingTexture(String texturePath) {
+	public static Material getLightingTexture(String texturePath) {
 		// We first check if the requested texture exist in the material map
 		if (texturesMap.containsKey(texturePath)) {
 			return texturesMap.get(texturePath);
@@ -97,8 +100,8 @@ public class MaterialManager {
 
 		// At this point, we know that the texture doesn't exist.
 		// We must create a new material, add it to the map and return it.
-		Material res = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-		Texture t = assetManager.loadTexture(texturePath);
+		Material res = new Material(am, "Common/MatDefs/Light/Lighting.j3md");
+		Texture t = am.loadTexture(texturePath);
 		t.setWrap(WrapMode.Repeat);
 		t.setAnisotropicFilter(8);
 		res.setTexture("DiffuseMap", t);
@@ -127,7 +130,7 @@ public class MaterialManager {
 		return res;
 	}
 
-	private void initBaseMaterials() {
+	private static void initBaseMaterials() {
 		ColorRGBA lotColorBase = new ColorRGBA(200f / 255f, 200f / 255f, 200f / 255f, 255f / 255f);
 		ColorRGBA concreteColor = new ColorRGBA(90f / 255f, 100f / 255f, 255f / 255f, 255f / 255f);
 		ColorRGBA redConcreteColor = ColorRGBA.Red;
@@ -142,28 +145,28 @@ public class MaterialManager {
 		ColorRGBA roadsColor = ColorRGBA.LightGray;
 		ColorRGBA terrainColor = new ColorRGBA(0f / 255f, 50f / 255f, 14f / 255f, 255f / 255f);
 
-		assetManager.registerLocator("assets/", FileLocator.class.getName());
+		am.registerLocator("assets/", FileLocator.class.getName());
 
-		contourMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		contourMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		contourMaterial.setColor("Color", blackConcreteColor);
 
-		blockContourMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		blockContourMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		blockContourMaterial.setColor("Color", redConcreteColor);
 
-		lotContourMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		lotContourMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		lotContourMaterial.setColor("Color", blueConcreteColor);
 
-		lotMaterial1 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		lotMaterial1 = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		lotMaterial1.setColor("Color", lotColorBase);
 
-		lotMaterial2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		lotMaterial2 = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		lotMaterial2.setColor("Color", lotColorBase);
 
-		lotMaterial3 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		lotMaterial3 = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		lotMaterial3.setColor("Color", lotColorBase);
 
 		// debug material
-		debugMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		debugMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		debugMaterial.setColor("Color", redConcreteColor);
 		// debug texture material
 		// debugTextureMaterial = new Material(assetManager, "Common/MatDefs/Misc/SimpleTextured.j3md");
@@ -172,43 +175,43 @@ public class MaterialManager {
 		// debugTextureMaterial.setFloat("Shininess", 128f); // [0,128]
 
 		// Red Material
-		redMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		redMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		redMaterial.setColor("Color", redConcreteColor);
 		redMaterial.setColor("GlowColor", redConcreteColor);
 
 		// Concrete Material
-		yellowMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		yellowMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		yellowMaterial.setColor("Color", yellowConcreteColor);
 
 		// Concrete Material
-		cyanMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		cyanMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		cyanMaterial.setColor("Color", cyanConcreteColor);
 		cyanMaterial.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 		// Concrete Material
-		blackMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		blackMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		blackMaterial.setColor("Color", blackConcreteColor);
 
 		// Concrete Material
-		greenMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		greenMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		greenMaterial.setColor("Color", greenConcreteColor);
 		greenMaterial.setColor("GlowColor", greenConcreteColor);
 
 		// Item Material
-		itemMaterial = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+		itemMaterial = new Material(am, "Common/MatDefs/Light/Lighting.j3md");
 		itemMaterial.setColor("Diffuse", itemColor);
 		itemMaterial.setBoolean("UseMaterialColors", true);
 
 		// gradient blue
 		for (int i = 0; i < 4; i++) {
-			gradientMaterial.add(new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md"));
+			gradientMaterial.add(new Material(am, "Common/MatDefs/Misc/Unshaded.j3md"));
 			gradientMaterial.get(i).setColor("Color", new ColorRGBA(i * 30 / 255f, i * 30 / 255f, i * 85 / 255f, 1));
 		}
 	}
 
-	public Material getMaterial(String materialPath) {
+	public static Material getMaterial(String materialPath) {
 		if(materials.get(materialPath) == null)
-			materials.put(materialPath, assetManager.loadMaterial(materialPath));
+			materials.put(materialPath, am.loadMaterial(materialPath));
 		return materials.get(materialPath);
 	}
 }

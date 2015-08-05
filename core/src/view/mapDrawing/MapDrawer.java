@@ -42,7 +42,6 @@ public class MapDrawer {
 
 	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
 	MapView view;
-	MaterialManager mm;
 	AssetManager am;
 
 	private Map<String, Spatial> models = new HashMap<>();
@@ -60,12 +59,11 @@ public class MapDrawer {
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
-	public MapDrawer(MapView view, MaterialManager mm, AssetManager am) {
+	public MapDrawer(MapView view, AssetManager am) {
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
 		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);
 		coverTexture.transp = true;
-		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
@@ -186,7 +184,7 @@ public class MapDrawer {
 	private void attachBuggedCliff(Cliff c) {
 		Geometry g = new Geometry();
 		g.setMesh(new Box(0.5f, 0.5f, 1));
-		g.setMaterial(mm.redMaterial);
+		g.setMaterial(MaterialManager.redMaterial);
 		g.setLocalTranslation((float)c.getTile().getCoord().x + 0.5f, (float)c.getTile().getCoord().y + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
 
 		Node n = new Node();
@@ -204,9 +202,9 @@ public class MapDrawer {
 		Geometry g = new Geometry();
 		g.setMesh(TranslateUtil.toJMEMesh(face.mesh));
 		if (face.color != null) {
-			g.setMaterial(mm.getLightingColor(TranslateUtil.toColorRGBA(face.color)));
+			g.setMaterial(MaterialManager.getLightingColor(TranslateUtil.toColorRGBA(face.color)));
 		} else {
-			g.setMaterial(mm.getLightingTexture(face.texturePath));
+			g.setMaterial(MaterialManager.getLightingTexture(face.texturePath));
 		}
 		// g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
 		g.rotate(0, 0, (float) (c.angle));
