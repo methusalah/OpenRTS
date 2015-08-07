@@ -1,5 +1,7 @@
 package event;
 
+import event.client.Event;
+
 public class GenericEvent extends Event {
 
 	private final Object o;
