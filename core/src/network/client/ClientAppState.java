@@ -28,7 +28,7 @@ public class ClientAppState extends AbstractAppState {
 	private float tickTimer = 0;
 
 	public ClientAppState(String host) {
-		this.host = host;
+		ClientAppState.host = host;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package controller.game;
 
+import event.EventManager;
+import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
@@ -84,6 +86,7 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					dblclickCoord = getSpatialCoord();
 					break;
 				case ACTION:
+					EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
