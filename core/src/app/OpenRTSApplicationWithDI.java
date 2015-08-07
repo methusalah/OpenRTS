@@ -312,7 +312,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 	}
 
 	protected void initGuice(List<Module> newModules) {
-		Application app = this;
+		final Application app = this;
 
 		this.modules = new LinkedList<Module>();
 		// register new instances to Guice (DI)
