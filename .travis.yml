@@ -2,12 +2,13 @@ language: java
 jdk:
   - oraclejdk8
  
-script: ./gradlew test
-
 notifications:
   email:
     recipients:
       - dev@meltzow.net
   slack:
     rooms:
-      - openrts:vCbMLTU22pfnuIRWUNGk47JK#coding
+      - openrts:vCbMLTU22pfnuIRWUNGk47JK#news
+
+script: ./gradlew build
+

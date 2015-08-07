@@ -1,7 +1,7 @@
 ![please report broken links](http://s12.postimg.org/uvml3cmvx/code118.png)
 
 # What is OpenRTS ?
-OpenRTS is a 3D real-time strategy game engine coded in java 1.7, powered by jMonkeyEngine 3 and open-source.
+OpenRTS is a 3D real-time strategy game engine coded in java 1.8, powered by jMonkeyEngine 3 and open-source.
 
 OpenRTS intend to support any kind of common real-time strategy gameplay, design and control, provinding it's own editor and a versatile data structure.
 
