@@ -21,6 +21,9 @@ import model.builders.entity.definitions.Definition;
 public class UnitBuilder extends Builder {
 	private static final String RADIUS = "Radius";
 	private static final String SPEED = "Speed";
+	private static final String ACCELERATION = "Acceleration";
+	private static final String ROTATION_SPEED = "RotationSpeed";
+	private static final String ROTATION_ACCELERATION = "RotationAcceleration";
 	private static final String MASS = "Mass";
 	private static final String MOVER_LINK = "MoverLink";
 
@@ -41,6 +44,9 @@ public class UnitBuilder extends Builder {
 	private double radius;
 	private double speed;
 	private double mass;
+	private double acceleration = 100;
+	private double rotationSpeed = 720;
+	private double rotationAcceleration = 10000;
 	private String moverBuilderID;
 	private MoverBuilder moverBuilder;
 	private List<String> weaponBuildersID = new ArrayList<>();
@@ -57,6 +63,15 @@ public class UnitBuilder extends Builder {
 					break;
 				case SPEED:
 					speed = de.getDoubleVal();
+					break;
+				case ACCELERATION:
+					acceleration = de.getDoubleVal();
+					break;
+				case ROTATION_SPEED:
+					rotationSpeed = de.getDoubleVal();
+					break;
+				case ROTATION_ACCELERATION:
+					rotationAcceleration = de.getDoubleVal();
 					break;
 				case MASS:
 					mass = de.getDoubleVal();
@@ -85,7 +100,7 @@ public class UnitBuilder extends Builder {
 	}
 
 	public Unit build(Faction faction, Point3D pos, double yaw) {
-		Unit res = new Unit(radius, speed, mass, pos, yaw, moverBuilder, UIName, getId(), race, maxHealth, faction, actorBuilder);
+		Unit res = new Unit(radius, speed, acceleration, rotationSpeed, rotationAcceleration, mass, pos, yaw, moverBuilder, UIName, getId(), race, maxHealth, faction, actorBuilder);
 
 		int i = 0;
 		for (WeaponBuilder wb : weaponBuilders) {

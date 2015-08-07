@@ -130,6 +130,12 @@ public class ToolManager {
 			}
 		}
 	}
+
+	public static void stepSower(){
+		if(sower.isPaused()){
+			sower.stepByStep();
+		}
+	}
 	
 	public static void killSower(){
 		sower.destroy();

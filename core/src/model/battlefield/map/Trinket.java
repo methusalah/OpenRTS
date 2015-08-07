@@ -15,7 +15,8 @@ public class Trinket extends FieldComp{
     public final boolean editable;
     public final boolean blocking;
     private final ModelActor actor;
-    public final String builderID;
+
+	public final String builderID;
     public double separationRadius;
     public boolean sowed = false;
     
@@ -47,4 +48,8 @@ public class Trinket extends FieldComp{
     public double getSpacing(Trinket o) {
     	return separationRadius+o.separationRadius;
     }
+
+    public ModelActor getActor() {
+		return actor;
+	}
 }

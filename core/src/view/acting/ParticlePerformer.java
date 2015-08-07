@@ -147,7 +147,7 @@ public class ParticlePerformer extends Performer{
 		if(actor.velocity != 0) {
 			emitter.setFacingVelocity(true);
 		}
-		emitter.setQueueBucket(Bucket.Translucent);
+		emitter.setQueueBucket(Bucket.Transparent);
 		actorDrawer.mainNode.attachChild(emitter);
 		actor.getViewElements().particleEmitter = emitter;
 	}

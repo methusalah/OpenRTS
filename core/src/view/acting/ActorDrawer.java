@@ -16,6 +16,7 @@ import model.battlefield.army.components.Unit;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
+import com.google.common.eventbus.Subscribe;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
@@ -32,6 +33,10 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
+import event.BattleFieldUpdateEvent;
+import event.EventManager;
+import event.GenericEvent;
+
 /**
  * @author Benoît
  */
@@ -43,6 +48,7 @@ public class ActorDrawer implements AnimEventListener {
 	private MaterialManager materialManager;
 
 	public Node mainNode;
+	public Node abandoned;
 	public PhysicsSpace mainPhysicsSpace;
 
 	ModelPerformer modelPfm;
@@ -56,20 +62,46 @@ public class ActorDrawer implements AnimEventListener {
 
 	List<ParticleEmitter> dyingEmitters = new ArrayList<>();
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
+	private List<Spatial> abandonedTrinkets = new ArrayList<>(); 
 
 	public ActorDrawer(AssetManager assetManager, MaterialManager materialManager) {
 		this.assetManager = assetManager;
 		this.materialManager = materialManager;
 		mainNode = new Node();
+		abandoned = new Node();
+		mainNode.attachChild(abandoned);
 
 		modelPfm = new ModelPerformer(this);
 		particlePfm = new ParticlePerformer(this);
 		animationPfm = new AnimationPerformer(this);
 		physicPfm = new RagdollPerformer(this);
 		soundPfm = new SoundPerformer(this);
+		
+		EventManager.register(this);
+	}
+	
+	@Subscribe
+	public void handleBuggingSpatial(GenericEvent e) {
+		synchronized (abandonedTrinkets) {
+			abandonedTrinkets.add((Spatial)e.getObject());
+		}
 	}
 
+
 	public void render() {
+		synchronized (abandonedTrinkets){
+			if(!abandonedTrinkets.isEmpty()){
+				for(Spatial s : abandonedTrinkets)
+					abandoned.attachChild(s);
+				abandonedTrinkets.clear();
+			}
+		}
+		for(Spatial s : abandoned.getChildren()){
+			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
+			if(s.getLocalTranslation().z <= -3)
+				abandoned.detachChild(s);
+		}
+			
 		// first, the spatials attached to interrupted actor are detached
 		ActorPool pool = ModelManager.getBattlefield().getActorPool();
 		for (Actor a : pool.grabDeletedActors()) {
