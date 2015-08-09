@@ -51,8 +51,6 @@ public class Mover {
 	final CollisionManager cm;
 
 	// variables
-	public Point3D velocity = Point3D.ORIGIN;
-
 	public double desiredYaw = 0;
 	Point3D desiredUp = Point3D.UNIT_Z;
 
@@ -87,6 +85,8 @@ public class Mover {
 			// hiker accelerates and rotates if there is steering
 			Point2D target = flowfield == null? null : flowfield.destination;
 			Point3D possibleMotion = hiker.getNearestPossibleVelocity(steering, target, elapsedTime); 
+			if(!possibleMotion.isOrigin())
+				desiredYaw = possibleMotion.get2D().getAngle();
 			cm.applyVelocity(possibleMotion, elapsedTime, toAvoid);
 		}
 		head(elapsedTime);
@@ -187,10 +187,6 @@ public class Mover {
 	}
 
 	private void head(double elapsedTime) {
-		if (!velocity.isOrigin()) {
-			desiredYaw = velocity.get2D().getAngle();
-		}
-
 		if (!AngleUtil.areSimilar(desiredYaw, hiker.yaw)) {
 			double diff = AngleUtil.getOrientedDifference(hiker.yaw, desiredYaw);
 			if (diff > 0) {
@@ -205,10 +201,13 @@ public class Mover {
 
 	public void separate() {
 		sm.applySeparation(toLetPass);
+		sm.applyQueue(toLetPass);
 	}
 
 	public void flock() {
 		sm.applySeparation(toFlockWith);
+		sm.applyQueue(toFlockWith);
+		sm.applyQueue(toLetPass);
 	}
 
 	public void seek(Mover target) {
@@ -257,8 +256,8 @@ public class Mover {
 				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.get(hiker.getCoord()).level + 3);
 				hiker.upDirection = Point3D.UNIT_Z;
 			} else {
-				if (!velocity.isOrigin()) {
-					hiker.direction = velocity;
+				if (!hiker.velocity.isOrigin()) {
+					hiker.direction = hiker.velocity;
 				}
 				hiker.upDirection = null;
 			}
@@ -274,7 +273,7 @@ public class Mover {
 	}
 
 	public void changeCoord(Point2D p) {
-		velocity = Point3D.ORIGIN;
+		hiker.velocity = Point3D.ORIGIN;
 		hiker.pos = p.get3D(0);
 		updateElevation();
 	}

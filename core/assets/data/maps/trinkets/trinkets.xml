@@ -29,15 +29,31 @@
     	<ActorLink value="3dsmaxActor"/>
         <ModelList value="env/exterior01/grassC_001.mesh.xml"/>
         <RotationZ min="0" max="360"/>
-        <Scale min="2" max="1.3"/>
+        <Scale min="1" max="1.3"/>
 	    <Radius value="0.25"/>
 	    <Blocking value="false"/>
     </Trinket>
     <Trinket id="Herb2">
     	<ActorLink value="3dsmaxActor"/>
-        <ModelList value="env/exterior01/grassE_002.mesh.xml"/>
+        <ModelList value="env/exterior01/grassC_002.mesh.xml"/>
         <RotationZ min="0" max="360"/>
-        <Scale min="2" max="1.3"/>
+        <Scale min="1" max="1.3"/>
+	    <Radius value="0.6"/>
+	    <Blocking value="false"/>
+    </Trinket>
+    <Trinket id="Herb3">
+    	<ActorLink value="3dsmaxActor"/>
+        <ModelList value="env/exterior01/grassD_001.mesh.xml"/>
+        <RotationZ min="0" max="360"/>
+        <Scale min="1" max="1.3"/>
+	    <Radius value="0.6"/>
+	    <Blocking value="false"/>
+    </Trinket>
+    <Trinket id="Herb4">
+    	<ActorLink value="3dsmaxActor"/>
+        <ModelList value="env/exterior01/grassD_002.mesh.xml"/>
+        <RotationZ min="0" max="360"/>
+        <Scale min="1" max="1.3"/>
 	    <Radius value="0.6"/>
 	    <Blocking value="false"/>
     </Trinket>

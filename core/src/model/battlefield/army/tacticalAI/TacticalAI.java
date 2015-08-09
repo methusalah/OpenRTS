@@ -203,7 +203,7 @@ public class TacticalAI {
 	}
 
 	void doStop(){
-		if(unit.getMover().velocity.equals(Point3D.ORIGIN)) {
+		if(unit.velocity.equals(Point3D.ORIGIN)) {
 			stateMachine.popState();
 		}
 	}

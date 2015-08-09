@@ -51,8 +51,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	public Unit(double radius,
 			double speed,
     		double acceleration,
-    		double rotationSpeed,
-    		double rotationAcceleration,
+    		double stationnaryRotationSpeed,
+    		double turningRate,
 			double mass,
 			Point3D pos,
 			double yaw,
@@ -63,7 +63,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 			int maxHealth,
 			Faction faction,
 			ModelActorBuilder actorBuilder) {
-		super(radius, speed, acceleration, rotationSpeed, rotationAcceleration, mass, pos, yaw, moverBuilder);
+		super(radius, speed, acceleration, stationnaryRotationSpeed, turningRate, mass, pos, yaw, moverBuilder);
 		this.UIName = UIName;
 		this.builderID = BuilderID;
 		this.race = race;
@@ -131,7 +131,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	private void findNearbyMovers() {
 		mover.toFlockWith.clear();
 		for (Unit u : group) {
-			if (u != this) {
+			if (u != this && u.getMover().hasDestination()) {
 				mover.toFlockWith.add(u.getMover());
 			}
 		}

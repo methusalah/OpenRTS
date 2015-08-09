@@ -67,23 +67,23 @@ public class CollisionManager {
 			// this may happen when two units are overlapping while moving, and are asked to hold ground.
 			// One will hold, the other one will separate before holding too
 			mover.hiker.pos = mover.hiker.pos.getAddition(getAntiOverlapVector().getScaled(traveledDistance));
-			mover.velocity = Point3D.ORIGIN;
+			mover.hiker.velocity = Point3D.ORIGIN;
 		} else {
 			if(possibleVelocity.isOrigin()) {
-				mover.velocity = Point3D.ORIGIN;
+				mover.hiker.velocity = Point3D.ORIGIN;
 			} else {
 				if(mover.fly()) {
-					mover.velocity = possibleVelocity;
+					mover.hiker.velocity = possibleVelocity;
 				} else {
-					mover.velocity = adaptVelocity(possibleVelocity);
+					mover.hiker.velocity = adaptVelocity(possibleVelocity);
 				}
 
 				// TODO this is a behavioral code and must be elsewhere
 				if(mover.hasDestination()) {
-					mover.velocity = mover.velocity.getTruncation(mover.hiker.getCoord().getDistance(mover.getDestination()));
+					mover.hiker.velocity = mover.hiker.velocity.getTruncation(mover.hiker.getCoord().getDistance(mover.getDestination()));
 				}
 			}
-			mover.hiker.pos = mover.hiker.pos.getAddition(mover.velocity);
+			mover.hiker.pos = mover.hiker.pos.getAddition(mover.hiker.velocity);
 		}
 	}
 

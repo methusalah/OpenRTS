@@ -23,8 +23,8 @@ public class UnitBuilder extends Builder {
 	private static final String RADIUS = "Radius";
 	private static final String SPEED = "Speed";
 	private static final String ACCELERATION = "Acceleration";
-	private static final String ROTATION_SPEED = "RotationSpeed";
-	private static final String ROTATION_ACCELERATION = "RotationAcceleration";
+	private static final String STATIONARY_ROTATION_SPEED = "StationaryRotationSpeed";
+	private static final String TURNING_RATE = "TurningRate";
 	private static final String MASS = "Mass";
 	private static final String MOVER_LINK = "MoverLink";
 
@@ -44,10 +44,10 @@ public class UnitBuilder extends Builder {
 	private ModelActorBuilder actorBuilder;
 	private double radius;
 	private double speed;
-	private double mass;
-	private double acceleration = 0.5;
-	private double rotationSpeed = AngleUtil.toRadians(200);
-	private double rotationAcceleration = AngleUtil.toRadians(200);
+	private double mass = 1;
+	private double acceleration = 1000;
+	private double stationnaryRotationSpeed = AngleUtil.toRadians(720);
+	private double turningRate = AngleUtil.toRadians(720);
 	private String moverBuilderID;
 	private MoverBuilder moverBuilder;
 	private List<String> weaponBuildersID = new ArrayList<>();
@@ -68,11 +68,11 @@ public class UnitBuilder extends Builder {
 				case ACCELERATION:
 					acceleration = de.getDoubleVal();
 					break;
-				case ROTATION_SPEED:
-					rotationSpeed = de.getDoubleVal();
+				case STATIONARY_ROTATION_SPEED:
+					stationnaryRotationSpeed = de.getDoubleVal();
 					break;
-				case ROTATION_ACCELERATION:
-					rotationAcceleration = de.getDoubleVal();
+				case TURNING_RATE:
+					turningRate = de.getDoubleVal();
 					break;
 				case MASS:
 					mass = de.getDoubleVal();
@@ -101,7 +101,7 @@ public class UnitBuilder extends Builder {
 	}
 
 	public Unit build(Faction faction, Point3D pos, double yaw) {
-		Unit res = new Unit(radius, speed, acceleration, rotationSpeed, rotationAcceleration, mass, pos, yaw, moverBuilder, UIName, getId(), race, maxHealth, faction, actorBuilder);
+		Unit res = new Unit(radius, speed, acceleration, stationnaryRotationSpeed, turningRate, mass, pos, yaw, moverBuilder, UIName, getId(), race, maxHealth, faction, actorBuilder);
 
 		int i = 0;
 		for (WeaponBuilder wb : weaponBuilders) {

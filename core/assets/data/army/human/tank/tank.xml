@@ -6,8 +6,10 @@
     <Radius value="0.8"/>
     <SeparationRadius value="0.8"/>
     <Speed value="2"/>
-    <Mass value="1"/>
-    <MaxHealth value="120"/>
+    <Acceleration value="2"/>
+    <StationaryRotationSpeed value="720"/>
+<!--     <TurningRate value="20"/>
+ -->    <MaxHealth value="120"/>
     <Sight value="10"/>
     <MoverLink value="GroundProne"/>
     <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>

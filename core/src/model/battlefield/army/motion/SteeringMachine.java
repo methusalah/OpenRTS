@@ -28,7 +28,7 @@ public class SteeringMachine {
 
 	private static double FOLLOW_PATH_FORCE = 1;
 	private static double ALIGNMENT_FORCE = 0.7;
-	private static double SEPARATION_FORCE = 3;
+	private static double SEPARATION_FORCE = 5;
 	private static double SEPARATION_FORCE_FOR_FLYING = 0.01;
 	private static double COHESION_FORCE = 1;
 
@@ -39,6 +39,7 @@ public class SteeringMachine {
 	public Point3D separationForce = Point3D.ORIGIN;
 	public Point3D cohesionForce = Point3D.ORIGIN;
 	public Point3D alignementForce = Point3D.ORIGIN;
+	public Point3D queueForce = Point3D.ORIGIN;
 	public Point3D destinationForce = Point3D.ORIGIN;
 	public Point3D avoidModification = Point3D.ORIGIN;
 
@@ -75,6 +76,10 @@ public class SteeringMachine {
 		steering = steering.getAddition(alignementForce);
 	}
 
+	public void applyQueue(List<Mover> neighbors) {
+		queueForce = getQueueForce(neighbors);
+		steering = steering.getAddition(queueForce);
+	}
 	public void avoidBlockers(List<FieldComp> blockers) {
 		Point3D savedSteering = steering;
 		modifySteeringToAvoid(blockers);
@@ -155,10 +160,30 @@ public class SteeringMachine {
 		}
 
 		for (Mover n : neighbors) {
-			res = res.getAddition(n.velocity);
+			res = res.getAddition(n.hiker.pos);
 		}
 		res = res.getDivision(neighbors.size());
 		return res.getNormalized().getMult(ALIGNMENT_FORCE);
+	}
+	
+	private Point3D getQueueForce(List<Mover> neighbors){
+		Point3D res = Point3D.ORIGIN;
+		if (neighbors.isEmpty() || mover.fly()) {
+			return res;
+		}
+		
+		Point2D ahead = mover.hiker.getCoord();//.getTranslation(mover.hiker.getYaw(), mover.hiker.getRadius());
+
+		for (Mover n : neighbors) {
+			if(n.hiker.getCoord().getDistance(ahead) <= n.hiker.getSpacing(mover.hiker)){
+				res = res.getAddition(0, 0, 1);
+				break;
+			}
+		}
+		if (res.isOrigin()) {
+			return res;
+		}
+		return res;
 	}
 
 	/**
@@ -167,7 +192,7 @@ public class SteeringMachine {
 	 * @param blockers
 	 */
 	private void modifySteeringToAvoid(List<FieldComp> blockers) {
-		if (mover.velocity.equals(Point3D.ORIGIN)) {
+		if (steering.isOrigin()) {
 			return;
 		}
 
