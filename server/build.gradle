@@ -1,78 +1,92 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
+apply plugin: 'groovy'
 
 mainClassName = 'openrts.server.OpenRTSServer'
 if (!hasProperty('mainClass')) {
 	ext.mainClass = 'openrts.server.OpenRTSServer'
 }
 
+repositories {
+	mavenCentral() 
+	maven { url 'https://dl.bintray.com/brainless-studios/tonegodgui' } 
+}
+
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 	compile project(':core')
-	testCompile 'org.testng:testng:6.8'
+//	testCompile 'org.testng:testng:6.8'
+	compile 'org.codehaus.groovy:groovy-all:2.3.10'
+	compile 'tonegodgui:tonegodgui:0.0.1'
+//	compile 'net.sf.sociaal:jME3-tonegod-gui:0.4.6.1484'
+//	https://dl.bintray.com/brainless-studios/tonegodgui
 
 }
 
 sourceSets {
 	main {
-		java { srcDir 'src'}
+//		java { srcDir 'src'}
 		resources { srcDir 'assets' }
 	}
-	test {
-		java { srcDir 'test/java' }
-		resources { srcDir "test/resources" }
-	}
+//	test {
+//		java { srcDir 'test/java' }
+//		resources { srcDir "test/resources" }
+//	}
 }
 
-test {
-	// enable TestNG support (default is JUnit)
-	useTestNG()
-
-	// set a system property for the test JVM(s)
-	systemProperty 'some.prop', 'value'
-
-	// explicitly include or exclude tests
-	//	include 'org/foo/**'
-	//	exclude 'org/boo/**'
-
-	// show standard out and standard error of the test JVM(s) on the console
-	testLogging.showStandardStreams = true
-
-	// set heap size for the test JVM(s)
-	minHeapSize = "128m"
-	maxHeapSize = "512m"
-
-	// set JVM arguments for the test JVM(s)
-	jvmArgs '-XX:MaxPermSize=256m'
-
-	// listen to events in the test execution lifecycle
-	beforeTest { descriptor ->
-		logger.lifecycle("Running test: " + descriptor)
-	}
-
-	// listen to standard out and standard error of the test JVM(s)
-	onOutput { descriptor, event ->
-		logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
-	}
-
-	//	options {
-	//		listeners << 'org.uncommons.reportng.HTMLReporter'
-	//		listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-	//	}
-}
+//test {
+//	// enable TestNG support (default is JUnit)
+//	useTestNG()
+//
+//	// set a system property for the test JVM(s)
+//	systemProperty 'some.prop', 'value'
+//
+//	// explicitly include or exclude tests
+//	//	include 'org/foo/**'
+//	//	exclude 'org/boo/**'
+//
+//	// show standard out and standard error of the test JVM(s) on the console
+//	testLogging.showStandardStreams = true
+//
+//	// set heap size for the test JVM(s)
+//	minHeapSize = "128m"
+//	maxHeapSize = "512m"
+//
+//	// set JVM arguments for the test JVM(s)
+//	jvmArgs '-XX:MaxPermSize=256m'
+//
+//	// listen to events in the test execution lifecycle
+//	beforeTest { descriptor ->
+//		logger.lifecycle("Running test: " + descriptor)
+//	}
+//
+//	// listen to standard out and standard error of the test JVM(s)
+//	onOutput { descriptor, event ->
+//		logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+//	}
+//
+//	//	options {
+//	//		listeners << 'org.uncommons.reportng.HTMLReporter'
+//	//		listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+//	//	}
+//}
 
 eclipse {
 	// need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
 	// ignores any nodes added in classpath.file.withXml
-	sourceSets {
-		main { java.srcDirs "src" }
-	}
+//	sourceSets {
+//		main { java.srcDirs "src" }
+//	}
 
 	jdt {
 		sourceCompatibility = 1.8
 		targetCompatibility = 1.8
 	}
 
-	project { name = appName + "-server" }
+	project { 
+		name = appName + "-server" 
+		natures 'org.springsource.ide.eclipse.gradle.core.nature', 'org.eclipse.jdt.groovy.core.groovyNature'
+	}
+	
 }

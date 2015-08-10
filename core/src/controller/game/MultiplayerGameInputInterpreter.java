@@ -1,6 +1,10 @@
 package controller.game;
 
 import event.EventManager;
+import event.network.HoldEvent;
+import event.network.MoveAttackEvent;
+import event.network.MultiSelectEntityEvent;
+import event.network.PauseEvent;
 import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
@@ -73,12 +77,12 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
 							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
 						// double click
+						EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
 					} else {
 						if(!ctrl.isDrawingZone()) {
 							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-							// ClientManager.getClient().manageEvent(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
-							//							EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
+							EventManager.post(new MultiSelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 						}
 					}
 					ctrl.endSelectionZone();
@@ -90,12 +94,15 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
+					EventManager.post(new MoveAttackEvent(ctrl.spatialSelector.getEntityId()));
 					CommandManager.setMoveAttack();
 					break;
 				case HOLD:
+					EventManager.post(new HoldEvent(ctrl.spatialSelector.getEntityId()));
 					CommandManager.orderHold();
 					break;
 				case PAUSE:
+					EventManager.post(new PauseEvent(ctrl.spatialSelector.getEntityId()));
 					ctrl.togglePause();
 					break;
 			}

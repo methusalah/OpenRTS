@@ -1,33 +1,38 @@
-package openrts.server;
+package openrts.server
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
-import model.ModelManager;
-import app.OpenRTSApplicationWithDI;
+import model.ModelManager
+import app.OpenRTSApplicationWithDI
 
-import com.jme3.bullet.BulletAppState;
-import com.jme3.math.Vector3f;
-import com.jme3.network.Network;
-import com.jme3.network.Server;
-import com.jme3.network.serializing.Serializer;
+import com.jme3.bullet.BulletAppState
+import com.jme3.math.Vector3f
+import com.jme3.network.Network
+import com.jme3.network.Server
+import com.jme3.network.serializing.Serializer
 
-import event.network.AckEvent;
-import event.network.CreateGameEvent;
-import event.network.SelectEntityEvent;
+import event.network.AckEvent
+import event.network.CreateGameEvent
+import event.network.MultiSelectEntityEvent
+import event.network.SelectEntityEvent
 
-public class OpenRTSServer extends OpenRTSApplicationWithDI {
+class OpenRTSServer extends OpenRTSApplicationWithDI {
 
-	protected static String mapfilename = "assets/maps/test.btf";
-	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
-	private static final String gameName = "OpenRTS";
-	private static int version = 1;
+	protected static List<Class> serializerClasses = [
+		SelectEntityEvent.class,
+		AckEvent.class,
+		CreateGameEvent.class
+	]
 
-	protected static Server myServer;
-	public static final int PORT = 6143;
-	private Map<Integer, Game> games = new HashMap<Integer, Game>();
+
+	static String mapfilename = "assets/maps/test.btf";
+	static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
+	static final String gameName = "OpenRTS";
+	static int version = 1;
+
+	static Server myServer;
+	static final int PORT = 6143;
+	Map<Integer, Game> games = new HashMap<Integer, Game>();
 
 	public Game getPlayer(Integer id) {
 		return games.get(id);
@@ -62,7 +67,8 @@ public class OpenRTSServer extends OpenRTSApplicationWithDI {
 		flyCam.setEnabled(false);
 
 		try {
-			Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
+
+			Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class);
 			myServer = Network.createServer(gameName, version, PORT, PORT);
 			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());

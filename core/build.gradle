@@ -54,7 +54,7 @@ eclipse.classpath.file {
 	withXml {
 		def node = it.asNode()
 
-		node.appendNode('classpathentry kind="src" path="src"')
+//		node.appendNode('classpathentry kind="src" path="src"')
 
 		node.children().removeAll() { c ->
 			def path = c.attribute('path')
@@ -130,6 +130,9 @@ eclipse {
 		targetCompatibility = 1.8
 	}
 
-	project { name = appName + "-core" }
+	project { 
+		name = appName + "-core" 
+		natures 'org.springsource.ide.eclipse.gradle.core.nature'
+	}
 }
 
