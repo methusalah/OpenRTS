@@ -10,7 +10,8 @@ if (!hasProperty('mainClass')) {
 
 repositories {
 	mavenCentral() 
-	maven { url 'https://dl.bintray.com/brainless-studios/tonegodgui' } 
+	//maven { url 'https://dl.bintray.com/brainless-studios/tonegodgui' } 
+	maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -18,9 +19,12 @@ dependencies {
 	compile project(':core')
 //	testCompile 'org.testng:testng:6.8'
 	compile 'org.codehaus.groovy:groovy-all:2.3.10'
-	compile 'tonegodgui:tonegodgui:0.0.1'
+//	compile 'tonegodgui:tonegodgui:0.0.1'
 //	compile 'net.sf.sociaal:jME3-tonegod-gui:0.4.6.1484'
 //	https://dl.bintray.com/brainless-studios/tonegodgui
+	compile 'com.github.meltzow:tonegodgui:-SNAPSHOT'
+//	compile 'com.github.meltzow:tonegodgui:80db714d70'
+//	compile ('com.github.username:repo:commitId')
 
 }
 
