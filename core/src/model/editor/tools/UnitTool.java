@@ -126,8 +126,8 @@ public class UnitTool extends Tool {
 			}
 		}
 		if (actualUnit != null) {
-			actualUnit.yaw = pencil.getCoord().getSubtraction(actualUnit.getCoord()).getAngle();
-			actualUnit.direction = Point3D.UNIT_X.getRotationAroundZ(actualUnit.yaw);
+			actualUnit.setOrientation(pencil.getCoord().getSubtraction(actualUnit.getCoord()).getAngle());
+			actualUnit.setDirection(Point3D.UNIT_X.getRotationAroundZ(actualUnit.getOrientation()));
 		}
 	}
 	

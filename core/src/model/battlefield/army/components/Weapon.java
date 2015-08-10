@@ -214,7 +214,7 @@ public class Weapon implements EffectSource {
 	@Override
 	public double getYaw() {
 		if (sourcePoint == null) {
-			return holder.yaw;
+			return holder.getYaw();
 		}
 		return directionVector.getSubtraction(sourcePoint).get2D().getAngle();
 	}

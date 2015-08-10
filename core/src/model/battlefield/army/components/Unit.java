@@ -109,21 +109,18 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
     public void head(Point2D target) {
-        orient(getAngleTo(target));
+    	// TODO
+        // orient(getAngleTo(target));
     }
     
     public boolean heading(Point2D target, double toleranceInDegrees){
-    	return AngleUtil.getSmallestDifference(getAngleTo(target), yaw) <= AngleUtil.toRadians(toleranceInDegrees);
+    	return AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
     }
     
     private double getAngleTo(Point2D p){
     	return p.getSubtraction(getCoord()).getAngle();
     }
     
-    private void orient(double yaw){
-		mover.desiredYaw = yaw;
-    }
-
 	public void idle() {
 		state = STATE.IDLING;
 	}
@@ -212,11 +209,6 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
 	@Override
-	public Point3D getDirection() {
-		throw new RuntimeException("mustn't call this.");
-	}
-
-	@Override
 	public void damage(EffectSource source, int amount) {
 		if (destroyed()) {
 			return;
@@ -244,4 +236,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 		return new ToStringBuilder(this).append("UIName", UIName).toString();
 	}
 
+	@Override
+	public double getYaw() {
+		return getOrientation();
+	}
 }

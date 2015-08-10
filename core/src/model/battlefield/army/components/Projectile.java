@@ -56,8 +56,8 @@ public class Projectile extends Hiker {
 		this.target = target;
 		this.targetPoint = targetPoint;
 		actor = actorBuilder.build(this);
-		velocity = source.getDirection();
-		upDirection = null;
+		setDirection(source.getDirection());
+		setUpDirection(null);
 		updateTargetPoint();
 	}
 

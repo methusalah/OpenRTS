@@ -75,12 +75,12 @@ public class ModelPerformer extends Performer {
 
 		// rotation
 		Quaternion r = new Quaternion();
-		if (actor.getComp().direction != null) {
-			Point3D pu = actor.getComp().upDirection;
-			Point3D pv = actor.getComp().direction;
+		if (comp.getDirection() != null) {
+			Point3D pu = comp.getUpDirection();
+			Point3D pv = comp.getDirection();
 			if (pu != null) {
-				// the comp has a up vector
-				// for ground comps or horitonally flying units
+				// the comp has an up vector
+				// for ground comps or horizontally flying units
 				Vector3f u = TranslateUtil.toVector3f(pu).normalize();
 				Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 				r.lookAt(v, u);
@@ -97,8 +97,6 @@ public class ModelPerformer extends Performer {
 				Vector3f w = u.cross(v);
 				r = new Quaternion(w.x, w.y, w.z, real).normalizeLocal();
 			}
-		} else {
-			r.fromAngles((float)comp.roll, (float)comp.pitch, (float) actor.getYaw());
 		}
 		s.setLocalRotation(r);
 

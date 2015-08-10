@@ -159,9 +159,9 @@ public class Sower implements Runnable {
 	private boolean checkCandidateAndValid(Sowing s, Trinket candidate){
 		Map m = ModelManager.getBattlefield().getMap();
 
-		Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.yaw, candidate.getPos());
+		Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.getOrientation(), candidate.getPos());
 		for (Trinket n : m.getInCircle(Trinket.class, candidate.getCoord(), 10)) {
-			Asset aN = new Asset(n.modelPath, n.getActor().getScaleX(), n.yaw, n.getPos());
+			Asset aN = new Asset(n.modelPath, n.getActor().getScaleX(), n.getOrientation(), n.getPos());
 			if(CollisionTester.areColliding(aN, aCand, stepByStep))
 				return false;
 		}

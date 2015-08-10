@@ -46,8 +46,8 @@ public class UnitBuilder extends Builder {
 	private double speed;
 	private double mass = 1;
 	private double acceleration = 1000;
-	private double stationnaryRotationSpeed = AngleUtil.toRadians(720);
-	private double turningRate = AngleUtil.toRadians(720);
+	private double stationnaryRotationSpeed = AngleUtil.toRadians(20);
+	private double turningRate = AngleUtil.toRadians(20);
 	private String moverBuilderID;
 	private MoverBuilder moverBuilder;
 	private List<String> weaponBuildersID = new ArrayList<>();
@@ -69,10 +69,10 @@ public class UnitBuilder extends Builder {
 					acceleration = de.getDoubleVal();
 					break;
 				case STATIONARY_ROTATION_SPEED:
-					stationnaryRotationSpeed = de.getDoubleVal();
+					stationnaryRotationSpeed = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case TURNING_RATE:
-					turningRate = de.getDoubleVal();
+					turningRate = AngleUtil.toRadians(de.getDoubleVal());
 					break;
 				case MASS:
 					mass = de.getDoubleVal();

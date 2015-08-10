@@ -23,7 +23,7 @@ public class UnitMemento {
 	@JsonProperty
 	private Point3D pos;
 	@JsonProperty
-	private double yaw;
+	private double orientation;
 
 	public UnitMemento() {
 
@@ -33,13 +33,13 @@ public class UnitMemento {
 		builderID = u.builderID;
 		factionName = u.faction.getName();
 		pos = u.pos;
-		yaw = u.yaw;
+		orientation = u.getOrientation();
 	}
 
 	public Unit getUnit(List<Faction> factions) {
 		for(Faction f : factions) {
 			if (f.getName().equals(factionName)) {
-				Unit u = BuilderManager.getUnitBuilder(builderID).build(f, pos, yaw);
+				Unit u = BuilderManager.getUnitBuilder(builderID).build(f, pos, orientation);
 				u.drawOnBattlefield();
 				return u;
 			}

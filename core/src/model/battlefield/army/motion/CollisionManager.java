@@ -57,33 +57,30 @@ public class CollisionManager {
 	}
 
 	public void applyVelocity(Point3D possibleVelocity, double elapsedTime, List<FieldComp> blockers) {
-		double traveledDistance = possibleVelocity.getNorm(); 
-
 		updateBlockingShapes(blockers);
 		updateSolidShapes();
-
 		if(!mover.fly() && willCollide(Point3D.ORIGIN)){
 			// if mover is already colliding something, we separate it
 			// this may happen when two units are overlapping while moving, and are asked to hold ground.
 			// One will hold, the other one will separate before holding too
+			double traveledDistance = possibleVelocity.getNorm(); 
 			mover.hiker.pos = mover.hiker.pos.getAddition(getAntiOverlapVector().getScaled(traveledDistance));
-			mover.hiker.velocity = Point3D.ORIGIN;
 		} else {
-			if(possibleVelocity.isOrigin()) {
-				mover.hiker.velocity = Point3D.ORIGIN;
+			Point3D correctVelocity;
+			if(possibleVelocity.isOrigin() || mover.fly()) {
+				correctVelocity = possibleVelocity;
 			} else {
-				if(mover.fly()) {
-					mover.hiker.velocity = possibleVelocity;
-				} else {
-					mover.hiker.velocity = adaptVelocity(possibleVelocity);
-				}
-
-				// TODO this is a behavioral code and must be elsewhere
-				if(mover.hasDestination()) {
-					mover.hiker.velocity = mover.hiker.velocity.getTruncation(mover.hiker.getCoord().getDistance(mover.getDestination()));
-				}
+				correctVelocity = adaptVelocity(possibleVelocity);
 			}
-			mover.hiker.pos = mover.hiker.pos.getAddition(mover.hiker.velocity);
+//			// TODO this is a behavioral code and must be elsewhere
+//			if(mover.hasDestination()) {
+//				correctVelocity = correctVelocity.getTruncation(mover.hiker.getCoord().getDistance(mover.getDestination()));
+//			}
+			mover.hiker.pos = mover.hiker.pos.getAddition(correctVelocity);
+//			if(correctVelocity.z != 0)
+//				mover.hiker.setDirection(correctVelocity);
+//			else
+				mover.hiker.setOrientation(correctVelocity.get2D().getAngle());
 		}
 	}
 

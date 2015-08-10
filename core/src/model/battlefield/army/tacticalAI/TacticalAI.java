@@ -4,7 +4,9 @@ import geometry.geom3d.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import model.battlefield.army.components.Mover;
 import model.battlefield.army.components.Unit;
 
 /**
@@ -29,6 +31,7 @@ import model.battlefield.army.components.Unit;
  *
  */
 public class TacticalAI {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 	protected static final String AUTO_ATTACK = "autoattack";
 	protected static final String WAIT_ORDERS = "waitorders";
 	protected static final String MOVE = "move";
@@ -203,7 +206,7 @@ public class TacticalAI {
 	}
 
 	void doStop(){
-		if(unit.velocity.equals(Point3D.ORIGIN)) {
+		if(unit.speed == 0) {
 			stateMachine.popState();
 		}
 	}

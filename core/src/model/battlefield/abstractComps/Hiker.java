@@ -34,7 +34,6 @@ public abstract class Hiker extends FieldComp{
     public final double mass;
     public final Mover mover;
     
-    public Point3D velocity = Point3D.ORIGIN;
     public double speed = 0;
 
     public Hiker(double radius,
@@ -53,7 +52,6 @@ public abstract class Hiker extends FieldComp{
         this.turningRate = turningRate;
         this.mass = mass;
         this.mover = moverBuilder.build(this);
-        mover.desiredYaw = yaw;
     }
     
     public double getMaxSpeed() {
@@ -68,8 +66,12 @@ public abstract class Hiker extends FieldComp{
         return mass;
     }
     
-    public boolean hasMoved(Point3D lastPos, double lastYaw){
-        return lastYaw != yaw || !lastPos.equals(pos);
+    public boolean hasMoved(Point3D lastPos, double lastOrientation){
+        return lastOrientation != getOrientation() || !lastPos.equals(pos);
+    }
+
+    public boolean hasMoved(Point3D lastPos, Point3D lastDirection){
+        return !lastDirection.equals(getDirection()) || !lastPos.equals(pos);
     }
     
     public void incSpeed(double elapsedTime){
@@ -95,30 +97,38 @@ public abstract class Hiker extends FieldComp{
 //    	g.setMaterial(m);
 //    	g.setMesh(new Line(TranslateUtil.toVector3f(getCoord().get3D(0.5)), TranslateUtil.toVector3f(getCoord().getAddition(desiredVelocity.get2D()).get3D(0.5))));
 //		EventManager.post(new GenericEvent(g));
+    	Point3D res = Point3D.ORIGIN;
 		if(!desiredVelocity.isOrigin()){
 			double turningAngle;
 			// there are three ways to compute the turning
 			if(mass != 1){
 				// massed hiker turns according to its momentum
-				Point3D currentMassedVelocity = velocity.getScaled(mass);
-				desiredVelocity = desiredVelocity.getAddition(currentMassedVelocity).getNormalized();
-				turningAngle = velocity.getAngleWith(desiredVelocity);
+				Point3D currentMassedVelocity = getDirection().getScaled(mass);
+				res = desiredVelocity.getAddition(currentMassedVelocity).getNormalized();
+				turningAngle = getDirection().getAngleWith(res);
 			} else {
-				double diff = AngleUtil.getSmallestDifference(yaw, desiredVelocity.get2D().getAngle());
-				if(stationnaryRotationSpeed != 0)
+				if(stationnaryRotationSpeed != 0){
 					// stationary rotator turns at a certain speed
 					turningAngle = stationnaryRotationSpeed * elapsedTime;
-				else
+				} else {
 					// turner turns proportionally to its speed, at a certain rate
 					turningAngle = speed*elapsedTime*turningRate;
+				}
+				
+				// we avoid to rotate more than necessary
+				double diff = AngleUtil.getSmallestDifference(getOrientation(), desiredVelocity.get2D().getAngle());
 				if(turningAngle > diff)
 					turningAngle = diff;
-				desiredVelocity = desiredVelocity.getRotationAroundZ((diff-turningAngle)*getTurnTo(desiredVelocity));
+				res = getDirection().getRotationAroundZ(turningAngle*getTurnTo(desiredVelocity));
 			}
-			adaptSpeedTo(desiredVelocity, target, elapsedTime);
-			desiredVelocity = desiredVelocity.getScaled(speed*elapsedTime);
+			adaptSpeedTo(res, target, elapsedTime);
+			res = res.getScaled(speed*elapsedTime);
+		} else if(speed != 0){
+			decSpeed(elapsedTime);
+			res = Point2D.ORIGIN.getTranslation(getOrientation(), speed*elapsedTime).get3D(0);
 		}
-		return desiredVelocity;
+		
+		return res;
 	}
     
     private void adaptSpeedTo(Point3D desiredVelocity, Point2D target, double elapsedTime){
@@ -170,7 +180,7 @@ public abstract class Hiker extends FieldComp{
     	if(target != null && angle != 0){
 	    	double rotationPerimeter = speed*AngleUtil.FULL/angle; 
 	    	double rotationRadius = rotationPerimeter/(2*Math.PI);
-	    	Point2D rotationAxis = getCoord().getTranslation(yaw+AngleUtil.RIGHT*getTurnTo(steering), rotationRadius);
+	    	Point2D rotationAxis = getCoord().getTranslation(getOrientation()+AngleUtil.RIGHT*getTurnTo(steering), rotationRadius);
 	    	
 //	    	if(rotationRadius<50){
 //				Material m = new Material(MaterialManager.am, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -190,7 +200,7 @@ public abstract class Hiker extends FieldComp{
     }
     
     private double getTurnTo(Point3D steering){
-		double orientedDiff = AngleUtil.getOrientedDifference(yaw, steering.get2D().getAngle());
+		double orientedDiff = AngleUtil.getOrientedDifference(getOrientation(), steering.get2D().getAngle());
 		return Math.signum(orientedDiff);
     }
 
