@@ -13,6 +13,7 @@ import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.CollisionManager;
+import model.battlefield.army.motion.Motion;
 import model.battlefield.army.motion.SteeringMachine;
 import model.battlefield.army.motion.pathfinding.FlowField;
 import model.battlefield.map.Map;
@@ -85,14 +86,11 @@ public class Mover {
 //		logger.info("UpDirection : "+hiker.getUpDirection());
 		
 		if (!holdPosition) {
-			Point3D steering = sm.collectSteering();
+			Motion steering = sm.collectSteering();
 			// hiker accelerates and rotates if there is steering
-			Point2D target = flowfield == null? null : flowfield.destination;
-			Point3D possibleMotion = hiker.getNearestPossibleVelocity(steering, target, elapsedTime);
-			logger.info("diff : "+AngleUtil.toDegrees(AngleUtil.getSmallestDifference(possibleMotion.get2D().getAngle(), hiker.getOrientation())));
-			cm.applyVelocity(possibleMotion, elapsedTime, toAvoid);
-			//logger.info("Orientation : "+AngleUtil.toDegrees(hiker.getOrientation()));
-//			logger.info("Direction   : "+AngleUtil.toDegrees(hiker.getDirection().get2D().getAngle()));
+			Motion possibleMotion = hiker.getNearestPossibleMotion(steering, getDestination(), elapsedTime);
+			Motion correctMotion = cm.correctMotion(possibleMotion, elapsedTime, toAvoid);
+			hiker.move(correctMotion);
 		}
 //		head(elapsedTime);
 

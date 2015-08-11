@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
+
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
@@ -56,35 +58,35 @@ public class CollisionManager {
 		this.mover = m;
 	}
 
-	public void applyVelocity(Point3D possibleVelocity, double elapsedTime, List<FieldComp> blockers) {
+	public Motion correctMotion(Motion motion, double elapsedTime, List<FieldComp> blockers) {
+		if(motion.isEmpty())
+			return motion;
+		
 		updateBlockingShapes(blockers);
 		updateSolidShapes();
-		if(!mover.fly() && willCollide(Point3D.ORIGIN)){
+		Motion res = new Motion();
+		if(!mover.fly() && collide()){
 			// if mover is already colliding something, we separate it
 			// this may happen when two units are overlapping while moving, and are asked to hold ground.
 			// One will hold, the other one will separate before holding too
-			double traveledDistance = possibleVelocity.getNorm(); 
-			mover.hiker.pos = mover.hiker.pos.getAddition(getAntiOverlapVector().getScaled(traveledDistance));
+			double traveledDistance = motion.distance;
+			res.velocity = getAntiOverlapVector().getScaled(traveledDistance);
 		} else {
-			Point3D correctVelocity;
-			if(possibleVelocity.isOrigin() || mover.fly()) {
-				correctVelocity = possibleVelocity;
-			} else {
-				correctVelocity = adaptVelocity(possibleVelocity);
+			res = motion;
+			if(!motion.isEmpty() && !mover.fly()){
+				// TODO to be rewritten : adapt motion should work with motion, and not with velocity
+				Point3D velocity = adaptMotion(motion);  
+				res.distance = velocity.getNorm();
+				res.angle = velocity.get2D().getAngle();
 			}
-//			// TODO this is a behavioral code and must be elsewhere
-//			if(mover.hasDestination()) {
-//				correctVelocity = correctVelocity.getTruncation(mover.hiker.getCoord().getDistance(mover.getDestination()));
-//			}
-			mover.hiker.pos = mover.hiker.pos.getAddition(correctVelocity);
-//			if(correctVelocity.z != 0)
-//				mover.hiker.setDirection(correctVelocity);
-//			else
-				mover.hiker.setOrientation(correctVelocity.get2D().getAngle());
 		}
+		return res;
 	}
 
-	private Point3D adaptVelocity(Point3D velocity){
+	private Point3D adaptMotion(Motion motion){
+		if(motion.is3D())
+			throw new RuntimeException("Can't compute collisions for 3d motions.");
+		Point3D velocity = Point2D.ORIGIN.getTranslation(motion.angle, motion.distance).get3D(0);
 		if(willCollideSolidShapes(velocity)) {
 			return findNearestDirection(velocity);
 		}
@@ -203,7 +205,9 @@ public class CollisionManager {
 		}
 	}
 
-
+	private boolean collide(){
+		return willCollide(Point3D.ORIGIN);
+	}
 	private boolean willCollide(Point3D velocity){
 		return willCollideBlockingShapes(velocity) || willCollideSolidShapes(velocity);
 	}

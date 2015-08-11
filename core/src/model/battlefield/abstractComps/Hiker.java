@@ -18,6 +18,7 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 import model.battlefield.army.components.Mover;
+import model.battlefield.army.motion.Motion;
 import model.builders.entity.MoverBuilder;
 
 /**
@@ -35,6 +36,8 @@ public abstract class Hiker extends FieldComp{
     public final Mover mover;
     
     public double speed = 0;
+    public boolean StrongAccelerationAsked = false;
+    public boolean StrongDecelerationAsked = false;
 
     public Hiker(double radius,
     		double maxSpeed,
@@ -74,69 +77,73 @@ public abstract class Hiker extends FieldComp{
         return !lastDirection.equals(getDirection()) || !lastPos.equals(pos);
     }
     
-    public void incSpeed(double elapsedTime){
-    	if(speed != maxSpeed){
-			speed += acceleration*elapsedTime;
+    public void decelerateStrongly(){
+    	StrongDecelerationAsked = true;
+    }
+
+    public void accelerateStrongly(){
+    	StrongAccelerationAsked = true;
+    }
+    
+    private void incSpeed(double elapsedTime){
+    	if(speed < maxSpeed){
+			speed += StrongAccelerationAsked?
+					acceleration*elapsedTime*10:
+					acceleration*elapsedTime;
 			speed = Math.min(maxSpeed, speed);
     	}
     }
 
-    public void decSpeed(double elapsedTime){
-    	if(speed != 0){
-			speed -= deceleration*elapsedTime;
+    private void decSpeed(double elapsedTime){
+    	if(speed > 0){
+			speed -= StrongDecelerationAsked?
+					deceleration*elapsedTime*10:
+					deceleration*elapsedTime;
 			speed = Math.max(0, speed);
     	}
     }
+    
+    public void move(Motion motion){
+    	if(motion.isEmpty())
+    		return;
+    	else if(motion.is3D())
+    		pos = pos.getAddition(motion.velocity);
+    	else {
+    		if(motion.hasRotation())
+    			setOrientation(motion.angle);
+    		pos = pos.get2D().getTranslation(getOrientation(), motion.distance).get3D(pos.z);
+    	}
+    }
 
-    public Point3D getNearestPossibleVelocity(Point3D desiredVelocity, Point2D target, double elapsedTime){
-//		Material m = new Material(MaterialManager.am, "Common/MatDefs/Misc/Unshaded.j3md");
-//		m.getAdditionalRenderState().setWireframe(true);
-//		m.setColor("Color", ColorRGBA.Red);
-//
-//    	Geometry g = new Geometry();
-//    	g.setMaterial(m);
-//    	g.setMesh(new Line(TranslateUtil.toVector3f(getCoord().get3D(0.5)), TranslateUtil.toVector3f(getCoord().getAddition(desiredVelocity.get2D()).get3D(0.5))));
-//		EventManager.post(new GenericEvent(g));
-    	Point3D res = Point3D.ORIGIN;
-		if(!desiredVelocity.isOrigin()){
-			double turningAngle;
+    public Motion getNearestPossibleMotion(Motion desiredMotion, Point2D destination, double elapsedTime){
+    	Motion res = new Motion();
+		if(!desiredMotion.isEmpty()){
 			// there are three ways to compute the turning
-			if(mass != 1){
+			if(desiredMotion.is3D()){
 				// massed hiker turns according to its momentum
 				Point3D currentMassedVelocity = getDirection().getScaled(mass);
-				res = desiredVelocity.getAddition(currentMassedVelocity).getNormalized();
-				turningAngle = getDirection().getAngleWith(res);
+				res.velocity = desiredMotion.velocity.getAddition(currentMassedVelocity).getNormalized();
+				res.angle = getDirection().getAngleWith(res.velocity);
 			} else {
-				if(stationnaryRotationSpeed != 0){
-					// stationary rotator turns at a certain speed
-					turningAngle = stationnaryRotationSpeed * elapsedTime;
-				} else {
-					// turner turns proportionally to its speed, at a certain rate
-					turningAngle = speed*elapsedTime*turningRate;
-				}
-				
+				double turning = stationnaryRotationSpeed != 0?
+						stationnaryRotationSpeed:
+						speed*turningRate;
+				turning *= elapsedTime;
 				// we avoid to rotate more than necessary
-				double diff = AngleUtil.getSmallestDifference(getOrientation(), desiredVelocity.get2D().getAngle());
-				if(turningAngle > diff)
-					turningAngle = diff;
-				res = getDirection().getRotationAroundZ(turningAngle*getTurnTo(desiredVelocity));
+				turning = Math.min(turning, AngleUtil.getSmallestDifference(getOrientation(), desiredMotion.angle));
+				res.angle = getOrientation() + turning * getTurnTo(desiredMotion.angle);
 			}
-			adaptSpeedTo(res, target, elapsedTime);
-			res = res.getScaled(speed*elapsedTime);
-		} else if(speed != 0){
-			decSpeed(elapsedTime);
-			res = Point2D.ORIGIN.getTranslation(getOrientation(), speed*elapsedTime).get3D(0);
 		}
-		
+		adaptSpeedTo(res, destination, elapsedTime);
+		res.distance = speed*elapsedTime;
 		return res;
 	}
     
-    private void adaptSpeedTo(Point3D desiredVelocity, Point2D target, double elapsedTime){
-		if(desiredVelocity.isOrigin()
+    private void adaptSpeedTo(Motion desiredMotion, Point2D destination, double elapsedTime){
+		if(desiredMotion.isEmpty()
 //				|| (stationnaryRotationSpeed != 0 && !AngleUtil.areSimilar(yaw, desiredVelocity.get2D().getAngle())) 
-//				|| (desiredVelocity.z != 0  && speed > maxSpeed*0.6) ||
-				|| willOverstepTarget(target)
-//				|| willMissTarget(target, desiredVelocity)
+				|| willOverstepTarget(destination)
+				|| willMissTarget(destination, desiredMotion)
 				)
 			decSpeed(elapsedTime);
 		else
@@ -175,14 +182,13 @@ public abstract class Hiker extends FieldComp{
     	
     }
 
-    private boolean willMissTarget(Point2D target, Point3D steering){
-    	double angle = steering.get2D().getAngle();
-    	if(target != null && angle != 0){
-	    	double rotationPerimeter = speed*AngleUtil.FULL/angle; 
+    private boolean willMissTarget(Point2D destination, Motion motion){
+    	if(motion.hasRotation() && destination != null && !AngleUtil.areSimilar(motion.angle, getOrientation())){
+	    	double rotationPerimeter = speed*AngleUtil.FULL/Math.abs(motion.angle);
 	    	double rotationRadius = rotationPerimeter/(2*Math.PI);
-	    	Point2D rotationAxis = getCoord().getTranslation(getOrientation()+AngleUtil.RIGHT*getTurnTo(steering), rotationRadius);
+	    	Point2D rotationAxis = getCoord().getTranslation(getOrientation()+AngleUtil.RIGHT*getTurnTo(motion.angle), rotationRadius);
 	    	
-//	    	if(rotationRadius<50){
+//			if(rotationRadius<50){
 //				Material m = new Material(MaterialManager.am, "Common/MatDefs/Misc/Unshaded.j3md");
 //				m.getAdditionalRenderState().setWireframe(true);
 //				m.setColor("Color", ColorRGBA.Red);
@@ -193,14 +199,17 @@ public abstract class Hiker extends FieldComp{
 //		    	g.setLocalTranslation(TranslateUtil.toVector3f(rotationAxis.get3D(0.2)));
 //				EventManager.post(new GenericEvent(g));
 //	    	}
-	    	if(target.getDistance(rotationAxis) <= rotationRadius)
+	    	if(destination.getDistance(rotationAxis) <= rotationRadius)
 	    		return true;
     	}
     	return false;
     }
     
-    private double getTurnTo(Point3D steering){
-		double orientedDiff = AngleUtil.getOrientedDifference(getOrientation(), steering.get2D().getAngle());
+    private double getTurnTo(double angle){
+//    	Point2D front = Point2D.ORIGIN.getTranslation(getOrientation(), 1);
+//    	Point2D desiredFront = steering.get2D();
+//    	return AngleUtil.getTurn(Point2D.ORIGIN, front, desiredFront);
+		double orientedDiff = AngleUtil.getOrientedDifference(getOrientation(), AngleUtil.normalize(angle));
 		return Math.signum(orientedDiff);
     }
 

@@ -206,6 +206,7 @@ public class TacticalAI {
 	}
 
 	void doStop(){
+		unit.decelerateStrongly();
 		if(unit.speed == 0) {
 			stateMachine.popState();
 		}

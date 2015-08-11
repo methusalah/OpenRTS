@@ -7,7 +7,7 @@
     <SeparationRadius value="0.8"/>
     <Speed value="2"/>
     <Acceleration value="0.5"/>
-    <StationaryRotationSpeed value="100"/>
+    <StationaryRotationSpeed value="30"/>
 <!--     <TurningRate value="20"/>
  -->
      <MaxHealth value="120"/>
