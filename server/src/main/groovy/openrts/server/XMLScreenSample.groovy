@@ -1,14 +1,15 @@
 package openrts.server;
 
-import tonegod.gui.controls.menuing.Menu;
-import tonegod.gui.controls.windows.Window;
-import tonegod.gui.core.Screen;
-import tonegod.gui.effects.Effect;
+import tonegod.gui.controls.extras.ChatBox
+import tonegod.gui.controls.menuing.Menu
+import tonegod.gui.controls.windows.Window
+import tonegod.gui.core.Screen
+import tonegod.gui.effects.Effect
 
-import com.jme3.app.Application;
-import com.jme3.app.state.AbstractAppState;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.input.event.MouseButtonEvent;
+import com.jme3.app.Application
+import com.jme3.app.state.AbstractAppState
+import com.jme3.app.state.AppStateManager
+import com.jme3.input.event.MouseButtonEvent
 
 public class XMLScreenSample extends AbstractAppState {
 	Screen screen;
@@ -65,6 +66,6 @@ public class XMLScreenSample extends AbstractAppState {
 		// We'll show the AlertBox we defined in the layout when this button is clicked
 		// ((AlertBox) screen.getElementById("Alert1")).showWithEffect();
 
-		((Menu) screen.getElementById("Menu1")).showWithEffect();
+		((ChatBox) screen.getElementById("ChatBox1")).showWithEffect();
 	}
 }

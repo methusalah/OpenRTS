@@ -91,5 +91,9 @@
             <effect type="SlideIn" event="Show" duration=".25f" direction="Left" audioFile="fade" volume="1" />
             <effect type="SlideOut" event="Hide" duration=".25f" direction="Left" audioFile="fade" />
         </component>
+        <component type="ChatBox" id="ChatBox1" position="0,0">
+			        
+        
+        </component>
     </screen>
 </root>

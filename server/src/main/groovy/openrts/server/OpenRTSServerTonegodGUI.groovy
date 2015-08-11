@@ -88,6 +88,7 @@ class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
 		//		b.setText("Show Menu");
 		//		screen.addElement(b);
 
+
 		def xmlScreenSampeAppState = new XMLScreenSample(screen);
 		stateManager.attach(xmlScreenSampeAppState);
 		xmlScreenSampeAppState.enabled = true
