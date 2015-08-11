@@ -1,5 +1,6 @@
 package openrts.server
 
+
 import model.ModelManager
 import tonegod.gui.core.Screen
 import app.OpenRTSApplicationWithDI
@@ -14,6 +15,8 @@ class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
 		AckEvent.class,
 		CreateGameEvent.class
 	]
+
+	Screen screen
 
 
 	//	static String mapfilename = "assets/maps/test.btf";
@@ -52,7 +55,7 @@ class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
 		flyCam.setDragToRotate(true);
 		inputManager.setCursorVisible(true);
 
-		Screen screen = new Screen(this);
+		screen = new Screen(this);
 		guiNode.addControl(screen);
 		//
 		//		Menu subMenu = new Menu(screen,new Vector2f(0,0),false) {
@@ -89,9 +92,9 @@ class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
 		//		screen.addElement(b);
 
 
-		def xmlScreenSampeAppState = new XMLScreenSample(screen);
-		stateManager.attach(xmlScreenSampeAppState);
-		xmlScreenSampeAppState.enabled = true
+		def userLogin = new UserLogin(this, screen);
+		stateManager.attach(userLogin);
+		userLogin.enabled = true
 	}
 
 
@@ -105,4 +108,13 @@ class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
 		// p1.getFieldCtrl().update(maxedTPF);
 		ModelManager.updateConfigs();
 	}
+
+	def switchToServerControlAppStates() {
+
+		stateManager
+		def severControl = new ServerControlAppState(this, screen);
+		stateManager.attach(severControl);
+		severControl.enabled = true
+	}
+
 }

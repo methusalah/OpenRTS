@@ -1,26 +1,26 @@
-package openrts.server;
+package openrts.server
+;
 
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
-import openrts.guice.example.Main;
-import tonegod.gui.controls.windows.LoginBox;
-import tonegod.gui.core.Screen;
+import tonegod.gui.controls.windows.LoginBox
+import tonegod.gui.core.Screen
 
-import com.jme3.app.Application;
-import com.jme3.app.state.AbstractAppState;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.input.event.MouseButtonEvent;
-import com.jme3.math.Vector2f;
+import com.jme3.app.Application
+import com.jme3.app.state.AbstractAppState
+import com.jme3.app.state.AppStateManager
+import com.jme3.input.event.MouseButtonEvent
+import com.jme3.math.Vector2f
 
-public class UserLogin extends AbstractAppState {
+class UserLogin extends AbstractAppState {
 
 	static final Logger logger = Logger.getLogger(UserLogin.class.getName());
-	Main app;
+	OpenRTSServerTonegodGUI app;
 	Screen screen;
 
 	LoginBox loginWindow;
 
-	public UserLogin(Main app, Screen screen) {
+	UserLogin(OpenRTSServerTonegodGUI app ,Screen screen) {
 		this.app = app;
 		this.screen = screen;
 	}
@@ -33,19 +33,19 @@ public class UserLogin extends AbstractAppState {
 	}
 
 	public void initLoginWindow() {
-		loginWindow = new LoginBox(screen, "loginWindow", new Vector2f(screen.getWidth() / 2 - 175, screen.getHeight() / 2 - 125)) {
-			@Override
-			public void onButtonLoginPressed(MouseButtonEvent evt, boolean toggled) {
-				// Some call to the server to log the client in
-				finalizeUserLogin();
-			}
+		loginWindow = new LoginBox(screen, "loginWindow", new Vector2f((Float) (screen.getWidth() / 2 - 175), (Float) (screen.getHeight() / 2 - 125))) {
+					@Override
+					public void onButtonLoginPressed(MouseButtonEvent evt, boolean toggled) {
+						// Some call to the server to log the client in
+						finalizeUserLogin();
+					}
 
-			@Override
-			public void onButtonCancelPressed(MouseButtonEvent arg0, boolean arg1) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onButtonCancelPressed(MouseButtonEvent arg0, boolean arg1) {
+						// TODO Auto-generated method stub
 
-			}
-		};
+					}
+				};
 		screen.addElement(loginWindow);
 	}
 
@@ -58,7 +58,7 @@ public class UserLogin extends AbstractAppState {
 
 	public void finalizeUserLogin() {
 		// Some call to your app to unload this AppState and load the next AppState
-		// app.someMethodToSwitchAppStates();
+		app.switchToServerControlAppStates();
 		logger.info("Login was pressed");
 	}
 }
