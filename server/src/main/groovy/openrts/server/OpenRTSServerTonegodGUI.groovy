@@ -27,20 +27,6 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 	Screen screen
 	ServerStartAppState serverStart
 
-
-	//	static String mapfilename = "assets/maps/test.btf";
-	//	static final Logger logger = Logger.getLogger(OpenRTSServerTonegodGUI.class.getName());
-	//	static final String gameName = "OpenRTS";
-	//	static int version = 1;
-	//
-	//	static Server myServer;
-	//	static final int PORT = 6143;
-	//	Map<Integer, Game> games = new HashMap<Integer, Game>();
-
-	//	public Game getPlayer(Integer id) {
-	//		return games.get(id);
-	//	}
-
 	public static void main(String[] args) {
 
 		// Properties preferences = new Properties();
@@ -106,10 +92,8 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 			myServer.start();
 			logger.info("Server listening at :" + PORT);
 			System.out.println("Server listening at :" + PORT);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

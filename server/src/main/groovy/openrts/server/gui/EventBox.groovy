@@ -132,10 +132,7 @@ abstract class EventBox extends Panel {
 		float scrollSize = screen.getStyle("ScrollArea#VScrollBar").getFloat("defaultControlSize");
 
 		saChatArea = new ScrollPanel(screen, UID + ":ChatArea",
-				new Vector2f(
-				indents.y,
-				indents.x
-				),
+				new Vector2f(indents.y,indents.x),
 				new Vector2f((Float)getWidth()-indents.y-indents.z,(Float)getHeight()-controlSize-(controlSpacing*2)-indents.x-indents.w));
 		saChatArea.setIsResizable(false);
 		saChatArea.setScaleEW(true);

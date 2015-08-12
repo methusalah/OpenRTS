@@ -8,8 +8,10 @@ import com.jme3.network.HostedConnection;
 import com.jme3.network.Message;
 
 import controller.CommandManager;
+import event.EventManager;
 import event.network.AckEvent;
 import event.network.CreateGameEvent;
+import event.network.NetworkEvent;
 import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
@@ -24,6 +26,7 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 
 	@Override
 	public void messageReceived(HostedConnection source, Message message) {
+		EventManager.post((NetworkEvent) message);
 		if (message instanceof SelectEntityEvent) {
 			// do something with the message
 			SelectEntityEvent inputEvent = (SelectEntityEvent) message;

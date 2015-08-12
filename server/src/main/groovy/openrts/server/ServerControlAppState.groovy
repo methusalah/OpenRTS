@@ -6,11 +6,15 @@ import java.util.logging.Logger
 import openrts.server.gui.EventBox
 import tonegod.gui.core.Screen
 
+import com.google.common.eventbus.Subscribe
 import com.google.inject.Inject
 import com.jme3.app.Application
 import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
 import com.jme3.math.Vector2f
+
+import event.EventManager
+import event.network.NetworkEvent
 
 class ServerControlAppState extends AbstractAppState {
 
@@ -18,7 +22,7 @@ class ServerControlAppState extends AbstractAppState {
 	OpenRTSServerTonegodGUI app;
 	Screen screen;
 
-	EventBox eventPanel;
+	EventBox eventBox;
 
 	@Inject
 	ServerControlAppState( OpenRTSServerTonegodGUI app , Screen screen) {
@@ -31,10 +35,11 @@ class ServerControlAppState extends AbstractAppState {
 		super.initialize(stateManager, app);
 
 		initControlWindow();
+		EventManager.register(this);
 	}
 
 	public void initControlWindow() {
-		eventPanel = new EventBox(screen, "Events", new Vector2f((Float) (screen.getWidth() / 2 - 175), (Float) (screen.getHeight() / 2 - 125))) {
+		eventBox = new EventBox(screen, "Events", new Vector2f((Float) (screen.getWidth() / 2 - 175), (Float) (screen.getHeight() / 2 - 125))) {
 
 					@Override
 					public void onSendMsg(String msg) {
@@ -55,19 +60,25 @@ class ServerControlAppState extends AbstractAppState {
 		//
 		//					}
 		//				};
-		screen.addElement(eventPanel);
+		screen.addElement(eventBox);
 	}
 
 	@Override
 	public void cleanup() {
 		super.cleanup();
 
-		screen.removeElement(eventPanel);
+		screen.removeElement(eventBox);
+		EventManager.unregister(this);
 	}
 
 	public void finalizeUserLogin() {
 		// Some call to your app to unload this AppState and load the next AppState
 		//app.switchToServerControlAppStates();
 		logger.info("Login was pressed");
+	}
+
+	@Subscribe
+	def logEvents(NetworkEvent evt) {
+		eventBox.receiveMsg("recieve Networkmessage:" + evt)
 	}
 }
