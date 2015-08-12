@@ -1,4 +1,4 @@
-package app.example;
+package openrts.app.example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ import controller.game.NetworkNiftyController;
 import event.EventManager;
 import event.network.AckEvent;
 
-public class MultiplayerGame extends OpenRTSApplicationWithDI {
+public class PlayGameAppState extends OpenRTSApplicationWithDI {
 
-	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
+	private static final Logger logger = Logger.getLogger(PlayGameAppState.class.getName());
 
 	// protected MapView view;
 	protected NetworkAppState networkState;
@@ -55,7 +55,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		// System.err.println("WARNING: Could not open configuration file - please create a logging.properties for correct logging");
 		// System.err.println("WARNING: Logging not configured (console output only)");
 		// }
-		MultiplayerGame app = new MultiplayerGame();
+		PlayGameAppState app = new PlayGameAppState();
 		app.start();
 	}
 

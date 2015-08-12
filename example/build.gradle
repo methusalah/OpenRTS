@@ -1,35 +1,38 @@
 apply plugin: 'application'
-apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'groovy'
 
-mainClassName = 'Game'
+mainClassName = 'app.example.MultiplayerGame'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'Game'
+	ext.mainClass = 'app.example.MultiplayerGame'
 }
 
+repositories {
+	mavenCentral() 
+	//maven { url 'https://dl.bintray.com/brainless-studios/tonegodgui' } 
+	maven { url "https://jitpack.io" }
+}
 
 dependencies {
+	compile fileTree(dir: 'lib', include: ['*.jar'])
     compile project(':core')
-//    compile 'com.jme3:jme3-desktop:$jmonkeyengine_version.+'
-//    compile 'com.jme3:jme3-lwjgl:$jmonkeyengine_version.+'
+    compile 'org.codehaus.groovy:groovy-all:2.3.10'
+    compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
+    compile 'com.github.brainless-studios:tonegodgui-test:-SNAPSHOT'
 }
 
 sourceSets {
 	main {
-		java { srcDir 'src' }
+//		java { srcDir 'src' }
 		resources { srcDir 'assets' }
 	}
-	test { java { srcDir 'test' } }
 }
 
 eclipse {
-	sourceSets {
-		main { java.srcDirs "src" }
-	}
-
 	jdt {
-		sourceCompatibility = 1.7
-		targetCompatibility = 1.7
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
 	}
 
 	project { name = appName + "-example" }
