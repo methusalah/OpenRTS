@@ -325,12 +325,12 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
 				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
-				bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
-				bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
-				bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
-				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
-				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
-				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
+												bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
+												bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
+										bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
+										bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
+										bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
+										bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
 				bind(Camera.class).annotatedWith(Names.named("Camera")).toInstance(cam);
 				bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
 
@@ -357,6 +357,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 				bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
 				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
+				// FIXME: Viewport is already binded
 				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
 
 				bind(EditorView.class).in(Singleton.class);

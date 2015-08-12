@@ -3,12 +3,11 @@ package openrts.server
 
 import model.ModelManager
 import tonegod.gui.core.Screen
-import app.OpenRTSApplicationWithDI
 import event.network.AckEvent
 import event.network.CreateGameEvent
 import event.network.SelectEntityEvent
 
-class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
+class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 
 	protected static List<Class> serializerClasses = [
 		SelectEntityEvent.class,
@@ -52,49 +51,15 @@ class OpenRTSServerTonegodGUI extends OpenRTSApplicationWithDI {
 
 	@Override
 	public void simpleInitApp() {
-		flyCam.setDragToRotate(true);
+		//		flyCam.setDragToRotate(true);
 		inputManager.setCursorVisible(true);
 
 		screen = new Screen(this);
 		guiNode.addControl(screen);
-		//
-		//		Menu subMenu = new Menu(screen,new Vector2f(0,0),false) {
-		//					@Override
-		//					public void onMenuItemClicked(int index, Object value, boolean isToggled) {
-		//
-		//
-		//
-		//					}
-		//				};
-		//		// Add a menu item
-		//		subMenu.addMenuItem("server running", null, null);
-		//		// Add a toggle-able menu item (checkbox)
-		//		subMenu.addMenuItem("listen on events", null, null, true);
-		//		// Add a toggle-able menu item and set the default state of the checkbox to checked
-		//		subMenu.addMenuItem("Some string caption 3", null, null, true, true);
-		//		screen.addElement(subMenu);
-		//
-		//		final Menu menu = new Menu(screen,new Vector2f(0,0),false) {
-		//					@Override
-		//					public void onMenuItemClicked(int index, Object value, boolean isToggled) {  }
-		//				};
-		//		// Add subMenu as a sub-menu to this menu item
-		//		menu.addMenuItem("Some caption", null, subMenu);
-		//		screen.addElement(menu);
-		//
-		//		ButtonAdapter b = new ButtonAdapter(screen, new Vector2f(50,50)) {
-		//					@Override
-		//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean isToggled) {
-		//						menu.showMenu(null, getAbsoluteX(), (float) (getAbsoluteY()- menu.getHeight()));
-		//					}
-		//				};
-		//		b.setText("Show Menu");
-		//		screen.addElement(b);
 
-
-		def userLogin = new UserLogin(this, screen);
-		stateManager.attach(userLogin);
-		userLogin.enabled = true
+		def serverStart = new ServerStartAppState(this, screen);
+		stateManager.attach(serverStart);
+		serverStart.enabled = true
 	}
 
 

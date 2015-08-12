@@ -6,6 +6,7 @@ import java.util.logging.Logger
 import openrts.server.gui.EventBox
 import tonegod.gui.core.Screen
 
+import com.google.inject.Inject
 import com.jme3.app.Application
 import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
@@ -19,7 +20,8 @@ class ServerControlAppState extends AbstractAppState {
 
 	EventBox eventPanel;
 
-	ServerControlAppState(OpenRTSServerTonegodGUI app ,Screen screen) {
+	@Inject
+	ServerControlAppState( OpenRTSServerTonegodGUI app , Screen screen) {
 		this.app = app;
 		this.screen = screen;
 	}
@@ -36,7 +38,7 @@ class ServerControlAppState extends AbstractAppState {
 
 					@Override
 					public void onSendMsg(String msg) {
-						finalizeUserLogin()
+						this.receiveMsg(msg);
 					}
 				}
 
