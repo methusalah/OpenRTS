@@ -80,9 +80,9 @@ public class HarnessState extends AppStateCommon {
 			// Reset layout helper
 			//	LayoutHelper.reset();
 
-			initDisplayControls();
-			initUIExtrasControls();
-			initTestControls();
+			//			initDisplayControls();
+			//			initUIExtrasControls();
+			//			initTestControls();
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
