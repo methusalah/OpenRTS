@@ -5,10 +5,10 @@
 package openrts.server.gui;
 
 import tonegod.gui.controls.buttons.ButtonAdapter
+import groovy.transform.CompileStatic
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.form.Form
 import tonegod.gui.controls.text.Label
-import tonegod.gui.controls.text.Password
 import tonegod.gui.controls.text.TextField
 import tonegod.gui.controls.windows.Window
 import tonegod.gui.core.Element
@@ -26,12 +26,13 @@ import com.jme3.math.Vector4f
  *
  * @author t0neg0d
  */
+@CompileStatic
 public abstract class ServerStartBox extends Window {
-	private ButtonAdapter btnLogin, btnCancel;
+	private ButtonAdapter btnStart, btnCancel;
 	private Element responseMsg;
-	private Label lblUserName, lblPassword;
-	private TextField userName;
-	private Password password;
+	private Label lblGameName, lblVersion;
+	private TextField gameName;
+	private TextField version;
 	private Form form;
 
 	public ServerStartBox(ElementManager screen) {
@@ -85,26 +86,28 @@ public abstract class ServerStartBox extends Window {
 		float controlSize = screen.getStyle("Common").getFloat("defaultControlSize");
 		float controlSpacing = screen.getStyle("Common").getFloat("defaultControlSpacing");
 
-		lblUserName = new Label(screen, UID + ":Lbl:UserName",new Vector2f(indents.y,(Float) indents.x+controlSpacing),new Vector2f((Float) (getWidth()/3)-indents.y-indents.z,controlSize));
-		lblUserName.setTextAlign(BitmapFont.Align.Right);
-		lblUserName.setText("User ID:");
-		this.addWindowContent(lblUserName);
+		lblGameName = new Label(screen, UID + ":Lbl:UserName",new Vector2f(indents.y,(Float) indents.x+controlSpacing),new Vector2f((Float) (getWidth()/3)-indents.y-indents.z,controlSize));
+		lblGameName.setTextAlign(BitmapFont.Align.Right);
+		lblGameName.setText("Game name:");
+		this.addWindowContent(lblGameName);
 
-		userName = new TextField(screen, UID + ":userName",new Vector2f((Float)getWidth()/3,(Float)indents.x+controlSpacing),new Vector2f((Float)getWidth()-(getWidth()/3)-indents.z,controlSize));
-		this.addWindowContent(userName);
-		form.addFormElement(userName);
+		gameName = new TextField(screen, UID + ":gameName",new Vector2f((Float)getWidth()/3,(Float)indents.x+controlSpacing),new Vector2f((Float)getWidth()-(getWidth()/3)-indents.z,controlSize));
+		this.addWindowContent(gameName);
+		gameName.setText("OpenRTS Server");
+		form.addFormElement(gameName);
 
-		lblPassword = new Label(screen, UID + ":Lbl:Password",new Vector2f(indents.y,(Float)indents.x+controlSize+(controlSpacing*2)),new Vector2f((Float)(getWidth()/3)-indents.y-indents.z,controlSize));
-		lblPassword.setTextAlign(BitmapFont.Align.Right);
-		lblPassword.setText("Password:");
-		this.addWindowContent(lblPassword);
+		lblVersion = new Label(screen, UID + ":Lbl:Version",new Vector2f(indents.y,(Float)indents.x+controlSize+(controlSpacing*2)),new Vector2f((Float)(getWidth()/3)-indents.y-indents.z,controlSize));
+		lblVersion.setTextAlign(BitmapFont.Align.Right);
+		lblVersion.setText("version:");
+		this.addWindowContent(lblVersion);
 
-		password = new Password(screen, UID + "password",new Vector2f((Float)getWidth()/3,(Float)indents.x+controlSize+(controlSpacing*2)),new Vector2f((Float)getWidth()-(getWidth()/3)-indents.z,(Float)controlSize));
-		this.addWindowContent(password);
-		form.addFormElement(password);
+		version = new TextField(screen, UID + "version",new Vector2f((Float)getWidth()/3,(Float)indents.x+controlSize+(controlSpacing*2)),new Vector2f((Float)getWidth()-(getWidth()/3)-indents.z,(Float)controlSize));
+		this.addWindowContent(version);
+		version.setText("1");
+		form.addFormElement(version);
 
-		responseMsg = new Element(screen,UID+":resonse",new Vector2f(indents.y,(Float)password.getHeight()+indents.x+controlSize+(controlSpacing*3)),
-				new Vector2f((Float)contentArea.getWidth()-indents.y-indents.z,(Float)contentArea.getHeight()-(password.getHeight()+indents.x+controlSize+(controlSpacing*3))-getHeight()-screen.getStyle("Button").getVector2f("defaultSize").y-indents.w),new Vector4f(0,0,0,0),null);
+		responseMsg = new Element(screen,UID+":resonse",new Vector2f(indents.y,(Float)version.getHeight()+indents.x+controlSize+(controlSpacing*3)),
+				new Vector2f((Float)contentArea.getWidth()-indents.y-indents.z,(Float)contentArea.getHeight()-(version.getHeight()+indents.x+controlSize+(controlSpacing*3))-getHeight()-screen.getStyle("Button").getVector2f("defaultSize").y-indents.w),new Vector4f(0,0,0,0),null);
 		responseMsg.setIsResizable(false);
 		responseMsg.setIgnoreMouse(true);
 		responseMsg.setDocking(Docking.NW);
@@ -116,7 +119,7 @@ public abstract class ServerStartBox extends Window {
 
 		addWindowContent(responseMsg);
 
-		btnLogin = new ButtonAdapter(screen,  UID + ":btnOk",
+		btnStart = new ButtonAdapter(screen,  UID + ":btnOk",
 				new Vector2f((Float)contentArea.getWidth()-screen.getStyle("Button").getVector2f("defaultSize").x-indents.z,(Float)contentArea.getHeight()-screen.getStyle("Button").getVector2f("defaultSize").y-indents.w)
 				) {
 					@Override
@@ -124,10 +127,10 @@ public abstract class ServerStartBox extends Window {
 						onButtonStartPressed(evt, toggled);
 					}
 				};
-		btnLogin.setText("Start");
-		btnLogin.setDocking(Docking.SE);
-		addWindowContent(btnLogin);
-		form.addFormElement(btnLogin);
+		btnStart.setText("Start");
+		btnStart.setDocking(Docking.SE);
+		addWindowContent(btnStart);
+		form.addFormElement(btnStart);
 
 		btnCancel = new ButtonAdapter(screen, UID + ":btnCancel",
 				new Vector2f(
@@ -144,57 +147,26 @@ public abstract class ServerStartBox extends Window {
 
 		addClippingLayer(this);
 
-		this.setWindowTitle("Login");
+		this.setWindowTitle("Start the OpenRTS Server");
 	}
 
 	public void setMsg(String text) {
 		responseMsg.setText(text);
 	}
 
-	public TextField getUserName() {
-		return userName;
-	}
-
-	public String getTextUserName() {
-		return this.userName.getText();
-	}
-
-	public void setTextUserName(String text) {
-		this.userName.setText(text);
-	}
-
-	public Password getPassword() {
-		return this.password;
-	}
-
-	public String getTextPassword() {
-		return this.password.getText();
-	}
-
-	public void setTextPassword(String text) {
-		this.password.setText(text);
-	}
-
-	public void setButtonLoginText(String text) {
-		btnLogin.setText(text);
-	}
-
 	public abstract void onButtonStartPressed(MouseButtonEvent evt, boolean toggled);
 
-	public void setButtonCancelText(String text) {
-		btnCancel.setText(text);
-	}
 
 	public abstract void onButtonCancelPressed(MouseButtonEvent evt, boolean toggled);
 
 	public void setToolTipLoginInput(String tip) {
-		userName.setToolTipText(tip);
+		gameName.setToolTipText(tip);
 	}
 	public void setToolTipPasswordInput(String tip) {
-		password.setToolTipText(tip);
+		version.setToolTipText(tip);
 	}
 	public void setToolTipLoginButton(String tip) {
-		this.btnLogin.setToolTipText(tip);
+		this.btnStart.setToolTipText(tip);
 	}
 	public void setToolTipCancelButton(String tip) {
 		this.btnCancel.setToolTipText(tip);

@@ -188,7 +188,7 @@ abstract class OpenRTSServerWithDI extends Application {
 		rootNode.updateGeometricState();
 		guiNode.updateGeometricState();
 
-		// render states
+		//		// render states
 		stateManager.render(renderManager);
 		renderManager.render(tpf, true);
 		simpleRender(renderManager);

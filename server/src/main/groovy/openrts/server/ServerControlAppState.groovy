@@ -3,6 +3,7 @@ package openrts.server
 
 import java.util.logging.Logger
 
+import openrts.event.ServerEvent
 import openrts.server.gui.EventBox
 import tonegod.gui.core.Screen
 
@@ -42,24 +43,15 @@ class ServerControlAppState extends AbstractAppState {
 		eventBox = new EventBox(screen, "Events", new Vector2f((Float) (screen.getWidth() / 2 - 175), (Float) (screen.getHeight() / 2 - 125))) {
 
 					@Override
-					public void onSendMsg(String msg) {
-						this.receiveMsg(msg);
+					public void onClientConnected(String msg) {
+						this.receiveClientConnection(msg);
+					}
+
+					@Override
+					public void onEventReceived(String msg) {
+						this.receiveEvent(msg);
 					}
 				}
-
-		//		loginWindow = new LoginBox(screen, "loginWindow", new Vector2f((Float) (screen.getWidth() / 2 - 175), (Float) (screen.getHeight() / 2 - 125))) {
-		//					@Override
-		//					public void onButtonLoginPressed(MouseButtonEvent evt, boolean toggled) {
-		//						// Some call to the server to log the client in
-		//						finalizeUserLogin();
-		//					}
-		//
-		//					@Override
-		//					public void onButtonCancelPressed(MouseButtonEvent arg0, boolean arg1) {
-		//						// TODO Auto-generated method stub
-		//
-		//					}
-		//				};
 		screen.addElement(eventBox);
 	}
 
@@ -78,7 +70,13 @@ class ServerControlAppState extends AbstractAppState {
 	}
 
 	@Subscribe
-	def logEvents(NetworkEvent evt) {
-		eventBox.receiveMsg("recieve Networkmessage:" + evt)
+	def logNetworkEvents(NetworkEvent evt) {
+		eventBox.receiveEvent("receive Networkmessage:" + evt)
+	}
+
+
+	@Subscribe
+	def logSeverEvents(ServerEvent evt) {
+		eventBox.receiveClientConnection("receive Networkmessage:" + evt)
 	}
 }

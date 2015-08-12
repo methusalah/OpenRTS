@@ -31,7 +31,7 @@ public class EventManager {
 	}
 
 
-	public static void post(Event event) {
+	public static void post(Object event) {
 		logger.info("Event posted:" + event);
 		eventBus.post(event);
 	}

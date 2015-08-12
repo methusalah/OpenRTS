@@ -1,9 +1,14 @@
 package openrts.server;
 
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
-import com.jme3.network.HostedConnection;
-import com.jme3.network.Server;
+import openrts.event.ClientConnectedEvent
+import openrts.event.ClientDisconnectedEvent
+
+import com.jme3.network.HostedConnection
+import com.jme3.network.Server
+
+import event.EventManager
 
 
 public class ConnectionListener implements com.jme3.network.ConnectionListener {
@@ -13,13 +18,12 @@ public class ConnectionListener implements com.jme3.network.ConnectionListener {
 	@Override
 	public void connectionAdded(Server server, HostedConnection conn) {
 		logger.info(server.getGameName() + " has a new connection:" + conn.getId());
-		// FIXME: add player to player List
+		EventManager.post(new ClientConnectedEvent(id: conn.id,address: conn.address));
 	}
 
 	@Override
 	public void connectionRemoved(Server server, HostedConnection conn) {
 		logger.info(server.getGameName() + " lost a connection:" + conn.getId());
-
+		EventManager.post(new ClientDisconnectedEvent(id: conn.id,address: conn.address));
 	}
-
 }
