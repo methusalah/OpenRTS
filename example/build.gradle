@@ -23,10 +23,25 @@ dependencies {
 }
 
 sourceSets {
-	main {
-//		java { srcDir 'src' }
-		resources { srcDir 'assets' }
-	}
+	 main {
+        groovy {
+            // override the default locations, rather than adding additional ones
+            srcDirs = ['src/main/groovy', 'src/main/java'] 
+        }
+        java {
+            srcDirs = [] // don't compile Java code twice 
+        }
+    }
+}
+
+// remove GroovyCompile->JavaCompile task dependencies
+tasks.withType(GroovyCompile) {
+	dependsOn = []
+}
+
+// add JavaCompile->GroovyCompile task dependencies
+tasks.withType(JavaCompile) { task ->
+	dependsOn task.name.replace("Java", "Groovy")
 }
 
 eclipse {
