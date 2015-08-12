@@ -4,15 +4,11 @@ package openrts.server
 import java.util.logging.Logger
 
 import model.ModelManager
-import openrts.server.ConnectionListener
-import openrts.server.Game
-import openrts.server.InputEventMessageListener
 import app.OpenRTSApplicationWithDI
 
 import com.jme3.bullet.BulletAppState
 import com.jme3.math.Vector3f
 import com.jme3.network.Network
-import com.jme3.network.Server
 import com.jme3.network.serializing.Serializer
 
 import event.network.AckEvent
@@ -31,12 +27,7 @@ class OpenRTSServer extends OpenRTSApplicationWithDI {
 
 	static String mapfilename = "assets/maps/test.btf";
 	static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
-	static final String gameName = "OpenRTS";
-	static int version = 1;
 
-	static Server myServer;
-	static final int PORT = 6143;
-	Map<Integer, Game> games = new HashMap<Integer, Game>();
 
 	public Game getPlayer(Integer id) {
 		return games.get(id);

@@ -37,6 +37,7 @@ import com.jme3.font.BitmapFont
 import com.jme3.font.BitmapText
 import com.jme3.input.FlyByCamera
 import com.jme3.input.InputManager
+import com.jme3.network.Server
 import com.jme3.niftygui.NiftyJmeDisplay
 import com.jme3.renderer.Camera
 import com.jme3.renderer.RenderManager
@@ -75,39 +76,17 @@ abstract class OpenRTSServerWithDI extends Application {
 	protected BitmapText fpsText;
 	protected MyDebugger debugger;
 	protected StatsView statsView;
-	//
-	//	protected AzertyFlyByCamera flyCam;
-	//
-	//	private AppActionListener actionListener = new AppActionListener();
-	//
-	//	protected BulletAppState bulletAppState;
-	//	protected NiftyJmeDisplay niftyDisplay;
+
+
+	static final String gameName = "OpenRTS";
+	static int version = 1;
+
+	static Server myServer;
+	static final int PORT = 6143;
+	Map<Integer, Game> games = new HashMap<Integer, Game>();
 
 	protected Injector injector;
 	protected Collection<Module> modules;
-
-	//	private class AppActionListener implements ActionListener {
-	//		@Override
-	//		public void onAction(String name, boolean value, float tpf) {
-	//			if (!value) {
-	//				return;
-	//			}
-	//
-	//			if (name.equals("SIMPLEAPP_Exit")) {
-	//				//				stop();
-	//			} else if (name.equals("SIMPLEAPP_CameraPos")) {
-	//				if (cam != null) {
-	//					Vector3f loc = cam.getLocation();
-	//					Quaternion rot = cam.getRotation();
-	//					System.out.println("Camera Position: (" + loc.x + ", " + loc.y + ", " + loc.z + ")");
-	//					System.out.println("Camera Rotation: " + rot);
-	//					System.out.println("Camera Direction: " + cam.getDirection());
-	//				}
-	//			} else if (name.equals("SIMPLEAPP_Memory")) {
-	//				BufferUtils.printCurrentDirectMemory(null);
-	//			}
-	//		}
-	//	}
 
 	@Override
 	public void start() {
@@ -127,18 +106,6 @@ abstract class OpenRTSServerWithDI extends Application {
 		}
 
 	}
-
-	//	public AzertyFlyByCamera getFlyByCamera() {
-	//		return flyCam;
-	//	}
-	//
-	//	public Node getGuiNode() {
-	//		return guiNode;
-	//	}
-	//
-	//	public Node getRootNode() {
-	//		return rootNode;
-	//	}
 
 	private void initTexts() {
 		BitmapFont guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
@@ -289,14 +256,6 @@ abstract class OpenRTSServerWithDI extends Application {
 		cam.resize(settings.getWidth(), settings.getHeight(), true);
 	}
 
-	// public void startClient() {
-	// // ClientManager.startClient(stateManager, this);
-	// }
-
-	// public void stopClient() {
-	// ClientManager.stopClient();
-	// }
-
 	protected void initGuice() {
 		initGuice(new ArrayList<Module>());
 	}
@@ -312,45 +271,45 @@ abstract class OpenRTSServerWithDI extends Application {
 					protected void configure() {
 
 						bind(AssetManager.class).annotatedWith(AssetManagerRef.class).toInstance(assetManager);
-												bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
+						bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
 						bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 						bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
-												bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
-												bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
-										bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
-										bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
-										bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
-										bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
+						bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
+						bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
+						bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
+						bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
+						bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
+						bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
 						bind(Camera.class).annotatedWith(Names.named("Camera")).toInstance(cam);
-												bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
+						bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
 
 						bind(Application.class).toInstance(app);
 
-						 bind(ClientManager.class).in(Singleton.class);
-						 bind(NetworkNiftyController.class).in(Singleton.class);
+						bind(ClientManager.class).in(Singleton.class);
+						bind(NetworkNiftyController.class).in(Singleton.class);
 
-						 bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
+						bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
 
-												bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
-												bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
-														.in(Singleton.class);
-												bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
-														.in(Singleton.class);
-						
-												bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
-												bind(EditorInputInterpreter.class).annotatedWith(Names.named("EditorInputInterpreter")).to(EditorInputInterpreter.class).in(Singleton.class);
-												bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
-						
-												bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);
-												bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
-												bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class).in(Singleton.class);
-						
-												bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
+						bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
+						bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
+								.in(Singleton.class);
+						bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
+								.in(Singleton.class);
+
+						bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
+						bind(EditorInputInterpreter.class).annotatedWith(Names.named("EditorInputInterpreter")).to(EditorInputInterpreter.class).in(Singleton.class);
+						bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
+
+						bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);
+						bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
+						bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class).in(Singleton.class);
+
+						bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
 						bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
-												bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
-						
-												bind(EditorView.class).in(Singleton.class);
-												bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
+						bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
+
+						bind(EditorView.class).in(Singleton.class);
+						bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
 
 						bind(MaterialUtil.class).in(Singleton.class);
 
