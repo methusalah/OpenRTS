@@ -7,6 +7,7 @@ allprojects {
 	apply plugin: "idea"
 	apply plugin: 'pmd'
 	apply plugin: 'findbugs'
+	apply plugin: 'java'
 
 	version = '0.0.1'
 	ext {
@@ -14,6 +15,10 @@ allprojects {
 		jmonkeyengine_version = '3.0.10'
 	}
 	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+	compileJava {
+		sourceCompatibility = '1.8'
+	 }
 
 	repositories {
 		mavenLocal()
