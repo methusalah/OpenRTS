@@ -1,31 +1,26 @@
-package openrts.app.example;
+package openrts.app.example.states;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
-import openrts.app.example.states.AppStateCommon;
-import openrts.app.example.states.HarnessState;
-import openrts.app.example.states.UserLoginAppState;
-import tonegod.gui.core.Screen;
-import tonegod.gui.tests.states.TestState;
-import tonegod.gui.tests.states.buttons.ButtonState;
-import tonegod.gui.tests.states.emitter.EmitterState;
-import tonegod.gui.tests.states.spatial.SpatialState;
-import tonegod.gui.tests.states.sprite.SpriteState;
-import tonegod.gui.tests.states.subscreen.EmbeddedGUIState;
-import tonegod.gui.tests.states.text.AnimatedTextState;
-import tonegod.gui.tests.states.text.TextLabelState;
-import tonegod.gui.tests.states.windows.WindowState;
-import app.OpenRTSApplicationWithDI;
+import tonegod.gui.core.Screen
+import tonegod.gui.tests.states.TestState
+import tonegod.gui.tests.states.buttons.ButtonState
+import tonegod.gui.tests.states.emitter.EmitterState
+import tonegod.gui.tests.states.spatial.SpatialState
+import tonegod.gui.tests.states.sprite.SpriteState
+import tonegod.gui.tests.states.subscreen.EmbeddedGUIState
+import tonegod.gui.tests.states.text.AnimatedTextState
+import tonegod.gui.tests.states.text.TextLabelState
+import tonegod.gui.tests.states.windows.WindowState
+import app.OpenRTSApplicationWithDI
 
-import com.jme3.font.BitmapFont;
-import com.jme3.light.AmbientLight;
-import com.jme3.light.DirectionalLight;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
-import com.jme3.renderer.RenderManager;
+import com.jme3.font.BitmapFont
+import com.jme3.light.AmbientLight
+import com.jme3.light.DirectionalLight
+import com.jme3.math.ColorRGBA
+import com.jme3.math.Vector3f
+import com.jme3.renderer.Camera
+import com.jme3.renderer.RenderManager
 
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
@@ -91,8 +86,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleInitApp() {
 		initScreen();
+		initGuice([new ClientModule(app: this)]);
 		initLights();
-		userlogin = new UserLoginAppState(this);
+
+		userlogin = injector.getInstance(UserLoginAppState.class);
 		states.add(userlogin);
 		stateManager.attach(userlogin);
 	}
@@ -119,7 +116,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	}
 
 	private void initStates() {
-		harness = new HarnessState(this);
+
+		harness = injector.getInstance(HarnessState.class);
 		states.add(harness);
 		// tests = new TestState(this);
 		// states.add(tests);
@@ -148,7 +146,6 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		return this.screen;
 	}
 
-	public HarnessState getHarness() { return this.harness; }
 	public TestState getTests() { return this.tests; }
 
 	public BitmapFont getFont() {

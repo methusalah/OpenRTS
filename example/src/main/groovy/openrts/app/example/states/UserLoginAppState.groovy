@@ -1,7 +1,9 @@
 package openrts.app.example.states
 
 import groovy.transform.CompileStatic
-import openrts.app.example.MultiplayerGame
+
+import javax.inject.Inject
+
 import tonegod.gui.controls.windows.LoginBox
 import tonegod.gui.core.Screen
 import tonegod.gui.core.Element.Borders
@@ -16,6 +18,7 @@ import com.jme3.math.Vector2f
 class UserLoginAppState extends AppStateCommon {
 	LoginBox loginWindow;
 
+	@Inject
 	public UserLoginAppState(MultiplayerGame main) {
 		super(main);
 		displayName = "Harness";

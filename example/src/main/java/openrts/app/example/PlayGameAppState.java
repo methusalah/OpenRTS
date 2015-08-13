@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import model.ModelManager;
-import openrts.guice.NetworkClientModule;
+import openrts.app.example.states.ClientModule;
 import view.EditorView;
 import app.OpenRTSApplicationWithDI;
 
@@ -76,7 +76,7 @@ public class PlayGameAppState extends OpenRTSApplicationWithDI {
 		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
 		List<Module> modules = new ArrayList<Module>();
-		modules.add(new NetworkClientModule());
+		modules.add(new ClientModule());
 		initGuice(modules);
 
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);

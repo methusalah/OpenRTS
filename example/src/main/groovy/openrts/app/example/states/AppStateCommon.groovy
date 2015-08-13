@@ -5,7 +5,6 @@
 package openrts.app.example.states;
 
 import groovy.transform.CompileStatic
-import openrts.app.example.MultiplayerGame
 import tonegod.gui.core.Screen
 
 import com.jme3.app.Application

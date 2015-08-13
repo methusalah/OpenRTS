@@ -1,6 +1,5 @@
 package app;
 
-import de.lessvoid.nifty.Nifty;
 import exception.TechnicalException;
 import geometry.math.RandomUtil;
 
@@ -60,16 +59,6 @@ import com.jme3.system.AppSettings;
 import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
-
-import controller.battlefield.BattlefieldController;
-import controller.battlefield.BattlefieldGUIController;
-import controller.battlefield.BattlefieldInputInterpreter;
-import controller.editor.EditorController;
-import controller.editor.EditorGUIController;
-import controller.editor.EditorInputInterpreter;
-import controller.ground.GroundController;
-import controller.ground.GroundGUIController;
-import controller.ground.GroundInputInterpreter;
 
 public abstract class OpenRTSApplicationWithDI extends Application implements PhysicsTickListener {
 
@@ -325,12 +314,12 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
 				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
-												bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
-												bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
-										bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
-										bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
-										bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
-										bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
+				bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
+				bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
+				bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
+				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
+				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
+				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
 				bind(Camera.class).annotatedWith(Names.named("Camera")).toInstance(cam);
 				bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
 
@@ -341,27 +330,25 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 				// bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
 
-				bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
-				bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
-				.in(Singleton.class);
-				bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
-				.in(Singleton.class);
+				// bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
+				// bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
+				// .in(Singleton.class);
+				// bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
+				// .in(Singleton.class);
 
-				bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
-				bind(EditorInputInterpreter.class).annotatedWith(Names.named("EditorInputInterpreter")).to(EditorInputInterpreter.class).in(Singleton.class);
-				bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
+				// bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
+				// bind(EditorInputInterpreter.class).annotatedWith(Names.named("EditorInputInterpreter")).to(EditorInputInterpreter.class).in(Singleton.class);
+				// bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
 
-				bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);
-				bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
-				bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class).in(Singleton.class);
+				// bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);
+				// bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
+				// bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class).in(Singleton.class);
 
-				bind(NiftyJmeDisplay.class).annotatedWith(Names.named("NiftyJmeDisplay")).toInstance(niftyDisplay);
 				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
 				// FIXME: Viewport is already binded
 				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
 
 				bind(EditorView.class).in(Singleton.class);
-				bind(Nifty.class).annotatedWith(Names.named("Nifty")).toInstance(niftyDisplay.getNifty());
 
 				bind(MaterialUtil.class).in(Singleton.class);
 

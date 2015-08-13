@@ -7,16 +7,14 @@ package openrts.app.example.states;
 import groovy.transform.CompileStatic
 
 import java.awt.DisplayMode
-import java.awt.GraphicsDevice
-import java.awt.GraphicsEnvironment
 
-import openrts.app.example.MultiplayerGame
+import network.client.ClientManager
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
-import tonegod.gui.controls.lists.SelectBox
 import tonegod.gui.controls.lists.Slider
 import tonegod.gui.controls.text.LabelElement
 import tonegod.gui.controls.text.TextElement
+import tonegod.gui.controls.text.TextField
 import tonegod.gui.controls.windows.Panel
 import tonegod.gui.core.Element
 import tonegod.gui.core.Screen
@@ -28,6 +26,8 @@ import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 import tonegod.gui.tests.Main
 
+import com.google.inject.Inject
+import com.google.inject.Injector
 import com.jme3.font.BitmapFont
 import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
@@ -47,14 +47,20 @@ public class HarnessState extends AppStateCommon {
 
 	private Element content;
 	private Panel panel;
-	private SelectBox modeSelect, testSelect, cTestSelect;
+	private TextField serverAddress
 	private CheckBox vSync, audio, cursors, cursorFX, toolTips;
 	private Slider uiAlpha, audioVol;
 	private LabelElement dispTitle, extTitle, testTitle;
-	private ButtonAdapter load, unload, close;
+	ButtonAdapter load, unload, close,connect;
+	ClientManager clientManager
 
-	public HarnessState(MultiplayerGame main) {
+	@Inject
+	Injector injector
+
+	@Inject
+	public HarnessState(MultiplayerGame main, ClientManager clientManager) {
 		super(main);
+		this.clientManager = clientManager
 		displayName = "Harness";
 		show = false;
 		prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
@@ -83,6 +89,7 @@ public class HarnessState extends AppStateCommon {
 			//			initDisplayControls();
 			//			initUIExtrasControls();
 			//			initTestControls();
+			initServerControls()
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
@@ -116,10 +123,10 @@ public class HarnessState extends AppStateCommon {
 			close.centerToParent();
 			close.setY(contentPadding);
 			dispTitle.centerToParentH();
-			extTitle.centerToParentH();
-			testTitle.centerToParentH();
-			uiAlpha.setSelectedIndexWithCallback(100);
-			audioVol.setSelectedIndexWithCallback(100);
+			//			extTitle.centerToParentH();
+			//			testTitle.centerToParentH();
+			//			uiAlpha.setSelectedIndexWithCallback(100);
+			//			audioVol.setSelectedIndexWithCallback(100);
 
 			init = true;
 		}
@@ -127,54 +134,101 @@ public class HarnessState extends AppStateCommon {
 		panel.show();
 	}
 
-	private void initDisplayControls() {
+	private void initServerControls() {
 		// Add title label for Display
-		dispTitle = getLabel("DISPLAY");
+		dispTitle = getLabel("Server");
 		dispTitle.setTextAlign(BitmapFont.Align.Center);
 		content.addChild(dispTitle);
 
 		// Add title label for mode selection
-		content.addChild(getLabel("Screen Resolution:"));
+		content.addChild(getLabel("Address:"));
 
 		// Add drop-down with available screen modes
-		modeSelect = new SelectBox(screen, Vector2f.ZERO) {
-					@Override
-					public void onChange(int selectedIndex, Object value) {
-						if (!Screen.isAndroid()) {
-							prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
-							main.getContext().getSettings().setWidth(((DisplayMode)value).getWidth());
-							main.getContext().getSettings().setHeight(((DisplayMode)value).getHeight());
-							if (((DisplayMode)value).getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN) {
-								main.getContext().getSettings().setFrequency(((DisplayMode)value).getRefreshRate());
-							}
-							main.restart();
-						}
-					}
-				};
-		loadDisplayModes();
-		if (!Screen.isAndroid()) {
-			modeSelect.setSelectedByCaption(initResolution, true);
-		}
-		modeSelect.setToolTipText("Select Screen Resolution");
-		modeSelect.getLayoutHints().set("wrap");
-		content.addChild(modeSelect);
+		serverAddress = new TextField(screen, Vector2f.ZERO);
+		//		loadDisplayModes();
+		serverAddress.text = "127.0.0.1"
 
-		// Add v-sync checkbox
-		String labelText = "Enable Vertical Sync?";
-		vSync = new CheckBox(screen, Vector2f.ZERO) {
+		serverAddress.toolTipText = "Which Server?";
+		serverAddress.getLayoutHints().set("wrap");
+		content.addChild(serverAddress);
+
+
+		connect = new ButtonAdapter(screen, Vector2f.ZERO) {
 					@Override
 					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						main.getContext().getSettings().setVSync(toggled);
-						main.restart();
+						injector.getInstance(ClientManager.class).startClient(connect.getText())
 					}
 				};
-		vSync.setIsCheckedNoCallback(main.getContext().getSettings().isVSync());
-		vSync.setToolTipText(labelText);
-		content.addChild(vSync);
+		connect.setDocking(Docking.SW);
+		connect.setText("connect");
+		connect.setToolTipText("connect to Server");
+		content.addChild(connect)
+
+		// Add v-sync checkbox
+		//		String labelText = "Enable Vertical Sync?";
+		//		vSync = new CheckBox(screen, Vector2f.ZERO) {
+		//					@Override
+		//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+		//						main.getContext().getSettings().setVSync(toggled);
+		//						main.restart();
+		//					}
+		//				};
+		//		vSync.setIsCheckedNoCallback(main.getContext().getSettings().isVSync());
+		//		vSync.setToolTipText(labelText);
+		//		content.addChild(vSync);
 
 		// Add v-sync label
-		content.addChild(getLabel(labelText));
+		//		content.addChild(getLabel(labelText));
 	}
+
+	//	private void initDisplayControls() {
+	//		// Add title label for Display
+	//		dispTitle = getLabel("DISPLAY");
+	//		dispTitle.setTextAlign(BitmapFont.Align.Center);
+	//		content.addChild(dispTitle);
+	//
+	//		// Add title label for mode selection
+	//		content.addChild(getLabel("Screen Resolution:"));
+	//
+	//		// Add drop-down with available screen modes
+	//		serverAddress = new SelectBox(screen, Vector2f.ZERO) {
+	//					@Override
+	//					public void onChange(int selectedIndex, Object value) {
+	//						if (!Screen.isAndroid()) {
+	//							prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
+	//							main.getContext().getSettings().setWidth(((DisplayMode)value).getWidth());
+	//							main.getContext().getSettings().setHeight(((DisplayMode)value).getHeight());
+	//							if (((DisplayMode)value).getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN) {
+	//								main.getContext().getSettings().setFrequency(((DisplayMode)value).getRefreshRate());
+	//							}
+	//							main.restart();
+	//						}
+	//					}
+	//				};
+	//		loadDisplayModes();
+	//		if (!Screen.isAndroid()) {
+	//			serverAddress.setSelectedByCaption(initResolution, true);
+	//		}
+	//		serverAddress.setToolTipText("Select Screen Resolution");
+	//		serverAddress.getLayoutHints().set("wrap");
+	//		content.addChild(serverAddress);
+	//
+	//		// Add v-sync checkbox
+	//		String labelText = "Enable Vertical Sync?";
+	//		vSync = new CheckBox(screen, Vector2f.ZERO) {
+	//					@Override
+	//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+	//						main.getContext().getSettings().setVSync(toggled);
+	//						main.restart();
+	//					}
+	//				};
+	//		vSync.setIsCheckedNoCallback(main.getContext().getSettings().isVSync());
+	//		vSync.setToolTipText(labelText);
+	//		content.addChild(vSync);
+	//
+	//		// Add v-sync label
+	//		content.addChild(getLabel(labelText));
+	//	}
 
 	private void initUIExtrasControls() {
 		// Screen extras toggles
@@ -272,62 +326,62 @@ public class HarnessState extends AppStateCommon {
 		content.addChild(l);
 	}
 
-	private void initTestControls() {
-		// Screen extras toggles
-		// Add title label for GUI Extras
-		testTitle = getLabel("TEST SETTINGS");
-		testTitle.setTextAlign(BitmapFont.Align.Center);
-		//	testTitle.getLayoutHints().setElementPadY(5);
-		content.addChild(testTitle);
-
-		// Add test slect box
-		testSelect = new SelectBox(screen, Vector2f.ZERO) {
-					@Override
-					public void onChange(int selectedIndex, Object value) {
-
-					}
-				};
-		testSelect.setToolTipText("Available GUI Tests");
-		content.addChild(testSelect);
-
-		// Add load button
-		load = new ButtonAdapter(screen, Vector2f.ZERO, LayoutHelper.dimensions((Float) (testSelect.getWidth()/4*3), testSelect.getHeight())) {
-					@Override
-					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						if (!testSelect.getListItems().isEmpty()) {
-							main.getStateManager().attach((AppStateCommon)testSelect.getSelectedListItem().getValue());
-						}
-					}
-				};
-		load.setText("Load");
-		load.setToolTipText("Load Selected GUI Test");
-		load.getLayoutHints().define("wrap","pad 25 0 0 0");
-		content.addChild(load);
-
-		// Add test slect box
-		cTestSelect = new SelectBox(screen, Vector2f.ZERO) {
-					@Override
-					public void onChange(int selectedIndex, Object value) {
-
-					}
-				};
-		cTestSelect.setToolTipText("Currently Loaded GUI Test");
-		content.addChild(cTestSelect);
-
-		// Add un button
-		unload = new ButtonAdapter(screen, Vector2f.ZERO, LayoutHelper.dimensions((Float) (cTestSelect.getWidth()/4*3), cTestSelect.getHeight())) {
-					@Override
-					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						if (!cTestSelect.getListItems().isEmpty()) {
-							main.getStateManager().detach((AppStateCommon)cTestSelect.getSelectedListItem().getValue());
-						}
-					}
-				};
-		unload.setText("Unload");
-		unload.setToolTipText("Unload Selected GUI Test");
-		unload.getLayoutHints().define("wrap","pad 25 0 0 0");
-		content.addChild(unload);
-	}
+	//	private void initTestControls() {
+	//		// Screen extras toggles
+	//		// Add title label for GUI Extras
+	//		testTitle = getLabel("TEST SETTINGS");
+	//		testTitle.setTextAlign(BitmapFont.Align.Center);
+	//		//	testTitle.getLayoutHints().setElementPadY(5);
+	//		content.addChild(testTitle);
+	//
+	//		// Add test slect box
+	//		testSelect = new SelectBox(screen, Vector2f.ZERO) {
+	//					@Override
+	//					public void onChange(int selectedIndex, Object value) {
+	//
+	//					}
+	//				};
+	//		testSelect.setToolTipText("Available GUI Tests");
+	//		content.addChild(testSelect);
+	//
+	//		// Add load button
+	//		load = new ButtonAdapter(screen, Vector2f.ZERO, LayoutHelper.dimensions((Float) (testSelect.getWidth()/4*3), testSelect.getHeight())) {
+	//					@Override
+	//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+	//						if (!testSelect.getListItems().isEmpty()) {
+	//							main.getStateManager().attach((AppStateCommon)testSelect.getSelectedListItem().getValue());
+	//						}
+	//					}
+	//				};
+	//		load.setText("Load");
+	//		load.setToolTipText("Load Selected GUI Test");
+	//		load.getLayoutHints().define("wrap","pad 25 0 0 0");
+	//		content.addChild(load);
+	//
+	//		// Add test slect box
+	//		cTestSelect = new SelectBox(screen, Vector2f.ZERO) {
+	//					@Override
+	//					public void onChange(int selectedIndex, Object value) {
+	//
+	//					}
+	//				};
+	//		cTestSelect.setToolTipText("Currently Loaded GUI Test");
+	//		content.addChild(cTestSelect);
+	//
+	//		// Add un button
+	//		unload = new ButtonAdapter(screen, Vector2f.ZERO, LayoutHelper.dimensions((Float) (cTestSelect.getWidth()/4*3), cTestSelect.getHeight())) {
+	//					@Override
+	//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+	//						if (!cTestSelect.getListItems().isEmpty()) {
+	//							main.getStateManager().detach((AppStateCommon)cTestSelect.getSelectedListItem().getValue());
+	//						}
+	//					}
+	//				};
+	//		unload.setText("Unload");
+	//		unload.setToolTipText("Unload Selected GUI Test");
+	//		unload.getLayoutHints().define("wrap","pad 25 0 0 0");
+	//		content.addChild(unload);
+	//	}
 
 	public Panel getHarnessPanel() { return this.panel; }
 
@@ -349,30 +403,30 @@ public class HarnessState extends AppStateCommon {
 		return te;
 	}
 
-	private void loadDisplayModes() {
-		if (!Screen.isAndroid()) {
-			if (modes == null) {
-				GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-				modes = device.getDisplayModes();
-
-				Arrays.sort(modes, new DisplayModeSorter());
-				int listIndex = 0;
-				for (DisplayMode mode : modes) {
-					boolean add = true;
-					if (listIndex > 0) {
-						int index = listIndex - 1;
-						if (modeSelect.getListItemByIndex(index).getCaption().equals(mode.getWidth() + "x" + mode.getHeight())) {
-							add = false;
-						}
-					}
-					if (add) {
-						modeSelect.addListItem(mode.getWidth() + "x" + mode.getHeight(), mode);
-						listIndex++;
-					}
-				}
-			}
-		}
-	}
+	//	private void loadDisplayModes() {
+	//		if (!Screen.isAndroid()) {
+	//			if (modes == null) {
+	//				GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	//				modes = device.getDisplayModes();
+	//
+	//				Arrays.sort(modes, new DisplayModeSorter());
+	//				int listIndex = 0;
+	//				for (DisplayMode mode : modes) {
+	//					boolean add = true;
+	//					if (listIndex > 0) {
+	//						int index = listIndex - 1;
+	//						if (serverAddress.getListItemByIndex(index).getCaption().equals(mode.getWidth() + "x" + mode.getHeight())) {
+	//							add = false;
+	//						}
+	//					}
+	//					if (add) {
+	//						serverAddress.addListItem(mode.getWidth() + "x" + mode.getHeight(), mode);
+	//						listIndex++;
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
 
 	private class DisplayModeSorter implements Comparator<DisplayMode> {
 		@Override

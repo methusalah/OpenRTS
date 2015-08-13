@@ -1,7 +1,6 @@
 package openrts.app.example.states
 
 import groovy.transform.CompileStatic
-import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.windows.LoginBox
 import tonegod.gui.core.Screen
 import tonegod.gui.core.Element.Borders
@@ -20,16 +19,6 @@ class ChatAppState extends AppStateCommon {
 		super(main);
 		displayName = "Chat";
 		show = true;
-	}
-
-	//	@Override
-	//	public void initialize(AppStateManager stateManager, Application app) {
-	//		super.initialize(stateManager, app);
-	//
-	//		initLoginWindow();
-	//	}
-
-	public void initLoginWindow() {
 	}
 
 	@Override
@@ -55,14 +44,16 @@ class ChatAppState extends AppStateCommon {
 
 	@Override
 	public void reshape() {
-		//		if (panel != null) {
-		//			panel.resize(panel.getWidth(),screen.getHeight(),Borders.SE);
-		//		}
+		//				if (panel != null) {
+		//					panel.resize(panel.getWidth(),screen.getHeight(),Borders.SE);
+		//				}
 	}
 
 	@Override
 	protected void initState() {
 		if (!init) {
+
+
 			loginWindow = new LoginBox(screen,
 					"loginWindow",
 					new Vector2f((Float) (screen.getWidth()/2-175),(Float)(screen.getHeight()/2-125))) {
