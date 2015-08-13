@@ -69,24 +69,26 @@ public class CollisionManager {
 			// if mover is already colliding something, we separate it
 			// this may happen when two units are overlapping while moving, and are asked to hold ground.
 			// One will hold, the other one will separate before holding too
-			double traveledDistance = motion.distance;
-			res.velocity = getAntiOverlapVector().getScaled(traveledDistance);
+			double traveledDistance = motion.getDistance();
+			res.setVelocity(getAntiOverlapVector().getScaled(traveledDistance));
 		} else {
 			res = motion;
 			if(!motion.isEmpty() && !mover.fly()){
-				// TODO to be rewritten : adapt motion should work with motion, and not with velocity
 				Point3D velocity = adaptMotion(motion);  
-				res.distance = velocity.getNorm();
-				res.angle = velocity.get2D().getAngle();
+				res.setDistance(velocity.getNorm());
+				res.setAngle(velocity.get2D().getAngle());
+			} else {
+				res.setVelocity(motion.getVelocity());
 			}
 		}
 		return res;
 	}
 
 	private Point3D adaptMotion(Motion motion){
+		// TODO to be rewritten : adapt motion should work with motion, and not with velocity
 		if(motion.is3D())
 			throw new RuntimeException("Can't compute collisions for 3d motions.");
-		Point3D velocity = Point2D.ORIGIN.getTranslation(motion.angle, motion.distance).get3D(0);
+		Point3D velocity = Point2D.ORIGIN.getTranslation(motion.getAngle(), motion.getDistance()).get3D(0);
 		if(willCollideSolidShapes(velocity)) {
 			return findNearestDirection(velocity);
 		}

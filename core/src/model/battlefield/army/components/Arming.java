@@ -1,6 +1,7 @@
 package model.battlefield.army.components;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Set of weapons and turrets of a unit.
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  *
  */
 public class Arming {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 	Unit holder;
 	ArrayList<Weapon> weapons = new ArrayList<>();
 	ArrayList<Turret> turrets = new ArrayList<>();

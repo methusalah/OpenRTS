@@ -3,13 +3,17 @@ package model.battlefield.army.motion;
 import geometry.geom3d.Point3D;
 
 public class Motion {
-	public double distance = 0;
-	public double angle = Double.NaN;
-	public Point3D velocity = Point3D.ORIGIN;
+	private double distance = 0;
+	private double angle = Double.NaN;
+	private Point3D velocity = Point3D.ORIGIN;
 	
+	
+	public Motion() {
+	}
+
 	public boolean isEmpty(){
 		return distance == 0 &&
-				angle == 0 &&
+				!hasRotation() &&
 				velocity.isOrigin();
 	}
 	
@@ -20,4 +24,28 @@ public class Motion {
 	public boolean hasRotation(){
 		return !Double.isNaN(angle);
 	}
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
+	public double getAngle() {
+		return angle;
+	}
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
+	public Point3D getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(Point3D velocity) {
+		this.velocity = velocity;
+	}
+
 }

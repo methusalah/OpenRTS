@@ -52,9 +52,9 @@ public class SteeringMachine {
 	public Motion collectSteering() {
 		Motion res = new Motion();
 		if(steering.z != 0){
-			res.velocity = steering;
-		} else {
-			res.angle = steering.get2D().getAngle();
+			res.setVelocity(steering);
+		} else if(!steering.isOrigin()){
+			res.setAngle(steering.get2D().getAngle());
 		}
 		steering = Point3D.ORIGIN;
 		return res;

@@ -18,6 +18,7 @@ import model.builders.entity.definitions.Definition;
  */
 public class ProjectileBuilder extends Builder {
 	private static final String SPEED = "Speed";
+	private static final String ACCELERATION = "Acceleration";
 	private static final String MASS = "Mass";
 	private static final String MOVER_LINK = "MoverLink";
 	private static final String ACTOR_LINK = "ActorLink";
@@ -28,6 +29,7 @@ public class ProjectileBuilder extends Builder {
 
 	private double radius = 0;
 	private double speed;
+	private double acceleration = 1000;
 	private double mass;
 	private String moverLink;
 	private MoverBuilder moverBuilder;
@@ -42,6 +44,9 @@ public class ProjectileBuilder extends Builder {
 			switch (de.name) {
 				case SPEED:
 					speed = de.getDoubleVal();
+					break;
+				case ACCELERATION:
+					acceleration = de.getDoubleVal();
 					break;
 				case MASS:
 					mass = de.getDoubleVal();
@@ -70,7 +75,7 @@ public class ProjectileBuilder extends Builder {
 	}
 
 	public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint) {
-		Projectile res = new Projectile(radius, speed, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
+		Projectile res = new Projectile(radius, speed, acceleration, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
 		ArmyManager.registerProjectile(res);
 		return res;
 	}

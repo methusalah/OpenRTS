@@ -107,35 +107,34 @@ public abstract class Hiker extends FieldComp{
     	if(motion.isEmpty())
     		return;
     	else if(motion.is3D())
-    		pos = pos.getAddition(motion.velocity);
+    		pos = pos.getAddition(motion.getVelocity());
     	else {
     		if(motion.hasRotation())
-    			setOrientation(motion.angle);
-    		pos = pos.get2D().getTranslation(getOrientation(), motion.distance).get3D(pos.z);
+    			setOrientation(motion.getAngle());
+    		pos = pos.get2D().getTranslation(getOrientation(), motion.getDistance()).get3D(pos.z);
     	}
     }
 
     public Motion getNearestPossibleMotion(Motion desiredMotion, Point2D destination, double elapsedTime){
+		adaptSpeedTo(desiredMotion, destination, elapsedTime);
     	Motion res = new Motion();
-		if(!desiredMotion.isEmpty()){
-			// there are three ways to compute the turning
-			if(desiredMotion.is3D()){
-				// massed hiker turns according to its momentum
-				Point3D currentMassedVelocity = getDirection().getScaled(mass);
-				res.velocity = desiredMotion.velocity.getAddition(currentMassedVelocity).getNormalized();
-				res.angle = getDirection().getAngleWith(res.velocity);
-			} else {
-				double turning = stationnaryRotationSpeed != 0?
-						stationnaryRotationSpeed:
-						speed*turningRate;
-				turning *= elapsedTime;
-				// we avoid to rotate more than necessary
-				turning = Math.min(turning, AngleUtil.getSmallestDifference(getOrientation(), desiredMotion.angle));
-				res.angle = getOrientation() + turning * getTurnTo(desiredMotion.angle);
-			}
+		if(desiredMotion.is3D()){
+			// massed hiker turns according to its momentum
+			Point3D currentMassedVelocity = getDirection().getScaled(mass);
+			res.setVelocity(desiredMotion.getVelocity().getAddition(currentMassedVelocity).getScaled(speed*elapsedTime));
+		} else if(desiredMotion.hasRotation()){
+			double turning = stationnaryRotationSpeed != 0?
+					stationnaryRotationSpeed:
+					speed*turningRate;
+			turning *= elapsedTime;
+			// we avoid to rotate more than necessary
+			turning = Math.min(turning, AngleUtil.getSmallestDifference(getOrientation(), desiredMotion.getAngle()));
+			res.setAngle(getOrientation() + turning * getTurnTo(desiredMotion.getAngle()));
+			res.setDistance(speed*elapsedTime);
+		} else if(speed > 0){
+			res.setAngle(getOrientation());
+			res.setDistance(speed*elapsedTime);
 		}
-		adaptSpeedTo(res, destination, elapsedTime);
-		res.distance = speed*elapsedTime;
 		return res;
 	}
     
@@ -143,7 +142,7 @@ public abstract class Hiker extends FieldComp{
 		if(desiredMotion.isEmpty()
 //				|| (stationnaryRotationSpeed != 0 && !AngleUtil.areSimilar(yaw, desiredVelocity.get2D().getAngle())) 
 				|| willOverstepTarget(destination)
-				|| willMissTarget(destination, desiredMotion)
+				|| willMissTarget(destination)
 				)
 			decSpeed(elapsedTime);
 		else
@@ -182,11 +181,11 @@ public abstract class Hiker extends FieldComp{
     	
     }
 
-    private boolean willMissTarget(Point2D destination, Motion motion){
-    	if(motion.hasRotation() && destination != null && !AngleUtil.areSimilar(motion.angle, getOrientation())){
-	    	double rotationPerimeter = speed*AngleUtil.FULL/Math.abs(motion.angle);
+    private boolean willMissTarget(Point2D destination){
+    	if(destination != null && getTurnTo(destination) != AngleUtil.NONE){
+	    	double rotationPerimeter = speed*AngleUtil.FULL/stationnaryRotationSpeed;
 	    	double rotationRadius = rotationPerimeter/(2*Math.PI);
-	    	Point2D rotationAxis = getCoord().getTranslation(getOrientation()+AngleUtil.RIGHT*getTurnTo(motion.angle), rotationRadius);
+	    	Point2D rotationAxis = getCoord().getTranslation(getOrientation()+AngleUtil.RIGHT*getTurnTo(destination), rotationRadius);
 	    	
 //			if(rotationRadius<50){
 //				Material m = new Material(MaterialManager.am, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -206,11 +205,11 @@ public abstract class Hiker extends FieldComp{
     }
     
     private double getTurnTo(double angle){
-//    	Point2D front = Point2D.ORIGIN.getTranslation(getOrientation(), 1);
-//    	Point2D desiredFront = steering.get2D();
-//    	return AngleUtil.getTurn(Point2D.ORIGIN, front, desiredFront);
 		double orientedDiff = AngleUtil.getOrientedDifference(getOrientation(), AngleUtil.normalize(angle));
 		return Math.signum(orientedDiff);
+    }
+    private double getTurnTo(Point2D p){
+    	return getTurnTo(p.getSubtraction(getCoord()).getAngle());
     }
 
 }

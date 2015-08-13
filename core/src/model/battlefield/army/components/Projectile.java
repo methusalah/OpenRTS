@@ -42,6 +42,7 @@ public class Projectile extends Hiker {
 
 	public Projectile(double radius,
 			double speed,
+			double acceleration,
 			double mass,
 			EffectSource source,
 			MoverBuilder moverBuilder,
@@ -50,7 +51,7 @@ public class Projectile extends Hiker {
 			ModelActorBuilder actorBuilder,
 			EffectTarget target,
 			Point3D targetPoint) {
-		super(radius, speed, 0, 0, 0, mass, source.getPos(), source.getYaw(), moverBuilder);
+		super(radius, speed, acceleration, 0, 0, mass, source.getPos(), source.getYaw(), moverBuilder);
 		this.precisionType = precisionType;
 		this.precision = precision;
 		this.target = target;
