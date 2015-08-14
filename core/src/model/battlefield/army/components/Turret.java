@@ -1,5 +1,7 @@
 package model.battlefield.army.components;
 
+import java.util.logging.Logger;
+
 import geometry.geom2d.Point2D;
 import geometry.math.AngleUtil;
 
@@ -14,6 +16,7 @@ import geometry.math.AngleUtil;
  * 
  */
 public class Turret {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
     public enum OnIdleBehave {RESET_ON_MOVE, RESET, SPIN, HOLD};
     
     // final
@@ -73,7 +76,7 @@ public class Turret {
     }
     
     public boolean heading(Point2D target, double toleranceInDegrees){
-    	return AngleUtil.getSmallestDifference(getAngleTo(target), yaw) <= AngleUtil.toRadians(toleranceInDegrees);
+    	return AngleUtil.getSmallestDifference(getAngleTo(target), yaw+holder.getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
     }
     
     private double getAngleTo(Point2D p){
@@ -82,10 +85,10 @@ public class Turret {
     
     private void orient(double yaw){
         idle = false;
-        desiredYaw = yaw-holder.getYaw();
+        desiredYaw = yaw-holder.getOrientation();
     }
     
     private void reset(){
-        orient(holder.getYaw());
+        orient(holder.getOrientation());
     }
 }

@@ -12,7 +12,7 @@
   </Effect>
   <Effect id="StdDamage">
     <Type value="Damage"/>
-    <Amount value="9"/>
+    <Amount value="1"/>
   </Effect>
   <Effect id="StdHeavyDamage">
     <Type value="Damage"/>

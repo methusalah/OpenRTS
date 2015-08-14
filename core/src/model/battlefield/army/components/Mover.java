@@ -65,6 +65,7 @@ public class Mover {
 	public boolean hasFoundPost;
 	public boolean holdPosition = false;
 	public boolean tryHold = false;
+	public double desiredOrientation= Double.NaN;
 
 	public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, StandingMode standingMode, Hiker movable) {
 		this.heightmap = heightmap;
@@ -80,16 +81,22 @@ public class Mover {
 		double lastOrientation = hiker.getOrientation();
 		Point3D lastPos = new Point3D(hiker.pos);
 
-//		logger.info("Pos         : "+hiker.pos);
-//		logger.info("Orientation : "+hiker.getOrientation());
-//		logger.info("Direction   : "+hiker.getDirection());
-//		logger.info("UpDirection : "+hiker.getUpDirection());
-		
 		if (!holdPosition) {
 			Motion steering = sm.collectSteering();
+			// If I have no movement to do and a desired orientation to get
+			if(steering.isEmpty() && !Double.isNaN(desiredOrientation)){
+					steering.setAngle(desiredOrientation);
+					desiredOrientation = Double.NaN;
+			}	
+				
 			// hiker accelerates and rotates if there is steering
 			Motion possibleMotion = hiker.getNearestPossibleMotion(steering, getDestination(), elapsedTime);
 			Motion correctMotion = cm.correctMotion(possibleMotion, elapsedTime, toAvoid);
+			if(hiker instanceof Projectile){
+				logger.info("steering "+ steering.getVelocity());
+				logger.info("possible "+ possibleMotion.getVelocity());
+				logger.info("correct  "+ correctMotion.getVelocity());
+			}
 			hiker.move(correctMotion);
 		}
 //		head(elapsedTime);

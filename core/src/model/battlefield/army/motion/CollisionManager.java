@@ -74,11 +74,19 @@ public class CollisionManager {
 		} else {
 			res = motion;
 			if(!motion.isEmpty() && !mover.fly()){
-				Point3D velocity = adaptMotion(motion);  
-				res.setDistance(velocity.getNorm());
-				res.setAngle(velocity.get2D().getAngle());
+				if(res.getDistance() > 0){
+					Point3D velocity = adaptMotion(motion);  
+					res.setDistance(velocity.getNorm());
+					res.setAngle(velocity.get2D().getAngle());
+				} else
+					res.setAngle(motion.getAngle());
 			} else {
-				res.setVelocity(motion.getVelocity());
+				double height = mover.hiker.getPos().getAddition(motion.getVelocity()).z;
+				double GroundHeight = ModelManager.getBattlefield().getMap().getAltitudeAt(mover.hiker.getCoord());
+				if(height < GroundHeight)
+					res.setVelocity(Point3D.ORIGIN);
+				else
+					res.setVelocity(motion.getVelocity());
 			}
 		}
 		return res;

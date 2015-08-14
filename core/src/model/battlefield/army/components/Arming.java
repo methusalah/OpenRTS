@@ -29,7 +29,7 @@ public class Arming {
 		atRange = false;
 		for(Weapon w : weapons){
 			w.update(holder.faction.getEnemies().get(0).getUnits());
-			if(w.acquiring()) {
+			if(w.isAtRange()) {
 				atRange = true;
 			}
 			if(w.scanning()) {
@@ -76,7 +76,7 @@ public class Arming {
 		}
 		aiming = true;
 		for(Weapon w : weapons) {
-			if(w.acquiring()) {
+			if(w.isAtRange()) {
 				w.attack();
 			}
 		}

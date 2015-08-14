@@ -35,6 +35,7 @@ public class SteeringMachine {
 	final Mover mover;
 
 	Point3D steering = Point3D.ORIGIN;
+	public boolean motionIn3D = false; 
 
 	public Point3D separationForce = Point3D.ORIGIN;
 	public Point3D cohesionForce = Point3D.ORIGIN;
@@ -51,12 +52,14 @@ public class SteeringMachine {
 	
 	public Motion collectSteering() {
 		Motion res = new Motion();
-		if(steering.z != 0){
+		if(motionIn3D){
 			res.setVelocity(steering);
 		} else if(!steering.isOrigin()){
+			res.setDistance(1);
 			res.setAngle(steering.get2D().getAngle());
 		}
 		steering = Point3D.ORIGIN;
+		motionIn3D = false;
 		return res;
 	}
 

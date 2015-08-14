@@ -197,6 +197,7 @@ public class TacticalAI {
 	}
 
 	void doMove(){
+		logger.info("je do move !!");
 		post = unit.getPos();
 		if(!unit.getMover().hasDestination()){
 			stateMachine.popState();

@@ -6,6 +6,7 @@ import geometry.math.PrecisionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.actors.Actor;
 import model.battlefield.army.effects.Effect;
@@ -19,6 +20,7 @@ import model.builders.entity.actors.ActorBuilder;
  * is only instanciated by associate builder.
  */
 public class Weapon implements EffectSource {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 	// final
 	public final String UIName;
 	public final double range;
@@ -134,9 +136,10 @@ public class Weapon implements EffectSource {
 		// ready = false;
 
 		if (turretMounted){
-			if(!turret.heading(target.getCoord(), 5))
+			if(!turret.heading(target.getCoord(), 3)){
 				ready = false;
-		} else if(!holder.heading(target.getCoord(), 5))
+			}
+		} else if(!holder.heading(target.getCoord(), 3))
 			ready = false;
 
 		if (lastStrikeTime + 1000 * period > System.currentTimeMillis()) {
@@ -183,7 +186,7 @@ public class Weapon implements EffectSource {
 		return target;
 	}
 
-	public boolean acquiring() {
+	public boolean isAtRange() {
 		return !atRange.isEmpty();
 	}
 

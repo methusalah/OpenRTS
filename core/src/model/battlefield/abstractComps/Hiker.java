@@ -106,9 +106,10 @@ public abstract class Hiker extends FieldComp{
     public void move(Motion motion){
     	if(motion.isEmpty())
     		return;
-    	else if(motion.is3D())
+    	else if(motion.is3D()){
     		pos = pos.getAddition(motion.getVelocity());
-    	else {
+    		setDirection(motion.getVelocity());
+    	} else {
     		if(motion.hasRotation())
     			setOrientation(motion.getAngle());
     		pos = pos.get2D().getTranslation(getOrientation(), motion.getDistance()).get3D(pos.z);
@@ -139,11 +140,12 @@ public abstract class Hiker extends FieldComp{
 	}
     
     private void adaptSpeedTo(Motion desiredMotion, Point2D destination, double elapsedTime){
-		if(desiredMotion.isEmpty()
+		if(!desiredMotion.is3D() && ( 
+				desiredMotion.getDistance() == 0
 //				|| (stationnaryRotationSpeed != 0 && !AngleUtil.areSimilar(yaw, desiredVelocity.get2D().getAngle())) 
 				|| willOverstepTarget(destination)
 				|| willMissTarget(destination)
-				)
+				))
 			decSpeed(elapsedTime);
 		else
 			incSpeed(elapsedTime);

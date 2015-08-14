@@ -6,6 +6,7 @@ import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.abstractComps.Hiker;
@@ -27,6 +28,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * drawn on the view. It is defined by XML and is only instanciated by associate builder.
  */
 public class Unit extends Hiker implements EffectSource, EffectTarget {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 
 	public enum STATE {
 		MOVING, AIMING, IDLING, DESTROYED, STUCK
@@ -109,12 +111,20 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	}
 
     public void head(Point2D target) {
-    	// TODO
-        // orient(getAngleTo(target));
+    	mover.desiredOrientation = getAngleTo(target);
+//		logger.info("desired " + AngleUtil.toDegrees(mover.desiredOrientation));
     }
     
     public boolean heading(Point2D target, double toleranceInDegrees){
-    	return AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
+    	boolean res = AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
+//    	if(!res){
+//			logger.info("unité mal orientée ");
+//			logger.info("angle to target       " + AngleUtil.toDegrees(getAngleTo(target)));
+//			logger.info("orientation           " + AngleUtil.toDegrees(getOrientation()));
+//			logger.info("diff                  " + AngleUtil.toDegrees(AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation())));
+//    	}
+//    	
+    	return res;
     }
     
     private double getAngleTo(Point2D p){

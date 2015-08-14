@@ -37,6 +37,8 @@ public class Projectile extends Hiker {
 
 	public Point3D targetPoint = null;
 	public boolean arrived = false;
+	public double timerStart = 0;
+	
 
 	// List<ActionListener> listeners = new ArrayList<>();
 
@@ -60,6 +62,7 @@ public class Projectile extends Hiker {
 		setDirection(source.getDirection());
 		setUpDirection(null);
 		updateTargetPoint();
+		timerStart = System.currentTimeMillis();
 	}
 
 	public void update(double elapsedTime){
@@ -68,6 +71,7 @@ public class Projectile extends Hiker {
 		}
 
 		updateTargetPoint();
+		mover.sm.motionIn3D = true;
 		mover.sm.seek(targetPoint);
 
 		mover.updatePosition(elapsedTime);
@@ -75,6 +79,7 @@ public class Projectile extends Hiker {
 		if(mover.hasMoved) {
 			actor.onMove(true);
 		}
+			
 
 		testArrival();
 	}
@@ -90,12 +95,10 @@ public class Projectile extends Hiker {
 		}
 
 		if(dist < tolerance || (dist < 1 && dist > lastDist)){
-			arrived = true;
-			actor.onMove(false);
-			actor.onDestroyedEvent();
-			actor.stopActing();
-			notifyListeners();
+			setTargetReached();
 		}
+		if(!mover.hasMoved || System.currentTimeMillis()-timerStart > 4000)
+			setTargetLost();
 		lastDist = dist;
 	}
 
@@ -121,8 +124,19 @@ public class Projectile extends Hiker {
 	}
 
 
-	public void notifyListeners(){
-		EventManager.post(new ProjectileArrivedEvent());
+	public void setTargetReached(){
+		arrived = true;
+		actor.onMove(false);
+		actor.onDestroyedEvent();
+		actor.stopActing();
+		EventManager.post(new ProjectileArrivedEvent(true));
+	}
+	public void setTargetLost(){
+		arrived = true;
+		actor.onMove(false);
+		actor.onDestroyedEvent();
+		actor.stopActing();
+		EventManager.post(new ProjectileArrivedEvent(false));
 	}
 
 	public void removeFromBattlefield(){
