@@ -75,7 +75,7 @@ public class ProjectileBuilder extends Builder {
 	}
 
 	public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint) {
-		Projectile res = new Projectile(radius, speed, acceleration, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
+		Projectile res = new Projectile(radius, speed, acceleration, 1000, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
 		ArmyManager.registerProjectile(res);
 		return res;
 	}

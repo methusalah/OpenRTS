@@ -6,7 +6,8 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 import geometry.math.RandomUtil;
-import model.battlefield.abstractComps.Hiker;
+import model.battlefield.abstractComps.GroundHiker;
+import model.battlefield.abstractComps.SpaceHiker;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
@@ -26,7 +27,7 @@ import model.builders.entity.actors.ModelActorBuilder;
  *
  * @author Benoît
  */
-public class Projectile extends Hiker {
+public class Projectile extends SpaceHiker {
 	public enum PRECISION_TYPE{CENTER, IN_RADIUS, OTHER}
 
 	private final PRECISION_TYPE precisionType;
@@ -43,8 +44,9 @@ public class Projectile extends Hiker {
 	// List<ActionListener> listeners = new ArrayList<>();
 
 	public Projectile(double radius,
-			double speed,
+			double maxSpeed,
 			double acceleration,
+			double deceleration,
 			double mass,
 			EffectSource source,
 			MoverBuilder moverBuilder,
@@ -53,7 +55,7 @@ public class Projectile extends Hiker {
 			ModelActorBuilder actorBuilder,
 			EffectTarget target,
 			Point3D targetPoint) {
-		super(radius, speed, acceleration, 0, 0, mass, source.getPos(), source.getYaw(), moverBuilder);
+		super(source.getPos(), source.getYaw(), radius, maxSpeed, acceleration, deceleration, mass, moverBuilder);
 		this.precisionType = precisionType;
 		this.precision = precision;
 		this.target = target;

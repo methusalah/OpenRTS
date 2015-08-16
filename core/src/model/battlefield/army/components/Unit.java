@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.abstractComps.Hiker;
+import model.battlefield.abstractComps.GroundHiker;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
@@ -27,7 +27,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * achieve motion over the battlefield and trhought other units - a tactical AI to take decisions - an arming to launch effects It uses a model actor to be
  * drawn on the view. It is defined by XML and is only instanciated by associate builder.
  */
-public class Unit extends Hiker implements EffectSource, EffectTarget {
+public class Unit extends GroundHiker implements EffectSource, EffectTarget {
 	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 
 	public enum STATE {
@@ -53,9 +53,9 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	public Unit(double radius,
 			double speed,
     		double acceleration,
+    		double deceleration,
     		double stationnaryRotationSpeed,
     		double turningRate,
-			double mass,
 			Point3D pos,
 			double yaw,
 			MoverBuilder moverBuilder,
@@ -65,7 +65,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 			int maxHealth,
 			Faction faction,
 			ModelActorBuilder actorBuilder) {
-		super(radius, speed, acceleration, stationnaryRotationSpeed, turningRate, mass, pos, yaw, moverBuilder);
+		super(pos, yaw, radius, speed, acceleration, deceleration, stationnaryRotationSpeed, turningRate, moverBuilder);
 		this.UIName = UIName;
 		this.builderID = BuilderID;
 		this.race = race;

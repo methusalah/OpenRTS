@@ -197,7 +197,6 @@ public class TacticalAI {
 	}
 
 	void doMove(){
-		logger.info("je do move !!");
 		post = unit.getPos();
 		if(!unit.getMover().hasDestination()){
 			stateMachine.popState();
@@ -208,7 +207,7 @@ public class TacticalAI {
 
 	void doStop(){
 		unit.decelerateStrongly();
-		if(unit.speed == 0) {
+		if(unit.isStopped()) {
 			stateMachine.popState();
 		}
 	}

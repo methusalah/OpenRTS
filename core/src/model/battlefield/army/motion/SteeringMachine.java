@@ -7,6 +7,7 @@ import geometry.geom2d.intersection.Intersection;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -87,6 +88,8 @@ public class SteeringMachine {
 		queueForce = getQueueForce(neighbors);
 		steering = steering.getAddition(queueForce);
 	}
+	
+	
 	public void avoidBlockers(List<FieldComp> blockers) {
 		Point3D savedSteering = steering;
 		modifySteeringToAvoid(blockers);
@@ -106,7 +109,8 @@ public class SteeringMachine {
 	}
 
 	private Point3D getFollowFlowFieldForce() {
-		Point2D destination = mover.getDestination();
+		Point2D destination = mover.getDestination().get2D();
+		
 		if (destination == null) {
 			return Point3D.ORIGIN;
 		} else if (mover.hiker.getCoord().getDistance(destination) < DESTINATION_REACH_TOLERANCE) {
@@ -122,6 +126,7 @@ public class SteeringMachine {
 			return new Point3D(flatForce, 0);
 		}
 	}
+	private static DecimalFormat df = new DecimalFormat("0.00");
 
 	private Point3D getSeparationForce(List<Mover> neighbors) {
 		Point3D res = Point3D.ORIGIN;
@@ -130,10 +135,13 @@ public class SteeringMachine {
 		}
 
 		for (Mover n : neighbors) {
+			if(n.hiker.priority < mover.hiker.priority)
+				continue;
 			double neededDistance = n.hiker.getSpacing(mover.hiker) - n.hiker.getDistance(mover.hiker);
 			if (neededDistance <= 0) {
 				continue;
 			}
+			logger.info("separation force : "+df.format(neededDistance));
 			Point3D sepVector = n.hiker.getVectorTo(mover.hiker).getScaled(neededDistance);
 			res = res.getAddition(sepVector);
 		}
@@ -141,9 +149,9 @@ public class SteeringMachine {
 			return res;
 		}
 		if (mover.fly()) {
-			return res.getNormalized().getMult(SEPARATION_FORCE_FOR_FLYING);
+			return res.getMult(SEPARATION_FORCE_FOR_FLYING);
 		}
-		return res.getNormalized().getMult(SEPARATION_FORCE);
+		return res.getMult(SEPARATION_FORCE);
 	}
 
 	private Point3D getCohesionForce(List<Mover> neighbors) {

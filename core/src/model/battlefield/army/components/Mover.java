@@ -92,14 +92,8 @@ public class Mover {
 			// hiker accelerates and rotates if there is steering
 			Motion possibleMotion = hiker.getNearestPossibleMotion(steering, getDestination(), elapsedTime);
 			Motion correctMotion = cm.correctMotion(possibleMotion, elapsedTime, toAvoid);
-			if(hiker instanceof Projectile){
-				logger.info("steering "+ steering.getVelocity());
-				logger.info("possible "+ possibleMotion.getVelocity());
-				logger.info("correct  "+ correctMotion.getVelocity());
-			}
 			hiker.move(correctMotion);
 		}
-//		head(elapsedTime);
 
 		hasMoved = hiker.hasMoved(lastPos, lastOrientation);
 		if (hasMoved) {
@@ -189,35 +183,25 @@ public class Mover {
 		return hasDestination;
 	}
 
-	public Point2D getDestination() {
+	public Point3D getDestination() {
 		if (flowfield != null) {
-			return flowfield.destination;
+			return flowfield.destination.get3D(0);
 		}
+		if(hiker instanceof Projectile)
+			return ((Projectile)hiker).targetPoint;
+			
 		return null;
 	}
 
-//	private void head(double elapsedTime) {
-//		if (!AngleUtil.areSimilar(desiredYaw, hiker.yaw)) {
-//			double diff = AngleUtil.getOrientedDifference(hiker.yaw, desiredYaw);
-//			if (diff > 0) {
-//				hiker.yaw += Math.min(diff, hiker.getMaxRotationSpeed() * elapsedTime);
-//			} else {
-//				hiker.yaw -= Math.min(-diff, hiker.getMaxRotationSpeed() * elapsedTime);
-//			}
-//		} else {
-//			hiker.yaw = desiredYaw;
-//		}
-//	}
-
 	public void separate() {
 		sm.applySeparation(toLetPass);
-		sm.applyQueue(toLetPass);
+//		sm.applyQueue(toLetPass);
 	}
 
 	public void flock() {
 		sm.applySeparation(toFlockWith);
-		sm.applyQueue(toFlockWith);
-		sm.applyQueue(toLetPass);
+//		sm.applyQueue(toFlockWith);
+//		sm.applyQueue(toLetPass);
 	}
 
 	public void seek(Mover target) {
@@ -270,10 +254,6 @@ public class Mover {
 
 	public boolean fly() {
 		return pathfindingMode == PathfindingMode.FLY;
-	}
-
-	public double getSpeed() {
-		return hiker.getMaxSpeed();
 	}
 
 	public void changeCoord(Point2D p) {
