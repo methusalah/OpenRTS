@@ -107,7 +107,7 @@ public class TacticalAI {
 		}
 		unit.idle();
 		// let allies pass
-		unit.getMover().separate();
+		unit.getMover().letPass();
 
 		// return to post if disturbed
 		if(post != null && getPostDistance() > FREE_MOVE_RADIUS){
@@ -131,7 +131,7 @@ public class TacticalAI {
 
 	void doWait(double duration){
 		// let allies pass
-		unit.getMover().separate();
+		unit.getMover().letPass();
 
 		if(disturbTime == 0) {
 			disturbTime = System.currentTimeMillis();
@@ -147,7 +147,7 @@ public class TacticalAI {
 		} else if(isAttacked()) {
 			stateMachine.pushState(ATTACK_BACK);
 		} else{
-			unit.getMover().separate();
+			unit.getMover().letPass();
 			unit.getMover().seek(post);
 		}
 	}
@@ -229,7 +229,7 @@ public class TacticalAI {
 		post = unit.getPos();
 		unit.idle();
 		unit.getMover().tryToHoldPositionSoftly();
-		unit.getMover().separate();
+		unit.getMover().letPass();
 		//        holdposition = true;
 		if(unit.arming.acquiring()) {
 			unit.arming.attack();

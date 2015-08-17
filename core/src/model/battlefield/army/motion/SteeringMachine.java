@@ -135,14 +135,15 @@ public class SteeringMachine {
 		}
 
 		for (Mover n : neighbors) {
-			if(n.hiker.priority < mover.hiker.priority)
-				continue;
 			double neededDistance = n.hiker.getSpacing(mover.hiker) - n.hiker.getDistance(mover.hiker);
 			if (neededDistance <= 0) {
 				continue;
 			}
-			logger.info("separation force : "+df.format(neededDistance));
+			if(n.hiker.priority < mover.hiker.priority)
+				neededDistance /= 10;
+
 			Point3D sepVector = n.hiker.getVectorTo(mover.hiker).getScaled(neededDistance);
+			
 			res = res.getAddition(sepVector);
 		}
 		if (res.isOrigin()) {

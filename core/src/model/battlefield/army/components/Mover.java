@@ -107,6 +107,7 @@ public class Mover {
 			for (Mover m : toFlockWith) {
 				if (m.hasDestination) {
 					hasFoundPost = false;
+					break;
 				}
 			}
 		}
@@ -193,15 +194,12 @@ public class Mover {
 		return null;
 	}
 
-	public void separate() {
+	public void letPass() {
 		sm.applySeparation(toLetPass);
-//		sm.applyQueue(toLetPass);
 	}
 
 	public void flock() {
 		sm.applySeparation(toFlockWith);
-//		sm.applyQueue(toFlockWith);
-//		sm.applyQueue(toLetPass);
 	}
 
 	public void seek(Mover target) {

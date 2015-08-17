@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.abstractComps.GroundHiker;
 import model.battlefield.actors.ModelActor;
+import model.battlefield.army.Group;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.tacticalAI.TacticalAI;
@@ -45,7 +46,7 @@ public class Unit extends GroundHiker implements EffectSource, EffectTarget {
 
 	// variables
 	public Faction faction;
-	public ArrayList<Unit> group = new ArrayList<>();
+	public Group group = new Group();
 	public int health;
 	public STATE state = STATE.IDLING;
 	public boolean selected = false;
@@ -112,19 +113,10 @@ public class Unit extends GroundHiker implements EffectSource, EffectTarget {
 
     public void head(Point2D target) {
     	mover.desiredOrientation = getAngleTo(target);
-//		logger.info("desired " + AngleUtil.toDegrees(mover.desiredOrientation));
     }
     
     public boolean heading(Point2D target, double toleranceInDegrees){
-    	boolean res = AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
-//    	if(!res){
-//			logger.info("unité mal orientée ");
-//			logger.info("angle to target       " + AngleUtil.toDegrees(getAngleTo(target)));
-//			logger.info("orientation           " + AngleUtil.toDegrees(getOrientation()));
-//			logger.info("diff                  " + AngleUtil.toDegrees(AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation())));
-//    	}
-//    	
-    	return res;
+    	return AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
     }
     
     private double getAngleTo(Point2D p){
