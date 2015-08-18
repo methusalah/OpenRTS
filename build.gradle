@@ -7,18 +7,26 @@ allprojects {
 	apply plugin: "idea"
 	apply plugin: 'pmd'
 	apply plugin: 'findbugs'
+	apply plugin: 'java'
 
 	version = '0.0.1'
 	ext {
 		appName = 'OpenRTS'
-		jmonkeyengine_version = '3.0'
+		jmonkeyengine_version = '3.0.10'
 	}
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+	compileJava {
+		sourceCompatibility = '1.8'
+	 }
 
 	repositories {
 		mavenLocal()
 		mavenCentral()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+		maven { url 'http://updates.jmonkeyengine.org/maven' }	
+		maven { url 'http://jcenter.bintray.com' }
 	}
 	
 	pmd {
