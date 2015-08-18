@@ -156,7 +156,7 @@ public class HarnessState extends AppStateCommon {
 		connect = new ButtonAdapter(screen, Vector2f.ZERO) {
 					@Override
 					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						injector.getInstance(ClientManager.class).startClient(connect.getText())
+						injector.getInstance(ClientManager.class).startClient(serverAddress.text)
 					}
 				};
 		connect.setDocking(Docking.SW);
