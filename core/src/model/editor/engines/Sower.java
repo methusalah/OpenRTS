@@ -102,8 +102,10 @@ public class Sower implements Runnable {
 				for (Sowing s : sowings) {
 					try{
 						if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
+//							logger.info("growing");
 							grow(s);
 						} else {
+//							logger.info("finding");
 							findNewPlace(s);
 						}
 					}catch(RuntimeException e){
@@ -149,8 +151,10 @@ public class Sower implements Runnable {
 					continue;
 				}
 				candidate.setPos(place.get3D(m.getAltitudeAt(place)));
-				if(checkCandidateAndValid(s, candidate))
+				if(checkCandidateAndValid(s, candidate)){
+					//debug
 					return;
+				}
 			}
 		}
 		s.toGrow.remove(source);
@@ -160,21 +164,30 @@ public class Sower implements Runnable {
 		Map m = ModelManager.getBattlefield().getMap();
 
 		Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.getOrientation(), candidate.getPos());
+		boolean suspect = false;
 		for (Trinket n : m.getInCircle(Trinket.class, candidate.getCoord(), 10)) {
 			Asset aN = new Asset(n.modelPath, n.getActor().getScaleX(), n.getOrientation(), n.getPos());
 			if(CollisionTester.areColliding(aN, aCand, stepByStep))
 				return false;
+			else if(n.getPos().getDistance(candidate.getPos()) <= n.getSpacing(candidate))
+				suspect = true;
 		}
+
+//		if(suspect){
+//			for(Spatial spatial : aCand.links)
+//				EventManager.post(new GenericEvent(spatial));
+//			askForPause();
+//		}
 
 		sowTrinket(s, candidate);
 		synchronized (m) {
 			MapArtisanUtil.attachTrinket(candidate, m);
 		}
-		if(aCand.s != null){
-			EventManager.post(new GenericEvent(aCand.s));
-			for(Spatial link : aCand.links)
-				EventManager.post(new GenericEvent(link));
-		}
+//		if(aCand.s != null){
+//			EventManager.post(new GenericEvent(aCand.s));
+//			for(Spatial link : aCand.links)
+//				EventManager.post(new GenericEvent(link));
+//		}
 		return true;
 	}
 
@@ -183,6 +196,7 @@ public class Sower implements Runnable {
 	}
 
 	public void unpause() {
+		EventManager.post(new GenericEvent(null));
 		this.notify();
 		stepByStep = false;
 	}
