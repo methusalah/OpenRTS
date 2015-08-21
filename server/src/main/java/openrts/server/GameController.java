@@ -33,13 +33,13 @@ public class GameController extends Controller {
 	private boolean drawingZone = false;
 	protected MapView view;
 
-	protected GameInputInterpreter inputInterpreter;
+	protected ServerGameInputInterpreter inputInterpreter;
 	protected GUIController guiController;
 
 	@Inject
 	public GameController(@Named("MapView") MapView view, @Named("GameNiftyController") GameNiftyController guiController,
 			@Named("InputManager") InputManager inputManager,
-			@Named("Camera") Camera cam, @Named("GameInputInterpreter") GameInputInterpreter inputInterpreter) {
+			@Named("Camera") Camera cam, @Named("GameInputInterpreter") ServerGameInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.inputInterpreter = inputInterpreter;
 		this.view = view;

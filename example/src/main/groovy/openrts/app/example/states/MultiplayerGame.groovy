@@ -1,5 +1,7 @@
 package openrts.app.example.states;
 
+import groovy.transform.CompileStatic;
+
 import java.util.logging.Logger
 
 import tonegod.gui.core.Screen
@@ -14,6 +16,7 @@ import tonegod.gui.tests.states.text.TextLabelState
 import tonegod.gui.tests.states.windows.WindowState
 import app.OpenRTSApplicationWithDI
 
+import com.google.inject.Module;
 import com.jme3.font.BitmapFont
 import com.jme3.light.AmbientLight
 import com.jme3.light.DirectionalLight
@@ -22,6 +25,8 @@ import com.jme3.math.Vector3f
 import com.jme3.renderer.Camera
 import com.jme3.renderer.RenderManager
 
+
+@CompileStatic
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
@@ -56,7 +61,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	// States
 	private List<AppStateCommon> states = new ArrayList();
-	private HarnessState harness;
+	private ServerConfigState harness;
 	UserLoginAppState userlogin;
 	private TestState tests;
 	private WindowState winState;
@@ -86,7 +91,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleInitApp() {
 		initScreen();
-		initGuice([new ClientModule(app: this)]);
+		List<Module> modules = new ArrayList<Module>([new ClientModule(app: this)])
+		initGuice(modules);
 		initLights();
 
 		userlogin = injector.getInstance(UserLoginAppState.class);
@@ -117,13 +123,13 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private void initStates() {
 
-		harness = injector.getInstance(HarnessState.class);
+		harness = injector.getInstance(ServerConfigState.class);
 		states.add(harness);
 		// tests = new TestState(this);
 		// states.add(tests);
 		// winState = new WindowState(this);
 		// states.add(winState);
-		// spriteState = new SpriteState(this);
+		// spriteStates = new SpriteState(this);
 		// states.add(spriteState);
 		// animatedTextState = new AnimatedTextState(this);
 		// states.add(animatedTextState);
@@ -195,9 +201,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleRender(RenderManager rm) {  }
 
-	public void sucessfullLoggedIn() {
+	def sucessfullLoggedIn() {
 		stateManager.detach(userlogin);
 		initStates();
 	}
+	
+	def loadMap() {
+		stateManager.detach(userlogin)
+		
+	} 
 
 }

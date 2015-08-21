@@ -6,6 +6,8 @@ package controller;
 
 import view.MapView;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -24,6 +26,8 @@ public abstract class Controller extends AbstractAppState {
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public CameraManager cameraManager;
+	@Inject
+	protected Injector injector;
 
 	protected Camera cam;
 	// public GUIController guiController;
@@ -31,7 +35,7 @@ public abstract class Controller extends AbstractAppState {
 	public Controller(MapView view, InputManager inputManager, Camera cam) {
 		super();
 		this.inputManager = inputManager;
-		spatialSelector = new SpatialSelector(cam, inputManager, view);
+		spatialSelector = injector.getInstance(SpatialSelector.class);
 		this.cam = cam;
 
 	}

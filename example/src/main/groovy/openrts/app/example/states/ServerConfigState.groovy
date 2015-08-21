@@ -8,6 +8,7 @@ import groovy.transform.CompileStatic
 
 import java.awt.DisplayMode
 
+import model.battlefield.BattlefieldFactory
 import network.client.ClientManager
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
@@ -38,7 +39,7 @@ import com.jme3.math.Vector4f
  * @author t0neg0d
  */
 @CompileStatic
-public class HarnessState extends AppStateCommon {
+public class ServerConfigState extends AppStateCommon {
 	private float contentPadding = 14;
 
 	private DisplayMode[] modes;
@@ -51,14 +52,14 @@ public class HarnessState extends AppStateCommon {
 	private CheckBox vSync, audio, cursors, cursorFX, toolTips;
 	private Slider uiAlpha, audioVol;
 	private LabelElement dispTitle, extTitle, testTitle;
-	ButtonAdapter load, unload, close,connect;
+	ButtonAdapter close,connect, startMap;
 	ClientManager clientManager
 
 	@Inject
 	Injector injector
 
 	@Inject
-	public HarnessState(MultiplayerGame main, ClientManager clientManager) {
+	public ServerConfigState(MultiplayerGame main, ClientManager clientManager) {
 		super(main);
 		this.clientManager = clientManager
 		displayName = "Harness";
@@ -156,13 +157,29 @@ public class HarnessState extends AppStateCommon {
 		connect = new ButtonAdapter(screen, Vector2f.ZERO) {
 					@Override
 					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						injector.getInstance(ClientManager.class).startClient(serverAddress.text)
+						
+						startMap.isEnabled = true
+						connect.isEnabled = false
+						clientManager.startClient(serverAddress.text)
 					}
 				};
 		connect.setDocking(Docking.SW);
 		connect.setText("connect");
 		connect.setToolTipText("connect to Server");
 		content.addChild(connect)
+		
+		
+		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
+			@Override
+			public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+				BattlefieldFactory.loadWithFileChooser()
+			}
+		};
+		startMap.isEnabled = false
+		startMap.setDocking(Docking.SW);
+		startMap.setText("startMap");
+		startMap.setToolTipText("start the testmap");
+		content.addChild(startMap)
 
 		// Add v-sync checkbox
 		//		String labelText = "Enable Vertical Sync?";

@@ -13,7 +13,7 @@ class ClientModule extends AbstractModule {
 	protected void configure() {
 
 		bind(MultiplayerGame.class).toInstance(app)
-		bind(HarnessState.class).in(Singleton.class)
+		bind(ServerConfigState.class).in(Singleton.class)
 		bind(UserLoginAppState.class).in(Singleton.class)
 		bind(ClientManager.class).in(Singleton.class)
 	}

@@ -1,57 +1,62 @@
-package controller.game;
+package openrts.app.example.states;
 
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
-import geometry.geom2d.AlignedBoundingBox;
-import geometry.geom2d.Point2D;
+import model.ModelManager
+import model.battlefield.army.ArmyManager
+import model.battlefield.army.components.Unit
+import view.MapView
+import view.math.TranslateUtil
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.common.eventbus.Subscribe
+import com.google.inject.Inject
+import com.google.inject.Injector
+import com.jme3.app.state.AppStateManager
+import com.jme3.input.InputManager
+import com.jme3.renderer.Camera
 
-import model.ModelManager;
-import model.battlefield.army.ArmyManager;
-import model.battlefield.army.components.Unit;
-import view.EditorView;
-import view.MapView;
-import view.math.TranslateUtil;
+import controller.CommandManager
+import controller.SpatialSelector
+import controller.cameraManagement.CameraManager
+import controller.cameraManagement.IsometricCameraManager
+import event.BattleFieldUpdateEvent
+import event.EventManager
+import event.client.ControllerChangeEvent
+import geometry.geom2d.AlignedBoundingBox
+import geometry.geom2d.Point2D
+import groovy.transform.CompileStatic
 
-import com.google.common.eventbus.Subscribe;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.input.InputManager;
-import com.jme3.renderer.Camera;
-
-import controller.CommandManager;
-import controller.Controller;
-import controller.cameraManagement.IsometricCameraManager;
-
-public class MultiplayerGameController extends Controller {
+@CompileStatic
+public class GameAppState extends AppStateCommon {
 
 	private boolean paused = false;
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
 	protected MapView view;
-	protected MultiplayerGameNiftyController guiController;
-
+	protected SpatialSelector spatialSelector;
+	
+	protected CameraManager cameraManager;
 	@Inject
-	public MultiplayerGameController(EditorView view, MultiplayerGameNiftyController guiController, InputManager inputManager,
-			@Named("Camera") Camera cam) {
-		super(view, inputManager, cam);
-		this.view = view;
-		// this.inputInterpreter = inputInterpreter;
-		this.spatialSelector.setCentered(false);
-		this.guiController = guiController;
-
+	protected Injector injector
+	
+	@Inject
+	protected InputManager inputManager;
+	
+	
+	protected Camera cam
+	
+	@Inject
+	public GameAppState(MultiplayerGame main) {
+		super(main);
+		displayName = "GameAppState";
+		show = true;
 		EventManager.register(this);
+		spatialSelector = injector.getInstance(SpatialSelector.class);
 	}
 
 	@Override
 	public void update(float elapsedTime) {
 		// updateSelectionZone();
 		updateContext();
-		guiController.update();
+		//sguiController.update();
 
 		// update army
 		if (!paused) {
@@ -110,7 +115,7 @@ public class MultiplayerGameController extends Controller {
 
 	@Subscribe
 	public void manageEvent(ControllerChangeEvent ev) {
-		guiController.update();
+		//sguiController.update();
 	}
 
 	@Subscribe
@@ -127,9 +132,16 @@ public class MultiplayerGameController extends Controller {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		inputManager.setCursorVisible(true);
-		guiController.activate();
+		//inputManager.setCursorVisible(true);
+		//sguiController.activate();
 		view.reset();
+		
+		if (cameraManager == null) {
+			cameraManager = new IsometricCameraManager(cam, 10);
+		}
+		// inputInterpreter.registerInputs(inputManager);
+		//scameraManager.registerInputs(inputManager);
+		cameraManager.activate();
 	}
 
 	private Point2D getMouseCoord() {
@@ -140,7 +152,32 @@ public class MultiplayerGameController extends Controller {
 	public void stateDetached(AppStateManager stateManager) {
 		// TODO Auto-generated method stub
 		super.stateDetached(stateManager);
-		inputManager.setCursorVisible(false);
+		//inputManager.setCursorVisible(false);
+		//cameraManager.unregisterInputs(inputManager);
+	}
+
+	@Override
+	public void reshape() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateState(float tpf) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cleanupState() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

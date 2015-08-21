@@ -17,7 +17,6 @@ import openrts.guice.annotation.AppSettingsRef;
 import openrts.guice.annotation.AssetManagerRef;
 import openrts.guice.annotation.AudioRendererRef;
 import openrts.guice.annotation.GuiNodeRef;
-import openrts.guice.annotation.InputManagerRef;
 import openrts.guice.annotation.RootNodeRef;
 import openrts.guice.annotation.StateManagerRef;
 import openrts.guice.annotation.ViewPortRef;
@@ -319,7 +318,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
 				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
-				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
+				bind(InputManager.class).toInstance(inputManager);
 				bind(Camera.class).annotatedWith(Names.named("Camera")).toInstance(cam);
 				bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
 

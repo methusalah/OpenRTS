@@ -41,7 +41,7 @@ public class ClientAppState extends AbstractAppState {
 			networkClient.addClientStateListener(new ClientStateListener());
 			networkClient.addMessageListener(new MessageListener(), AckEvent.class);
 		} catch (IOException e) {
-			logger.severe(e.getLocalizedMessage());
+			logger.warning(e.getLocalizedMessage());
 		}
 
 		EventManager.register(this);

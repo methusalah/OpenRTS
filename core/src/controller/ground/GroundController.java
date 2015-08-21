@@ -6,7 +6,6 @@ package controller.ground;
 
 import java.util.logging.Logger;
 
-import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 
 import com.google.inject.Inject;
@@ -31,8 +30,7 @@ public class GroundController extends Controller {
 	protected GroundGUIController guiController;
 
 	@Inject
-	public GroundController(EditorView view, @Named("GroundGUIController") GroundGUIController guiController,
-			@InputManagerRef InputManager inputManager,
+	public GroundController(EditorView view, @Named("GroundGUIController") GroundGUIController guiController, InputManager inputManager,
 			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.inputInterpreter = inputInterpreter;

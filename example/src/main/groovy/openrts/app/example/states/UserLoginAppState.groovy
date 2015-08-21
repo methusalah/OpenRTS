@@ -32,16 +32,6 @@ class UserLoginAppState extends AppStateCommon {
 	//		initLoginWindow();
 	//	}
 
-	public void initLoginWindow() {
-	}
-
-	@Override
-	public void cleanup() {
-		super.cleanup();
-
-		screen.removeElement(loginWindow);
-	}
-
 	public void finalizeUserLogin() {
 		// Some call to your app to unload this AppState and load the next AppState
 		main.sucessfullLoggedIn();
@@ -53,7 +43,7 @@ class UserLoginAppState extends AppStateCommon {
 
 	@Override
 	public void cleanupState() {
-		//		panel.hide();
+		screen.removeElement(loginWindow);
 	}
 
 	@Override

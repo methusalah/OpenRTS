@@ -9,9 +9,9 @@ import com.jme3.input.InputManager;
 
 import controller.InputInterpreter;
 
-public class GameInputInterpreter extends InputInterpreter {
+public class ServerGameInputInterpreter extends InputInterpreter {
 
-	private static final Logger logger = Logger.getLogger(GameInputInterpreter.class.getName());
+	private static final Logger logger = Logger.getLogger(ServerGameInputInterpreter.class.getName());
 
 	protected final static String SELECT = "select";
 	protected final static String ACTION = "action";
@@ -29,7 +29,7 @@ public class GameInputInterpreter extends InputInterpreter {
 
 	GameController ctrl;
 
-	GameInputInterpreter(@Named("GameController") GameController ctrl) {
+	ServerGameInputInterpreter(@Named("GameController") GameController ctrl) {
 		super();
 		this.ctrl = ctrl;
 		// mappings = new String[] { SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };

@@ -8,6 +8,7 @@ import view.PointUtil;
 import view.acting.ModelPerformer;
 import view.math.TranslateUtil;
 
+import com.google.inject.Inject;
 import com.jme3.input.InputManager;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
@@ -18,15 +19,19 @@ import com.jme3.scene.Spatial;
 
 public class SpatialSelector {
 
+	
+	@Inject
 	private Camera cam;
+	
+	@Inject
 	private InputManager im;
+	
+	@Inject
 	private MapView view;
 	private boolean centered = false;
 
-	public SpatialSelector(Camera c, InputManager im, MapView v) {
-		cam = c;
-		this.im = im;
-		view = v;
+	@Inject
+	public SpatialSelector() {
 	}
 
 	private Geometry getGeometry(Node n) {

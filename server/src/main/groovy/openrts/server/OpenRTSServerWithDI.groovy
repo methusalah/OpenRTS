@@ -11,7 +11,6 @@ import openrts.guice.annotation.AppSettingsRef
 import openrts.guice.annotation.AssetManagerRef
 import openrts.guice.annotation.AudioRendererRef
 import openrts.guice.annotation.GuiNodeRef
-import openrts.guice.annotation.InputManagerRef
 import openrts.guice.annotation.RootNodeRef
 import openrts.guice.annotation.StateManagerRef
 import openrts.guice.annotation.ViewPortRef
@@ -104,12 +103,12 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 
 		super.initialize();
 
-		guiNode.setQueueBucket(Bucket.Gui);
-		guiNode.setCullHint(CullHint.Never);
-
-		//		loadStatsView();
-		viewPort.attachScene(rootNode);
-		guiViewPort.attachScene(guiNode);
+//		guiNode.setQueueBucket(Bucket.Gui);
+//		guiNode.setCullHint(CullHint.Never);
+//
+//		//		loadStatsView();
+//		viewPort.attachScene(rootNode);
+//		guiViewPort.attachScene(guiNode);
 		//
 		//		if (inputManager != null) {
 		//			flyCam = new AzertyFlyByCamera(cam);
@@ -126,7 +125,7 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 		//		}
 
 		// call user code
-		simpleInitApp();
+//		simpleInitApp();
 		//		stateManager.attach(bulletAppState);
 		//		getPhysicsSpace().addTickListener(this);
 	}

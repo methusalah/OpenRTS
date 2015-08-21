@@ -12,7 +12,6 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
-import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 import view.math.TranslateUtil;
 
@@ -40,8 +39,7 @@ public class BattlefieldController extends Controller {
 	private BattlefieldGUIController guiController;
 
 	@Inject
-	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController,
-			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
+	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController, InputManager inputManager, @Named("Camera") Camera cam,
 			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;

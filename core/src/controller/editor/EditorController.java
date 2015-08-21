@@ -9,7 +9,6 @@ import event.EventManager;
 import geometry.geom2d.Point2D;
 import model.ModelManager;
 import model.editor.ToolManager;
-import openrts.guice.annotation.InputManagerRef;
 import view.EditorView;
 
 import com.google.common.eventbus.Subscribe;
@@ -36,8 +35,7 @@ public class EditorController extends Controller {
 	// protected EditorInputInterpreter inputInterpreter;
 
 	@Inject
-	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController,
-			@InputManagerRef InputManager inputManager, @Named("Camera") Camera cam,
+	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController, InputManager inputManager, @Named("Camera") Camera cam,
 			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;

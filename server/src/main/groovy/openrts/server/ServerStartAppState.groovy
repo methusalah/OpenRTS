@@ -46,17 +46,18 @@ class ServerStartAppState extends AbstractAppState {
 
 					@Override
 					public void onButtonCancelPressed(MouseButtonEvent arg0, boolean arg1) {
-						// TODO Auto-generated method stub
+						logger.info("bye bye Server")
+						System.exit(0)
 
 					}
 				};
 		screen.addElement(loginWindow);
 	}
-
-	@Override
-	public void cleanup() {
+	
+	public void stateDetached(AppStateManager stateManager) {
 		screen.removeElement(loginWindow);
-		super.cleanup();
+		loginWindow.cleanup();
+		super.stateDetached(stateManager)
 	}
 
 	def finalizeStart() {
