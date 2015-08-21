@@ -1,6 +1,7 @@
 package openrts.app.example;
 
 import network.client.ClientManager
+import openrts.app.example.states.GameAppState
 import openrts.app.example.states.ServerConfigState
 import openrts.app.example.states.UserLoginAppState
 
@@ -18,5 +19,7 @@ class ClientModule extends AbstractModule {
 		bind(ServerConfigState.class).in(Singleton.class)
 		bind(UserLoginAppState.class).in(Singleton.class)
 		bind(ClientManager.class).in(Singleton.class)
+		bind(GameAppState.class).in(Singleton.class)
+		
 	}
 }
