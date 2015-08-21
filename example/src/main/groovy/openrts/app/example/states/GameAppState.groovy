@@ -1,5 +1,6 @@
 package openrts.app.example.states;
 
+import openrts.app.example.MultiplayerGame;
 import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit

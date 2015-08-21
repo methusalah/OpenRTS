@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 
 import javax.inject.Inject
 
+import openrts.app.example.MultiplayerGame;
 import tonegod.gui.controls.windows.LoginBox
 import tonegod.gui.core.Screen
 import tonegod.gui.core.Element.Borders
@@ -71,6 +72,7 @@ class UserLoginAppState extends AppStateCommon {
 
 						}
 					};
+			loginWindow.textUserName = "peter"
 			screen.addElement(loginWindow);
 
 			init = true;

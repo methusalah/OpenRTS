@@ -1,9 +1,12 @@
-package openrts.app.example.states;
+package openrts.app.example;
 
 import groovy.transform.CompileStatic;
 
 import java.util.logging.Logger
 
+import openrts.app.example.states.AppStateCommon;
+import openrts.app.example.states.ServerConfigState;
+import openrts.app.example.states.UserLoginAppState;
 import tonegod.gui.core.Screen
 import tonegod.gui.tests.states.TestState
 import tonegod.gui.tests.states.buttons.ButtonState

@@ -1,6 +1,8 @@
-package openrts.app.example.states;
+package openrts.app.example;
 
 import network.client.ClientManager
+import openrts.app.example.states.ServerConfigState
+import openrts.app.example.states.UserLoginAppState
 
 import com.google.inject.AbstractModule
 import com.google.inject.Singleton

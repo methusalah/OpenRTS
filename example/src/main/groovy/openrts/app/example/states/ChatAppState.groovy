@@ -1,5 +1,6 @@
 package openrts.app.example.states
 
+import openrts.app.example.MultiplayerGame;
 import groovy.transform.CompileStatic
 import tonegod.gui.controls.windows.LoginBox
 import tonegod.gui.core.Screen

@@ -4,12 +4,11 @@
  */
 package openrts.app.example.states;
 
-import groovy.transform.CompileStatic
-
 import java.awt.DisplayMode
 
-import model.battlefield.BattlefieldFactory
+import model.ModelManager
 import network.client.ClientManager
+import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
 import tonegod.gui.controls.lists.Slider
@@ -34,6 +33,10 @@ import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
+import event.EventManager
+import event.network.CreateGameEvent
+import groovy.transform.CompileStatic
+
 /**
  *
  * @author t0neg0d
@@ -44,7 +47,7 @@ public class ServerConfigState extends AppStateCommon {
 
 	private DisplayMode[] modes;
 	private String initResolution;
-	Vector2f prevScreenSize = new Vector2f();
+	protected Vector2f prevScreenSize = new Vector2f();
 
 	private Element content;
 	private Panel panel;
@@ -52,8 +55,10 @@ public class ServerConfigState extends AppStateCommon {
 	private CheckBox vSync, audio, cursors, cursorFX, toolTips;
 	private Slider uiAlpha, audioVol;
 	private LabelElement dispTitle, extTitle, testTitle;
-	ButtonAdapter close,connect, startMap;
-	ClientManager clientManager
+	protected ButtonAdapter close,connect, startMap;
+	protected ClientManager clientManager
+	
+	protected static String mapfilename = "assets/maps/test.btf";
 
 	@Inject
 	Injector injector
@@ -156,8 +161,7 @@ public class ServerConfigState extends AppStateCommon {
 
 		connect = new ButtonAdapter(screen, Vector2f.ZERO) {
 					@Override
-					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						
+					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {	
 						startMap.isEnabled = true
 						connect.isEnabled = false
 						clientManager.startClient(serverAddress.text)
@@ -172,7 +176,9 @@ public class ServerConfigState extends AppStateCommon {
 		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
 			@Override
 			public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-				BattlefieldFactory.loadWithFileChooser()
+				ModelManager.loadBattlefield(mapfilename);
+				CreateGameEvent evt1 = new CreateGameEvent(mapfilename);
+				EventManager.post(evt1);
 			}
 		};
 		startMap.isEnabled = false
