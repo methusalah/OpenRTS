@@ -12,7 +12,7 @@ public class TrinketMemento {
 	@JsonProperty
 	private Point3D pos;
 	@JsonProperty
-	private double yaw;
+	private double orientation;
 	@JsonProperty
 	private double scaleX, scaleY, scaleZ;
 	@JsonProperty
@@ -25,7 +25,7 @@ public class TrinketMemento {
 	public TrinketMemento(Trinket t) {
 		builderID = t.builderID;
 		pos = t.pos;
-		yaw = t.yaw;
+		orientation = t.getOrientation();
 		scaleX = t.scaleX;
 		scaleY = t.scaleY;
 		scaleZ = t.scaleZ;
@@ -34,7 +34,7 @@ public class TrinketMemento {
 
 	@JsonIgnore
 	public Trinket getTrinket() {
-		Trinket res = BuilderManager.getTrinketBuilder(builderID).build(pos, yaw, modelPath, scaleX, scaleY, scaleZ);
+		Trinket res = BuilderManager.getTrinketBuilder(builderID).build(pos, orientation, modelPath, scaleX, scaleY, scaleZ);
 		return res;
 
 	}

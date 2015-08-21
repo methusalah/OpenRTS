@@ -22,7 +22,7 @@ public class EditorView extends MapView {
 	@Inject
 	public EditorView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, @AssetManagerRef AssetManager am, @ViewPortRef ViewPort vp) {
 		super(rootNode, gui, physicsSpace, am, vp);
-		editorRend = new EditorRenderer(this, materialManager);
+		editorRend = new EditorRenderer(this);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class EditorView extends MapView {
 		}
 		EventManager.unregister(editorRend);
 
-		editorRend = new EditorRenderer(this, materialManager);
+		editorRend = new EditorRenderer(this);
 		rootNode.attachChild(editorRend.mainNode);
 	}
 

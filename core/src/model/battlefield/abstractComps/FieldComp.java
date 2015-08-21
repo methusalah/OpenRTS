@@ -14,21 +14,22 @@ import model.EntityManager;
 public class FieldComp {
 	public String modelPath = "";
 	public Point3D pos;
-	public Point3D direction;
-	public Point3D upDirection = Point3D.UNIT_Z;
 	protected final double radius;
 	public double scaleX = 1;
 	public double scaleY = 1;
 	public double scaleZ = 1;
 	public Color color;
-	public double roll = 0;
-	public double pitch = 0;
-	public double yaw = 0;
+	protected double roll = 0;
+	protected double pitch = 0;
+	protected double yaw = 0;
 	private final long id;
+
+	private Point3D direction;
+	private Point3D upDirection = Point3D.UNIT_Z;
 
 	public FieldComp(Point3D pos, double yaw, double radius) {
 		this.pos = pos;
-		this.yaw = yaw;
+		setOrientation(yaw);
 		this.radius = radius;
 		this.id = EntityManager.registerEntity(this);
 	}
@@ -39,10 +40,6 @@ public class FieldComp {
 
 	public Point3D getPos() {
 		return pos;
-	}
-
-	public double getYaw() {
-		return yaw;
 	}
 
 	public double getRadius() {
@@ -88,4 +85,37 @@ public class FieldComp {
 		pos = newPos;
 	}
 
+	public Point3D getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Point3D direction) {
+		this.direction = direction;
+		yaw = direction.get2D().getAngle();
+	}
+
+	public Point3D getUpDirection() {
+		return upDirection;
+	}
+
+	public void setUpDirection(Point3D upDirection) {
+		this.upDirection = upDirection;
+	}
+
+	public void setOrientation(double yaw) {
+		this.yaw = yaw;
+		direction = Point2D.ORIGIN.getTranslation(yaw, 1).get3D(0); 
+	}
+	
+	public double getOrientation() {
+		return yaw;
+	}
+	
+	public double getRoll() {
+		return roll;
+	}
+
+	public double getPitch() {
+		return pitch;
+	}
 }

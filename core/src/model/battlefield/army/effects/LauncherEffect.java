@@ -31,9 +31,10 @@ public class LauncherEffect extends Effect {
 
 	@Subscribe
 	public void actionPerformed(ProjectileArrivedEvent e) {
-		for(EffectBuilder eb : childEffectBuilders) {
-			eb.build(source, target, null).launch();
-		}
+		if(e.targetReached())
+			for(EffectBuilder eb : childEffectBuilders) {
+				eb.build(source, target, null).launch();
+			}
 	}
 
 }

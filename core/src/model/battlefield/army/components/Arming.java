@@ -1,6 +1,7 @@
 package model.battlefield.army.components;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Set of weapons and turrets of a unit.
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  *
  */
 public class Arming {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 	Unit holder;
 	ArrayList<Weapon> weapons = new ArrayList<>();
 	ArrayList<Turret> turrets = new ArrayList<>();
@@ -27,7 +29,7 @@ public class Arming {
 		atRange = false;
 		for(Weapon w : weapons){
 			w.update(holder.faction.getEnemies().get(0).getUnits());
-			if(w.acquiring()) {
+			if(w.isAtRange()) {
 				atRange = true;
 			}
 			if(w.scanning()) {
@@ -74,7 +76,7 @@ public class Arming {
 		}
 		aiming = true;
 		for(Weapon w : weapons) {
-			if(w.acquiring()) {
+			if(w.isAtRange()) {
 				w.attack();
 			}
 		}

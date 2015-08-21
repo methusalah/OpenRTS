@@ -7,15 +7,18 @@ import geometry.structure.grid.Grid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.motion.CollisionManager;
+import model.battlefield.army.motion.Motion;
 import model.battlefield.army.motion.SteeringMachine;
 import model.battlefield.army.motion.pathfinding.FlowField;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
+import model.editor.engines.Sower;
 
 /**
  * Mover is module to connect to hiker to create motion and placement. The mover knows the map, is supplied with neighbors at each frame and provide movement
@@ -25,6 +28,8 @@ import model.battlefield.map.Trinket;
  * their arrival point. One mover is associated with one hiker. It is defined by XML and is only instanciated by associate builder.
  */
 public class Mover {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
+
 	public enum Heightmap {
 		SKY, AIR, GROUND
 	};
@@ -47,9 +52,6 @@ public class Mover {
 	final CollisionManager cm;
 
 	// variables
-	public Point3D velocity = Point3D.ORIGIN;
-
-	public double desiredYaw = 0;
 	Point3D desiredUp = Point3D.UNIT_Z;
 
 	public boolean hasMoved = false;
@@ -63,6 +65,7 @@ public class Mover {
 	public boolean hasFoundPost;
 	public boolean holdPosition = false;
 	public boolean tryHold = false;
+	public double desiredOrientation= Double.NaN;
 
 	public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, StandingMode standingMode, Hiker movable) {
 		this.heightmap = heightmap;
@@ -74,27 +77,25 @@ public class Mover {
 		updateElevation();
 	}
 
-	public Mover(Mover o, Hiker movable) {
-		this.heightmap = o.heightmap;
-		this.pathfindingMode = o.pathfindingMode;
-		this.standingMode = o.standingMode;
-		this.hiker = movable;
-		cm = new CollisionManager(this);
-		sm = new SteeringMachine(this);
-		updateElevation();
-	}
-
 	public void updatePosition(double elapsedTime) {
-		double lastYaw = hiker.yaw;
+		double lastOrientation = hiker.getOrientation();
 		Point3D lastPos = new Point3D(hiker.pos);
 
 		if (!holdPosition) {
-			Point3D steering = sm.getSteeringAndReset(elapsedTime);
-			cm.applySteering(steering, elapsedTime, toAvoid);
+			Motion steering = sm.collectSteering();
+			// If I have no movement to do and a desired orientation to get
+			if(steering.isEmpty() && !Double.isNaN(desiredOrientation)){
+					steering.setAngle(desiredOrientation);
+					desiredOrientation = Double.NaN;
+			}	
+				
+			// hiker accelerates and rotates if there is steering
+			Motion possibleMotion = hiker.getNearestPossibleMotion(steering, getDestination(), elapsedTime);
+			Motion correctMotion = cm.correctMotion(possibleMotion, elapsedTime, toAvoid);
+			hiker.move(correctMotion);
 		}
-		head(elapsedTime);
 
-		hasMoved = hiker.hasMoved(lastPos, lastYaw);
+		hasMoved = hiker.hasMoved(lastPos, lastOrientation);
 		if (hasMoved) {
 			updateElevation();
 		}
@@ -106,6 +107,7 @@ public class Mover {
 			for (Mover m : toFlockWith) {
 				if (m.hasDestination) {
 					hasFoundPost = false;
+					break;
 				}
 			}
 		}
@@ -182,31 +184,17 @@ public class Mover {
 		return hasDestination;
 	}
 
-	public Point2D getDestination() {
+	public Point3D getDestination() {
 		if (flowfield != null) {
-			return flowfield.destination;
+			return flowfield.destination.get3D(0);
 		}
+		if(hiker instanceof Projectile)
+			return ((Projectile)hiker).targetPoint;
+			
 		return null;
 	}
 
-	public void head(double elapsedTime) {
-		if (!velocity.isOrigin()) {
-			desiredYaw = velocity.get2D().getAngle();
-		}
-
-		if (!AngleUtil.areSimilar(desiredYaw, hiker.yaw)) {
-			double diff = AngleUtil.getOrientedDifference(hiker.yaw, desiredYaw);
-			if (diff > 0) {
-				hiker.yaw += Math.min(diff, hiker.getRotSpeed() * elapsedTime);
-			} else {
-				hiker.yaw -= Math.min(-diff, hiker.getRotSpeed() * elapsedTime);
-			}
-		} else {
-			hiker.yaw = desiredYaw;
-		}
-	}
-
-	public void separate() {
+	public void letPass() {
 		sm.applySeparation(toLetPass);
 	}
 
@@ -216,7 +204,6 @@ public class Mover {
 
 	public void seek(Mover target) {
 		flock();
-		separate();
 		sm.seek(target);
 
 		List<FieldComp> toAvoidExceptTarget = new ArrayList<>(toAvoid);
@@ -226,21 +213,18 @@ public class Mover {
 
 	public void seek(Point3D position) {
 		flock();
-		separate();
 		sm.seek(position);
 		sm.avoidBlockers(toAvoid);
 	}
 
 	public void followPath() {
 		flock();
-		separate();
 		sm.proceedToDestination();
 		sm.avoidBlockers(toAvoid);
 	}
 
 	public void followPath(Mover target) {
 		flock();
-		separate();
 		sm.proceedToDestination();
 
 		List<FieldComp> toAvoidExceptTarget = new ArrayList<>(toAvoid);
@@ -255,19 +239,13 @@ public class Mover {
 				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getAltitudeAt(hiker.getCoord()));
 				if (standingMode == StandingMode.PRONE) {
 					desiredUp = map.getNormalVectorAt(hiker.getCoord());
-					if (!hiker.upDirection.equals(desiredUp)) {
-						hiker.upDirection = hiker.upDirection.getAddition(desiredUp).getNormalized();
+					if (!hiker.getUpDirection().equals(desiredUp)) {
+						hiker.setUpDirection(hiker.getUpDirection().getAddition(desiredUp).getNormalized());
 					}
 				}
-				hiker.direction = Point2D.ORIGIN.getTranslation(hiker.yaw, 1).get3D(0);
 			} else if (heightmap == Heightmap.SKY) {
 				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.get(hiker.getCoord()).level + 3);
-				hiker.upDirection = Point3D.UNIT_Z;
-			} else {
-				if (!velocity.isOrigin()) {
-					hiker.direction = velocity;
-				}
-				hiker.upDirection = null;
+				hiker.setUpDirection(Point3D.UNIT_Z);
 			}
 		}
 	}
@@ -276,12 +254,7 @@ public class Mover {
 		return pathfindingMode == PathfindingMode.FLY;
 	}
 
-	public double getSpeed() {
-		return hiker.getSpeed();
-	}
-
 	public void changeCoord(Point2D p) {
-		velocity = Point3D.ORIGIN;
 		hiker.pos = p.get3D(0);
 		updateElevation();
 	}

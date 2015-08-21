@@ -21,6 +21,7 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
+import com.jme3.shadow.EdgeFilteringMode;
 
 /**
  * @author Benoît
@@ -50,7 +51,8 @@ public class LightDrawer implements ActionListener {
 
 		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
 		sf.setEnabled(true);
-		//		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
 		fpp.addFilter(sf);
 

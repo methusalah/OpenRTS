@@ -45,10 +45,10 @@ public class ActorDrawer implements AnimEventListener {
 	private static final Logger logger = Logger.getLogger(ActorDrawer.class.getName());
 
 	private AssetManager assetManager;
-	private MaterialManager materialManager;
 
 	public Node mainNode;
 	public Node abandoned;
+	public boolean askClearAbandoned = false;
 	public PhysicsSpace mainPhysicsSpace;
 
 	ModelPerformer modelPfm;
@@ -64,9 +64,8 @@ public class ActorDrawer implements AnimEventListener {
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 	private List<Spatial> abandonedTrinkets = new ArrayList<>(); 
 
-	public ActorDrawer(AssetManager assetManager, MaterialManager materialManager) {
+	public ActorDrawer(AssetManager assetManager) {
 		this.assetManager = assetManager;
-		this.materialManager = materialManager;
 		mainNode = new Node();
 		abandoned = new Node();
 		mainNode.attachChild(abandoned);
@@ -82,9 +81,12 @@ public class ActorDrawer implements AnimEventListener {
 	
 	@Subscribe
 	public void handleBuggingSpatial(GenericEvent e) {
-		synchronized (abandonedTrinkets) {
-			abandonedTrinkets.add((Spatial)e.getObject());
-		}
+		if(e.getObject() == null)
+			askClearAbandoned = true;
+		else
+			synchronized (abandonedTrinkets) {
+				abandonedTrinkets.add((Spatial)e.getObject());
+			}
 	}
 
 
@@ -96,11 +98,15 @@ public class ActorDrawer implements AnimEventListener {
 				abandonedTrinkets.clear();
 			}
 		}
-		for(Spatial s : abandoned.getChildren()){
-			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
-			if(s.getLocalTranslation().z <= -3)
-				abandoned.detachChild(s);
+		if(askClearAbandoned){
+			askClearAbandoned = false;
+			abandoned.detachAllChildren();
 		}
+//		for(Spatial s : abandoned.getChildren()){
+//			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
+//			if(s.getLocalTranslation().z <= -3)
+//				abandoned.detachChild(s);
+//		}
 			
 		// first, the spatials attached to interrupted actor are detached
 		ActorPool pool = ModelManager.getBattlefield().getActorPool();
@@ -211,7 +217,7 @@ public class ActorDrawer implements AnimEventListener {
 		}
 
 		if (actor.getColor() != null) {
-			res.setMaterial(materialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
+			res.setMaterial(MaterialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
 		} else{
 			for(Integer index : actor.getSubColorsByIndex().keySet()) {
 				applyToSubmesh(res, null, index, actor.getSubColorsByIndex().get(index));
@@ -236,7 +242,7 @@ public class ActorDrawer implements AnimEventListener {
 				if(colorOrMaterial instanceof Color)
 					g.getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA((Color)colorOrMaterial));
 				else if (colorOrMaterial instanceof String)
-					g.setMaterial(materialManager.getMaterial((String)colorOrMaterial));
+					g.setMaterial(MaterialManager.getMaterial((String)colorOrMaterial));
 				else
 					throw new IllegalArgumentException();
 					
@@ -279,9 +285,4 @@ public class ActorDrawer implements AnimEventListener {
 	public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
 		// LogUtil.logger.info("anim changed to "+animName);
 	}
-
-	public MaterialManager getMaterialManager() {
-		return materialManager;
-	}
-
 }

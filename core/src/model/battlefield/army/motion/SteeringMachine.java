@@ -7,7 +7,9 @@ import geometry.geom2d.intersection.Intersection;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.army.components.Mover;
@@ -27,17 +29,19 @@ public class SteeringMachine {
 
 	private static double FOLLOW_PATH_FORCE = 1;
 	private static double ALIGNMENT_FORCE = 0.7;
-	private static double SEPARATION_FORCE = 3;
+	private static double SEPARATION_FORCE = 5;
 	private static double SEPARATION_FORCE_FOR_FLYING = 0.01;
 	private static double COHESION_FORCE = 1;
 
 	final Mover mover;
 
 	Point3D steering = Point3D.ORIGIN;
+	public boolean motionIn3D = false; 
 
 	public Point3D separationForce = Point3D.ORIGIN;
 	public Point3D cohesionForce = Point3D.ORIGIN;
 	public Point3D alignementForce = Point3D.ORIGIN;
+	public Point3D queueForce = Point3D.ORIGIN;
 	public Point3D destinationForce = Point3D.ORIGIN;
 	public Point3D avoidModification = Point3D.ORIGIN;
 
@@ -45,12 +49,18 @@ public class SteeringMachine {
 		mover = m;
 	}
 
-	public Point3D getSteeringAndReset(double elapsedTime) {
-		steering = steering.getTruncation(elapsedTime);
-		steering = steering.getDivision(mover.hiker.getMass());
-		Point3D res = new Point3D(steering);
-
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
+	
+	public Motion collectSteering() {
+		Motion res = new Motion();
+		if(motionIn3D){
+			res.setVelocity(steering);
+		} else if(!steering.isOrigin()){
+			res.setDistance(1);
+			res.setAngle(steering.get2D().getAngle());
+		}
 		steering = Point3D.ORIGIN;
+		motionIn3D = false;
 		return res;
 	}
 
@@ -74,6 +84,12 @@ public class SteeringMachine {
 		steering = steering.getAddition(alignementForce);
 	}
 
+	public void applyQueue(List<Mover> neighbors) {
+		queueForce = getQueueForce(neighbors);
+		steering = steering.getAddition(queueForce);
+	}
+	
+	
 	public void avoidBlockers(List<FieldComp> blockers) {
 		Point3D savedSteering = steering;
 		modifySteeringToAvoid(blockers);
@@ -93,7 +109,8 @@ public class SteeringMachine {
 	}
 
 	private Point3D getFollowFlowFieldForce() {
-		Point2D destination = mover.getDestination();
+		Point2D destination = mover.getDestination().get2D();
+		
 		if (destination == null) {
 			return Point3D.ORIGIN;
 		} else if (mover.hiker.getCoord().getDistance(destination) < DESTINATION_REACH_TOLERANCE) {
@@ -109,6 +126,7 @@ public class SteeringMachine {
 			return new Point3D(flatForce, 0);
 		}
 	}
+	private static DecimalFormat df = new DecimalFormat("0.00");
 
 	private Point3D getSeparationForce(List<Mover> neighbors) {
 		Point3D res = Point3D.ORIGIN;
@@ -121,16 +139,20 @@ public class SteeringMachine {
 			if (neededDistance <= 0) {
 				continue;
 			}
+			if(n.hiker.priority < mover.hiker.priority)
+				neededDistance /= 10;
+
 			Point3D sepVector = n.hiker.getVectorTo(mover.hiker).getScaled(neededDistance);
+			
 			res = res.getAddition(sepVector);
 		}
 		if (res.isOrigin()) {
 			return res;
 		}
 		if (mover.fly()) {
-			return res.getNormalized().getMult(SEPARATION_FORCE_FOR_FLYING);
+			return res.getMult(SEPARATION_FORCE_FOR_FLYING);
 		}
-		return res.getNormalized().getMult(SEPARATION_FORCE);
+		return res.getMult(SEPARATION_FORCE);
 	}
 
 	private Point3D getCohesionForce(List<Mover> neighbors) {
@@ -154,10 +176,30 @@ public class SteeringMachine {
 		}
 
 		for (Mover n : neighbors) {
-			res = res.getAddition(n.velocity);
+			res = res.getAddition(n.hiker.pos);
 		}
 		res = res.getDivision(neighbors.size());
 		return res.getNormalized().getMult(ALIGNMENT_FORCE);
+	}
+	
+	private Point3D getQueueForce(List<Mover> neighbors){
+		Point3D res = Point3D.ORIGIN;
+		if (neighbors.isEmpty() || mover.fly()) {
+			return res;
+		}
+		
+		Point2D ahead = mover.hiker.getCoord();//.getTranslation(mover.hiker.getYaw(), mover.hiker.getRadius());
+
+		for (Mover n : neighbors) {
+			if(n.hiker.getCoord().getDistance(ahead) <= n.hiker.getSpacing(mover.hiker)){
+				res = res.getAddition(0, 0, 1);
+				break;
+			}
+		}
+		if (res.isOrigin()) {
+			return res;
+		}
+		return res;
 	}
 
 	/**
@@ -166,7 +208,7 @@ public class SteeringMachine {
 	 * @param blockers
 	 */
 	private void modifySteeringToAvoid(List<FieldComp> blockers) {
-		if (mover.velocity.equals(Point3D.ORIGIN)) {
+		if (steering.isOrigin()) {
 			return;
 		}
 

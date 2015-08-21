@@ -11,8 +11,10 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.collision.shapes.HullCollisionShape;
+import com.jme3.bullet.collision.shapes.infos.ChildCollisionShape;
 import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.debug.BulletGhostObjectDebugControl;
@@ -37,6 +39,7 @@ public class CollisionTester {
 	private static AssetManager am;
 	public static Node root;
 	private static Map<String, Spatial> models = new HashMap<>();
+	private static Map<String, CompoundCollisionShape> shapes = new HashMap<>();
 	
 	private CollisionTester(){
 		
@@ -50,15 +53,14 @@ public class CollisionTester {
 		Spatial s1 = getSpatialFromAsset(asset1); 
 		Spatial s2 = getSpatialFromAsset(asset2);
 
-//		return true; 
 		PhysicsSpace space = new PhysicsSpace();
 		
-		RigidBodyControl ghost1 = new RigidBodyControl(getCollisionShape(s1));
+		RigidBodyControl ghost1 = new RigidBodyControl(getCollisionShape(asset1));
 		s1.addControl(ghost1);
 		space.add(ghost1);
 
-		RigidBodyControl ghost2 = new RigidBodyControl(getCollisionShape(s2));
-//		s2.addControl(ghost2);
+		RigidBodyControl ghost2 = new RigidBodyControl(getCollisionShape(asset2));
+		s2.addControl(ghost2);
 //		ghost2.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
 //		space.add(ghost2);
 
@@ -66,7 +68,16 @@ public class CollisionTester {
 		
 //		int numCollision = ghost1.getOverlappingCount();
 //		boolean collision = numCollision > 0;
-		boolean collision = !space.sweepTest(getCollisionShape(s2), Transform.IDENTITY, s2.getLocalTransform()).isEmpty();
+		Transform t = new Transform();
+		t.setRotation(s2.getLocalRotation());
+		t.setTranslation(s2.getLocalTranslation());
+		boolean collision = false;
+		for(ChildCollisionShape hull : getCollisionShape(asset2).getChildren())
+			if(!space.sweepTest(hull.shape, Transform.IDENTITY, t).isEmpty()){
+				collision = true;
+				break;
+			}
+				
 		
 		space.remove(ghost1);
 //		space.remove(ghost2);
@@ -84,25 +95,29 @@ public class CollisionTester {
 //			//EventManager.post(new GenericEvent(debugS2));
 //		}
 			
-		if(collision && debug){
+		if(!collision){// && debug){
 			Material m = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 			m.getAdditionalRenderState().setWireframe(true);
 			m.setColor("Color", ColorRGBA.Red);
-			Spatial debugS2 = DebugShapeFactory.getDebugShape(ghost2.getCollisionShape());
-			debugS2.setLocalRotation(ghost2.getPhysicsRotation());
-			debugS2.setLocalTranslation(ghost2.getPhysicsLocation());
+			Spatial debugS2 = DebugShapeFactory.getDebugShape(getCollisionShape(asset2));
+			debugS2.setLocalTransform(t);
+//			debugS2.setLocalRotation(ghost2.getPhysicsRotation());
+//			debugS2.setLocalTranslation(ghost2.getPhysicsLocation());
 			debugS2.setMaterial(m);
 
 			Material m2 = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 			m2.getAdditionalRenderState().setWireframe(true);
 			m2.setColor("Color", ColorRGBA.Blue);
 			Geometry linegeom = new Geometry();
-			Line l = new Line(debugS2.getLocalTranslation(), ghost1.getPhysicsLocation().add(0,  0, 1));
+			Line l = new Line(debugS2.getLocalTranslation().add(0,  0, 1), ghost1.getPhysicsLocation().add(0,  0, 1));
 			linegeom.setMesh(l);
 			linegeom.setMaterial(m2);
-			
-			EventManager.post(new GenericEvent(debugS2));
-			EventManager.post(new GenericEvent(linegeom));
+	
+			asset2.s = debugS2;
+			if(l.getStart().distance(l.getEnd())<2)
+				asset2.links.add(linegeom);
+//			EventManager.post(new GenericEvent(debugS2));
+//			EventManager.post(new GenericEvent(linegeom));
 			
 			
 		}
@@ -121,15 +136,32 @@ public class CollisionTester {
 		return res;
 	}
 	
-	private static CompoundCollisionShape getCollisionShape(Spatial s){
-		CompoundCollisionShape res = new CompoundCollisionShape();
-		if(s instanceof Node)
-			for(Spatial child : ((Node)s).getChildren())
-				if(child instanceof Geometry){
-					HullCollisionShape hull = new HullCollisionShape(((Geometry)child).getMesh());
-					hull.setScale(s.getLocalScale());
-					res.addChildShape(hull, Vector3f.ZERO);
-				}
+	private static CompoundCollisionShape getCollisionShape(Asset asset){
+		Spatial s = models.get(asset.modelPath);
+//		if(!shapes.containsKey(asset.modelPath)){
+			CompoundCollisionShape res = new CompoundCollisionShape();
+			if(s instanceof Node){
+				for(Spatial child : ((Node)s).getChildren())
+					if(child instanceof Geometry){
+						HullCollisionShape hull = new HullCollisionShape(((Geometry)child).getMesh());
+						float scale = (float)asset.scale;
+						Vector3f vScale = new Vector3f(scale, scale, scale) ;
+						hull.setScale(vScale);
+						res.addChildShape(hull, Vector3f.ZERO);
+					}
+			} else {
+				logger.info("houston on a un probleme");
+			}
+			
+						
+			shapes.put(asset.modelPath, res);
+//		}
+//		CompoundCollisionShape res = shapes.get(asset.modelPath);
+//		float scale = (float)asset.scale;
+//		Vector3f vScale = new Vector3f(scale, scale, scale) ;
+//		for(ChildCollisionShape hull : res.getChildren())
+//			hull.shape.setScale(vScale);
+
 		return res;
 	}
 }

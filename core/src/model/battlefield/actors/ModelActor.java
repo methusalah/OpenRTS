@@ -113,7 +113,7 @@ public class ModelActor extends Actor {
 	}
 
 	public double getYaw() {
-		return comp.getYaw();
+		return comp.getOrientation();
 	}
 
 	public Color getColor() {
