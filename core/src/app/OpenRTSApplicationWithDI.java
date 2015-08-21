@@ -21,6 +21,7 @@ import openrts.guice.annotation.RootNodeRef;
 import openrts.guice.annotation.StateManagerRef;
 import openrts.guice.annotation.ViewPortRef;
 import view.EditorView;
+import view.camera.AzertyFlyByCamera;
 import view.mapDrawing.EditorRenderer;
 import view.material.MaterialUtil;
 

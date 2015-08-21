@@ -7,6 +7,7 @@ package controller.ground;
 import java.util.logging.Logger;
 
 import view.EditorView;
+import view.camera.GroundCamera;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -15,7 +16,6 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
-import controller.cameraManagement.GroundCameraManager;
 import event.EventManager;
 
 /**
@@ -44,7 +44,7 @@ public class GroundController extends Controller {
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
-		cameraManager = new GroundCameraManager(cam);
+		camera = new GroundCamera(cam);
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(false);
 		guiController.activate();
@@ -56,7 +56,7 @@ public class GroundController extends Controller {
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
-		cameraManager.unregisterInputs(inputManager);
+		camera.unregisterInputs(inputManager);
 		EventManager.unregister(this);
 	}
 

@@ -5,16 +5,14 @@
 package controller;
 
 import view.MapView;
+import view.camera.Camera;
+import view.camera.IsometricCamera;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
-import com.jme3.renderer.Camera;
-
-import controller.cameraManagement.CameraManager;
-import controller.cameraManagement.IsometricCameraManager;
 
 /**
  *
@@ -25,14 +23,14 @@ public abstract class Controller extends AbstractAppState {
 	protected InputInterpreter inputInterpreter;
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
-	public CameraManager cameraManager;
+	public Camera camera;
 	@Inject
 	protected Injector injector;
 
-	protected Camera cam;
+	protected com.jme3.renderer.Camera cam;
 	// public GUIController guiController;
 
-	public Controller(MapView view, InputManager inputManager, Camera cam) {
+	public Controller(MapView view, InputManager inputManager, com.jme3.renderer.Camera cam) {
 		super();
 		this.inputManager = inputManager;
 		spatialSelector = injector.getInstance(SpatialSelector.class);
@@ -43,16 +41,16 @@ public abstract class Controller extends AbstractAppState {
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
-		cameraManager.unregisterInputs(inputManager);
+		camera.unregisterInputs(inputManager);
 	}
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
-		if (cameraManager == null) {
-			cameraManager = new IsometricCameraManager(cam, 10);
+		if (camera == null) {
+			camera = new IsometricCamera(cam, 10);
 		}
 		// inputInterpreter.registerInputs(inputManager);
-		cameraManager.registerInputs(inputManager);
-		cameraManager.activate();
+		camera.registerInputs(inputManager);
+		camera.activate();
 	}
 }

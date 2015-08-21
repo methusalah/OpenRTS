@@ -1,4 +1,4 @@
-package controller.cameraManagement;
+package view.camera;
 
 
 import geometry.geom3d.Point3D;
@@ -17,11 +17,10 @@ import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 
-public class GroundCameraManager extends CameraManager {
+public class GroundCamera extends Camera {
 
-	private static final Logger logger = Logger.getLogger(GroundCameraManager.class.getName());
+	private static final Logger logger = Logger.getLogger(GroundCamera.class.getName());
 	protected final static String ROTATE_LEFT = "rotateleft";
 	protected final static String ROTATE_RIGHT = "rotateright";
 	protected final static String ROTATE_UP = "rotateup";
@@ -36,7 +35,7 @@ public class GroundCameraManager extends CameraManager {
 	private Point3D pos;
 	private Quaternion rotation;
 
-	public GroundCameraManager(Camera cam) {
+	public GroundCamera(com.jme3.renderer.Camera cam) {
 		super(cam);
 		pos = new Point3D(1, 1, 0);
 		rotation = new Quaternion().fromAngles((float)AngleUtil.RIGHT, 0, (float)AngleUtil.FLAT);

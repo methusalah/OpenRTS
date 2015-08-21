@@ -2,25 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.cameraManagement;
+package view.camera;
 
 import geometry.geom2d.Point2D;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
-import com.jme3.renderer.Camera;
 
 /**
  *
  * @author Benoît
  */
-public abstract class CameraManager implements AnalogListener, ActionListener{
-    protected final Camera cam;
+public abstract class Camera implements AnalogListener, ActionListener{
+    protected final com.jme3.renderer.Camera cam;
     
     protected String[] mappings;
 
-    public CameraManager(Camera cam) {
+    public Camera(com.jme3.renderer.Camera cam) {
         this.cam = cam;
     }
     

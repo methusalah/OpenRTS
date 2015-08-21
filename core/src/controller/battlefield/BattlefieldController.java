@@ -13,6 +13,7 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
 import view.EditorView;
+import view.camera.IsometricCamera;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
@@ -24,7 +25,6 @@ import com.jme3.renderer.Camera;
 
 import controller.CommandManager;
 import controller.Controller;
-import controller.cameraManagement.IsometricCameraManager;
 
 /**
  *
@@ -39,7 +39,7 @@ public class BattlefieldController extends Controller {
 	private BattlefieldGUIController guiController;
 
 	@Inject
-	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController, InputManager inputManager, @Named("Camera") Camera cam,
+	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController, InputManager inputManager, Camera cam,
 			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
 		super(view, inputManager, cam);
 		this.view = view;
@@ -98,7 +98,7 @@ public class BattlefieldController extends Controller {
 	}
 
 	private void updateContext(){
-		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
+		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, camera.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
 		for (Unit u : ArmyManager.getUnits()) {
 			if(screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
@@ -117,7 +117,7 @@ public class BattlefieldController extends Controller {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
+		((IsometricCamera)camera).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
@@ -144,7 +144,7 @@ public class BattlefieldController extends Controller {
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		inputInterpreter.unregisterInputs(inputManager);
-		cameraManager.unregisterInputs(inputManager);
+		camera.unregisterInputs(inputManager);
 		EventManager.unregister(this);
 	}
 }

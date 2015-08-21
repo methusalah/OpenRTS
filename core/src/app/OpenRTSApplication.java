@@ -9,6 +9,8 @@ import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
+import view.camera.AzertyFlyByCamera;
+
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
 import com.jme3.bullet.BulletAppState;

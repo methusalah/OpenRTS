@@ -1,4 +1,4 @@
-package app;
+package view.camera;
 
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;

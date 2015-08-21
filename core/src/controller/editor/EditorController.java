@@ -10,6 +10,7 @@ import geometry.geom2d.Point2D;
 import model.ModelManager;
 import model.editor.ToolManager;
 import view.EditorView;
+import view.camera.IsometricCamera;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -19,7 +20,6 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
-import controller.cameraManagement.IsometricCameraManager;
 
 /**
  *
@@ -86,7 +86,7 @@ public class EditorController extends Controller {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
+		((IsometricCamera)camera).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 }

@@ -1,4 +1,4 @@
-package app;
+package view.camera;
 
 import com.jme3.collision.MotionAllowedListener;
 import com.jme3.input.FlyByCamera;

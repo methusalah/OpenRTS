@@ -1,4 +1,4 @@
-package app;
+package view.camera;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.JoyInput;

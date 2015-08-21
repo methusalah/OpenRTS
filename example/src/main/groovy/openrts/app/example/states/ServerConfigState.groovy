@@ -93,10 +93,6 @@ public class ServerConfigState extends AppStateCommon {
 
 			// Reset layout helper
 			//	LayoutHelper.reset();
-
-			//			initDisplayControls();
-			//			initUIExtrasControls();
-			//			initTestControls();
 			initServerControls()
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
@@ -190,71 +186,8 @@ public class ServerConfigState extends AppStateCommon {
 		startMap.setToolTipText("start the testmap");
 		content.addChild(startMap)
 
-		// Add v-sync checkbox
-		//		String labelText = "Enable Vertical Sync?";
-		//		vSync = new CheckBox(screen, Vector2f.ZERO) {
-		//					@Override
-		//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-		//						main.getContext().getSettings().setVSync(toggled);
-		//						main.restart();
-		//					}
-		//				};
-		//		vSync.setIsCheckedNoCallback(main.getContext().getSettings().isVSync());
-		//		vSync.setToolTipText(labelText);
-		//		content.addChild(vSync);
-
-		// Add v-sync label
-		//		content.addChild(getLabel(labelText));
 	}
 
-	//	private void initDisplayControls() {
-	//		// Add title label for Display
-	//		dispTitle = getLabel("DISPLAY");
-	//		dispTitle.setTextAlign(BitmapFont.Align.Center);
-	//		content.addChild(dispTitle);
-	//
-	//		// Add title label for mode selection
-	//		content.addChild(getLabel("Screen Resolution:"));
-	//
-	//		// Add drop-down with available screen modes
-	//		serverAddress = new SelectBox(screen, Vector2f.ZERO) {
-	//					@Override
-	//					public void onChange(int selectedIndex, Object value) {
-	//						if (!Screen.isAndroid()) {
-	//							prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
-	//							main.getContext().getSettings().setWidth(((DisplayMode)value).getWidth());
-	//							main.getContext().getSettings().setHeight(((DisplayMode)value).getHeight());
-	//							if (((DisplayMode)value).getRefreshRate() != DisplayMode.REFRESH_RATE_UNKNOWN) {
-	//								main.getContext().getSettings().setFrequency(((DisplayMode)value).getRefreshRate());
-	//							}
-	//							main.restart();
-	//						}
-	//					}
-	//				};
-	//		loadDisplayModes();
-	//		if (!Screen.isAndroid()) {
-	//			serverAddress.setSelectedByCaption(initResolution, true);
-	//		}
-	//		serverAddress.setToolTipText("Select Screen Resolution");
-	//		serverAddress.getLayoutHints().set("wrap");
-	//		content.addChild(serverAddress);
-	//
-	//		// Add v-sync checkbox
-	//		String labelText = "Enable Vertical Sync?";
-	//		vSync = new CheckBox(screen, Vector2f.ZERO) {
-	//					@Override
-	//					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-	//						main.getContext().getSettings().setVSync(toggled);
-	//						main.restart();
-	//					}
-	//				};
-	//		vSync.setIsCheckedNoCallback(main.getContext().getSettings().isVSync());
-	//		vSync.setToolTipText(labelText);
-	//		content.addChild(vSync);
-	//
-	//		// Add v-sync label
-	//		content.addChild(getLabel(labelText));
-	//	}
 
 
 	public Panel getHarnessPanel() { return this.panel; }
@@ -277,49 +210,6 @@ public class ServerConfigState extends AppStateCommon {
 		return te;
 	}
 
-	//	private void loadDisplayModes() {
-	//		if (!Screen.isAndroid()) {
-	//			if (modes == null) {
-	//				GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	//				modes = device.getDisplayModes();
-	//
-	//				Arrays.sort(modes, new DisplayModeSorter());
-	//				int listIndex = 0;
-	//				for (DisplayMode mode : modes) {
-	//					boolean add = true;
-	//					if (listIndex > 0) {
-	//						int index = listIndex - 1;
-	//						if (serverAddress.getListItemByIndex(index).getCaption().equals(mode.getWidth() + "x" + mode.getHeight())) {
-	//							add = false;
-	//						}
-	//					}
-	//					if (add) {
-	//						serverAddress.addListItem(mode.getWidth() + "x" + mode.getHeight(), mode);
-	//						listIndex++;
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-
-	private class DisplayModeSorter implements Comparator<DisplayMode> {
-		@Override
-		public int compare(DisplayMode a, DisplayMode b) {
-			if (a.getWidth() != b.getWidth()) {
-				return (a.getWidth() > b.getWidth()) ? 1 : -1;
-			}
-			if (a.getHeight() != b.getHeight()) {
-				return (a.getHeight() > b.getHeight()) ? 1 : -1;
-			}
-			if (a.getBitDepth() != b.getBitDepth()) {
-				return (a.getBitDepth() > b.getBitDepth()) ? 1 : -1;
-			}
-			if (a.getRefreshRate() != b.getRefreshRate()) {
-				return (a.getRefreshRate() > b.getRefreshRate()) ? 1 : -1;
-			}
-			return 0;
-		}
-	}
 
 	public Vector2f getPreviousScreenSize() { return this.prevScreenSize; }
 }

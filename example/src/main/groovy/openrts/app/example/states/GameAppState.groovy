@@ -1,25 +1,23 @@
 package openrts.app.example.states;
 
-import openrts.app.example.MultiplayerGame;
-import openrts.guice.annotation.GuiNodeRef;
 import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit
-import view.EditorView;
-import view.MapView
+import openrts.app.example.MultiplayerGame
+import view.EditorView
+import view.camera.Camera
+import view.camera.IsometricCamera
 import view.math.TranslateUtil
 
 import com.google.common.eventbus.Subscribe
 import com.google.inject.Inject
 import com.google.inject.Injector
 import com.jme3.app.state.AppStateManager
+import com.jme3.input.FlyByCamera
 import com.jme3.input.InputManager
-import com.jme3.renderer.Camera
 
 import controller.CommandManager
 import controller.SpatialSelector
-import controller.cameraManagement.CameraManager
-import controller.cameraManagement.IsometricCameraManager
 import event.BattleFieldUpdateEvent
 import event.EventManager
 import event.client.ControllerChangeEvent
@@ -40,7 +38,7 @@ public class GameAppState extends AppStateCommon {
 	@Inject
 	protected SpatialSelector spatialSelector;
 	
-	protected CameraManager cameraManager;
+	protected Camera cameraManager;
 	@Inject
 	protected Injector injector
 	
@@ -48,7 +46,7 @@ public class GameAppState extends AppStateCommon {
 	protected InputManager inputManager;
 	
 	@Inject
-	protected Camera cam
+	protected com.jme3.renderer.Camera cam
 	
 	@Inject
 	public GameAppState(MultiplayerGame main) {
@@ -126,7 +124,7 @@ public class GameAppState extends AppStateCommon {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCameraManager)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
+		((IsometricCamera)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
@@ -145,7 +143,7 @@ public class GameAppState extends AppStateCommon {
 		view.reset();
 		
 		if (cameraManager == null) {
-			cameraManager = new IsometricCameraManager(cam, 10);
+			cameraManager = new IsometricCamera(cam, 10);
 		}
 		// inputInterpreter.registerInputs(inputManager);
 		//scameraManager.registerInputs(inputManager);

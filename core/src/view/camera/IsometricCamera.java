@@ -1,4 +1,4 @@
-package controller.cameraManagement;
+package view.camera;
 
 import geometry.geom3d.Point3D;
 import model.ModelManager;
@@ -10,9 +10,8 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 
-public class IsometricCameraManager extends CameraManager {
+public class IsometricCamera extends Camera {
 	protected final static String STRAFE_NORTH = "strafenorth";
 	protected final static String STRAFE_SOUTH = "strafesouth";
 	protected final static String STRAFE_EAST = "strafeeast";
@@ -24,7 +23,7 @@ public class IsometricCameraManager extends CameraManager {
 	private Point3D pos;
 	private Point3D target;
 
-	public IsometricCameraManager(Camera cam, float elevation) {
+	public IsometricCamera(com.jme3.renderer.Camera cam, float elevation) {
 		super(cam);
 		pos = new Point3D(0, 0, elevation);
 		target = new Point3D(0, elevation*2/3, 0);
