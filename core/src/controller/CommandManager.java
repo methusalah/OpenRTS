@@ -13,6 +13,7 @@ import java.util.Map;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
+import model.battlefield.army.Group;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.motion.pathfinding.FlowField;
@@ -103,9 +104,12 @@ public class CommandManager {
 			return;
 		}
 		Unit target = getUnit(id);
-		for (Unit u : selection) {
-			u.group.clear();
-			u.group.addAll(selection);
+		Group group = new Group(selection);
+		
+		for (Unit u : group) {
+			// First the unit removed itself from its previous group
+			u.group.remove(u);
+			u.group = group;
 		}
 		if (target != null && target.faction != selection.get(0).faction) {
 			orderAttack(target);
@@ -128,7 +132,7 @@ public class CommandManager {
 	}
 
 	private static void orderAttack(Unit enemy) {
-		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), enemy.getPos2D());
+		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), enemy.getCoord());
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {

@@ -2,13 +2,16 @@ package model.battlefield.army.components;
 
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
+import geometry.math.AngleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.battlefield.abstractComps.FieldComp;
-import model.battlefield.abstractComps.Hiker;
+import model.battlefield.abstractComps.GroundHiker;
 import model.battlefield.actors.ModelActor;
+import model.battlefield.army.Group;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
 import model.battlefield.army.tacticalAI.TacticalAI;
@@ -25,7 +28,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * achieve motion over the battlefield and trhought other units - a tactical AI to take decisions - an arming to launch effects It uses a model actor to be
  * drawn on the view. It is defined by XML and is only instanciated by associate builder.
  */
-public class Unit extends Hiker implements EffectSource, EffectTarget {
+public class Unit extends GroundHiker implements EffectSource, EffectTarget {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 
 	public enum STATE {
 		MOVING, AIMING, IDLING, DESTROYED, STUCK
@@ -42,7 +46,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 
 	// variables
 	public Faction faction;
-	public List<Unit> group = new ArrayList<Unit>();
+
+	public Group group = new Group();
 	public int health;
 	public STATE state = STATE.IDLING;
 	public boolean selected = false;
@@ -50,9 +55,9 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	public Unit(double radius,
 			double speed,
     		double acceleration,
-    		double rotationSpeed,
-    		double rotationAcceleration,
-			double mass,
+    		double deceleration,
+    		double stationnaryRotationSpeed,
+    		double turningRate,
 			Point3D pos,
 			double yaw,
 			MoverBuilder moverBuilder,
@@ -62,7 +67,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 			int maxHealth,
 			Faction faction,
 			ModelActorBuilder actorBuilder) {
-		super(radius, speed, acceleration, rotationSpeed, rotationAcceleration, mass, pos, yaw, moverBuilder);
+		super(pos, yaw, radius, speed, acceleration, deceleration, stationnaryRotationSpeed, turningRate, moverBuilder);
 		this.UIName = UIName;
 		this.builderID = BuilderID;
 		this.race = race;
@@ -107,14 +112,18 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 
 	}
 
-	protected boolean isMoving() {
-		return state == STATE.MOVING;
-	}
-
-	protected void setYaw(double yaw) {
-		mover.desiredYaw = yaw;
-	}
-
+    public void head(Point2D target) {
+    	mover.desiredOrientation = getAngleTo(target);
+    }
+    
+    public boolean heading(Point2D target, double toleranceInDegrees){
+    	return AngleUtil.getSmallestDifference(getAngleTo(target), getOrientation()) <= AngleUtil.toRadians(toleranceInDegrees);
+    }
+    
+    private double getAngleTo(Point2D p){
+    	return p.getSubtraction(getCoord()).getAngle();
+    }
+    
 	public void idle() {
 		state = STATE.IDLING;
 	}
@@ -122,7 +131,7 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	private void findNearbyMovers() {
 		mover.toFlockWith.clear();
 		for (Unit u : group) {
-			if (u != this) {
+			if (u != this && u.getMover().hasDestination()) {
 				mover.toFlockWith.add(u.getMover());
 			}
 		}
@@ -184,10 +193,6 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 		return mover;
 	}
 
-	public Point2D getPos2D() {
-		return getPos().get2D();
-	}
-
 	public ArrayList<Turret> getTurrets() {
 		return arming.turrets;
 	}
@@ -204,11 +209,6 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 	@Override
 	public boolean isStillActiveSource() {
 		return !destroyed();
-	}
-
-	@Override
-	public Point3D getDirection() {
-		throw new RuntimeException("mustn't call this.");
 	}
 
 	@Override
@@ -239,4 +239,8 @@ public class Unit extends Hiker implements EffectSource, EffectTarget {
 		return new ToStringBuilder(this).append("UIName", UIName).toString();
 	}
 
+	@Override
+	public double getYaw() {
+		return getOrientation();
+	}
 }

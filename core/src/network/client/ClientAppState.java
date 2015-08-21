@@ -15,6 +15,7 @@ import event.EventManager;
 import event.network.AckEvent;
 import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
+import exception.TechnicalException;
 
 public class ClientAppState extends AbstractAppState {
 
@@ -38,11 +39,12 @@ public class ClientAppState extends AbstractAppState {
 
 		try {
 			networkClient = Network.connectToServer(gameName, version, host, 6143);
-			networkClient.addClientStateListener(new ClientStateListener());
-			networkClient.addMessageListener(new MessageListener(), AckEvent.class);
 		} catch (IOException e) {
-			logger.warning(e.getLocalizedMessage());
+			throw new TechnicalException(e.getLocalizedMessage());
 		}
+		networkClient.addClientStateListener(new ClientStateListener());
+		networkClient.addMessageListener(new MessageListener(), AckEvent.class);
+
 
 		EventManager.register(this);
 		super.initialize(stateManager, app);
@@ -60,7 +62,9 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		networkClient.start();
+		if (networkClient != null) {
+			networkClient.start();
+		}
 	}
 
 	@Override

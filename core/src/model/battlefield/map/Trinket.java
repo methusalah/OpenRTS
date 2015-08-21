@@ -11,7 +11,7 @@ import model.builders.entity.actors.ModelActorBuilder;
 /**
  * Specialized static field comp with a model actor.
  */
-public class Trinket extends FieldComp{
+public class Trinket extends FieldComp {
     public final boolean editable;
     public final boolean blocking;
     private final ModelActor actor;

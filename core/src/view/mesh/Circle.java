@@ -40,8 +40,8 @@ public class Circle extends Mesh {
 		float angle = 0;
 		for (int i = 0; i < samples; i++) {
 			float x = FastMath.cos(angle) + center.x;
-			float z = FastMath.sin(angle) + center.z;
-			positions.put(x * radius).put(center.y).put(z * radius);
+			float y = FastMath.sin(angle) + center.y;
+			positions.put(x * radius).put(y * radius).put(center.z);
 			normals.put(new float[] { 0, 1, 0 });
 			indices[i * 2] = (short) i;
 			indices[i * 2 + 1] = (short) ((i + 1) % samples);

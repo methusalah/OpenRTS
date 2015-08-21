@@ -25,7 +25,7 @@ public class Game {
 	protected GameController fieldCtrl;
 	protected NiftyJmeDisplay clientDisplay;
 	private Map<Integer, Player> players = new HashMap<Integer, Player>();
-	protected MapView view;
+//	protected MapView view;
 
 	@Inject
 	@Named("RootNode")
@@ -63,15 +63,14 @@ public class Game {
 
 	public Game() {
 
-		view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		// game = new Game(niftyDisplay, view, inputManager, cam);
 		EventManager.register(this);
-
-		if (view.getMapRend() != null) {
-			view.getMapRend().renderTiles();
-		}
+//
+//		if (view.getMapRend() != null) {
+//			view.getMapRend().renderTiles();
+//		}
 
 
 

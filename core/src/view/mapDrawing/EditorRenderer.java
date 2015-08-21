@@ -12,7 +12,8 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.parcelling.Parcel;
 import model.editor.Pencil;
 import model.editor.ToolManager;
-import view.material.MaterialUtil;
+import view.EditorView;
+import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
@@ -41,9 +42,6 @@ public class EditorRenderer {
 	public static final double QUAD_PENCIL_SAMPLE_LENGTH = 0.5;
 	public static final int PENCIL_THICKNESS = 3;
 
-	// EditorView view;
-	private final MaterialUtil mm;
-
 	public Node mainNode = new Node();
 	public Node gridNode = new Node();
 	public Node CliffPencilNode = new Node();
@@ -51,11 +49,12 @@ public class EditorRenderer {
 	public Node AtlasPencilNode = new Node();
 	private Map<Parcel, GridMesh> gridMeshes = new HashMap<>();
 	private Map<Parcel, Geometry> gridGeoms = new HashMap<>();
+	
+	protected MaterialManager materialManager;
 
 	@Inject
-	public EditorRenderer(MaterialUtil mm) {
-		// this.view = view;
-		this.mm = mm;
+	public EditorRenderer(MaterialManager materialManager) {
+		this.materialManager = materialManager;
 		EventManager.register(this);
 
 		if(ModelManager.getBattlefield() != null) {
@@ -65,7 +64,7 @@ public class EditorRenderer {
 
 				Geometry g = new Geometry();
 				g.setMesh(TranslateUtil.toJMEMesh(grid));
-				Material mat = mm.getColor(ColorRGBA.Black);
+				Material mat = materialManager.getColor(ColorRGBA.Black);
 				mat.getAdditionalRenderState().setWireframe(true);
 				g.setMaterial(mat);
 				gridNode.attachChild(g);
@@ -93,45 +92,45 @@ public class EditorRenderer {
 			Line l = new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 1, 0.1f));
 			l.setLineWidth(PENCIL_THICKNESS);
 			l1.setMesh(l);
-			l1.setMaterial(mm.getColor(ColorRGBA.Orange));
+			l1.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(l1);
 
 			Geometry l2 = new Geometry();
 			l = new Line(new Vector3f(0, 1, 0.1f), new Vector3f(1, 1, 0.1f));
 			l.setLineWidth(PENCIL_THICKNESS);
 			l2.setMesh(l);
-			l2.setMaterial(mm.getColor(ColorRGBA.Orange));
+			l2.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(l2);
 
 			Geometry l3 = new Geometry();
 			l = new Line(new Vector3f(1, 1, 0.1f), new Vector3f(1, 0, 0.1f));
 			l.setLineWidth(PENCIL_THICKNESS);
 			l3.setMesh(l);
-			l3.setMaterial(mm.getColor(ColorRGBA.Orange));
+			l3.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(l3);
 
 			Geometry l4 = new Geometry();
 			l = new Line(new Vector3f(1, 0, 0.1f), new Vector3f(0, 0, 0.1f));
 			l.setLineWidth(PENCIL_THICKNESS);
 			l4.setMesh(l);
-			l4.setMaterial(mm.getColor(ColorRGBA.Orange));
+			l4.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(l4);
 
 			Geometry lv1 = new Geometry();
 			lv1.setMesh(new Line(new Vector3f(0, 0, 0.1f), new Vector3f(0, 0, -10)));
-			lv1.setMaterial(mm.getColor(ColorRGBA.Orange));
+			lv1.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(lv1);
 			Geometry lv2 = new Geometry();
 			lv2.setMesh(new Line(new Vector3f(0, 1, 0.1f), new Vector3f(0, 1, -10)));
-			lv2.setMaterial(mm.getColor(ColorRGBA.Orange));
+			lv2.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(lv2);
 			Geometry lv3 = new Geometry();
 			lv3.setMesh(new Line(new Vector3f(1, 1, 0.1f), new Vector3f(1, 1, -10)));
-			lv3.setMaterial(mm.getColor(ColorRGBA.Orange));
+			lv3.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(lv3);
 			Geometry lv4 = new Geometry();
 			lv4.setMesh(new Line(new Vector3f(1, 0, 0.1f), new Vector3f(1, 0, -10)));
-			lv4.setMaterial(mm.getColor(ColorRGBA.Orange));
+			lv4.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			n.attachChild(lv4);
 			CliffPencilNode.attachChild(n);
 		}
@@ -141,7 +140,7 @@ public class EditorRenderer {
 		for (int i = 0; i < Pencil.MAX_SIZE * Pencil.MAX_SIZE; i++) {
 			Geometry g = new Geometry();
 			g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
-			g.setMaterial(mm.getColor(ColorRGBA.Orange));
+			g.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			HeightPencilNode.attachChild(g);
 		}
 	}
@@ -150,7 +149,7 @@ public class EditorRenderer {
 		for (int i = 0; i < Pencil.MAX_SIZE * 8; i++) {
 			Geometry g = new Geometry();
 			g.setMesh(new Line(new Vector3f(-1000, -1000, 0), new Vector3f(-1000, -1000, 1)));
-			g.setMaterial(mm.getColor(ColorRGBA.Orange));
+			g.setMaterial(materialManager.getColor(ColorRGBA.Orange));
 			AtlasPencilNode.attachChild(g);
 		}
 	}

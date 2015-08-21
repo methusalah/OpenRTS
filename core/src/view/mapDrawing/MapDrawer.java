@@ -16,10 +16,11 @@ import model.battlefield.map.parcelling.Parcel;
 import view.MapView;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
-import view.material.MaterialUtil;
+import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -42,7 +43,6 @@ public class MapDrawer {
 
 	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
 	MapView view;
-	MaterialUtil mm;
 	AssetManager am;
 
 	private Map<String, Spatial> models = new HashMap<>();
@@ -59,13 +59,16 @@ public class MapDrawer {
 	public Node receiveNode = new Node();
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
+	
+	@Inject
+	protected MaterialManager materialManager;
 
-	public MapDrawer(MapView view, MaterialUtil mm, AssetManager am) {
+	@Inject
+	public MapDrawer(MapView view, AssetManager am) {
 		this.view = view;
 		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
 		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);
 		coverTexture.transp = true;
-		this.mm = mm;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
@@ -186,9 +189,10 @@ public class MapDrawer {
 	private void attachBuggedCliff(Cliff c) {
 		Geometry g = new Geometry();
 		g.setMesh(new Box(0.5f, 0.5f, 1));
-		g.setMaterial(mm.redMaterial);
-		g.setLocalTranslation((float)c.getTile().getCoord().getX() + 0.5f, (float)c.getTile().getCoord().getY() + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
 
+		g.setMaterial(materialManager.redMaterial);
+		g.setLocalTranslation((float)c.getTile().getCoord().getX() + 0.5f, (float)c.getTile().getCoord().getY() + 0.5f, (float) (c.level * Tile.STAGE_HEIGHT) + 1);
+		
 		Node n = new Node();
 		n.attachChild(g);
 		tilesSpatial.get(c.getTile()).add(n);
@@ -204,9 +208,9 @@ public class MapDrawer {
 		Geometry g = new Geometry();
 		g.setMesh(TranslateUtil.toJMEMesh(face.mesh));
 		if (face.color != null) {
-			g.setMaterial(mm.getLightingColor(TranslateUtil.toColorRGBA(face.color)));
+			g.setMaterial(materialManager.getLightingColor(TranslateUtil.toColorRGBA(face.color)));
 		} else {
-			g.setMaterial(mm.getLightingTexture(face.texturePath));
+			g.setMaterial(materialManager.getLightingTexture(face.texturePath));
 		}
 		// g.setMaterial(mm.getLightingTexture("textures/road.jpg"));
 		g.rotate(0, 0, (float) (c.angle));

@@ -4,6 +4,7 @@
 package model.editor.tools;
 
 import geometry.geom2d.Point2D;
+import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 import geometry.math.RandomUtil;
 
@@ -122,7 +123,8 @@ public class TrinketTool extends Tool {
 			actualTrinket.sowed = false;
 		}
 		if (actualTrinket != null) {
-			actualTrinket.yaw = pencil.getCoord().getSubtraction(actualTrinket.pos.get2D()).getAngle();
+			actualTrinket.setOrientation(pencil.getCoord().getSubtraction(actualTrinket.getCoord()).getAngle());
+			actualTrinket.setDirection(Point3D.UNIT_X.getRotationAroundZ(actualTrinket.getOrientation()));
 		}
 	}
 

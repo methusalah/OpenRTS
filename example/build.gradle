@@ -31,6 +31,7 @@ sourceSets {
         java {
             srcDirs = [] // don't compile Java code twice 
         }
+		resources { srcDir 'assets' }
     }
 }
 

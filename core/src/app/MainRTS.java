@@ -7,6 +7,7 @@ import model.editor.ToolManager;
 import model.editor.engines.CollisionTester;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
+import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.bullet.BulletAppState;
@@ -45,8 +46,8 @@ public class MainRTS extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
-		// view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
-
+//		view = new EditorView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
+		
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 
 		//		fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);

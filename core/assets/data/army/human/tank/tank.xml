@@ -5,9 +5,13 @@
     <Race value="human"/>
     <Radius value="0.8"/>
     <SeparationRadius value="0.8"/>
-    <Speed value="4"/>
-    <Mass value="1"/>
-    <MaxHealth value="120"/>
+    <Speed value="1"/>
+    <Acceleration value="1000"/>
+    <Deceleration value="10"/>
+    <StationaryRotationSpeed value="360"/>
+<!--     <TurningRate value="20"/>
+ -->
+     <MaxHealth value="120"/>
     <Sight value="10"/>
     <MoverLink value="GroundProne"/>
     <WeaponList WeaponLink="TankCanon" TurretLink="StdTurret"/>

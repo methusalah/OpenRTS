@@ -12,10 +12,12 @@ import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.ModelActor;
-import view.material.MaterialUtil;
+import model.battlefield.army.components.Unit;
+import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
@@ -43,10 +45,10 @@ public class ActorDrawer implements AnimEventListener {
 	private static final Logger logger = Logger.getLogger(ActorDrawer.class.getName());
 
 	private AssetManager assetManager;
-	private MaterialUtil materialUtil;
 
 	public Node mainNode;
 	public Node abandoned;
+	public boolean askClearAbandoned = false;
 	public PhysicsSpace mainPhysicsSpace;
 
 	ModelPerformer modelPfm;
@@ -61,10 +63,12 @@ public class ActorDrawer implements AnimEventListener {
 	List<ParticleEmitter> dyingEmitters = new ArrayList<>();
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 	private List<Spatial> abandonedTrinkets = new ArrayList<>(); 
+	
+	@Inject
+	protected MaterialManager materialManager;
 
-	public ActorDrawer(AssetManager assetManager, MaterialUtil materialUtil) {
+	public ActorDrawer(AssetManager assetManager) {
 		this.assetManager = assetManager;
-		this.materialUtil = materialUtil;
 		mainNode = new Node();
 		abandoned = new Node();
 		mainNode.attachChild(abandoned);
@@ -80,9 +84,12 @@ public class ActorDrawer implements AnimEventListener {
 	
 	@Subscribe
 	public void handleBuggingSpatial(GenericEvent e) {
-		synchronized (abandonedTrinkets) {
-			abandonedTrinkets.add((Spatial)e.getObject());
-		}
+		if(e.getObject() == null)
+			askClearAbandoned = true;
+		else
+			synchronized (abandonedTrinkets) {
+				abandonedTrinkets.add((Spatial)e.getObject());
+			}
 	}
 
 
@@ -95,12 +102,15 @@ public class ActorDrawer implements AnimEventListener {
 				abandonedTrinkets.clear();
 			}
 		}
-		for(Spatial s : abandoned.getChildren()){
-			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
-			if(s.getLocalTranslation().z <= -3) {
-				abandoned.detachChild(s);
-			}
+		if(askClearAbandoned){
+			askClearAbandoned = false;
+			abandoned.detachAllChildren();
 		}
+//		for(Spatial s : abandoned.getChildren()){
+//			s.setLocalTranslation(s.getLocalTranslation().add(0, 0, -0.0001f));
+//			if(s.getLocalTranslation().z <= -3)
+//				abandoned.detachChild(s);
+//		}
 			
 		// first, the spatials attached to interrupted actor are detached
 		ActorPool pool = ModelManager.getBattlefield().getActorPool();
@@ -212,7 +222,7 @@ public class ActorDrawer implements AnimEventListener {
 		}
 
 		if (actor.getColor() != null) {
-			res.setMaterial(materialUtil.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
+			res.setMaterial(materialManager.getLightingColor(TranslateUtil.toColorRGBA(actor.getColor())));
 		} else{
 			for(Integer index : actor.getSubColorsByIndex().keySet()) {
 				applyToSubmesh(res, null, index, actor.getSubColorsByIndex().get(index));
@@ -234,13 +244,12 @@ public class ActorDrawer implements AnimEventListener {
 		if(s instanceof Geometry){
 			Geometry g = (Geometry)s; 
 			if(g.getName().equals(subMeshName) || subMeshIndex == 0){
-				if(colorOrMaterial instanceof Color) {
+				if(colorOrMaterial instanceof Color)
 					g.getMaterial().setColor("Diffuse", TranslateUtil.toColorRGBA((Color)colorOrMaterial));
-				} else if (colorOrMaterial instanceof String) {
-					g.setMaterial(materialUtil.getMaterial((String)colorOrMaterial));
-				} else {
+				else if (colorOrMaterial instanceof String)
+					g.setMaterial(materialManager.getMaterial((String)colorOrMaterial));
+				else
 					throw new IllegalArgumentException();
-				}
 					
 				return;
 			}
@@ -281,9 +290,4 @@ public class ActorDrawer implements AnimEventListener {
 	public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
 		// LogUtil.logger.info("anim changed to "+animName);
 	}
-
-	public MaterialUtil getMaterialManager() {
-		return materialUtil;
-	}
-
 }

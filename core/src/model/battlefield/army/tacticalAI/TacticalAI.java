@@ -4,7 +4,9 @@ import geometry.geom3d.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import model.battlefield.army.components.Mover;
 import model.battlefield.army.components.Unit;
 
 /**
@@ -29,6 +31,7 @@ import model.battlefield.army.components.Unit;
  *
  */
 public class TacticalAI {
+	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 	protected static final String AUTO_ATTACK = "autoattack";
 	protected static final String WAIT_ORDERS = "waitorders";
 	protected static final String MOVE = "move";
@@ -104,7 +107,7 @@ public class TacticalAI {
 		}
 		unit.idle();
 		// let allies pass
-		unit.getMover().separate();
+		unit.getMover().letPass();
 
 		// return to post if disturbed
 		if(post != null && getPostDistance() > FREE_MOVE_RADIUS){
@@ -128,7 +131,7 @@ public class TacticalAI {
 
 	void doWait(double duration){
 		// let allies pass
-		unit.getMover().separate();
+		unit.getMover().letPass();
 
 		if(disturbTime == 0) {
 			disturbTime = System.currentTimeMillis();
@@ -144,7 +147,7 @@ public class TacticalAI {
 		} else if(isAttacked()) {
 			stateMachine.pushState(ATTACK_BACK);
 		} else{
-			unit.getMover().separate();
+			unit.getMover().letPass();
 			unit.getMover().seek(post);
 		}
 	}
@@ -203,7 +206,8 @@ public class TacticalAI {
 	}
 
 	void doStop(){
-		if(unit.getMover().velocity.equals(Point3D.ORIGIN)) {
+		unit.decelerateStrongly();
+		if(unit.isStopped()) {
 			stateMachine.popState();
 		}
 	}
@@ -225,7 +229,7 @@ public class TacticalAI {
 		post = unit.getPos();
 		unit.idle();
 		unit.getMover().tryToHoldPositionSoftly();
-		unit.getMover().separate();
+		unit.getMover().letPass();
 		//        holdposition = true;
 		if(unit.arming.acquiring()) {
 			unit.arming.attack();

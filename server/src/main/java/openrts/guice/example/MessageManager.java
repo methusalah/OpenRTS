@@ -6,7 +6,6 @@
 package openrts.guice.example;
 
 import openrts.guice.annotation.AppSettingsRef;
-import openrts.guice.annotation.AssetManagerRef;
 import openrts.guice.annotation.GuiNodeRef;
 
 import com.google.inject.Inject;
@@ -22,11 +21,14 @@ import com.jme3.system.AppSettings;
  */
 public class MessageManager {
 	@Inject
-	private @AssetManagerRef AssetManager assetManager;
+	private AssetManager assetManager;
 	@Inject
-	private @GuiNodeRef Node guiNode;
+	@GuiNodeRef
+	private  Node guiNode;
+	
 	@Inject
-	private @AppSettingsRef AppSettings settings;
+	@AppSettingsRef
+	private  AppSettings settings;
 
 	public void setMessage(String message) {
 		BitmapFont guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");

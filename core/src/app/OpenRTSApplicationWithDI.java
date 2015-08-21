@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
 import openrts.guice.annotation.AppSettingsRef;
-import openrts.guice.annotation.AssetManagerRef;
 import openrts.guice.annotation.AudioRendererRef;
 import openrts.guice.annotation.GuiNodeRef;
 import openrts.guice.annotation.RootNodeRef;
@@ -23,7 +22,7 @@ import openrts.guice.annotation.ViewPortRef;
 import view.EditorView;
 import view.camera.AzertyFlyByCamera;
 import view.mapDrawing.EditorRenderer;
-import view.material.MaterialUtil;
+import view.material.MaterialManager;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -310,7 +309,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 			@Override
 			protected void configure() {
 
-				bind(AssetManager.class).annotatedWith(AssetManagerRef.class).toInstance(assetManager);
+				bind(AssetManager.class).toInstance(assetManager);
 				bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
 				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
@@ -350,7 +349,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 				bind(EditorView.class).in(Singleton.class);
 
-				bind(MaterialUtil.class).in(Singleton.class);
+				bind(MaterialManager.class).in(Singleton.class);
 
 				// no singleton needed here => it easier for resetting
 				bind(EditorRenderer.class).in(Singleton.class);

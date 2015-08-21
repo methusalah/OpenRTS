@@ -6,7 +6,8 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 import geometry.math.RandomUtil;
-import model.battlefield.abstractComps.Hiker;
+import model.battlefield.abstractComps.GroundHiker;
+import model.battlefield.abstractComps.SpaceHiker;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.effects.EffectSource;
 import model.battlefield.army.effects.EffectTarget;
@@ -26,7 +27,7 @@ import model.builders.entity.actors.ModelActorBuilder;
  *
  * @author Benoît
  */
-public class Projectile extends Hiker {
+public class Projectile extends SpaceHiker {
 	public enum PRECISION_TYPE{CENTER, IN_RADIUS, OTHER}
 
 	private final PRECISION_TYPE precisionType;
@@ -37,11 +38,15 @@ public class Projectile extends Hiker {
 
 	public Point3D targetPoint = null;
 	public boolean arrived = false;
+	public double timerStart = 0;
+	
 
 	// List<ActionListener> listeners = new ArrayList<>();
 
 	public Projectile(double radius,
-			double speed,
+			double maxSpeed,
+			double acceleration,
+			double deceleration,
 			double mass,
 			EffectSource source,
 			MoverBuilder moverBuilder,
@@ -50,15 +55,16 @@ public class Projectile extends Hiker {
 			ModelActorBuilder actorBuilder,
 			EffectTarget target,
 			Point3D targetPoint) {
-		super(radius, speed, 0, 0, 0, mass, source.getPos(), source.getYaw(), moverBuilder);
+		super(source.getPos(), source.getYaw(), radius, maxSpeed, acceleration, deceleration, mass, moverBuilder);
 		this.precisionType = precisionType;
 		this.precision = precision;
 		this.target = target;
 		this.targetPoint = targetPoint;
 		actor = actorBuilder.build(this);
-		mover.velocity = source.getDirection();
-		upDirection = null;
+		setDirection(source.getDirection());
+		setUpDirection(null);
 		updateTargetPoint();
+		timerStart = System.currentTimeMillis();
 	}
 
 	public void update(double elapsedTime){
@@ -67,6 +73,7 @@ public class Projectile extends Hiker {
 		}
 
 		updateTargetPoint();
+		mover.sm.motionIn3D = true;
 		mover.sm.seek(targetPoint);
 
 		mover.updatePosition(elapsedTime);
@@ -74,6 +81,7 @@ public class Projectile extends Hiker {
 		if(mover.hasMoved) {
 			actor.onMove(true);
 		}
+			
 
 		testArrival();
 	}
@@ -89,12 +97,10 @@ public class Projectile extends Hiker {
 		}
 
 		if(dist < tolerance || (dist < 1 && dist > lastDist)){
-			arrived = true;
-			actor.onMove(false);
-			actor.onDestroyedEvent();
-			actor.stopActing();
-			notifyListeners();
+			setTargetReached();
 		}
+		if(!mover.hasMoved || System.currentTimeMillis()-timerStart > 4000)
+			setTargetLost();
 		lastDist = dist;
 	}
 
@@ -120,8 +126,19 @@ public class Projectile extends Hiker {
 	}
 
 
-	public void notifyListeners(){
-		EventManager.post(new ProjectileArrivedEvent());
+	public void setTargetReached(){
+		arrived = true;
+		actor.onMove(false);
+		actor.onDestroyedEvent();
+		actor.stopActing();
+		EventManager.post(new ProjectileArrivedEvent(true));
+	}
+	public void setTargetLost(){
+		arrived = true;
+		actor.onMove(false);
+		actor.onDestroyedEvent();
+		actor.stopActing();
+		EventManager.post(new ProjectileArrivedEvent(false));
 	}
 
 	public void removeFromBattlefield(){
