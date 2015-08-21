@@ -4,6 +4,7 @@
 package model.builders.entity.definitions;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -53,7 +54,13 @@ public class DefParser {
 		if (!folder.exists()) {
 			throw new TechnicalException("the folder " + folderPath +  " was not found.");
 		}
-		for (File f : folder.listFiles()) {
+		for (File f : folder.listFiles(new FileFilter() {
+			
+			@Override
+			public boolean accept(File file) {
+				return file.isDirectory() || file.getPath().endsWith("xml");
+			}
+		})) {
 			res.add(f);
 		}
 		return res;

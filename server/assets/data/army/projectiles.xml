@@ -2,7 +2,7 @@
 <catalog>
   <Projectile id="StdProjectile">
     <Speed value="4"/>
-    <Mass value="1"/>
+    <Mass value="0.8"/>
     <Precision value="Center"/>
     <MoverLink value="Projectile"/>
     <ActorLink value="StdMissile"/>

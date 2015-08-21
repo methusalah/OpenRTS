@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <Actor id="MountedMachinegunActor">
+    <ActorList Trigger="onShoot" ActorLink="MountedMachinegun"/>
+    <ActorList Trigger="onShoot" ActorLink="MountedMachinegunSound"/>
+  </Actor>
+  
+  <Actor id="MountedMachinegun">
+    <Type value="Particle"/>
+    <SpritePath value="particles/flame.png"/>
+    <NbCol value="2"/>
+    <NbRow value="2"/>
+    <Velocity value="5"/>
+    <Fanning value="0.1"/>
+    <Duration value="100"/>
+    <MaxCount value="30"/>
+    <PerSecond value="100"/>
+    <StartSize value="0.2"/>
+    <EndSize value="0.1"/>
+    <StartColor R="255" G="255" B="0" A="180"/>
+    <EndColor R="255" G="0" B="0" A="255"/>
+    <MinLife value="0.2"/>
+    <MaxLife value="0.6"/>
+  </Actor>
+
+  <Actor id="MountedMachinegunSound">
+    <Type value="Sound"/>
+    <SoundPath value="monoshot1.wav"/>
+    <Volume value="1"/>
+    <Looping value="false"/>
+    <Positional value="true"/>
+  </Actor>
+</catalog>

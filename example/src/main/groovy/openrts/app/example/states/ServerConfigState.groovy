@@ -58,7 +58,7 @@ public class ServerConfigState extends AppStateCommon {
 	protected ButtonAdapter close,connect, startMap;
 	protected ClientManager clientManager
 	
-	protected static String mapfilename = "assets/maps/test2.btf";
+	protected static String mapfilename = "assets/maps/test.btf";
 	
 	
 
