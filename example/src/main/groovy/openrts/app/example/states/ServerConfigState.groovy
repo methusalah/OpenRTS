@@ -59,6 +59,8 @@ public class ServerConfigState extends AppStateCommon {
 	protected ClientManager clientManager
 	
 	protected static String mapfilename = "assets/maps/test.btf";
+	
+	
 
 	@Inject
 	Injector injector
@@ -179,6 +181,7 @@ public class ServerConfigState extends AppStateCommon {
 				ModelManager.loadBattlefield(mapfilename);
 				CreateGameEvent evt1 = new CreateGameEvent(mapfilename);
 				EventManager.post(evt1);
+				main.loadMap()
 			}
 		};
 		startMap.isEnabled = false

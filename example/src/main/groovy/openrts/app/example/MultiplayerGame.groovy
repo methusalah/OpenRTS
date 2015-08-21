@@ -1,12 +1,13 @@
 package openrts.app.example;
 
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
 
 import java.util.logging.Logger
 
-import openrts.app.example.states.AppStateCommon;
-import openrts.app.example.states.ServerConfigState;
-import openrts.app.example.states.UserLoginAppState;
+import openrts.app.example.states.AppStateCommon
+import openrts.app.example.states.GameAppState
+import openrts.app.example.states.ServerConfigState
+import openrts.app.example.states.UserLoginAppState
 import tonegod.gui.core.Screen
 import tonegod.gui.tests.states.TestState
 import tonegod.gui.tests.states.buttons.ButtonState
@@ -19,13 +20,12 @@ import tonegod.gui.tests.states.text.TextLabelState
 import tonegod.gui.tests.states.windows.WindowState
 import app.OpenRTSApplicationWithDI
 
-import com.google.inject.Module;
+import com.google.inject.Module
 import com.jme3.font.BitmapFont
 import com.jme3.light.AmbientLight
 import com.jme3.light.DirectionalLight
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
-import com.jme3.renderer.Camera
 import com.jme3.renderer.RenderManager
 
 
@@ -64,7 +64,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	// States
 	private List<AppStateCommon> states = new ArrayList();
-	private ServerConfigState harness;
+	private ServerConfigState serverConfig;
+	
+	protected GameAppState gameState
+	
 	UserLoginAppState userlogin;
 	private TestState tests;
 	private WindowState winState;
@@ -116,41 +119,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 		defaultFont = getAssetManager().loadFont(screen.getStyle("Font").getString("defaultFont"));
 
-		Camera cam2;
-
 		flyCam.setEnabled(true);
 		flyCam.setMoveSpeed(30);
 		flyCam.setDragToRotate(true);
 		inputManager.setCursorVisible(true);
 	}
 
-	private void initStates() {
-
-		harness = injector.getInstance(ServerConfigState.class);
-		states.add(harness);
-		// tests = new TestState(this);
-		// states.add(tests);
-		// winState = new WindowState(this);
-		// states.add(winState);
-		// spriteStates = new SpriteState(this);
-		// states.add(spriteState);
-		// animatedTextState = new AnimatedTextState(this);
-		// states.add(animatedTextState);
-		// labelState = new TextLabelState(this);
-		// states.add(labelState);
-		// buttonState = new ButtonState(this);
-		// states.add(buttonState);
-		// emitterState = new EmitterState(this);
-		// states.add(emitterState);
-		// subScreenState = new EmbeddedGUIState(this);
-		// states.add(subScreenState);
-		// spatialState = new SpatialState(this);
-		// states.add(spatialState);
-
-		stateManager.attach(harness);
-		// stateManager.attach(tests);
-
-	}
 	public Screen getScreen() {
 		return this.screen;
 	}
@@ -206,12 +180,18 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	def sucessfullLoggedIn() {
 		stateManager.detach(userlogin);
-		initStates();
+		serverConfig = injector.getInstance(ServerConfigState.class);
+		states.add(serverConfig);
+		stateManager.attach(serverConfig);
 	}
 	
 	def loadMap() {
-		stateManager.detach(userlogin)
+		stateManager.detach(serverConfig)
+		userlogin.enabled = false
 		
+		gameState = injector.getInstance(GameAppState.class);
+		states.add(gameState);
+		stateManager.attach(gameState);
 	} 
 
 }

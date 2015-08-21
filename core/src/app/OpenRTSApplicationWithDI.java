@@ -314,7 +314,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
 				bind(Node.class).annotatedWith(Names.named("RootNode")).toInstance(rootNode);
-				bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
+				//bind(Node.class).annotatedWith(Names.named("GuiNode")).toInstance(guiNode);
 				bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
 				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);

@@ -1,6 +1,7 @@
 package openrts.app.example.states;
 
 import openrts.app.example.MultiplayerGame;
+import openrts.guice.annotation.GuiNodeRef;
 import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit
@@ -30,8 +31,12 @@ public class GameAppState extends AppStateCommon {
 
 	private boolean paused = false;
 	private Point2D zoneStart;
+	
 	private boolean drawingZone = false;
+	@Inject
 	protected MapView view;
+	
+	@Inject
 	protected SpatialSelector spatialSelector;
 	
 	protected CameraManager cameraManager;
@@ -41,7 +46,6 @@ public class GameAppState extends AppStateCommon {
 	@Inject
 	protected InputManager inputManager;
 	
-	
 	protected Camera cam
 	
 	@Inject
@@ -50,7 +54,6 @@ public class GameAppState extends AppStateCommon {
 		displayName = "GameAppState";
 		show = true;
 		EventManager.register(this);
-		spatialSelector = injector.getInstance(SpatialSelector.class);
 	}
 
 	@Override
@@ -135,6 +138,8 @@ public class GameAppState extends AppStateCommon {
 		super.stateAttached(stateManager);
 		//inputManager.setCursorVisible(true);
 		//sguiController.activate();
+		
+		//screen.addElement(null)
 		view.reset();
 		
 		if (cameraManager == null) {

@@ -1,65 +1,27 @@
 package openrts.server
 
-import java.awt.DisplayMode
-import java.awt.GraphicsDevice
-import java.awt.GraphicsEnvironment
 import java.util.logging.Logger
 import java.util.prefs.BackingStoreException
 
-import network.client.ClientManager
-import openrts.guice.annotation.AppSettingsRef
-import openrts.guice.annotation.AssetManagerRef
-import openrts.guice.annotation.AudioRendererRef
-import openrts.guice.annotation.GuiNodeRef
-import openrts.guice.annotation.RootNodeRef
-import openrts.guice.annotation.StateManagerRef
-import openrts.guice.annotation.ViewPortRef
-import view.EditorView
-import view.MapView
-import view.mapDrawing.EditorRenderer
-import view.material.MaterialUtil
 import app.OpenRTSApplicationWithDI
 
-import com.google.inject.AbstractModule
-import com.google.inject.Guice
 import com.google.inject.Injector
 import com.google.inject.Module
-import com.google.inject.Singleton
-import com.google.inject.name.Names
-import com.jme3.app.Application
-import com.jme3.app.StatsView
 import com.jme3.app.state.AppStateManager
 import com.jme3.asset.AssetManager
 import com.jme3.audio.AudioRenderer
-import com.jme3.font.BitmapFont
-import com.jme3.font.BitmapText
-import com.jme3.input.FlyByCamera
 import com.jme3.input.InputManager
 import com.jme3.network.Server
-import com.jme3.niftygui.NiftyJmeDisplay
 import com.jme3.renderer.Camera
 import com.jme3.renderer.RenderManager
 import com.jme3.renderer.ViewPort
-import com.jme3.renderer.queue.RenderQueue.Bucket
 import com.jme3.scene.Node
-import com.jme3.scene.Spatial.CullHint
 import com.jme3.system.AppSettings
 import com.jme3.system.JmeSystem
 
-import controller.battlefield.BattlefieldController
-import controller.battlefield.BattlefieldGUIController
-import controller.battlefield.BattlefieldInputInterpreter
-import controller.editor.EditorController
-import controller.editor.EditorGUIController
-import controller.editor.EditorInputInterpreter
-import controller.game.NetworkNiftyController
-import controller.ground.GroundController
-import controller.ground.GroundGUIController
-import controller.ground.GroundInputInterpreter
-import de.lessvoid.nifty.Nifty
 import exception.TechnicalException
 import geometry.math.RandomUtil
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
 
 @CompileStatic
 abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
