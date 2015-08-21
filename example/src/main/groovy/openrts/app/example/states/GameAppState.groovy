@@ -5,6 +5,7 @@ import openrts.guice.annotation.GuiNodeRef;
 import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit
+import view.EditorView;
 import view.MapView
 import view.math.TranslateUtil
 
@@ -34,7 +35,7 @@ public class GameAppState extends AppStateCommon {
 	
 	private boolean drawingZone = false;
 	@Inject
-	protected MapView view;
+	protected EditorView view;
 	
 	@Inject
 	protected SpatialSelector spatialSelector;
@@ -46,6 +47,7 @@ public class GameAppState extends AppStateCommon {
 	@Inject
 	protected InputManager inputManager;
 	
+	@Inject
 	protected Camera cam
 	
 	@Inject
@@ -135,9 +137,9 @@ public class GameAppState extends AppStateCommon {
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
-		super.stateAttached(stateManager);
+		//super.stateAttached(stateManager);
 		//inputManager.setCursorVisible(true);
-		//sguiController.activate();
+		//guiController.activate();
 		
 		//screen.addElement(null)
 		view.reset();
