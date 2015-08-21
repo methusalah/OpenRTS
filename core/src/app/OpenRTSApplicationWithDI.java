@@ -130,13 +130,6 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 		return flyCam;
 	}
 
-	public Node getGuiNode() {
-		return guiNode;
-	}
-
-	public Node getRootNode() {
-		return rootNode;
-	}
 
 	private void initTexts() {
 		BitmapFont guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");

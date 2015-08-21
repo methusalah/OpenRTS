@@ -13,9 +13,11 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 
+import exception.FunctionalException;
+
 public class MaterialManager {
 	
-	@Inject
+
 	public AssetManager am;
 
 	static Map<String, Material> texturesMap = new HashMap<String, Material>();
@@ -51,14 +53,17 @@ public class MaterialManager {
 	public static Material roadsMaterial;
 	public static Material whiteConcreteMaterial;
 	public static ArrayList<Material> gradientMaterial = new ArrayList<Material>();
-
-	MaterialManager() {
-	}
 	
-	public void setAssetManager(AssetManager assetManager){
-		am = assetManager;
+	@Inject
+	MaterialManager(AssetManager assetManager) {
+		this.am = assetManager;
 		initBaseMaterials();
 	}
+	
+//	public void setAssetManager(AssetManager assetManager){
+//		am = assetManager;
+//		initBaseMaterials();
+//	}
 
 	public Material getColor(ColorRGBA color) {
 		Material res = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");

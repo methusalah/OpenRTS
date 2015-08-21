@@ -15,8 +15,8 @@ import com.jme3.scene.Node;
 public class NetworkAppState extends AbstractAppState {
 
 	private ViewPort viewPort;
-	private Node rootNode;
-	private Node guiNode;
+//	private Node rootNode;
+//	private Node guiNode;
 
 	private AssetManager assetManager;
 	private Node localRootNode = new Node("Start Screen RootNode");
@@ -26,9 +26,7 @@ public class NetworkAppState extends AbstractAppState {
 	private ClientManager clientManager;
 
 	public NetworkAppState(OpenRTSApplicationWithDI app) {
-		this.rootNode     = app.getRootNode();
 		this.viewPort     = app.getViewPort();
-		this.guiNode      = app.getGuiNode();
 		this.assetManager = app.getAssetManager();
 
 		// // this = any JME Application
@@ -41,8 +39,8 @@ public class NetworkAppState extends AbstractAppState {
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
 
-		rootNode.attachChild(localRootNode);
-		guiNode.attachChild(localGuiNode);
+//		rootNode.attachChild(localRootNode);
+//		guiNode.attachChild(localGuiNode);
 		viewPort.setBackgroundColor(backgroundColor);
 
 		/** init the screen */
@@ -56,8 +54,8 @@ public class NetworkAppState extends AbstractAppState {
 
 	@Override
 	public void cleanup() {
-		rootNode.detachChild(localRootNode);
-		guiNode.detachChild(localGuiNode);
+//		rootNode.detachChild(localRootNode);
+//		guiNode.detachChild(localGuiNode);
 
 		super.cleanup();
 	}
