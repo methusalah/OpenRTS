@@ -4,6 +4,7 @@
  */
 package openrts.server.gui;
 
+import sun.security.action.GetLongAction;
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.form.Form
 import tonegod.gui.controls.lists.Spinner
@@ -122,6 +123,8 @@ abstract class EventBox extends Panel {
 		this.setIsResizable(true);
 		this.setScaleNS(false);
 		this.setScaleEW(false);
+		
+		this.
 
 		chatForm = new Form(screen);
 

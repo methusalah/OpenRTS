@@ -1,6 +1,8 @@
 package openrts.server
 ;
 
+import groovy.transform.CompileStatic;
+
 import java.util.logging.Logger
 
 import openrts.server.gui.ServerStartBox
@@ -12,6 +14,7 @@ import com.jme3.app.state.AppStateManager
 import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 
+@CompileStatic
 class ServerStartAppState extends AbstractAppState {
 
 	static final Logger logger = Logger.getLogger(ServerStartAppState.class.getName());
@@ -52,12 +55,11 @@ class ServerStartAppState extends AbstractAppState {
 
 	@Override
 	public void cleanup() {
-		super.cleanup();
-
 		screen.removeElement(loginWindow);
+		super.cleanup();
 	}
 
-	public void finalizeStart() {
+	def finalizeStart() {
 		// Some call to your app to unload this AppState and load the next AppState
 		app.switchToServerControlAppStates();
 		logger.info("Login was pressed");

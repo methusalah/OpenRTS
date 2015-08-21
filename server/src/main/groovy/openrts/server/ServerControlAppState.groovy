@@ -16,7 +16,9 @@ import com.jme3.math.Vector2f
 
 import event.EventManager
 import event.network.NetworkEvent
+import groovy.transform.CompileStatic;
 
+@CompileStatic
 class ServerControlAppState extends AbstractAppState {
 
 	static final Logger logger = Logger.getLogger(ServerControlAppState.class.getName());

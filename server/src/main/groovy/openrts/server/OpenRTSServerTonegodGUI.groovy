@@ -4,16 +4,21 @@ package openrts.server
 import java.util.logging.Logger
 
 import model.ModelManager
+import openrts.event.ServerCouldNotStartetEvent
 import tonegod.gui.core.Screen
 
 import com.jme3.network.Network
+import com.jme3.network.kernel.KernelException
 import com.jme3.network.serializing.Serializer
 
+import event.EventManager
 import event.network.AckEvent
 import event.network.CreateGameEvent
 import event.network.MultiSelectEntityEvent
 import event.network.SelectEntityEvent
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 
 	static final Logger logger = Logger.getLogger(OpenRTSServerTonegodGUI.class.getName());
@@ -93,6 +98,9 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 			logger.info("Server listening at :" + PORT);
 			System.out.println("Server listening at :" + PORT);
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (KernelException e) {
+			EventManager.post(new ServerCouldNotStartetEvent(message: e.message));
 			e.printStackTrace();
 		}
 	}

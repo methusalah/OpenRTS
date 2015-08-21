@@ -15,8 +15,10 @@ import event.network.AckEvent
 import event.network.CreateGameEvent
 import event.network.MultiSelectEntityEvent
 import event.network.SelectEntityEvent
+import groovy.transform.CompileStatic;
 
-class OpenRTSServer extends OpenRTSApplicationWithDI {
+@CompileStatic
+class OpenRTSServer extends OpenRTSServerWithDI {
 
 	protected static List<Class> serializerClasses = [
 		SelectEntityEvent.class,
