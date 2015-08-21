@@ -1,23 +1,22 @@
 package openrts.app.example.states;
 
-import event.EventManager;
-import event.network.HoldEvent;
-import event.network.MoveAttackEvent;
-import event.network.MultiSelectEntityEvent;
-import event.network.PauseEvent;
-import event.network.SelectEntityEvent;
-import geometry.geom2d.Point2D;
+import java.util.logging.Logger
 
-import java.util.logging.Logger;
+import com.google.inject.Inject
+import com.jme3.input.InputManager
+import com.jme3.input.KeyInput
+import com.jme3.input.controls.KeyTrigger
+import com.jme3.input.controls.MouseButtonTrigger
 
-import com.google.inject.name.Named;
-import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseButtonTrigger;
-
-import controller.CommandManager;
-import controller.InputInterpreter;
+import controller.CommandManager
+import controller.InputInterpreter
+import event.EventManager
+import event.network.HoldEvent
+import event.network.MoveAttackEvent
+import event.network.MultiSelectEntityEvent
+import event.network.PauseEvent
+import event.network.SelectEntityEvent
+import geometry.geom2d.Point2D
 
 public class GameInputInterpreter extends InputInterpreter {
 
@@ -39,7 +38,8 @@ public class GameInputInterpreter extends InputInterpreter {
 
 	private GameAppState ctrl;
 
-	 GameInputInterpreter(GameAppState ctrl) {
+	@Inject
+	GameInputInterpreter(GameAppState ctrl) {
 		super();
 		this.ctrl = ctrl;
 		mappings = [ SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE ]

@@ -4,6 +4,7 @@ import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit
 import openrts.app.example.MultiplayerGame
+import tonegod.gui.controls.buttons.ButtonAdapter
 import view.EditorView
 import view.camera.Camera
 import view.camera.IsometricCamera
@@ -49,6 +50,9 @@ public class GameAppState extends AppStateCommon {
 	protected com.jme3.renderer.Camera cam
 	
 	@Inject
+	protected GameInputInterpreter inputInterpreter
+	
+	@Inject
 	public GameAppState(MultiplayerGame main) {
 		super(main);
 		displayName = "GameAppState";
@@ -58,7 +62,7 @@ public class GameAppState extends AppStateCommon {
 
 	@Override
 	public void update(float elapsedTime) {
-		// updateSelectionZone();
+		updateSelectionZone();
 		updateContext();
 		//sguiController.update();
 
@@ -118,13 +122,12 @@ public class GameAppState extends AppStateCommon {
 	}
 
 	@Subscribe
-	public void manageEvent(ControllerChangeEvent ev) {
-		//sguiController.update();
+	public void manageEvent(BattleFieldUpdateEvent ev) {
+		placeCamera();
 	}
 
-	@Subscribe
-	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCamera)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
+	private placeCamera() {
+		((IsometricCamera)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2)
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
@@ -135,19 +138,24 @@ public class GameAppState extends AppStateCommon {
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
-		//super.stateAttached(stateManager);
-		//inputManager.setCursorVisible(true);
+		super.stateAttached(stateManager);
+		inputManager.setCursorVisible(true);
 		//guiController.activate();
 		
-		//screen.addElement(null)
+		def btn = new ButtonAdapter(screen)
+		btn.text = "hello world"
+		screen.addElement(btn);
 		view.reset();
 		
 		if (cameraManager == null) {
-			cameraManager = new IsometricCamera(cam, 10);
+			cameraManager = new IsometricCamera(cam, 10);			
 		}
-		// inputInterpreter.registerInputs(inputManager);
-		//scameraManager.registerInputs(inputManager);
+		placeCamera();
+		inputInterpreter.registerInputs(inputManager);
+		cameraManager.registerInputs(inputManager);
 		cameraManager.activate();
+		
+		
 	}
 
 	private Point2D getMouseCoord() {
@@ -156,10 +164,11 @@ public class GameAppState extends AppStateCommon {
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		// TODO Auto-generated method stub
 		super.stateDetached(stateManager);
-		//inputManager.setCursorVisible(false);
-		//cameraManager.unregisterInputs(inputManager);
+		inputManager.setCursorVisible(false);
+		inputInterpreter.unregisterInputs(inputManager);
+		cameraManager.unregisterInputs(inputManager);
+		EventManager.register(this);
 	}
 
 	@Override
