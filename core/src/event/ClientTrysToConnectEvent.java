@@ -1,8 +1,10 @@
-package event.network;
+package event;
 
 import java.util.Date;
 
 import com.jme3.network.serializing.Serializable;
+
+import event.network.NetworkEvent;
 
 @Serializable
 public class ClientTrysToConnectEvent extends NetworkEvent{

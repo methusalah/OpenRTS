@@ -22,7 +22,6 @@ public class ClientManager {
 		client = new ClientAppState(host);
 		client.initialize(app.getStateManager(), app);
 		app.getStateManager().attach(client);
-		this.waitUntilClientIsConnected(10);
 	}
 
 
@@ -31,28 +30,6 @@ public class ClientManager {
 	// }
 
 
-	private void waitUntilClientIsConnected(int times) {
-		int waitingCounter = times;
-		boolean waiting = true;
-		while (waiting) {
-
-			if (client.isEnabled()) {
-				waiting = false;
-				return;
-			}
-
-			logger.info("Waiting for answer from server...");
-			if (times > 0 && waitingCounter > times) {
-				throw new TechnicalException("Client are waiting too long..");
-			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
-			waitingCounter++;
-		}
-	}
 
 
 }

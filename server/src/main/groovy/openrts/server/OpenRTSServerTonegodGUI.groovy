@@ -13,6 +13,7 @@ import com.jme3.network.serializing.Serializer
 
 import event.EventManager
 import event.network.AckEvent
+import event.network.ClientTrysToConnectEvent;
 import event.network.CreateGameEvent
 import event.network.MultiSelectEntityEvent
 import event.network.SelectEntityEvent
@@ -89,9 +90,9 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 	def startServer() {
 		try {
 
-			Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class);
+			Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToConnectEvent.class);
 			myServer = Network.createServer(gameName, version, PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToConnectEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

@@ -11,9 +11,9 @@ import com.jme3.network.Client;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
+import event.ClientTrysToConnectEvent;
 import event.EventManager;
 import event.network.AckEvent;
-import event.network.ClientTrysToConnectEvent;
 import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
 import exception.TechnicalException;
@@ -45,7 +45,9 @@ public class ClientAppState extends AbstractAppState {
 		}
 		networkClient.addClientStateListener(new ClientStateListener());
 		networkClient.addMessageListener(new MessageListener(), AckEvent.class);
-
+		
+		networkClient.start();
+		waitUntilClientIsConnected(10);
 
 		EventManager.register(this);
 		super.initialize(stateManager, app);
@@ -63,9 +65,9 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		if (networkClient != null) {
-			networkClient.start();
-		}
+//		if (networkClient != null) {
+//			networkClient.start();
+//		}
 	}
 
 	@Override
@@ -75,27 +77,39 @@ public class ClientAppState extends AbstractAppState {
 
 	@Subscribe
 	public void manageEvent(SelectEntityEvent ev) {
-		if (!networkClient.isConnected()) {
-			networkClient.start();
-		}
 		networkClient.send(ev);
 	}
 
 	@Subscribe
 	public void manageEvent(CreateGameEvent ev) {
-		if (!networkClient.isConnected()) {
-			networkClient.start();
-		}
 		networkClient.send(ev);
 	}
 	
 	@Subscribe
 	public void sendUserData(ClientTrysToConnectEvent ev){
-		if (!networkClient.isConnected()) {
-			networkClient.start();
-		}
 		networkClient.send(ev);
 	}
 
+	private void waitUntilClientIsConnected(int times) {
+		int waitingCounter = 0;
+		boolean waiting = true;
+		while (waiting) {
 
+			if (networkClient.isConnected()) {
+				waiting = false;
+				return;
+			}
+
+			logger.info("Waiting for answer from server...");
+			if (times > 0 && waitingCounter > times) {
+				throw new TechnicalException("Client are waiting too long..");
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+			waitingCounter++;
+		}
+	}
 }
