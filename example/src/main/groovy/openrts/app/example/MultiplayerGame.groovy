@@ -79,7 +79,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private EmbeddedGUIState subScreenState;
 	private SpatialState spatialState;
 	
-	protected String user;
+	String user;
 
 	public static void main(String[] args) {
 		// Properties preferences = new Properties();
