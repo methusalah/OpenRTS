@@ -18,7 +18,7 @@ import com.jme3.app.state.AppStateManager
 import com.jme3.math.Vector2f
 
 import event.EventManager
-import event.network.ClientTrysToConnectEvent
+import event.ClientTrysToConnectEvent
 import event.network.NetworkEvent
 import groovy.transform.CompileStatic;
 

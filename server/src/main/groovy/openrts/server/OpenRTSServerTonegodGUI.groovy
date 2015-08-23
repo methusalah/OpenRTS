@@ -13,7 +13,7 @@ import com.jme3.network.serializing.Serializer
 
 import event.EventManager
 import event.network.AckEvent
-import event.network.ClientTrysToConnectEvent;
+import event.ClientTrysToConnectEvent;
 import event.network.CreateGameEvent
 import event.network.MultiSelectEntityEvent
 import event.network.SelectEntityEvent
