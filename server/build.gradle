@@ -3,9 +3,9 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'groovy'
 
-mainClassName = 'openrts.server.OpenRTSServer'
+mainClassName = 'openrts.server.OpenRTSServerTonegodGUI'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'openrts.server.OpenRTSServer'
+	ext.mainClass = 'openrts.server.OpenRTSServerTonegodGUI'
 }
 
 repositories {

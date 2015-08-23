@@ -3,9 +3,9 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'groovy'
 
-mainClassName = 'app.example.MultiplayerGame'
+mainClassName = 'openrts.app.example.MultiplayerGame'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'app.example.MultiplayerGame'
+	ext.mainClass = 'openrts.app.example.MultiplayerGame'
 }
 
 repositories {
