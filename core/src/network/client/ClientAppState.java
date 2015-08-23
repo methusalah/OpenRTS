@@ -36,7 +36,7 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 
-		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class);
+		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToConnectEvent.class);
 
 		try {
 			networkClient = Network.connectToServer(gameName, version, host, 6143);
