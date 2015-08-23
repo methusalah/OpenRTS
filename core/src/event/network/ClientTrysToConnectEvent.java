@@ -9,6 +9,10 @@ public class ClientTrysToConnectEvent extends NetworkEvent{
 
 	private String user;
 
+	public ClientTrysToConnectEvent(){
+	
+	}
+	
 	public ClientTrysToConnectEvent(String user) {
 		this.user = user;
 
