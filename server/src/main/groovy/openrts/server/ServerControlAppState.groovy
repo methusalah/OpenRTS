@@ -4,7 +4,6 @@ package openrts.server
 import java.util.logging.Logger
 
 import openrts.event.ClientConnectedEvent
-import openrts.event.ClientDisconnectedEvent
 import openrts.event.ServerEvent
 import openrts.server.gui.EventBox
 import openrts.server.gui.UserBox
@@ -17,8 +16,10 @@ import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
 import com.jme3.math.Vector2f
 
+
+import event.ClientLoggedOutEvent
+import event.ClientTrysToLoginEvent
 import event.EventManager
-import event.ClientTrysToConnectEvent
 import event.network.NetworkEvent
 import groovy.transform.CompileStatic;
 
@@ -101,12 +102,12 @@ class ServerControlAppState extends AbstractAppState {
 	}
 	
 	@Subscribe
-	def logSeverEvents(ClientTrysToConnectEvent evt) {
+	def logSeverEvents(ClientTrysToLoginEvent evt) {
 		userBox.addClient(evt.getUser())
 	}
 	
 	@Subscribe
-	def logSeverEvents(ClientDisconnectedEvent evt) {
-		userBox.removeClient(evt.id.toString())
+	def logSeverEvents(ClientLoggedOutEvent evt) {
+		userBox.removeClient(evt.getUser())
 	}
 }

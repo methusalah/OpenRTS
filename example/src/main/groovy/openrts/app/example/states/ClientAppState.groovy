@@ -16,7 +16,8 @@ import com.jme3.network.Client;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 
-import event.ClientTrysToConnectEvent;
+import event.ClientLoggedOutEvent
+import event.ClientTrysToLoginEvent;
 import event.EventManager;
 import event.network.AckEvent;
 import event.network.CreateGameEvent;
@@ -47,7 +48,7 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-		Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToConnectEvent.class);
+		Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
 
 		try {
 			networkClient = Network.connectToServer(gameName, version, host, 6143);
@@ -60,7 +61,7 @@ public class ClientAppState extends AbstractAppState {
 		networkClient.start();
 		waitUntilClientIsConnected(10);
 		EventManager.register(this);
-		ClientTrysToConnectEvent evt1 = new ClientTrysToConnectEvent(main.user);
+		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.user);
 		EventManager.post(evt1);
 		
 	};
@@ -98,7 +99,12 @@ public class ClientAppState extends AbstractAppState {
 	}
 	
 	@Subscribe
-	public void sendUserData(ClientTrysToConnectEvent ev){
+	public void sendUserData(ClientTrysToLoginEvent ev){
+		networkClient.send(ev);
+	}
+	
+	@Subscribe
+	public void manageEvent(ClientLoggedOutEvent ev){
 		networkClient.send(ev);
 	}
 

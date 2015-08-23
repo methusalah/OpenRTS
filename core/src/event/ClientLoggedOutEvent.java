@@ -8,15 +8,15 @@ import com.sun.xml.internal.ws.developer.StreamingAttachment;
 import event.network.NetworkEvent;
 
 @Serializable
-public class ClientTrysToConnectEvent extends NetworkEvent{
+public class ClientLoggedOutEvent extends NetworkEvent{
 
 	private String user;
 
-	public ClientTrysToConnectEvent(){
+	public ClientLoggedOutEvent(){
 	
 	}
 	
-	public ClientTrysToConnectEvent(String user) {
+	public ClientLoggedOutEvent(String user) {
 		this.user = user;
 
 	}
