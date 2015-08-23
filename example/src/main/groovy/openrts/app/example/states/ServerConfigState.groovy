@@ -57,18 +57,6 @@ public class ServerConfigState extends AppStateCommon {
 	private LabelElement dispTitle, extTitle, testTitle;
 	protected ButtonAdapter close,connect, startMap;
 	protected ClientManager clientManager
-	protected String user
-	
-	
-	
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	

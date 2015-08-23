@@ -101,6 +101,6 @@ class ServerControlAppState extends AbstractAppState {
 	
 	@Subscribe
 	def logSeverEvents(ClientDisconnectedEvent evt) {
-		userBox.removeClient(evt.getName())
+		userBox.removeClient(evt.id.toString())
 	}
 }

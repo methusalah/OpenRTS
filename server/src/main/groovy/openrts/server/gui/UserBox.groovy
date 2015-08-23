@@ -214,7 +214,7 @@ abstract class UserBox extends Panel {
 	 * Call this method to display a server message in the ChatBox text area
 	 * @param msg The server message to display
 	 */
-	public void removeClient(String msg) {
+	def removeClient(String msg) {
 		clientHistory.remove(msg);
 		updateChatHistory();
 	}

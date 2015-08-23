@@ -88,7 +88,7 @@ public class NetworkNiftyController extends GUIController {
 		TextField textField = nifty.getCurrentScreen().findNiftyControl("serveradress", TextField.class);
 
 		String textValue = textField.getRealText();
-		clientManager.startClient(textValue);
+//		clientManager.startClient(textValue);
 	}
 
 	public void create() {
