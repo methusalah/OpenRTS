@@ -1,6 +1,8 @@
-package openrts.app.example.states;
+package openrts.app.example;
 
 import java.util.logging.Logger
+
+import openrts.app.example.states.GameAppState;
 
 import com.google.inject.Inject
 import com.jme3.input.InputManager

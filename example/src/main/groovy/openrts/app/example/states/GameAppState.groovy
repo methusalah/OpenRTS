@@ -3,6 +3,7 @@ package openrts.app.example.states;
 import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit
+import openrts.app.example.GameInputInterpreter;
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import view.EditorView

@@ -1,7 +1,6 @@
 package openrts.app.example;
 
 import openrts.app.example.states.GameAppState
-import openrts.app.example.states.GameInputInterpreter
 import openrts.app.example.states.ServerConfigState
 import openrts.app.example.states.UserLoginAppState
 
