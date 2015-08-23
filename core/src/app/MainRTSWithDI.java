@@ -1,5 +1,7 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import model.ModelManager;
@@ -8,6 +10,7 @@ import view.EditorView;
 import view.mapDrawing.MapDrawer;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Module;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -29,6 +32,7 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 	private EditorController editorCtrl;
 	private GroundController groundCtrl;
 	Controller actualCtrl;
+	protected NiftyJmeDisplay niftyDisplay;
 
 
 	public static void main(String[] args) {
@@ -37,25 +41,27 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 
 	@Override
 	public void simpleInitApp() {
+		
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
 		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
 		// stateManager.detach(bulletAppState);
 
-		flyCam.setUpVector(new Vector3f(0, 0, 1));
-		flyCam.setEnabled(false);
+//		flyCam.setUpVector(new Vector3f(0, 0, 1));
+//		flyCam.setEnabled(false);
 
 		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-
-		initGuice();
-
-		view = injector.getInstance(EditorView.class);
-
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
 		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
 		niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
+		
+		List<Module> modules = new ArrayList<Module>();
+		modules.add(new MainGuiceModule(niftyDisplay));
+		initGuice(modules);
 
+		view = injector.getInstance(EditorView.class);
+		
 		editorCtrl = injector.getInstance(EditorController.class);
 		fieldCtrl = injector.getInstance(BattlefieldController.class);
 		groundCtrl = injector.getInstance(GroundController.class);

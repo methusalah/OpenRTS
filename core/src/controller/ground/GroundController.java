@@ -10,6 +10,7 @@ import view.EditorView;
 import view.camera.GroundCamera;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -31,8 +32,8 @@ public class GroundController extends Controller {
 
 	@Inject
 	public GroundController(EditorView view, @Named("GroundGUIController") GroundGUIController guiController, InputManager inputManager,
-			@Named("Camera") Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter) {
-		super(view, inputManager, cam);
+			Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter, Injector injector) {
+		super(view, inputManager, cam,injector);
 		this.inputInterpreter = inputInterpreter;
 		this.guiController = guiController;
 	}

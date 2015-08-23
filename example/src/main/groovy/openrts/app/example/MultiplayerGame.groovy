@@ -119,9 +119,6 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 		defaultFont = getAssetManager().loadFont(screen.getStyle("Font").getString("defaultFont"));
 
-		flyCam.setEnabled(true);
-		flyCam.setMoveSpeed(30);
-		flyCam.setDragToRotate(true);
 		inputManager.setCursorVisible(true);
 	}
 

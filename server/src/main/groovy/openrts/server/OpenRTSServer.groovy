@@ -31,9 +31,9 @@ class OpenRTSServer extends OpenRTSServerWithDI {
 	static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());
 
 
-	public Game getPlayer(Integer id) {
-		return games.get(id);
-	}
+//	public Game getPlayer(Integer id) {
+//		return games.get(id);
+//	}
 
 	public static void main(String[] args) {
 

@@ -51,7 +51,7 @@ public class IsometricCamera extends Camera {
 	public void desactivate() {
 	}
 
-	private void placeCam(){
+	protected void placeCam(){
 		cam.setLocation(TranslateUtil.toVector3f(pos));
 		cam.lookAt(TranslateUtil.toVector3f(target), Vector3f.UNIT_Z);
 	}

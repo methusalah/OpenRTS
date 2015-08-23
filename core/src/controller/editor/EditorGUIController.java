@@ -40,7 +40,7 @@ public class EditorGUIController extends GUIController {
 	}
 
 	@Inject
-	public EditorGUIController(@Named("Nifty") Nifty nifty) {
+	public EditorGUIController(Nifty nifty) {
 		super(nifty);
 		drawer = new EditorGUIDrawer(this);
 	}

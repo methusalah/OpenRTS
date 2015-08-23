@@ -40,11 +40,8 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
-import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -55,7 +52,6 @@ import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
@@ -79,7 +75,6 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 	private AppActionListener actionListener = new AppActionListener();
 
 	protected BulletAppState bulletAppState;
-	protected NiftyJmeDisplay niftyDisplay;
 
 	protected Injector injector;
 	protected Collection<Module> modules;
@@ -162,20 +157,6 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 		loadStatsView();
 		viewPort.attachScene(rootNode);
 		guiViewPort.attachScene(guiNode);
-
-		if (inputManager != null) {
-			flyCam = new AzertyFlyByCamera(cam);
-			flyCam.setMoveSpeed(1f);
-			flyCam.registerWithInput(inputManager);
-
-			if (context.getType() == Type.Display) {
-				inputManager.addMapping("SIMPLEAPP_Exit", new KeyTrigger(KeyInput.KEY_ESCAPE));
-			}
-
-			inputManager.addMapping("SIMPLEAPP_CameraPos", new KeyTrigger(KeyInput.KEY_C));
-			inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
-			inputManager.addListener(actionListener, "SIMPLEAPP_Exit", "SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
-		}
 
 		// call user code
 		simpleInitApp();
@@ -311,7 +292,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
 				bind(InputManager.class).toInstance(inputManager);
 				bind(Camera.class).toInstance(cam);
-				bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
+				//bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
 
 				bind(Application.class).toInstance(app);
 
@@ -320,19 +301,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 				// bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
 
-				// bind(BattlefieldController.class).annotatedWith(Names.named("BattlefieldController")).to(BattlefieldController.class).in(Singleton.class);
-				// bind(BattlefieldGUIController.class).annotatedWith(Names.named("BattlefieldGUIController")).to(BattlefieldGUIController.class)
-				// .in(Singleton.class);
-				// bind(BattlefieldInputInterpreter.class).annotatedWith(Names.named("BattlefieldInputInterpreter")).to(BattlefieldInputInterpreter.class)
-				// .in(Singleton.class);
-
-				// bind(EditorGUIController.class).annotatedWith(Names.named("EditorGUIController")).to(EditorGUIController.class).in(Singleton.class);
-				// bind(EditorInputInterpreter.class).annotatedWith(Names.named("EditorInputInterpreter")).to(EditorInputInterpreter.class).in(Singleton.class);
-				// bind(EditorController.class).annotatedWith(Names.named("EditorController")).to(EditorController.class).in(Singleton.class);
-
-				// bind(GroundController.class).annotatedWith(Names.named("GroundController")).to(GroundController.class).in(Singleton.class);
-				// bind(GroundGUIController.class).annotatedWith(Names.named("GroundGUIController")).to(GroundGUIController.class).in(Singleton.class);
-				// bind(GroundInputInterpreter.class).annotatedWith(Names.named("GroundInputInterpreter")).to(GroundInputInterpreter.class).in(Singleton.class);
+				
 
 				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
 				// FIXME: Viewport is already binded

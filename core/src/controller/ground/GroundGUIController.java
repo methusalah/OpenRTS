@@ -17,7 +17,7 @@ import de.lessvoid.nifty.screen.Screen;
  */
 public class GroundGUIController extends GUIController {
 	@Inject
-	public GroundGUIController(@Named("Nifty") Nifty nifty) {
+	public GroundGUIController(Nifty nifty) {
 		super(nifty);
 	}
 

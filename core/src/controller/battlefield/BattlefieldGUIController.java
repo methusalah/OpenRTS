@@ -24,8 +24,7 @@ public class BattlefieldGUIController extends GUIController {
 	private static DecimalFormat df = new DecimalFormat("0");
 
 	@Inject
-	public BattlefieldGUIController(@Named("Nifty") Nifty nifty) {
-		// TODO please check: Must we do niftybinding in the bind method?
+	public BattlefieldGUIController(Nifty nifty) {
 		super(nifty);
 	}
 

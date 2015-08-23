@@ -24,15 +24,14 @@ public abstract class Controller extends AbstractAppState {
 	public InputManager inputManager;
 	public SpatialSelector spatialSelector;
 	public Camera camera;
-	@Inject
 	protected Injector injector;
 
 	protected com.jme3.renderer.Camera cam;
-	// public GUIController guiController;
 
-	public Controller(MapView view, InputManager inputManager, com.jme3.renderer.Camera cam) {
+	protected Controller(MapView view, InputManager inputManager, com.jme3.renderer.Camera cam, Injector injector) {
 		super();
 		this.inputManager = inputManager;
+		this.injector = injector;
 		spatialSelector = injector.getInstance(SpatialSelector.class);
 		this.cam = cam;
 

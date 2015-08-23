@@ -18,6 +18,7 @@ import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -40,8 +41,8 @@ public class BattlefieldController extends Controller {
 
 	@Inject
 	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController, InputManager inputManager, Camera cam,
-			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter) {
-		super(view, inputManager, cam);
+			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter, Injector injector) {
+		super(view, inputManager, cam,injector);
 		this.view = view;
 		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;

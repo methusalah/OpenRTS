@@ -19,6 +19,7 @@ import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -37,8 +38,8 @@ public class MultiplayerGameController extends Controller {
 
 	@Inject
 	public MultiplayerGameController(EditorView view, MultiplayerGameNiftyController guiController, InputManager inputManager,
-			@Named("Camera") Camera cam) {
-		super(view, inputManager, cam);
+			Camera cam, Injector injector) {
+		super(view, inputManager, cam, injector);
 		this.view = view;
 		// this.inputInterpreter = inputInterpreter;
 		this.spatialSelector.setCentered(false);

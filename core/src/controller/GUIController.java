@@ -12,7 +12,6 @@ import de.lessvoid.nifty.screen.ScreenController;
  * @author Benoît
  */
 public abstract class GUIController implements ScreenController {
-	// protected Controller ctrl;
 	protected Nifty nifty;
 	protected GUIDrawer drawer;
 
@@ -23,7 +22,6 @@ public abstract class GUIController implements ScreenController {
 	}
 
 	public GUIController(Nifty nifty) {
-		// this.ctrl = ctrl;
 		this.nifty = nifty;
 		nifty.registerScreenController(this);
 	}

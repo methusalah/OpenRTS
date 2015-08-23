@@ -14,6 +14,7 @@ import view.camera.IsometricCamera;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -35,9 +36,9 @@ public class EditorController extends Controller {
 	// protected EditorInputInterpreter inputInterpreter;
 
 	@Inject
-	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController, InputManager inputManager, @Named("Camera") Camera cam,
-			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter) {
-		super(view, inputManager, cam);
+	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController, InputManager inputManager, Camera cam,
+			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter, Injector injector) {
+		super(view, inputManager, cam,injector);
 		this.view = view;
 		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;

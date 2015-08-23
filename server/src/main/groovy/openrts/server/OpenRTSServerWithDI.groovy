@@ -33,7 +33,7 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 
 	static Server myServer;
 	static final int PORT = 6143;
-	Map<Integer, Game> games = new HashMap<Integer, Game>();
+//	Map<Integer, Game> games = new HashMap<Integer, Game>();
 
 	protected Injector injector;
 	protected Collection<Module> modules;

@@ -14,14 +14,12 @@ import com.google.common.eventbus.Subscribe
 import com.google.inject.Inject
 import com.google.inject.Injector
 import com.jme3.app.state.AppStateManager
-import com.jme3.input.FlyByCamera
 import com.jme3.input.InputManager
 
 import controller.CommandManager
 import controller.SpatialSelector
 import event.BattleFieldUpdateEvent
 import event.EventManager
-import event.client.ControllerChangeEvent
 import geometry.geom2d.AlignedBoundingBox
 import geometry.geom2d.Point2D
 import groovy.transform.CompileStatic
@@ -39,7 +37,7 @@ public class GameAppState extends AppStateCommon {
 	@Inject
 	protected SpatialSelector spatialSelector;
 	
-	protected Camera cameraManager;
+	protected Camera isometricCamera;
 	@Inject
 	protected Injector injector
 	
@@ -110,7 +108,7 @@ public class GameAppState extends AppStateCommon {
 	}
 
 	private void updateContext() {
-		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, cameraManager.getCamCorner());
+		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, isometricCamera.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
 		for (Unit u : ArmyManager.getUnits()) {
 			if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
@@ -127,7 +125,7 @@ public class GameAppState extends AppStateCommon {
 	}
 
 	private placeCamera() {
-		((IsometricCamera)cameraManager).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2)
+		((IsometricCamera)isometricCamera).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2)
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
@@ -142,20 +140,19 @@ public class GameAppState extends AppStateCommon {
 		inputManager.setCursorVisible(true);
 		//guiController.activate();
 		
+		//add a simple button to gui
 		def btn = new ButtonAdapter(screen)
 		btn.text = "hello world"
 		screen.addElement(btn);
 		view.reset();
 		
-		if (cameraManager == null) {
-			cameraManager = new IsometricCamera(cam, 10);			
+		if (isometricCamera == null) {
+			isometricCamera = new IsometricCamera(cam, 10);			
 		}
 		placeCamera();
 		inputInterpreter.registerInputs(inputManager);
-		cameraManager.registerInputs(inputManager);
-		cameraManager.activate();
-		
-		
+		isometricCamera.registerInputs(inputManager);
+		isometricCamera.activate();
 	}
 
 	private Point2D getMouseCoord() {
@@ -167,7 +164,7 @@ public class GameAppState extends AppStateCommon {
 		super.stateDetached(stateManager);
 		inputManager.setCursorVisible(false);
 		inputInterpreter.unregisterInputs(inputManager);
-		cameraManager.unregisterInputs(inputManager);
+		isometricCamera.unregisterInputs(inputManager);
 		EventManager.register(this);
 	}
 
