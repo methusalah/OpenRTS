@@ -4,6 +4,7 @@ package openrts.server
 import java.util.logging.Logger
 
 import model.ModelManager
+import openrts.event.ClientDisconnectedEvent
 import openrts.event.ServerCouldNotStartetEvent
 import tonegod.gui.core.Screen
 
@@ -11,13 +12,18 @@ import com.jme3.network.Network
 import com.jme3.network.kernel.KernelException
 import com.jme3.network.serializing.Serializer
 
+
+import event.ClientLoggedOutEvent
+import event.ClientTrysToLoginEvent
 import event.EventManager
 import event.network.AckEvent
-import event.ClientTrysToConnectEvent;
+
 import event.network.CreateGameEvent
 import event.network.MultiSelectEntityEvent
 import event.network.SelectEntityEvent
 import groovy.transform.CompileStatic
+import event.ClientLoggedOutEvent
+import event.ClientTrysToLoginEvent;
 
 @CompileStatic
 class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
@@ -28,7 +34,9 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 		SelectEntityEvent.class,
 		AckEvent.class,
 		CreateGameEvent.class,
-		ClientTrysToConnectEvent.class
+		MultiSelectEntityEvent.class,
+		ClientTrysToLoginEvent.class,
+		ClientLoggedOutEvent.class
 	]
 
 	Screen screen
@@ -90,10 +98,10 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 
 	def startServer() {
 		try {
-
-			Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToConnectEvent.class);
+			//@TODO use static property here
+			Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
 			myServer = Network.createServer(gameName, version, PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToConnectEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();

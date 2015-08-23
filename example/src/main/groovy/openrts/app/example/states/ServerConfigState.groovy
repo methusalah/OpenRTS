@@ -29,7 +29,8 @@ import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
-import event.ClientTrysToConnectEvent
+import event.ClientLoggedOutEvent
+import event.ClientTrysToLoginEvent
 import event.EventManager
 import event.network.CreateGameEvent
 import groovy.transform.CompileStatic
@@ -93,6 +94,8 @@ public class ServerConfigState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.user);
+							EventManager.post(evt1);
 							System.exit(0);
 						}
 					};

@@ -8,9 +8,10 @@ import com.jme3.network.HostedConnection;
 import com.jme3.network.Message;
 
 import controller.CommandManager;
+import event.ClientLoggedOutEvent
+import event.ClientTrysToLoginEvent
 import event.EventManager;
 import event.network.AckEvent;
-import event.ClientTrysToConnectEvent
 import event.network.CreateGameEvent;
 import event.network.NetworkEvent;
 import event.network.SelectEntityEvent;
@@ -41,8 +42,10 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 			ModelManager.loadBattlefield(inputEvent.getPath());
 			// Game game = new Game();
 			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
-		} else if (message instanceof ClientTrysToConnectEvent){
-			source.getServer().broadcast(new ClientTrysToConnectEvent(message.getUser()));
+		} else if (message instanceof ClientTrysToLoginEvent){
+			source.getServer().broadcast(new ClientTrysToLoginEvent(message.getUser()));
+		}else if (message instanceof ClientLoggedOutEvent){
+				source.getServer().broadcast(new ClientLoggedOutEvent(message.getUser()));
 		}else {
 			logger.warning("Client send unsupported Message:" + message);
 		}
