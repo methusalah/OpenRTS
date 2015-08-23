@@ -5,6 +5,7 @@ import groovy.transform.CompileStatic
 import java.util.logging.Logger
 
 import openrts.app.example.states.AppStateCommon
+import openrts.app.example.states.ClientAppState;
 import openrts.app.example.states.GameAppState
 import openrts.app.example.states.ServerConfigState
 import openrts.app.example.states.UserLoginAppState
@@ -192,6 +193,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		gameState = injector.getInstance(GameAppState.class);
 		states.add(gameState);
 		stateManager.attach(gameState);
-	} 
+	}
+	
+	def connectToServer(String host) {
+		def client = injector.getInstance(ClientAppState.class);
+		client.host = host
+		stateManager.attach(client);
+	}
 
 }

@@ -1,9 +1,14 @@
-package network.client;
+package openrts.app.example.states;
 
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import openrts.app.example.ClientStateListener;
+import openrts.app.example.MessageListener;
+import openrts.app.example.MultiplayerGame;
+
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -15,9 +20,12 @@ import event.ClientTrysToConnectEvent;
 import event.EventManager;
 import event.network.AckEvent;
 import event.network.CreateGameEvent;
+import event.network.MultiSelectEntityEvent;
 import event.network.SelectEntityEvent;
 import exception.TechnicalException;
+import groovy.transform.CompileStatic;
 
+@CompileStatic
 public class ClientAppState extends AbstractAppState {
 
 	private static final Logger logger = Logger.getLogger(ClientAppState.class.getName());
@@ -29,14 +37,17 @@ public class ClientAppState extends AbstractAppState {
 
 	private float tickTimer = 0;
 
-	public ClientAppState(String host) {
-		ClientAppState.host = host;
+	@Inject
+	MultiplayerGame main
+	
+	public ClientAppState() {
+		
 	}
 
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToConnectEvent.class);
+		Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToConnectEvent.class);
 
 		try {
 			networkClient = Network.connectToServer(gameName, version, host, 6143);
@@ -48,8 +59,9 @@ public class ClientAppState extends AbstractAppState {
 
 		networkClient.start();
 		waitUntilClientIsConnected(10);
-
 		EventManager.register(this);
+		ClientTrysToConnectEvent evt1 = new ClientTrysToConnectEvent(main.user);
+		EventManager.post(evt1);
 		
 	};
 

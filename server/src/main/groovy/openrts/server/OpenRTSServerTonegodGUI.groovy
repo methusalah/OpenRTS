@@ -27,7 +27,8 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 	protected static List<Class> serializerClasses = [
 		SelectEntityEvent.class,
 		AckEvent.class,
-		CreateGameEvent.class
+		CreateGameEvent.class,
+		ClientTrysToConnectEvent.class
 	]
 
 	Screen screen
@@ -97,7 +98,6 @@ class OpenRTSServerTonegodGUI extends OpenRTSServerWithDI {
 
 			myServer.start();
 			logger.info("Server listening at :" + PORT);
-			System.out.println("Server listening at :" + PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (KernelException e) {

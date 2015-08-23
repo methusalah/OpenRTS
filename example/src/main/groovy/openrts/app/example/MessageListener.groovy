@@ -1,4 +1,4 @@
-package network.client;
+package openrts.app.example;
 
 import java.util.logging.Logger;
 
@@ -7,7 +7,9 @@ import com.jme3.network.Message;
 
 import event.EventManager;
 import event.network.AckEvent;
+import groovy.transform.CompileStatic;
 
+@CompileStatic
 public class MessageListener implements com.jme3.network.MessageListener<Client> {
 
 	private static final Logger logger = Logger.getLogger(ClientStateListener.class.getName());

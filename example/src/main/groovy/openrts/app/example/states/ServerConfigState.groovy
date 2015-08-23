@@ -7,24 +7,20 @@ package openrts.app.example.states;
 import java.awt.DisplayMode
 
 import model.ModelManager
-import network.client.ClientManager
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
 import tonegod.gui.controls.lists.Slider
 import tonegod.gui.controls.text.LabelElement
-import tonegod.gui.controls.text.TextElement
 import tonegod.gui.controls.text.TextField
 import tonegod.gui.controls.windows.Panel
 import tonegod.gui.core.Element
 import tonegod.gui.core.Screen
 import tonegod.gui.core.Element.Borders
 import tonegod.gui.core.Element.Docking
-import tonegod.gui.core.Element.Orientation
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
-import tonegod.gui.tests.Main
 
 import com.google.inject.Inject
 import com.google.inject.Injector
@@ -33,7 +29,7 @@ import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
-import event.ClientTrysToConnectEvent;
+import event.ClientTrysToConnectEvent
 import event.EventManager
 import event.network.CreateGameEvent
 import groovy.transform.CompileStatic
@@ -57,7 +53,6 @@ public class ServerConfigState extends AppStateCommon {
 	private Slider uiAlpha, audioVol;
 	private LabelElement dispTitle, extTitle, testTitle;
 	protected ButtonAdapter close,connect, startMap;
-	protected ClientManager clientManager
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	
@@ -67,9 +62,8 @@ public class ServerConfigState extends AppStateCommon {
 	Injector injector
 
 	@Inject
-	public ServerConfigState(MultiplayerGame main, ClientManager clientManager) {
+	public ServerConfigState(MultiplayerGame main) {
 		super(main);
-		this.clientManager = clientManager
 		displayName = "Harness";
 		show = false;
 		prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
@@ -163,9 +157,8 @@ public class ServerConfigState extends AppStateCommon {
 					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {	
 						startMap.isEnabled = true
 						connect.isEnabled = false
-						clientManager.startClient(serverAddress.text)
-						ClientTrysToConnectEvent evt1 = new ClientTrysToConnectEvent("foobar");
-						EventManager.post(evt1);
+						main.connectToServer(serverAddress.text)
+
 						
 					}
 				};

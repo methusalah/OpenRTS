@@ -1,13 +1,16 @@
-package network.client;
+package openrts.app.example;
 
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
-import com.google.inject.Inject;
-import com.jme3.network.Client;
+import com.google.inject.Inject
+import com.jme3.network.Client
+import com.jme3.network.ClientStateListener.DisconnectInfo
 
-import event.EventManager;
-import event.client.ClientIsConnectedEvent;
+import event.EventManager
+import event.client.ClientIsConnectedEvent
+import groovy.transform.CompileStatic
 
+@CompileStatic
 public class ClientStateListener implements com.jme3.network.ClientStateListener {
 
 	private static final Logger logger = Logger.getLogger(ClientStateListener.class.getName());
@@ -26,5 +29,6 @@ public class ClientStateListener implements com.jme3.network.ClientStateListener
 	public void clientDisconnected(Client c, DisconnectInfo info) {
 		logger.warning("lost connection" + c.getGameName() + " because of " + info.reason);
 	}
+
 
 }

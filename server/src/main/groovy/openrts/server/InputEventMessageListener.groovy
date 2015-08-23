@@ -42,7 +42,7 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 			// Game game = new Game();
 			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
 		} else if (message instanceof ClientTrysToConnectEvent){
-			source.getServer().broadcast(new ClientTrysToConnectEvent((ClientTrysToConnectEvent)message.getUser()));
+			source.getServer().broadcast(new ClientTrysToConnectEvent(message.getUser()));
 		}else {
 			logger.warning("Client send unsupported Message:" + message);
 		}

@@ -1,4 +1,4 @@
-package network;
+package openrts.app.example;
 
 import com.jme3.network.serializing.Serializable;
 
