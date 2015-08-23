@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 
@@ -10,6 +11,7 @@ if (!hasProperty('mainClass')) {
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 
+	compile 'org.codehaus.groovy:groovy-all:2.3.10'
 	compile "com.jme3:jme3-core:$jmonkeyengine_version"
 	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
 	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
@@ -44,31 +46,15 @@ dependencies {
 	
 }
 
-eclipse.classpath.file {
-	beforeMerged { classpath ->
-		classpath.entries.removeAll() { c ->
-			c.kind == 'src'
-		}
-	}
-
-	withXml {
-		def node = it.asNode()
-
-//		node.appendNode('classpathentry kind="src" path="src"')
-
-		node.children().removeAll() { c ->
-			def path = c.attribute('path')
-			path != null && (
-					path.contains('/com.android.support/support-v4')
-					)
-		}
-	}
-	
-}
-
 sourceSets {
 	main {
-		java { srcDir 'src'}
+		groovy {
+            // override the default locations, rather than adding additional ones
+            srcDirs = ['groovy', 'src'] 
+        }
+        java {
+            srcDirs = [] // don't compile Java code twice 
+        }
 		resources { srcDir 'assets' }
 	}
 	test {
@@ -77,54 +63,20 @@ sourceSets {
 	}
 }
 
-test {
-	// enable TestNG support (default is JUnit)
-	useTestNG()
-
-	// set a system property for the test JVM(s)
-	systemProperty 'some.prop', 'value'
-
-	// explicitly include or exclude tests
-	//	include 'org/foo/**'
-	//	exclude 'org/boo/**'
-
-	// show standard out and standard error of the test JVM(s) on the console
-	testLogging.showStandardStreams = true
-
-	// set heap size for the test JVM(s)
-	minHeapSize = "128m"
-	maxHeapSize = "512m"
-
-	// set JVM arguments for the test JVM(s)
-	jvmArgs '-XX:MaxPermSize=256m'
-
-	// listen to events in the test execution lifecycle
-	beforeTest { descriptor ->
-		logger.lifecycle("Running test: " + descriptor)
-	}
-
-	// listen to standard out and standard error of the test JVM(s)
-	onOutput { descriptor, event ->
-		logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
-	}
-
-	//	options {
-	//		listeners << 'org.uncommons.reportng.HTMLReporter'
-	//		listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-	//	}
+// remove GroovyCompile->JavaCompile task dependencies
+tasks.withType(GroovyCompile) {
+	dependsOn = []
 }
 
-//sets up the Android Eclipse project, using the old Ant based build.
+// add JavaCompile->GroovyCompile task dependencies
+tasks.withType(JavaCompile) { task ->
+	dependsOn task.name.replace("Java", "Groovy")
+}
+
 eclipse {
-	// need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
-	// ignores any nodes added in classpath.file.withXml
-	sourceSets {
-		main { java.srcDirs "src" }
-	}
 	classpath {
 		downloadSources=true
 	 }
-
 	jdt {
 		sourceCompatibility = 1.8
 		targetCompatibility = 1.8
