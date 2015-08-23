@@ -13,6 +13,7 @@ import com.jme3.network.serializing.Serializer;
 
 import event.EventManager;
 import event.network.AckEvent;
+import event.network.ClientTrysToConnectEvent;
 import event.network.CreateGameEvent;
 import event.network.SelectEntityEvent;
 import exception.TechnicalException;
@@ -82,6 +83,14 @@ public class ClientAppState extends AbstractAppState {
 
 	@Subscribe
 	public void manageEvent(CreateGameEvent ev) {
+		if (!networkClient.isConnected()) {
+			networkClient.start();
+		}
+		networkClient.send(ev);
+	}
+	
+	@Subscribe
+	public void sendUserData(ClientTrysToConnectEvent ev){
 		if (!networkClient.isConnected()) {
 			networkClient.start();
 		}

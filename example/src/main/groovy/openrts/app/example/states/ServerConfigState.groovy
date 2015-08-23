@@ -34,6 +34,7 @@ import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
 import event.EventManager
+import event.network.ClientTrysToConnectEvent
 import event.network.CreateGameEvent
 import groovy.transform.CompileStatic
 
@@ -163,6 +164,9 @@ public class ServerConfigState extends AppStateCommon {
 						startMap.isEnabled = true
 						connect.isEnabled = false
 						clientManager.startClient(serverAddress.text)
+						ClientTrysToConnectEvent evt1 = new ClientTrysToConnectEvent(main.user);
+						EventManager.post(evt1);
+						
 					}
 				};
 		connect.setDocking(Docking.SW);

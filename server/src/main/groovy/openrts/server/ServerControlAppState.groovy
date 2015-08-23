@@ -18,6 +18,7 @@ import com.jme3.app.state.AppStateManager
 import com.jme3.math.Vector2f
 
 import event.EventManager
+import event.network.ClientTrysToConnectEvent
 import event.network.NetworkEvent
 import groovy.transform.CompileStatic;
 
@@ -100,8 +101,8 @@ class ServerControlAppState extends AbstractAppState {
 	}
 	
 	@Subscribe
-	def logSeverEvents(ClientConnectedEvent evt) {
-		userBox.addClient(evt.getName())
+	def logSeverEvents(ClientTrysToConnectEvent evt) {
+		userBox.addClient(evt.getUser())
 	}
 	
 	@Subscribe
