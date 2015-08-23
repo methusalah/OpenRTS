@@ -18,7 +18,7 @@ public class ClientManager {
 	@Inject
 	private Application app;
 
-	public void startClient(String host, String user) {
+	public void startClient(String host) {
 		client = new ClientAppState(host);
 		client.initialize(app.getStateManager(), app);
 		app.getStateManager().attach(client);

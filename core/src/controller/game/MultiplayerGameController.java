@@ -34,16 +34,18 @@ public class MultiplayerGameController extends Controller {
 	private Point2D zoneStart;
 	private boolean drawingZone = false;
 	protected MapView view;
-	protected MultiplayerGameNiftyController guiController;
+//	protected MultiplayerGameNiftyController guiController;
 
 	@Inject
-	public MultiplayerGameController(EditorView view, MultiplayerGameNiftyController guiController, InputManager inputManager,
+	public MultiplayerGameController(EditorView view, 
+//			MultiplayerGameNiftyController guiController, 
+			InputManager inputManager,
 			Camera cam, Injector injector) {
 		super(view, inputManager, cam, injector);
 		this.view = view;
 		// this.inputInterpreter = inputInterpreter;
 		this.spatialSelector.setCentered(false);
-		this.guiController = guiController;
+//		this.guiController = guiController;
 
 		EventManager.register(this);
 	}
@@ -52,7 +54,7 @@ public class MultiplayerGameController extends Controller {
 	public void update(float elapsedTime) {
 		// updateSelectionZone();
 		updateContext();
-		guiController.update();
+//		guiController.update();
 
 		// update army
 		if (!paused) {
@@ -111,7 +113,7 @@ public class MultiplayerGameController extends Controller {
 
 	@Subscribe
 	public void manageEvent(ControllerChangeEvent ev) {
-		guiController.update();
+//		guiController.update();
 	}
 
 	@Subscribe
@@ -129,7 +131,7 @@ public class MultiplayerGameController extends Controller {
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
 		inputManager.setCursorVisible(true);
-		guiController.activate();
+//		guiController.activate();
 		view.reset();
 	}
 

@@ -62,7 +62,12 @@ class ServerControlAppState extends AbstractAppState {
 		userBox  = new UserBox(screen, "Users", new Vector2f((Float) (screen.getWidth() / 2 - 35), (Float) (screen.getHeight() / 2 - 15)),new Vector2f((Float) (100), (Float) (100))) {					
 					@Override
 					public void onClientConnected(String msg) {
-						this.receiveClients(msg);
+						this.receiveClientConnection(msg);
+					}
+					
+					@Override
+					public void onEventReceived(String msg) {
+						this.receiveEvent(msg);
 					}
 				}
 		screen.addElement(eventBox);

@@ -162,7 +162,7 @@ public class ServerConfigState extends AppStateCommon {
 					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {	
 						startMap.isEnabled = true
 						connect.isEnabled = false
-						clientManager.startClient(serverAddress.text, main.user)
+						clientManager.startClient(serverAddress.text)
 					}
 				};
 		connect.setDocking(Docking.SW);
