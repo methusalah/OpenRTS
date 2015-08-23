@@ -1,9 +1,6 @@
 package event;
 
-import java.util.Date;
-
 import com.jme3.network.serializing.Serializable;
-import com.sun.xml.internal.ws.developer.StreamingAttachment;
 
 import event.network.NetworkEvent;
 
