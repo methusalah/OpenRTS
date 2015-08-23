@@ -13,6 +13,9 @@ import com.jme3.network.serializing.Serializable;
 public abstract class NetworkEvent extends AbstractMessage {
 
 	private Date date;
+	private int id;
+
+
 
 	public NetworkEvent() {
 	}
@@ -23,6 +26,14 @@ public abstract class NetworkEvent extends AbstractMessage {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

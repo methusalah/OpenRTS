@@ -5,26 +5,26 @@ import com.jme3.network.serializing.Serializable;
 @Serializable
 public class SelectEntityEvent extends NetworkEvent {
 
-	private int id;
+	private int unitId;
 
 	public SelectEntityEvent() {
 
 	}
 
 	public SelectEntityEvent(long id) {
-		this.id = (int) id;
+		this.unitId = (int) id;
 	}
 
 	public SelectEntityEvent(int id) {
-		this.id = id;
+		this.unitId = id;
 	}
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return unitId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int id) {
+		this.unitId = id;
 	}
 
 }
