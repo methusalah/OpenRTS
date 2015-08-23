@@ -258,6 +258,12 @@ abstract class UserBox extends Panel {
 	 * @param msg
 	 */
 	public abstract void onClientConnected(String msg);
+	
+	/**
+	 * Abstract event method that is called when the user sends a message
+	 * @param msg
+	 */
+	public abstract void onClientDisconnected(String msg);
 
 	/**
 	 * Sets the ToolTip text for mouse focus of the TextField input
