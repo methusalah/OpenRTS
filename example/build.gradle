@@ -46,10 +46,16 @@ tasks.withType(JavaCompile) { task ->
 }
 
 eclipse {
+	classpath {
+		downloadSources=true
+	 }
 	jdt {
 		sourceCompatibility = 1.8
 		targetCompatibility = 1.8
 	}
 
-	project { name = appName + "-example" }
+	project { 
+		name = appName + "-example" 
+		natures 'org.springsource.ide.eclipse.gradle.core.nature'		
+	}
 }

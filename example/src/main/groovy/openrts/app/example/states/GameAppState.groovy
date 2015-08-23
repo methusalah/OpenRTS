@@ -142,7 +142,7 @@ public class GameAppState extends AppStateCommon {
 		
 		//add a simple button to gui
 		def btn = new ButtonAdapter(screen)
-		btn.text = "hello world"
+		btn.text = "I am a HUD button"
 		screen.addElement(btn);
 		view.reset();
 		
