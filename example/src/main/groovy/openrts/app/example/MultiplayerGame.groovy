@@ -78,6 +78,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private EmitterState emitterState;
 	private EmbeddedGUIState subScreenState;
 	private SpatialState spatialState;
+	
+	protected String user;
 
 	public static void main(String[] args) {
 		// Properties preferences = new Properties();
@@ -178,7 +180,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
 		serverConfig = injector.getInstance(ServerConfigState.class);
-		serverConfig.setUser(user);
+		main.user = user;
 		states.add(serverConfig);
 		stateManager.attach(serverConfig);
 	}
