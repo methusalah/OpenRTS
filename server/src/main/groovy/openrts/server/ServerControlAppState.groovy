@@ -3,8 +3,11 @@ package openrts.server
 
 import java.util.logging.Logger
 
+import openrts.event.ClientConnectedEvent
+import openrts.event.ClientDisconnectedEvent
 import openrts.event.ServerEvent
 import openrts.server.gui.EventBox
+import openrts.server.gui.UserBox
 import tonegod.gui.core.Screen
 
 import com.google.common.eventbus.Subscribe
@@ -26,6 +29,8 @@ class ServerControlAppState extends AbstractAppState {
 	Screen screen;
 
 	EventBox eventBox;
+	
+	UserBox userBox;
 
 	@Inject
 	ServerControlAppState( OpenRTSServerTonegodGUI app , Screen screen) {
@@ -54,7 +59,14 @@ class ServerControlAppState extends AbstractAppState {
 						this.receiveEvent(msg);
 					}
 				}
+		userBox  = new UserBox(screen, "Users", new Vector2f((Float) (screen.getWidth() / 2 - 35), (Float) (screen.getHeight() / 2 - 15)),new Vector2f((Float) (100), (Float) (100))) {					
+					@Override
+					public void onClientConnected(String msg) {
+						this.receiveClients(msg);
+					}
+				}
 		screen.addElement(eventBox);
+		screen.addElement(userBox);
 	}
 
 	@Override
@@ -80,5 +92,15 @@ class ServerControlAppState extends AbstractAppState {
 	@Subscribe
 	def logSeverEvents(ServerEvent evt) {
 		eventBox.receiveClientConnection("receive Networkmessage:" + evt)
+	}
+	
+	@Subscribe
+	def logSeverEvents(ClientConnectedEvent evt) {
+		userBox.addClient(evt.getName())
+	}
+	
+	@Subscribe
+	def logSeverEvents(ClientDisconnectedEvent evt) {
+		userBox.removeClient(evt.getName())
 	}
 }

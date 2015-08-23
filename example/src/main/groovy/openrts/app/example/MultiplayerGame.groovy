@@ -175,9 +175,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleRender(RenderManager rm) {  }
 
-	def sucessfullLoggedIn() {
+	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
 		serverConfig = injector.getInstance(ServerConfigState.class);
+		serverConfig.setUser(user);
 		states.add(serverConfig);
 		stateManager.attach(serverConfig);
 	}

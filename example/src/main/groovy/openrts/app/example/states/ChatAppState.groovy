@@ -29,9 +29,9 @@ class ChatAppState extends AppStateCommon {
 		screen.removeElement(loginWindow);
 	}
 
-	public void finalizeUserLogin() {
+	public void finalizeUserLogin(String user) {
 		// Some call to your app to unload this AppState and load the next AppState
-		main.sucessfullLoggedIn();
+		main.sucessfullLoggedIn(user);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ class ChatAppState extends AppStateCommon {
 						@Override
 						public void onButtonLoginPressed(MouseButtonEvent evt, boolean toggled) {
 							// Some call to the server to log the client in
-							finalizeUserLogin();
+							finalizeUserLogin("Nerv");
 						}
 
 						@Override

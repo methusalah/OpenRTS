@@ -18,6 +18,7 @@ import com.jme3.math.Vector2f
 @CompileStatic
 class UserLoginAppState extends AppStateCommon {
 	LoginBox loginWindow;
+	String user;
 
 	@Inject
 	public UserLoginAppState(MultiplayerGame main) {
@@ -33,9 +34,9 @@ class UserLoginAppState extends AppStateCommon {
 	//		initLoginWindow();
 	//	}
 
-	public void finalizeUserLogin() {
+	public void finalizeUserLogin(String user) {
 		// Some call to your app to unload this AppState and load the next AppState
-		main.sucessfullLoggedIn();
+		main.sucessfullLoggedIn(user);
 	}
 
 	@Override
@@ -63,7 +64,9 @@ class UserLoginAppState extends AppStateCommon {
 						@Override
 						public void onButtonLoginPressed(MouseButtonEvent evt, boolean toggled) {
 							// Some call to the server to log the client in
-							finalizeUserLogin();
+							//@TODO handle passowrd aswell
+							finalizeUserLogin(loginWindow.textUserName);
+							
 						}
 
 						@Override
@@ -74,6 +77,7 @@ class UserLoginAppState extends AppStateCommon {
 					};
 			loginWindow.textUserName = "peter"
 			screen.addElement(loginWindow);
+			
 
 			init = true;
 		}

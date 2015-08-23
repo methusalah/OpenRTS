@@ -8,4 +8,5 @@ public class ClientConnectedEvent extends ServerEvent {
 
 	int id
 	String address
+	String name
 }
