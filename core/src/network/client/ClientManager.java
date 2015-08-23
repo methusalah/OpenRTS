@@ -20,7 +20,6 @@ public class ClientManager {
 
 	public void startClient(String host) {
 		client = new ClientAppState(host);
-		client.initialize(app.getStateManager(), app);
 		app.getStateManager().attach(client);
 	}
 

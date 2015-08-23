@@ -35,7 +35,7 @@ public class ClientAppState extends AbstractAppState {
 
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
-
+		super.initialize(stateManager, app);
 		Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToConnectEvent.class);
 
 		try {
@@ -45,12 +45,12 @@ public class ClientAppState extends AbstractAppState {
 		}
 		networkClient.addClientStateListener(new ClientStateListener());
 		networkClient.addMessageListener(new MessageListener(), AckEvent.class);
-		
+
 		networkClient.start();
 		waitUntilClientIsConnected(10);
 
 		EventManager.register(this);
-		super.initialize(stateManager, app);
+		
 	};
 
 	@Override
