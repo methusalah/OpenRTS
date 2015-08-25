@@ -1,12 +1,12 @@
-package openrts.server
+package openrts.server.states
 ;
 
 import java.util.logging.Logger
 
-import openrts.event.ClientConnectedEvent
 import openrts.event.ServerEvent
-import openrts.server.gui.EventBox
-import openrts.server.gui.UserBox
+import openrts.server.OpenRTSServerTonegodGUI
+import openrts.server.controls.EventBox
+import openrts.server.controls.UserBox
 import tonegod.gui.core.Screen
 
 import com.google.common.eventbus.Subscribe
@@ -16,12 +16,11 @@ import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
 import com.jme3.math.Vector2f
 
-
 import event.ClientLoggedOutEvent
 import event.ClientTrysToLoginEvent
 import event.EventManager
 import event.network.NetworkEvent
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
 
 @CompileStatic
 class ServerControlAppState extends AbstractAppState {

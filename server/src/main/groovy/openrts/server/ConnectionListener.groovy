@@ -9,8 +9,10 @@ import com.jme3.network.HostedConnection
 import com.jme3.network.Server
 
 import event.EventManager
+import groovy.transform.CompileStatic;
 
 
+@CompileStatic
 public class ConnectionListener implements com.jme3.network.ConnectionListener {
 
 	private static final Logger logger = Logger.getLogger(ConnectionListener.class.getName());

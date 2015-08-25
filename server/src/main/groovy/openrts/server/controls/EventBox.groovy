@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package openrts.server.gui;
+package openrts.server.controls;
 
+import groovy.transform.CompileStatic;
 import sun.security.action.GetLongAction;
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.form.Form
@@ -22,10 +23,9 @@ import com.jme3.math.Vector4f
  *
  * @author t0neg0d
  */
+@CompileStatic
 abstract class EventBox extends Panel {
 	private ScrollPanel eventArea;
-	private ScrollPanel clientArea;
-	//	private TextField tfChatInput;
 	private ButtonAdapter btnChatSendMsg;
 	private Spinner spnChannels;
 
@@ -33,7 +33,6 @@ abstract class EventBox extends Panel {
 
 	int sendKey;
 	protected List<String> eventHistory = new ArrayList();
-	protected List<String> clientHistory = new ArrayList();
 
 	/**
 	 * Creates a new instance of the ChatBox control
@@ -141,16 +140,8 @@ abstract class EventBox extends Panel {
 		//	saChatArea.setClippingLayer(saChatArea);
 		eventArea.addClippingLayer(eventArea);
 		eventArea.setUseVerticalWrap(true);
+		eventArea.dockS = true
 		addChild(eventArea);
-
-		clientArea = new ScrollPanel(screen, UID + ":clientArea",new Vector2f(indents.y,indents.x),new Vector2f((Float)getWidth()-indents.y-indents.z,(Float)getHeight()-controlSize-(controlSpacing*2)-indents.x-indents.w));
-		clientArea.setIsResizable(false);
-		clientArea.setScaleEW(true);
-		clientArea.setScaleNS(true);
-		//	saChatArea.setClippingLayer(saChatArea);
-		clientArea.addClippingLayer(clientArea);
-		clientArea.setUseVerticalWrap(true);
-		addChild(clientArea);
 
 		//		tfChatInput = new TextField(
 		//				screen,
@@ -238,11 +229,6 @@ abstract class EventBox extends Panel {
 		eventArea.reshape();
 		if (eventArea.getVerticalScrollDistance() > 0) {
 			eventArea.scrollToBottom();
-		}
-		clientArea.setText(displayText);
-		clientArea.reshape();
-		if (clientArea.getVerticalScrollDistance() > 0) {
-			clientArea.scrollToBottom();
 		}
 	}
 

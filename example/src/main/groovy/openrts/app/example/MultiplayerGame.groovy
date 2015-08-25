@@ -1,13 +1,13 @@
 package openrts.app.example;
 
-import groovy.transform.CompileStatic
+import groovy.transform.CompileStatic 
 
 import java.util.logging.Logger
 
-import model.ModelManager;
 import openrts.app.example.states.AppStateCommon
-import openrts.app.example.states.ClientAppState;
-import openrts.app.example.states.GameAppState
+import openrts.app.example.states.ClientAppState
+import openrts.app.example.states.GameBattlefieldAppState
+import openrts.app.example.states.GameHudState
 import openrts.app.example.states.ServerConfigState
 import openrts.app.example.states.UserLoginAppState
 import tonegod.gui.core.Screen
@@ -65,10 +65,11 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private BitmapFont defaultFont;
 
 	// States
-	private List<AppStateCommon> states = new ArrayList();
+	private List<AppStateCommon> states = new ArrayList(); 
 	private ServerConfigState serverConfig;
 	
-	protected GameAppState gameState
+	protected GameBattlefieldAppState gameState
+	protected GameHudState gameHudState
 	
 	UserLoginAppState userlogin;
 	private TestState tests;
@@ -101,7 +102,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleInitApp() {
 		initScreen();
-		List<Module> modules = new ArrayList<Module>([new ClientModule(app: this)])
+		List<Module> modules = new ArrayList<Module>([new ClientModule(app: this, screen: screen)])
 		initGuice(modules);
 		initLights();
 
@@ -112,6 +113,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private void initScreen() {
 		screen = new Screen(this, BASE_THEME_PATH + (USE_ATLAS ? ATLAS_PATH : DEFAULT_PATH) + "style_map.gui.xml");
+		
 		if (USE_ATLAS) {
 			screen.setUseTextureAtlas(true, BASE_THEME_PATH + ASSET_PATH + "atlas.png");
 		}
@@ -167,7 +169,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	public void reshape(int w, int h) {
 		super.reshape(w, h);
 		for (AppStateCommon state : states) {
-			state.reshape();
+			state.reshape(); 
 		}
 	}
 
@@ -197,12 +199,17 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		stateManager.detach(serverConfig)
 		userlogin.enabled = false
 		
-		gameState = injector.getInstance(GameAppState.class);
+		gameState = injector.getInstance(GameBattlefieldAppState.class); 
 		states.add(gameState);
 		stateManager.attach(gameState);
+		
+		gameHudState = injector.getInstance(GameHudState.class);
+		states.add(gameHudState);  
+		stateManager.attach(gameHudState);
+		
 	}
 	
-	def connectToServer(String host) {
+	def connectToServer(String host) { 
 		def client = injector.getInstance(ClientAppState.class);
 		client.host = host
 		stateManager.attach(client);

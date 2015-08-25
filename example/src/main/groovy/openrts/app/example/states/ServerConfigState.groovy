@@ -5,11 +5,15 @@
 package openrts.app.example.states;
 
 import java.awt.DisplayMode
+import java.lang.invoke.ForceInline;
+import java.util.logging.Logger;
 
 import model.ModelManager
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
+import tonegod.gui.controls.lists.SelectBox
+import tonegod.gui.controls.lists.SelectList
 import tonegod.gui.controls.lists.Slider
 import tonegod.gui.controls.text.LabelElement
 import tonegod.gui.controls.text.TextField
@@ -21,6 +25,7 @@ import tonegod.gui.core.Element.Docking
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
+import util.FileUtil;
 
 import com.google.inject.Inject
 import com.google.inject.Injector
@@ -30,7 +35,6 @@ import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
 import event.ClientLoggedOutEvent
-import event.ClientTrysToLoginEvent
 import event.EventManager
 import event.network.CreateGameEvent
 import groovy.transform.CompileStatic
@@ -41,6 +45,9 @@ import groovy.transform.CompileStatic
  */
 @CompileStatic
 public class ServerConfigState extends AppStateCommon {
+	
+	private static final Logger logger = Logger.getLogger(ServerConfigState.class.getName());
+	
 	private float contentPadding = 14;
 
 	private DisplayMode[] modes;
@@ -57,18 +64,14 @@ public class ServerConfigState extends AppStateCommon {
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	
-	
-
 	@Inject
 	Injector injector
 
 	@Inject
-	public ServerConfigState(MultiplayerGame main) {
-		super(main);
+	public ServerConfigState() {
 		displayName = "Harness";
 		show = false;
-		prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
-		initResolution = prevScreenSize.x + "x" + prevScreenSize.y;
+		
 	}
 
 	@Override
@@ -81,9 +84,12 @@ public class ServerConfigState extends AppStateCommon {
 	@Override
 	protected void initState() {
 		if (!init) {
+			prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
+			initResolution = prevScreenSize.x + "x" + prevScreenSize.y;
+			
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
-			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(200,screen.getHeight()), Vector4f.ZERO, null);
+			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 
@@ -104,17 +110,13 @@ public class ServerConfigState extends AppStateCommon {
 			close.setToolTipText("Close Application");
 
 			// Position content container and size it to it's contents
-			content.getLayout().layoutChildren();
-			content.sizeToContent();
+//			content.getLayout().layoutChildren();
+			//content.sizeToContent();
 			content.getLayout().layoutChildren();
 			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
 
 			// Create the main display panel
-			panel = new Panel(
-					screen,
-					Vector2f.ZERO,
-					LayoutHelper.dimensions((Float)(content.getWidth()+(contentPadding*2)),screen.getHeight())
-					);
+			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
 			panel.addChild(close);
 			panel.setIsMovable(false);
@@ -157,8 +159,7 @@ public class ServerConfigState extends AppStateCommon {
 
 		connect = new ButtonAdapter(screen, Vector2f.ZERO) {
 					@Override
-					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {	
-						startMap.isEnabled = true
+					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
 						connect.isEnabled = false
 						main.connectToServer(serverAddress.text)
 
@@ -170,6 +171,22 @@ public class ServerConfigState extends AppStateCommon {
 		connect.setToolTipText("connect to Server");
 		content.addChild(connect)
 		
+		SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
+			public void onChange() {
+				logger.info("element is selected: " + selectedIndexes)
+				startMap.isEnabled = selectedIndexes
+			}
+		}
+		mapSelect.docking = Docking.SW
+		mapSelect.toolTipText = "Please select a Map"
+		
+		def files = FileUtil.getFilesInDirectory(ModelManager.DEFAULT_MAP_PATH, "btf")
+		
+		files.each { File file ->
+			mapSelect.addListItem(file.name, file)			
+		}
+		
+		content.addChild(mapSelect)
 		
 		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
 			@Override
@@ -183,7 +200,7 @@ public class ServerConfigState extends AppStateCommon {
 		startMap.isEnabled = false
 		startMap.setDocking(Docking.SW);
 		startMap.setText("startMap");
-		startMap.setToolTipText("start the testmap");
+		startMap.setToolTipText("start the selected Map");
 		content.addChild(startMap)
 
 	}

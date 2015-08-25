@@ -4,10 +4,11 @@
  */
 package openrts.app.example.states;
 
-import openrts.app.example.MultiplayerGame;
 import groovy.transform.CompileStatic
+import openrts.app.example.MultiplayerGame
 import tonegod.gui.core.Screen
 
+import com.google.inject.Inject
 import com.jme3.app.Application
 import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
@@ -20,14 +21,14 @@ import com.jme3.app.state.AppStateManager
 public abstract class AppStateCommon extends AbstractAppState {
 	protected String displayName = "Display Name";
 	protected boolean show = true;
+	
+	@Inject
 	protected MultiplayerGame main;
+	
+	@Inject
 	protected Screen screen;
+	
 	protected boolean init = false;
-
-	public AppStateCommon(MultiplayerGame main) {
-		this.main = main;
-		this.screen = main.getScreen();
-	}
 
 	public abstract void reshape();
 

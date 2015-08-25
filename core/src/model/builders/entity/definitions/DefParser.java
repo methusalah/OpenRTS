@@ -21,6 +21,7 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import util.FileUtil;
 import exception.TechnicalException;
 
 /**
@@ -32,14 +33,14 @@ public class DefParser {
 	List<File> filesToRead = new ArrayList<>();
 
 	public DefParser(String path) {
-		ArrayList<File> filesAndDir = getFiles(path);
+		List<File> filesAndDir = FileUtil.getFilesInDirectory(path, "xml");
 		while (!filesAndDir.isEmpty()) {
 			ArrayList<File> toAdd = new ArrayList<>();
 			for (File f : filesAndDir) {
 				if (f.isFile()) {
 					addFile(f);
 				} else if (f.isDirectory()) {
-					toAdd.addAll(getFiles(f.getAbsolutePath()));
+					toAdd.addAll(FileUtil.getFilesInDirectory(f.getAbsolutePath(),"xml"));
 				}
 			}
 			filesAndDir.clear();
@@ -48,23 +49,7 @@ public class DefParser {
 		readFile();
 	}
 
-	private ArrayList<File> getFiles(String folderPath) {
-		ArrayList<File> res = new ArrayList<>();
-		File folder = new File(folderPath);
-		if (!folder.exists()) {
-			throw new TechnicalException("the folder " + folderPath +  " was not found.");
-		}
-		for (File f : folder.listFiles(new FileFilter() {
-			
-			@Override
-			public boolean accept(File file) {
-				return file.isDirectory() || file.getPath().endsWith("xml");
-			}
-		})) {
-			res.add(f);
-		}
-		return res;
-	}
+
 
 	public void addFile(File f) {
 		filesAndTimers.put(f, 0l);

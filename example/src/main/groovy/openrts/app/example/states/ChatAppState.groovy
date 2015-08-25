@@ -16,8 +16,8 @@ import com.jme3.math.Vector2f
 class ChatAppState extends AppStateCommon {
 	LoginBox loginWindow;
 
-	public ChatAppState(MultiplayerGame main) {
-		super(main);
+	public ChatAppState() {
+		super();
 		displayName = "Chat";
 		show = true;
 	}

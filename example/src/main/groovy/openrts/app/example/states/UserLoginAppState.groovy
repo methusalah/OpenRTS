@@ -21,8 +21,8 @@ class UserLoginAppState extends AppStateCommon {
 	String user;
 
 	@Inject
-	public UserLoginAppState(MultiplayerGame main) {
-		super(main);
+	public UserLoginAppState() {
+		super();
 		displayName = "Harness";
 		show = true;
 	}

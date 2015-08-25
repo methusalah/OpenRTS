@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package openrts.server.gui;
+package openrts.server.controls;
 
+import groovy.transform.CompileStatic;
 import sun.security.action.GetLongAction;
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.form.Form
@@ -22,6 +23,7 @@ import com.jme3.math.Vector4f
  *
  * @author t0neg0d
  */
+@CompileStatic
 abstract class UserBox extends Panel {
 	private ScrollPanel eventArea;
 	private ScrollPanel clientArea;

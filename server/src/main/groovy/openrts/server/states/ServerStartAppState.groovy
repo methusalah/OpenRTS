@@ -1,11 +1,12 @@
-package openrts.server
+package openrts.server.states
 ;
 
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
 
 import java.util.logging.Logger
 
-import openrts.server.gui.ServerStartBox
+import openrts.server.OpenRTSServerTonegodGUI
+import openrts.server.controls.ServerStartBox
 import tonegod.gui.core.Screen
 
 import com.jme3.app.Application

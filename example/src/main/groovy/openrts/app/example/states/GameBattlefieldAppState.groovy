@@ -1,9 +1,11 @@
 package openrts.app.example.states;
 
+import java.util.logging.Logger
+
 import model.ModelManager
 import model.battlefield.army.ArmyManager
 import model.battlefield.army.components.Unit
-import openrts.app.example.GameInputInterpreter;
+import openrts.app.example.GameInputInterpreter
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import view.EditorView
@@ -26,7 +28,9 @@ import geometry.geom2d.Point2D
 import groovy.transform.CompileStatic
 
 @CompileStatic
-public class GameAppState extends AppStateCommon {
+public class GameBattlefieldAppState extends AppStateCommon {
+	
+	private static final Logger logger = Logger.getLogger(GameBattlefieldAppState.class.getName());
 
 	private boolean paused = false;
 	private Point2D zoneStart;
@@ -52,9 +56,9 @@ public class GameAppState extends AppStateCommon {
 	protected GameInputInterpreter inputInterpreter
 	
 	@Inject
-	public GameAppState(MultiplayerGame main) {
-		super(main);
-		displayName = "GameAppState";
+	public GameBattlefieldAppState() {
+		super()
+		displayName = "GameBattlefieldState";
 		show = true;
 		EventManager.register(this);
 	}

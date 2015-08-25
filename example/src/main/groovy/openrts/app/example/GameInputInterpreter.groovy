@@ -2,7 +2,7 @@ package openrts.app.example;
 
 import java.util.logging.Logger
 
-import openrts.app.example.states.GameAppState;
+import openrts.app.example.states.GameBattlefieldAppState;
 
 import com.google.inject.Inject
 import com.jme3.input.InputManager
@@ -19,7 +19,9 @@ import event.network.MultiSelectEntityEvent
 import event.network.PauseEvent
 import event.network.SelectEntityEvent
 import geometry.geom2d.Point2D
+import groovy.transform.CompileStatic;
 
+@CompileStatic
 public class GameInputInterpreter extends InputInterpreter {
 
 	private static final Logger logger = Logger.getLogger(GameInputInterpreter.class.getName());
@@ -38,10 +40,10 @@ public class GameInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	private GameAppState ctrl;
+	private GameBattlefieldAppState ctrl;
 
 	@Inject
-	GameInputInterpreter(GameAppState ctrl) {
+	GameInputInterpreter(GameBattlefieldAppState ctrl) {
 		super();
 		this.ctrl = ctrl;
 		mappings = [ SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE ]

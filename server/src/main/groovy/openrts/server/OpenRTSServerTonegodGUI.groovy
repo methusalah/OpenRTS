@@ -6,6 +6,8 @@ import java.util.logging.Logger
 import model.ModelManager
 import openrts.event.ClientDisconnectedEvent
 import openrts.event.ServerCouldNotStartetEvent
+import openrts.server.states.ServerControlAppState;
+import openrts.server.states.ServerStartAppState;
 import tonegod.gui.core.Screen
 
 import com.jme3.network.Network
@@ -15,9 +17,9 @@ import com.jme3.network.serializing.Serializer
 
 import event.ClientLoggedOutEvent
 import event.ClientTrysToLoginEvent
+
 import event.EventManager
 import event.network.AckEvent
-
 import event.network.CreateGameEvent
 import event.network.MultiSelectEntityEvent
 import event.network.SelectEntityEvent

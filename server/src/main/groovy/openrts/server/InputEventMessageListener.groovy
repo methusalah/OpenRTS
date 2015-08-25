@@ -16,7 +16,9 @@ import event.network.CreateGameEvent;
 import event.network.NetworkEvent;
 import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
+import groovy.transform.CompileStatic;
 
+@CompileStatic
 public class InputEventMessageListener implements com.jme3.network.MessageListener<HostedConnection> {
 
 	private static final Logger logger = Logger.getLogger(InputEventMessageListener.class.getName());

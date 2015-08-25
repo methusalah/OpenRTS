@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package openrts.server.gui;
+package openrts.server.controls;
 
 import tonegod.gui.controls.buttons.ButtonAdapter
 import groovy.transform.CompileStatic
