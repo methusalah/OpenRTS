@@ -44,6 +44,7 @@ public class ActorDrawer implements AnimEventListener {
 
 	private static final Logger logger = Logger.getLogger(ActorDrawer.class.getName());
 
+	@Inject
 	private AssetManager assetManager;
 
 	public Node mainNode;
@@ -66,9 +67,9 @@ public class ActorDrawer implements AnimEventListener {
 	
 	@Inject
 	protected MaterialManager materialManager;
-
-	public ActorDrawer(AssetManager assetManager) {
-		this.assetManager = assetManager;
+	
+	@Inject
+	public ActorDrawer() {
 		mainNode = new Node();
 		abandoned = new Node();
 		mainNode.attachChild(abandoned);

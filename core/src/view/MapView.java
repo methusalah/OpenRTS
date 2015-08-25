@@ -85,7 +85,7 @@ public class MapView {
 		if(actorDrawer != null){
 			rootNode.detachChild(actorDrawer.mainNode);
 		}
-		actorDrawer = new ActorDrawer(assetManager);
+		actorDrawer = injector.getInstance(ActorDrawer.class);
 		rootNode.attachChild(actorDrawer.mainNode);
 		actorDrawer.mainPhysicsSpace = physicsSpace;
 

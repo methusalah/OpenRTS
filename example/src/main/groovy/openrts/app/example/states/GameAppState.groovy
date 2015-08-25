@@ -65,6 +65,7 @@ public class GameAppState extends AppStateCommon {
 		updateContext();
 		//sguiController.update();
 
+		view.getActorManager().render()
 		// update army
 		if (!paused) {
 			ArmyManager.update(elapsedTime);

@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 
 import java.util.logging.Logger
 
+import model.ModelManager;
 import openrts.app.example.states.AppStateCommon
 import openrts.app.example.states.ClientAppState;
 import openrts.app.example.states.GameAppState
@@ -172,6 +173,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	@Override
 	public void simpleUpdate(float tpf) {
+//		float maxedTPF = Math.min(tpf, 0.1f);
+//		listener.setLocation(cam.getLocation());
+//		listener.setRotation(cam.getRotation());
+//		view.getActorManager().render();
+//		actualCtrl.update(maxedTPF);
+//		ModelManager.updateConfigs();
 
 	}
 
