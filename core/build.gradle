@@ -114,9 +114,9 @@ test {
 eclipse {
 	// need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
 	// ignores any nodes added in classpath.file.withXml
-	sourceSets {
-		main { java.srcDirs "src" }
-	}
+//	sourceSets {
+//		main { java.srcDirs "src" }
+//	}
 	classpath {
 		downloadSources=true
 	 }
