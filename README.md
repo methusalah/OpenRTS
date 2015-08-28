@@ -24,6 +24,31 @@ The engine is set by default with a test dataset and some example maps you can l
 - **F2** : Editor Mode
 - **F3** : First Person view (for testing purpose)
 
+<!--
+# How to use as dependency 
+Add it in your build.gradle at the end of repositories:
+
+<code>
+repositories {
+	    // ...
+	    maven { url "https://jitpack.io" }
+	}
+</code>
+
+Add the dependency in the form:
+
+<code>
+dependencies {
+   compile 'com.github.brainless-studios:OpenRTS:-SNAPSHOT'
+}
+</code>
+
+That's it!
+currently we are working at a stable version, so you need the get the current snapshot. If you are the first, who gets a new version (concrats), but its possible that it needs some time the build (1-2 minutes). This is only for the first time. 
+
+more infos needed? see here: https://jitpack.io/#brainless-studios/OpenRTS
+-->
+
 # Need Help ?
 First, you may want to take a look at the <a href="https://github.com/methusalah/OpenRTS/wiki" target="_blank">wiki</a>.
 
