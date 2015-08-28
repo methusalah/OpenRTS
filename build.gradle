@@ -1,6 +1,5 @@
 apply plugin: 'java'
 
-version = '1.0'
 
 allprojects {
 	apply plugin: "eclipse"
@@ -27,6 +26,7 @@ allprojects {
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 		maven { url 'http://updates.jmonkeyengine.org/maven' }	
 		maven { url 'http://jcenter.bintray.com' }
+		maven { url "https://jitpack.io" }
 	}
 	
 	pmd {
@@ -36,4 +36,8 @@ allprojects {
 	findbugs {
 		ignoreFailures = true
 	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2.1'
 }
