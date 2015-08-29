@@ -44,7 +44,6 @@ import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
@@ -54,6 +53,8 @@ import com.jme3.scene.Spatial.CullHint;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
+
+import controller.SpatialSelector;
 
 public abstract class OpenRTSApplicationWithDI extends Application implements PhysicsTickListener {
 
@@ -313,6 +314,8 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 				// no singleton needed here => it easier for resetting
 				bind(EditorRenderer.class).in(Singleton.class);
+				
+				bind(SpatialSelector.class).in(Singleton.class);
 
 			}
 		});

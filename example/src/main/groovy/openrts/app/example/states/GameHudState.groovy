@@ -1,17 +1,20 @@
 package openrts.app.example.states;
 
-import org.lwjgl.opengl.Display;
-
 import openrts.guice.annotation.RootNodeRef
+
+import org.lwjgl.opengl.Display
+
 import tonegod.gui.controls.buttons.ButtonAdapter
+import tonegod.gui.controls.text.Label
 import tonegod.gui.controls.windows.Panel
-import tonegod.gui.controls.windows.Window;
+import tonegod.gui.controls.windows.Window
 import tonegod.gui.core.Element
 import tonegod.gui.core.Element.Docking
-import tonegod.gui.core.layouts.FlowLayout;
+import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 
+import com.google.common.eventbus.Subscribe
 import com.google.inject.Inject
 import com.jme3.input.event.JoyAxisEvent
 import com.jme3.input.event.JoyButtonEvent
@@ -25,6 +28,7 @@ import com.jme3.scene.Node
 import com.jme3.texture.Texture
 
 import event.EventManager
+import event.network.SelectEntityEvent
 import groovy.transform.CompileStatic
 
 /**
@@ -35,12 +39,14 @@ import groovy.transform.CompileStatic
 class GameHudState extends AppStateCommon {
 
 	private Panel cPanel;
-	private float iconSize = 40;
+	private float iconSize = 20;
 	private ButtonAdapter cursor;
 //	private InteractiveNode obj1Node, obj2Node, obj3Node;
 	private Texture objIcons;
 	private String iconDefault;
 	List<ButtonAdapter> slots = []
+	
+	Panel informationPanel;
 	
 	@Inject
 	@RootNodeRef
@@ -120,15 +126,15 @@ class GameHudState extends AppStateCommon {
 		HUD.addChild(Minimap);
 		
 		
-		Panel InformationPanel = new Panel(screen, "InformationPanel", new Vector2f(Minimap.getWidth(),0f));
-		InformationPanel.setDimensions(400,HUD.getHeight());
-		InformationPanel.setToolTipText("This is the Informationpanel. Please select a unit.");
-		InformationPanel.setIsResizable(false);
-		InformationPanel.setIsMovable(false);
-		HUD.addChild(InformationPanel);
+		informationPanel = new Panel(screen, "InformationPanel", new Vector2f(Minimap.getWidth(),0f));
+		informationPanel.setDimensions(400,HUD.getHeight());
+		informationPanel.setToolTipText("This is the Informationpanel. Please select a unit.");
+		informationPanel.setIsResizable(false);
+		informationPanel.setIsMovable(false);
+		HUD.addChild(informationPanel);
 		
 		
-		Panel ActionPanel = new Panel(screen, "ActionPanel", new Vector2f(Minimap.getWidth() + InformationPanel.getWidth(),0f));
+		Panel ActionPanel = new Panel(screen, "ActionPanel", new Vector2f(Minimap.getWidth() + informationPanel.getWidth(),0f));
 		ActionPanel.setDimensions(200,HUD.getHeight());
 		ActionPanel.setToolTipText("This is the ActionPanel. Please select a unit.");
 		ActionPanel.setIsResizable(false);
@@ -181,7 +187,17 @@ class GameHudState extends AppStateCommon {
 			}
 		}
 		
+		ActionPanel.addChild(cPanel)
 //		cPanel.pack();
+	}
+	
+	@Subscribe
+	def handleSelectUnit(SelectEntityEvent evt) {
+		informationPanel.removeAllChildren();
+		Label name = new Label(screen, new Vector2f(20, 20))
+		name.setText("Unit selected: "+ evt.getUnitId() );
+		name.setDimensions(300, 100);
+		informationPanel.addChild(name);
 	}
 
 	private ButtonAdapter createInventorySlot(int index, Vector2f position) {

@@ -3,6 +3,7 @@ package openrts.app.example;
 import java.util.logging.Logger
 
 import openrts.app.example.states.GameBattlefieldAppState;
+import view.EditorView;
 
 import com.google.inject.Inject
 import com.jme3.input.InputManager
@@ -12,6 +13,7 @@ import com.jme3.input.controls.MouseButtonTrigger
 
 import controller.CommandManager
 import controller.InputInterpreter
+import controller.SpatialSelector;
 import event.EventManager
 import event.network.HoldEvent
 import event.network.MoveAttackEvent
@@ -41,6 +43,12 @@ public class GameInputInterpreter extends InputInterpreter {
 	private Point2D dblclickCoord;
 
 	GameBattlefieldAppState ctrl;
+	
+	@Inject
+	protected SpatialSelector spatialSelector;
+	
+	@Inject
+	protected EditorView view;
 
 	@Inject
 	GameInputInterpreter(GameBattlefieldAppState ctrl) {
@@ -81,12 +89,13 @@ public class GameInputInterpreter extends InputInterpreter {
 					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
 							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
 						// double click
-						EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
-						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
+						EventManager.post(new MultiSelectEntityEvent(spatialSelector.getEntityId()));
+						CommandManager.selectUnitInContext(spatialSelector.getEntityId());
 					} else {
 						if(!ctrl.isDrawingZone()) {
-							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
-							EventManager.post(new MultiSelectEntityEvent(ctrl.spatialSelector.getEntityId()));
+							def entityId = spatialSelector.getEntityId()
+							CommandManager.select(entityId, getSpatialCoord());
+							EventManager.post(new SelectEntityEvent(entityId));
 						}
 					}
 					ctrl.endSelectionZone();
@@ -94,19 +103,19 @@ public class GameInputInterpreter extends InputInterpreter {
 					dblclickCoord = getSpatialCoord();
 					break;
 				case ACTION:
-					EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
-					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+					EventManager.post(new MoveAttackEvent(spatialSelector.getEntityId()));
+					CommandManager.act(spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
-					EventManager.post(new MoveAttackEvent(ctrl.spatialSelector.getEntityId()));
+					EventManager.post(new MoveAttackEvent(spatialSelector.getEntityId()));
 					CommandManager.setMoveAttack();
 					break;
 				case HOLD:
-					EventManager.post(new HoldEvent(ctrl.spatialSelector.getEntityId()));
+					EventManager.post(new HoldEvent(spatialSelector.getEntityId()));
 					CommandManager.orderHold();
 					break;
 				case PAUSE:
-					EventManager.post(new PauseEvent(ctrl.spatialSelector.getEntityId()));
+					EventManager.post(new PauseEvent(spatialSelector.getEntityId()));
 					ctrl.togglePause();
 					break;
 			}
@@ -124,6 +133,6 @@ public class GameInputInterpreter extends InputInterpreter {
 	}
 
 	private Point2D getSpatialCoord() {
-		return ctrl.spatialSelector.getCoord((ctrl.view.getRootNode()));
+		return spatialSelector.getCoord((view.getRootNode()));
 	}
 }

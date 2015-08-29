@@ -30,4 +30,12 @@ public class SelectEntityEvent extends NetworkEvent {
 		this.unitId = id;
 	}
 
+	public int getUnitId() {
+		return unitId;
+	}
+
+	public void setUnitId(int unitId) {
+		this.unitId = unitId;
+	}
+
 }
