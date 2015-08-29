@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import model.battlefield.Battlefield;
@@ -96,4 +97,8 @@ public class ModelManager {
 		battlefieldReady = true;
 	}
 
+	public static Battlefield loadOnlyStaticValues(File file) {
+		return factory.loadOnlyStaticValues(file);
+	}
+	
 }

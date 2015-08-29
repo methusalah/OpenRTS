@@ -4,17 +4,17 @@
  */
 package openrts.app.example.states;
 
-import java.awt.DisplayMode
 import java.util.logging.Logger
 
 import model.ModelManager
+import model.battlefield.Battlefield
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
 import tonegod.gui.controls.lists.SelectList
-import tonegod.gui.controls.lists.SelectList.ListItem;
 import tonegod.gui.controls.lists.Slider
-import tonegod.gui.controls.scrolling.ScrollArea;
+import tonegod.gui.controls.lists.SelectList.ListItem
+import tonegod.gui.controls.scrolling.ScrollArea
 import tonegod.gui.controls.text.LabelElement
 import tonegod.gui.controls.text.TextField
 import tonegod.gui.controls.windows.Panel
@@ -37,7 +37,6 @@ import com.jme3.math.Vector4f
 import event.ClientLoggedOutEvent
 import event.EventManager
 import event.network.CreateGameEvent
-import groovy.json.internal.MapItemValue;
 import groovy.transform.CompileStatic
 
 /**
@@ -60,9 +59,12 @@ public class ServerConfigState extends AppStateCommon {
 	protected ButtonAdapter close,connect, startMap;
 	
 	ScrollArea mapInfo
+	
+	
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	
+
 	@Inject
 	Injector injector
 
@@ -166,6 +168,7 @@ public class ServerConfigState extends AppStateCommon {
 		connect.setDocking(Docking.SW);
 		connect.setText("connect");
 		connect.setToolTipText("connect to Server");
+		connect.getLayoutHints().set("wrap");
 		content.addChild(connect)
 		
 		SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
@@ -173,13 +176,19 @@ public class ServerConfigState extends AppStateCommon {
 				
 				mapInfo.removeAllChildren();
 				ListItem item = selectedListItems.first()
+				File file = (File) item.value
+				Battlefield bfd = ModelManager.loadOnlyStaticValues(file)
 				
-				mapInfo.setText("You selected Map : " + item.caption);
+				
+				String mapDescription = "You selected Map : " + item.caption + "\n"
+				mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
+				mapInfo.setText(mapDescription);
 				
 				logger.info("element is selected: " + selectedIndexes)
 				startMap.isEnabled = selectedIndexes
 			}
 		}
+		mapSelect.setDimensions(200, 200)
 		mapSelect.docking = Docking.SW
 		mapSelect.toolTipText = "Please select a Map"
 		
@@ -190,6 +199,12 @@ public class ServerConfigState extends AppStateCommon {
 		}
 		
 		content.addChild(mapSelect)
+		
+		mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
+		mapInfo.setToolTipText("infos about the selected Map");
+		mapInfo.setDimensions(mapSelect.width,mapSelect.height)
+		content.addChild(mapInfo)
+		mapInfo.layoutHints.set("wrap")
 		
 		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
 			@Override
@@ -206,9 +221,7 @@ public class ServerConfigState extends AppStateCommon {
 		startMap.setToolTipText("start the selected Map");
 		content.addChild(startMap)
 		
-		mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);		
-		mapInfo.setToolTipText("infos about the selected Map");
-		content.addChild(mapInfo)
+		
 
 	}
 

@@ -53,8 +53,8 @@ public class BattlefieldFactory {
 		return load(new File(fname));
 	}
 
-	public Battlefield load(File file) {
-		ModelManager.setBattlefieldUnavailable();
+	
+	public Battlefield loadOnlyStaticValues(File file) {
 		Battlefield bField = null;
 		try {
 			logger.info("Loading battlefield " + file.getCanonicalPath() + "...");
@@ -64,6 +64,12 @@ public class BattlefieldFactory {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return bField;
+	}
+	
+	public Battlefield load(File file) {
+		ModelManager.setBattlefieldUnavailable();
+		Battlefield bField = loadOnlyStaticValues(file);
 
 		if (bField == null) {
 			logger.info("Load failed");
