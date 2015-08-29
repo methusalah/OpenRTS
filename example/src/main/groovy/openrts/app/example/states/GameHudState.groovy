@@ -1,10 +1,14 @@
 package openrts.app.example.states;
 
+import org.lwjgl.opengl.Display;
+
 import openrts.guice.annotation.RootNodeRef
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.windows.Panel
+import tonegod.gui.controls.windows.Window;
 import tonegod.gui.core.Element
 import tonegod.gui.core.Element.Docking
+import tonegod.gui.core.layouts.FlowLayout;
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 
@@ -96,6 +100,41 @@ class GameHudState extends AppStateCommon {
 	
 	
 	private void initCtrlPanel() {
+		
+		Window HUD =  new Window(screen, "HudWindow", new Vector2f(15f, 15f));
+		
+		screen.addElement(HUD);
+		HUD.setDimensions(new Vector2f(Display.getWidth(), 100));
+		HUD.setLocalTranslation(Display.getWidth()- HUD.getWidth(), 0, 0);
+		
+	   
+		HUD.setLayout(
+				new FlowLayout(screen, "margins 8 8 8 8", "padding 0 0 0 0")
+			);
+		
+		Panel Minimap = new Panel(screen, "MiniMap", new Vector2f(0f,0f));
+		Minimap.setDimensions(200,HUD.getHeight());
+		Minimap.setToolTipText("This is the Minimap");
+		Minimap.setIsResizable(false);
+		Minimap.setIsMovable(false);
+		HUD.addChild(Minimap);
+		
+		
+		Panel InformationPanel = new Panel(screen, "InformationPanel", new Vector2f(Minimap.getWidth(),0f));
+		InformationPanel.setDimensions(400,HUD.getHeight());
+		InformationPanel.setToolTipText("This is the Informationpanel. Please select a unit.");
+		InformationPanel.setIsResizable(false);
+		InformationPanel.setIsMovable(false);
+		HUD.addChild(InformationPanel);
+		
+		
+		Panel ActionPanel = new Panel(screen, "ActionPanel", new Vector2f(Minimap.getWidth() + InformationPanel.getWidth(),0f));
+		ActionPanel.setDimensions(200,HUD.getHeight());
+		ActionPanel.setToolTipText("This is the ActionPanel. Please select a unit.");
+		ActionPanel.setIsResizable(false);
+		ActionPanel.setIsMovable(false);
+		HUD.addChild(ActionPanel);
+		
 		cPanel = new Panel(screen,displayName, Vector2f.ZERO, Vector2f.ZERO);
 		cPanel.setEffectZOrder(false);
 		

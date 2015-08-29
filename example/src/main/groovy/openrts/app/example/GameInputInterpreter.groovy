@@ -40,7 +40,7 @@ public class GameInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	private GameBattlefieldAppState ctrl;
+	GameBattlefieldAppState ctrl;
 
 	@Inject
 	GameInputInterpreter(GameBattlefieldAppState ctrl) {
