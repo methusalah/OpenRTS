@@ -5,16 +5,16 @@
 package openrts.app.example.states;
 
 import java.awt.DisplayMode
-import java.lang.invoke.ForceInline;
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
 import model.ModelManager
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.buttons.CheckBox
-import tonegod.gui.controls.lists.SelectBox
 import tonegod.gui.controls.lists.SelectList
+import tonegod.gui.controls.lists.SelectList.ListItem;
 import tonegod.gui.controls.lists.Slider
+import tonegod.gui.controls.scrolling.ScrollArea;
 import tonegod.gui.controls.text.LabelElement
 import tonegod.gui.controls.text.TextField
 import tonegod.gui.controls.windows.Panel
@@ -25,7 +25,7 @@ import tonegod.gui.core.Element.Docking
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
-import util.FileUtil;
+import util.FileUtil
 
 import com.google.inject.Inject
 import com.google.inject.Injector
@@ -37,6 +37,7 @@ import com.jme3.math.Vector4f
 import event.ClientLoggedOutEvent
 import event.EventManager
 import event.network.CreateGameEvent
+import groovy.json.internal.MapItemValue;
 import groovy.transform.CompileStatic
 
 /**
@@ -50,10 +51,6 @@ public class ServerConfigState extends AppStateCommon {
 	
 	private float contentPadding = 14;
 
-	private DisplayMode[] modes;
-	private String initResolution;
-	protected Vector2f prevScreenSize = new Vector2f();
-
 	private Element content;
 	private Panel panel;
 	private TextField serverAddress
@@ -61,6 +58,8 @@ public class ServerConfigState extends AppStateCommon {
 	private Slider uiAlpha, audioVol;
 	private LabelElement dispTitle, extTitle, testTitle;
 	protected ButtonAdapter close,connect, startMap;
+	
+	ScrollArea mapInfo
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	
@@ -69,7 +68,7 @@ public class ServerConfigState extends AppStateCommon {
 
 	@Inject
 	public ServerConfigState() {
-		displayName = "Harness";
+		displayName = "ServerConfig";
 		show = false;
 		
 	}
@@ -84,8 +83,6 @@ public class ServerConfigState extends AppStateCommon {
 	@Override
 	protected void initState() {
 		if (!init) {
-			prevScreenSize.set(main.getViewPort().getCamera().getWidth(),main.getViewPort().getCamera().getHeight());
-			initResolution = prevScreenSize.x + "x" + prevScreenSize.y;
 			
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
@@ -94,7 +91,7 @@ public class ServerConfigState extends AppStateCommon {
 			content.setLayout(layout);
 
 			// Reset layout helper
-			//	LayoutHelper.reset();
+//			LayoutHelper.reset();
 			initServerControls()
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
@@ -173,6 +170,12 @@ public class ServerConfigState extends AppStateCommon {
 		
 		SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
 			public void onChange() {
+				
+				mapInfo.removeAllChildren();
+				ListItem item = selectedListItems.first()
+				
+				mapInfo.setText("You selected Map : " + item.caption);
+				
 				logger.info("element is selected: " + selectedIndexes)
 				startMap.isEnabled = selectedIndexes
 			}
@@ -202,6 +205,10 @@ public class ServerConfigState extends AppStateCommon {
 		startMap.setText("startMap");
 		startMap.setToolTipText("start the selected Map");
 		content.addChild(startMap)
+		
+		mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);		
+		mapInfo.setToolTipText("infos about the selected Map");
+		content.addChild(mapInfo)
 
 	}
 
@@ -228,5 +235,4 @@ public class ServerConfigState extends AppStateCommon {
 	}
 
 
-	public Vector2f getPreviousScreenSize() { return this.prevScreenSize; }
 }
