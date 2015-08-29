@@ -33,7 +33,7 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 
 	static Server myServer;
 	static final int PORT = 6143;
-//	Map<Integer, Game> games = new HashMap<Integer, Game>();
+	//	Map<Integer, Game> games = new HashMap<Integer, Game>();
 
 	protected Injector injector;
 	protected Collection<Module> modules;
@@ -45,8 +45,8 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 		// settings dialog is not shown
 		if (settings == null) {
 			setSettings(new AppSettings(true));
-			settings.setWidth(1024);
-			settings.setHeight(768);
+			settings.setWidth(800);
+			settings.setHeight(600);
 			// try {
 			// settings.load("openrts.example");
 			// } catch (BackingStoreException e) {
@@ -65,12 +65,12 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 
 		super.initialize();
 
-//		guiNode.setQueueBucket(Bucket.Gui);
-//		guiNode.setCullHint(CullHint.Never);
-//
-//		//		loadStatsView();
-//		viewPort.attachScene(rootNode);
-//		guiViewPort.attachScene(guiNode);
+		//		guiNode.setQueueBucket(Bucket.Gui);
+		//		guiNode.setCullHint(CullHint.Never);
+		//
+		//		//		loadStatsView();
+		//		viewPort.attachScene(rootNode);
+		//		guiViewPort.attachScene(guiNode);
 		//
 		//		if (inputManager != null) {
 		//			flyCam = new AzertyFlyByCamera(cam);
@@ -87,7 +87,7 @@ abstract class OpenRTSServerWithDI extends OpenRTSApplicationWithDI {
 		//		}
 
 		// call user code
-//		simpleInitApp();
+		//		simpleInitApp();
 		//		stateManager.attach(bulletAppState);
 		//		getPhysicsSpace().addTickListener(this);
 	}
