@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'application'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
 mainClassName = 'app.MainRTS'
 if (!hasProperty('mainClass')) {
@@ -10,7 +11,6 @@ if (!hasProperty('mainClass')) {
 
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
-
 	compile 'org.codehaus.groovy:groovy-all:2.3.10'
 	compile "com.jme3:jme3-core:$jmonkeyengine_version"
 	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
@@ -57,10 +57,6 @@ sourceSets {
         }
 		resources { srcDir 'assets' }
 	}
-	test {
-		java { srcDir 'test/java' }
-		resources { srcDir "test/resources" }
-	}
 }
 
 // remove GroovyCompile->JavaCompile task dependencies
@@ -72,7 +68,6 @@ tasks.withType(GroovyCompile) {
 tasks.withType(JavaCompile) { task ->
 	dependsOn task.name.replace("Java", "Groovy")
 }
-
 eclipse {
 	classpath {
 		downloadSources=true

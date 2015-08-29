@@ -1,33 +1,17 @@
-apply plugin: 'java'
-
-version = '1.0'
-
-allprojects {
+subprojects {
 	apply plugin: "eclipse"
 	apply plugin: "idea"
 	apply plugin: 'pmd'
 	apply plugin: 'findbugs'
 	apply plugin: 'java'
-
-	version = '0.0.1'
-	ext {
-		appName = 'OpenRTS'
-		jmonkeyengine_version = '3.0.10'
-	}
+	apply plugin: 'maven'
+	
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
+	
 	compileJava {
 		sourceCompatibility = '1.8'
 	 }
-
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		maven { url 'http://updates.jmonkeyengine.org/maven' }	
-		maven { url 'http://jcenter.bintray.com' }
-	}
 	
 	pmd {
 		ignoreFailures = true
@@ -36,4 +20,41 @@ allprojects {
 	findbugs {
 		ignoreFailures = true
 	}
+	
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+		maven { url 'http://updates.jmonkeyengine.org/maven' }
+		maven { url 'http://jcenter.bintray.com' }
+		maven { url "https://jitpack.io" }
+	}
+	
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		classifier = 'sources'
+		from sourceSets.main.allSource
+	}
+// we are not ready for javadoc	
+//	task javadocJar(type: Jar, dependsOn: javadoc) {
+//		classifier = 'javadoc'
+//		from javadoc.destinationDir
+//	}
+	
+	artifacts {
+		archives sourcesJar
+//		archives javadocJar
+	}
+}
+
+allprojects {
+	version = '0.0.1'
+	ext {
+		appName = 'OpenRTS'
+		jmonkeyengine_version = '3.0.10'
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2.1'
 }
