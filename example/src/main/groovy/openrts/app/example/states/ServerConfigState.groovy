@@ -36,7 +36,6 @@ import com.jme3.math.Vector4f
 
 import event.ClientLoggedOutEvent
 import event.EventManager
-import event.network.CreateGameEvent
 import groovy.transform.CompileStatic
 
 /**
@@ -99,7 +98,7 @@ public class ServerConfigState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.user);
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.player.name);
 							EventManager.post(evt1);
 							System.exit(0);
 						}
@@ -179,6 +178,7 @@ public class ServerConfigState extends AppStateCommon {
 				File file = (File) item.value
 				Battlefield bfd = ModelManager.loadOnlyStaticValues(file)
 				
+				main.game.file = file
 				
 				String mapDescription = "You selected Map : " + item.caption + "\n"
 				mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
@@ -208,10 +208,7 @@ public class ServerConfigState extends AppStateCommon {
 		
 		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
 			@Override
-			public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-				ModelManager.loadBattlefield(mapfilename);
-				CreateGameEvent evt1 = new CreateGameEvent(mapfilename);
-				EventManager.post(evt1);
+			public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {				
 				main.loadMap()
 			}
 		};

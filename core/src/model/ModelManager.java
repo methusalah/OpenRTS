@@ -34,8 +34,8 @@ public class ModelManager {
 		// setNewBattlefield();
 	}
 
-	// no instancing from outside
-	private ModelManager() {
+	
+	ModelManager() {
 
 	}
 
@@ -64,7 +64,7 @@ public class ModelManager {
 		setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
-	private static void setBattlefield(Battlefield battlefield) {
+	static void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;

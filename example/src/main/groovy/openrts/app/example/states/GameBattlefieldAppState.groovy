@@ -146,10 +146,6 @@ public class GameBattlefieldAppState extends AppStateCommon {
 		inputManager.setCursorVisible(true);
 		//guiController.activate();
 		
-		//add a simple button to gui
-		def btn = new ButtonAdapter(screen)
-		btn.text = "I am a HUD button"
-		screen.addElement(btn);
 		view.reset();
 		
 		if (isometricCamera == null) {

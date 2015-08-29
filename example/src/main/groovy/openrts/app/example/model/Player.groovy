@@ -1,11 +1,11 @@
-package openrts.app.example;
+package openrts.app.example.model;
 
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
 public class Player {
 
-	private String name;
+	String name;
 
 	public Player() {
 	}
@@ -13,15 +13,5 @@ public class Player {
 	public Player(String name) {
 		this.name = name;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
 
 }

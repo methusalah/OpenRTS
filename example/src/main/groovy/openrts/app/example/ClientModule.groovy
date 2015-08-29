@@ -3,6 +3,7 @@ package openrts.app.example;
 import groovy.transform.CompileStatic
 import openrts.app.example.states.GameBattlefieldAppState
 import openrts.app.example.states.GameHudState
+import openrts.app.example.states.LoadingMapState;
 import openrts.app.example.states.ServerConfigState
 import openrts.app.example.states.UserLoginAppState
 import tonegod.gui.core.Screen
@@ -28,6 +29,8 @@ class ClientModule extends AbstractModule {
 		bind(GameBattlefieldAppState.class).in(Singleton.class)
 		bind(GameInputInterpreter.class).in(Singleton.class)
 		bind(GameHudState.class).in(Singleton.class)
+		
+		bind(LoadingMapState.class).in(Singleton.class)
 		
 	}
 	

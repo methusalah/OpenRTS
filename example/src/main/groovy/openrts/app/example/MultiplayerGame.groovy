@@ -4,10 +4,11 @@ import groovy.transform.CompileStatic
 
 import java.util.logging.Logger
 
-import openrts.app.example.states.AppStateCommon
+import openrts.app.example.model.Game
 import openrts.app.example.states.ClientAppState
 import openrts.app.example.states.GameBattlefieldAppState
 import openrts.app.example.states.GameHudState
+import openrts.app.example.states.LoadingMapState
 import openrts.app.example.states.ServerConfigState
 import openrts.app.example.states.UserLoginAppState
 import tonegod.gui.core.Screen
@@ -29,10 +30,10 @@ import com.jme3.light.DirectionalLight
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
 import com.jme3.renderer.RenderManager
-import com.jme3.system.AppSettings 
+import com.jme3.system.AppSettings
 
 
-@CompileStatic
+@CompileStatic 
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
@@ -49,7 +50,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	//	public static final String DEFAULT_PATH = "";
 	//	public static final String ATLAS_PATH = "atlas/";
 	//	public static final String ASSET_PATH = "assets/";
-	// Initial GUI Extras settings
+	// Initial GUI Extras settings 
 	public static final boolean USE_ATLAS = true;
 	public static final boolean USE_UI_AUDIO = true;
 	public static final boolean USE_CUSTOM_CURSORS = true;
@@ -66,11 +67,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private BitmapFont defaultFont;
 
 	// States
-	private List<AppStateCommon> states = new ArrayList();
+//	private List<AppStateCommon> states = new ArrayList();
 	private ServerConfigState serverConfig;
 
-	protected GameBattlefieldAppState gameState
-	protected GameHudState gameHudState
+	GameBattlefieldAppState gameState
+	GameHudState gameHudState
+	LoadingMapState loadingMapState
 
 	UserLoginAppState userlogin;
 	private TestState tests;
@@ -83,7 +85,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private EmbeddedGUIState subScreenState;
 	private SpatialState spatialState;
 
-	String user;
+	Game game
 
 	public static void main(String[] args) {
 		// Properties preferences = new Properties();
@@ -113,9 +115,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		])
 		initGuice(modules);
 		initLights();
-
+		game = new Game();
 		userlogin = injector.getInstance(UserLoginAppState.class);
-		states.add(userlogin);
+//		states.add(userlogin);
 		stateManager.attach(userlogin);
 	}
 
@@ -146,7 +148,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		return this.defaultFont;
 	}
 
-	public List<AppStateCommon> getStates() { return states; }
+//	public List<AppStateCommon> getStates() { return states; }
 
 	private void initLights() {
 		al = new AmbientLight();
@@ -176,19 +178,13 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void reshape(int w, int h) {
 		super.reshape(w, h);
-		for (AppStateCommon state : states) {
-			state.reshape();
-		}
+//		for (AppStateCommon state : states) {
+//			state.reshape();
+//		}
 	}
 
 	@Override
 	public void simpleUpdate(float tpf) {
-		//		float maxedTPF = Math.min(tpf, 0.1f);
-		//		listener.setLocation(cam.getLocation());
-		//		listener.setRotation(cam.getRotation());
-		//		view.getActorManager().render();
-		//		actualCtrl.update(maxedTPF);
-		//		ModelManager.updateConfigs();
 
 	}
 
@@ -198,8 +194,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
 		serverConfig = injector.getInstance(ServerConfigState.class);
-		this.user = user;
-		states.add(serverConfig);
+		game.player.name = user;
+//		states.add(serverConfig);
 		stateManager.attach(serverConfig);
 	}
 
@@ -207,12 +203,21 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		stateManager.detach(serverConfig)
 		userlogin.enabled = false
 
+		loadingMapState = injector.getInstance(LoadingMapState.class);
+//		states.add(loadingMapState)
+		stateManager.attach(loadingMapState)
+	}
+	
+	def startGame() {
+		stateManager.detach(loadingMapState)
+		loadingMapState.setEnabled(false)
+				 
 		gameState = injector.getInstance(GameBattlefieldAppState.class);
-		states.add(gameState);
+//		states.add(gameState);
 		stateManager.attach(gameState);
 
 		gameHudState = injector.getInstance(GameHudState.class);
-		states.add(gameHudState);
+//		states.add(gameHudState);
 		stateManager.attach(gameHudState);
 
 	}
