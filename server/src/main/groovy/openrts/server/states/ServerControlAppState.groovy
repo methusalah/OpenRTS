@@ -1,13 +1,17 @@
 package openrts.server.states
-;
 
 import java.util.logging.Logger
 
 import openrts.event.ServerEvent
 import openrts.server.OpenRTSServerTonegodGUI
-import openrts.server.controls.EventBox
-import openrts.server.controls.UserBox
+
+import org.lwjgl.opengl.Display
+
+import tonegod.gui.controls.lists.SelectList
+import tonegod.gui.controls.scrolling.ScrollArea
+import tonegod.gui.controls.windows.Panel
 import tonegod.gui.core.Screen
+import tonegod.gui.core.layouts.FlowLayout
 
 import com.google.common.eventbus.Subscribe
 import com.google.inject.Inject
@@ -29,9 +33,10 @@ class ServerControlAppState extends AbstractAppState {
 	OpenRTSServerTonegodGUI app;
 	Screen screen;
 
-	EventBox eventBox;
+	Panel logPanel
 	
-	UserBox userBox;
+	SelectList users
+	ScrollArea eventlog, chatlog;
 
 	@Inject
 	ServerControlAppState( OpenRTSServerTonegodGUI app , Screen screen) {
@@ -48,38 +53,56 @@ class ServerControlAppState extends AbstractAppState {
 	}
 
 	public void initControlWindow() {
-		eventBox = new EventBox(screen, "Events", new Vector2f((Float) (screen.getWidth() / 2 - 175), (Float) (screen.getHeight() / 2 - 125))) {
-
-					@Override
-					public void onClientConnected(String msg) {
-						this.receiveClientConnection(msg);
-					}
-
-					@Override
-					public void onEventReceived(String msg) {
-						this.receiveEvent(msg);
-					}
-				}
-		userBox  = new UserBox(screen, "Users", new Vector2f((Float) (screen.getWidth() / 2 - 35), (Float) (screen.getHeight() / 2 - 15)),new Vector2f((Float) (100), (Float) (100))) {					
-					@Override
-					public void onClientConnected(String msg) {
-						this.addClient(msg);
-					}
-					
-					@Override
-					public void onClientDisconnected(String msg) {
-						this.addClient(msg);
-					}
-				}
-		screen.addElement(eventBox);
-		screen.addElement(userBox);
+		
+		screen.useToolTips = true
+		
+		logPanel = new Panel(screen, "LogPanel", new Vector2f(0,0))
+		logPanel.setDimensions(Display.width,200)
+		logPanel.isResizable = false
+		logPanel.isMovable = false
+	
+		FlowLayout layout = new FlowLayout(screen, "margins 8 8 8 8", "padding 25 25 25 25")
+		logPanel.layout = layout
+	
+		
+		screen.addElement(logPanel)
+		
+		users = new SelectList(screen, "UserList", Vector2f.ZERO) {
+			void onChange() {
+				def idx = users.selectedIndexes.first()
+				logger.info("select user: " + users.listItems.get(idx).caption)
+			}
+		}
+		users.isMultiselect = false
+		users.setDimensions(100, logPanel.height - 16)
+		users.isResizable = false
+		users.isMovable = false
+		users.setToolTipText("The connected users are displayed here")
+		logPanel.addChild(users)
+		users.addListItem("test","test")
+		
+		eventlog = new ScrollArea(screen, "EventLog", new Vector2f(users.width, 0), new Vector2f(200, logPanel.height - 16), true)
+		eventlog.isResizable = false
+		eventlog.isMovable = false
+		eventlog.toolTipText = "the events are displayed here"
+		logPanel.addChild(eventlog)
+		eventlog.setText("test2")
+		eventlog.isScrollable = false
+		
+		chatlog = new ScrollArea(screen, "ChatLog", new Vector2f(users.width + eventlog.width, 0),new Vector2f(300 - 25, logPanel.height -16), true)
+		chatlog.isResizable = false
+		chatlog.isMovable = false
+		chatlog.setToolTipText("Chatmessages are displayed here")
+		logPanel.addChild(chatlog)
+		
+		logPanel.getLayout().layoutChildren();
 	}
 
 	@Override
 	public void cleanup() {
 		super.cleanup();
 
-		screen.removeElement(eventBox);
+		screen.removeElement(logPanel);
 		EventManager.unregister(this);
 	}
 
@@ -91,22 +114,22 @@ class ServerControlAppState extends AbstractAppState {
 
 	@Subscribe
 	def logNetworkEvents(NetworkEvent evt) {
-		eventBox.receiveEvent("receive Networkmessage:" + evt)
+		eventlog.text = "" + evt + "\n" + eventlog.text
 	}
 
 
 	@Subscribe
 	def logSeverEvents(ServerEvent evt) {
-		eventBox.receiveClientConnection("receive Networkmessage:" + evt)
+		eventlog.text = "" + evt + "\n" + eventlog.text
 	}
 	
 	@Subscribe
 	def logSeverEvents(ClientTrysToLoginEvent evt) {
-		userBox.addClient(evt.getUser())
+		users.addListItem(evt.user, evt)
 	}
 	
 	@Subscribe
 	def logSeverEvents(ClientLoggedOutEvent evt) {
-		userBox.removeClient(evt.getUser())
+		users.removeListItem(evt.user)
 	}
 }
