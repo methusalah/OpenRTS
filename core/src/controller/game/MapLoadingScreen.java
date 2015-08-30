@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import model.ModelManager;
 import model.battlefield.Battlefield;
-import model.builders.MapArtisanUtil;
 import openrts.guice.annotation.GuiNodeRef;
+import util.MapArtisanUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;

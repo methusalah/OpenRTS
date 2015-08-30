@@ -9,8 +9,8 @@ import geometry.math.AngleUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.battlefield.army.Faction;
 import model.battlefield.army.components.Unit;
-import model.battlefield.warfare.Faction;
 import model.builders.entity.actors.ModelActorBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;

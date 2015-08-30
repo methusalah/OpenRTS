@@ -10,9 +10,9 @@ import geometry.math.RandomUtil;
 
 import java.util.List;
 
+import util.MapArtisanUtil;
 import model.ModelManager;
 import model.battlefield.map.Tile;
-import model.builders.MapArtisanUtil;
 import model.editor.Pencil;
 import model.editor.ToolManager;
 

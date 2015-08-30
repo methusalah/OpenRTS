@@ -12,10 +12,10 @@ import model.battlefield.actors.ModelActor;
 import model.battlefield.actors.ParticleActor;
 import model.battlefield.actors.SoundActor;
 import model.battlefield.army.Engagement;
+import model.battlefield.army.Faction;
 import model.battlefield.army.components.Unit;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
-import model.battlefield.warfare.Faction;
 
 /**
  * @author Benoît

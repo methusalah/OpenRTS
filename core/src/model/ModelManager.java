@@ -3,9 +3,9 @@ package model;
 import java.io.File;
 import java.util.logging.Logger;
 
+import util.MapArtisanUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
-import model.builders.MapArtisanUtil;
 import model.builders.entity.definitions.DefParser;
 import event.BattleFieldUpdateEvent;
 import event.EventManager;
@@ -42,7 +42,7 @@ public class ModelManager {
 	public static void updateConfigs() {
 		if (System.currentTimeMillis() > nextUpdate) {
 			nextUpdate = System.currentTimeMillis() + UPDATE_DELAY;
-			parser.readFile();
+			parser.readFiles();
 		}
 	}
 

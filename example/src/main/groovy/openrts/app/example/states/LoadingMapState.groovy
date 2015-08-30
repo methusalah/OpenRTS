@@ -4,13 +4,10 @@
  */
 package openrts.app.example.states;
 
-import groovy.transform.CompileStatic
-
 import java.util.logging.Logger
 
 import model.ModelManager
 import model.battlefield.Battlefield
-import model.builders.MapArtisanUtil
 import openrts.app.example.MultiplayerGame
 import tonegod.gui.controls.extras.Indicator
 import tonegod.gui.controls.text.Label

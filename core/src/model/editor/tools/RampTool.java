@@ -6,10 +6,10 @@ package model.editor.tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.MapArtisanUtil;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Ramp;
-import model.builders.MapArtisanUtil;
 import model.editor.Pencil;
 
 /**

@@ -46,16 +46,16 @@ public class DefParser {
 			filesAndDir.clear();
 			filesAndDir.addAll(toAdd);
 		}
-		readFile();
+		readFiles();
 	}
 
 
 
-	public void addFile(File f) {
+	private void addFile(File f) {
 		filesAndTimers.put(f, 0l);
 	}
 
-	public void readFile() {
+	public void readFiles() {
 		filesToRead.clear();
 		for (File f : filesAndTimers.keySet()) {
 			if (f.lastModified() != filesAndTimers.get(f)) {

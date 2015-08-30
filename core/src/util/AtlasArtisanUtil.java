@@ -1,4 +1,4 @@
-package model.builders;
+package util;
 
 import geometry.geom2d.Point2D;
 

@@ -8,12 +8,12 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.AtlasArtisanUtil;
+import util.MapArtisanUtil;
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
 import model.battlefield.map.atlas.AtlasLayer;
-import model.builders.AtlasArtisanUtil;
-import model.builders.MapArtisanUtil;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;

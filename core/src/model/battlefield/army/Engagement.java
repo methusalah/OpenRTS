@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.UnitMemento;
-import model.battlefield.warfare.Faction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

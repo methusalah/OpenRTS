@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import util.MapArtisanUtil;
+
 import com.jme3.scene.Spatial;
 
 import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
-import model.builders.MapArtisanUtil;
 import model.builders.entity.TrinketBuilder;
 
 public class Sower implements Runnable {

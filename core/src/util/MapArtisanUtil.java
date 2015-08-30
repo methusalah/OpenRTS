@@ -1,4 +1,4 @@
-package model.builders;
+package util;
 
 import event.EventManager;
 import event.client.ParcelUpdateEvent;

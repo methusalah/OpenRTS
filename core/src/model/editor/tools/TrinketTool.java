@@ -11,10 +11,10 @@ import geometry.math.RandomUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.MapArtisanUtil;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.map.Trinket;
-import model.builders.MapArtisanUtil;
 import model.builders.entity.TrinketBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.editor.AssetSet;

@@ -1,4 +1,4 @@
-package model.battlefield.warfare;
+package model.battlefield.army;
 
 import java.awt.Color;
 import java.util.ArrayList;
