@@ -1,4 +1,4 @@
-package util
+package brainless.openrts.util
 
 import java.io.File;
 import java.io.FileFilter;

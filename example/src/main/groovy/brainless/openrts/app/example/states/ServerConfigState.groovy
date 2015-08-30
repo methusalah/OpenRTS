@@ -24,9 +24,9 @@ import tonegod.gui.core.Element.Docking
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
-import util.FileUtil
 import brainless.openrts.event.ClientLoggedOutEvent;
 import brainless.openrts.event.EventManager;
+import brainless.openrts.util.FileUtil;
 
 import com.google.inject.Inject
 import com.google.inject.Injector

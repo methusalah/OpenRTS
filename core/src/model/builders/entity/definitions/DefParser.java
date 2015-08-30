@@ -21,7 +21,7 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-import util.FileUtil;
+import brainless.openrts.util.FileUtil;
 import exception.TechnicalException;
 
 /**
