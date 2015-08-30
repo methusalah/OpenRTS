@@ -34,16 +34,16 @@ public class InputEventMessageListener implements com.jme3.network.MessageListen
 		if (message instanceof SelectEntityEvent) {
 			// do something with the message
 			SelectEntityEvent inputEvent = (SelectEntityEvent) message;
-			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getId() + "'");
-			CommandManager.select(inputEvent.getId(), new Point2D());
-			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
+			logger.info("Client #" + source.getId() + " received: '" + inputEvent.id + "'");
+			CommandManager.select(inputEvent.id, new Point2D());
+			source.getServer().broadcast(new AckEvent(inputEvent.date));
 		} else if (message instanceof CreateGameEvent) {
 			// do something with the message
 			CreateGameEvent inputEvent = (CreateGameEvent) message;
 			logger.info("Client #" + source.getId() + " received: '" + inputEvent.getPath() + "'");
 			ModelManager.loadBattlefield(inputEvent.getPath());
 			// Game game = new Game();
-			source.getServer().broadcast(new AckEvent(inputEvent.getDate()));
+			source.getServer().broadcast(new AckEvent(inputEvent.date));
 		} else if (message instanceof ClientTrysToLoginEvent){
 			source.getServer().broadcast(new ClientTrysToLoginEvent(message.getUser()));
 		}else if (message instanceof ClientLoggedOutEvent){
