@@ -16,7 +16,7 @@ import event.client.Event;
 import event.network.NetworkEvent;
 import exception.TechnicalException;
 
-public class EventManager {
+class EventManager {
 
 	private static final Logger logger = Logger.getLogger(EventManager.class.getName());
 
@@ -26,7 +26,7 @@ public class EventManager {
 
 	public static void post(NetworkEvent event) {
 		logger.info("Event posted:" + event);
-		event.setDate(new Date());
+		event.date = new Date()
 		eventBus.post(event);
 	}
 

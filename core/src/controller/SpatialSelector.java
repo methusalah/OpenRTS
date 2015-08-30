@@ -94,12 +94,12 @@ public class SpatialSelector {
 		return null;
 	}
 
-	public long getEntityId() {
+	public int getEntityId() {
 		Spatial s = getGeometry(view.getRootNode());
 		while (s != null && s.getName() != null) {
 			Object o = s.getUserData(ModelPerformer.ENTITYID_USERDATA);
 			if (o != null && EntityManager.isValidId((long) o)) {
-				return (long) o;
+				return (int) o;
 			}
 			s = s.getParent();
 		}

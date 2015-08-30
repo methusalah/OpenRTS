@@ -1,8 +1,11 @@
 package event.network;
 
+import groovy.transform.ToString;
+
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
+@ToString
 public class MultiSelectEntityEvent extends NetworkEvent {
 
 	private long entityId;

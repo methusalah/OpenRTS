@@ -48,7 +48,7 @@ public class CommandManager {
 	}
 
 	// FIXME: this is the select method and not the act method, why the this method is calling act?
-	public static void select(long id, Point2D pos) {
+	public static void select(int id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
@@ -99,7 +99,7 @@ public class CommandManager {
 		}
 	}
 
-	public static void act(Long id, Point2D pos) {
+	public static void act(int id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
@@ -151,7 +151,7 @@ public class CommandManager {
 		selection.clear();
 	}
 
-	private static Unit getUnit(Long id) {
+	private static Unit getUnit(int id) {
 		if (EntityManager.isValidId(id)) {
 			return ArmyManager.getUnit(id);
 		}
@@ -179,7 +179,7 @@ public class CommandManager {
 		selectUnitInContext(unityID.UIName);
 	}
 
-	public static void selectUnitInContext(Long unitID) {
+	public static void selectUnitInContext(int unitID) {
 		Unit target = getUnit(unitID);
 		if (target != null) {
 			selectUnitInContext(target.UIName);
