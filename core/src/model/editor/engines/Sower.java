@@ -1,7 +1,5 @@
 package model.editor.engines;
 
-import event.EventManager;
-import event.GenericEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
@@ -12,6 +10,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import util.MapArtisanUtil;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.GenericEvent;
 
 import com.jme3.scene.Spatial;
 

@@ -4,13 +4,13 @@
  */
 package controller.editor;
 
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
 import geometry.geom2d.Point2D;
 import model.ModelManager;
 import model.editor.ToolManager;
 import view.EditorView;
 import view.camera.IsometricCamera;
+import brainless.openrts.event.BattleFieldUpdateEvent;
+import brainless.openrts.event.EventManager;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;

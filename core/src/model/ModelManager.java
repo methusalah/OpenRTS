@@ -3,12 +3,12 @@ package model;
 import java.io.File;
 import java.util.logging.Logger;
 
+import brainless.openrts.event.BattleFieldUpdateEvent;
+import brainless.openrts.event.EventManager;
 import util.MapArtisanUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
 import model.builders.entity.definitions.DefParser;
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
 
 public class ModelManager {
 

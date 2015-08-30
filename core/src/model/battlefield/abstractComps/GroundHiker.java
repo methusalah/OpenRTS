@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import view.mesh.Circle;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.GenericEvent;
 
 import com.bulletphysics.linearmath.TransformUtil;
 import com.jme3.material.Material;
@@ -12,8 +14,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Line;
 
-import event.EventManager;
-import event.GenericEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;

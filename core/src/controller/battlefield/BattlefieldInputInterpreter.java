@@ -1,10 +1,11 @@
 package controller.battlefield;
 
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
+
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ControllerChangeEvent;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;

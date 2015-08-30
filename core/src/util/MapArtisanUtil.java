@@ -1,12 +1,12 @@
 package util;
 
-import event.EventManager;
-import event.client.ParcelUpdateEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 
 import java.util.List;
 
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ParcelUpdateEvent;
 import model.battlefield.Battlefield;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Map;

@@ -4,11 +4,10 @@ import java.util.List;
 
 import model.battlefield.army.components.Projectile;
 import model.builders.entity.EffectBuilder;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ProjectileArrivedEvent;
 
 import com.google.common.eventbus.Subscribe;
-
-import event.EventManager;
-import event.client.ProjectileArrivedEvent;
 
 /**
  * That effect is created with a new projectile and subscribe to the projectiles events.

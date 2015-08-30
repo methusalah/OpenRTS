@@ -15,6 +15,8 @@ import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Unit;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.GenericEvent;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -33,9 +35,6 @@ import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-
-import event.EventManager;
-import event.GenericEvent;
 
 /**
  * @author Benoît

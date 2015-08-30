@@ -8,6 +8,8 @@ import model.editor.engines.CollisionTester;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ControllerChangeEvent;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.bullet.BulletAppState;
@@ -18,8 +20,6 @@ import controller.Controller;
 import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 public class MainRTS extends OpenRTSApplication {
 

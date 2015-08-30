@@ -15,6 +15,9 @@ import model.editor.ToolManager;
 import view.EditorView;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ParcelUpdateEvent;
+import brainless.openrts.event.client.SetToolEvent;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -26,9 +29,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 
-import event.EventManager;
-import event.client.ParcelUpdateEvent;
-import event.client.SetToolEvent;
 import geometry.collections.PointRing;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;

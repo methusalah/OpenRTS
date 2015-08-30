@@ -1,8 +1,5 @@
 package controller.game;
 
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 import geometry.geom2d.AlignedBoundingBox;
 import geometry.geom2d.Point2D;
 
@@ -16,6 +13,9 @@ import view.EditorView;
 import view.MapView;
 import view.camera.IsometricCamera;
 import view.math.TranslateUtil;
+import brainless.openrts.event.BattleFieldUpdateEvent;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ControllerChangeEvent;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;

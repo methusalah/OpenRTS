@@ -18,6 +18,10 @@ import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ParcelUpdateEvent;
+import brainless.openrts.event.client.TilesEvent;
+import brainless.openrts.event.client.UpdateGroundAtlasEvent;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -33,10 +37,6 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 
-import event.EventManager;
-import event.client.ParcelUpdateEvent;
-import event.client.TilesEvent;
-import event.client.UpdateGroundAtlasEvent;
 import geometry.math.AngleUtil;
 
 public class MapDrawer {

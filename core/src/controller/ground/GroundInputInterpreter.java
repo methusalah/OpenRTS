@@ -2,13 +2,14 @@ package controller.ground;
 
 import java.util.logging.Logger;
 
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ControllerChangeEvent;
+
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 
 import controller.InputInterpreter;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 public class GroundInputInterpreter extends InputInterpreter {
 

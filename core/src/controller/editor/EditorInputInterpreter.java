@@ -4,6 +4,8 @@ import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
 import view.EditorView;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ControllerChangeEvent;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -14,8 +16,6 @@ import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
 import controller.Reporter;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 public class EditorInputInterpreter extends InputInterpreter {
 	protected final static String SWITCH_CTRL_1 = "ctrl1";

@@ -10,6 +10,8 @@ import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
+import brainless.openrts.event.BattleFieldUpdateEvent;
+import brainless.openrts.event.EventManager;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -24,8 +26,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Line;
 
-import event.BattleFieldUpdateEvent;
-import event.EventManager;
 import geometry.geom2d.Point2D;
 
 public class MapView {

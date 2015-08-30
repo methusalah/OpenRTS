@@ -1,5 +1,8 @@
 package model.editor;
 
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.SetToolEvent;
+import brainless.openrts.event.client.UpdateGroundAtlasEvent;
 import model.battlefield.abstractComps.FieldComp;
 import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;
@@ -9,9 +12,6 @@ import model.editor.tools.RampTool;
 import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
-import event.EventManager;
-import event.client.SetToolEvent;
-import event.client.UpdateGroundAtlasEvent;
 import geometry.geom2d.Point2D;
 
 /**

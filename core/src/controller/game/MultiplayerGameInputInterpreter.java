@@ -1,14 +1,15 @@
 package controller.game;
 
-import event.EventManager;
-import event.network.HoldEvent;
-import event.network.MoveAttackEvent;
-import event.network.MultiSelectEntityEvent;
-import event.network.PauseEvent;
-import event.network.SelectEntityEvent;
 import geometry.geom2d.Point2D;
 
 import java.util.logging.Logger;
+
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.network.HoldEvent;
+import brainless.openrts.event.network.MoveAttackEvent;
+import brainless.openrts.event.network.MultiSelectEntityEvent;
+import brainless.openrts.event.network.PauseEvent;
+import brainless.openrts.event.network.SelectEntityEvent;
 
 import com.google.inject.name.Named;
 import com.jme3.input.InputManager;

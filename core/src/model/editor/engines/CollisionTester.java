@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import view.math.TranslateUtil;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.GenericEvent;
 
 import com.google.common.eventbus.EventBus;
 import com.jme3.asset.AssetManager;
@@ -29,9 +31,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
-
-import event.EventManager;
-import event.GenericEvent;
 
 public class CollisionTester {
 	private static final Logger logger = Logger.getLogger(Sower.class.getName());

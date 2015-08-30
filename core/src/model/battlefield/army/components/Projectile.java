@@ -1,7 +1,7 @@
 package model.battlefield.army.components;
 
-import event.EventManager;
-import event.client.ProjectileArrivedEvent;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ProjectileArrivedEvent;
 import geometry.geom2d.Point2D;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;

@@ -8,6 +8,8 @@ import model.ModelManager;
 import model.editor.ToolManager;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ControllerChangeEvent;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Module;
@@ -19,8 +21,6 @@ import controller.Controller;
 import controller.battlefield.BattlefieldController;
 import controller.editor.EditorController;
 import controller.ground.GroundController;
-import event.EventManager;
-import event.client.ControllerChangeEvent;
 
 public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 

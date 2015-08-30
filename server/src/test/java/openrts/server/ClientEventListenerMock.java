@@ -1,8 +1,8 @@
 package openrts.server;
 
-import com.google.common.eventbus.Subscribe;
+import brainless.openrts.event.network.NetworkEvent;
 
-import event.network.NetworkEvent;
+import com.google.common.eventbus.Subscribe;
 
 public class ClientEventListenerMock {
 

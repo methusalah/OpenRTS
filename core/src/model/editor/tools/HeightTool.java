@@ -3,13 +3,13 @@
  */
 package model.editor.tools;
 
-import event.EventManager;
-import event.client.ParcelUpdateEvent;
 import geometry.geom2d.Point2D;
 import geometry.math.RandomUtil;
 
 import java.util.List;
 
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ParcelUpdateEvent;
 import util.MapArtisanUtil;
 import model.ModelManager;
 import model.battlefield.map.Tile;

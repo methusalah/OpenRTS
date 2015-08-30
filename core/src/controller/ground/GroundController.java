@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import view.EditorView;
 import view.camera.GroundCamera;
+import brainless.openrts.event.EventManager;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -17,7 +18,6 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.Controller;
-import event.EventManager;
 
 /**
  *

@@ -3,13 +3,13 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.TilesEvent;
 import model.battlefield.map.Map;
 import model.battlefield.map.Tile;
 import model.battlefield.map.Trinket;
 import model.battlefield.map.cliff.Cliff;
 import model.builders.entity.definitions.BuilderManager;
-import event.EventManager;
-import event.client.TilesEvent;
 
 public abstract class TileArtisanUtil {
 
