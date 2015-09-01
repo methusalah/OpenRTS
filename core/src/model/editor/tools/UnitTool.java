@@ -16,12 +16,13 @@ import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.Faction;
 import model.battlefield.army.components.Unit;
-import model.battlefield.map.Trinket;
 import model.builders.entity.UnitBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
+
+import com.google.inject.Inject;
 
 /**
  * @author bedu
@@ -36,10 +37,23 @@ public class UnitTool extends Tool {
 
 	double angle = 0;
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
+	private ArmyManager armyManager;
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private ToolManager toolmanager;
+	
+	@Inject
 	public UnitTool() {
 		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
 		List<String> builderIDs = new ArrayList<>();
-		for (UnitBuilder b : BuilderManager.getAllUnitBuilders()) {
+		for (UnitBuilder b : builderManager.getAllUnitBuilders()) {
 			builderIDs.add(b.getUIName());
 		}
 		set = new AssetSet(builderIDs, false);
@@ -79,25 +93,25 @@ public class UnitTool extends Tool {
 
 	private void add() {
 		Point2D coord = pencil.getCoord();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			if (u.getCoord().equals(coord)) {
 				coord = coord.getTranslation(RandomUtil.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
 			}
 		}
 		// TODO: what happend, if there is no Race named "human"?
-		Faction f = BuilderManager.getAllUnitBuilders().get(set.actual).hasRace("human") ?
-				ModelManager.getBattlefield().getEngagement().getFactions().get(0)
-				: ModelManager.getBattlefield().getEngagement().getFactions().get(1);
+		Faction f = builderManager.getAllUnitBuilders().get(set.actual).hasRace("human") ?
+				modelManager.getBattlefield().getEngagement().getFactions().get(0)
+				: modelManager.getBattlefield().getEngagement().getFactions().get(1);
 
-		Unit u = BuilderManager.getAllUnitBuilders().get(set.actual).build(f, coord.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(coord)), RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT));
+		Unit u = builderManager.getAllUnitBuilders().get(set.actual).build(f, coord.get3D(modelManager.getBattlefield().getMap().getAltitudeAt(coord)), RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT));
 		u.drawOnBattlefield();
-		ArmyManager.registerUnit(u);
+		armyManager.registerUnit(u);
 	}
 
 	private void remove() {
 		Unit u = getPointedUnit(); 
 		if (u != null) {
-			ArmyManager.unregisterUnit(u);
+			armyManager.unregisterUnit(u);
 		}
 	}
 
@@ -132,8 +146,8 @@ public class UnitTool extends Tool {
 	}
 	
 	private Unit getPointedUnit(){
-		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
-			return ArmyManager.getUnit(ToolManager.getPointedSpatialEntityId());
+		if (EntityManager.isValidId(toolmanager.getPointedSpatialEntityId())) {
+			return armyManager.getUnit(toolmanager.getPointedSpatialEntityId());
 		}
 		return null;
 	}

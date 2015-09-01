@@ -24,6 +24,9 @@ public class BattlefieldGUIController extends GUIController {
 	private static DecimalFormat df = new DecimalFormat("0");
 
 	@Inject
+	CommandManager commandManager;
+	
+	@Inject
 	public BattlefieldGUIController(Nifty nifty) {
 		super(nifty);
 	}
@@ -34,7 +37,7 @@ public class BattlefieldGUIController extends GUIController {
 	}
 
 	public void selectAll() {
-		CommandManager.selectAll();
+		commandManager.selectAll();
 	}
 
 	@Override

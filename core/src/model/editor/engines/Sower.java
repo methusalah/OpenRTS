@@ -9,16 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import util.MapArtisanUtil;
-import brainless.openrts.event.EventManager;
-import brainless.openrts.event.GenericEvent;
-
-import com.jme3.scene.Spatial;
-
 import model.ModelManager;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
 import model.builders.entity.TrinketBuilder;
+import model.builders.entity.definitions.BuilderManager;
+import util.MapArtisanManager;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.GenericEvent;
 
 public class Sower implements Runnable {
 	private static final Logger logger = Logger.getLogger(Sower.class.getName());
@@ -32,11 +30,18 @@ public class Sower implements Runnable {
 
 	private volatile Thread thread;
 
-	public Sower() {
+	private BuilderManager builderManager;
+	private ModelManager modelManager;
+	private MapArtisanManager mapArtisanManager;
+	
+	public Sower(BuilderManager builderManager, ModelManager modelManager, MapArtisanManager mapArtisanManager) {
+		this.builderManager = builderManager;
+		this.modelManager = modelManager;
+		this.mapArtisanManager = mapArtisanManager;
 		Sowing treeOnCliff = new Sowing();
-		treeOnCliff.addTrinket("Tree", 1, 1.5);
-		treeOnCliff.addTrinket("Lun Tree", 1, 1.5);
-		treeOnCliff.addTrinket("Plant", 1, 1);
+		treeOnCliff.addTrinket("Tree", 1, 1.5, builderManager);
+		treeOnCliff.addTrinket("Lun Tree", 1, 1.5, builderManager);
+		treeOnCliff.addTrinket("Plant", 1, 1, builderManager);
 		treeOnCliff.setCliffDist(4);
 		treeOnCliff.setMaxSlope(10);
 		treeOnCliff.addTexture("0", 0.5, 1);
@@ -51,29 +56,29 @@ public class Sower implements Runnable {
 //		sowings.add(treeOnGrass);
 
 		Sowing grass = new Sowing();
-		grass.addTrinket("Tree", 1, 2);
-		grass.addTrinket("LittleRock", 10, 1);
-		grass.addTrinket("Herb2", 20, 1);
-		grass.addTrinket("Herb", 20, 1);
+		grass.addTrinket("Tree", 1, 2, builderManager);
+		grass.addTrinket("LittleRock", 10, 1, builderManager);
+		grass.addTrinket("Herb2", 20, 1, builderManager);
+		grass.addTrinket("Herb", 20, 1, builderManager);
 		grass.addTexture("1", 0.5, 1);
 		grass.addTexture("11", 0, 0);
 		sowings.add(grass);
 
 		Sowing rocks = new Sowing();
-		rocks.addTrinket("LittleRock", 1, 1.5);
+		rocks.addTrinket("LittleRock", 1, 1.5, builderManager);
 		rocks.addTexture("11", 0, 0);
 		rocks.addTexture("3", 0.6, 1);
 		sowings.add(rocks);
 
 		Sowing rocksOnSlope = new Sowing();
-		rocksOnSlope.addTrinket("LittleRock", 1, 0.3);
+		rocksOnSlope.addTrinket("LittleRock", 1, 0.3, builderManager);
 		rocksOnSlope.setMinSlope(20);
 		rocksOnSlope.addTexture("11", 0, 0);
 		rocksOnSlope.addTexture("3", 0.6, 1);
 		sowings.add(rocksOnSlope);
 
 		Sowing rocksAtCliffFoot = new Sowing();
-		rocksAtCliffFoot.addTrinket("LittleRock", 1, 0.3);
+		rocksAtCliffFoot.addTrinket("LittleRock", 1, 0.3, builderManager);
 		rocksAtCliffFoot.addTexture("11", 0, 0);
 		rocksAtCliffFoot.addTexture("3", 0.6, 1);
 		rocksAtCliffFoot.setCliffDist(3);
@@ -104,10 +109,10 @@ public class Sower implements Runnable {
 					try{
 						if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
 //							logger.info("growing");
-							grow(s);
+							grow(s, modelManager, mapArtisanManager);
 						} else {
 //							logger.info("finding");
-							findNewPlace(s);
+							findNewPlace(s, modelManager, mapArtisanManager);
 						}
 					}catch(RuntimeException e){
 						throw(e);
@@ -120,24 +125,24 @@ public class Sower implements Runnable {
 		}
 	}
 
-	private void findNewPlace(Sowing s) {
-		Map m = ModelManager.getBattlefield().getMap();
+	private void findNewPlace(Sowing s,ModelManager modelManager, MapArtisanManager mapArtisanManager) {
+		Map m = modelManager.getBattlefield().getMap();
 		Point2D randomPos = new Point2D(RandomUtil.next() * (m.xSize()-1),
 				RandomUtil.next() * (m.ySize()-1));
 		
-		if (s.isAllowed(randomPos)) {
+		if (s.isAllowed(randomPos, modelManager)) {
 			int trinketIndex = RandomUtil.between(0, s.trinketBuilders.size());
 			TrinketBuilder tb = s.trinketBuilders.get(trinketIndex);
 			Trinket candidate = tb.build(randomPos.get3D(m.getAltitudeAt(randomPos)));
 			candidate.separationRadius *= s.spacings.get(trinketIndex);
 
-			if(checkCandidateAndValid(s, candidate))
+			if(checkCandidateAndValid(s, candidate, modelManager, mapArtisanManager))
 				return;
 		}
 	}
 
-	private void grow(Sowing s) {
-		Map m = ModelManager.getBattlefield().getMap();
+	private void grow(Sowing s,ModelManager modelManager, MapArtisanManager mapArtisanManager) {
+		Map m = modelManager.getBattlefield().getMap();
 		
 		Trinket source = s.toGrow.get(RandomUtil.nextInt(s.toGrow.size()));
 		for (int i = 0; i < MAX_TRINKETS_COUNT; i++) {
@@ -148,11 +153,11 @@ public class Sower implements Runnable {
 				double separationDistance = source.getSpacing(candidate);
 				Point2D place = source.getCoord().getTranslation(RandomUtil.between(0, AngleUtil.FULL),
 						RandomUtil.between(0, separationDistance * 4));
-				if (!m.isInBounds(place) || !s.isAllowed(place)) {
+				if (!m.isInBounds(place) || !s.isAllowed(place, modelManager)) {
 					continue;
 				}
 				candidate.setPos(place.get3D(m.getAltitudeAt(place)));
-				if(checkCandidateAndValid(s, candidate)){
+				if(checkCandidateAndValid(s, candidate, modelManager, mapArtisanManager)){
 					//debug
 					return;
 				}
@@ -161,8 +166,8 @@ public class Sower implements Runnable {
 		s.toGrow.remove(source);
 	}
 	
-	private boolean checkCandidateAndValid(Sowing s, Trinket candidate){
-		Map m = ModelManager.getBattlefield().getMap();
+	private boolean checkCandidateAndValid(Sowing s, Trinket candidate, ModelManager modelManager, MapArtisanManager mapArtisanManager){
+		Map m = modelManager.getBattlefield().getMap();
 
 		Asset aCand = new Asset(candidate.modelPath, candidate.getActor().getScaleX(), candidate.getOrientation(), candidate.getPos());
 		boolean suspect = false;
@@ -182,7 +187,7 @@ public class Sower implements Runnable {
 
 		sowTrinket(s, candidate);
 		synchronized (m) {
-			MapArtisanUtil.attachTrinket(candidate, m);
+			mapArtisanManager.attachTrinket(candidate, m);
 		}
 //		if(aCand.s != null){
 //			EventManager.post(new GenericEvent(aCand.s));
@@ -204,14 +209,15 @@ public class Sower implements Runnable {
 	
 	
 	boolean stepByStep = false;
+	
 	public void stepByStep(){
 		stepByStep = true;
 		Sowing s = sowings.get(RandomUtil.nextInt(sowings.size()));
 		try{
 			if (!s.toGrow.isEmpty() && RandomUtil.next() > 0.5) {
-				grow(s);
+				grow(s, modelManager, mapArtisanManager);
 			} else {
-				findNewPlace(s);
+				findNewPlace(s, modelManager, mapArtisanManager);
 			}
 		}catch(RuntimeException e){
 			throw(e);

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import brainless.openrts.event.EventManager;
 import brainless.openrts.event.client.ControllerChangeEvent;
 
+import com.google.inject.Inject;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -39,6 +40,9 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 
 	private BattlefieldController ctrl;
 
+	@Inject
+	CommandManager commandManager;
+	
 	BattlefieldInputInterpreter() {
 		super();
 		setMappings();
@@ -85,16 +89,16 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					break;
 
 				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(false);
+					commandManager.setMultipleSelection(false);
 					break;
 				case SELECT:
 					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
 							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
 						// double click
-						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
+						commandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
 					} else {
 						if(!ctrl.isDrawingZone()) {
-							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+							commandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 						}
 					}
 					ctrl.endSelectionZone();
@@ -102,13 +106,13 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					dblclickCoord = getSpatialCoord();
 					break;
 				case ACTION:
-					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+					commandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
-					CommandManager.setMoveAttack();
+					commandManager.setMoveAttack();
 					break;
 				case HOLD:
-					CommandManager.orderHold();
+					commandManager.orderHold();
 					break;
 				case PAUSE:
 					ctrl.togglePause();
@@ -118,7 +122,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 			// input pressed
 			switch(name){
 				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(true);
+					commandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
 					ctrl.startSelectionZone();

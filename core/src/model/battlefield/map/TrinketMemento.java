@@ -33,8 +33,8 @@ public class TrinketMemento {
 	}
 
 	@JsonIgnore
-	public Trinket getTrinket() {
-		Trinket res = BuilderManager.getTrinketBuilder(builderID).build(pos, orientation, modelPath, scaleX, scaleY, scaleZ);
+	public Trinket getTrinket(BuilderManager buildManager) {
+		Trinket res = buildManager.getTrinketBuilder(builderID).build(pos, orientation, modelPath, scaleX, scaleY, scaleZ);
 		return res;
 
 	}

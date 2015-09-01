@@ -6,11 +6,13 @@ package model.editor.tools;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.MapArtisanUtil;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.battlefield.map.cliff.Ramp;
 import model.editor.Pencil;
+import util.MapArtisanManager;
+
+import com.google.inject.Inject;
 
 /**
  * @author Benoît
@@ -18,6 +20,13 @@ import model.editor.Pencil;
 public class RampTool extends Tool {
 	private static final String ADD_DELETE_OP = "add/delete";
 
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
+	@Inject
 	public RampTool() {
 		super(ADD_DELETE_OP);
 	}
@@ -39,13 +48,13 @@ public class RampTool extends Tool {
 			if (!t.hasCliff()) {
 				return;
 			}
-			new Ramp(t);
+			new Ramp(t, modelManager);
 		}
 
 		List<Tile> changed = new ArrayList<>();
 		changed.addAll(t.ramp.getTiles());
 		for (Tile t1 : t.ramp.getTiles()) {
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t1)) {
+			for (Tile n : modelManager.getBattlefield().getMap().get8Around(t1)) {
 				if (!changed.contains(n)) {
 					changed.add(n);
 				}
@@ -54,7 +63,7 @@ public class RampTool extends Tool {
 				}
 			}
 		}
-		MapArtisanUtil.updateParcelsFor(changed);
+		mapArtisanManager.updateParcelsFor(changed);
 	}
 
 	@Override

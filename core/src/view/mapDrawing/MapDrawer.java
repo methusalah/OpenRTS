@@ -62,12 +62,15 @@ public class MapDrawer {
 	
 	@Inject
 	protected MaterialManager materialManager;
+	
+	@Inject
+	private ModelManager modelManager;
 
 	@Inject
 	public MapDrawer(MapView view, AssetManager am) {
 		this.view = view;
-		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
-		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);
+		groundTexture = new TerrainSplatTexture(modelManager.getBattlefield().getMap().getAtlas(), am);
+		coverTexture = new TerrainSplatTexture(modelManager.getBattlefield().getMap().getCover(), am);
 		coverTexture.transp = true;
 		this.am = am;
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -78,7 +81,7 @@ public class MapDrawer {
 	}
 
 	public void renderTiles() {
-		MapStyle style = ModelManager.getBattlefield().getMap().getStyle();
+		MapStyle style = modelManager.getBattlefield().getMap().getStyle();
 		int index = 0;
 		for (String s : style.diffuses) {
 			Texture diffuse = am.loadTexture(s);
@@ -107,7 +110,7 @@ public class MapDrawer {
 		}
 		coverTexture.buildMaterial();
 
-		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
+		for (Parcel parcel : modelManager.getBattlefield().getMap().getParcelling().getAll()) {
 			Geometry g = new Geometry();
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
@@ -128,7 +131,7 @@ public class MapDrawer {
 			coverSpatial.put(parcel, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
-		updateTiles(ModelManager.getBattlefield().getMap().getAll());
+		updateTiles(modelManager.getBattlefield().getMap().getAll());
 	}
 
 	private Spatial getModel(String path) {

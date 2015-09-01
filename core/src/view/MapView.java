@@ -50,6 +50,9 @@ public class MapView {
 	protected Injector injector;
 
 	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
 	public MapView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, AssetManager am, @ViewPortRef ViewPort vp, MaterialManager materialManager, Injector injector) {
 		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
@@ -70,7 +73,7 @@ public class MapView {
 		logger.info("reset");
 		// Light drawer
 		lightDrawer.reset();
-		ModelManager.getBattlefield().getSunLight().addListener(lightDrawer);
+		modelManager.getBattlefield().getSunLight().addListener(lightDrawer);
 
 		// map drawer
 		if(mapDrawer != null){

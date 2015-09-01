@@ -7,9 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.ModelManager;
+import util.MapArtisanManager;
 import view.MapView;
 import view.math.TranslateUtil;
 
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
@@ -37,6 +39,11 @@ public class LightDrawer implements ActionListener {
 	DirectionalLightShadowRenderer sr;
 	DirectionalLightShadowFilter sf;
 
+	@Inject
+	private ModelManager modelManager;
+	
+	
+	@Inject
 	public LightDrawer(MapView view, AssetManager am, Node rootNode, ViewPort vp) {
 		this.view = view;
 		this.rootNode = rootNode;
@@ -70,10 +77,10 @@ public class LightDrawer implements ActionListener {
 		rootNode.removeLight(sun);
 		rootNode.removeLight(shadowCaster);
 
-		if (ModelManager.getBattlefield() != null) {
-			al = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
-			sun = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().sun);
-			shadowCaster = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().shadowCaster);
+		if (modelManager.getBattlefield() != null) {
+			al = TranslateUtil.toJMELight(modelManager.getBattlefield().getSunLight().ambient);
+			sun = TranslateUtil.toJMELight(modelManager.getBattlefield().getSunLight().sun);
+			shadowCaster = TranslateUtil.toJMELight(modelManager.getBattlefield().getSunLight().shadowCaster);
 		}
 		sf.setLight(shadowCaster);
 
@@ -81,7 +88,7 @@ public class LightDrawer implements ActionListener {
 		rootNode.addLight(sun);
 		rootNode.addLight(shadowCaster);
 
-		if (ModelManager.getBattlefield() != null) {
+		if (modelManager.getBattlefield() != null) {
 			updateLights();
 		}
 	}
@@ -98,12 +105,12 @@ public class LightDrawer implements ActionListener {
 	}
 
 	public void updateLights() {
-		TranslateUtil.toJMELight(al, ModelManager.getBattlefield().getSunLight().ambient);
-		TranslateUtil.toJMELight(sun, ModelManager.getBattlefield().getSunLight().sun);
-		TranslateUtil.toJMELight(shadowCaster, ModelManager.getBattlefield().getSunLight().shadowCaster);
+		TranslateUtil.toJMELight(al, modelManager.getBattlefield().getSunLight().ambient);
+		TranslateUtil.toJMELight(sun, modelManager.getBattlefield().getSunLight().sun);
+		TranslateUtil.toJMELight(shadowCaster, modelManager.getBattlefield().getSunLight().shadowCaster);
 		shadowCaster.setColor(ColorRGBA.Blue.mult(0));
-		//		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
-		sf.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
+		//		sr.setShadowIntensity((float) modelManager.getBattlefield().getSunLight().shadowCaster.intensity);
+		sf.setShadowIntensity((float) modelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 
 	}
 

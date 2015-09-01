@@ -75,8 +75,9 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		stateManager.attach(actualCtrl);
 		actualCtrl.setEnabled(true);
 		guiViewPort.addProcessor(niftyDisplay);
-
-		ModelManager.setNewBattlefield();
+		
+		
+		injector.getInstance(ModelManager.class).setNewBattlefield();
 	}
 
 
@@ -88,12 +89,12 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		listener.setRotation(cam.getRotation());
 		view.getActorManager().render();
 		actualCtrl.update(maxedTPF);
-		ModelManager.updateConfigs();
+		injector.getInstance(ModelManager.class).updateConfigs();
 	}
 
 	@Override
 	public void destroy() {
-		ToolManager.killSower();
+		injector.getInstance(ToolManager.class).killSower();
 	}
 
 	@Subscribe

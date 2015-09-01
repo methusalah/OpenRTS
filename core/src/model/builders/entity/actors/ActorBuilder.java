@@ -14,6 +14,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -37,6 +39,10 @@ public class ActorBuilder extends Builder {
 	protected List<String> childrenTriggers = new ArrayList<>();
 	protected List<Double> childrenProbs = new ArrayList<>();
 
+	@Inject
+	BuilderManager builderManager;
+	
+	@Inject
 	public ActorBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -78,7 +84,7 @@ public class ActorBuilder extends Builder {
 	@Override
 	public void readFinalizedLibrary() {
 		for (String s : childrenActorBuildersID) {
-			childrenActorBuilders.add(BuilderManager.getActorBuilder(s));
+			childrenActorBuilders.add(builderManager.getActorBuilder(s));
 		}
 	}
 

@@ -22,6 +22,9 @@ import model.editor.tools.HeightTool;
 import model.editor.tools.RampTool;
 import model.editor.tools.Tool;
 import model.editor.tools.UnitTool;
+
+import com.google.inject.Inject;
+
 import controller.GUIController;
 import controller.GUIDrawer;
 import de.lessvoid.nifty.controls.Slider;
@@ -50,6 +53,16 @@ public class EditorGUIDrawer extends GUIDrawer {
 	private static final String NOISE_BUTTON_ID = "noise";
 	private static final String _BUTTON_ID = "";
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private ToolManager toolManager;
+	
+	@Inject
 	public EditorGUIDrawer(GUIController guiCtrl) {
 		super(guiCtrl);
 	}
@@ -64,7 +77,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawToolPanel() {
-		Tool tool = ToolManager.getActualTool();
+		Tool tool = toolManager.getActualTool();
 		if (tool instanceof CliffTool) {
 			maintainButton(CLIFF_TOOL_BUTTON_ID);
 		} else {
@@ -97,7 +110,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawOperationPanel() {
-		Tool tool = ToolManager.getActualTool();
+		Tool tool = toolManager.getActualTool();
 		for (int i = 0; i < 3; i++) {
 			if (!tool.getOperation(i).isEmpty()) {
 				getElement(OPERATION_BUTTON_ID_PREFIX + i).show();
@@ -115,7 +128,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawSetPanel() {
-		Tool tool = ToolManager.getActualTool();
+		Tool tool = toolManager.getActualTool();
 		if (tool.hasSet()) {
 			if (tool.getSet().hasIcons()) {
 				drawIconSetPanel();
@@ -129,7 +142,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawIconSetPanel() {
-		Tool tool = ToolManager.getActualTool();
+		Tool tool = toolManager.getActualTool();
 		getElement(ICON_SET_PANEL_ID).show();
 		getElement(LIST_SET_PANEL_ID).hide();
 		for (int i = 0; i < 16; i++) {
@@ -148,26 +161,26 @@ public class EditorGUIDrawer extends GUIDrawer {
 	}
 
 	private void drawListSetPanel() {
-		Tool tool = ToolManager.getActualTool();
+		Tool tool = toolManager.getActualTool();
 		getElement(LIST_SET_PANEL_ID).show();
 		getElement(ICON_SET_PANEL_ID).hide();
 		fillList(SELECTION_LIST_ID, tool.getSet().getAllAssets());
 	}
 
 	private void drawMapStyleDropDown() {
-		List<MapStyleBuilder> builders = BuilderManager.getAllMapStyleBuilders();
+		List<MapStyleBuilder> builders = builderManager.getAllMapStyleBuilders();
 		List<String> ids = new ArrayList<>();
 		for (MapStyleBuilder b : builders) {
 			ids.add(b.getId());
 		}
-		int selIndex = ids.indexOf(ModelManager.getBattlefield().getMap().getMapStyleID());
+		int selIndex = ids.indexOf(modelManager.getBattlefield().getMap().getMapStyleID());
 		fillDropDown(DROPDOWN_STYLE_ID, ids, selIndex);
 	}
 
 	private void drawPencilPanel() {
 		getElement("pencilpanel").hide();
 
-		Pencil pencil = ToolManager.getActualTool().pencil;
+		Pencil pencil = toolManager.getActualTool().pencil;
 
 		if (pencil.sizeIncrement != 0) {
 			getElement("pencilpanel").show();

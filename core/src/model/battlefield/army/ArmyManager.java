@@ -12,6 +12,8 @@ import model.battlefield.army.components.Projectile;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.effects.PersistentEffect;
 
+import com.google.inject.Inject;
+
 /**
  * updates and destroys all armies' elements at each frame
  *
@@ -22,7 +24,12 @@ public class ArmyManager {
 	private static List<PersistentEffect> persistenteffects = new ArrayList<>();
 	private static List<Projectile> projectiles = new ArrayList<>();
 
-	public static void update(double elapsedTime) {
+	@Inject
+	ArmyManager() {
+		
+	}
+	
+	public void update(double elapsedTime) {
 		Iterator<Entry<Long, Unit>> unitIterator = units.entrySet().iterator();
 		while (unitIterator.hasNext()) {
 			Entry<Long, Unit> entry = unitIterator.next();
@@ -59,20 +66,20 @@ public class ArmyManager {
 
 	}
 
-	public static void addPersistentEffect(PersistentEffect eff) {
+	public void addPersistentEffect(PersistentEffect eff) {
 		persistenteffects.add(eff);
 	}
 
-	public static void registerUnit(Unit unit) {
+	public void registerUnit(Unit unit) {
 		units.put(unit.getId(), unit);
 	}
 
-	public static void unregisterUnit(Unit unit) {
+	public void unregisterUnit(Unit unit) {
 		unit.removeFromBattlefield();
 		units.remove(unit);
 	}
 
-	public static void registerProjectile(Projectile projectile) {
+	public void registerProjectile(Projectile projectile) {
 		projectiles.add(projectile);
 	}
 
@@ -80,7 +87,7 @@ public class ArmyManager {
 		projectile.removeFromBattlefield();
 	}
 
-	public static void reset() {
+	public void reset() {
 		for (Unit u : units.values()) {
 			u.removeFromBattlefield();
 		}
@@ -91,11 +98,11 @@ public class ArmyManager {
 		update(0);
 	}
 
-	public static Unit getUnit(long id) {
+	public Unit getUnit(long id) {
 		return units.get(id);
 	}
 
-	public static Collection<Unit> getUnits() {
+	public Collection<Unit> getUnits() {
 		return units.values();
 	}
 }

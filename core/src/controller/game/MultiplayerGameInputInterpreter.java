@@ -11,6 +11,7 @@ import brainless.openrts.event.network.MultiSelectEntityEvent;
 import brainless.openrts.event.network.PauseEvent;
 import brainless.openrts.event.network.SelectEntityEvent;
 
+import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -39,7 +40,11 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 	private Point2D dblclickCoord;
 
 	private MultiplayerGameController ctrl;
-
+	
+	@Inject
+	private CommandManager commandManager;
+	
+	@Inject
 	public MultiplayerGameInputInterpreter(@Named("MultiplayerGameController") MultiplayerGameController ctrl) {
 		super();
 		this.ctrl = ctrl;
@@ -72,17 +77,17 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 			switch (name) {
 
 				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(false);
+					commandManager.setMultipleSelection(false);
 					break;
 				case SELECT:
 					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
 							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
 						// double click
 						EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
-						CommandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
+						commandManager.selectUnitInContext(ctrl.spatialSelector.getEntityId());
 					} else {
 						if(!ctrl.isDrawingZone()) {
-							CommandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+							commandManager.select(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 							EventManager.post(new MultiSelectEntityEvent(ctrl.spatialSelector.getEntityId()));
 						}
 					}
@@ -92,15 +97,15 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 					break;
 				case ACTION:
 					EventManager.post(new SelectEntityEvent(ctrl.spatialSelector.getEntityId()));
-					CommandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
+					commandManager.act(ctrl.spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
 					EventManager.post(new MoveAttackEvent(ctrl.spatialSelector.getEntityId()));
-					CommandManager.setMoveAttack();
+					commandManager.setMoveAttack();
 					break;
 				case HOLD:
 					EventManager.post(new HoldEvent(ctrl.spatialSelector.getEntityId()));
-					CommandManager.orderHold();
+					commandManager.orderHold();
 					break;
 				case PAUSE:
 					EventManager.post(new PauseEvent(ctrl.spatialSelector.getEntityId()));
@@ -111,7 +116,7 @@ public class MultiplayerGameInputInterpreter extends InputInterpreter {
 			// input pressed
 			switch(name){
 				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(true);
+					commandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
 					ctrl.startSelectionZone();

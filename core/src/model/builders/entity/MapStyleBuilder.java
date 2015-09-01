@@ -7,11 +7,12 @@ package model.builders.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.battlefield.map.Map;
 import model.battlefield.map.MapStyle;
 import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
+
+import com.google.inject.Inject;
 
 /**
  *
@@ -42,6 +43,10 @@ public class MapStyleBuilder extends Builder{
 	private List<String> cliffShapeBuildersID = new ArrayList<>();
 	private List<CliffShapeBuilder> cliffShapeBuilders = new ArrayList<>();
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject	
 	public MapStyleBuilder(Definition def) {
 		super(def);
 		coverDiffuses.add("textures/transp.png");
@@ -82,7 +87,7 @@ public class MapStyleBuilder extends Builder{
 	@Override
 	public void readFinalizedLibrary() {
 		for(String s : cliffShapeBuildersID) {
-			cliffShapeBuilders.add(BuilderManager.getCliffShapeBuilder(s));
+			cliffShapeBuilders.add(builderManager.getCliffShapeBuilder(s));
 		}
 	}
 }

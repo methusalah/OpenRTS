@@ -36,10 +36,10 @@ public class UnitMemento {
 		orientation = u.getOrientation();
 	}
 
-	public Unit getUnit(List<Faction> factions) {
+	public Unit getUnit(List<Faction> factions, BuilderManager buildManager) {
 		for(Faction f : factions) {
 			if (f.getName().equals(factionName)) {
-				Unit u = BuilderManager.getUnitBuilder(builderID).build(f, pos, orientation);
+				Unit u = buildManager.getUnitBuilder(builderID).build(f, pos, orientation);
 				u.drawOnBattlefield();
 				return u;
 			}

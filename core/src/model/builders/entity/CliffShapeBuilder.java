@@ -13,6 +13,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -37,6 +39,10 @@ public class CliffShapeBuilder extends Builder {
 	private List<Double> rampTrinketProbs = new ArrayList<>();
 	private String editorIconPath = "textures/editor/defaultcliffshapeicon.png";
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public CliffShapeBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -97,16 +103,16 @@ public class CliffShapeBuilder extends Builder {
 	@Override
 	public void readFinalizedLibrary() {
 		if (!naturalFaceBuilderID.isEmpty()) {
-			naturalFaceBuilder = BuilderManager.getNaturalFaceBuilder(naturalFaceBuilderID);
+			naturalFaceBuilder = builderManager.getNaturalFaceBuilder(naturalFaceBuilderID);
 		}
 		if (!manmadeFaceBuilderID.isEmpty()) {
-			manmadeFaceBuilder = BuilderManager.getManmadeFaceBuilder(manmadeFaceBuilderID);
+			manmadeFaceBuilder = builderManager.getManmadeFaceBuilder(manmadeFaceBuilderID);
 		}
 		for (String s : trinketBuildersID) {
-			trinketBuilders.add(BuilderManager.getTrinketBuilder(s));
+			trinketBuilders.add(builderManager.getTrinketBuilder(s));
 		}
 		for (String s : rampTrinketBuildersID) {
-			rampTrinketBuilders.add(BuilderManager.getTrinketBuilder(s));
+			rampTrinketBuilders.add(builderManager.getTrinketBuilder(s));
 		}
 	}
 }

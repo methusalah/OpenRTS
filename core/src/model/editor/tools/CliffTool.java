@@ -6,8 +6,10 @@ package model.editor.tools;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.MapArtisanUtil;
-import util.TileArtisanUtil;
+import com.google.inject.Inject;
+
+import util.MapArtisanManager;
+import util.TileArtisanManager;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.builders.entity.CliffShapeBuilder;
@@ -22,11 +24,21 @@ public class CliffTool extends Tool {
 	private static final String FLATTEN_OP = "flatten";
 
 	int maintainedLevel;
-
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
+	@Inject
+	private TileArtisanManager tileArtisanManager;
+	
+	@Inject
 	public CliffTool() {
 		super(RAISE_LOW_OP, FLATTEN_OP);
 		ArrayList<String> iconPaths = new ArrayList<>();
-		for (CliffShapeBuilder b : ModelManager.getBattlefield().getMap().getStyle().cliffShapeBuilders) {
+		for (CliffShapeBuilder b : modelManager.getBattlefield().getMap().getStyle().cliffShapeBuilders) {
 			iconPaths.add(b.getIconPath());
 		}
 		set = new AssetSet(iconPaths, true);
@@ -97,7 +109,7 @@ public class CliffTool extends Tool {
 
 	private void changeLevel(){
 		List<Tile> tiles = pencil.getTiles();
-		TileArtisanUtil.changeLevel(tiles, maintainedLevel, tiles.get(0).getMap().getStyle().cliffShapeBuilders.get(set.actual).getId());
-		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
+		tileArtisanManager.changeLevel(tiles, maintainedLevel, tiles.get(0).getMap().getStyle().cliffShapeBuilders.get(set.actual).getId());
+		mapArtisanManager.cleanSowing(modelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
 	}
 }

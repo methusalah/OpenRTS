@@ -16,6 +16,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -57,6 +59,10 @@ public class UnitBuilder extends Builder {
 	private List<String> turretBuildersID = new ArrayList<>();
 	private List<TurretBuilder> turretBuilders = new ArrayList<>();
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public UnitBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -131,15 +137,15 @@ public class UnitBuilder extends Builder {
 
 	@Override
 	public void readFinalizedLibrary() {
-		actorBuilder = (ModelActorBuilder) BuilderManager.getActorBuilder(actorBuilderID);
-		moverBuilder = BuilderManager.getMoverBuilder(moverBuilderID);
+		actorBuilder = (ModelActorBuilder) builderManager.getActorBuilder(actorBuilderID);
+		moverBuilder = builderManager.getMoverBuilder(moverBuilderID);
 		int i = 0;
 		for (String s : weaponBuildersID) {
-			weaponBuilders.add(BuilderManager.getWeaponBuilder(s));
+			weaponBuilders.add(builderManager.getWeaponBuilder(s));
 			if (turretBuildersID.get(i) == null) {
 				turretBuilders.add(null);
 			} else {
-				turretBuilders.add(BuilderManager.getTurretBuilder(turretBuildersID.get(i)));
+				turretBuilders.add(builderManager.getTurretBuilder(turretBuildersID.get(i)));
 			}
 			i++;
 		}

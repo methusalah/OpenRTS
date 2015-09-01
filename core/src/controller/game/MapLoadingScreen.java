@@ -7,7 +7,7 @@ import java.util.Properties;
 import model.ModelManager;
 import model.battlefield.Battlefield;
 import openrts.guice.annotation.GuiNodeRef;
-import util.MapArtisanUtil;
+import util.MapArtisanManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
@@ -33,7 +33,6 @@ public class MapLoadingScreen extends AbstractAppState implements ScreenControll
 	private Nifty nifty;
 
 	@Inject
-
 	private NiftyJmeDisplay niftyDisplay;
 	private Element progressBarElement;
 	private float frameCount = 0;
@@ -47,6 +46,13 @@ public class MapLoadingScreen extends AbstractAppState implements ScreenControll
 	@Inject
 	@Named("flyCam")
 	private FlyByCamera flyCam;
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
 
 	// public static void main(String[] args) {
 	// MapLoadingScreen app = new MapLoadingScreen();
@@ -76,7 +82,7 @@ public class MapLoadingScreen extends AbstractAppState implements ScreenControll
 				Element element = nifty.getScreen("loadlevel").findElementByName("loadingtext");
 				textRenderer = element.getRenderer(TextRenderer.class);
 
-				ModelManager.setBattlefieldUnavailable();
+				modelManager.setBattlefieldUnavailable();
 
 				try {
 					ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
@@ -89,7 +95,7 @@ public class MapLoadingScreen extends AbstractAppState implements ScreenControll
 				setProgress(0.2f, "Build Map");
 
 			} else if (frameCount == 2) {
-				MapArtisanUtil.buildMap(bField);
+				mapArtisanManager.buildMap(bField);
 
 				setProgress(0.4f, "Loading texture atlas");
 

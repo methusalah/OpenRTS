@@ -9,6 +9,7 @@ import java.util.List;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
 import model.battlefield.army.components.Unit;
+import util.MapArtisanManager;
 import view.EditorView;
 import view.MapView;
 import view.camera.IsometricCamera;
@@ -37,6 +38,16 @@ public class MultiplayerGameController extends Controller {
 //	protected MultiplayerGameNiftyController guiController;
 
 	@Inject
+	private ArmyManager armyManager;
+	
+	@Inject
+	private CommandManager commandManager;
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	
+	@Inject
 	public MultiplayerGameController(EditorView view, 
 //			MultiplayerGameNiftyController guiController, 
 			InputManager inputManager,
@@ -58,7 +69,7 @@ public class MultiplayerGameController extends Controller {
 
 		// update army
 		if (!paused) {
-			ArmyManager.update(elapsedTime);
+			armyManager.update(elapsedTime);
 		}
 	}
 
@@ -90,24 +101,24 @@ public class MultiplayerGameController extends Controller {
 
 		AlignedBoundingBox rect = new AlignedBoundingBox(zoneStart, coord);
 		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			if (rect.contains(spatialSelector.getScreenCoord(u.getPos()))) {
 				inSelection.add(u);
 			}
 		}
-		CommandManager.select(inSelection);
+		commandManager.select(inSelection);
 		view.drawSelectionArea(zoneStart, coord);
 	}
 
 	private void updateContext() {
 		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, camera.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
 				inScreen.add(u);
 			}
 		}
-		CommandManager.createContextualUnities(inScreen);
+		commandManager.createContextualUnities(inScreen);
 
 	}
 
@@ -118,7 +129,7 @@ public class MultiplayerGameController extends Controller {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCamera)camera).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
+		((IsometricCamera)camera).move(modelManager.getBattlefield().getMap().xSize() / 2, modelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation

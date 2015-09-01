@@ -4,6 +4,7 @@ import geometry.geom3d.Point3D;
 import model.ModelManager;
 import view.math.TranslateUtil;
 
+import com.google.inject.Inject;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -23,6 +24,10 @@ public class IsometricCamera extends Camera {
 	private Point3D pos;
 	private Point3D target;
 
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
 	public IsometricCamera(com.jme3.renderer.Camera cam, float elevation) {
 		super(cam);
 		pos = new Point3D(0, 0, elevation);
@@ -78,7 +83,7 @@ public class IsometricCamera extends Camera {
 	}
 
 	public void move(double x, double y){
-		if (ModelManager.getBattlefield().getMap().isInBounds(target.getAddition(x, y, 0).get2D())) {
+		if (modelManager.getBattlefield().getMap().isInBounds(target.getAddition(x, y, 0).get2D())) {
 			pos = pos.getAddition(x, y, 0);
 			target = target.getAddition(x, y, 0);
 			placeCam();

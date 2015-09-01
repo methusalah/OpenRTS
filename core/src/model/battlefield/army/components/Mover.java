@@ -67,7 +67,9 @@ public class Mover {
 	public boolean tryHold = false;
 	public double desiredOrientation= Double.NaN;
 
-	public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, StandingMode standingMode, Hiker movable) {
+	private ModelManager modelManager;
+	
+	public Mover(Heightmap heightmap, PathfindingMode pathfindingMode, StandingMode standingMode, Hiker movable, ModelManager modelmanager) {
 		this.heightmap = heightmap;
 		this.pathfindingMode = pathfindingMode;
 		this.standingMode = standingMode;
@@ -233,8 +235,8 @@ public class Mover {
 	}
 
 	private void updateElevation() {
-		if (ModelManager.getBattlefield() != null) {
-			Map map = ModelManager.getBattlefield().getMap();
+		if (modelManager.getBattlefield() != null) {
+			Map map = modelManager.getBattlefield().getMap();
 			if (heightmap == Heightmap.GROUND) {
 				hiker.pos = hiker.getCoord().get3D(0).getAddition(0, 0, map.getAltitudeAt(hiker.getCoord()));
 				if (standingMode == StandingMode.PRONE) {
@@ -260,7 +262,7 @@ public class Mover {
 	}
 
 	public void addTrinketsToAvoidingList() {
-		for (Trinket t : ModelManager.getBattlefield().getMap().getTrinkets()) {
+		for (Trinket t : modelManager.getBattlefield().getMap().getTrinkets()) {
 			if (t.blocking && t.getRadius() != 0) {
 				toAvoid.add(t);
 			}

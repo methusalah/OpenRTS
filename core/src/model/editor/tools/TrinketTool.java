@@ -11,7 +11,6 @@ import geometry.math.RandomUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.MapArtisanUtil;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.map.Trinket;
@@ -20,6 +19,9 @@ import model.builders.entity.definitions.BuilderManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 import model.editor.ToolManager;
+import util.MapArtisanManager;
+
+import com.google.inject.Inject;
 
 /**
  * @author bedu
@@ -35,10 +37,23 @@ public class TrinketTool extends Tool {
 
 	double angle = 0;
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
+	@Inject
+	private ToolManager toolmanager;
+	
+	@Inject
 	public TrinketTool() {
 		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
 		List<String> builderIDs = new ArrayList<>();
-		for (TrinketBuilder b : BuilderManager.getAllEditableTrinketBuilders()) {
+		for (TrinketBuilder b : builderManager.getAllEditableTrinketBuilders()) {
 			builderIDs.add(b.getId());
 		}
 		set = new AssetSet(builderIDs, false);
@@ -78,21 +93,21 @@ public class TrinketTool extends Tool {
 
 	private void add() {
 		Point2D coord = pencil.getCoord();
-		for (Trinket t : ModelManager.getBattlefield().getMap().get(coord).getData(Trinket.class)) {
+		for (Trinket t : modelManager.getBattlefield().getMap().get(coord).getData(Trinket.class)) {
 			if (t.pos.equals(coord)) {
 				coord = coord.getTranslation(RandomUtil.between(AngleUtil.FLAT, -AngleUtil.FLAT), 0.1);
 			}
 		}
-		Trinket t = BuilderManager.getAllEditableTrinketBuilders().get(set.actual)
-				.build(coord.get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(coord)));
-		MapArtisanUtil.attachTrinket(t, ModelManager.getBattlefield().getMap());
+		Trinket t = builderManager.getAllEditableTrinketBuilders().get(set.actual)
+				.build(coord.get3D(modelManager.getBattlefield().getMap().getAltitudeAt(coord)));
+		mapArtisanManager.attachTrinket(t, modelManager.getBattlefield().getMap());
 		t.drawOnBattlefield();
 	}
 
 	private void remove() {
 		Trinket toRemove = getPointedTrinket();
 		if (toRemove != null) {
-			MapArtisanUtil.dettachTrinket(toRemove, ModelManager.getBattlefield().getMap());
+			mapArtisanManager.dettachTrinket(toRemove, modelManager.getBattlefield().getMap());
 			toRemove.removeFromBattlefield();
 		}
 	}
@@ -108,11 +123,11 @@ public class TrinketTool extends Tool {
 		}
 		if (actualTrinket != null) {
 			// TODO attention, l'elevation n'est pas forcement juste avec ce calcul
-			double elevation = actualTrinket.pos.z - ModelManager.getBattlefield().getMap().getAltitudeAt(actualTrinket.pos.get2D());
+			double elevation = actualTrinket.pos.z - modelManager.getBattlefield().getMap().getAltitudeAt(actualTrinket.pos.get2D());
 			Point2D newPos = pencil.getCoord().getSubtraction(moveOffset);
-			double z = ModelManager.getBattlefield().getMap().getAltitudeAt(newPos) + elevation;
+			double z = modelManager.getBattlefield().getMap().getAltitudeAt(newPos) + elevation;
 			actualTrinket.pos = newPos.get3D(z);
-			MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), actualTrinket.getRadius());
+			mapArtisanManager.cleanSowing(modelManager.getBattlefield().getMap(), pencil.getCoord(), actualTrinket.getRadius());
 		}
 	}
 
@@ -146,8 +161,8 @@ public class TrinketTool extends Tool {
 	}
 
 	private Trinket getPointedTrinket(){
-		if (EntityManager.isValidId(ToolManager.getPointedSpatialEntityId())) {
-			return ModelManager.getBattlefield().getMap().getTrinket(ToolManager.getPointedSpatialEntityId());
+		if (EntityManager.isValidId(toolmanager.getPointedSpatialEntityId())) {
+			return modelManager.getBattlefield().getMap().getTrinket(toolmanager.getPointedSpatialEntityId());
 		}
 		return null;
 	}

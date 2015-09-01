@@ -3,11 +3,14 @@
  */
 package model.builders.entity;
 
+import model.ModelManager;
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.army.components.Mover;
 import model.battlefield.army.components.Mover.StandingMode;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
+
+import com.google.inject.Inject;
 
 /**
  * @author Benoît
@@ -30,6 +33,10 @@ public class MoverBuilder extends Builder {
 	private Mover.Heightmap heightmap;
 	private Mover.StandingMode standingMode = StandingMode.STAND;
 
+	 @Inject
+	 private ModelManager modelManager;
+	
+	@Inject
 	public MoverBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -69,7 +76,7 @@ public class MoverBuilder extends Builder {
 	}
 
 	public Mover build(Hiker movable) {
-		Mover res = new Mover(heightmap, pathfindingMode, standingMode, movable);
+		Mover res = new Mover(heightmap, pathfindingMode, standingMode, movable, modelManager);
 		return res;
 	}
 

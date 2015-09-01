@@ -23,11 +23,11 @@ public class Definition {
 		this.id = id;
 	}
 
-	public Definition(Definition other) {
-		this.id = other.getId();
-		type = other.getType();
-		elements = new ArrayList<>(other.elements);
-	}
+//	public Definition(Definition other) {
+//		this.id = other.getId();
+//		type = other.getType();
+//		elements = new ArrayList<>(other.elements);
+//	}
 
 	public boolean equals(Definition other) {
 		if (!getId().equals(other.getId())) {

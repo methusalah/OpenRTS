@@ -26,9 +26,11 @@ public class Ramp {
 	private int level;
 	private double angle;
 	private List<Integer> tilesRef = new ArrayList<>();
+	
+	private ModelManager modelManager;
 
-	public Ramp(Tile t) {
-		ModelManager.getBattlefield().getMap().getRamps().add(this);
+	public Ramp(Tile t, ModelManager modelManager) {
+		modelManager.getBattlefield().getMap().getRamps().add(this);
 		if (!t.hasCliff()) {
 			throw new IllegalArgumentException("Ramp must be first created on a cliff.");
 		}
@@ -74,7 +76,7 @@ public class Ramp {
 			t.ramp = this;
 			t.level = level;
 			t.setElevation(-Tile.STAGE_HEIGHT * getSlopeRate(t));
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
+			for (Tile n : modelManager.getBattlefield().getMap().get8Around(t)) {
 				n.ramp = this;
 			}
 		}
@@ -240,7 +242,7 @@ public class Ramp {
 			t.ramp = null;
 			t.level--;
 			t.setElevation(0);
-			for (Tile n : ModelManager.getBattlefield().getMap().get8Around(t)) {
+			for (Tile n : modelManager.getBattlefield().getMap().get8Around(t)) {
 				if (!res.contains(n)) {
 					res.add(n);
 
@@ -249,7 +251,7 @@ public class Ramp {
 				}
 			}
 		}
-		ModelManager.getBattlefield().getMap().getRamps().remove(this);
+		modelManager.getBattlefield().getMap().getRamps().remove(this);
 		return res;
 
 	}

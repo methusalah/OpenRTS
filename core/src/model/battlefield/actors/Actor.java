@@ -3,8 +3,11 @@ package model.battlefield.actors;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.inject.Inject;
+
 import model.ModelManager;
 import model.builders.entity.actors.ActorBuilder;
+import util.MapArtisanManager;
 import view.acting.ActorViewElements;
 
 /**
@@ -33,6 +36,10 @@ public class Actor {
 
 	protected boolean acting = false;
 
+	@Inject
+	private ModelManager modelManager;
+		
+	@Inject
 	public Actor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders) {
 		this.parent = parent;
 		this.trigger = trigger;
@@ -97,16 +104,16 @@ public class Actor {
 	}
 
 	public void act() {
-		if (acting || ModelManager.getBattlefield() == null) {
+		if (acting || modelManager.getBattlefield() == null) {
 			return;
 		}
 		acting = true;
-		ModelManager.getBattlefield().getActorPool().registerActor(this);
+		modelManager.getBattlefield().getActorPool().registerActor(this);
 	}
 
 	public void stopActing() {
 		acting = false;
-		ModelManager.getBattlefield().getActorPool().deleteActor(this);
+		modelManager.getBattlefield().getActorPool().deleteActor(this);
 	}
 
 	public void stopActingAndChildren() {

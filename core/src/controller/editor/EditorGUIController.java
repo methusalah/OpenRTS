@@ -11,11 +11,10 @@ import model.builders.entity.MapStyleBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.editor.ToolManager;
 import model.editor.tools.Tool;
-import app.MainRTS;
+import app.OpenRTSApplication;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.name.Named;
 
 import controller.GUIController;
 import de.lessvoid.nifty.Nifty;
@@ -35,10 +34,15 @@ public class EditorGUIController extends GUIController {
 	@Inject
 	private Injector injector;
 
-	public EditorGUIController() {
+	@Inject
+	private BuilderManager builderManager;
 
-	}
-
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private ToolManager toolManager;
+	
 	@Inject
 	public EditorGUIController(Nifty nifty) {
 		super(nifty);
@@ -81,17 +85,17 @@ public class EditorGUIController extends GUIController {
 
 	@NiftyEventSubscriber(pattern = ".*slider")
 	public void onSliderChanged(final String id, final SliderChangedEvent event) {
-		Tool actualTooL = ToolManager.getActualTool();
+		Tool actualTooL = toolManager.getActualTool();
 		switch (id) {
 			case "sizeslider":
-				if (event.getValue() < ToolManager.getActualTool().pencil.size) {
-					ToolManager.getActualTool().pencil.decRadius();
-				} else if (event.getValue() > ToolManager.getActualTool().pencil.size) {
-					ToolManager.getActualTool().pencil.incRadius();
+				if (event.getValue() < toolManager.getActualTool().pencil.size) {
+					toolManager.getActualTool().pencil.decRadius();
+				} else if (event.getValue() > toolManager.getActualTool().pencil.size) {
+					toolManager.getActualTool().pencil.incRadius();
 				}
 				break;
 			case "strslider":
-				ToolManager.getActualTool().pencil.strength = event.getValue();
+				toolManager.getActualTool().pencil.strength = event.getValue();
 				break;
 		}
 	}
@@ -104,7 +108,7 @@ public class EditorGUIController extends GUIController {
 		}
 		switch (id) {
 			case "selectionlist":
-				ToolManager.getActualTool().getSet().set(selectionIndices.get(0));
+				toolManager.getActualTool().getSet().set(selectionIndices.get(0));
 				break;
 		}
 	}
@@ -115,27 +119,27 @@ public class EditorGUIController extends GUIController {
 			return;
 		}
 		int selectionIndex = event.getSelectionItemIndex();
-		MapStyleBuilder builder = BuilderManager.getAllMapStyleBuilders().get(selectionIndex);
-		if (!ModelManager.getBattlefield().getMap().getMapStyleID().equals(builder.getId())) {
-			ModelManager.getBattlefield().getMap().setMapStyleID(builder.getId());
-			ModelManager.reload();
+		MapStyleBuilder builder = builderManager.getAllMapStyleBuilders().get(selectionIndex);
+		if (!modelManager.getBattlefield().getMap().getMapStyleID().equals(builder.getId())) {
+			modelManager.getBattlefield().getMap().setMapStyleID(builder.getId());
+			modelManager.reload();
 		}
 	}
 
 	public void load() {
-		ModelManager.loadBattlefield();
+		modelManager.loadBattlefield();
 	}
 
 	public void save() {
-		ModelManager.saveBattlefield();
+		modelManager.saveBattlefield();
 	}
 
 	public void newMap() {
-		ModelManager.setNewBattlefield();
+		modelManager.setNewBattlefield();
 	}
 
 	public void settings() {
-		MainRTS.appInstance.changeSettings();
+		OpenRTSApplication.appInstance.changeSettings();
 	}
 
 	public void toggleGrid() {
@@ -143,74 +147,74 @@ public class EditorGUIController extends GUIController {
 	}
 
 	public void setCliffTool() {
-		ToolManager.setCliffTool();
+		toolManager.setCliffTool();
 		askRedraw();
 	}
 
 	public void setHeightTool() {
-		ToolManager.setHeightTool();
+		toolManager.setHeightTool();
 		askRedraw();
 	}
 
 	public void setAtlasTool() {
-		ToolManager.setAtlasTool();
+		toolManager.setAtlasTool();
 		askRedraw();
 	}
 
 	public void setRampTool() {
-		ToolManager.setRampTool();
+		toolManager.setRampTool();
 		askRedraw();
 	}
 
 	public void setUnitTool() {
-		ToolManager.setUnitTool();
+		toolManager.setUnitTool();
 		askRedraw();
 	}
 
 	public void setTrincketTool() {
-		ToolManager.setTrinketTool();
+		toolManager.setTrinketTool();
 		askRedraw();
 	}
 
 	public void setOperation(String indexString) {
-		ToolManager.getActualTool().setOperation(Integer.parseInt(indexString));
+		toolManager.getActualTool().setOperation(Integer.parseInt(indexString));
 		askRedraw();
 	}
 
 	public void setSet(String indexString) {
-		if (ToolManager.getActualTool().hasSet()) {
-			ToolManager.getActualTool().getSet().set(Integer.parseInt(indexString));
+		if (toolManager.getActualTool().hasSet()) {
+			toolManager.getActualTool().getSet().set(Integer.parseInt(indexString));
 		}
 		askRedraw();
 	}
 
 	public void setRoughMode() {
-		ToolManager.getActualTool().pencil.setRoughMode();
+		toolManager.getActualTool().pencil.setRoughMode();
 		askRedraw();
 	}
 
 	public void setAirbrushMode() {
-		ToolManager.getActualTool().pencil.setAirbrushMode();
+		toolManager.getActualTool().pencil.setAirbrushMode();
 		askRedraw();
 	}
 
 	public void setNoiseMode() {
-		ToolManager.getActualTool().pencil.setNoiseMode();
+		toolManager.getActualTool().pencil.setNoiseMode();
 		askRedraw();
 	}
 
 	public void setSquareShape() {
-		ToolManager.getActualTool().pencil.setSquareShape();
+		toolManager.getActualTool().pencil.setSquareShape();
 		askRedraw();
 	}
 
 	public void setDiamondShape() {
-		ToolManager.getActualTool().pencil.setDiamondShape();
+		toolManager.getActualTool().pencil.setDiamondShape();
 		askRedraw();
 	}
 
 	public void setCircleShape() {
-		ToolManager.getActualTool().pencil.setCircleShape();
+		toolManager.getActualTool().pencil.setCircleShape();
 		askRedraw();
 	}
 }

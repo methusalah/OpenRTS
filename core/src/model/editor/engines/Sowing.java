@@ -28,14 +28,14 @@ public class Sowing {
 	public List<Double> spacings = new ArrayList<>();
 	List<Trinket> toGrow = new ArrayList<>();
 
-
+	
 	public Sowing() {
 
 	}
 
-	public void addTrinket(String id, double weight, double spacing){
+	public void addTrinket(String id, double weight, double spacing, BuilderManager builderManager){
 		for (int i = 0; i < weight; i++) {
-			trinketBuilders.add(BuilderManager.getTrinketBuilder(id));
+			trinketBuilders.add(builderManager.getTrinketBuilder(id));
 			spacings.add(spacing);
 		}
 	}
@@ -58,8 +58,8 @@ public class Sowing {
 		distFromCliff = dist;
 	}
 
-	public boolean isAllowed(Point2D p){
-		Map map = ModelManager.getBattlefield().getMap();
+	public boolean isAllowed(Point2D p, ModelManager modelManager){
+		Map map = modelManager.getBattlefield().getMap();
 		// check if the point is near enough from a cliff.
 		if(distFromCliff > 0){
 			boolean hasCliff = false;

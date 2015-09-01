@@ -27,6 +27,10 @@ import model.builders.entity.actors.ModelActorBuilder;
 import model.builders.entity.actors.ParticleActorBuilder;
 import model.builders.entity.actors.PhysicActorBuilder;
 import model.builders.entity.actors.SoundActorBuilder;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import exception.TechnicalException;
 
 /**
@@ -49,12 +53,13 @@ public class BuilderManager {
 	private static final String NATURAL_FACE = "NaturalFace";
 	private static final String MANMADE_FACE = "ManmadeFace";
 
-	private static Map<String, Map<String, Builder>> builders = new HashMap<>();
-
-	private BuilderManager() {
-	}
-
-	static {
+	private Map<String, Map<String, Builder>> builders = new HashMap<>();
+	
+	@Inject
+	Injector injector;
+	
+	@Inject
+	BuilderManager() {
 		builders.put(UNIT, new HashMap<String, Builder>());
 		builders.put(MOVER, new HashMap<String, Builder>());
 		builders.put(WEAPON, new HashMap<String, Builder>());
@@ -70,7 +75,7 @@ public class BuilderManager {
 	}
 
 
-	public static void buildLinks() {
+	public void buildLinks() {
 		for (Map<String, Builder> map : builders.values()) {
 			for (Builder b : map.values()) {
 				b.readFinalizedLibrary();
@@ -78,7 +83,7 @@ public class BuilderManager {
 		}
 	}
 
-	public static void submit(Definition def) {
+	public void submit(Definition def) {
 		Map<String, Builder> typed = builders.get(def.getType());
 		if (typed == null) {
 			throw new RuntimeException("Type '" + def.getType() + "' is unknown.");
@@ -98,6 +103,7 @@ public class BuilderManager {
 				typed.put(def.getId(), new TurretBuilder(def));
 				break;
 			case EFFECT:
+				EffectBuilder effectBuilder = injector.getInstance(EffectBuilder.class);
 				typed.put(def.getId(), new EffectBuilder(def));
 				break;
 			case PROJECTILE:
@@ -143,7 +149,7 @@ public class BuilderManager {
 		}
 	}
 
-	private static <T extends Builder> T getBuilder(String type, String id, Class<T> clazz) {
+	private <T extends Builder> T getBuilder(String type, String id, Class<T> clazz) {
 		Builder res = builders.get(type).get(id);
 		if (res == null) {
 			throw new IllegalArgumentException(ERROR + type + "/" + id);
@@ -151,55 +157,55 @@ public class BuilderManager {
 		return (T) res;
 	}
 
-	public static UnitBuilder getUnitBuilder(String id) {
+	public UnitBuilder getUnitBuilder(String id) {
 		return getBuilder(UNIT, id, UnitBuilder.class);
 	}
 
-	public static MoverBuilder getMoverBuilder(String id) {
+	public MoverBuilder getMoverBuilder(String id) {
 		return getBuilder(MOVER, id, MoverBuilder.class);
 	}
 
-	public static WeaponBuilder getWeaponBuilder(String id) {
+	public WeaponBuilder getWeaponBuilder(String id) {
 		return getBuilder(WEAPON, id, WeaponBuilder.class);
 	}
 
-	public static TurretBuilder getTurretBuilder(String id) {
+	public TurretBuilder getTurretBuilder(String id) {
 		return getBuilder(TURRET, id, TurretBuilder.class);
 	}
 
-	public static EffectBuilder getEffectBuilder(String id) {
+	public EffectBuilder getEffectBuilder(String id) {
 		return getBuilder(EFFECT, id, EffectBuilder.class);
 	}
 
-	public static ProjectileBuilder getProjectileBuilder(String id) {
+	public ProjectileBuilder getProjectileBuilder(String id) {
 		return getBuilder(PROJECTILE, id, ProjectileBuilder.class);
 	}
 
-	public static ActorBuilder getActorBuilder(String id) {
+	public ActorBuilder getActorBuilder(String id) {
 		return getBuilder(ACTOR, id, ActorBuilder.class);
 	}
 
-	public static MapStyleBuilder getMapStyleBuilder(String id) {
+	public MapStyleBuilder getMapStyleBuilder(String id) {
 		return getBuilder(MAP_STYLE, id, MapStyleBuilder.class);
 	}
 
-	public static CliffShapeBuilder getCliffShapeBuilder(String id) {
+	public CliffShapeBuilder getCliffShapeBuilder(String id) {
 		return getBuilder(CLIFF_SHAPE, id, CliffShapeBuilder.class);
 	}
 
-	public static TrinketBuilder getTrinketBuilder(String id) {
+	public TrinketBuilder getTrinketBuilder(String id) {
 		return getBuilder(TRINKET, id, TrinketBuilder.class);
 	}
 
-	public static NaturalFaceBuilder getNaturalFaceBuilder(String id) {
+	public NaturalFaceBuilder getNaturalFaceBuilder(String id) {
 		return getBuilder(NATURAL_FACE, id, NaturalFaceBuilder.class);
 	}
 
-	public static ManmadeFaceBuilder getManmadeFaceBuilder(String id) {
+	public ManmadeFaceBuilder getManmadeFaceBuilder(String id) {
 		return getBuilder(MANMADE_FACE, id, ManmadeFaceBuilder.class);
 	}
 
-	private static <T extends Builder> List<T> getAllBuilders(String type, Class<T> clazz) {
+	private <T extends Builder> List<T> getAllBuilders(String type, Class<T> clazz) {
 		List<T> res = new ArrayList<>();
 		res.addAll((Collection<? extends T>) (builders.get(type)).values());
 		if (res.isEmpty()) {
@@ -208,15 +214,15 @@ public class BuilderManager {
 		return res;
 	}
 
-	public static List<UnitBuilder> getAllUnitBuilders() {
+	public List<UnitBuilder> getAllUnitBuilders() {
 		return getAllBuilders(UNIT, UnitBuilder.class);
 	}
 
-	public static List<TrinketBuilder> getAllTrinketBuilders() {
+	public List<TrinketBuilder> getAllTrinketBuilders() {
 		return getAllBuilders(TRINKET, TrinketBuilder.class);
 	}
 
-	public static List<TrinketBuilder> getAllEditableTrinketBuilders() {
+	public List<TrinketBuilder> getAllEditableTrinketBuilders() {
 		List<TrinketBuilder> all = getAllBuilders(TRINKET, TrinketBuilder.class);
 		List<TrinketBuilder> res = new ArrayList<>();
 		for (TrinketBuilder b : all) {
@@ -227,7 +233,7 @@ public class BuilderManager {
 		return res;
 	}
 
-	public static List<MapStyleBuilder> getAllMapStyleBuilders() {
+	public List<MapStyleBuilder> getAllMapStyleBuilders() {
 		return getAllBuilders(MAP_STYLE, MapStyleBuilder.class);
 	}
 

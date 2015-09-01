@@ -8,9 +8,11 @@ import geometry.math.RandomUtil;
 
 import java.util.List;
 
+import com.google.inject.Inject;
+
 import brainless.openrts.event.EventManager;
 import brainless.openrts.event.client.ParcelUpdateEvent;
-import util.MapArtisanUtil;
+import util.MapArtisanManager;
 import model.ModelManager;
 import model.battlefield.map.Tile;
 import model.editor.Pencil;
@@ -29,6 +31,13 @@ public class HeightTool extends Tool {
 	double amplitude = 0.5;
 	double maintainedElevation;
 
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
+	@Inject
 	public HeightTool() {
 		super(RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
 	}
@@ -56,8 +65,8 @@ public class HeightTool extends Tool {
 				uniform(group);
 				break;
 		}
-		MapArtisanUtil.updateParcelsFor(group);
-		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
+		mapArtisanManager.updateParcelsFor(group);
+		mapArtisanManager.cleanSowing(modelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
 	}
 
 	@Override
@@ -74,8 +83,8 @@ public class HeightTool extends Tool {
 				reset(group);
 				break;
 		}
-		MapArtisanUtil.updateParcelsFor(group);
-		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
+		mapArtisanManager.updateParcelsFor(group);
+		mapArtisanManager.cleanSowing(modelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size);
 	}
 
 	private void raise(List<Tile> tiles) {
@@ -99,7 +108,7 @@ public class HeightTool extends Tool {
 	private void uniform(List<Tile> tiles) {
 		if (!pencil.maintained) {
 			pencil.maintain();
-			maintainedElevation = ModelManager.getBattlefield().getMap().getAltitudeAt(pencil.getCoord());
+			maintainedElevation = modelManager.getBattlefield().getMap().getAltitudeAt(pencil.getCoord());
 		}
 		for (Tile t : tiles) {
 			double diff = maintainedElevation - t.getElevation();
@@ -121,10 +130,10 @@ public class HeightTool extends Tool {
 	private void smooth(List<Tile> tiles) {
 		for (Tile t : tiles) {
 			double average = 0;
-			for (Tile n : ModelManager.getBattlefield().getMap().get4Around(t)) {
+			for (Tile n : modelManager.getBattlefield().getMap().get4Around(t)) {
 				average += n.getElevation();
 			}
-			average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
+			average /= modelManager.getBattlefield().getMap().get4Around(t).size();
 
 			double diff = average - t.getElevation();
 			if (diff > 0) {

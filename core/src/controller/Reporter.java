@@ -17,6 +17,8 @@ import model.battlefield.army.components.Unit;
 import model.battlefield.map.Map;
 import model.battlefield.map.Trinket;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -25,19 +27,27 @@ public class Reporter {
 	private static final Logger logger = Logger.getLogger(Reporter.class.getName());
 	private static DecimalFormat df = new DecimalFormat("0");
 
-	public static String getName(Unit u) {
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	public Reporter() {
+		
+	}
+	
+	public String getName(Unit u) {
 		return "Name : " + u.UIName + " (" + u.race + ")";
 	}
 
-	public static String getHealth(Unit u) {
+	public String getHealth(Unit u) {
 		return "Health : " + u.health + "/" + u.maxHealth + " (" + df.format(u.getHealthRate() * 100) + "%)";
 	}
 
-	public static String getState(Unit u) {
+	public String getState(Unit u) {
 		return "State : " + u.state;
 	}
 
-	public static String getOrder(Unit u) {
+	public String getOrder(Unit u) {
 		String res = "Orders : ";
 		for (String order : u.ai.getStates()) {
 			res = res.concat(order + " /");
@@ -45,7 +55,7 @@ public class Reporter {
 		return res;
 	}
 
-	public static String getHolding(Unit u) {
+	public String getHolding(Unit u) {
 		if (u.getMover().holdPosition) {
 			return "Holding : Yes";
 		} else {
@@ -53,8 +63,6 @@ public class Reporter {
 		}
 	}
 
-	public Reporter() {
-	}
 
 	public boolean reportSingleUnit() {
 		return CommandManager.selection.size() == 1;
@@ -64,8 +72,8 @@ public class Reporter {
 		return CommandManager.selection.isEmpty();
 	}
 
-	public static void reportAll() {
-		Engagement eng = ModelManager.getBattlefield().getEngagement();
+	public void reportAll() {
+		Engagement eng = modelManager.getBattlefield().getEngagement();
 		logger.info("*** ENGAGEMENT ***");
 		logger.info("Factions (" + eng.getFactions().size() + ") : ");
 		for (Faction f : eng.getFactions()) {
@@ -76,7 +84,7 @@ public class Reporter {
 			}
 		}
 
-		Map m = ModelManager.getBattlefield().getMap();
+		Map m = modelManager.getBattlefield().getMap();
 		logger.info("*** MAP ***");
 		logger.info("Style ID : " + m.getMapStyleID());
 		logger.info("Width/height : " + m.getWidth() + "/" + m.getHeight() + " (" + m.getTiles().size() + " tiles)");
@@ -86,7 +94,7 @@ public class Reporter {
 		}
 		logger.info("Number of initial trinkets : " + m.getInitialTrinkets().size());
 
-		ActorPool p = ModelManager.getBattlefield().getActorPool();
+		ActorPool p = modelManager.getBattlefield().getActorPool();
 		List<? extends Actor> actorList;
 		logger.info("*** ACTORS ***");
 		actorList = p.getActorsOfType(ModelActor.class);

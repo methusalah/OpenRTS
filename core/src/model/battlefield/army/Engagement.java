@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.components.UnitMemento;
+import model.builders.entity.definitions.BuilderManager;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +25,7 @@ public class Engagement {
 
 	@JsonProperty
 	private List<UnitMemento> initialEngagement = new ArrayList<>();
-
+	
 	public Engagement() {
 		Faction f1 = new Faction(Color.red, "1");
 		Faction f2 = new Faction(Color.blue, "2");
@@ -33,18 +34,18 @@ public class Engagement {
 		factions.add(f2);
 	}
 
-	public void reset() {
+	public void reset(ArmyManager armyManagers, BuilderManager builderManager) {
 		logger.info("reseting engagement");
-		ArmyManager.reset();
+		armyManagers.reset();
 
 		for (UnitMemento su : initialEngagement) {
-			ArmyManager.registerUnit(su.getUnit(factions));
+			armyManagers.registerUnit(su.getUnit(factions, builderManager));
 		}
 	}
 
-	public void save() {
+	public void save(ArmyManager armyManager) {
 		initialEngagement.clear();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			initialEngagement.add(new UnitMemento(u));
 		}
 	}

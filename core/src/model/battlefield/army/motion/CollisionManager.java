@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import util.MapArtisanManager;
+
+import com.google.inject.Inject;
 import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
 
 import model.ModelManager;
@@ -54,6 +57,10 @@ public class CollisionManager {
 	double tolerance = ADAPT_TOLERANCE;
 	boolean directionIsClockwise = true;
 
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
 	public CollisionManager(Mover m) {
 		this.mover = m;
 	}
@@ -82,7 +89,7 @@ public class CollisionManager {
 					res.setAngle(motion.getAngle());
 			} else {
 				double height = mover.hiker.getPos().getAddition(motion.getVelocity()).z;
-				double GroundHeight = ModelManager.getBattlefield().getMap().getAltitudeAt(mover.hiker.getCoord());
+				double GroundHeight = modelManager.getBattlefield().getMap().getAltitudeAt(mover.hiker.getCoord());
 				if(height < GroundHeight)
 					res.setVelocity(Point3D.ORIGIN);
 				else
@@ -185,10 +192,10 @@ public class CollisionManager {
 		for(int x = -2; x<3; x++) {
 			for(int y = -2; y<3; y++){
 				Point2D tilePos = mover.hiker.getCoord().getAddition(x, y);
-				if (!ModelManager.getBattlefield().getMap().isInBounds(tilePos)) {
+				if (!modelManager.getBattlefield().getMap().isInBounds(tilePos)) {
 					continue;
 				}
-				Tile t = ModelManager.getBattlefield().getMap().get(tilePos);
+				Tile t = modelManager.getBattlefield().getMap().get(tilePos);
 				if(t.isBlocked()) {
 					solidShapes.add(getTileBoundingBox(t));
 				}
@@ -223,7 +230,7 @@ public class CollisionManager {
 	}
 	private boolean willCollideSolidShapes(Point3D velocity){
 		BoundingShape futurShape = getFuturShape(velocity);
-		if (!ModelManager.getBattlefield().getMap().isInBounds(((BoundingCircle) futurShape).center)) {
+		if (!modelManager.getBattlefield().getMap().isInBounds(((BoundingCircle) futurShape).center)) {
 			return true;
 		}
 		return futurShape.collide(solidShapes);

@@ -13,6 +13,18 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
+import model.battlefield.army.ArmyManager;
+import model.builders.entity.CliffShapeBuilder;
+import model.builders.entity.EffectBuilder;
+import model.builders.entity.ManmadeFaceBuilder;
+import model.builders.entity.MapStyleBuilder;
+import model.builders.entity.MoverBuilder;
+import model.builders.entity.NaturalFaceBuilder;
+import model.builders.entity.ProjectileBuilder;
+import model.builders.entity.TrinketBuilder;
+import model.builders.entity.TurretBuilder;
+import model.builders.entity.UnitBuilder;
+import model.builders.entity.WeaponBuilder;
 import openrts.guice.annotation.AppSettingsRef;
 import openrts.guice.annotation.AudioRendererRef;
 import openrts.guice.annotation.GuiNodeRef;
@@ -54,6 +66,7 @@ import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
+import controller.CommandManager;
 import controller.SpatialSelector;
 
 public abstract class OpenRTSApplicationWithDI extends Application implements PhysicsTickListener {
@@ -316,6 +329,26 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 				bind(EditorRenderer.class).in(Singleton.class);
 				
 				bind(SpatialSelector.class).in(Singleton.class);
+				
+				
+				bind(ArmyManager.class).in(Singleton.class);
+				
+				bind(EffectBuilder.class).in(Singleton.class);
+				bind(ProjectileBuilder.class).in(Singleton.class);
+				
+				bind(CliffShapeBuilder.class).in(Singleton.class);
+				bind(ManmadeFaceBuilder.class).in(Singleton.class);
+				bind(MapStyleBuilder.class).in(Singleton.class);
+				bind(MoverBuilder.class).in(Singleton.class);
+				bind(NaturalFaceBuilder.class).in(Singleton.class);
+				
+				bind(TrinketBuilder.class).in(Singleton.class);
+				bind(TurretBuilder.class).in(Singleton.class);
+				bind(UnitBuilder.class).in(Singleton.class);
+				bind(WeaponBuilder.class).in(Singleton.class);
+				
+				bind(CommandManager.class).in(Singleton.class);
+				
 
 			}
 		});

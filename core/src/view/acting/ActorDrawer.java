@@ -13,6 +13,7 @@ import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Unit;
+import util.MapArtisanManager;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import brainless.openrts.event.EventManager;
@@ -68,6 +69,10 @@ public class ActorDrawer implements AnimEventListener {
 	protected MaterialManager materialManager;
 	
 	@Inject
+	private ModelManager modelManager;
+
+	
+	@Inject
 	public ActorDrawer() {
 		mainNode = new Node();
 		abandoned = new Node();
@@ -113,7 +118,7 @@ public class ActorDrawer implements AnimEventListener {
 //		}
 			
 		// first, the spatials attached to interrupted actor are detached
-		ActorPool pool = ModelManager.getBattlefield().getActorPool();
+		ActorPool pool = modelManager.getBattlefield().getActorPool();
 		for (Actor a : pool.grabDeletedActors()) {
 			if (a.getViewElements().spatial != null) {
 				mainNode.detachChild(a.getViewElements().spatial);

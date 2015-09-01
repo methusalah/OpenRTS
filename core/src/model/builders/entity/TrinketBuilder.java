@@ -20,6 +20,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -83,6 +85,10 @@ public class TrinketBuilder extends Builder {
 
 	private Color color;
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public TrinketBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -219,7 +225,7 @@ public class TrinketBuilder extends Builder {
 
 	@Override
 	public void readFinalizedLibrary() {
-		actorBuilder = (ModelActorBuilder) BuilderManager.getActorBuilder(actorBuilderID);
+		actorBuilder = (ModelActorBuilder) builderManager.getActorBuilder(actorBuilderID);
 	}
 
 }

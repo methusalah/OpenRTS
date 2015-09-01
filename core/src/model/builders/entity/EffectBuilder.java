@@ -19,6 +19,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -42,7 +44,14 @@ public class EffectBuilder extends Builder {
 	private ArrayList<Double> durations = new ArrayList<>();
 	private ArrayList<Double> ranges = new ArrayList<>();
 	private String projectileLink = null;
+	
+	@Inject
+	private ArmyManager armyManager;
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public EffectBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -75,7 +84,7 @@ public class EffectBuilder extends Builder {
 	public Effect build(EffectSource source, EffectTarget target, Point3D targetPoint) {
 		Projectile projectile = null;
 		if (projectileLink != null) {
-			projectile = BuilderManager.getProjectileBuilder(projectileLink).build(source, target, targetPoint);
+			projectile = builderManager.getProjectileBuilder(projectileLink).build(source, target, targetPoint);
 			projectile.drawOnBattlefield();
 		}
 
@@ -86,7 +95,7 @@ public class EffectBuilder extends Builder {
 				break;
 			case TYPE_PERSISTENT:
 				res = new PersistentEffect(periodCount, durations, ranges, effectBuilders, source, target);
-				ArmyManager.addPersistentEffect((PersistentEffect) res);
+				armyManager.addPersistentEffect((PersistentEffect) res);
 				break;
 			case TYPE_LAUNCHER:
 				res = new LauncherEffect(projectile, effectBuilders, source, target);
@@ -101,7 +110,7 @@ public class EffectBuilder extends Builder {
 	@Override
 	public void readFinalizedLibrary() {
 		for (String s : effectBuildersID) {
-			effectBuilders.add(BuilderManager.getEffectBuilder(s));
+			effectBuilders.add(builderManager.getEffectBuilder(s));
 		}
 	}
 

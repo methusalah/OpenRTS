@@ -11,6 +11,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -35,6 +37,10 @@ public class WeaponBuilder extends Builder {
 	private String sourceBone;
 	private String directionBone;
 
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public WeaponBuilder(Definition def) {
 		super(def);
 		for (DefElement element : def.getElements()) {
@@ -74,9 +80,9 @@ public class WeaponBuilder extends Builder {
 
 	@Override
 	public void readFinalizedLibrary() {
-		effectBuilder = BuilderManager.getEffectBuilder(effectBuilderID);
+		effectBuilder = builderManager.getEffectBuilder(effectBuilderID);
 		if (!actorBuilderID.isEmpty()) {
-			actorBuilder = BuilderManager.getActorBuilder(actorBuilderID);
+			actorBuilder = builderManager.getActorBuilder(actorBuilderID);
 		}
 	}
 

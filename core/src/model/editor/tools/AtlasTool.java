@@ -8,8 +8,10 @@ import geometry.geom2d.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.inject.Inject;
+
 import util.AtlasArtisanUtil;
-import util.MapArtisanUtil;
+import util.MapArtisanManager;
 import model.ModelManager;
 import model.battlefield.map.atlas.Atlas;
 import model.battlefield.map.atlas.AtlasExplorer;
@@ -30,15 +32,25 @@ public class AtlasTool extends Tool {
 	AtlasLayer autoLayer;
 	double increment = 40;
 
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
+	@Inject
+	private ToolManager toolManager;
+	
+	@Inject
 	public AtlasTool() {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
-		explorer = new AtlasExplorer(ModelManager.getBattlefield().getMap());
+		explorer = new AtlasExplorer(modelManager.getBattlefield().getMap());
 		List<String> allTextures = new ArrayList<>();
-		allTextures.addAll(ModelManager.getBattlefield().getMap().getStyle().diffuses);
+		allTextures.addAll(modelManager.getBattlefield().getMap().getStyle().diffuses);
 		while(allTextures.size() < 8) {
 			allTextures.add(null);
 		}
-		allTextures.addAll(ModelManager.getBattlefield().getMap().getStyle().coverDiffuses);
+		allTextures.addAll(modelManager.getBattlefield().getMap().getStyle().coverDiffuses);
 		set = new AssetSet(allTextures, true);
 	}
 
@@ -62,8 +74,8 @@ public class AtlasTool extends Tool {
 				break;
 		}
 
-		ToolManager.updateGroundAtlas();
-		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size / 2);
+		toolManager.updateGroundAtlas();
+		mapArtisanManager.cleanSowing(modelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size / 2);
 	}
 
 	@Override
@@ -76,8 +88,8 @@ public class AtlasTool extends Tool {
 				smooth(getInvolvedPixels());
 				break;
 		}
-		ToolManager.updateGroundAtlas();
-		MapArtisanUtil.cleanSowing(ModelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size / 2);
+		toolManager.updateGroundAtlas();
+		mapArtisanManager.cleanSowing(modelManager.getBattlefield().getMap(), pencil.getCoord(), pencil.size / 2);
 	}
 
 	public ArrayList<Point2D> getInvolvedPixels() {
@@ -112,7 +124,7 @@ public class AtlasTool extends Tool {
 	}
 
 	private void propagate(ArrayList<Point2D> pixels) {
-		Atlas atlas = ModelManager.getBattlefield().getMap().getAtlas();
+		Atlas atlas = modelManager.getBattlefield().getMap().getAtlas();
 		if (!pencil.maintained) {
 			pencil.maintain();
 			autoLayer = atlas.getLayers().get(0);
@@ -132,7 +144,7 @@ public class AtlasTool extends Tool {
 
 	private void smooth(ArrayList<Point2D> pixels) {
 		for (Point2D p : pixels) {
-			AtlasArtisanUtil.smoothPixel(ModelManager.getBattlefield().getMap().getAtlas(), p, getAttenuatedIncrement(p));
+			AtlasArtisanUtil.smoothPixel(modelManager.getBattlefield().getMap().getAtlas(), p, getAttenuatedIncrement(p));
 		}
 
 	}
@@ -146,9 +158,9 @@ public class AtlasTool extends Tool {
 
 	private Atlas getAtlasToPaint(){
 		if(set.actual > 8) {
-			return ModelManager.getBattlefield().getMap().getCover();
+			return modelManager.getBattlefield().getMap().getCover();
 		}
-		return ModelManager.getBattlefield().getMap().getAtlas();
+		return modelManager.getBattlefield().getMap().getAtlas();
 	}
 
 	private double getAttenuatedIncrement(Point2D p){

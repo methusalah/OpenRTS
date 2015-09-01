@@ -5,8 +5,6 @@ import geometry.geom3d.Point3D;
 
 import java.util.List;
 
-import brainless.openrts.event.EventManager;
-import brainless.openrts.event.client.ParcelUpdateEvent;
 import model.battlefield.Battlefield;
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.map.Map;
@@ -17,9 +15,25 @@ import model.battlefield.map.cliff.Ramp;
 import model.battlefield.map.parcelling.Parcel;
 import model.battlefield.map.parcelling.Parcelling;
 import model.builders.entity.definitions.BuilderManager;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.ParcelUpdateEvent;
 
-public abstract class MapArtisanUtil {
-	public static void buildMap(Battlefield b){
+import com.google.inject.Inject;
+
+public class MapArtisanManager {
+	
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
+	private TileArtisanManager tileArtisanManager;
+	
+	@Inject
+	public MapArtisanManager() {
+		
+	}
+	
+	public void buildMap(Battlefield b){
 		if(b.getMap() == null) {
 			createMapOn(b);
 		} else {
@@ -28,17 +42,17 @@ public abstract class MapArtisanUtil {
 	}
 
 
-	private static void createMapOn(Battlefield b){
-		Map m = new Map(BuilderManager.getMapStyleBuilder("StdMapStyle").build());
+	private void createMapOn(Battlefield b){
+		Map m = new Map(builderManager.getMapStyleBuilder("StdMapStyle").build());
 		AtlasArtisanUtil.buildAtlas(m);
 		b.setMap(m);
 	}
 
-	private static void finalizeMapOn(Battlefield b){
+	private void finalizeMapOn(Battlefield b){
 		Map m = b.getMap();
-		m.setStyle(BuilderManager.getMapStyleBuilder(m.getMapStyleID()).build());
-		TileArtisanUtil.finalizeTilesOn(m);
-		TileArtisanUtil.readElevation(m.getAll());
+		m.setStyle(builderManager.getMapStyleBuilder(m.getMapStyleID()).build());
+		tileArtisanManager.finalizeTilesOn(m);
+		tileArtisanManager.readElevation(m.getAll());
 		m.setParcelling(new Parcelling(m));
 
 		attachInitialTrinkets(m);
@@ -48,36 +62,36 @@ public abstract class MapArtisanUtil {
 		AtlasArtisanUtil.buildAtlas(m);
 	}
 
-	public static void attachInitialTrinkets(Map m) {
+	public void attachInitialTrinkets(Map m) {
 		m.getTrinkets().clear();
 		for (TrinketMemento memento : m.getInitialTrinkets()) {
-			attachTrinket(memento.getTrinket(), m);
+			attachTrinket(memento.getTrinket(builderManager), m);
 		}
 	}
 
-	public static void attachTrinket(Trinket t, Map m){
+	public void attachTrinket(Trinket t, Map m){
 		m.addTrinket(t);
 		Tile containerTile = m.get(t.getCoord());
 		containerTile.addData(t);
-		TileArtisanUtil.checkBlockingTrinkets(containerTile);
+		tileArtisanManager.checkBlockingTrinkets(containerTile);
 	}
 
-	public static void dettachTrinket(Trinket t, Map m){
+	public void dettachTrinket(Trinket t, Map m){
 		m.removeTrinket(t);
 		Tile containerTile = m.get(t.getCoord());
 		containerTile.removeData(t);
-		TileArtisanUtil.checkBlockingTrinkets(containerTile);
+		tileArtisanManager.checkBlockingTrinkets(containerTile);
 	}
 
-	public static void act(Map m){
+	public void act(Map m){
 		for(Trinket t : m.getTrinkets()) {
 			t.drawOnBattlefield();
 		}
 	}
 
-	public static void updateParcelsFor(List<Tile> tiles) {
+	public void updateParcelsFor(List<Tile> tiles) {
 		Map m = tiles.get(0).getMap();
-		List<Tile> extended = TileArtisanUtil.getExtendedZone(tiles);
+		List<Tile> extended = tileArtisanManager.getExtendedZone(tiles);
 
 		for (Tile t : extended) {
 			for (Object o : t.storedData) {
@@ -93,7 +107,7 @@ public abstract class MapArtisanUtil {
 		EventManager.post(new ParcelUpdateEvent(toUpdate));
 	}
 	
-	public static void cleanSowing(Map m, Point2D coord, double radius){
+	public void cleanSowing(Map m, Point2D coord, double radius){
 		for(Tile tile : m.getInCircle(coord, radius*2))
 			for(Trinket trinket : tile.getData(Trinket.class))
 				if(trinket.sowed){

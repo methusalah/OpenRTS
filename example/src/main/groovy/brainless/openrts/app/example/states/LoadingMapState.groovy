@@ -18,7 +18,7 @@ import tonegod.gui.core.Element.Orientation
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
-import util.MapArtisanUtil
+import util.MapArtisanManager
 import brainless.openrts.app.example.MultiplayerGame
 
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -176,7 +176,7 @@ public class LoadingMapState extends AppStateCommon {
 				setProgress(20, "Build Map");
 
 			} else if (frameCount == 2) {
-				MapArtisanUtil.buildMap(bField);
+				MapArtisanManager.buildMap(bField);
 
 				setProgress(40, "Loading texture atlas");
 

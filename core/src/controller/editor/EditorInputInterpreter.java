@@ -69,6 +69,15 @@ public class EditorInputInterpreter extends InputInterpreter {
 	protected EditorView view;
 
 	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private Reporter reporter;
+	
+	@Inject
+	private ToolManager toolManager;
+	
+	@Inject
 	EditorInputInterpreter(EditorView view, @Named("EditorGUIController") EditorGUIController guiController) {
 		super();
 		this.view = view;
@@ -142,16 +151,16 @@ public class EditorInputInterpreter extends InputInterpreter {
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
 		if (analogUnpressed) {
-			ToolManager.releasePencils();
+			toolManager.releasePencils();
 			analogUnpressed = false;
 		} else {
-			SunLight sunLight = ModelManager.getBattlefield().getSunLight();
+			SunLight sunLight = modelManager.getBattlefield().getSunLight();
 			switch (name) {
 				case PRIMARY_ACTION:
-					ToolManager.analogPrimaryAction();
+					toolManager.analogPrimaryAction();
 					break;
 				case SECONDARY_ACTION:
-					ToolManager.analogSecondaryAction();
+					toolManager.analogSecondaryAction();
 					break;
 				case INC_DAYTIME:
 					sunLight.incDayTime();
@@ -189,11 +198,11 @@ public class EditorInputInterpreter extends InputInterpreter {
 		if (!isPressed) {
 			switch (name) {
 				case PRIMARY_ACTION:
-					ToolManager.primaryAction();
+					toolManager.primaryAction();
 					analogUnpressed = true;
 					break;
 				case SECONDARY_ACTION:
-					ToolManager.secondaryAction();
+					toolManager.secondaryAction();
 					analogUnpressed = true;
 					break;
 				case INC_DAYTIME:
@@ -218,68 +227,68 @@ public class EditorInputInterpreter extends InputInterpreter {
 					EventManager.post(new ControllerChangeEvent(2));
 					break;
 				case TOGGLE_PENCIL_SHAPE:
-					ToolManager.getActualTool().pencil.toggleShape();
+					toolManager.getActualTool().pencil.toggleShape();
 					break;
 				case TOGGLE_PENCIL_MODE:
-					ToolManager.getActualTool().pencil.toggleMode();
+					toolManager.getActualTool().pencil.toggleMode();
 					break;
 				case INC_SELECTOR_RADIUS:
-					ToolManager.getActualTool().pencil.incRadius();
+					toolManager.getActualTool().pencil.incRadius();
 					break;
 				case DEC_SELECTOR_RADIUS:
-					ToolManager.getActualTool().pencil.decRadius();
+					toolManager.getActualTool().pencil.decRadius();
 					break;
 				case SET_CLIFF_TOOL:
-					ToolManager.setCliffTool();
+					toolManager.setCliffTool();
 					break;
 				case SET_HEIGHT_TOOL:
-					ToolManager.setHeightTool();
+					toolManager.setHeightTool();
 					break;
 				case SET_ATLAS_TOOL:
-					ToolManager.setAtlasTool();
+					toolManager.setAtlasTool();
 					break;
 				case SET_RAMP_TOOL:
-					ToolManager.setRampTool();
+					toolManager.setRampTool();
 					break;
 				case SET_UNIT_TOOL:
-					ToolManager.setUnitTool();
+					toolManager.setUnitTool();
 					break;
 
 				case TOGGLE_OPERATION:
-					ToolManager.toggleOperation();
+					toolManager.toggleOperation();
 					break;
 				case TOGGLE_SET:
-					ToolManager.toggleSet();
+					toolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
 					view.editorRend.toggleGrid();
 					break;
 				case TOGGLE_SOWER:
-					ToolManager.toggleSower();
+					toolManager.toggleSower();
 					break;
 				case STEP_SOWER:
-					ToolManager.stepSower();
+					toolManager.stepSower();
 					break;
 				case TOGGLE_LIGHT_COMP:
-					ModelManager.getBattlefield().getSunLight().toggleLight();
+					modelManager.getBattlefield().getSunLight().toggleLight();
 					break;
 				case TOGGLE_SPEED:
-					ModelManager.getBattlefield().getSunLight().toggleSpeed();
+					modelManager.getBattlefield().getSunLight().toggleSpeed();
 					break;
 				case RESET_COLOR:
-					ModelManager.getBattlefield().getSunLight().resetColor();
+					modelManager.getBattlefield().getSunLight().resetColor();
 					break;
 				case SAVE:
-					ModelManager.saveBattlefield();
+					modelManager.saveBattlefield();
 					break;
 				case LOAD:
-					ModelManager.loadBattlefield();
+					modelManager.loadBattlefield();
 					break;
 				case NEW:
-					ModelManager.setNewBattlefield();
+					modelManager.setNewBattlefield();
 					break;
 				case REPORT:
-					Reporter.reportAll();
+					reporter.reportAll();
 					break;
 			}
 			guiController.askRedraw();

@@ -4,7 +4,6 @@
 package model.builders.entity.definitions;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -21,8 +20,10 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import model.ModelManager;
 import brainless.openrts.util.FileUtil;
-import exception.TechnicalException;
+
+import com.google.inject.Inject;
 
 /**
  * @author Benoît
@@ -31,7 +32,12 @@ public class DefParser {
 	private static final String ID = "id";
 	Map<File, Long> filesAndTimers = new HashMap<>();
 	List<File> filesToRead = new ArrayList<>();
-
+	
+	
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public DefParser(String path) {
 		List<File> filesAndDir = FileUtil.getFilesInDirectory(path, "xml");
 		while (!filesAndDir.isEmpty()) {
@@ -81,7 +87,7 @@ public class DefParser {
 					} else if (event.isEndElement()) {
 						String elementName = event.asEndElement().getName().getLocalPart();
 						if (def != null && elementName.equals(def.getType())) {
-							BuilderManager.submit(def);
+							builderManager.submit(def);
 							def = null;
 						}
 						// else
@@ -96,7 +102,7 @@ public class DefParser {
 			}
 		}
 		if (!filesToRead.isEmpty()) {
-			BuilderManager.buildLinks();
+			builderManager.buildLinks();
 		}
 
 	}

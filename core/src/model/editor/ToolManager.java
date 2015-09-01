@@ -1,9 +1,9 @@
 package model.editor;
 
-import brainless.openrts.event.EventManager;
-import brainless.openrts.event.client.SetToolEvent;
-import brainless.openrts.event.client.UpdateGroundAtlasEvent;
-import model.battlefield.abstractComps.FieldComp;
+import util.MapArtisanManager;
+import geometry.geom2d.Point2D;
+import model.ModelManager;
+import model.builders.entity.definitions.BuilderManager;
 import model.editor.engines.Sower;
 import model.editor.tools.AtlasTool;
 import model.editor.tools.CliffTool;
@@ -12,7 +12,11 @@ import model.editor.tools.RampTool;
 import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
-import geometry.geom2d.Point2D;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.client.SetToolEvent;
+import brainless.openrts.event.client.UpdateGroundAtlasEvent;
+
+import com.google.inject.Inject;
 
 /**
  * @author Benoît
@@ -32,13 +36,11 @@ public class ToolManager {
 
 	private static double delay = 0;
 	private static long lastAction = 0;
-	private static Sower sower = new Sower();
+	private static Sower sower;
 	
-	private ToolManager() {
-
-	}
-
-	static {
+	@Inject
+	public ToolManager(BuilderManager builderManager, ModelManager modelManager, MapArtisanManager mapArtisanManager) {
+		ToolManager.sower = new Sower(builderManager, modelManager, mapArtisanManager);
 		setHeightTool(new HeightTool());
 		setCliffTool(new CliffTool());
 		setAtlasTool(new AtlasTool());
@@ -51,47 +53,47 @@ public class ToolManager {
 		new Thread(sower).start();
 	}
 
-	public static void setCliffTool() {
+	public void setCliffTool() {
 		actualTool = cliffTool;
 		EventManager.post(new SetToolEvent());
 	}
 
-	public static void setHeightTool() {
+	public void setHeightTool() {
 		actualTool = heightTool;
 		EventManager.post(new SetToolEvent());
 	}
 
-	public static void setAtlasTool() {
+	public void setAtlasTool() {
 		actualTool = atlasTool;
 		EventManager.post(new SetToolEvent());
 	}
 
-	public static void setRampTool() {
+	public void setRampTool() {
 		actualTool = rampTool;
 		EventManager.post(new SetToolEvent());
 	}
 
-	public static void setUnitTool() {
+	public void setUnitTool() {
 		actualTool = unitTool;
 		EventManager.post(new SetToolEvent());
 	}
 
-	public static void setTrinketTool() {
+	public void setTrinketTool() {
 		actualTool = trinketTool;
 		EventManager.post(new SetToolEvent());
 	}
 
-	public static void toggleSet() {
+	public void toggleSet() {
 		if (actualTool.hasSet()) {
 			actualTool.getSet().toggle();
 		}
 	}
 
-	public static void toggleOperation() {
+	public void toggleOperation() {
 		actualTool.toggleOperation();
 	}
 
-	public static void analogPrimaryAction() {
+	public void analogPrimaryAction() {
 		if (actualTool.isAnalog()) {
 			if (lastAction + delay < System.currentTimeMillis()) {
 				lastAction = System.currentTimeMillis();
@@ -100,13 +102,13 @@ public class ToolManager {
 		}
 	}
 
-	public static void primaryAction() {
+	public void primaryAction() {
 		if (!actualTool.isAnalog()) {
 			actualTool.primaryAction();
 		}
 	}
 
-	public static void analogSecondaryAction() {
+	public void analogSecondaryAction() {
 		if (actualTool.isAnalog()) {
 			if (lastAction + delay < System.currentTimeMillis()) {
 				lastAction = System.currentTimeMillis();
@@ -115,13 +117,13 @@ public class ToolManager {
 		}
 	}
 
-	public static void secondaryAction() {
+	public void secondaryAction() {
 		if (!actualTool.isAnalog()) {
 			actualTool.secondaryAction();
 		}
 	}
 
-	public static void toggleSower(){
+	public void toggleSower(){
 		synchronized (sower) {
 			if(sower.isPaused()){
 				sower.unpause();
@@ -131,25 +133,25 @@ public class ToolManager {
 		}
 	}
 
-	public static void stepSower(){
+	public void stepSower(){
 		if(sower.isPaused()){
 			sower.stepByStep();
 		}
 	}
 	
-	public static void killSower(){
+	public void killSower(){
 		sower.destroy();
 	}
 	
-	public static void updateGroundAtlas() {
+	public void updateGroundAtlas() {
 		EventManager.post(new UpdateGroundAtlasEvent());
 	}
 
-	public static void updatePencilsPos(Point2D pos) {
+	public void updatePencilsPos(Point2D pos) {
 		actualTool.pencil.setPos(pos);
 	}
 
-	public static void releasePencils() {
+	public void releasePencils() {
 		actualTool.pencil.release();
 	}
 
@@ -157,51 +159,51 @@ public class ToolManager {
 		return pointedSpatialLabel;
 	}
 
-	public static void setPointedSpatialLabel(String pointedSpatialLabel) {
+	public void setPointedSpatialLabel(String pointedSpatialLabel) {
 		ToolManager.pointedSpatialLabel = pointedSpatialLabel;
 	}
 
-	public static long getPointedSpatialEntityId() {
+	public long getPointedSpatialEntityId() {
 		return pointedSpatialEntityId;
 	}
 
-	public static void setPointedSpatialEntityId(long pointedSpatialEntityId) {
+	public void setPointedSpatialEntityId(long pointedSpatialEntityId) {
 		ToolManager.pointedSpatialEntityId = pointedSpatialEntityId;
 	}
 
-	public static Tool getActualTool() {
+	public Tool getActualTool() {
 		return actualTool;
 	}
 	
-	public static CliffTool getCliffTool() {
+	public CliffTool getCliffTool() {
 		return cliffTool;
 	}
 
-	public static void setCliffTool(CliffTool cliffTool) {
+	public void setCliffTool(CliffTool cliffTool) {
 		ToolManager.cliffTool = cliffTool;
 	}
 
-	public static RampTool getRampTool() {
+	public RampTool getRampTool() {
 		return rampTool;
 	}
 
-	public static void setRampTool(RampTool rampTool) {
+	public void setRampTool(RampTool rampTool) {
 		ToolManager.rampTool = rampTool;
 	}
 
-	public static HeightTool getHeightTool() {
+	public HeightTool getHeightTool() {
 		return heightTool;
 	}
 
-	public static void setHeightTool(HeightTool heightTool) {
+	public void setHeightTool(HeightTool heightTool) {
 		ToolManager.heightTool = heightTool;
 	}
 
-	public static AtlasTool getAtlasTool() {
+	public AtlasTool getAtlasTool() {
 		return atlasTool;
 	}
 
-	public static void setAtlasTool(AtlasTool atlasTool) {
+	public void setAtlasTool(AtlasTool atlasTool) {
 		ToolManager.atlasTool = atlasTool;
 	}
 }

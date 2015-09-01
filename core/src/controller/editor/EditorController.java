@@ -6,6 +6,8 @@ package controller.editor;
 
 import geometry.geom2d.Point2D;
 import model.ModelManager;
+import model.battlefield.army.ArmyManager;
+import model.builders.entity.definitions.BuilderManager;
 import model.editor.ToolManager;
 import view.EditorView;
 import view.camera.IsometricCamera;
@@ -36,6 +38,18 @@ public class EditorController extends Controller {
 	// protected EditorInputInterpreter inputInterpreter;
 
 	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private ArmyManager armyManager;
+	
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
+	private ToolManager toolManager;
+	
+	@Inject
 	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController, InputManager inputManager, Camera cam,
 			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter, Injector injector) {
 		super(view, inputManager, cam,injector);
@@ -47,14 +61,14 @@ public class EditorController extends Controller {
 	@Override
 	public void update(float elapsedTime) {
 		//        screenCoord = Translator.toPoint2D(im.getCursorPosition());
-		ToolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
-		ToolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
+		toolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
+		toolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
 		if(view.editorRend != null){
 			Point2D coord = spatialSelector.getCoord(view.editorRend.gridNode);
 			if (coord != null &&
 					ModelManager.battlefieldReady &&
-					ModelManager.getBattlefield().getMap().isInBounds(coord)) {
-				ToolManager.updatePencilsPos(coord);
+					modelManager.getBattlefield().getMap().isInBounds(coord)) {
+				toolManager.updatePencilsPos(coord);
 				view.editorRend.drawPencil();
 			}
 		}
@@ -68,8 +82,8 @@ public class EditorController extends Controller {
 		inputManager.setCursorVisible(true);
 		//		view.getRootNode().attachChild(view.editorRend.mainNode);
 		guiController.activate();
-		if (ModelManager.getBattlefield() != null) {
-			ModelManager.getBattlefield().getEngagement().reset();
+		if (modelManager.getBattlefield() != null) {
+			modelManager.getBattlefield().getEngagement().reset(armyManager, builderManager);
 		}
 		inputInterpreter.registerInputs(inputManager);
 
@@ -79,7 +93,7 @@ public class EditorController extends Controller {
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		ModelManager.getBattlefield().getEngagement().save();
+		modelManager.getBattlefield().getEngagement().save(armyManager);
 		super.stateDetached(stateManager);
 		view.getRootNode().detachChild(view.editorRend.mainNode);
 		EventManager.unregister(this);
@@ -87,7 +101,7 @@ public class EditorController extends Controller {
 
 	@Subscribe
 	public void manageEvent(BattleFieldUpdateEvent ev) {
-		((IsometricCamera)camera).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2);
+		((IsometricCamera)camera).move(modelManager.getBattlefield().getMap().xSize() / 2, modelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 }

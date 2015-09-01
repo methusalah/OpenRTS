@@ -14,6 +14,10 @@ import geometry.math.RandomUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.MapArtisanManager;
+
+import com.google.inject.Inject;
+
 import model.ModelManager;
 import model.battlefield.map.Tile;
 
@@ -49,6 +53,12 @@ public class Pencil {
 	
 	private PerlinNoise perlin;
 
+	
+	@Inject
+	private ModelManager modelManager;
+
+	
+	@Inject
 	public Pencil() {
 		perlin = new PerlinNoise();
 	}
@@ -175,7 +185,7 @@ public class Pencil {
 	}
 
 	public Tile getCenterTile() {
-		return ModelManager.getBattlefield().getMap().get(getContainerTilePos());
+		return modelManager.getBattlefield().getMap().get(getContainerTilePos());
 	}
 
 	private Point2D getContainerTilePos() {
@@ -216,8 +226,8 @@ public class Pencil {
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(center);
-				if (ModelManager.getBattlefield().getMap().isInBounds(p) && circle.contains(new Point2D(Math.floor(p.getX()), Math.floor(p.getY())))) {
-					res.add(ModelManager.getBattlefield().getMap().get(p));
+				if (modelManager.getBattlefield().getMap().isInBounds(p) && circle.contains(new Point2D(Math.floor(p.getX()), Math.floor(p.getY())))) {
+					res.add(modelManager.getBattlefield().getMap().get(p));
 				}
 			}
 		}
@@ -237,8 +247,8 @@ public class Pencil {
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(center);
-				if (ModelManager.getBattlefield().getMap().isInBounds(p) && quad.hasInside(new Point2D(Math.floor(p.getX()), Math.floor(p.getY())))) {
-					res.add(ModelManager.getBattlefield().getMap().get(p));
+				if (modelManager.getBattlefield().getMap().isInBounds(p) && quad.hasInside(new Point2D(Math.floor(p.getX()), Math.floor(p.getY())))) {
+					res.add(modelManager.getBattlefield().getMap().get(p));
 				}
 			}
 		}
@@ -270,7 +280,7 @@ public class Pencil {
 	}
 
 	public double getElevation() {
-		return ModelManager.getBattlefield().getMap().get(getContainerTilePos()).getElevation();
+		return modelManager.getBattlefield().getMap().get(getContainerTilePos()).getElevation();
 	}
 
 	private double getEccentricity(Point2D p) {

@@ -13,6 +13,8 @@ import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -38,6 +40,13 @@ public class ProjectileBuilder extends Builder {
 	private Projectile.PRECISION_TYPE precisionType;
 	private double precision;
 
+	@Inject
+	private ArmyManager armyManager;
+	
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	public ProjectileBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
@@ -76,14 +85,14 @@ public class ProjectileBuilder extends Builder {
 
 	public Projectile build(EffectSource source, EffectTarget target, Point3D targetPoint) {
 		Projectile res = new Projectile(radius, speed, acceleration, 1000, mass, source, moverBuilder, precisionType, precision, actorBuilder, target, targetPoint);
-		ArmyManager.registerProjectile(res);
+		armyManager.registerProjectile(res);
 		return res;
 	}
 
 	@Override
 	public void readFinalizedLibrary() {
-		moverBuilder = BuilderManager.getMoverBuilder(moverLink);
-		actorBuilder = (ModelActorBuilder) BuilderManager.getActorBuilder(actorLink);
+		moverBuilder = builderManager.getMoverBuilder(moverLink);
+		actorBuilder = (ModelActorBuilder) builderManager.getActorBuilder(actorLink);
 	}
 
 }

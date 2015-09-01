@@ -58,10 +58,6 @@ public class ServerConfigState extends AppStateCommon {
 	
 	ScrollArea mapInfo
 	
-	
-
-	protected static String mapfilename = "assets/maps/test.btf";
-	
 
 	@Inject
 	Injector injector
@@ -174,6 +170,8 @@ public class ServerConfigState extends AppStateCommon {
 				
 				String mapDescription = "You selected Map : " + item.caption + "\n"
 				mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
+				mapDescription += "Faction: "
+				
 				mapInfo.setText(mapDescription);
 				
 				logger.info("element is selected: " + selectedIndexes)

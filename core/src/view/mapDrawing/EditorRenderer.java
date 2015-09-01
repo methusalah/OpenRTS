@@ -12,6 +12,7 @@ import model.battlefield.map.Tile;
 import model.battlefield.map.parcelling.Parcel;
 import model.editor.Pencil;
 import model.editor.ToolManager;
+import util.MapArtisanManager;
 import view.EditorView;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
@@ -53,12 +54,18 @@ public class EditorRenderer {
 	protected MaterialManager materialManager;
 
 	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private ToolManager toolManager;
+	
+	@Inject
 	public EditorRenderer(MaterialManager materialManager) {
 		this.materialManager = materialManager;
 		EventManager.register(this);
 
-		if(ModelManager.getBattlefield() != null) {
-			for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
+		if(modelManager.getBattlefield() != null) {
+			for (Parcel parcel : modelManager.getBattlefield().getMap().getParcelling().getAll()) {
 				GridMesh grid = new GridMesh(parcel);
 				gridMeshes.put(parcel, grid);
 
@@ -155,21 +162,21 @@ public class EditorRenderer {
 	}
 
 	public void drawPencil() {
-		if (ToolManager.getActualTool() == ToolManager.getCliffTool() || ToolManager.getActualTool() == ToolManager.getRampTool()) {
+		if (toolManager.getActualTool() == toolManager.getCliffTool() || toolManager.getActualTool() == toolManager.getRampTool()) {
 			drawCliffPencil();
-		} else if (ToolManager.getActualTool() == ToolManager.getHeightTool()) {
+		} else if (toolManager.getActualTool() == toolManager.getHeightTool()) {
 			drawHeightPencil();
-		} else if (ToolManager.getActualTool() == ToolManager.getAtlasTool()) {
+		} else if (toolManager.getActualTool() == toolManager.getAtlasTool()) {
 			drawAtlasPencil();
 		}
 	}
 
 	private void drawCliffPencil() {
-		List<Tile> tiles = ToolManager.getCliffTool().pencil.getTiles();
+		List<Tile> tiles = toolManager.getCliffTool().pencil.getTiles();
 		int index = 0;
 		for (Spatial s : CliffPencilNode.getChildren()) {
 			if (index < tiles.size()) {
-				s.setLocalTranslation(TranslateUtil.toVector3f(tiles.get(index).getCoord(), (float) ToolManager.getCliffTool().pencil.getElevation() + 0.1f));
+				s.setLocalTranslation(TranslateUtil.toVector3f(tiles.get(index).getCoord(), (float) toolManager.getCliffTool().pencil.getElevation() + 0.1f));
 			} else {
 				s.setLocalTranslation(new Vector3f(-1000, -1000, 0));
 			}
@@ -178,7 +185,7 @@ public class EditorRenderer {
 	}
 
 	private void drawHeightPencil() {
-		List<Tile> tiles = ToolManager.getHeightTool().pencil.getNodes();
+		List<Tile> tiles = toolManager.getHeightTool().pencil.getNodes();
 		int index = 0;
 		for (Spatial s : HeightPencilNode.getChildren()) {
 			if (index < tiles.size()) {
@@ -197,9 +204,9 @@ public class EditorRenderer {
 	}
 
 	private void drawAtlasPencil() {
-		Pencil s = ToolManager.getActualTool().pencil;
+		Pencil s = toolManager.getActualTool().pencil;
 		PointRing pr = new PointRing();
-		Point2D center = ToolManager.getActualTool().pencil.getCoord();
+		Point2D center = toolManager.getActualTool().pencil.getCoord();
 
 		if (s.shape == Pencil.SHAPE.Square || s.shape == Pencil.SHAPE.Diamond) {
 			for (double i = -s.size / 2; i < s.size / 2; i += QUAD_PENCIL_SAMPLE_LENGTH) {
@@ -230,10 +237,10 @@ public class EditorRenderer {
 
 		int index = 0;
 		for (Spatial spatial : AtlasPencilNode.getChildren()) {
-			if (index < pr.size() && ModelManager.getBattlefield().getMap().isInBounds(pr.get(index))
-					&& ModelManager.getBattlefield().getMap().isInBounds(pr.getNext(index))) {
-				Point3D start = pr.get(index).get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pr.get(index)) + 0.1);
-				Point3D end = pr.getNext(index).get3D(ModelManager.getBattlefield().getMap().getAltitudeAt(pr.getNext(index)) + 0.1);
+			if (index < pr.size() && modelManager.getBattlefield().getMap().isInBounds(pr.get(index))
+					&& modelManager.getBattlefield().getMap().isInBounds(pr.getNext(index))) {
+				Point3D start = pr.get(index).get3D(modelManager.getBattlefield().getMap().getAltitudeAt(pr.get(index)) + 0.1);
+				Point3D end = pr.getNext(index).get3D(modelManager.getBattlefield().getMap().getAltitudeAt(pr.getNext(index)) + 0.1);
 				Line l = new Line(TranslateUtil.toVector3f(start), TranslateUtil.toVector3f(end));
 				l.setLineWidth(PENCIL_THICKNESS);
 				((Geometry) spatial).setMesh(l);
@@ -274,13 +281,13 @@ public class EditorRenderer {
 
 	@Subscribe
 	public void actionPerformed(SetToolEvent e) {
-		if (ToolManager.getActualTool() != ToolManager.getCliffTool() && ToolManager.getActualTool() != ToolManager.getRampTool()) {
+		if (toolManager.getActualTool() != toolManager.getCliffTool() && toolManager.getActualTool() != toolManager.getRampTool()) {
 			hideCliffPencil();
 		}
-		if (ToolManager.getActualTool() != ToolManager.getHeightTool()) {
+		if (toolManager.getActualTool() != toolManager.getHeightTool()) {
 			hideHeightPencil();
 		}
-		if (ToolManager.getActualTool() != ToolManager.getAtlasTool()) {
+		if (toolManager.getActualTool() != toolManager.getAtlasTool()) {
 			hideAtlasPencil();
 		}
 	}

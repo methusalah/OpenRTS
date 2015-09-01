@@ -3,12 +3,16 @@ package model;
 import java.io.File;
 import java.util.logging.Logger;
 
-import brainless.openrts.event.BattleFieldUpdateEvent;
-import brainless.openrts.event.EventManager;
-import util.MapArtisanUtil;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
+import model.battlefield.army.ArmyManager;
+import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefParser;
+import util.MapArtisanManager;
+import brainless.openrts.event.BattleFieldUpdateEvent;
+import brainless.openrts.event.EventManager;
+
+import com.google.inject.Inject;
 
 public class ModelManager {
 
@@ -34,55 +38,64 @@ public class ModelManager {
 		// setNewBattlefield();
 	}
 
+	@Inject
+	private MapArtisanManager mapArtisanManager;
 	
+	@Inject
+	private ArmyManager armyManager;
+	
+	@Inject
+	private BuilderManager builderManager;
+	
+	@Inject
 	ModelManager() {
 
 	}
 
-	public static void updateConfigs() {
+	public void updateConfigs() {
 		if (System.currentTimeMillis() > nextUpdate) {
 			nextUpdate = System.currentTimeMillis() + UPDATE_DELAY;
 			parser.readFiles();
 		}
 	}
 
-	public static void loadBattlefield() {
+	public void loadBattlefield() {
 		Battlefield loadedBattlefield = factory.loadWithFileChooser();
 		setBattlefield(loadedBattlefield);
 	}
 
-	public static void loadBattlefield(String file) {
+	public void loadBattlefield(String file) {
 		Battlefield loadedBattlefield = factory.load(file);
 		setBattlefield(loadedBattlefield);
 	}
 
-	public static void saveBattlefield() {
+	public void saveBattlefield() {
 		factory.save(battlefield);
 	}
 
-	public static void setNewBattlefield() {
+	public void setNewBattlefield() {
 		setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
-	static void setBattlefield(Battlefield battlefield) {
+	void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			ModelManager.battlefield = battlefield;
 			battlefieldReady = true;
-			MapArtisanUtil.act(getBattlefield().getMap());
-			getBattlefield().getEngagement().reset();
+			mapArtisanManager.act(getBattlefield().getMap());
+			getBattlefield().getEngagement().reset(armyManager, builderManager);
 			EventManager.post(new BattleFieldUpdateEvent());
 			logger.info("Done.");
 
 		}
 	}
 
-	public static void reload() {
+	public void reload() {
 		saveBattlefield();
 		Battlefield loadedBattlefield = factory.load(battlefield.getFileName());
 		setBattlefield(loadedBattlefield);
 	}
 
-	public static Battlefield getBattlefield() {
+	public Battlefield getBattlefield() {
 		if(battlefieldReady) {
 			return battlefield;
 		} else {
@@ -90,14 +103,14 @@ public class ModelManager {
 		}
 	}
 
-	public static void setBattlefieldUnavailable(){
+	public void setBattlefieldUnavailable(){
 		battlefieldReady = false;
 	}
-	public static void setBattlefieldReady(){
+	public void setBattlefieldReady(){
 		battlefieldReady = true;
 	}
 
-	public static Battlefield loadOnlyStaticValues(File file) {
+	public Battlefield loadOnlyStaticValues(File file) {
 		return factory.loadOnlyStaticValues(file);
 	}
 	

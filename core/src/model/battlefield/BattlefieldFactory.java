@@ -8,11 +8,13 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import util.MapArtisanUtil;
 import model.ModelManager;
+import model.battlefield.army.ArmyManager;
+import util.MapArtisanManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.inject.Inject;
 
 /**
  * this class serializes and deserializes a battlefield into and from files everything is translated in and from XML format, except for the texture atlas of the
@@ -23,6 +25,16 @@ public class BattlefieldFactory {
 	private static final Logger logger = Logger.getLogger(BattlefieldFactory.class.getName());
 	private static final String BATTLEFIELD_FILE_EXTENSION = "btf";
 
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	private MapArtisanManager mapArtisanManager;
+	
+	@Inject
+	private ArmyManager armyManager;
+	
+	@Inject 
 	public BattlefieldFactory() {
 	}
 
@@ -30,7 +42,7 @@ public class BattlefieldFactory {
 		logger.info("Creating new battlefield...");
 
 		Battlefield res = new Battlefield();
-		MapArtisanUtil.buildMap(res);
+		mapArtisanManager.buildMap(res);
 
 		logger.info("Loading done.");
 		return res;
@@ -68,16 +80,16 @@ public class BattlefieldFactory {
 	}
 	
 	public Battlefield load(File file) {
-		ModelManager.setBattlefieldUnavailable();
+		modelManager.setBattlefieldUnavailable();
 		Battlefield bField = loadOnlyStaticValues(file);
 
 		if (bField == null) {
 			logger.info("Load failed");
-			ModelManager.setBattlefieldReady();
+			modelManager.setBattlefieldReady();
 			return null;
 		}
 
-		MapArtisanUtil.buildMap(bField);
+		mapArtisanManager.buildMap(bField);
 
 		logger.info("   texture atlas");
 		bField.getMap().getAtlas().loadFromFile(bField.getFileName(), "atlas");
@@ -87,7 +99,7 @@ public class BattlefieldFactory {
 	}
 
 	public void save(Battlefield battlefield) {
-		battlefield.getEngagement().save();
+		battlefield.getEngagement().save(armyManager);
 		battlefield.getMap().saveTrinkets();
 
 		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally

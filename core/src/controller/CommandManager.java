@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.MapArtisanManager;
 import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.army.ArmyManager;
@@ -17,6 +18,8 @@ import model.battlefield.army.Group;
 import model.battlefield.army.Unity;
 import model.battlefield.army.components.Unit;
 import model.battlefield.army.motion.pathfinding.FlowField;
+
+import com.google.inject.Inject;
 
 /**
  * @author Benoît
@@ -28,27 +31,33 @@ public class CommandManager {
 	private static Map<String, Unity> unitiesInContext = new HashMap<>();
 	private static boolean moveAttack = false;
 	private static boolean multipleSelection = false;
-	private static final CommandManager instance = new CommandManager();
 
-	private CommandManager() {
+	@Inject
+	ArmyManager armyManager;
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
+	CommandManager() {
 	}
 
-	public static void setMoveAttack() {
+	public void setMoveAttack() {
 		moveAttack = true;
 	}
 
-	public static void setMultipleSelection(boolean val) {
+	public void setMultipleSelection(boolean val) {
 		multipleSelection = val;
 	}
 
-	public static void orderHold() {
+	public void orderHold() {
 		for (Unit u : selection) {
 			u.ai.orderHold();
 		}
 	}
 
 	// FIXME: this is the select method and not the act method, why the this method is calling act?
-	public static void select(int id, Point2D pos) {
+	public void select(int id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
@@ -66,7 +75,7 @@ public class CommandManager {
 		}
 	}
 
-	public static void select(List<Unit> units) {
+	public void select(List<Unit> units) {
 		if (!multipleSelection) {
 			unselect();
 		}
@@ -76,7 +85,7 @@ public class CommandManager {
 		moveAttack = false;
 	}
 
-	private static void changeSelection(Unit u) {
+	private void changeSelection(Unit u) {
 		if (u == null) {
 			return;
 		}
@@ -89,7 +98,7 @@ public class CommandManager {
 		}
 	}
 
-	private static void addToSelection(Unit u) {
+	private void addToSelection(Unit u) {
 		if (u == null) {
 			return;
 		}
@@ -99,7 +108,7 @@ public class CommandManager {
 		}
 	}
 
-	public static void act(int id, Point2D pos) {
+	public void act(int id, Point2D pos) {
 		if (pos == null) {
 			return;
 		}
@@ -119,8 +128,8 @@ public class CommandManager {
 		moveAttack = false;
 	}
 
-	private static void orderMove(Point2D p) {
-		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), p);
+	private void orderMove(Point2D p) {
+		FlowField ff = new FlowField(modelManager.getBattlefield().getMap(), p);
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {
@@ -131,8 +140,8 @@ public class CommandManager {
 		}
 	}
 
-	private static void orderAttack(Unit enemy) {
-		FlowField ff = new FlowField(ModelManager.getBattlefield().getMap(), enemy.getCoord());
+	private void orderAttack(Unit enemy) {
+		FlowField ff = new FlowField(modelManager.getBattlefield().getMap(), enemy.getCoord());
 		for (Unit u : selection) {
 			u.getMover().setDestination(ff);
 			if (moveAttack) {
@@ -144,28 +153,28 @@ public class CommandManager {
 		}
 	}
 
-	private static void unselect() {
+	private void unselect() {
 		for (Unit u : selection) {
 			u.selected = false;
 		}
 		selection.clear();
 	}
 
-	private static Unit getUnit(int id) {
+	private Unit getUnit(int id) {
 		if (EntityManager.isValidId(id)) {
-			return ArmyManager.getUnit(id);
+			return armyManager.getUnit(id);
 		}
 		return null;
 	}
 
-	public static void selectAll() {
+	public void selectAll() {
 		unselect();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			changeSelection(u);
 		}
 	}
 
-	public static void createContextualUnities(List<Unit> units) {
+	public void createContextualUnities(List<Unit> units) {
 		unitiesInContext.clear();
 		for (Unit u : units) {
 			if (!unitiesInContext.containsKey(u.UIName)) {
@@ -175,18 +184,18 @@ public class CommandManager {
 		}
 	}
 
-	public static void selectUnityInContext(Unity unityID) {
+	public void selectUnityInContext(Unity unityID) {
 		selectUnitInContext(unityID.UIName);
 	}
 
-	public static void selectUnitInContext(int unitID) {
+	public void selectUnitInContext(int unitID) {
 		Unit target = getUnit(unitID);
 		if (target != null) {
 			selectUnitInContext(target.UIName);
 		}
 	}
 
-	public static void selectUnitInContext(String id) {
+	public void selectUnitInContext(String id) {
 		if (!multipleSelection) {
 			unselect();
 		}
@@ -197,7 +206,7 @@ public class CommandManager {
 		}
 	}
 
-	public static ArrayList<Unity> getUnitiesInContext() {
+	public List<Unity> getUnitiesInContext() {
 		ArrayList<Unity> res = new ArrayList<>();
 		for (Unity unity : unitiesInContext.values()) {
 			res.add(unity);
@@ -205,8 +214,5 @@ public class CommandManager {
 		return res;
 	}
 
-	public static CommandManager getInstance() {
-		return instance;
-	}
 
 }

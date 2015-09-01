@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import model.ModelManager;
 import view.math.TranslateUtil;
 
+import com.google.inject.Inject;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -35,6 +36,11 @@ public class GroundCamera extends Camera {
 	private Point3D pos;
 	private Quaternion rotation;
 
+	
+	@Inject
+	private ModelManager modelManager;
+	
+	@Inject
 	public GroundCamera(com.jme3.renderer.Camera cam) {
 		super(cam);
 		pos = new Point3D(1, 1, 0);
@@ -60,8 +66,8 @@ public class GroundCamera extends Camera {
 	}
 
 	private void placeCam(){
-		if (ModelManager.getBattlefield().getMap().isInBounds(pos.get2D())) {
-			pos.z = ModelManager.getBattlefield().getMap().getAltitudeAt(pos.get2D()) + 0.5;
+		if (modelManager.getBattlefield().getMap().isInBounds(pos.get2D())) {
+			pos.z = modelManager.getBattlefield().getMap().getAltitudeAt(pos.get2D()) + 0.5;
 		} else {
 			pos.z = 0;
 		}
