@@ -230,4 +230,13 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		stateManager.attach(client);
 	}
 
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		this.stop();
+	}
+	
+	
+
 }
