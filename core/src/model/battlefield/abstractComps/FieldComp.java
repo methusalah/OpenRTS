@@ -22,7 +22,7 @@ public class FieldComp {
 	protected double roll = 0;
 	protected double pitch = 0;
 	protected double yaw = 0;
-	private final long id;
+	private final int id;
 
 	private Point3D direction;
 	private Point3D upDirection = Point3D.UNIT_Z;
@@ -77,7 +77,7 @@ public class FieldComp {
 		return getBounds().collide(o.getBounds());
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
