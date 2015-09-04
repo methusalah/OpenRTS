@@ -6,7 +6,7 @@ class Game {
 	File file
 	
 	State state = State.OPEN
-	List<Player> players
+	List<Player> players = []
 	
 	
 	enum State {

@@ -22,6 +22,7 @@ import brainless.openrts.app.example.states.LoadingMapState
 import brainless.openrts.app.example.states.ServerConfigState
 import brainless.openrts.app.example.states.UserLoginAppState
 import brainless.openrts.model.Game
+import brainless.openrts.model.Player
 
 import com.google.inject.Module
 import com.jme3.font.BitmapFont
@@ -194,7 +195,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
 		serverConfig = injector.getInstance(ServerConfigState.class);
-		game.players.first().name = user;
+		game.players.add(new Player(name: user));
 //		states.add(serverConfig);
 		stateManager.attach(serverConfig);
 	}
