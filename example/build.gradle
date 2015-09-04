@@ -18,8 +18,8 @@ dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
     compile project(':core')
     compile 'org.codehaus.groovy:groovy-all:2.3.10'
-    compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
-    compile 'com.github.brainless-studios:tonegodgui-test:-SNAPSHOT'
+    compile 'com.github.brainless-studios:tonegodgui:92f4924bce'
+    compile 'com.github.brainless-studios:tonegodgui-test:c0dd91c1fd'
 }
 
 sourceSets {
