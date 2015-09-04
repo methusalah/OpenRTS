@@ -17,7 +17,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ServerLogicAppState extends AbstractAppState {
 	
-	 Map<Integer,String> loggedInPlayer
+	 Map<Integer,String> loggedInPlayer = [:]
 	
 	ServerLogicAppState(ServerMain app){
 	}
