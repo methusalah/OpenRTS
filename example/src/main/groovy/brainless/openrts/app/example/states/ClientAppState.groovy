@@ -48,7 +48,6 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-		Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
 		
 	};
 
@@ -63,6 +62,7 @@ public class ClientAppState extends AbstractAppState {
 
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
+		Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
 		super.stateAttached(stateManager);
 		try {
 			networkClient = Network.connectToServer(gameName, version, host, 6143);
