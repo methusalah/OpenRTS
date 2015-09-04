@@ -6,12 +6,14 @@ import com.jme3.network.serializing.Serializable;
 public class Player {
 
 	String name;
+	Integer id;
 
 	public Player() {
 	}
 
-	public Player(String name) {
+	public Player(String name, Integer id) {
 		this.name = name;
+		this.name = id;
 	}
 
 }

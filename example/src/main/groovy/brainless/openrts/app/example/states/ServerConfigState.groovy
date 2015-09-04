@@ -59,6 +59,7 @@ public class ServerConfigState extends AppStateCommon {
 	ScrollArea mapInfo
 	
 	
+	
 
 	protected static String mapfilename = "assets/maps/test.btf";
 	
@@ -97,7 +98,7 @@ public class ServerConfigState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.players.first().name);
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.mySelf.name,main.game.mySelf.id);
 							EventManager.post(evt1);
 							System.exit(0);
 						}

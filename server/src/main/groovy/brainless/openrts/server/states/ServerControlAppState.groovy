@@ -11,6 +11,7 @@ import tonegod.gui.controls.scrolling.ScrollArea
 import tonegod.gui.controls.windows.Panel
 import tonegod.gui.core.Screen
 import tonegod.gui.core.layouts.FlowLayout
+import brainless.openrts.event.ClientDisconnectedEvent
 import brainless.openrts.event.ClientLoggedOutEvent
 import brainless.openrts.event.ClientTrysToLoginEvent
 import brainless.openrts.event.EventManager
@@ -130,5 +131,11 @@ class ServerControlAppState extends AbstractAppState {
 	@Subscribe
 	def logSeverEvents(ClientLoggedOutEvent evt) {
 		users.removeListItem(evt.user)
+	}
+	
+	@Subscribe
+	def logSeverEvents(ClientDisconnectedEvent evt) {
+		EventManager.post(new ClientLoggedOutEvent())
+		users.removeListItem(evt.id)
 	}
 }

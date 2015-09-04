@@ -21,6 +21,7 @@ import com.jme3.app.state.AppStateManager
 import com.jme3.network.Client
 import com.jme3.network.Network
 import com.jme3.network.serializing.Serializer
+import brainless.openrts.model.Player
 
 import exception.TechnicalException
 import groovy.transform.CompileStatic
@@ -48,20 +49,6 @@ public class ClientAppState extends AbstractAppState {
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
 		Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
-
-		try {
-			networkClient = Network.connectToServer(gameName, version, host, 6143);
-		} catch (IOException e) {
-			throw new TechnicalException(e.getLocalizedMessage());
-		}
-		networkClient.addClientStateListener(new ClientStateListener());
-		networkClient.addMessageListener(new MessageListener(), AckEvent.class);
-
-		networkClient.start();
-		waitUntilClientIsConnected(10);
-		EventManager.register(this);
-		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.game.players.first().name);
-		EventManager.post(evt1);
 		
 	};
 
@@ -77,9 +64,21 @@ public class ClientAppState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-//		if (networkClient != null) {
-//			networkClient.start();
-//		}
+		try {
+			networkClient = Network.connectToServer(gameName, version, host, 6143);
+		} catch (IOException e) {
+			throw new TechnicalException(e.getLocalizedMessage());
+		}
+		networkClient.addClientStateListener(new ClientStateListener());
+		networkClient.addMessageListener(new MessageListener(), AckEvent.class);
+
+		networkClient.start();
+		waitUntilClientIsConnected(10);
+		EventManager.register(this);
+		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.localUser, networkClient.getId());
+		EventManager.post(evt1);
+		main.game.players.add(new Player(main.localUser,networkClient.getId()))
+		main.game.mySelf = new Player(main.localUser, networkClient.getId());
 	}
 
 	@Override
