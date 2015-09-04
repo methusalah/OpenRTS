@@ -1,5 +1,6 @@
 package brainless.openrts.server.states
 
+import brainless.openrts.event.ClientDisconnectedEvent;
 import brainless.openrts.event.ClientLoggedOutEvent;
 import brainless.openrts.event.ClientTrysToLoginEvent;
 import brainless.openrts.event.EventManager
@@ -29,12 +30,18 @@ class ServerLogicAppState extends AbstractAppState {
 	
 	@Subscribe
 	def logSeverEvents(ClientTrysToLoginEvent evt) {
-		loggedInPlayer.put(evt.getId(), evt.getUser())
+		loggedInPlayer.put(evt.connectionId, evt.getUser())
 	}
 	
 	@Subscribe
 	def logSeverEvents(ClientLoggedOutEvent evt) {
 		loggedInPlayer.remove(evt.getId())
+	}
+	
+	@Subscribe
+	def logSeverEvents(ClientDisconnectedEvent evt) {
+		EventManager.post(new ClientLoggedOutEvent(evt.id, loggedInPlayer.get(evt.id)))
+		loggedInPlayer.remove(evt.id)
 	}
 	
 

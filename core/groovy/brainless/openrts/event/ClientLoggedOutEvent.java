@@ -14,7 +14,7 @@ public class ClientLoggedOutEvent extends NetworkEvent{
 	
 	}
 	
-	public ClientLoggedOutEvent(String user, Integer id) {
+	public ClientLoggedOutEvent(Integer id, String user) {
 		this.user = user;
 
 	}

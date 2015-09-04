@@ -133,9 +133,5 @@ class ServerControlAppState extends AbstractAppState {
 		users.removeListItem(evt.user)
 	}
 	
-	@Subscribe
-	def logSeverEvents(ClientDisconnectedEvent evt) {
-		EventManager.post(new ClientLoggedOutEvent())
-		users.removeListItem(evt.id)
-	}
+	
 }
