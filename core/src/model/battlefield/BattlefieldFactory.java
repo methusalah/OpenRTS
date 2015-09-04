@@ -25,8 +25,8 @@ public class BattlefieldFactory {
 	private static final Logger logger = Logger.getLogger(BattlefieldFactory.class.getName());
 	private static final String BATTLEFIELD_FILE_EXTENSION = "btf";
 
-	@Inject
-	private ModelManager modelManager;
+//	@Inject
+//	private ModelManager modelManager;
 	
 	@Inject
 	private MapArtisanManager mapArtisanManager;
@@ -80,12 +80,12 @@ public class BattlefieldFactory {
 	}
 	
 	public Battlefield load(File file) {
-		modelManager.setBattlefieldUnavailable();
+//		modelManager.setBattlefieldUnavailable();
 		Battlefield bField = loadOnlyStaticValues(file);
 
 		if (bField == null) {
 			logger.info("Load failed");
-			modelManager.setBattlefieldReady();
+//			modelManager.setBattlefieldReady();
 			return null;
 		}
 

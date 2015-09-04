@@ -24,6 +24,7 @@ import model.ModelManager;
 import brainless.openrts.util.FileUtil;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 /**
  * @author Benoît
@@ -32,13 +33,17 @@ public class DefParser {
 	private static final String ID = "id";
 	Map<File, Long> filesAndTimers = new HashMap<>();
 	List<File> filesToRead = new ArrayList<>();
+	@Inject
+	private Injector injector;
 	
 	
 	@Inject
 	private BuilderManager builderManager;
 	
 	@Inject
-	public DefParser(String path) {
+	public DefParser() {}
+	
+	public void setPath(String path) {
 		List<File> filesAndDir = FileUtil.getFilesInDirectory(path, "xml");
 		while (!filesAndDir.isEmpty()) {
 			ArrayList<File> toAdd = new ArrayList<>();
@@ -122,7 +127,9 @@ public class DefParser {
 				throw new RuntimeException("At line " + event.getLocation().getLineNumber() + ", problem with definition '" + elementName
 						+ "'. The first attribute of a definition must be called '" + ID + "'.");
 			}
-			def = new Definition(elementName, id.getValue());
+			def = injector.getInstance(Definition.class);
+			def.setType(elementName);
+			def.setId(id.getValue());
 			// LogUtil.logger.info("def cree "+def.type+" - "+def.id);
 		} else {
 			DefElement de = new DefElement(elementName);

@@ -17,6 +17,8 @@ import model.battlefield.map.cliff.faces.manmade.SalientManmadeFace;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -34,6 +36,7 @@ public class ManmadeFaceBuilder extends Builder {
 	private List<String> salients = new ArrayList<>();
 	private List<String> corners = new ArrayList<>();
 
+	@Inject
 	public ManmadeFaceBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {

@@ -15,6 +15,8 @@ import model.battlefield.map.cliff.faces.natural.NaturalFace;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  *
  * @author Benoît
@@ -46,6 +48,7 @@ public class NaturalFaceBuilder extends Builder{
 	private String texturePath;
 	private String style;
 
+	@Inject
 	public NaturalFaceBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {

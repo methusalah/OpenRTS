@@ -13,6 +13,7 @@ import brainless.openrts.event.BattleFieldUpdateEvent;
 import brainless.openrts.event.EventManager;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public class ModelManager {
 
@@ -24,19 +25,12 @@ public class ModelManager {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 32;
 
-	private static final BattlefieldFactory factory;
+	private BattlefieldFactory factory;
 
-	private static Battlefield battlefield;
-	private final static DefParser parser;
+	private Battlefield battlefield;
+	private DefParser parser;
 	private static double nextUpdate = 0;
 	public static boolean battlefieldReady = true;
-
-	static {
-		parser = new DefParser(CONFIG_PATH);
-
-		factory = new BattlefieldFactory();
-		// setNewBattlefield();
-	}
 
 	@Inject
 	private MapArtisanManager mapArtisanManager;
@@ -48,8 +42,10 @@ public class ModelManager {
 	private BuilderManager builderManager;
 	
 	@Inject
-	ModelManager() {
-
+	ModelManager(DefParser defParser, BattlefieldFactory factory) {
+		parser = defParser;
+		parser.setPath(CONFIG_PATH);
+		this.factory = factory;
 	}
 
 	public void updateConfigs() {
@@ -79,7 +75,7 @@ public class ModelManager {
 
 	void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
-			ModelManager.battlefield = battlefield;
+			this.battlefield = battlefield;
 			battlefieldReady = true;
 			mapArtisanManager.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset(armyManager, builderManager);

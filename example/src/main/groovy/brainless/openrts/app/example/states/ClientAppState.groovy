@@ -59,6 +59,7 @@ public class ClientAppState extends AbstractAppState {
 
 		networkClient.start();
 		waitUntilClientIsConnected(10);
+		
 		EventManager.register(this);
 		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.game.players.first().name);
 		EventManager.post(evt1);

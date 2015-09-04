@@ -9,6 +9,8 @@ import model.battlefield.army.components.Unit;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -30,6 +32,7 @@ public class TurretBuilder extends Builder {
 	private String boneName;
 	private String boneAxis = "Y";
 
+	@Inject
 	public TurretBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {

@@ -6,23 +6,26 @@ package model.builders.entity.definitions;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
 public class Definition {
-	private final String id;
-	private final String type;
+	private String id;
+	private String type;
 
 	// private boolean upToDate = true;
 
 	private List<DefElement> elements = new ArrayList<>();
 
-
+	@Inject
 	public Definition(String type, String id) {
 		this.type = type;
 		this.id = id;
 	}
 
+	
 //	public Definition(Definition other) {
 //		this.id = other.getId();
 //		type = other.getType();
@@ -70,6 +73,16 @@ public class Definition {
 
 	public List<DefElement> getElements() {
 		return elements;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

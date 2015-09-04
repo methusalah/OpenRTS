@@ -58,7 +58,9 @@ public class ServerConfigState extends AppStateCommon {
 	
 	ScrollArea mapInfo
 	
-
+	@Inject
+	ModelManager modelManager
+	
 	@Inject
 	Injector injector
 
@@ -164,7 +166,7 @@ public class ServerConfigState extends AppStateCommon {
 				mapInfo.removeAllChildren();
 				ListItem item = selectedListItems.first()
 				File file = (File) item.value
-				Battlefield bfd = ModelManager.loadOnlyStaticValues(file)
+				Battlefield bfd = modelManager.loadOnlyStaticValues(file)
 				
 				main.game.file = file
 				

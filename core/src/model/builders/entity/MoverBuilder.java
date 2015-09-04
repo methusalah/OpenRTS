@@ -33,50 +33,50 @@ public class MoverBuilder extends Builder {
 	private Mover.Heightmap heightmap;
 	private Mover.StandingMode standingMode = StandingMode.STAND;
 
-	 @Inject
-	 private ModelManager modelManager;
-	
+	@Inject
+	private ModelManager modelManager;
+
 	@Inject
 	public MoverBuilder(Definition def) {
 		super(def);
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
-				case PATHFINDING_MODE:
-					switch (de.getVal()) {
-						case FLY:
-							pathfindingMode = Mover.PathfindingMode.FLY;
-							break;
-						case WALK:
-							pathfindingMode = Mover.PathfindingMode.WALK;
-							break;
-					}
+			case PATHFINDING_MODE:
+				switch (de.getVal()) {
+				case FLY:
+					pathfindingMode = Mover.PathfindingMode.FLY;
 					break;
-				case HEIGHTMAP:
-					switch (de.getVal()) {
-						case SKY:
-							heightmap = Mover.Heightmap.SKY;
-							break;
-						case GROUND:
-							heightmap = Mover.Heightmap.GROUND;
-							break;
-					}
+				case WALK:
+					pathfindingMode = Mover.PathfindingMode.WALK;
 					break;
-				case STANDING_MODE:
-					switch (de.getVal()) {
-						case STAND:
-							standingMode = Mover.StandingMode.STAND;
-							break;
-						case PRONE:
-							standingMode = Mover.StandingMode.PRONE;
-							break;
-					}
+				}
+				break;
+			case HEIGHTMAP:
+				switch (de.getVal()) {
+				case SKY:
+					heightmap = Mover.Heightmap.SKY;
 					break;
+				case GROUND:
+					heightmap = Mover.Heightmap.GROUND;
+					break;
+				}
+				break;
+			case STANDING_MODE:
+				switch (de.getVal()) {
+				case STAND:
+					standingMode = Mover.StandingMode.STAND;
+					break;
+				case PRONE:
+					standingMode = Mover.StandingMode.PRONE;
+					break;
+				}
+				break;
 			}
 		}
 	}
 
 	public Mover build(Hiker movable) {
-		Mover res = new Mover(heightmap, pathfindingMode, standingMode, movable, modelManager);
+		Mover res = new Mover(heightmap, pathfindingMode, standingMode,movable, modelManager);
 		return res;
 	}
 

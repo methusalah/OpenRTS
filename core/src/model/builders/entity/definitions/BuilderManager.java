@@ -91,23 +91,23 @@ public class BuilderManager {
 
 		switch (def.getType()) {
 			case UNIT:
-				typed.put(def.getId(), new UnitBuilder(def));
+				typed.put(def.getId(), injector.getInstance(UnitBuilder.class));
 				break;
 			case MOVER:
-				typed.put(def.getId(), new MoverBuilder(def));
+				typed.put(def.getId(), injector.getInstance(MoverBuilder.class));
 				break;
 			case WEAPON:
-				typed.put(def.getId(), new WeaponBuilder(def));
+				typed.put(def.getId(), injector.getInstance( WeaponBuilder.class));
 				break;
 			case TURRET:
-				typed.put(def.getId(), new TurretBuilder(def));
+				typed.put(def.getId(), injector.getInstance(TurretBuilder.class));
 				break;
 			case EFFECT:
 				EffectBuilder effectBuilder = injector.getInstance(EffectBuilder.class);
-				typed.put(def.getId(), new EffectBuilder(def));
+				typed.put(def.getId(), effectBuilder);
 				break;
 			case PROJECTILE:
-				typed.put(def.getId(), new ProjectileBuilder(def));
+				typed.put(def.getId(), injector.getInstance(ProjectileBuilder.class));
 				break;
 			case ACTOR:
 				String actorType = def.getElement(ActorBuilder.TYPE) == null ? "" : def.getElement(ActorBuilder.TYPE).getVal();

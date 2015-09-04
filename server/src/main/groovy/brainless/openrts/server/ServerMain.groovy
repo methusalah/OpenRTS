@@ -79,7 +79,7 @@ class ServerMain extends OpenRTSServer {
 		stateManager.update(maxedTPF);
 		// view.getActorManager().render();
 		// p1.getFieldCtrl().update(maxedTPF);
-		ModelManager.updateConfigs();
+//		modelManager.updateConfigs();
 	}
 
 	def switchToServerControlAppStates() {

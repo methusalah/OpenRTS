@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import model.ModelManager;
+import model.battlefield.BattlefieldFactory;
+import model.builders.entity.definitions.DefParser;
 import model.editor.ToolManager;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;
@@ -78,6 +80,7 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		
 		
 		injector.getInstance(ModelManager.class).setNewBattlefield();
+		
 	}
 
 
@@ -89,7 +92,7 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 		listener.setRotation(cam.getRotation());
 		view.getActorManager().render();
 		actualCtrl.update(maxedTPF);
-		injector.getInstance(ModelManager.class).updateConfigs();
+//		injector.getInstance(ModelManager.class).updateConfigs();
 	}
 
 	@Override
