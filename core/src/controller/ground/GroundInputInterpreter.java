@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import brainless.openrts.event.EventManager;
 import brainless.openrts.event.client.ControllerChangeEvent;
 
+import com.google.inject.Inject;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -19,7 +20,7 @@ public class GroundInputInterpreter extends InputInterpreter {
 	protected final static String SWITCH_CTRL_2 = "ctrl2";
 	protected final static String SWITCH_CTRL_3 = "ctrl3";
 
-
+	@Inject
 	GroundInputInterpreter() {
 		super();
 		setMappings();

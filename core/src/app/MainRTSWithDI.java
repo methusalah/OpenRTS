@@ -42,42 +42,42 @@ public class MainRTSWithDI extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleInitApp() {
 		
-		bulletAppState = new BulletAppState();
-		stateManager.attach(bulletAppState);
-		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
-		// stateManager.detach(bulletAppState);
-
-//		flyCam.setUpVector(new Vector3f(0, 0, 1));
-//		flyCam.setEnabled(false);
-
-		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
-		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
-		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
-		niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
-		
-		List<Module> modules = new ArrayList<Module>();
-		modules.add(new MainGuiceModule(niftyDisplay));
-		initGuice(modules);
-
-		view = injector.getInstance(EditorView.class);
-		
-		editorCtrl = injector.getInstance(EditorController.class);
-		fieldCtrl = injector.getInstance(BattlefieldController.class);
-		groundCtrl = injector.getInstance(GroundController.class);
-
-		// fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
-		// editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
-		// groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
-		EventManager.register(this);
-
-		actualCtrl = editorCtrl;
-		stateManager.attach(actualCtrl);
-		actualCtrl.setEnabled(true);
-		guiViewPort.addProcessor(niftyDisplay);
-		
-		
-		injector.getInstance(ModelManager.class).setNewBattlefield();
+//		bulletAppState = new BulletAppState();
+//		stateManager.attach(bulletAppState);
+//		bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, 0, -1));
+//		// stateManager.detach(bulletAppState);
+//
+////		flyCam.setUpVector(new Vector3f(0, 0, 1));
+////		flyCam.setEnabled(false);
+//
+//		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+//		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
+//		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
+//		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
+//		niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
+//		
+//		List<Module> modules = new ArrayList<Module>();
+//		modules.add(new MainGuiceModule(niftyDisplay));
+//		initGuice(modules);
+//
+//		view = injector.getInstance(EditorView.class);
+//		
+//		editorCtrl = injector.getInstance(EditorController.class);
+//		fieldCtrl = injector.getInstance(BattlefieldController.class);
+//		groundCtrl = injector.getInstance(GroundController.class);
+//
+//		// fieldCtrl = new BattlefieldController(view, niftyDisplay.getNifty(), inputManager, cam);
+//		// editorCtrl = new EditorController(view, niftyDisplay.getNifty(), inputManager, cam);
+//		// groundCtrl = new GroundController(view, niftyDisplay.getNifty(), inputManager, cam);
+//		EventManager.register(this);
+//
+//		actualCtrl = editorCtrl;
+//		stateManager.attach(actualCtrl);
+//		actualCtrl.setEnabled(true);
+//		guiViewPort.addProcessor(niftyDisplay);
+//		
+//		
+//		injector.getInstance(ModelManager.class).setNewBattlefield();
 		
 	}
 

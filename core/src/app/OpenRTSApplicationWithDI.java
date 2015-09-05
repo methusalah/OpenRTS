@@ -288,74 +288,21 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 	}
 
 	protected void initGuice(List<Module> newModules) {
-		final Application app = this;
-
 		this.modules = new LinkedList<Module>();
 		// register new instances to Guice (DI)
-		this.modules.add(new AbstractModule() {
-
-			@Override
-			protected void configure() {
-
-				bind(AssetManager.class).toInstance(assetManager);
-				bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
-				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
-				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
-				bind(ViewPort.class).annotatedWith(Names.named("ViewPort")).toInstance(viewPort);
-				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
-				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
-				bind(InputManager.class).toInstance(inputManager);
-				bind(Camera.class).toInstance(cam);
-				//bind(FlyByCamera.class).annotatedWith(Names.named("FlyByCamera")).toInstance(flyCam);
-
-				bind(Application.class).toInstance(app);
-
-				// bind(ClientManager.class).in(Singleton.class);
-				// bind(NetworkNiftyController.class).in(Singleton.class);
-
-				// bind(MapView.class).annotatedWith(Names.named("MapView")).to(MapView.class).in(Singleton.class);
-
-				
-
-				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
-				// FIXME: Viewport is already binded
-				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
-
-				bind(EditorView.class).in(Singleton.class);
-
-				bind(MaterialManager.class).in(Singleton.class);
-
-				// no singleton needed here => it easier for resetting
-				bind(EditorRenderer.class).in(Singleton.class);
-				
-				bind(SpatialSelector.class).in(Singleton.class);
-				
-				
-				bind(ArmyManager.class).in(Singleton.class);
-				
-				bind(EffectBuilder.class).in(Singleton.class);
-				bind(ProjectileBuilder.class).in(Singleton.class);
-				
-				bind(CliffShapeBuilder.class).in(Singleton.class);
-				bind(ManmadeFaceBuilder.class).in(Singleton.class);
-				bind(MapStyleBuilder.class).in(Singleton.class);
-				bind(MoverBuilder.class).in(Singleton.class);
-				bind(NaturalFaceBuilder.class).in(Singleton.class);
-				
-				bind(TrinketBuilder.class).in(Singleton.class);
-				bind(TurretBuilder.class).in(Singleton.class);
-				bind(UnitBuilder.class).in(Singleton.class);
-				bind(WeaponBuilder.class).in(Singleton.class);
-				
-				bind(CommandManager.class).in(Singleton.class);
-				
-
-			}
-		});
+		this.modules.add(new MainGuiceModule(this));
 		modules.addAll(newModules);
 
 		injector = Guice.createInjector(modules);
 		injector.injectMembers(this);
 	}
 
+	protected AppSettings getSettings() {
+		return settings;
+	}
+
+	protected Node getRootNode() {
+		return rootNode;
+	}
+	
 }
