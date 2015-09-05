@@ -47,8 +47,11 @@ public class MapStyleBuilder extends Builder{
 	private BuilderManager builderManager;
 	
 	@Inject	
-	public MapStyleBuilder(Definition def) {
-		super(def);
+	public MapStyleBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		coverDiffuses.add("textures/transp.png");
 		coverNormals.add(null);
 		coverScales.add(1d);

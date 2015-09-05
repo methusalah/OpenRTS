@@ -17,10 +17,9 @@ public abstract class Builder {
 	private static final Logger logger = Logger.getLogger(Builder.class.getName());
 	protected Definition def;
 
-	public Builder(Definition def) {
-		this.def = def;
+	public Builder() {
 	}
-
+	
 	public abstract void readFinalizedLibrary();
 
 	public String getId(){
@@ -38,4 +37,6 @@ public abstract class Builder {
 	public void printUnknownValue(String elementName, String value){
 		logger.warning("value '" + value + "' unknown for element '" + elementName + "' in definition '" + getId() + "'.");
 	}
+
+	public abstract void setDefinition(Definition def);
 }

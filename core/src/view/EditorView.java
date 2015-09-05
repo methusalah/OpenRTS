@@ -1,5 +1,6 @@
 package view;
 
+import model.ModelManager;
 import openrts.guice.annotation.GuiNodeRef;
 import openrts.guice.annotation.RootNodeRef;
 import openrts.guice.annotation.ViewPortRef;
@@ -20,8 +21,8 @@ public class EditorView extends MapView {
 	public EditorRenderer editorRend;
 
 	@Inject
-	public EditorView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, AssetManager am, @ViewPortRef ViewPort vp, MaterialManager mm, Injector injector) {
-		super(rootNode, gui, physicsSpace, am, vp, mm, injector);
+	public EditorView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, AssetManager am, @ViewPortRef ViewPort vp, MaterialManager mm, Injector injector, ModelManager modelManager) {
+		super(rootNode, gui, physicsSpace, am, vp, mm, injector, modelManager);
 		editorRend = injector.getInstance(EditorRenderer.class);
 	}
 

@@ -89,8 +89,11 @@ public class TrinketBuilder extends Builder {
 	private BuilderManager builderManager;
 	
 	@Inject
-	public TrinketBuilder(Definition def) {
-		super(def);
+	public TrinketBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case EDITABLE:

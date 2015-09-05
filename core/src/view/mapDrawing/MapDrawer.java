@@ -63,12 +63,13 @@ public class MapDrawer {
 	@Inject
 	protected MaterialManager materialManager;
 	
-	@Inject
+//	@Inject
 	private ModelManager modelManager;
 
 	@Inject
-	public MapDrawer(MapView view, AssetManager am) {
+	public MapDrawer(MapView view, AssetManager am, ModelManager modelManager) {
 		this.view = view;
+		this.modelManager = modelManager;
 		groundTexture = new TerrainSplatTexture(modelManager.getBattlefield().getMap().getAtlas(), am);
 		coverTexture = new TerrainSplatTexture(modelManager.getBattlefield().getMap().getCover(), am);
 		coverTexture.transp = true;

@@ -2,9 +2,7 @@ package app;
 
 import model.ModelManager;
 import model.battlefield.BattlefieldFactory;
-import model.battlefield.actors.Actor;
 import model.battlefield.army.ArmyManager;
-import model.battlefield.army.motion.CollisionManager;
 import model.builders.entity.CliffShapeBuilder;
 import model.builders.entity.EffectBuilder;
 import model.builders.entity.ManmadeFaceBuilder;
@@ -17,9 +15,13 @@ import model.builders.entity.TurretBuilder;
 import model.builders.entity.UnitBuilder;
 import model.builders.entity.WeaponBuilder;
 import model.builders.entity.actors.ActorBuilder;
+import model.builders.entity.actors.AnimationActorBuilder;
+import model.builders.entity.actors.ModelActorBuilder;
+import model.builders.entity.actors.ParticleActorBuilder;
+import model.builders.entity.actors.PhysicActorBuilder;
+import model.builders.entity.actors.SoundActorBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.builders.entity.definitions.DefParser;
-import model.builders.entity.definitions.Definition;
 import model.editor.Pencil;
 import model.editor.ToolManager;
 import model.editor.tools.AtlasTool;
@@ -40,9 +42,7 @@ import view.EditorView;
 import view.MapView;
 import view.acting.ActorDrawer;
 import view.camera.GroundCamera;
-import view.camera.IsometricCamera;
 import view.mapDrawing.EditorRenderer;
-import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
@@ -62,19 +62,6 @@ import com.jme3.system.AppSettings;
 import controller.CommandManager;
 import controller.Reporter;
 import controller.SpatialSelector;
-import controller.battlefield.BattlefieldController;
-import controller.battlefield.BattlefieldGUIController;
-import controller.battlefield.BattlefieldInputInterpreter;
-import controller.editor.EditorController;
-import controller.editor.EditorGUIController;
-import controller.editor.EditorGUIDrawer;
-import controller.editor.EditorInputInterpreter;
-import controller.game.MapLoadingScreen;
-import controller.game.MultiplayerGameController;
-import controller.game.MultiplayerGameInputInterpreter;
-import controller.ground.GroundController;
-import controller.ground.GroundGUIController;
-import controller.ground.GroundInputInterpreter;
 
 class MainGuiceModule extends AbstractModule {
 
@@ -116,22 +103,31 @@ class MainGuiceModule extends AbstractModule {
 //		 bind(CollisionManager.class).in(Singleton.class);
 		 bind(ArmyManager.class).in(Singleton.class);
 		 bind(BattlefieldFactory.class).in(Singleton.class);
-		 bind(ActorBuilder.class).in(Singleton.class);
+
 		 bind(BuilderManager.class).in(Singleton.class);
-		 bind(Definition.class).in(Singleton.class);
+//		 bind(Definition.class).in(Singleton.class); => no singleton
 		 bind(DefParser.class).in(Singleton.class);
 		 
-		 bind(CliffShapeBuilder.class).in(Singleton.class);
-		 bind(EffectBuilder.class).in(Singleton.class);
-			bind(ManmadeFaceBuilder.class).in(Singleton.class);
-		bind(MapStyleBuilder.class).in(Singleton.class);
-		bind(MoverBuilder.class).in(Singleton.class);
-		bind(NaturalFaceBuilder.class).in(Singleton.class);
-		bind(ProjectileBuilder.class).in(Singleton.class);
-		bind(TrinketBuilder.class).in(Singleton.class);
-		bind(TurretBuilder.class).in(Singleton.class);
-		bind(UnitBuilder.class).in(Singleton.class);
-		bind(WeaponBuilder.class).in(Singleton.class);
+//		 bind(AnimationActorBuilder.class).in(Singleton.class);
+//		 bind(ParticleActorBuilder.class).in(Singleton.class);
+//		 bind(PhysicActorBuilder.class).in(Singleton.class);
+//		 bind(ModelActorBuilder.class).in(Singleton.class);
+//		 bind(SoundActorBuilder.class).in(Singleton.class);
+//		 bind(AnimationActorBuilder.class).in(Singleton.class);
+//		 bind(ActorBuilder.class).in(Singleton.class); 
+//		 
+//		 
+//		bind(CliffShapeBuilder.class).in(Singleton.class);
+//		bind(EffectBuilder.class).in(Singleton.class);
+//		bind(ManmadeFaceBuilder.class).in(Singleton.class);
+//		bind(MapStyleBuilder.class).in(Singleton.class);
+//		bind(MoverBuilder.class).in(Singleton.class);
+//		bind(NaturalFaceBuilder.class).in(Singleton.class);
+//		bind(ProjectileBuilder.class).in(Singleton.class);
+//		bind(TrinketBuilder.class).in(Singleton.class);
+//		bind(TurretBuilder.class).in(Singleton.class);
+//		bind(UnitBuilder.class).in(Singleton.class);
+//		bind(WeaponBuilder.class).in(Singleton.class);
 		
 		bind(AtlasTool.class).in(Singleton.class);
 		bind(CliffTool.class).in(Singleton.class);

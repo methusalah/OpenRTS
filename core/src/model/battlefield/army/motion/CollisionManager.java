@@ -57,12 +57,13 @@ public class CollisionManager {
 	double tolerance = ADAPT_TOLERANCE;
 	boolean directionIsClockwise = true;
 
-	@Inject
+//	@Inject
 	private ModelManager modelManager;
 	
 	@Inject
-	public CollisionManager(Mover m) {
+	public CollisionManager(Mover m, ModelManager modelManager) {
 		this.mover = m;
+		this.modelManager = modelManager;
 	}
 
 	public Motion correctMotion(Motion motion, double elapsedTime, List<FieldComp> blockers) {

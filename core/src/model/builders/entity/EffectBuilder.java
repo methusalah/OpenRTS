@@ -52,8 +52,11 @@ public class EffectBuilder extends Builder {
 	private BuilderManager builderManager;
 	
 	@Inject
-	public EffectBuilder(Definition def) {
-		super(def);
+	public EffectBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:

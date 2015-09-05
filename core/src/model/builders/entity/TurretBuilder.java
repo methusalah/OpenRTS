@@ -33,8 +33,11 @@ public class TurretBuilder extends Builder {
 	private String boneAxis = "Y";
 
 	@Inject
-	public TurretBuilder(Definition def) {
-		super(def);
+	public TurretBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case SPEED:

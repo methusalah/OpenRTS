@@ -37,7 +37,7 @@ public class UnitTool extends Tool {
 
 	double angle = 0;
 
-	@Inject
+//	@Inject
 	private BuilderManager builderManager;
 	
 	@Inject
@@ -50,8 +50,9 @@ public class UnitTool extends Tool {
 	private ToolManager toolmanager;
 	
 	@Inject
-	public UnitTool() {
+	public UnitTool(BuilderManager builderManager) {
 		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
+		this.builderManager = builderManager;
 		List<String> builderIDs = new ArrayList<>();
 		for (UnitBuilder b : builderManager.getAllUnitBuilders()) {
 			builderIDs.add(b.getUIName());

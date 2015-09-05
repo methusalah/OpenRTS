@@ -37,8 +37,11 @@ public class ManmadeFaceBuilder extends Builder {
 	private List<String> corners = new ArrayList<>();
 
 	@Inject
-	public ManmadeFaceBuilder(Definition def) {
-		super(def);
+	public ManmadeFaceBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case ORTHOGONAL_LIST:

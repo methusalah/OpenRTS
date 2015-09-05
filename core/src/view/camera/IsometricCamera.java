@@ -24,12 +24,13 @@ public class IsometricCamera extends Camera {
 	private Point3D pos;
 	private Point3D target;
 
-	@Inject
+//	@Inject
 	private ModelManager modelManager;
 	
 	@Inject
-	public IsometricCamera(com.jme3.renderer.Camera cam, float elevation) {
+	public IsometricCamera(com.jme3.renderer.Camera cam, float elevation, ModelManager modelManager) {
 		super(cam);
+		this.modelManager = modelManager;
 		pos = new Point3D(0, 0, elevation);
 		target = new Point3D(0, elevation*2/3, 0);
 		placeCam();

@@ -8,6 +8,7 @@ import geometry.math.RandomUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ModelManager;
 import model.battlefield.actors.Actor;
 import model.builders.entity.Builder;
 import model.builders.entity.definitions.BuilderManager;
@@ -40,11 +41,17 @@ public class ActorBuilder extends Builder {
 	protected List<Double> childrenProbs = new ArrayList<>();
 
 	@Inject
-	BuilderManager builderManager;
+	protected BuilderManager builderManager;
 	
 	@Inject
-	public ActorBuilder(Definition def) {
-		super(def);
+	protected ModelManager modelManager;
+	
+	@Inject
+	public ActorBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
@@ -76,7 +83,7 @@ public class ActorBuilder extends Builder {
 			i++;
 		}
 
-		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders);
+		Actor res = new Actor(parent, trigger, localChildrenTriggers, localChildrenActorBuilders, modelManager);
 		res.debbug_id = getId();
 		return res;
 	}

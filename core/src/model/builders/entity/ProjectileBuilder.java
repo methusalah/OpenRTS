@@ -47,8 +47,11 @@ public class ProjectileBuilder extends Builder {
 	private BuilderManager builderManager;
 	
 	@Inject
-	public ProjectileBuilder(Definition def) {
-		super(def);
+	public ProjectileBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case SPEED:

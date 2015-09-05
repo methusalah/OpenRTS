@@ -49,13 +49,14 @@ public class MapView {
 	protected MaterialManager materialManager;
 	protected Injector injector;
 
-	@Inject
+//	@Inject
 	private ModelManager modelManager;
 	
 	@Inject
-	public MapView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, AssetManager am, @ViewPortRef ViewPort vp, MaterialManager materialManager, Injector injector) {
+	public MapView(@RootNodeRef Node rootNode, @GuiNodeRef Node gui, PhysicsSpace physicsSpace, AssetManager am, @ViewPortRef ViewPort vp, MaterialManager materialManager, Injector injector, ModelManager modelManager) {
 		this.rootNode = rootNode;
 		this.physicsSpace = physicsSpace;
+		this.modelManager = modelManager;
 		gui.attachChild(guiNode);
 
 		this.assetManager = am;
@@ -63,7 +64,7 @@ public class MapView {
 		this.materialManager = materialManager;
 		this.injector = injector;
 
-		lightDrawer = new LightDrawer(this, am, rootNode, vp);
+		lightDrawer = new LightDrawer(this, am, rootNode, vp, modelManager);
 
 		createSky();
 		EventManager.register(this);

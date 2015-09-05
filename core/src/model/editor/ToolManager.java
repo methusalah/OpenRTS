@@ -42,11 +42,11 @@ public class ToolManager {
 	public ToolManager(BuilderManager builderManager, ModelManager modelManager, MapArtisanManager mapArtisanManager) {
 		ToolManager.sower = new Sower(builderManager, modelManager, mapArtisanManager);
 		setHeightTool(new HeightTool());
-		setCliffTool(new CliffTool());
-		setAtlasTool(new AtlasTool());
+		setCliffTool(new CliffTool(modelManager));
+		setAtlasTool(new AtlasTool(modelManager));
 		setRampTool(new RampTool());
-		unitTool = new UnitTool();
-		trinketTool = new TrinketTool();
+		unitTool = new UnitTool(builderManager);
+		trinketTool = new TrinketTool(builderManager);
 		
 		actualTool = getCliffTool();
 

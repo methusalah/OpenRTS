@@ -43,16 +43,16 @@ public class MultiplayerGameController extends Controller {
 	@Inject
 	private CommandManager commandManager;
 	
-	@Inject
-	private ModelManager modelManager;
+//	@Inject
+//	private ModelManager modelManager;
 	
 	
 	@Inject
 	public MultiplayerGameController(EditorView view, 
 //			MultiplayerGameNiftyController guiController, 
 			InputManager inputManager,
-			Camera cam, Injector injector) {
-		super(view, inputManager, cam, injector);
+			Camera cam, Injector injector, ModelManager modelManager) {
+		super(view, inputManager, cam, injector, modelManager);
 		this.view = view;
 		// this.inputInterpreter = inputInterpreter;
 		this.spatialSelector.setCentered(false);

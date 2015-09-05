@@ -4,6 +4,7 @@
  */
 package controller;
 
+import model.ModelManager;
 import view.MapView;
 import view.camera.Camera;
 import view.camera.IsometricCamera;
@@ -27,8 +28,10 @@ public abstract class Controller extends AbstractAppState {
 	protected Injector injector;
 
 	protected com.jme3.renderer.Camera cam;
+	
+	protected ModelManager modelManager;
 
-	protected Controller(MapView view, InputManager inputManager, com.jme3.renderer.Camera cam, Injector injector) {
+	protected Controller(MapView view, InputManager inputManager, com.jme3.renderer.Camera cam, Injector injector, ModelManager modelManager) {
 		super();
 		this.inputManager = inputManager;
 		this.injector = injector;
@@ -46,7 +49,7 @@ public abstract class Controller extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		if (camera == null) {
-			camera = new IsometricCamera(cam, 10);
+			camera = new IsometricCamera(cam, 10, modelManager);
 		}
 		// inputInterpreter.registerInputs(inputManager);
 		camera.registerInputs(inputManager);

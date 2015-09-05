@@ -7,6 +7,8 @@ import geometry.math.AngleUtil;
 
 import java.awt.Color;
 
+import com.google.inject.Inject;
+
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ParticleActor;
 import model.builders.entity.definitions.DefElement;
@@ -68,8 +70,12 @@ public class ParticleActorBuilder extends ActorBuilder {
 	private double startVariation = 0;
 	private double rotationSpeed;
 
-	public ParticleActorBuilder(Definition def) {
-		super(def);
+	@Inject
+	public ParticleActorBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		super.setDefinition(def);
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
@@ -157,7 +163,7 @@ public class ParticleActorBuilder extends ActorBuilder {
 	public Actor build(String trigger, Actor parent) {
 		Actor res = new ParticleActor(spritePath, nbCol, nbRow, emissionBone, directionBone, velocity, fanning, randomSprite, maxCount, perSecond, duration,
 				startSize, endSize, startColor, endColor, minLife, maxLife, rotationSpeed, gravity, facing, add, startVariation, parent, trigger,
-				childrenTriggers, childrenActorBuilders);
+				childrenTriggers, childrenActorBuilders, modelManager);
 		res.debbug_id = getId();
 		return res;
 	}

@@ -49,8 +49,11 @@ public class NaturalFaceBuilder extends Builder{
 	private String style;
 
 	@Inject
-	public NaturalFaceBuilder(Definition def) {
-		super(def);
+	public NaturalFaceBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch(de.name){
 				case NOISE :

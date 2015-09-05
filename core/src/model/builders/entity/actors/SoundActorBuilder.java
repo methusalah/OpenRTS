@@ -1,5 +1,7 @@
 package model.builders.entity.actors;
 
+import com.google.inject.Inject;
+
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.SoundActor;
 import model.builders.entity.definitions.DefElement;
@@ -18,9 +20,12 @@ public class SoundActorBuilder extends ActorBuilder {
 	private double volume = 1;
 	private boolean positional = false;
 	private boolean looping = false;
-
-	public SoundActorBuilder(Definition def) {
-		super(def);
+	@Inject
+	public SoundActorBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		super.setDefinition(def);
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
@@ -48,7 +53,7 @@ public class SoundActorBuilder extends ActorBuilder {
 	@Override
 	public Actor build(String trigger, Actor parent) {
 		Actor res = new SoundActor(parent, trigger, childrenTriggers, childrenActorBuilders, soundPath, looping,
-				volume, positional);
+				volume, positional, modelManager);
 		res.debbug_id = getId();
 		return res;
 	}

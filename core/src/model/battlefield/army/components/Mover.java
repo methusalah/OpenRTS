@@ -74,7 +74,8 @@ public class Mover {
 		this.pathfindingMode = pathfindingMode;
 		this.standingMode = standingMode;
 		this.hiker = movable;
-		cm = new CollisionManager(this);
+		this.modelManager = modelmanager;
+		cm = new CollisionManager(this, modelManager);
 		sm = new SteeringMachine(this);
 		updateElevation();
 	}

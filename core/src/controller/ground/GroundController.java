@@ -6,6 +6,7 @@ package controller.ground;
 
 import java.util.logging.Logger;
 
+import model.ModelManager;
 import view.EditorView;
 import view.camera.GroundCamera;
 import brainless.openrts.event.EventManager;
@@ -32,8 +33,8 @@ public class GroundController extends Controller {
 
 	@Inject
 	public GroundController(EditorView view, @Named("GroundGUIController") GroundGUIController guiController, InputManager inputManager,
-			Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter, Injector injector) {
-		super(view, inputManager, cam,injector);
+			Camera cam, @Named("GroundInputInterpreter") GroundInputInterpreter inputInterpreter, Injector injector, ModelManager modelManager) {
+		super(view, inputManager, cam,injector,modelManager);
 		this.inputInterpreter = inputInterpreter;
 		this.guiController = guiController;
 	}

@@ -2,6 +2,7 @@ package model.battlefield.actors;
 
 import java.util.List;
 
+import model.ModelManager;
 import model.builders.entity.actors.ActorBuilder;
 
 /**
@@ -19,8 +20,8 @@ public class AnimationActor extends Actor {
 	public boolean launched = false;
 
 	public AnimationActor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders, String animName, Cycle cycle,
-			double speed) {
-		super(parent, trigger, childrenTriggers, childrenBuilders);
+			double speed, ModelManager modelManager) {
+		super(parent, trigger, childrenTriggers, childrenBuilders, modelManager);
 		this.animName = animName;
 		this.cycle = cycle;
 		this.speed = speed;

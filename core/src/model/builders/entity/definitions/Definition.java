@@ -20,9 +20,9 @@ public class Definition {
 	private List<DefElement> elements = new ArrayList<>();
 
 	@Inject
-	public Definition(String type, String id) {
-		this.type = type;
-		this.id = id;
+	public Definition() {
+//		this.type = type;
+//		this.id = id;
 	}
 
 	

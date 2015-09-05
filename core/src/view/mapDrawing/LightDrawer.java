@@ -39,14 +39,15 @@ public class LightDrawer implements ActionListener {
 	DirectionalLightShadowRenderer sr;
 	DirectionalLightShadowFilter sf;
 
-	@Inject
+//	@Inject
 	private ModelManager modelManager;
 	
 	
 	@Inject
-	public LightDrawer(MapView view, AssetManager am, Node rootNode, ViewPort vp) {
+	public LightDrawer(MapView view, AssetManager am, Node rootNode, ViewPort vp, ModelManager modelManager) {
 		this.view = view;
 		this.rootNode = rootNode;
+		this.modelManager = modelManager;
 
 		FilterPostProcessor fpp = new FilterPostProcessor(am);
 

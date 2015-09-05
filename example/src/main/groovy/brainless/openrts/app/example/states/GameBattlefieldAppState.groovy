@@ -54,6 +54,15 @@ public class GameBattlefieldAppState extends AppStateCommon {
 	protected GameInputInterpreter inputInterpreter
 	
 	@Inject
+	private ModelManager modelManager
+	
+	@Inject
+	private ArmyManager armyManager
+	
+	@Inject
+	private CommandManager commandManager
+	
+	@Inject
 	public GameBattlefieldAppState() {
 		super()
 		displayName = "GameBattlefieldState";
@@ -70,7 +79,7 @@ public class GameBattlefieldAppState extends AppStateCommon {
 		view.getActorManager().render()
 		// update army
 		if (!paused) {
-			ArmyManager.update(elapsedTime);
+			armyManager.update(elapsedTime);
 		}
 	}
 
@@ -102,24 +111,24 @@ public class GameBattlefieldAppState extends AppStateCommon {
 
 		AlignedBoundingBox rect = new AlignedBoundingBox(zoneStart, coord);
 		List<Unit> inSelection = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			if (rect.contains(spatialSelector.getScreenCoord(u.getPos()))) {
 				inSelection.add(u);
 			}
 		}
-		CommandManager.select(inSelection);
+		commandManager.select(inSelection);
 		view.drawSelectionArea(zoneStart, coord);
 	}
 
 	private void updateContext() {
 		AlignedBoundingBox screen = new AlignedBoundingBox(Point2D.ORIGIN, isometricCamera.getCamCorner());
 		List<Unit> inScreen = new ArrayList<>();
-		for (Unit u : ArmyManager.getUnits()) {
+		for (Unit u : armyManager.getUnits()) {
 			if (screen.contains(spatialSelector.getScreenCoord(u.getPos()))) {
 				inScreen.add(u);
 			}
 		}
-		CommandManager.createContextualUnities(inScreen);
+		commandManager.createContextualUnities(inScreen);
 
 	}
 
@@ -129,7 +138,7 @@ public class GameBattlefieldAppState extends AppStateCommon {
 	}
 
 	private placeCamera() {
-		((IsometricCamera)isometricCamera).move(ModelManager.getBattlefield().getMap().xSize() / 2, ModelManager.getBattlefield().getMap().ySize() / 2)
+		((IsometricCamera)isometricCamera).move(modelManager.getBattlefield().getMap().xSize() / 2, modelManager.getBattlefield().getMap().ySize() / 2)
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation
@@ -147,7 +156,7 @@ public class GameBattlefieldAppState extends AppStateCommon {
 		view.reset();
 		
 		if (isometricCamera == null) {
-			isometricCamera = new IsometricCamera(cam, 10);			
+			isometricCamera = new IsometricCamera(cam, 10, modelManager);			
 		}
 		placeCamera();
 		inputInterpreter.registerInputs(inputManager);

@@ -46,13 +46,13 @@ public class BattlefieldController extends Controller {
 	@Inject
 	CommandManager commandManager;
 	
-	@Inject
-	private ModelManager modelManager;
+//	@Inject
+//	private ModelManager modelManager;
 
 	@Inject
 	public BattlefieldController(EditorView view, @Named("BattlefieldGUIController") BattlefieldGUIController guiController, InputManager inputManager, Camera cam,
-			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter, Injector injector) {
-		super(view, inputManager, cam,injector);
+			@Named("BattlefieldInputInterpreter") BattlefieldInputInterpreter inputInterpreter, Injector injector, ModelManager modelManager) {
+		super(view, inputManager, cam,injector, modelManager);
 		this.view = view;
 		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;

@@ -36,10 +36,16 @@ public class MoverBuilder extends Builder {
 
 	@Inject
 	private Injector injector;
+	
+	@Inject
+	private ModelManager modelManager;
 
 	@Inject
-	public MoverBuilder(Definition def) {
-		super(def);
+	public MoverBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 			case PATHFINDING_MODE:
@@ -77,7 +83,7 @@ public class MoverBuilder extends Builder {
 	}
 
 	public Mover build(Hiker movable) {
-		Mover res = new Mover(heightmap, pathfindingMode, standingMode,movable, injector.getInstance(ModelManager.class));
+		Mover res = new Mover(heightmap, pathfindingMode, standingMode,movable, modelManager);
 		return res;
 	}
 

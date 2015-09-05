@@ -43,8 +43,11 @@ public class CliffShapeBuilder extends Builder {
 	private BuilderManager builderManager;
 	
 	@Inject
-	public CliffShapeBuilder(Definition def) {
-		super(def);
+	public CliffShapeBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case NATURAL_FACE_LINK:

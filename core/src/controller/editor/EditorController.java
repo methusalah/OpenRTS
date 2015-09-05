@@ -37,8 +37,8 @@ public class EditorController extends Controller {
 
 	// protected EditorInputInterpreter inputInterpreter;
 
-	@Inject
-	private ModelManager modelManager;
+//	@Inject
+//	private ModelManager modelManager;
 	
 	@Inject
 	private ArmyManager armyManager;
@@ -51,8 +51,8 @@ public class EditorController extends Controller {
 	
 	@Inject
 	public EditorController(EditorView view, @Named("EditorGUIController") EditorGUIController guiController, InputManager inputManager, Camera cam,
-			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter, Injector injector) {
-		super(view, inputManager, cam,injector);
+			@Named("EditorInputInterpreter") EditorInputInterpreter inputInterpreter, Injector injector, ModelManager modelManager) {
+		super(view, inputManager, cam,injector, modelManager);
 		this.view = view;
 		this.guiController = guiController;
 		this.inputInterpreter = inputInterpreter;

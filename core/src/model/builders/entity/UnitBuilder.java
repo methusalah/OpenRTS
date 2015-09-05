@@ -63,8 +63,11 @@ public class UnitBuilder extends Builder {
 	private BuilderManager builderManager;
 	
 	@Inject
-	public UnitBuilder(Definition def) {
-		super(def);
+	public UnitBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case RADIUS:

@@ -36,13 +36,12 @@ public class Actor {
 
 	protected boolean acting = false;
 
-	@Inject
 	private ModelManager modelManager;
 		
-	@Inject
-	public Actor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders) {
+	public Actor(Actor parent, String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders, ModelManager modelManager) {
 		this.parent = parent;
 		this.trigger = trigger;
+		this.modelManager = modelManager;
 		children = new ArrayList<>();
 		int i = 0;
 		for (ActorBuilder b : childrenBuilders) {

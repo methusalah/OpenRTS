@@ -32,7 +32,7 @@ public class AtlasTool extends Tool {
 	AtlasLayer autoLayer;
 	double increment = 40;
 
-	@Inject
+//	@Inject
 	private ModelManager modelManager;
 	
 	@Inject
@@ -42,8 +42,9 @@ public class AtlasTool extends Tool {
 	private ToolManager toolManager;
 	
 	@Inject
-	public AtlasTool() {
+	public AtlasTool(ModelManager modelManager) {
 		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
+		this.modelManager = modelManager;
 		explorer = new AtlasExplorer(modelManager.getBattlefield().getMap());
 		List<String> allTextures = new ArrayList<>();
 		allTextures.addAll(modelManager.getBattlefield().getMap().getStyle().diffuses);

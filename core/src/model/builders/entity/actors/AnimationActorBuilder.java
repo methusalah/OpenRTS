@@ -5,6 +5,8 @@ import model.battlefield.actors.AnimationActor;
 import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
+import com.google.inject.Inject;
+
 /**
  * @author Benoît
  */
@@ -20,8 +22,12 @@ public class AnimationActorBuilder extends ActorBuilder {
 	private double speed;
 	private AnimationActor.Cycle cycle;
 
-	public AnimationActorBuilder(Definition def) {
-		super(def);
+	@Inject
+	public AnimationActorBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		super.setDefinition(def);
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
@@ -55,7 +61,7 @@ public class AnimationActorBuilder extends ActorBuilder {
 
 	@Override
 	public Actor build(String trigger, Actor parent) {
-		Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, animationName, cycle, speed);
+		Actor res = new AnimationActor(parent, trigger, childrenTriggers, childrenActorBuilders, animationName, cycle, speed, modelManager);
 		res.debbug_id = getId();
 		return res;
 	}

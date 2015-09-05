@@ -41,8 +41,11 @@ public class WeaponBuilder extends Builder {
 	private BuilderManager builderManager;
 	
 	@Inject
-	public WeaponBuilder(Definition def) {
-		super(def);
+	public WeaponBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		this.def = def;
 		for (DefElement element : def.getElements()) {
 			switch (element.name) {
 				case UINAME:

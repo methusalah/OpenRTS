@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
+
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.ModelActor;
@@ -52,9 +54,12 @@ public class ModelActorBuilder extends ActorBuilder {
 	private HashMap<Integer, Color> subColorsByIndex = new HashMap<>();
 	private HashMap<String, String> materialsByName = new HashMap<>();
 	private HashMap<Integer, String> materialsByIndex = new HashMap<>();
-
-	public ModelActorBuilder(Definition def) {
-		super(def);
+	@Inject
+	public ModelActorBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		super.setDefinition(def);
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
@@ -151,7 +156,7 @@ public class ModelActorBuilder extends ActorBuilder {
 				subColorsByIndex,
 				materialsByName,
 				materialsByIndex,
-				comp);
+				comp, modelManager);
 		res.debbug_id = getId();
 		//		res.act();
 		return res;

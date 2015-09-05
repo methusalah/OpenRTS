@@ -53,15 +53,15 @@ public class EditorRenderer {
 	
 	protected MaterialManager materialManager;
 
-	@Inject
 	private ModelManager modelManager;
 	
 	@Inject
 	private ToolManager toolManager;
 	
 	@Inject
-	public EditorRenderer(MaterialManager materialManager) {
+	public EditorRenderer(MaterialManager materialManager, ModelManager modelManager) {
 		this.materialManager = materialManager;
+		this.modelManager = modelManager;
 		EventManager.register(this);
 
 		if(modelManager.getBattlefield() != null) {

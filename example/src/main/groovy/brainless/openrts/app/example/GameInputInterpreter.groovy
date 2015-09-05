@@ -52,6 +52,9 @@ public class GameInputInterpreter extends InputInterpreter {
 	protected EditorView view;
 
 	@Inject
+	private CommandManager commandManager
+	
+	@Inject
 	GameInputInterpreter(GameBattlefieldAppState ctrl) {
 		super();
 		this.ctrl = ctrl;
@@ -84,18 +87,18 @@ public class GameInputInterpreter extends InputInterpreter {
 			switch (name) {
 
 				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(false);
+					commandManager.setMultipleSelection(false);
 					break;
 				case SELECT:
 					if(System.currentTimeMillis()-dblclickTimer < DOUBLE_CLICK_DELAY &&
 							dblclickCoord.getDistance(getSpatialCoord()) < DOUBLE_CLICK_MAX_OFFSET){
 						// double click
 						EventManager.post(new MultiSelectEntityEvent(spatialSelector.getEntityId()));
-						CommandManager.selectUnitInContext(spatialSelector.getEntityId());
+						commandManager.selectUnitInContext(spatialSelector.getEntityId());
 					} else {
 						if(!ctrl.isDrawingZone()) {
 							def entityId = spatialSelector.getEntityId()
-							CommandManager.select(entityId, getSpatialCoord());
+							commandManager.select(entityId, getSpatialCoord());
 							EventManager.post(new SelectEntityEvent(entityId));
 						}
 					}
@@ -105,15 +108,15 @@ public class GameInputInterpreter extends InputInterpreter {
 					break;
 				case ACTION:
 					EventManager.post(new MoveAttackEvent(spatialSelector.getEntityId()));
-					CommandManager.act(spatialSelector.getEntityId(), getSpatialCoord());
+					commandManager.act(spatialSelector.getEntityId(), getSpatialCoord());
 					break;
 				case MOVE_ATTACK:
 					EventManager.post(new MoveAttackEvent(spatialSelector.getEntityId()));
-					CommandManager.setMoveAttack();
+					commandManager.setMoveAttack();
 					break;
 				case HOLD:
 					EventManager.post(new HoldEvent(spatialSelector.getEntityId()));
-					CommandManager.orderHold();
+					commandManager.orderHold();
 					break;
 				case PAUSE:
 					EventManager.post(new PauseEvent(spatialSelector.getEntityId()));
@@ -124,7 +127,7 @@ public class GameInputInterpreter extends InputInterpreter {
 			// input pressed
 			switch(name){
 				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(true);
+					commandManager.setMultipleSelection(true);
 					break;
 				case SELECT:
 					ctrl.startSelectionZone();

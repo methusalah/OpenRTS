@@ -88,63 +88,96 @@ public class BuilderManager {
 		if (typed == null) {
 			throw new RuntimeException("Type '" + def.getType() + "' is unknown.");
 		}
-
+		Builder b = null;
 		switch (def.getType()) {
 			case UNIT:
-				typed.put(def.getId(), injector.getInstance(UnitBuilder.class));
+				b = injector.getInstance(UnitBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(),b ); 
 				break;
 			case MOVER:
-				typed.put(def.getId(), injector.getInstance(MoverBuilder.class));
+				b = injector.getInstance(MoverBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(),b );
 				break;
 			case WEAPON:
-				typed.put(def.getId(), injector.getInstance( WeaponBuilder.class));
+				b = injector.getInstance( WeaponBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(),b );
 				break;
 			case TURRET:
-				typed.put(def.getId(), injector.getInstance(TurretBuilder.class));
+				b = injector.getInstance(TurretBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(), b);
 				break;
 			case EFFECT:
-				EffectBuilder effectBuilder = injector.getInstance(EffectBuilder.class);
-				typed.put(def.getId(), effectBuilder);
+				b = injector.getInstance(EffectBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(), b);
 				break;
 			case PROJECTILE:
-				typed.put(def.getId(), injector.getInstance(ProjectileBuilder.class));
+				b = injector.getInstance(ProjectileBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(), b);
 				break;
 			case ACTOR:
 				String actorType = def.getElement(ActorBuilder.TYPE) == null ? "" : def.getElement(ActorBuilder.TYPE).getVal();
 				switch (actorType) {
 					case ActorBuilder.TYPE_ANIMATION:
-						typed.put(def.getId(), new AnimationActorBuilder(def));
+						b = injector.getInstance(AnimationActorBuilder.class);
+						b.setDefinition(def);
+						typed.put(def.getId(),b );
 						break;
 					case ActorBuilder.TYPE_PARTICLE:
-						typed.put(def.getId(), new ParticleActorBuilder(def));
+						b = injector.getInstance(ParticleActorBuilder.class);
+						b.setDefinition(def);
+						typed.put(def.getId(),b );
 						break;
 					case ActorBuilder.TYPE_PHYSIC:
-						typed.put(def.getId(), new PhysicActorBuilder(def));
+						b = injector.getInstance(PhysicActorBuilder.class);
+						b.setDefinition(def);
+						typed.put(def.getId(),b );
 						break;
 					case ActorBuilder.TYPE_MODEL:
-						typed.put(def.getId(), new ModelActorBuilder(def));
+						b = injector.getInstance(ModelActorBuilder.class);
+						b.setDefinition(def);
+						typed.put(def.getId(),b );
 						break;
 					case ActorBuilder.TYPE_SOUND:
-						typed.put(def.getId(), new SoundActorBuilder(def));
+						b = injector.getInstance(SoundActorBuilder.class);
+						b.setDefinition(def);
+						typed.put(def.getId(),b );
 						break;
 					default:
-						typed.put(def.getId(), new ActorBuilder(def));
+						b = injector.getInstance(ActorBuilder.class);
+						b.setDefinition(def);
+						typed.put(def.getId(),b );
 				}
 				break;
 			case MAP_STYLE:
-				typed.put(def.getId(), new MapStyleBuilder(def));
+				b = injector.getInstance( MapStyleBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(),b );
 				break;
 			case CLIFF_SHAPE:
-				typed.put(def.getId(), new CliffShapeBuilder(def));
+				b = injector.getInstance( CliffShapeBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(),b );
 				break;
 			case TRINKET:
-				typed.put(def.getId(), new TrinketBuilder(def));
+				b = injector.getInstance( TrinketBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(), b);
 				break;
 			case NATURAL_FACE:
-				typed.put(def.getId(), new NaturalFaceBuilder(def));
+				b = injector.getInstance( NaturalFaceBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(),b );
 				break;
 			case MANMADE_FACE:
-				typed.put(def.getId(), new ManmadeFaceBuilder(def));
+				b = injector.getInstance(ManmadeFaceBuilder.class);
+				b.setDefinition(def);
+				typed.put(def.getId(), b);
 				break;
 		}
 	}

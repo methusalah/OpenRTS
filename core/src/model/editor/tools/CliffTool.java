@@ -25,7 +25,6 @@ public class CliffTool extends Tool {
 
 	int maintainedLevel;
 	
-	@Inject
 	private ModelManager modelManager;
 	
 	@Inject
@@ -35,8 +34,9 @@ public class CliffTool extends Tool {
 	private TileArtisanManager tileArtisanManager;
 	
 	@Inject
-	public CliffTool() {
+	public CliffTool(ModelManager modelManager) {
 		super(RAISE_LOW_OP, FLATTEN_OP);
+		this.modelManager = modelManager;
 		ArrayList<String> iconPaths = new ArrayList<>();
 		for (CliffShapeBuilder b : modelManager.getBattlefield().getMap().getStyle().cliffShapeBuilders) {
 			iconPaths.add(b.getIconPath());

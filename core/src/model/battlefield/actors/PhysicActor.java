@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.ModelManager;
 import model.builders.entity.actors.ActorBuilder;
 
 /**
@@ -38,9 +39,9 @@ public class PhysicActor extends ModelActor {
 			HashMap<String, Color> subColorsByName,
 			HashMap<Integer, Color> subColorsByIndex,
 			Map<String, String> materialsByName,
-			Map<Integer, String> materialsByIndex
-			) {
-		super(parent, trigger, childrenTriggers, childrenBuilders, modelPath, scale, scale, scale, yaw, pitch, roll, color, subColorsByName, subColorsByIndex, materialsByName, materialsByIndex, null);
+			Map<Integer, String> materialsByIndex,
+			ModelManager modelManager) {
+		super(parent, trigger, childrenTriggers, childrenBuilders, modelPath, scale, scale, scale, yaw, pitch, roll, color, subColorsByName, subColorsByIndex, materialsByName, materialsByIndex, null, modelManager);
 		this.startLife = startLife;
 		this.mass = mass;
 		this.massCenterBone = massCenterBone;

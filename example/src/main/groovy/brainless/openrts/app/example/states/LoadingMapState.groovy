@@ -31,7 +31,7 @@ import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
 
-@CompileStatic
+//@CompileStatic
 public class LoadingMapState extends AppStateCommon {
 	
 	private static final Logger logger = Logger.getLogger(LoadingMapState.class.getName());

@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
+
 import model.battlefield.abstractComps.Hiker;
 import model.battlefield.actors.Actor;
 import model.battlefield.actors.PhysicActor;
@@ -55,9 +57,12 @@ public class PhysicActorBuilder extends ActorBuilder {
 	private HashMap<String, String> materialsByName = new HashMap<>();
 	private HashMap<Integer, String> materialsByIndex = new HashMap<>();
 
-
-	public PhysicActorBuilder(Definition def) {
-		super(def);
+	@Inject
+	public PhysicActorBuilder() {
+	}
+		
+	public void setDefinition(Definition def) {
+		super.setDefinition(def);
 		for (DefElement de : def.getElements()) {
 			switch (de.name) {
 				case TYPE:
@@ -146,8 +151,8 @@ public class PhysicActorBuilder extends ActorBuilder {
 				subColorsByName, 
 				subColorsByIndex,
 				materialsByName, 
-				materialsByIndex
-				);
+				materialsByIndex,
+				modelManager);
 		res.debbug_id = getId();
 		return res;
 	}

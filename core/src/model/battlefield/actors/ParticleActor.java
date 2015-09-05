@@ -3,6 +3,7 @@ package model.battlefield.actors;
 import java.awt.Color;
 import java.util.List;
 
+import model.ModelManager;
 import model.builders.entity.actors.ActorBuilder;
 
 /**
@@ -44,8 +45,8 @@ public class ParticleActor extends Actor {
 	public ParticleActor(String spritePath, int nbCol, int nbRow, String emissionBone, String directionBone, double velocity, double fanning,
 			boolean randomSprite, int maxCount, int perSecond, double duration, double startSize, double endSize, Color startColor, Color endColor,
 			double minLife, double maxLife, double rotationSpeed, boolean gravity, Facing facing, boolean add, double startVariation, Actor parent,
-			String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders) {
-		super(parent, trigger, childrenTriggers, childrenBuilders);
+			String trigger, List<String> childrenTriggers, List<ActorBuilder> childrenBuilders, ModelManager modelManager) {
+		super(parent, trigger, childrenTriggers, childrenBuilders, modelManager);
 		this.spritePath = spritePath;
 		this.nbCol = nbCol;
 		this.nbRow = nbRow;

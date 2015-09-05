@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import model.ModelManager;
 import model.battlefield.abstractComps.FieldComp;
 import model.builders.entity.actors.ActorBuilder;
 
@@ -49,8 +50,8 @@ public class ModelActor extends Actor {
 			Map<Integer, Color> subColorsByIndex,
 			Map<String, String> materialsByName,
 			Map<Integer, String> materialsByIndex,
-			FieldComp comp) {
-		super(parent, trigger, childrenTriggers, childrenBuilders);
+			FieldComp comp, ModelManager modelManager) {
+		super(parent, trigger, childrenTriggers, childrenBuilders, modelManager);
 		this.modelPath = modelPath;
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
