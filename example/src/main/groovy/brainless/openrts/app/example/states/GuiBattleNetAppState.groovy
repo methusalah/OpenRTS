@@ -42,19 +42,17 @@ import groovy.transform.CompileStatic
  * @author t0neg0d
  */
 @CompileStatic
-public class ServerConfigState extends AppStateCommon {
+public class GuiBattleNetAppState extends AppStateCommon {
 	
-	private static final Logger logger = Logger.getLogger(ServerConfigState.class.getName());
+	private static final Logger logger = Logger.getLogger(GuiBattleNetAppState.class.getName());
 	
 	private float contentPadding = 14;
 
 	private Element content;
 	private Panel panel;
-	private TextField serverAddress
-	private CheckBox vSync, audio, cursors, cursorFX, toolTips;
-	private Slider uiAlpha, audioVol;
+	private TextField chatBox
 	private LabelElement dispTitle, extTitle, testTitle;
-	protected ButtonAdapter close,connect, startMap;
+	protected ButtonAdapter close, createGame, joinGame;
 	
 	ScrollArea mapInfo
 	
@@ -83,6 +81,8 @@ public class ServerConfigState extends AppStateCommon {
 
 	@Override
 	protected void initState() {
+		
+		
 		if (!init) {
 			
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
@@ -90,10 +90,10 @@ public class ServerConfigState extends AppStateCommon {
 			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
-
-			// Reset layout helper
-//			LayoutHelper.reset();
-			initServerControls()
+			// Add title label for Display
+			dispTitle = getLabel("Server");
+			dispTitle.setTextAlign(BitmapFont.Align.Center);
+			content.addChild(dispTitle);
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
@@ -106,6 +106,60 @@ public class ServerConfigState extends AppStateCommon {
 			close.setDocking(Docking.SW);
 			close.setText("Exit");
 			close.setToolTipText("Close Application");
+			
+			createGame = new ButtonAdapter(screen, Vector2f.ZERO) {
+				@Override
+				public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+					main.createGame();
+				}
+			};
+			createGame.setDocking(Docking.SW);
+			createGame.setText("Create Game");
+			createGame.setToolTipText("Create a new game");
+			
+			joinGame = new ButtonAdapter(screen, Vector2f.ZERO) {
+				@Override
+				public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+					main.createGame();
+				}
+			};
+			joinGame.setDocking(Docking.SW);
+			joinGame.setText("Join Game");
+			joinGame.setToolTipText("Join a game");
+			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
+				public void onChange() {
+					
+					mapInfo.removeAllChildren();
+					ListItem item = selectedListItems.first()
+					File file = (File) item.value
+					Battlefield bfd = ModelManager.loadOnlyStaticValues(file)
+					
+					main.game.file = file
+					
+					String mapDescription = "You selected Map : " + item.caption + "\n"
+					mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
+					mapInfo.setText(mapDescription);
+					
+					logger.info("element is selected: " + selectedIndexes)
+				}
+			}
+			mapSelect.setDimensions(200, 200)
+			mapSelect.docking = Docking.SW
+			mapSelect.toolTipText = "Please select a Map"
+			
+			def files = FileUtil.getFilesInDirectory(ModelManager.DEFAULT_MAP_PATH, "btf")
+			
+			files.each { File file ->
+				mapSelect.addListItem(file.name, file)
+			}
+			
+			content.addChild(mapSelect)
+			
+			mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
+			mapInfo.setToolTipText("infos about the selected Map");
+			mapInfo.setDimensions(mapSelect.width,mapSelect.height)
+			content.addChild(mapInfo)
+			mapInfo.layoutHints.set("wrap")
 
 			content.getLayout().layoutChildren();
 			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
@@ -114,6 +168,8 @@ public class ServerConfigState extends AppStateCommon {
 			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
 			panel.addChild(close);
+			panel.addChild(createGame);
+			panel.addChild(joinGame);
 			panel.setIsMovable(false);
 			panel.setIsResizable(false);
 			screen.addElement(panel, true);
@@ -128,91 +184,6 @@ public class ServerConfigState extends AppStateCommon {
 		}
 
 		panel.show();
-	}
-
-	private void initServerControls() {
-		// Add title label for Display
-		dispTitle = getLabel("Server");
-		dispTitle.setTextAlign(BitmapFont.Align.Center);
-		content.addChild(dispTitle);
-
-		// Add title label for mode selection
-		content.addChild(getLabel("Address:"));
-
-		// Add drop-down with available screen modes
-		serverAddress = new TextField(screen, Vector2f.ZERO);
-		//		loadDisplayModes();
-		serverAddress.text = "127.0.0.1"
-
-		serverAddress.toolTipText = "Which Server?";
-		serverAddress.getLayoutHints().set("wrap");
-		content.addChild(serverAddress);
-
-
-		connect = new ButtonAdapter(screen, Vector2f.ZERO) {
-					@Override
-					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-						connect.isEnabled = false
-						main.connectToServer(serverAddress.text)
-						
-					}
-				};
-		connect.setDocking(Docking.SW);
-		connect.setText("connect");
-		connect.setToolTipText("connect to Server");
-		connect.getLayoutHints().set("wrap");
-		content.addChild(connect)
-		
-		SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
-			public void onChange() {
-				
-				mapInfo.removeAllChildren();
-				ListItem item = selectedListItems.first()
-				File file = (File) item.value
-				Battlefield bfd = ModelManager.loadOnlyStaticValues(file)
-				
-				main.game.file = file
-				
-				String mapDescription = "You selected Map : " + item.caption + "\n"
-				mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
-				mapInfo.setText(mapDescription);
-				
-				logger.info("element is selected: " + selectedIndexes)
-				startMap.isEnabled = selectedIndexes
-			}
-		}
-		mapSelect.setDimensions(200, 200)
-		mapSelect.docking = Docking.SW
-		mapSelect.toolTipText = "Please select a Map"
-		
-		def files = FileUtil.getFilesInDirectory(ModelManager.DEFAULT_MAP_PATH, "btf")
-		
-		files.each { File file ->
-			mapSelect.addListItem(file.name, file)			
-		}
-		
-		content.addChild(mapSelect)
-		
-		mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
-		mapInfo.setToolTipText("infos about the selected Map");
-		mapInfo.setDimensions(mapSelect.width,mapSelect.height)
-		content.addChild(mapInfo)
-		mapInfo.layoutHints.set("wrap")
-		
-		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
-			@Override
-			public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {				
-				main.loadMap()
-			}
-		};
-		startMap.isEnabled = false
-		startMap.setDocking(Docking.SW);
-		startMap.setText("startMap");
-		startMap.setToolTipText("start the selected Map");
-		content.addChild(startMap)
-		
-		
-
 	}
 
 

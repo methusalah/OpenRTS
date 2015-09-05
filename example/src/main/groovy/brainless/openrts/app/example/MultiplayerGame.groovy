@@ -18,8 +18,9 @@ import app.OpenRTSApplicationWithDI
 import brainless.openrts.app.example.states.ClientAppState
 import brainless.openrts.app.example.states.GameBattlefieldAppState
 import brainless.openrts.app.example.states.GameHudState
+import brainless.openrts.app.example.states.GuiBattleNetAppState
 import brainless.openrts.app.example.states.LoadingMapState
-import brainless.openrts.app.example.states.ServerConfigState
+import brainless.openrts.app.example.states.GuiServerConfigState
 import brainless.openrts.app.example.states.UserLoginAppState
 import brainless.openrts.model.Game
 import brainless.openrts.model.Player
@@ -70,11 +71,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	// States
 //	private List<AppStateCommon> states = new ArrayList();
-	private ServerConfigState serverConfig;
+	private GuiServerConfigState serverConfig;
 
 	GameBattlefieldAppState gameState
 	GameHudState gameHudState
 	LoadingMapState loadingMapState
+	GuiBattleNetAppState battleNetAppState
 
 	UserLoginAppState userlogin;
 	private TestState tests;
@@ -195,7 +197,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
-		serverConfig = injector.getInstance(ServerConfigState.class);
+		serverConfig = injector.getInstance(GuiServerConfigState.class);
 		this.localUser = user;
 //		states.add(serverConfig);
 		stateManager.attach(serverConfig);
@@ -208,6 +210,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		loadingMapState = injector.getInstance(LoadingMapState.class);
 //		states.add(loadingMapState)
 		stateManager.attach(loadingMapState)
+	}
+	
+	def createGame(){
+		//@TODO switch so app state
 	}
 	
 	def startGame() {
@@ -228,6 +234,13 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		def client = injector.getInstance(ClientAppState.class);
 		client.host = host
 		stateManager.attach(client);
+		
+		stateManager.detach(serverConfig)
+		userlogin.enabled = false
+
+		battleNetAppState = injector.getInstance(GuiBattleNetAppState.class);
+//		states.add(loadingMapState)
+		stateManager.attach(battleNetAppState)
 	}
 
 
