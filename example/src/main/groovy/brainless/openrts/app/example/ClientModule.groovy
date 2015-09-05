@@ -5,7 +5,7 @@ import tonegod.gui.core.Screen
 import brainless.openrts.app.example.states.GameBattlefieldAppState
 import brainless.openrts.app.example.states.GameHudState
 import brainless.openrts.app.example.states.LoadingMapState
-import brainless.openrts.app.example.states.ServerConfigState
+import brainless.openrts.app.example.states.GuiServerConfigState
 import brainless.openrts.app.example.states.UserLoginAppState
 
 import com.google.inject.AbstractModule
@@ -23,7 +23,7 @@ class ClientModule extends AbstractModule {
 		
 		bind(MultiplayerGame.class).toInstance(app)
 		bind(Screen.class).toInstance(screen)
-		bind(ServerConfigState.class).in(Singleton.class)
+		bind(GuiServerConfigState.class).in(Singleton.class)
 		bind(UserLoginAppState.class).in(Singleton.class)
 		bind(GameBattlefieldAppState.class).in(Singleton.class)
 		bind(GameInputInterpreter.class).in(Singleton.class)
