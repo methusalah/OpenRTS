@@ -13,61 +13,29 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
-import model.battlefield.army.ArmyManager;
-import model.builders.entity.CliffShapeBuilder;
-import model.builders.entity.EffectBuilder;
-import model.builders.entity.ManmadeFaceBuilder;
-import model.builders.entity.MapStyleBuilder;
-import model.builders.entity.MoverBuilder;
-import model.builders.entity.NaturalFaceBuilder;
-import model.builders.entity.ProjectileBuilder;
-import model.builders.entity.TrinketBuilder;
-import model.builders.entity.TurretBuilder;
-import model.builders.entity.UnitBuilder;
-import model.builders.entity.WeaponBuilder;
-import openrts.guice.annotation.AppSettingsRef;
-import openrts.guice.annotation.AudioRendererRef;
-import openrts.guice.annotation.GuiNodeRef;
-import openrts.guice.annotation.RootNodeRef;
-import openrts.guice.annotation.StateManagerRef;
-import openrts.guice.annotation.ViewPortRef;
-import view.EditorView;
+import model.ModelManager;
 import view.camera.AzertyFlyByCamera;
-import view.mapDrawing.EditorRenderer;
-import view.material.MaterialManager;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.Singleton;
-import com.google.inject.name.Names;
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.asset.AssetManager;
-import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
-import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
-import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
-
-import controller.CommandManager;
-import controller.SpatialSelector;
 
 public abstract class OpenRTSApplicationWithDI extends Application implements PhysicsTickListener {
 
@@ -218,6 +186,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 
 	public void simpleUpdate(float tpf) {
+		injector.getInstance(ModelManager.class).updateConfigs();
 	}
 
 	public void simpleRender(RenderManager rm) {
