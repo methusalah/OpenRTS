@@ -106,6 +106,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			close.setDocking(Docking.SW);
 			close.setText("Exit");
 			close.setToolTipText("Close Application");
+			content.addChild(close);
 			
 			createGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 				@Override
@@ -116,6 +117,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			createGame.setDocking(Docking.SW);
 			createGame.setText("Create Game");
 			createGame.setToolTipText("Create a new game");
+			content.addChild(createGame);
 			
 			joinGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 				@Override
@@ -126,6 +128,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			joinGame.setDocking(Docking.SW);
 			joinGame.setText("Join Game");
 			joinGame.setToolTipText("Join a game");
+			content.addChild(joinGame);
 			
 			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
 				public void onChange() {
@@ -168,9 +171,9 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			// Create the main display panel
 			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
-			panel.addChild(close);
-			panel.addChild(createGame);
-			panel.addChild(joinGame);
+			
+			
+			
 			panel.setIsMovable(false);
 			panel.setIsResizable(false);
 			screen.addElement(panel, true);
@@ -189,7 +192,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 
 
 
-	public Panel getHarnessPanel() { return this.panel; }
+//	public Panel getHarnessPanel() { return this.panel; }
 
 	@Override
 	public void updateState(float tpf) {
@@ -198,7 +201,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 
 	@Override
 	public void cleanupState() {
-		panel.hide();
+//		panel.hide();
 	}
 
 	private LabelElement getLabel(String text) {
