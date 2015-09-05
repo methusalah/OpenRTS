@@ -170,7 +170,7 @@ public class LoadingMapState extends AppStateCommon {
 		if (load) { //loading is done over many frames
 			if (frameCount == 1) {
 				File file = main.game.file
-
+				modelManager.updateConfigs();
 				modelManager.setBattlefieldUnavailable();
 
 				try {

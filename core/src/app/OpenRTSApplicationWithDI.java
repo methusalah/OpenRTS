@@ -186,7 +186,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 
 	public void simpleUpdate(float tpf) {
-		injector.getInstance(ModelManager.class).updateConfigs();
+		
 	}
 
 	public void simpleRender(RenderManager rm) {
