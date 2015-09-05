@@ -15,17 +15,15 @@ import tonegod.gui.tests.states.text.AnimatedTextState
 import tonegod.gui.tests.states.text.TextLabelState
 import tonegod.gui.tests.states.windows.WindowState
 import app.OpenRTSApplicationWithDI
-import brainless.openrts.app.example.states.ClientAppState
-import brainless.openrts.app.example.states.GameBattlefieldAppState
-import brainless.openrts.app.example.states.GameHudState
-import brainless.openrts.app.example.states.GuiBattleNetAppState
-import brainless.openrts.app.example.states.GuiBattleNetCreateGameAppState
-import brainless.openrts.app.example.states.GuiBattleNetLobbyAppState
-import brainless.openrts.app.example.states.LoadingMapState
-import brainless.openrts.app.example.states.GuiServerConfigState
-import brainless.openrts.app.example.states.UserLoginAppState
+import brainless.openrts.app.example.states.NetworkClientState
+import brainless.openrts.app.example.states.gui.DashboardState
+import brainless.openrts.app.example.states.gui.LoadingMapState
+import brainless.openrts.app.example.states.gui.UserLoginAppState
+import brainless.openrts.app.example.states.gui.game.BattlefieldState
+import brainless.openrts.app.example.states.gui.game.HudState
+import brainless.openrts.app.example.states.gui.network.NetworkDashboardState
+import brainless.openrts.app.example.states.gui.network.NetworkGameLobbyState
 import brainless.openrts.model.Game
-import brainless.openrts.model.Player
 
 import com.google.inject.Module
 import com.jme3.font.BitmapFont
@@ -37,7 +35,7 @@ import com.jme3.renderer.RenderManager
 import com.jme3.system.AppSettings
 
 
-@CompileStatic 
+@CompileStatic
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
@@ -54,7 +52,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	//	public static final String DEFAULT_PATH = "";
 	//	public static final String ATLAS_PATH = "atlas/";
 	//	public static final String ASSET_PATH = "assets/";
-	// Initial GUI Extras settings 
+	// Initial GUI Extras settings
 	public static final boolean USE_ATLAS = true;
 	public static final boolean USE_UI_AUDIO = true;
 	public static final boolean USE_CUSTOM_CURSORS = true;
@@ -64,7 +62,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private boolean fixCam = false;
 	private boolean hasLights = false;
-	private DirectionalLight dl; 
+	private DirectionalLight dl;
 	private AmbientLight al;
 
 	// GUI Variables
@@ -72,15 +70,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private BitmapFont defaultFont;
 
 	// States
-//	private List<AppStateCommon> states = new ArrayList();
-	private GuiServerConfigState serverConfig;
+	//	private List<AppStateCommon> states = new ArrayList();
+	private DashboardState dashboardState;
 
-	GameBattlefieldAppState gameState
-	GameHudState gameHudState
+	BattlefieldState gameState
+	HudState hudState
 	LoadingMapState loadingMapState
-	GuiBattleNetAppState battleNetAppState
-	GuiBattleNetLobbyAppState lobbyState
-	GuiBattleNetCreateGameAppState createGameState
+	NetworkDashboardState networkDashboardState
+	NetworkGameLobbyState networkGameLobbyState
 
 	UserLoginAppState userlogin;
 	private TestState tests;
@@ -125,7 +122,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		initLights();
 		game = new Game();
 		userlogin = injector.getInstance(UserLoginAppState.class);
-//		states.add(userlogin);
+		//		states.add(userlogin);
 		stateManager.attach(userlogin);
 	}
 
@@ -150,13 +147,11 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		return this.screen;
 	}
 
-	public TestState getTests() { return this.tests; }
-
 	public BitmapFont getFont() {
 		return this.defaultFont;
 	}
 
-//	public List<AppStateCommon> getStates() { return states; }
+	//	public List<AppStateCommon> getStates() { return states; }
 
 	private void initLights() {
 		al = new AmbientLight();
@@ -186,9 +181,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void reshape(int w, int h) {
 		super.reshape(w, h);
-//		for (AppStateCommon state : states) {
-//			state.reshape();
-//		}
+		//		for (AppStateCommon state : states) {
+		//			state.reshape();
+		//		}
 	}
 
 	@Override
@@ -201,67 +196,68 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
-		serverConfig = injector.getInstance(GuiServerConfigState.class);
+		dashboardState = injector.getInstance(DashboardState.class);
 		this.localUser = user;
-//		states.add(serverConfig);
-		stateManager.attach(serverConfig);
+		//		states.add(serverConfig);
+		stateManager.attach(dashboardState);
 	}
 
 	def loadMap() {
-		stateManager.detach(serverConfig)
+		stateManager.detach(dashboardState)
 		userlogin.enabled = false
 
 		loadingMapState = injector.getInstance(LoadingMapState.class);
-//		states.add(loadingMapState)
+		//		states.add(loadingMapState)
 		stateManager.attach(loadingMapState)
 	}
-	
+
 	def createGame(){
-		stateManager.detach(battleNetAppState)
+		stateManager.detach(networkDashboardState)
 
-		createGameState = injector.getInstance(GuiBattleNetCreateGameAppState.class);
-		stateManager.attach(createGameState)
+		networkGameLobbyState = injector.getInstance(NetworkGameLobbyState.class);
+		stateManager.attach(networkGameLobbyState)
 	}
-	
+
 	def openGame(){
-		stateManager.detach(createGameState)
+		stateManager.detach(networkGameLobbyState)
 
-		lobbyState = injector.getInstance(GuiBattleNetLobbyAppState.class);
-		stateManager.attach(lobbyState)
+		loadingMapState = injector.getInstance(LoadingMapState.class);
+		//		states.add(loadingMapState)
+		stateManager.attach(loadingMapState)
+
 	}
-	
+
 	def joinGame(){
-		stateManager.detach(battleNetAppState)
-
-		lobbyState = injector.getInstance(GuiBattleNetLobbyAppState.class);
-		stateManager.attach(lobbyState)
+		stateManager.detach(networkDashboardState)
+		networkGameLobbyState = injector.getInstance(NetworkGameLobbyState.class);
+		stateManager.attach(networkGameLobbyState)
 	}
-	
+
 	def startGame() {
 		stateManager.detach(loadingMapState)
 		loadingMapState.setEnabled(false)
-				 
-		gameState = injector.getInstance(GameBattlefieldAppState.class);
-//		states.add(gameState);
+
+		gameState = injector.getInstance(BattlefieldState.class);
+		//		states.add(gameState);
 		stateManager.attach(gameState);
 
-		gameHudState = injector.getInstance(GameHudState.class);
-//		states.add(gameHudState);
-		stateManager.attach(gameHudState);
+		hudState = injector.getInstance(HudState.class);
+		//		states.add(gameHudState);
+		stateManager.attach(hudState);
 
 	}
 
 	def connectToServer(String host) {
-		def client = injector.getInstance(ClientAppState.class);
+		def client = injector.getInstance(NetworkClientState.class);
 		client.host = host
 		stateManager.attach(client);
-		
-		stateManager.detach(serverConfig)
+
+		stateManager.detach(dashboardState)
 		userlogin.enabled = false
 
-		battleNetAppState = injector.getInstance(GuiBattleNetAppState.class);
-//		states.add(loadingMapState)
-		stateManager.attach(battleNetAppState)
+		networkDashboardState = injector.getInstance(NetworkDashboardState.class);
+		//		states.add(loadingMapState)
+		stateManager.attach(networkDashboardState)
 
 	}
 
@@ -271,7 +267,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		super.destroy();
 		this.stop();
 	}
-	
-	
+
+
 
 }

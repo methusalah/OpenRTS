@@ -17,7 +17,7 @@ import brainless.openrts.event.network.MultiSelectEntityEvent
 import brainless.openrts.event.network.SelectEntityEvent
 import brainless.openrts.server.states.ServerControlAppState
 import brainless.openrts.server.states.ServerLogicAppState
-import brainless.openrts.server.states.ServerStartAppState
+import brainless.openrts.server.states.gui.ServerStartAppState;
 
 import com.jme3.network.Network
 import com.jme3.network.kernel.KernelException

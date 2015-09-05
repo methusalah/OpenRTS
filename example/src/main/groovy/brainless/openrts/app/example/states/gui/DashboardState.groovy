@@ -2,18 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package brainless.openrts.app.example.states;
+package brainless.openrts.app.example.states.gui;
+
+import groovy.transform.CompileStatic
 
 import java.util.logging.Logger
 
 import model.ModelManager
-import model.battlefield.Battlefield
 import tonegod.gui.controls.buttons.ButtonAdapter
-import tonegod.gui.controls.buttons.CheckBox
-import tonegod.gui.controls.lists.SelectList
-import tonegod.gui.controls.lists.Slider
-import tonegod.gui.controls.lists.SelectList.ListItem
-import tonegod.gui.controls.scrolling.ScrollArea
 import tonegod.gui.controls.text.LabelElement
 import tonegod.gui.controls.text.TextField
 import tonegod.gui.controls.windows.Panel
@@ -24,9 +20,9 @@ import tonegod.gui.core.Element.Docking
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
-import brainless.openrts.event.ClientLoggedOutEvent;
-import brainless.openrts.event.EventManager;
-import brainless.openrts.util.FileUtil;
+import brainless.openrts.app.example.states.AppStateCommon
+import brainless.openrts.event.ClientLoggedOutEvent
+import brainless.openrts.event.EventManager
 
 import com.google.inject.Inject
 import com.google.inject.Injector
@@ -35,44 +31,32 @@ import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
-import groovy.transform.CompileStatic
-
 /**
  *
  * @author t0neg0d
  */
 @CompileStatic
-public class GuiServerConfigState extends AppStateCommon {
-	
-	private static final Logger logger = Logger.getLogger(GuiServerConfigState.class.getName());
-	
-	private float contentPadding = 14;
+public class DashboardState extends AppStateCommon {
 
+	private static final Logger logger = Logger.getLogger(DashboardState.class.getName());
+
+	private float contentPadding = 14;
 	private Element content;
 	private Panel panel;
 	private TextField serverAddress
-	private CheckBox vSync, audio, cursors, cursorFX, toolTips;
-	private Slider uiAlpha, audioVol;
 	private LabelElement dispTitle, extTitle, testTitle;
-	protected ButtonAdapter close,connect, startMap;
-	
-	ScrollArea mapInfo
-	
+	protected ButtonAdapter close,connect
+
 	@Inject
 	ModelManager modelManager
-	
-
-	protected static String mapfilename = "assets/maps/test.btf";
-	
 
 	@Inject
 	Injector injector
 
 	@Inject
-	public GuiServerConfigState() {
-		displayName = "ServerConfig";
+	public DashboardState() {
+		displayName = "Dashboard";
 		show = false;
-		
 	}
 
 	@Override
@@ -85,7 +69,7 @@ public class GuiServerConfigState extends AppStateCommon {
 	@Override
 	protected void initState() {
 		if (!init) {
-			
+
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
 			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
@@ -93,7 +77,7 @@ public class GuiServerConfigState extends AppStateCommon {
 			content.setLayout(layout);
 
 			// Reset layout helper
-//			LayoutHelper.reset();
+			//			LayoutHelper.reset();
 			initServerControls()
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
@@ -133,7 +117,7 @@ public class GuiServerConfigState extends AppStateCommon {
 
 	private void initServerControls() {
 		// Add title label for Display
-		dispTitle = getLabel("Server");
+		dispTitle = getLabel("OpenRTS Dashboard");
 		dispTitle.setTextAlign(BitmapFont.Align.Center);
 		content.addChild(dispTitle);
 
@@ -155,7 +139,7 @@ public class GuiServerConfigState extends AppStateCommon {
 					public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
 						connect.isEnabled = false
 						main.connectToServer(serverAddress.text)
-						
+
 					}
 				};
 		connect.setDocking(Docking.SW);
@@ -163,64 +147,7 @@ public class GuiServerConfigState extends AppStateCommon {
 		connect.setToolTipText("connect to Server");
 		connect.getLayoutHints().set("wrap");
 		content.addChild(connect)
-		
-		SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
-			public void onChange() {
-				
-				mapInfo.removeAllChildren();
-				ListItem item = selectedListItems.first()
-				File file = (File) item.value
-				Battlefield bfd = modelManager.loadOnlyStaticValues(file)
-				
-				main.game.file = file
-				
-				String mapDescription = "You selected Map : " + item.caption + "\n"
-				mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
-				mapDescription += "Faction: "
-				
-				mapInfo.setText(mapDescription);
-				
-				logger.info("element is selected: " + selectedIndexes)
-				startMap.isEnabled = selectedIndexes
-			}
-		}
-		mapSelect.setDimensions(200, 200)
-		mapSelect.docking = Docking.SW
-		mapSelect.toolTipText = "Please select a Map"
-		
-		def files = FileUtil.getFilesInDirectory(ModelManager.DEFAULT_MAP_PATH, "btf")
-		
-		files.each { File file ->
-			mapSelect.addListItem(file.name, file)			
-		}
-		
-		content.addChild(mapSelect)
-		
-		mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
-		mapInfo.setToolTipText("infos about the selected Map");
-		mapInfo.setDimensions(mapSelect.width,mapSelect.height)
-		content.addChild(mapInfo)
-		mapInfo.layoutHints.set("wrap")
-		
-		startMap = new ButtonAdapter(screen, Vector2f.ZERO) {
-			@Override
-			public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {				
-				main.loadMap()
-			}
-		};
-		startMap.isEnabled = false
-		startMap.setDocking(Docking.SW);
-		startMap.setText("startMap");
-		startMap.setToolTipText("start the selected Map");
-		content.addChild(startMap)
-		
-		
-
 	}
-
-
-
-	public Panel getHarnessPanel() { return this.panel; }
 
 	@Override
 	public void updateState(float tpf) {

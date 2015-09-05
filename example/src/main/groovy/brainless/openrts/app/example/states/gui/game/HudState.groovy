@@ -1,4 +1,4 @@
-package brainless.openrts.app.example.states;
+package brainless.openrts.app.example.states.gui.game;
 
 import groovy.transform.CompileStatic
 import openrts.guice.annotation.RootNodeRef
@@ -14,6 +14,7 @@ import tonegod.gui.core.Element.Docking
 import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
+import brainless.openrts.app.example.states.AppStateCommon;
 import brainless.openrts.event.EventManager
 import brainless.openrts.event.network.SelectEntityEvent
 
@@ -35,7 +36,7 @@ import com.jme3.texture.Texture
  * @author t0neg0d
  */
 @CompileStatic
-class GameHudState extends AppStateCommon {
+class HudState extends AppStateCommon {
 
 	private Panel cPanel;
 	private float iconSize = 20;
@@ -52,7 +53,7 @@ class GameHudState extends AppStateCommon {
 	private Node rootNode;
 	
 	@Inject
-	public GameHudState() {
+	public HudState() {
 		super();
 		displayName = "Spatial Support";
 		show = true;

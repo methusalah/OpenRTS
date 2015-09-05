@@ -11,7 +11,6 @@ import tonegod.gui.controls.scrolling.ScrollArea
 import tonegod.gui.controls.windows.Panel
 import tonegod.gui.core.Screen
 import tonegod.gui.core.layouts.FlowLayout
-import brainless.openrts.event.ClientDisconnectedEvent
 import brainless.openrts.event.ClientLoggedOutEvent
 import brainless.openrts.event.ClientTrysToLoginEvent
 import brainless.openrts.event.EventManager
@@ -34,7 +33,7 @@ class ServerControlAppState extends AbstractAppState {
 	Screen screen;
 
 	Panel logPanel
-	
+
 	SelectList users
 	ScrollArea eventlog, chatlog;
 
@@ -53,34 +52,33 @@ class ServerControlAppState extends AbstractAppState {
 	}
 
 	public void initControlWindow() {
-		
+
 		screen.useToolTips = true
-		
+
 		logPanel = new Panel(screen, "LogPanel", new Vector2f(0,0))
-		logPanel.setDimensions(Display.width,200)
+		logPanel.setDimensions(Display.width,Display.height)
 		logPanel.isResizable = false
 		logPanel.isMovable = false
-	
+
 		FlowLayout layout = new FlowLayout(screen, "margins 8 8 8 8", "padding 25 25 25 25")
 		logPanel.layout = layout
-	
-		
+
 		screen.addElement(logPanel)
-		
+
 		users = new SelectList(screen, "UserList", Vector2f.ZERO) {
-			void onChange() {
-				def idx = users.selectedIndexes.first()
-				logger.info("select user: " + users.listItems.get(idx).caption)
-			}
-		}
+					void onChange() {
+						def idx = users.selectedIndexes.first()
+						logger.info("select user: " + users.listItems.get(idx).caption)
+					}
+				}
 		users.isMultiselect = false
-		users.setDimensions(100, logPanel.height - 16)
+		users.setDimensions(100, (Display.height / 2) - 16)
 		users.isResizable = false
 		users.isMovable = false
 		users.setToolTipText("The connected users are displayed here")
 		logPanel.addChild(users)
-		users.addListItem("test","test")
-		
+		logPanel.layoutHints.set("wrap")
+
 		eventlog = new ScrollArea(screen, "EventLog", new Vector2f(users.width, 0), new Vector2f(200, logPanel.height - 16), true)
 		eventlog.isResizable = false
 		eventlog.isMovable = false
@@ -88,13 +86,13 @@ class ServerControlAppState extends AbstractAppState {
 		logPanel.addChild(eventlog)
 		eventlog.setText("test2")
 		eventlog.isScrollable = false
-		
+
 		chatlog = new ScrollArea(screen, "ChatLog", new Vector2f(users.width + eventlog.width, 0),new Vector2f(300 - 25, logPanel.height -16), true)
 		chatlog.isResizable = false
 		chatlog.isMovable = false
 		chatlog.setToolTipText("Chatmessages are displayed here")
 		logPanel.addChild(chatlog)
-		
+
 		logPanel.getLayout().layoutChildren();
 	}
 
@@ -122,16 +120,14 @@ class ServerControlAppState extends AbstractAppState {
 	def logSeverEvents(ServerEvent evt) {
 		eventlog.text = "" + evt + "\n" + eventlog.text
 	}
-	
+
 	@Subscribe
 	def logSeverEvents(ClientTrysToLoginEvent evt) {
 		users.addListItem(evt.user, evt)
 	}
-	
+
 	@Subscribe
 	def logSeverEvents(ClientLoggedOutEvent evt) {
 		users.removeListItem(evt.user)
 	}
-	
-	
 }

@@ -27,9 +27,9 @@ import exception.TechnicalException
 import groovy.transform.CompileStatic
 
 @CompileStatic
-public class ClientAppState extends AbstractAppState {
+public class NetworkClientState extends AbstractAppState {
 
-	private static final Logger logger = Logger.getLogger(ClientAppState.class.getName());
+	private static final Logger logger = Logger.getLogger(NetworkClientState.class.getName());
 	private static final String gameName = "OpenRTS";
 	private static String host = "localhost";
 	private static final int version = 1;
@@ -41,7 +41,7 @@ public class ClientAppState extends AbstractAppState {
 	@Inject
 	MultiplayerGame main
 	
-	public ClientAppState() {
+	public NetworkClientState() {
 		
 	}
 

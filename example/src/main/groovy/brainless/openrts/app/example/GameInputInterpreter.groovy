@@ -6,7 +6,7 @@ import groovy.transform.CompileStatic
 import java.util.logging.Logger
 
 import view.EditorView
-import brainless.openrts.app.example.states.GameBattlefieldAppState
+import brainless.openrts.app.example.states.gui.game.BattlefieldState;
 import brainless.openrts.event.EventManager
 import brainless.openrts.event.network.HoldEvent
 import brainless.openrts.event.network.MoveAttackEvent
@@ -43,7 +43,7 @@ public class GameInputInterpreter extends InputInterpreter {
 	private double dblclickTimer = 0;
 	private Point2D dblclickCoord;
 
-	GameBattlefieldAppState ctrl;
+	BattlefieldState ctrl;
 	
 	@Inject
 	protected SpatialSelector spatialSelector;
@@ -55,7 +55,7 @@ public class GameInputInterpreter extends InputInterpreter {
 	private CommandManager commandManager
 	
 	@Inject
-	GameInputInterpreter(GameBattlefieldAppState ctrl) {
+	GameInputInterpreter(BattlefieldState ctrl) {
 		super();
 		this.ctrl = ctrl;
 		mappings = [ SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE ]

@@ -1,4 +1,4 @@
-package brainless.openrts.server.states
+package brainless.openrts.server.states.gui
 ;
 
 import groovy.transform.CompileStatic

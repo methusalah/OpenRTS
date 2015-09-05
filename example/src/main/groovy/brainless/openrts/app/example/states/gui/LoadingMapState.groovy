@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package brainless.openrts.app.example.states;
+package brainless.openrts.app.example.states.gui;
 
 import groovy.transform.CompileStatic
 
@@ -22,6 +22,7 @@ import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 import util.MapArtisanManager
 import brainless.openrts.app.example.MultiplayerGame
+import brainless.openrts.app.example.states.AppStateCommon;
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.inject.Inject

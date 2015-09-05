@@ -1,4 +1,4 @@
-package brainless.openrts.app.example.states;
+package brainless.openrts.app.example.states.gui.game;
 
 import java.util.logging.Logger
 
@@ -10,6 +10,7 @@ import view.camera.Camera
 import view.camera.IsometricCamera
 import view.math.TranslateUtil
 import brainless.openrts.app.example.GameInputInterpreter
+import brainless.openrts.app.example.states.AppStateCommon;
 import brainless.openrts.event.BattleFieldUpdateEvent;
 import brainless.openrts.event.EventManager;
 
@@ -26,9 +27,9 @@ import geometry.geom2d.Point2D
 import groovy.transform.CompileStatic
 
 @CompileStatic
-public class GameBattlefieldAppState extends AppStateCommon {
+public class BattlefieldState extends AppStateCommon {
 	
-	private static final Logger logger = Logger.getLogger(GameBattlefieldAppState.class.getName());
+	private static final Logger logger = Logger.getLogger(BattlefieldState.class.getName());
 
 	private boolean paused = false;
 	private Point2D zoneStart;
@@ -63,7 +64,7 @@ public class GameBattlefieldAppState extends AppStateCommon {
 	private CommandManager commandManager
 	
 	@Inject
-	public GameBattlefieldAppState() {
+	public BattlefieldState() {
 		super()
 		displayName = "GameBattlefieldState";
 		show = true;

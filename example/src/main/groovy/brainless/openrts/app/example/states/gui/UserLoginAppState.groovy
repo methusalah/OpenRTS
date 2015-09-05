@@ -1,4 +1,4 @@
-package brainless.openrts.app.example.states
+package brainless.openrts.app.example.states.gui
 
 import groovy.transform.CompileStatic
 
@@ -6,8 +6,9 @@ import javax.inject.Inject
 
 import tonegod.gui.controls.windows.LoginBox
 import tonegod.gui.core.Screen
-
+import brainless.openrts.app.example.states.AppStateCommon;
 import brainless.openrts.model.Player
+
 import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 
