@@ -42,9 +42,9 @@ import groovy.transform.CompileStatic
  * @author t0neg0d
  */
 @CompileStatic
-public class GuiBattleNetCreateGameAppState extends AppStateCommon {
+public class GuiBattleNetLobbyAppState extends AppStateCommon {
 	
-	private static final Logger logger = Logger.getLogger(GuiBattleNetCreateGameAppState.class.getName());
+	private static final Logger logger = Logger.getLogger(GuiBattleNetLobbyAppState.class.getName());
 	
 	private float contentPadding = 14;
 
@@ -93,7 +93,6 @@ public class GuiBattleNetCreateGameAppState extends AppStateCommon {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
 							//@TODO move to LobbyAppState
-							main.createGame()
 						}
 					};
 			close.setDocking(Docking.SW);
