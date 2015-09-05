@@ -126,6 +126,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			joinGame.setDocking(Docking.SW);
 			joinGame.setText("Join Game");
 			joinGame.setToolTipText("Join a game");
+			
 			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
 				public void onChange() {
 					

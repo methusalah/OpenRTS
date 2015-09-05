@@ -227,6 +227,8 @@ public class GuiServerConfigState extends AppStateCommon {
 	@Override
 	public void cleanupState() {
 		panel.hide();
+		panel.detachAllChildren();
+		panel.removeAllChildren()
 	}
 
 	private LabelElement getLabel(String text) {

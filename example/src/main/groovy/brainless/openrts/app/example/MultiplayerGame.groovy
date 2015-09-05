@@ -241,6 +241,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		battleNetAppState = injector.getInstance(GuiBattleNetAppState.class);
 //		states.add(loadingMapState)
 		stateManager.attach(battleNetAppState)
+
 	}
 
 
