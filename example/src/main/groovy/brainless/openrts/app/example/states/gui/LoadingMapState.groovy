@@ -4,8 +4,6 @@
  */
 package brainless.openrts.app.example.states.gui;
 
-import groovy.transform.CompileStatic
-
 import java.util.logging.Logger
 
 import model.ModelManager
@@ -22,7 +20,7 @@ import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 import util.MapArtisanManager
 import brainless.openrts.app.example.MultiplayerGame
-import brainless.openrts.app.example.states.AppStateCommon;
+import brainless.openrts.app.example.states.AppStateCommon
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.inject.Inject
@@ -34,31 +32,31 @@ import com.jme3.math.Vector4f
 
 //@CompileStatic
 public class LoadingMapState extends AppStateCommon {
-	
+
 	private static final Logger logger = Logger.getLogger(LoadingMapState.class.getName());
-	
+
 	private float contentPadding = 14;
 
 	Element content;
 	Panel panel;
-	
+
 	Indicator ind
 	Label loadingtext
-	
+
 	boolean load = false;
 	private float frameCount = 0;
-	
+
 	Battlefield bField = null;
 
 	@Inject
 	Injector injector
-	
+
 	@Inject
 	MultiplayerGame main
-	
+
 	@Inject
 	ModelManager modelManager
-	
+
 	@Inject
 	MapArtisanManager mapArtisanManager
 
@@ -66,7 +64,7 @@ public class LoadingMapState extends AppStateCommon {
 	public LoadingMapState() {
 		displayName = "LoadingMap";
 		show = false;
-		
+
 	}
 
 	@Override
@@ -79,85 +77,43 @@ public class LoadingMapState extends AppStateCommon {
 	@Override
 	protected void initState() {
 		if (!init) {
-			
+
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
 			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 
-			
-			final ColorRGBA color = new ColorRGBA();
-			
-		   ind = new Indicator(screen,new Vector2f(50,300),new Vector2f(300,30),Orientation.HORIZONTAL) {
-			   @Override
-			   public void onChange(float currentValue, float currentPercentage) {  }
-		   };
-		   ind.setBaseImage(screen.getStyle("Window").getString("defaultImg"));
-		   //ind.setIndicatorImage(screen.getStyle("Window").getString("defaultImg"));
-		   ind.setIndicatorColor(ColorRGBA.randomColor());
-		   ind.setAlphaMap(screen.getStyle("Indicator").getString("alphaImg"));
-		   ind.setIndicatorPadding(new Vector4f(7,7,7,7));
-		   ind.setMaxValue(100);
-		   ind.setDisplayPercentage();
-			
-		   content.addChild(ind);
-		   
-		   loadingtext = new Label(screen, "loadingtext", new Vector2f(200,200), new Vector2f(300,30))
-		   content.addChild(loadingtext)
-		   
-//		   
-//		   Slider slider = new Slider(screen, new Vector2f(100,100), Orientation.HORIZONTAL, true) {
-//			   @Override
-//			   public void onChange(int selectedIndex, Object value) {
-//				   float blend = selectedIndex*0.01f;
-//				   color.interpolate(ColorRGBA.Red, ColorRGBA.Green, blend);
-//				   ind.setIndicatorColor(color);
-//				   ind.setCurrentValue((Integer)value);
-//			   }
-//		   };
-//			
-//		   content.addChild(slider);
-			// Reset layout helper
-//			LayoutHelper.reset();
-//			ModelManager.loadBattlefield(mapfilename);
-//			CreateGameEvent evt1 = new CreateGameEvent(mapfilename);
-//			EventManager.post(evt1);
-//
-//			close = new ButtonAdapter(screen, Vector2f.ZERO) {
-//						@Override
-//						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-//							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.user);
-//							EventManager.post(evt1);
-//							System.exit(0);
-//						}
-//					};
-//			close.setDocking(Docking.SW);
-//			close.setText("Exit");
-//			close.setToolTipText("Close Application");
 
-			// Position content container and size it to it's contents
-//			content.getLayout().layoutChildren();
-			//content.sizeToContent();
-//			content.getLayout().layoutChildren();
+			final ColorRGBA color = new ColorRGBA();
+
+			ind = new Indicator(screen,new Vector2f(50,300),new Vector2f(300,30),Orientation.HORIZONTAL) {
+						@Override
+						public void onChange(float currentValue, float currentPercentage) {  }
+					};
+			ind.setBaseImage(screen.getStyle("Window").getString("defaultImg"));
+			//ind.setIndicatorImage(screen.getStyle("Window").getString("defaultImg"));
+			ind.setIndicatorColor(ColorRGBA.randomColor());
+			ind.setAlphaMap(screen.getStyle("Indicator").getString("alphaImg"));
+			ind.setIndicatorPadding(new Vector4f(7,7,7,7));
+			ind.setMaxValue(100);
+			ind.setDisplayPercentage();
+			ind.centerToParentH()
+
+			content.addChild(ind);
+
+			loadingtext = new Label(screen, "loadingtext", new Vector2f(200,200), new Vector2f(300,30))
+			content.addChild(loadingtext)
+			loadingtext.centerToParentH()
 			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
 
 			// Create the main display panel
 			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
-//			panel.addChild(close);
+			//			panel.addChild(close);
 			panel.setIsMovable(false);
 			panel.setIsResizable(false);
 			screen.addElement(panel, true);
-
-			// Set control defaults
-//			close.centerToParent();
-//			close.setY(contentPadding);
-//			dispTitle.centerToParentH();
-			//			extTitle.centerToParentH();
-			//			testTitle.centerToParentH();
-			//			uiAlpha.setSelectedIndexWithCallback(100);
-			//			audioVol.setSelectedIndexWithCallback(100);
 
 			load = true
 			init = true;
@@ -165,7 +121,7 @@ public class LoadingMapState extends AppStateCommon {
 
 		panel.show();
 	}
-	
+
 	@Override
 	public void updateState(float tpf) {
 		if (load) { //loading is done over many frames

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package brainless.openrts.app.example.states.gui.network;
 
 import groovy.transform.CompileStatic
@@ -25,6 +21,8 @@ import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 import brainless.openrts.app.example.states.AppStateCommon
+import brainless.openrts.event.ClientLoggedOutEvent
+import brainless.openrts.event.EventManager
 import brainless.openrts.util.FileUtil
 
 import com.google.inject.Inject
@@ -38,9 +36,9 @@ import com.jme3.math.Vector4f
  * @author t0neg0d
  */
 @CompileStatic
-public class NetworkGameLobbyState extends AppStateCommon {
+public class OpenGameState extends AppStateCommon {
 
-	private static final Logger logger = Logger.getLogger(NetworkGameLobbyState.class.getName());
+	private static final Logger logger = Logger.getLogger(OpenGameState.class.getName());
 
 	private float contentPadding = 14;
 
@@ -57,7 +55,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 
 	@Inject
 	public ServerConfigState() {
-		displayName = "ServerConfig";
+		displayName = "OpenGame";
 		show = false;
 	}
 
@@ -78,15 +76,16 @@ public class NetworkGameLobbyState extends AppStateCommon {
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 			// Add title label for Display
-			dispTitle = getLabel("Game Lobby");
+			dispTitle = getLabel("Open Game");
 			dispTitle.setTextAlign(BitmapFont.Align.Center);
 			content.addChild(dispTitle);
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							//@TODO move to LobbyAppState
-							main.createGame()
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.mySelf.id, main.game.mySelf.name);
+							EventManager.post(evt1);
+							System.exit(0);
 						}
 					};
 			close.setDocking(Docking.SW);
@@ -127,7 +126,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 			mapInfo.setToolTipText("infos about the selected Map");
 			mapInfo.setDimensions(mapSelect.width,mapSelect.height)
 			content.addChild(mapInfo)
-			mapInfo.layoutHints.set("wrap")
+			//mapInfo.layoutHints.set("wrap")
 
 			openGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override

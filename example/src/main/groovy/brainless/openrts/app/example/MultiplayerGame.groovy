@@ -21,8 +21,9 @@ import brainless.openrts.app.example.states.gui.LoadingMapState
 import brainless.openrts.app.example.states.gui.UserLoginAppState
 import brainless.openrts.app.example.states.gui.game.BattlefieldState
 import brainless.openrts.app.example.states.gui.game.HudState
+import brainless.openrts.app.example.states.gui.network.GameLobbyState
 import brainless.openrts.app.example.states.gui.network.NetworkDashboardState
-import brainless.openrts.app.example.states.gui.network.NetworkGameLobbyState
+import brainless.openrts.app.example.states.gui.network.OpenGameState
 import brainless.openrts.model.Game
 
 import com.google.inject.Module
@@ -55,9 +56,6 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	// Initial GUI Extras settings
 	public static final boolean USE_ATLAS = true;
 	public static final boolean USE_UI_AUDIO = true;
-	public static final boolean USE_CUSTOM_CURSORS = true;
-	public static final boolean USE_CURSOR_EFFECTS = true;
-	public static final boolean USE_TOOLTIPS = true;
 	String localUser
 
 	private boolean fixCam = false;
@@ -71,13 +69,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	// States
 	//	private List<AppStateCommon> states = new ArrayList();
-	private DashboardState dashboardState;
+	private NetworkDashboardState networkDashboardState;
 
 	BattlefieldState gameState
 	HudState hudState
 	LoadingMapState loadingMapState
-	NetworkDashboardState networkDashboardState
-	NetworkGameLobbyState networkGameLobbyState
+	DashboardState dashboardState
+	GameLobbyState gameLobbyState
+	OpenGameState openGameState
 
 	UserLoginAppState userlogin;
 	private TestState tests;
@@ -133,9 +132,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 			screen.setUseTextureAtlas(true, BASE_THEME_PATH + ASSET_PATH + "atlas.png");
 		}
 		screen.setUseUIAudio(USE_UI_AUDIO);
-		screen.setUseCustomCursors(USE_CUSTOM_CURSORS);
-		screen.setUseCursorEffects(USE_CURSOR_EFFECTS);
-		screen.setUseToolTips(USE_TOOLTIPS);
+		screen.setUseCustomCursors(true);
+		screen.setUseCursorEffects(true);
+		screen.setUseToolTips(true);
 		guiNode.addControl(screen);
 
 		defaultFont = getAssetManager().loadFont(screen.getStyle("Font").getString("defaultFont"));
@@ -203,7 +202,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	}
 
 	def loadMap() {
-		stateManager.detach(dashboardState)
+		stateManager.detach(networkDashboardState)
 		userlogin.enabled = false
 
 		loadingMapState = injector.getInstance(LoadingMapState.class);
@@ -214,12 +213,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	def createGame(){
 		stateManager.detach(networkDashboardState)
 
-		networkGameLobbyState = injector.getInstance(NetworkGameLobbyState.class);
-		stateManager.attach(networkGameLobbyState)
+		openGameState = injector.getInstance(OpenGameState.class);
+		stateManager.attach(openGameState)
 	}
 
 	def openGame(){
-		stateManager.detach(networkGameLobbyState)
+		stateManager.detach(gameLobbyState)
 
 		loadingMapState = injector.getInstance(LoadingMapState.class);
 		//		states.add(loadingMapState)
@@ -229,8 +228,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	def joinGame(){
 		stateManager.detach(networkDashboardState)
-		networkGameLobbyState = injector.getInstance(NetworkGameLobbyState.class);
-		stateManager.attach(networkGameLobbyState)
+		gameLobbyState = injector.getInstance(GameLobbyState.class);
+		stateManager.attach(gameLobbyState)
 	}
 
 	def startGame() {
@@ -252,7 +251,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		client.host = host
 		stateManager.attach(client);
 
-		stateManager.detach(dashboardState)
+		stateManager.detach(networkDashboardState)
 		userlogin.enabled = false
 
 		networkDashboardState = injector.getInstance(NetworkDashboardState.class);
