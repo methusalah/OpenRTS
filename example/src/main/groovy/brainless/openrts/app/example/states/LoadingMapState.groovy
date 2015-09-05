@@ -4,6 +4,8 @@
  */
 package brainless.openrts.app.example.states;
 
+import groovy.transform.CompileStatic
+
 import java.util.logging.Logger
 
 import model.ModelManager
@@ -29,7 +31,7 @@ import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
 
-//@CompileStatic
+@CompileStatic
 public class LoadingMapState extends AppStateCommon {
 	
 	private static final Logger logger = Logger.getLogger(LoadingMapState.class.getName());
@@ -52,6 +54,12 @@ public class LoadingMapState extends AppStateCommon {
 	
 	@Inject
 	MultiplayerGame main
+	
+	@Inject
+	ModelManager modelManager
+	
+	@Inject
+	MapArtisanManager mapArtisanManager
 
 	@Inject
 	public LoadingMapState() {
@@ -163,7 +171,7 @@ public class LoadingMapState extends AppStateCommon {
 			if (frameCount == 1) {
 				File file = main.game.file
 
-				ModelManager.setBattlefieldUnavailable();
+				modelManager.setBattlefieldUnavailable();
 
 				try {
 					ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
@@ -176,7 +184,7 @@ public class LoadingMapState extends AppStateCommon {
 				setProgress(20, "Build Map");
 
 			} else if (frameCount == 2) {
-				MapArtisanManager.buildMap(bField);
+				mapArtisanManager.buildMap(bField);
 
 				setProgress(40, "Loading texture atlas");
 
@@ -190,7 +198,7 @@ public class LoadingMapState extends AppStateCommon {
 				setProgress(100, "Loading complete");
 
 			} else if (frameCount == 8) {
-				ModelManager.setBattlefield(bField)
+				modelManager.setBattlefield(bField)
 				main.startGame();
 			}
 

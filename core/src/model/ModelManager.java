@@ -25,10 +25,14 @@ public class ModelManager {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 32;
 
+	@Inject
 	private BattlefieldFactory factory;
 
 	private Battlefield battlefield;
+	
+	@Inject
 	private DefParser parser;
+	
 	private static double nextUpdate = 0;
 	public static boolean battlefieldReady = true;
 
@@ -41,16 +45,15 @@ public class ModelManager {
 	@Inject
 	private BuilderManager builderManager;
 	
+	
 	@Inject
-	ModelManager(DefParser defParser, BattlefieldFactory factory) {
-		parser = defParser;
-		parser.setPath(CONFIG_PATH);
-		this.factory = factory;
+	ModelManager() {
 	}
 
 	public void updateConfigs() {
 		if (System.currentTimeMillis() > nextUpdate) {
 			nextUpdate = System.currentTimeMillis() + UPDATE_DELAY;
+			parser.setPath(CONFIG_PATH);
 			parser.readFiles();
 		}
 	}

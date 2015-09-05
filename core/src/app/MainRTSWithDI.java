@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import model.ModelManager;
-import model.battlefield.BattlefieldFactory;
-import model.builders.entity.definitions.DefParser;
 import model.editor.ToolManager;
 import view.EditorView;
 import view.mapDrawing.MapDrawer;

@@ -11,6 +11,7 @@ import model.builders.entity.definitions.DefElement;
 import model.builders.entity.definitions.Definition;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 /**
  * @author Benoît
@@ -34,7 +35,7 @@ public class MoverBuilder extends Builder {
 	private Mover.StandingMode standingMode = StandingMode.STAND;
 
 	@Inject
-	private ModelManager modelManager;
+	private Injector injector;
 
 	@Inject
 	public MoverBuilder(Definition def) {
@@ -76,7 +77,7 @@ public class MoverBuilder extends Builder {
 	}
 
 	public Mover build(Hiker movable) {
-		Mover res = new Mover(heightmap, pathfindingMode, standingMode,movable, modelManager);
+		Mover res = new Mover(heightmap, pathfindingMode, standingMode,movable, injector.getInstance(ModelManager.class));
 		return res;
 	}
 
