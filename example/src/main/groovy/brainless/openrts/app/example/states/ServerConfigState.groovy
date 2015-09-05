@@ -61,6 +61,10 @@ public class ServerConfigState extends AppStateCommon {
 	@Inject
 	ModelManager modelManager
 	
+
+	protected static String mapfilename = "assets/maps/test.btf";
+	
+
 	@Inject
 	Injector injector
 
@@ -95,7 +99,7 @@ public class ServerConfigState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.players.first().name);
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.mySelf.id, main.game.mySelf.name);
 							EventManager.post(evt1);
 							System.exit(0);
 						}

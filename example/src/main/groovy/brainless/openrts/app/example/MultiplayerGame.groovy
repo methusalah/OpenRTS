@@ -57,6 +57,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	public static final boolean USE_CUSTOM_CURSORS = true;
 	public static final boolean USE_CURSOR_EFFECTS = true;
 	public static final boolean USE_TOOLTIPS = true;
+	String localUser
 
 	private boolean fixCam = false;
 	private boolean hasLights = false;
@@ -195,7 +196,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	def sucessfullLoggedIn(String user) {
 		stateManager.detach(userlogin);
 		serverConfig = injector.getInstance(ServerConfigState.class);
-		game.players.add(new Player(name: user));
+		this.localUser = user;
 //		states.add(serverConfig);
 		stateManager.attach(serverConfig);
 	}
@@ -228,5 +229,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		client.host = host
 		stateManager.attach(client);
 	}
+
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		this.stop();
+	}
+	
+	
 
 }

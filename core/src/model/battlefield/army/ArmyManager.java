@@ -20,7 +20,7 @@ import com.google.inject.Inject;
  * @author Benoît
  */
 public class ArmyManager {
-	private static Map<Long, Unit> units = new HashMap<Long, Unit>();
+	private static Map<Integer, Unit> units = new HashMap<Integer, Unit>();
 	private static List<PersistentEffect> persistenteffects = new ArrayList<>();
 	private static List<Projectile> projectiles = new ArrayList<>();
 
@@ -30,9 +30,9 @@ public class ArmyManager {
 	}
 	
 	public void update(double elapsedTime) {
-		Iterator<Entry<Long, Unit>> unitIterator = units.entrySet().iterator();
+		Iterator<Entry<Integer, Unit>> unitIterator = units.entrySet().iterator();
 		while (unitIterator.hasNext()) {
-			Entry<Long, Unit> entry = unitIterator.next();
+			Entry<Integer, Unit> entry = unitIterator.next();
 			Unit u = entry.getValue();
 			if (u.destroyed()) {
 				u.faction.getUnits().remove(u);

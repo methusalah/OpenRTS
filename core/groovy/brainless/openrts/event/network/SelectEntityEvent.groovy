@@ -10,6 +10,10 @@ class SelectEntityEvent extends NetworkEvent {
 
 	int unitId;
 	
+	public SelectEntityEvent(){
+		
+	}
+	
 	public SelectEntityEvent(int entityId) {
 		this.unitId = entityId
 	}

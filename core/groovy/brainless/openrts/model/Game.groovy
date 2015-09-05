@@ -7,6 +7,7 @@ class Game {
 	
 	State state = State.OPEN
 	List<Player> players = []
+	Player mySelf
 	
 	
 	enum State {

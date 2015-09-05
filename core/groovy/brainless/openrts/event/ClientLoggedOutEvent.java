@@ -8,12 +8,13 @@ import com.jme3.network.serializing.Serializable;
 public class ClientLoggedOutEvent extends NetworkEvent{
 
 	private String user;
-
+	private Integer id;
+	
 	public ClientLoggedOutEvent(){
 	
 	}
 	
-	public ClientLoggedOutEvent(String user) {
+	public ClientLoggedOutEvent(Integer id, String user) {
 		this.user = user;
 
 	}
@@ -26,6 +27,14 @@ public class ClientLoggedOutEvent extends NetworkEvent{
 		this.user = user;
 	}
 
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	
 
 }

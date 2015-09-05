@@ -16,6 +16,7 @@ import brainless.openrts.event.network.CreateGameEvent
 import brainless.openrts.event.network.MultiSelectEntityEvent
 import brainless.openrts.event.network.SelectEntityEvent
 import brainless.openrts.server.states.ServerControlAppState
+import brainless.openrts.server.states.ServerLogicAppState
 import brainless.openrts.server.states.ServerStartAppState
 
 import com.jme3.network.Network
@@ -38,6 +39,7 @@ class ServerMain extends OpenRTSServer {
 
 	Screen screen
 	ServerStartAppState serverStart
+	ServerLogicAppState serverLogic
 
 	public static void main(String[] args) {
 
@@ -65,6 +67,9 @@ class ServerMain extends OpenRTSServer {
 		screen = new Screen(this);
 		guiNode.addControl(screen);
 
+		serverLogic = new ServerLogicAppState(this);
+		stateManager.attach(serverLogic);
+		
 		serverStart = new ServerStartAppState(this, screen);
 		stateManager.attach(serverStart);
 		serverStart.enabled = true

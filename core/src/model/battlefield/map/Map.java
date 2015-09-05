@@ -27,7 +27,7 @@ public final class Map extends Grid3D<Tile> {
 
 	private List<Ramp> ramps = new ArrayList<>();
 	private List<TrinketMemento> initialTrinkets = new ArrayList<>();
-	private java.util.Map<Long, Trinket> trinkets = new HashMap<>();
+	private java.util.Map<Integer, Trinket> trinkets = new HashMap<>();
 	
 	private Parcelling parcelling;
 

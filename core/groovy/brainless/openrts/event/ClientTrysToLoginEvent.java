@@ -7,15 +7,16 @@ import com.jme3.network.serializing.Serializable;
 @Serializable
 public class ClientTrysToLoginEvent extends NetworkEvent{
 
-	private String user;
+	String user;
+	Integer connectionId;
 
 	public ClientTrysToLoginEvent(){
 	
 	}
 	
-	public ClientTrysToLoginEvent(String user) {
+	public ClientTrysToLoginEvent(String user, Integer connectionId) {
 		this.user = user;
-
+		this.connectionId = connectionId;
 	}
 
 	public String getUser() {
@@ -25,6 +26,16 @@ public class ClientTrysToLoginEvent extends NetworkEvent{
 	public void setUser(String user) {
 		this.user = user;
 	}
+
+	public Integer getConnectionId() {
+		return connectionId;
+	}
+
+	public void setConnectionId(Integer connectionId) {
+		this.connectionId = connectionId;
+	}
+	
+	
 
 
 
