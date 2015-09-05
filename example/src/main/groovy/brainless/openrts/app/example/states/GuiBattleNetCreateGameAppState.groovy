@@ -52,7 +52,7 @@ public class GuiBattleNetCreateGameAppState extends AppStateCommon {
 	private Panel panel;
 	private TextField chatBox
 	private LabelElement dispTitle, extTitle, testTitle;
-	protected ButtonAdapter close;
+	protected ButtonAdapter close,openGame;
 	
 	ScrollArea mapInfo
 	
@@ -88,6 +88,10 @@ public class GuiBattleNetCreateGameAppState extends AppStateCommon {
 			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
+			// Add title label for Display
+			dispTitle = getLabel("Create Game");
+			dispTitle.setTextAlign(BitmapFont.Align.Center);
+			content.addChild(dispTitle);
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
@@ -99,6 +103,7 @@ public class GuiBattleNetCreateGameAppState extends AppStateCommon {
 			close.setDocking(Docking.SW);
 			close.setText("CloseGame");
 			close.setToolTipText("Close Application");
+			
 			
 			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
 				public void onChange() {
@@ -128,9 +133,24 @@ public class GuiBattleNetCreateGameAppState extends AppStateCommon {
 			}
 			
 			content.addChild(mapSelect)
-
-			content.getLayout().layoutChildren();
-			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
+			
+			mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
+			mapInfo.setToolTipText("infos about the selected Map");
+			mapInfo.setDimensions(mapSelect.width,mapSelect.height)
+			content.addChild(mapInfo)
+			mapInfo.layoutHints.set("wrap")
+			
+			openGame = new ButtonAdapter(screen, Vector2f.ZERO) {
+				@Override
+				public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+					main.openGame()
+				}
+			};
+			openGame.isEnabled = false
+			openGame.setDocking(Docking.SW);
+			openGame.setText("Open Game");
+			openGame.setToolTipText("Opens a game");
+			content.addChild(openGame)
 
 			// Create the main display panel
 			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
@@ -164,6 +184,8 @@ public class GuiBattleNetCreateGameAppState extends AppStateCommon {
 	@Override
 	public void cleanupState() {
 		panel.hide();
+		panel.detachAllChildren();
+		panel.removeAllChildren()
 	}
 
 	private LabelElement getLabel(String text) {

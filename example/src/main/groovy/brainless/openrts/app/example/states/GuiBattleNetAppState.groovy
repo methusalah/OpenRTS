@@ -91,7 +91,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 			// Add title label for Display
-			dispTitle = getLabel("Server");
+			dispTitle = getLabel("Battle Net");
 			dispTitle.setTextAlign(BitmapFont.Align.Center);
 			content.addChild(dispTitle);
 
@@ -122,7 +122,7 @@ public class GuiBattleNetAppState extends AppStateCommon {
 			joinGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 				@Override
 				public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-					main.createGame();
+					main.joinGame();
 				}
 			};
 			joinGame.setDocking(Docking.SW);
@@ -201,7 +201,9 @@ public class GuiBattleNetAppState extends AppStateCommon {
 
 	@Override
 	public void cleanupState() {
-//		panel.hide();
+		panel.hide();
+		panel.detachAllChildren();
+		panel.removeAllChildren()
 	}
 
 	private LabelElement getLabel(String text) {

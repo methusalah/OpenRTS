@@ -52,7 +52,7 @@ public class GuiBattleNetLobbyAppState extends AppStateCommon {
 	private Panel panel;
 	private TextField chatBox
 	private LabelElement dispTitle, extTitle, testTitle;
-	protected ButtonAdapter close;
+	protected ButtonAdapter close,startGame;
 	
 	ScrollArea mapInfo
 	
@@ -88,6 +88,10 @@ public class GuiBattleNetLobbyAppState extends AppStateCommon {
 			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
+			// Add title label for Display
+			dispTitle = getLabel("Game Lobby");
+			dispTitle.setTextAlign(BitmapFont.Align.Center);
+			content.addChild(dispTitle);
 
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
@@ -99,34 +103,18 @@ public class GuiBattleNetLobbyAppState extends AppStateCommon {
 			close.setText("CloseGame");
 			close.setToolTipText("Close Application");
 			
-			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
-				public void onChange() {
-					
-					mapInfo.removeAllChildren();
-					ListItem item = selectedListItems.first()
-					File file = (File) item.value
-					Battlefield bfd = ModelManager.loadOnlyStaticValues(file)
-					
-					main.game.file = file
-					
-					String mapDescription = "You selected Map : " + item.caption + "\n"
-					mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
-					mapInfo.setText(mapDescription);
-					
-					logger.info("element is selected: " + selectedIndexes)
+			//@TODO should only be visible to host
+			startGame = new ButtonAdapter(screen, Vector2f.ZERO) {
+				@Override
+				public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
+					//@TODO This can only be done by host
+					// start game
 				}
-			}
-			mapSelect.setDimensions(200, 200)
-			mapSelect.docking = Docking.SW
-			mapSelect.toolTipText = "Please select a Map"
-			
-			def files = FileUtil.getFilesInDirectory(ModelManager.DEFAULT_MAP_PATH, "btf")
-			
-			files.each { File file ->
-				mapSelect.addListItem(file.name, file)
-			}
-			
-			content.addChild(mapSelect)
+			};
+			startGame.setDocking(Docking.SW);
+			startGame.setText("Start Game");
+			startGame.setToolTipText("Starts this game");																				
+			content.addChild(startGame);
 
 			content.getLayout().layoutChildren();
 			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
@@ -163,6 +151,8 @@ public class GuiBattleNetLobbyAppState extends AppStateCommon {
 	@Override
 	public void cleanupState() {
 		panel.hide();
+		panel.detachAllChildren();
+		panel.removeAllChildren()
 	}
 
 	private LabelElement getLabel(String text) {

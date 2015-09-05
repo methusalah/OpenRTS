@@ -19,6 +19,7 @@ import brainless.openrts.app.example.states.ClientAppState
 import brainless.openrts.app.example.states.GameBattlefieldAppState
 import brainless.openrts.app.example.states.GameHudState
 import brainless.openrts.app.example.states.GuiBattleNetAppState
+import brainless.openrts.app.example.states.GuiBattleNetCreateGameAppState
 import brainless.openrts.app.example.states.GuiBattleNetLobbyAppState
 import brainless.openrts.app.example.states.LoadingMapState
 import brainless.openrts.app.example.states.GuiServerConfigState
@@ -79,6 +80,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	LoadingMapState loadingMapState
 	GuiBattleNetAppState battleNetAppState
 	GuiBattleNetLobbyAppState lobbyState
+	GuiBattleNetCreateGameAppState createGameState
 
 	UserLoginAppState userlogin;
 	private TestState tests;
@@ -215,6 +217,20 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	}
 	
 	def createGame(){
+		stateManager.detach(battleNetAppState)
+
+		createGameState = injector.getInstance(GuiBattleNetCreateGameAppState.class);
+		stateManager.attach(createGameState)
+	}
+	
+	def openGame(){
+		stateManager.detach(createGameState)
+
+		lobbyState = injector.getInstance(GuiBattleNetLobbyAppState.class);
+		stateManager.attach(lobbyState)
+	}
+	
+	def joinGame(){
 		stateManager.detach(battleNetAppState)
 
 		lobbyState = injector.getInstance(GuiBattleNetLobbyAppState.class);
