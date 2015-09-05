@@ -42,9 +42,9 @@ import groovy.transform.CompileStatic
  * @author t0neg0d
  */
 @CompileStatic
-public class ServerConfigState extends AppStateCommon {
+public class GuiServerConfigState extends AppStateCommon {
 	
-	private static final Logger logger = Logger.getLogger(ServerConfigState.class.getName());
+	private static final Logger logger = Logger.getLogger(GuiServerConfigState.class.getName());
 	
 	private float contentPadding = 14;
 
@@ -69,7 +69,7 @@ public class ServerConfigState extends AppStateCommon {
 	Injector injector
 
 	@Inject
-	public ServerConfigState() {
+	public GuiServerConfigState() {
 		displayName = "ServerConfig";
 		show = false;
 		
@@ -230,6 +230,8 @@ public class ServerConfigState extends AppStateCommon {
 	@Override
 	public void cleanupState() {
 		panel.hide();
+		panel.detachAllChildren();
+		panel.removeAllChildren()
 	}
 
 	private LabelElement getLabel(String text) {
