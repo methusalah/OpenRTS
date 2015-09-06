@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package brainless.openrts.app.example.states.gui.network;
 
 import groovy.transform.CompileStatic
@@ -9,10 +5,7 @@ import groovy.transform.CompileStatic
 import java.util.logging.Logger
 
 import model.ModelManager
-import model.battlefield.Battlefield
 import tonegod.gui.controls.buttons.ButtonAdapter
-import tonegod.gui.controls.lists.SelectList
-import tonegod.gui.controls.lists.SelectList.ListItem
 import tonegod.gui.controls.scrolling.ScrollArea
 import tonegod.gui.controls.text.LabelElement
 import tonegod.gui.controls.text.TextField
@@ -25,7 +18,6 @@ import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 import brainless.openrts.app.example.states.AppStateCommon
-import brainless.openrts.util.FileUtil
 
 import com.google.inject.Inject
 import com.jme3.font.BitmapFont
@@ -38,9 +30,9 @@ import com.jme3.math.Vector4f
  * @author t0neg0d
  */
 @CompileStatic
-public class NetworkGameLobbyState extends AppStateCommon {
+public class GameLobbyState extends AppStateCommon {
 
-	private static final Logger logger = Logger.getLogger(NetworkGameLobbyState.class.getName());
+	private static final Logger logger = Logger.getLogger(GameLobbyState.class.getName());
 
 	private float contentPadding = 14;
 
@@ -57,7 +49,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 
 	@Inject
 	public ServerConfigState() {
-		displayName = "ServerConfig";
+		displayName = "Game Lobby";
 		show = false;
 	}
 
@@ -70,7 +62,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 
 	@Override
 	protected void initState() {
-		if (!initialized) {
+		if (!init) {
 
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
@@ -93,39 +85,9 @@ public class NetworkGameLobbyState extends AppStateCommon {
 			close.setText("CloseGame");
 			close.setToolTipText("Close Application");
 
-
-			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
-						public void onChange() {
-
-							mapInfo.removeAllChildren();
-							ListItem item = selectedListItems.first()
-							File file = (File) item.value
-							Battlefield bfd = modelManager.loadOnlyStaticValues(file)
-
-							main.game.file = file
-
-							String mapDescription = "You selected Map : " + item.caption + "\n"
-							mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
-							mapInfo.setText(mapDescription);
-
-							logger.info("element is selected: " + selectedIndexes)
-						}
-					}
-			mapSelect.setDimensions(200, 200)
-			mapSelect.docking = Docking.SW
-			mapSelect.toolTipText = "Please select a Map"
-
-			def files = FileUtil.getFilesInDirectory(ModelManager.DEFAULT_MAP_PATH, "btf")
-
-			files.each { File file ->
-				mapSelect.addListItem(file.name, file)
-			}
-
-			content.addChild(mapSelect)
-
 			mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
 			mapInfo.setToolTipText("infos about the selected Map");
-			mapInfo.setDimensions(mapSelect.width,mapSelect.height)
+			mapInfo.setDimensions(200,200)
 			content.addChild(mapInfo)
 			mapInfo.layoutHints.set("wrap")
 
@@ -155,7 +117,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 			dispTitle.centerToParentH();
 
 
-			initialized = true;
+			init = true;
 		}
 
 		panel.show();
