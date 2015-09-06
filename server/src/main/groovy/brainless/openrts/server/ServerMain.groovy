@@ -63,7 +63,8 @@ class ServerMain extends OpenRTSServer {
 	public void simpleInitApp() {
 		//		flyCam.setDragToRotate(true);
 		inputManager.setCursorVisible(true);
-
+		pauseOnLostFocus = false
+		
 		screen = new Screen(this);
 		guiNode.addControl(screen);
 

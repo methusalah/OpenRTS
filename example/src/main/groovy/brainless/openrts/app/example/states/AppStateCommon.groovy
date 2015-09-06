@@ -27,15 +27,13 @@ public abstract class AppStateCommon extends AbstractAppState {
 	
 	@Inject
 	protected Screen screen;
-	
-	protected boolean init = false;
 
 	public abstract void reshape();
 
 	@Override
-	public void initialize(AppStateManager stateManager, Application app) {
-		super.initialize(stateManager, app);
+	public void initialize(AppStateManager stateManager, Application app) {		
 		initState();
+		super.initialize(stateManager, app);
 	}
 
 	protected abstract void initState();

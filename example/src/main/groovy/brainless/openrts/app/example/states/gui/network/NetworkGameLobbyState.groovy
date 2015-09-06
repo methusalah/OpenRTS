@@ -70,7 +70,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 
 	@Override
 	protected void initState() {
-		if (!init) {
+		if (!initialized) {
 
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
@@ -155,7 +155,7 @@ public class NetworkGameLobbyState extends AppStateCommon {
 			dispTitle.centerToParentH();
 
 
-			init = true;
+			initialized = true;
 		}
 
 		panel.show();

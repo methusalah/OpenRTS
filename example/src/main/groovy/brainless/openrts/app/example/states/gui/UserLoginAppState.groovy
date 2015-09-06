@@ -20,7 +20,7 @@ class UserLoginAppState extends AppStateCommon {
 	@Inject
 	public UserLoginAppState() {
 		super();
-		displayName = "Harness";
+		displayName = "User Login";
 		show = true;
 	}
 
@@ -54,7 +54,7 @@ class UserLoginAppState extends AppStateCommon {
 
 	@Override
 	protected void initState() {
-		if (!init) {
+		if (!initialized) {
 			loginWindow = new LoginBox(screen,
 					"loginWindow",
 					new Vector2f((Float) (screen.getWidth()/2-175),(Float)(screen.getHeight()/2-125))) {
@@ -76,7 +76,7 @@ class UserLoginAppState extends AppStateCommon {
 			screen.addElement(loginWindow);
 			
 
-			init = true;
+			initialized = true;
 		}
 
 		//				panel.show();

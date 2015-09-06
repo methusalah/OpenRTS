@@ -39,7 +39,7 @@ import com.jme3.system.AppSettings
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
-
+	
 	//<editor-fold desc="VARIABLES">
 	// Config settings for initial load
 	// Library default theme
@@ -54,10 +54,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	//	public static final String ASSET_PATH = "assets/";
 	// Initial GUI Extras settings
 	public static final boolean USE_ATLAS = true;
-	public static final boolean USE_UI_AUDIO = true;
-	public static final boolean USE_CUSTOM_CURSORS = true;
-	public static final boolean USE_CURSOR_EFFECTS = true;
-	public static final boolean USE_TOOLTIPS = true;
+
 	String localUser
 
 	private boolean fixCam = false;
@@ -88,7 +85,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private ButtonState buttonState;
 	private EmitterState emitterState;
 	private EmbeddedGUIState subScreenState;
-	private SpatialState spatialState;
+	private SpatialState spatialState; 
 
 	Game game
 
@@ -122,8 +119,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		initLights();
 		game = new Game();
 		userlogin = injector.getInstance(UserLoginAppState.class);
-		//		states.add(userlogin);
 		stateManager.attach(userlogin);
+		pauseOnLostFocus = false
 	}
 
 	private void initScreen() {
@@ -132,10 +129,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		if (USE_ATLAS) {
 			screen.setUseTextureAtlas(true, BASE_THEME_PATH + ASSET_PATH + "atlas.png");
 		}
-		screen.setUseUIAudio(USE_UI_AUDIO);
-		screen.setUseCustomCursors(USE_CUSTOM_CURSORS);
-		screen.setUseCursorEffects(USE_CURSOR_EFFECTS);
-		screen.setUseToolTips(USE_TOOLTIPS);
+		screen.setUseUIAudio(true);
+		screen.setUseCustomCursors(true);
+		screen.setUseCursorEffects(true);
+		screen.setUseToolTips(true);
 		guiNode.addControl(screen);
 
 		defaultFont = getAssetManager().loadFont(screen.getStyle("Font").getString("defaultFont"));
@@ -267,7 +264,5 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		super.destroy();
 		this.stop();
 	}
-
-
 
 }
