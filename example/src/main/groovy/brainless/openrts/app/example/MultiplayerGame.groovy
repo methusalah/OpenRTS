@@ -10,7 +10,7 @@ import tonegod.gui.tests.states.buttons.ButtonState
 import tonegod.gui.tests.states.emitter.EmitterState
 import tonegod.gui.tests.states.spatial.SpatialState
 import tonegod.gui.tests.states.sprite.SpriteState
-import tonegod.gui.tests.states.subscreen.EmbeddedGUIState
+import tonegod.gui.tests.states.subscreen.EmbeddedGUIState 
 import tonegod.gui.tests.states.text.AnimatedTextState
 import tonegod.gui.tests.states.text.TextLabelState
 import tonegod.gui.tests.states.windows.WindowState
@@ -22,6 +22,7 @@ import brainless.openrts.app.example.states.gui.UserLoginAppState
 import brainless.openrts.app.example.states.gui.game.BattlefieldState
 import brainless.openrts.app.example.states.gui.game.HudState
 import brainless.openrts.app.example.states.gui.network.GameLobbyState
+import brainless.openrts.app.example.states.gui.network.NetworkDashboardState
 import brainless.openrts.app.example.states.gui.network.OpenGameState
 import brainless.openrts.model.Game
 
@@ -67,7 +68,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private BitmapFont defaultFont;
 
 	// States
-	//	private List<AppStateCommon> states = new ArrayList();
+	//	private List<AppStateCommon> states = new ArrayList(); 
 	private NetworkDashboardState networkDashboardState;
 
 	BattlefieldState gameState
