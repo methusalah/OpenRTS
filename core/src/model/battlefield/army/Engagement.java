@@ -53,4 +53,8 @@ public class Engagement {
 	public List<Faction> getFactions() {
 		return factions;
 	}
+
+	public List<UnitMemento> getInitialEngagement() {
+		return initialEngagement;
+	}
 }

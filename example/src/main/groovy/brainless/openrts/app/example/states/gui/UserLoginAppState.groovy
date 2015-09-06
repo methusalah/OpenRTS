@@ -32,7 +32,6 @@ class UserLoginAppState extends AppStateCommon {
 	//	}
 
 	public void finalizeUserLogin(String user) {
-		// Some call to your app to unload this AppState and load the next AppState
 		main.sucessfullLoggedIn(user);
 	}
 
@@ -47,9 +46,6 @@ class UserLoginAppState extends AppStateCommon {
 
 	@Override
 	public void reshape() {
-		//		if (panel != null) {
-		//			panel.resize(panel.getWidth(),screen.getHeight(),Borders.SE);
-		//		}
 	}
 
 	@Override
@@ -63,22 +59,21 @@ class UserLoginAppState extends AppStateCommon {
 							// Some call to the server to log the client in
 							//@TODO handle passowrd aswell
 							finalizeUserLogin(loginWindow.textUserName);
-							
+
 						}
 
 						@Override
 						public void onButtonCancelPressed(MouseButtonEvent arg0, boolean arg1) {
-							// TODO Auto-generated method stub
+							System.exit(0)
 
 						}
 					};
 			loginWindow.textUserName = "peter"
+			loginWindow.password.isEnabled = false
 			screen.addElement(loginWindow);
-			
+
 
 			initialized = true;
 		}
-
-		//				panel.show();
 	}
 }

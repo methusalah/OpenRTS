@@ -114,8 +114,8 @@ public class GameLobbyState extends AppStateCommon {
 			close.centerToParent();
 			close.setY(contentPadding);
 			dispTitle.centerToParentH();
-
-
+			
+			content.layoutChildren()
 			initialized = true;
 		}
 

@@ -70,4 +70,8 @@ public class Faction {
 		o.enemies.remove(this);
 		o.neutrals.remove(this);
 	}
+
+	public Color getColor() {
+		return color;
+	}
 }

@@ -7,7 +7,7 @@ class Game {
 	
 	State state = State.OPEN
 	List<Player> players = []
-	Player mySelf
+	Player mySelf = new Player()
 	
 	
 	enum State {

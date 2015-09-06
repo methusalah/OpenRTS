@@ -6,6 +6,7 @@ import java.util.logging.Logger
 
 import model.ModelManager
 import model.battlefield.Battlefield
+import model.battlefield.army.Faction
 import tonegod.gui.controls.buttons.ButtonAdapter
 import tonegod.gui.controls.lists.SelectList
 import tonegod.gui.controls.lists.SelectList.ListItem
@@ -101,7 +102,12 @@ public class OpenGameState extends AppStateCommon {
 							main.game.file = file
 
 							String mapDescription = "You selected Map : " + item.caption + "\n"
-							mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
+							mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight() + "\n"
+							def factions = bfd.engagement.factions
+							mapDescription += "Players:" + factions.size() + "\n"
+							factions.eachWithIndex { Faction faction, idx ->
+								mapDescription += "Player " + idx + " :" + faction.name  + "\n"
+							}
 							mapInfo.setText(mapDescription);
 							
 							openGame.isEnabled = selectedIndexes

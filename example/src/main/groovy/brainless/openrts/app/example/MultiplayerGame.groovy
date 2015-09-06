@@ -41,23 +41,16 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
 	
-	//<editor-fold desc="VARIABLES">
-	// Config settings for initial load
-	// Library default theme
 	public static final String BASE_THEME_PATH = "tonegod/gui/style/";
 	public static final String DEFAULT_PATH = "def/";
 	public static final String ATLAS_PATH = "atlasdef/";
 	public static final String ASSET_PATH = "atlasdef/";
-	// Theme pack
-	//	public static final String BASE_THEME_PATH = "tonegod/gui/themes/fallout/";
-	//	public static final String DEFAULT_PATH = "";
-	//	public static final String ATLAS_PATH = "atlas/";
-	//	public static final String ASSET_PATH = "assets/";
+
 	// Initial GUI Extras settings
 	public static final boolean USE_ATLAS = true;
-	public static final boolean USE_UI_AUDIO = true;
-	String localUser
 
+	Game game
+ 
 	private boolean fixCam = false;
 	private boolean hasLights = false;
 	private DirectionalLight dl;
@@ -67,29 +60,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private Screen screen;
 	private BitmapFont defaultFont;
 
-	// States
-	//	private List<AppStateCommon> states = new ArrayList(); 
-	private NetworkDashboardState networkDashboardState;
-
+	NetworkDashboardState networkDashboardState;
 	BattlefieldState gameState
 	HudState hudState
 	LoadingMapState loadingMapState
 	DashboardState dashboardState
 	GameLobbyState gameLobbyState
 	OpenGameState openGameState
-
 	UserLoginAppState userlogin;
-	private TestState tests;
-	private WindowState winState;
-	private SpriteState spriteState;
-	private AnimatedTextState animatedTextState;
-	private TextLabelState labelState;
-	private ButtonState buttonState;
-	private EmitterState emitterState;
-	private EmbeddedGUIState subScreenState;
-	private SpatialState spatialState; 
-
-	Game game
 
 	public static void main(String[] args) {
 		// Properties preferences = new Properties();
@@ -131,7 +109,6 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		if (USE_ATLAS) {
 			screen.setUseTextureAtlas(true, BASE_THEME_PATH + ASSET_PATH + "atlas.png");
 		}
-		screen.setUseUIAudio(USE_UI_AUDIO);
 		screen.setUseUIAudio(true);
 		screen.setUseCustomCursors(true);
 		screen.setUseCursorEffects(true);
@@ -181,24 +158,20 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void reshape(int w, int h) {
 		super.reshape(w, h);
-		//		for (AppStateCommon state : states) {
-		//			state.reshape();
-		//		}
 	}
 
 	@Override
 	public void simpleUpdate(float tpf) {
 
 	}
-
+ 
 	@Override
 	public void simpleRender(RenderManager rm) {  }
 
-	def sucessfullLoggedIn(String user) {
+	def sucessfullLoggedIn(String username) {
 		stateManager.detach(userlogin);
 		dashboardState = injector.getInstance(DashboardState.class);
-		this.localUser = user;
-		//		states.add(serverConfig);
+		game.mySelf.name = username;
 		stateManager.attach(dashboardState);
 	}
 

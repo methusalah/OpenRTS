@@ -71,13 +71,13 @@ public class NetworkClientState extends AbstractAppState {
 		networkClient.addClientStateListener(new ClientStateListener());
 		networkClient.addMessageListener(new MessageListener(), AckEvent.class);
 
-		networkClient.start();
+		networkClient.start(); 
 		waitUntilClientIsConnected(10);
 		EventManager.register(this);
-		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.localUser, networkClient.getId());
+		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.game.mySelf.name, networkClient.getId());
 		EventManager.post(evt1);
-		main.game.players.add(new Player(main.localUser,networkClient.getId()))
-		main.game.mySelf = new Player(main.localUser, networkClient.getId());
+		main.game.players.add(new Player(main.game.mySelf.name,networkClient.getId()))
+		main.game.mySelf = new Player(main.game.mySelf.name, networkClient.getId());
 	}
 
 	@Override
