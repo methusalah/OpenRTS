@@ -31,10 +31,6 @@ import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
-/**
- *
- * @author t0neg0d
- */
 @CompileStatic
 public class OpenGameState extends AppStateCommon {
 
@@ -49,6 +45,7 @@ public class OpenGameState extends AppStateCommon {
 	protected ButtonAdapter close,openGame;
 
 	ScrollArea mapInfo
+	SelectList mapSelect
 
 	@Inject
 	ModelManager modelManager
@@ -70,7 +67,7 @@ public class OpenGameState extends AppStateCommon {
 	protected void initState() {
 		if (!initialized) {
 
-			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
+			FlowLayout layout = new FlowLayout(screen,"clip","margins 5 5 5 5","pad 5 5 5 5");
 			// Container for harness panel content
 			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
@@ -93,7 +90,7 @@ public class OpenGameState extends AppStateCommon {
 			close.setToolTipText("Close Application");
 
 
-			SelectList mapSelect = new SelectList( screen, Vector2f.ZERO) {
+			mapSelect = new SelectList( screen, Vector2f.ZERO) {
 						public void onChange() {
 
 							mapInfo.removeAllChildren();
@@ -106,6 +103,8 @@ public class OpenGameState extends AppStateCommon {
 							String mapDescription = "You selected Map : " + item.caption + "\n"
 							mapDescription += "Size: " + bfd.map.getWidth() + "x" + bfd.map.getHeight()
 							mapInfo.setText(mapDescription);
+							
+							openGame.isEnabled = selectedIndexes
 
 							logger.info("element is selected: " + selectedIndexes)
 						}
@@ -126,7 +125,7 @@ public class OpenGameState extends AppStateCommon {
 			mapInfo.setToolTipText("infos about the selected Map");
 			mapInfo.setDimensions(mapSelect.width,mapSelect.height)
 			content.addChild(mapInfo)
-			//mapInfo.layoutHints.set("wrap")
+			mapInfo.layoutHints.set("wrap")
 
 			openGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
@@ -137,7 +136,7 @@ public class OpenGameState extends AppStateCommon {
 			openGame.isEnabled = false
 			openGame.setDocking(Docking.SW);
 			openGame.setText("Open Game");
-			openGame.setToolTipText("Opens a game");
+			openGame.setToolTipText("Opens a game with the current selected Map");
 			content.addChild(openGame)
 
 			// Create the main display panel
@@ -146,6 +145,7 @@ public class OpenGameState extends AppStateCommon {
 			panel.addChild(close);
 			panel.setIsMovable(false);
 			panel.setIsResizable(false);
+			panel.layoutChildren()
 			screen.addElement(panel, true);
 
 			// Set control defaults

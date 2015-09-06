@@ -16,6 +16,8 @@ import app.GameGuiceModule;
 import brainless.openrts.app.example.MainTest;
 import brainless.openrts.app.example.MultiplayerGame;
 import brainless.openrts.app.example.states.gui.UserLoginAppState;
+import brainless.openrts.app.example.states.gui.network.GameLobbyState;
+import brainless.openrts.app.example.states.gui.network.OpenGameState;
 
 import com.google.inject.Guice;
 import com.jme3.system.AppSettings;
@@ -107,7 +109,6 @@ public class MainTest {
      */
     @Test
     public void testShowLoginGUIState() {
-		
 //    	UserLoginAppState userLoginAppState = (UserLoginAppState)getState(UserLoginAppState.class);
 		
     	waitUntil({!app.stateManager.initializing});
@@ -115,5 +116,21 @@ public class MainTest {
     	ButtonAdapter loginButton = (ButtonAdapter) app.getScreen().getElementById("loginWindow:btnOk");
 		Assert.assertEquals(loginButton.getText(), "Login");
     }
+	
+	@Test
+	public void testShowOpenGameGUIState() {		
+		app.createGame()
+		waitUntil({!app.stateManager.initializing});
+		def state = app.stateManager.getState(OpenGameState.class)
+		Assert.assertNotNull(state)
+	}
 
+	@Test
+	public void testShowNetworkLobbyGUIState() {
+		app.openGame()
+		waitUntil({!app.stateManager.initializing});
+		def state = app.stateManager.getState(GameLobbyState.class)
+		Assert.assertNotNull(state)
+	}
+	
   }

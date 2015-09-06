@@ -219,11 +219,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	}
 
 	def openGame(){
-		stateManager.detach(gameLobbyState)
+		stateManager.detach(openGameState)
 
-		loadingMapState = injector.getInstance(LoadingMapState.class);
-		//		states.add(loadingMapState)
-		stateManager.attach(loadingMapState)
+		gameLobbyState = injector.getInstance(GameLobbyState.class)
+		stateManager.attach(gameLobbyState)
 
 	}
 
@@ -234,6 +233,12 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	}
 
 	def startGame() {
+		stateManager.detach(gameLobbyState)
+		loadingMapState = injector.getInstance(LoadingMapState.class);
+		stateManager.attach(loadingMapState)
+	}
+	
+	def runGame() {
 		stateManager.detach(loadingMapState)
 		loadingMapState.setEnabled(false)
 

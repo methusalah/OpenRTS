@@ -18,6 +18,8 @@ import tonegod.gui.core.layouts.FlowLayout
 import tonegod.gui.core.layouts.LayoutHelper
 import tonegod.gui.core.utils.UIDUtil
 import brainless.openrts.app.example.states.AppStateCommon
+import brainless.openrts.event.ClientLoggedOutEvent
+import brainless.openrts.event.EventManager
 
 import com.google.inject.Inject
 import com.jme3.font.BitmapFont
@@ -25,10 +27,6 @@ import com.jme3.input.event.MouseButtonEvent
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector4f
 
-/**
- *
- * @author t0neg0d
- */
 @CompileStatic
 public class GameLobbyState extends AppStateCommon {
 
@@ -77,8 +75,9 @@ public class GameLobbyState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							//@TODO move to LobbyAppState
-							main.createGame()
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.mySelf.id, main.game.mySelf.name);
+							EventManager.post(evt1);
+							System.exit(0);
 						}
 					};
 			close.setDocking(Docking.SW);
