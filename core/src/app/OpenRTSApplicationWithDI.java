@@ -40,8 +40,9 @@ import com.jme3.util.BufferUtils;
 public abstract class OpenRTSApplicationWithDI extends Application implements PhysicsTickListener {
 
 	private static final Logger logger = Logger.getLogger(OpenRTSApplicationWithDI.class.getName());
-
+	//TODO: looks like a bad pattern
 	public static OpenRTSApplicationWithDI appInstance;
+	private boolean initialized = false;
 
 	protected Node rootNode = new Node("Root Node");
 	protected Node guiNode = new Node("Gui Node");
@@ -144,6 +145,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 		simpleInitApp();
 		stateManager.attach(bulletAppState);
 		getPhysicsSpace().addTickListener(this);
+		initialized = true;
 	}
 
 	@Override
@@ -259,7 +261,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 	protected void initGuice(List<Module> newModules) {
 		this.modules = new LinkedList<Module>();
 		// register new instances to Guice (DI)
-		this.modules.add(new MainGuiceModule(this));
+		this.modules.add(new GameGuiceModule(this));
 		modules.addAll(newModules);
 
 		injector = Guice.createInjector(modules);
@@ -272,6 +274,10 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 
 	protected Node getRootNode() {
 		return rootNode;
+	}
+
+	protected boolean isInitialized() {
+		return initialized;
 	}
 	
 }

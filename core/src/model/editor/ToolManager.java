@@ -1,6 +1,5 @@
 package model.editor;
 
-import util.MapArtisanManager;
 import geometry.geom2d.Point2D;
 import model.ModelManager;
 import model.builders.entity.definitions.BuilderManager;
@@ -12,11 +11,13 @@ import model.editor.tools.RampTool;
 import model.editor.tools.Tool;
 import model.editor.tools.TrinketTool;
 import model.editor.tools.UnitTool;
+import util.MapArtisanManager;
 import brainless.openrts.event.EventManager;
 import brainless.openrts.event.client.SetToolEvent;
 import brainless.openrts.event.client.UpdateGroundAtlasEvent;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 /**
  * @author Benoît
@@ -25,30 +26,30 @@ public class ToolManager {
 	private static String pointedSpatialLabel;
 	private static long pointedSpatialEntityId;
 
-	private static HeightTool heightTool;
-	private static CliffTool cliffTool;
-	private static AtlasTool atlasTool;
-	private static RampTool rampTool;
-	private static UnitTool unitTool;
-	private static TrinketTool trinketTool;
+	@Inject
+	private HeightTool heightTool;
+	@Inject
+	private CliffTool cliffTool;
+	@Inject
+	private AtlasTool atlasTool;
+	@Inject
+	private RampTool rampTool;
+	@Inject
+	private UnitTool unitTool;
+	@Inject
+	private TrinketTool trinketTool;
 
 	private static Tool actualTool;
 
 	private static double delay = 0;
 	private static long lastAction = 0;
+	
+	@Inject
 	private static Sower sower;
 	
 	@Inject
-	public ToolManager(BuilderManager builderManager, ModelManager modelManager, MapArtisanManager mapArtisanManager) {
-		ToolManager.sower = new Sower(builderManager, modelManager, mapArtisanManager);
-		setHeightTool(new HeightTool());
-		setCliffTool(new CliffTool(modelManager));
-		setAtlasTool(new AtlasTool(modelManager));
-		setRampTool(new RampTool());
-		unitTool = new UnitTool(builderManager);
-		trinketTool = new TrinketTool(builderManager);
-		
-		actualTool = getCliffTool();
+	public ToolManager(Injector injector) {
+		actualTool = injector.getInstance(CliffTool.class);
 
 		new Thread(sower).start();
 	}
@@ -175,35 +176,5 @@ public class ToolManager {
 		return actualTool;
 	}
 	
-	public CliffTool getCliffTool() {
-		return cliffTool;
-	}
-
-	public void setCliffTool(CliffTool cliffTool) {
-		ToolManager.cliffTool = cliffTool;
-	}
-
-	public RampTool getRampTool() {
-		return rampTool;
-	}
-
-	public void setRampTool(RampTool rampTool) {
-		ToolManager.rampTool = rampTool;
-	}
-
-	public HeightTool getHeightTool() {
-		return heightTool;
-	}
-
-	public void setHeightTool(HeightTool heightTool) {
-		ToolManager.heightTool = heightTool;
-	}
-
-	public AtlasTool getAtlasTool() {
-		return atlasTool;
-	}
-
-	public void setAtlasTool(AtlasTool atlasTool) {
-		ToolManager.atlasTool = atlasTool;
-	}
 }
+

@@ -32,19 +32,16 @@ public class HeightTool extends Tool {
 	double maintainedElevation;
 
 	@Inject
-	private ModelManager modelManager;
-	
-	@Inject
 	private MapArtisanManager mapArtisanManager;
 	
 	@Inject
-	public HeightTool() {
-		super(RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
+	public HeightTool(ModelManager modelManager) {
+		super(modelManager, RAISE_LOW_OP, NOISE_SMOOTH_OP, UNIFOMR_RESET_OP);
 	}
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil();
+		pencil = new Pencil(this.modelManager);
 		pencil.size = 4;
 		pencil.sizeIncrement = 1;
 		pencil.strength = 0.5;

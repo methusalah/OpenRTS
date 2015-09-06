@@ -59,7 +59,8 @@ public class Pencil {
 
 	
 	@Inject
-	public Pencil() {
+	public Pencil(ModelManager modelManager) {
+		this.modelManager = modelManager;
 		perlin = new PerlinNoise();
 	}
 

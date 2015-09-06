@@ -40,7 +40,7 @@ import com.jme3.system.AppSettings
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
-
+	
 	//<editor-fold desc="VARIABLES">
 	// Config settings for initial load
 	// Library default theme
@@ -87,7 +87,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private ButtonState buttonState;
 	private EmitterState emitterState;
 	private EmbeddedGUIState subScreenState;
-	private SpatialState spatialState;
+	private SpatialState spatialState; 
 
 	Game game
 
@@ -121,8 +121,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		initLights();
 		game = new Game();
 		userlogin = injector.getInstance(UserLoginAppState.class);
-		//		states.add(userlogin);
 		stateManager.attach(userlogin);
+		pauseOnLostFocus = false
 	}
 
 	private void initScreen() {
@@ -132,6 +132,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 			screen.setUseTextureAtlas(true, BASE_THEME_PATH + ASSET_PATH + "atlas.png");
 		}
 		screen.setUseUIAudio(USE_UI_AUDIO);
+		screen.setUseUIAudio(true);
 		screen.setUseCustomCursors(true);
 		screen.setUseCursorEffects(true);
 		screen.setUseToolTips(true);
@@ -266,7 +267,5 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		super.destroy();
 		this.stop();
 	}
-
-
 
 }

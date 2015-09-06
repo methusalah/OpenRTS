@@ -63,11 +63,11 @@ import controller.CommandManager;
 import controller.Reporter;
 import controller.SpatialSelector;
 
-class MainGuiceModule extends AbstractModule {
+public class GameGuiceModule extends AbstractModule {
 
 	private OpenRTSApplicationWithDI main;
 	
-	public MainGuiceModule(OpenRTSApplicationWithDI main ) {
+	public GameGuiceModule(OpenRTSApplicationWithDI main ) {
 		this.main = main;
 	}
 

@@ -37,6 +37,7 @@ public abstract class Controller extends AbstractAppState {
 		this.injector = injector;
 		spatialSelector = injector.getInstance(SpatialSelector.class);
 		this.cam = cam;
+		this.modelManager = modelManager;
 
 	}
 

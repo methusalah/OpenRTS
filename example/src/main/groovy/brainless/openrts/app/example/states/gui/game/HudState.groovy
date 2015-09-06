@@ -71,7 +71,7 @@ class HudState extends AppStateCommon {
 	@Override
 	protected void initState() {
 //		main.getInputManager().addRawInputListener(this);
-		if (!init) {
+		if (!initialized) {
 //			main.getInputManager().deleteMapping("FLYCAM_RotateDrag");
 //			main.getInputManager().addMapping("FLYCAM_RotateDrag", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
 //			main.getInputManager().addListener(main.getFlyByCamera(), "FLYCAM_RotateDrag");
@@ -94,7 +94,7 @@ class HudState extends AppStateCommon {
 			cursor.setEffectZOrder(false);
 			cursor.setIgnoreMouse(true);
 			
-			init = true;
+			initialized = true;
 		}
 		screen.setUse3DSceneSupport(true);
 

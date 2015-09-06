@@ -21,19 +21,16 @@ public class RampTool extends Tool {
 	private static final String ADD_DELETE_OP = "add/delete";
 
 	@Inject
-	private ModelManager modelManager;
-	
-	@Inject
 	private MapArtisanManager mapArtisanManager;
 	
 	@Inject
-	public RampTool() {
-		super(ADD_DELETE_OP);
+	public RampTool(ModelManager modelManager) {
+		super(modelManager, ADD_DELETE_OP);
 	}
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil();
+		pencil = new Pencil(this.modelManager);
 		pencil.sizeIncrement = 0;
 		pencil.setUniqueMode();
 		pencil.strengthIncrement = 0;
