@@ -32,9 +32,7 @@ public class AtlasTool extends Tool {
 	AtlasLayer autoLayer;
 	double increment = 40;
 
-//	@Inject
-	private ModelManager modelManager;
-	
+
 	@Inject
 	private MapArtisanManager mapArtisanManager;
 	
@@ -43,8 +41,7 @@ public class AtlasTool extends Tool {
 	
 	@Inject
 	public AtlasTool(ModelManager modelManager) {
-		super(ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
-		this.modelManager = modelManager;
+		super(modelManager, ADD_DELETE_OP, PROPAGATE_SMOOTH_OP);
 		explorer = new AtlasExplorer(modelManager.getBattlefield().getMap());
 		List<String> allTextures = new ArrayList<>();
 		allTextures.addAll(modelManager.getBattlefield().getMap().getStyle().diffuses);
@@ -57,7 +54,7 @@ public class AtlasTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil();
+		pencil = new Pencil(modelManager);
 		pencil.size = 2;
 		pencil.sizeIncrement = 0.25;
 		pencil.strength = 0.5;

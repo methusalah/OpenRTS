@@ -13,7 +13,7 @@ import de.lessvoid.nifty.screen.ScreenController;
  */
 public abstract class GUIController implements ScreenController {
 	protected Nifty nifty;
-	protected GUIDrawer drawer;
+//	protected GUIDrawer drawer;
 
 	protected boolean redrawAsked = false;
 

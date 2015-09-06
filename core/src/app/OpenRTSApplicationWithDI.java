@@ -259,7 +259,7 @@ public abstract class OpenRTSApplicationWithDI extends Application implements Ph
 	protected void initGuice(List<Module> newModules) {
 		this.modules = new LinkedList<Module>();
 		// register new instances to Guice (DI)
-		this.modules.add(new MainGuiceModule(this));
+		this.modules.add(new GameGuiceModule(this));
 		modules.addAll(newModules);
 
 		injector = Guice.createInjector(modules);

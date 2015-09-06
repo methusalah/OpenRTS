@@ -63,7 +63,7 @@ public class EditorGUIDrawer extends GUIDrawer {
 	private ToolManager toolManager;
 	
 	@Inject
-	public EditorGUIDrawer(GUIController guiCtrl) {
+	public EditorGUIDrawer(EditorGUIController guiCtrl) {
 		super(guiCtrl);
 	}
 

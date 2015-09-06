@@ -25,8 +25,7 @@ public class CliffTool extends Tool {
 
 	int maintainedLevel;
 	
-	private ModelManager modelManager;
-	
+
 	@Inject
 	private MapArtisanManager mapArtisanManager;
 	
@@ -35,7 +34,7 @@ public class CliffTool extends Tool {
 	
 	@Inject
 	public CliffTool(ModelManager modelManager) {
-		super(RAISE_LOW_OP, FLATTEN_OP);
+		super(modelManager, RAISE_LOW_OP, FLATTEN_OP);
 		this.modelManager = modelManager;
 		ArrayList<String> iconPaths = new ArrayList<>();
 		for (CliffShapeBuilder b : modelManager.getBattlefield().getMap().getStyle().cliffShapeBuilders) {
@@ -46,7 +45,7 @@ public class CliffTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil();
+		pencil = new Pencil(this.modelManager);
 		pencil.snapPair = true;
 		pencil.size = 4;
 		pencil.sizeIncrement = 2;

@@ -41,17 +41,14 @@ public class TrinketTool extends Tool {
 	private BuilderManager builderManager;
 	
 	@Inject
-	private ModelManager modelManager;
-	
-	@Inject
 	private MapArtisanManager mapArtisanManager;
 	
 	@Inject
 	private ToolManager toolmanager;
 	
 	@Inject
-	public TrinketTool(BuilderManager builderManager) {
-		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
+	public TrinketTool(BuilderManager builderManager, ModelManager modelManager) {
+		super(modelManager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
 		this.builderManager = builderManager;
 		List<String> builderIDs = new ArrayList<>();
 		for (TrinketBuilder b : builderManager.getAllEditableTrinketBuilders()) {
@@ -62,7 +59,7 @@ public class TrinketTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil();
+		pencil = new Pencil(this.modelManager);
 		pencil.sizeIncrement = 0;
 		pencil.strengthIncrement = 0;
 		pencil.setUniqueMode();

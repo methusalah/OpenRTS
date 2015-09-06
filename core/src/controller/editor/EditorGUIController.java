@@ -44,9 +44,11 @@ public class EditorGUIController extends GUIController {
 	private ToolManager toolManager;
 	
 	@Inject
-	public EditorGUIController(Nifty nifty) {
+	private EditorGUIDrawer drawer;
+	
+	@Inject
+	public EditorGUIController(Nifty nifty, Injector injector) {
 		super(nifty);
-		drawer = new EditorGUIDrawer(this);
 	}
 
 	@Override

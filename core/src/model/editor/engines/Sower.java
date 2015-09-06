@@ -18,6 +18,8 @@ import util.MapArtisanManager;
 import brainless.openrts.event.EventManager;
 import brainless.openrts.event.GenericEvent;
 
+import com.google.inject.Inject;
+
 public class Sower implements Runnable {
 	private static final Logger logger = Logger.getLogger(Sower.class.getName());
 
@@ -34,6 +36,7 @@ public class Sower implements Runnable {
 	private ModelManager modelManager;
 	private MapArtisanManager mapArtisanManager;
 	
+	@Inject
 	public Sower(BuilderManager builderManager, ModelManager modelManager, MapArtisanManager mapArtisanManager) {
 		this.builderManager = builderManager;
 		this.modelManager = modelManager;

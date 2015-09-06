@@ -6,6 +6,7 @@ package model.editor.tools;
 import java.util.Arrays;
 import java.util.List;
 
+import model.ModelManager;
 import model.editor.AssetSet;
 import model.editor.Pencil;
 
@@ -18,8 +19,10 @@ public abstract class Tool {
 	protected String actualOp;
 
 	public Pencil pencil;
+	protected ModelManager modelManager;
 
-	public Tool(String... operationsArray) {
+	public Tool(ModelManager modelManager, String... operationsArray) {
+		this.modelManager = modelManager;
 		operations = Arrays.asList(operationsArray);
 		actualOp = operations.get(0);
 		createPencil();

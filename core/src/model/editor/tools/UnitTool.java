@@ -44,14 +44,11 @@ public class UnitTool extends Tool {
 	private ArmyManager armyManager;
 	
 	@Inject
-	private ModelManager modelManager;
-	
-	@Inject
 	private ToolManager toolmanager;
 	
 	@Inject
-	public UnitTool(BuilderManager builderManager) {
-		super(ADD_REMOVE_OP, MOVE_ROTATE_OP);
+	public UnitTool(BuilderManager builderManager, ModelManager modelManager) {
+		super(modelManager, ADD_REMOVE_OP, MOVE_ROTATE_OP);
 		this.builderManager = builderManager;
 		List<String> builderIDs = new ArrayList<>();
 		for (UnitBuilder b : builderManager.getAllUnitBuilders()) {
@@ -62,7 +59,7 @@ public class UnitTool extends Tool {
 
 	@Override
 	protected void createPencil() {
-		pencil = new Pencil();
+		pencil = new Pencil(this.modelManager);
 		pencil.sizeIncrement = 0;
 		pencil.strengthIncrement = 0;
 		pencil.setUniqueMode();

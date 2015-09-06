@@ -7,6 +7,7 @@ package controller;
 import java.awt.Color;
 import java.util.List;
 
+import controller.editor.EditorGUIController;
 import de.lessvoid.nifty.controls.DropDown;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.Slider;
@@ -21,9 +22,9 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
  */
 public abstract class GUIDrawer {
     
-    protected GUIController guiCtrl;
+    protected EditorGUIController guiCtrl;
     
-    public GUIDrawer(GUIController guiCtrl) {
+    public GUIDrawer(EditorGUIController guiCtrl) {
         this.guiCtrl = guiCtrl;
     }
     
