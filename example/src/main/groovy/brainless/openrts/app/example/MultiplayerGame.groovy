@@ -22,7 +22,6 @@ import brainless.openrts.app.example.states.gui.UserLoginAppState
 import brainless.openrts.app.example.states.gui.game.BattlefieldState
 import brainless.openrts.app.example.states.gui.game.HudState
 import brainless.openrts.app.example.states.gui.network.GameLobbyState
-import brainless.openrts.app.example.states.gui.network.NetworkDashboardState
 import brainless.openrts.app.example.states.gui.network.OpenGameState
 import brainless.openrts.model.Game
 
