@@ -68,7 +68,7 @@ class ServerMain extends OpenRTSServer {
 		screen = new Screen(this);
 		guiNode.addControl(screen);
 
-		serverLogic = new ServerLogicAppState(this);
+		serverLogic = new ServerLogicAppState();
 		stateManager.attach(serverLogic);
 		
 		serverStart = new ServerStartAppState(this, screen);

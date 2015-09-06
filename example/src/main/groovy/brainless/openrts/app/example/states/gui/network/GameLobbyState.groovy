@@ -38,7 +38,7 @@ public class GameLobbyState extends AppStateCommon {
 	private Panel panel;
 	private TextField chatBox
 	private LabelElement dispTitle, extTitle, testTitle;
-	protected ButtonAdapter close,openGame;
+	protected ButtonAdapter close,startGame;
 
 	ScrollArea mapInfo
 
@@ -90,17 +90,16 @@ public class GameLobbyState extends AppStateCommon {
 			content.addChild(mapInfo)
 			mapInfo.layoutHints.set("wrap")
 
-			openGame = new ButtonAdapter(screen, Vector2f.ZERO) {
+			startGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							main.openGame()
+							main.startGame()
 						}
 					};
-			openGame.isEnabled = false
-			openGame.setDocking(Docking.SW);
-			openGame.setText("Open Game");
-			openGame.setToolTipText("Opens a game");
-			content.addChild(openGame)
+			startGame.setDocking(Docking.SW);
+			startGame.setText("Start Game");
+			startGame.setToolTipText("starts a game");
+			content.addChild(startGame)
 
 			// Create the main display panel
 			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));

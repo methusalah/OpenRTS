@@ -19,7 +19,7 @@ class ServerLogicAppState extends AbstractAppState {
 	
 	 Map<Integer,String> loggedInPlayer = [:]
 	
-	ServerLogicAppState(ServerMain app){
+	ServerLogicAppState(){
 	}
 	
 	@Override

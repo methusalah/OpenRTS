@@ -175,16 +175,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		stateManager.attach(dashboardState);
 	}
 
-	def loadMap() {
-		stateManager.detach(networkDashboardState)
-		userlogin.enabled = false
-
-		loadingMapState = injector.getInstance(LoadingMapState.class);
-		//		states.add(loadingMapState)
-		stateManager.attach(loadingMapState)
-	}
-
 	def createGame(){
+		stateManager.detach(dashboardState)
 		stateManager.detach(networkDashboardState)
 
 		openGameState = injector.getInstance(OpenGameState.class);
@@ -193,7 +185,8 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	def openGame(){
 		stateManager.detach(openGameState)
-
+		stateManager.detach(networkDashboardState)
+		
 		gameLobbyState = injector.getInstance(GameLobbyState.class)
 		stateManager.attach(gameLobbyState)
 
@@ -216,11 +209,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		loadingMapState.setEnabled(false)
 
 		gameState = injector.getInstance(BattlefieldState.class);
-		//		states.add(gameState);
 		stateManager.attach(gameState);
 
 		hudState = injector.getInstance(HudState.class);
-		//		states.add(gameHudState);
 		stateManager.attach(hudState);
 
 	}

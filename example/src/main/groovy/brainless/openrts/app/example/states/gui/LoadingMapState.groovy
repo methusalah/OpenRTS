@@ -4,6 +4,8 @@
  */
 package brainless.openrts.app.example.states.gui;
 
+import groovy.transform.CompileStatic
+
 import java.util.logging.Logger
 
 import model.ModelManager
@@ -76,7 +78,7 @@ public class LoadingMapState extends AppStateCommon {
 
 	@Override
 	protected void initState() {
-		if (!init) {
+		if (!initialized) {
 
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
@@ -116,7 +118,7 @@ public class LoadingMapState extends AppStateCommon {
 			screen.addElement(panel, true);
 
 			load = true
-			init = true;
+			initialized = true;
 		}
 
 		panel.show();
@@ -156,7 +158,7 @@ public class LoadingMapState extends AppStateCommon {
 
 			} else if (frameCount == 8) {
 				modelManager.setBattlefield(bField)
-				main.startGame();
+				main.runGame();
 			}
 
 			frameCount++;
