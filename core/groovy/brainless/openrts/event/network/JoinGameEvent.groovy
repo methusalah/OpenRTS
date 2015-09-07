@@ -7,10 +7,9 @@ import com.jme3.network.serializing.Serializable;
 
 @Serializable
 @ToString
-class OpenGameEvent extends NetworkEvent {
+class JoinGameEvent extends NetworkEvent {
 	
 	int playerId
-	String map
-	int gameId
+	int game
 
 }
