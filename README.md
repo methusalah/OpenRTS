@@ -43,7 +43,7 @@ We've got a gazillion of issues you can work on right now, and we will be happy 
 ### Ressources
 OpenRTS wants to provide it's own complete and workable dataset to allow immediate RTS creation.
 
-We are glad to welcome all your creations : models, sounds, maps, particle sprites, army data... And if your contribution respects the current <a href="https://fr.pinterest.com/search/pins/?q=low%20poly" target="_blank">low poly art style</a>, it's only better !
+We are glad to welcome all your creations : models, sounds, maps, particle sprites, army data... And if your contribution respects the current <a href="https://pinterest.com/search/pins/?q=low%20poly" target="_blank">low poly art style</a>, it's only better !
 
 Please note that all your contributions will fall under the OpenRTS licence and will become public and free-to-use, as the engine itself.
 
