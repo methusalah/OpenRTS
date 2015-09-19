@@ -40,7 +40,7 @@ You want to participate and make OpenRTS a fully functionnal game engine ? The m
 ### GitHub issues, our TODO list
 We've got a gazillion of issues you can work on right now, and we will be happy to add your requested features to the list. 
 
-### Ressources
+### Resources
 OpenRTS wants to provide it's own complete and workable dataset to allow immediate RTS creation.
 
 We are glad to welcome all your creations : models, sounds, maps, particle sprites, army data... And if your contribution respects the current <a href="https://pinterest.com/search/pins/?q=low%20poly" target="_blank">low poly art style</a>, it's only better !
