@@ -52,4 +52,4 @@ If you find a bug (and you will probably see many), please search for existing <
 # Licensing
 OpenRTS is released under the <a href="http://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>, which will also apply to any contributions made to OpenRTS. See the file <a href="https://raw.githubusercontent.com/methusalah/OpenRTS/master/LICENSE" target="_blank">LICENSE</a>.
 
-![please report broken links](http://postimg.org/image/yw411ovgd/)
+![please report broken links](http://s22.postimg.org/6j8jb89q9/5109be301e18c8bdeebafa35823b7f88a5af1555.png)
