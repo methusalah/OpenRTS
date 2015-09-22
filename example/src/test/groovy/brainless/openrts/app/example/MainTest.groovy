@@ -107,7 +107,7 @@ public class MainTest {
     /**
      * It shouldn´t be any obstacle between the box and the camera.
      */
-    @Test
+
     public void testShowLoginGUIState() {
 //    	UserLoginAppState userLoginAppState = (UserLoginAppState)getState(UserLoginAppState.class);
 		
@@ -117,7 +117,6 @@ public class MainTest {
 		Assert.assertEquals(loginButton.getText(), "Login");
     }
 	
-	@Test
 	public void testShowOpenGameGUIState() {		
 		app.createGame()
 		waitUntil({!app.stateManager.initializing});
@@ -125,7 +124,6 @@ public class MainTest {
 		Assert.assertNotNull(state)
 	}
 
-	@Test
 	public void testShowNetworkLobbyGUIState() {
 		app.openGame()
 		waitUntil({!app.stateManager.initializing});
