@@ -1,44 +1,42 @@
-package brainless.openrts.server.states
+package brainless.openrts.server.states;
 
-import groovy.transform.CompileStatic
+import java.util.logging.Logger;
 
-import java.util.logging.Logger
+import org.lwjgl.opengl.Display;
 
-import org.lwjgl.opengl.Display
+import tonegod.gui.controls.lists.SelectList;
+import tonegod.gui.controls.scrolling.ScrollArea;
+import tonegod.gui.controls.windows.Panel;
+import tonegod.gui.core.Screen;
+import tonegod.gui.core.layouts.FlowLayout;
+import brainless.openrts.event.ClientLoggedOutEvent;
+import brainless.openrts.event.ClientTrysToLoginEvent;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.ServerEvent;
+import brainless.openrts.event.network.NetworkEvent;
+import brainless.openrts.server.ServerMain;
 
-import tonegod.gui.controls.lists.SelectList
-import tonegod.gui.controls.scrolling.ScrollArea
-import tonegod.gui.controls.windows.Panel
-import tonegod.gui.core.Screen
-import tonegod.gui.core.layouts.FlowLayout
-import brainless.openrts.event.ClientLoggedOutEvent
-import brainless.openrts.event.ClientTrysToLoginEvent
-import brainless.openrts.event.EventManager
-import brainless.openrts.event.ServerEvent
-import brainless.openrts.event.network.NetworkEvent
-import brainless.openrts.server.ServerMain
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.jme3.app.Application;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.app.state.AppStateManager;
+import com.jme3.math.Vector2f;
 
-import com.google.common.eventbus.Subscribe
-import com.google.inject.Inject
-import com.jme3.app.Application
-import com.jme3.app.state.AbstractAppState
-import com.jme3.app.state.AppStateManager
-import com.jme3.math.Vector2f
 
-@CompileStatic
-class ServerControlAppState extends AbstractAppState {
+public class ServerControlAppState extends AbstractAppState {
 
-	static final Logger logger = Logger.getLogger(ServerControlAppState.class.getName());
-	ServerMain app;
-	Screen screen;
+	private static final Logger logger = Logger.getLogger(ServerControlAppState.class.getName());
+	private ServerMain app;
+	private Screen screen;
 
-	Panel logPanel
+	private Panel logPanel;
 
-	SelectList users
-	ScrollArea eventlog, chatlog;
+	private SelectList users;
+	private ScrollArea eventlog, chatlog;
 
 	@Inject
-	ServerControlAppState( ServerMain app , Screen screen) {
+	public ServerControlAppState( ServerMain app , Screen screen) {
 		this.app = app;
 		this.screen = screen;
 	}
@@ -53,45 +51,45 @@ class ServerControlAppState extends AbstractAppState {
 
 	public void initControlWindow() {
 
-		screen.useToolTips = true
+		screen.setUseToolTips(true);
 
-		logPanel = new Panel(screen, "LogPanel", new Vector2f(0,0))
-		logPanel.setDimensions(Display.width,Display.height)
-		logPanel.isResizable = false
-		logPanel.isMovable = false
+		logPanel = new Panel(screen, "LogPanel", new Vector2f(0,0));
+		logPanel.setDimensions(Display.getWidth(),Display.getHeight());
+		logPanel.setIsResizable(false);
+		logPanel.setIsMovable(false);
 
-		FlowLayout layout = new FlowLayout(screen, "margins 8 8 8 8", "padding 25 25 25 25")
-		logPanel.layout = layout
+		FlowLayout layout = new FlowLayout(screen, "margins 8 8 8 8", "padding 25 25 25 25");
+		logPanel.setLayout(layout);
 
-		screen.addElement(logPanel)
+		screen.addElement(logPanel);
 
 		users = new SelectList(screen, "UserList", Vector2f.ZERO) {
-					void onChange() {
-						def idx = users.selectedIndexes.first()
-						logger.info("select user: " + users.listItems.get(idx).caption)
+					public void onChange() {
+						int idx = users.getSelectedIndexes().get(0);
+						logger.info("select user: " + users.getListItems().get(idx).getCaption());
 					}
-				}
-		users.isMultiselect = false
-		users.setDimensions(100, (Display.height / 2) - 16)
-		users.isResizable = false
-		users.isMovable = false
-		users.setToolTipText("The connected users are displayed here")
-		logPanel.addChild(users)
-		logPanel.layoutHints.set("wrap")
+				};
+		users.setIsMultiselect(false);
+		users.setDimensions(100, (Display.getHeight() / 2) - 16);
+		users.setIsResizable(false);
+		users.setIsMovable(false);
+		users.setToolTipText("The connected users are displayed here");
+		logPanel.addChild(users);
+		logPanel.getLayoutHints().set("wrap");
 
-		eventlog = new ScrollArea(screen, "EventLog", new Vector2f(users.width, 0), new Vector2f(200, logPanel.height - 16), true)
-		eventlog.isResizable = false
-		eventlog.isMovable = false
-		eventlog.toolTipText = "the events are displayed here"
-		logPanel.addChild(eventlog)
-		eventlog.setText("test2")
-		eventlog.isScrollable = false
+		eventlog = new ScrollArea(screen, "EventLog", new Vector2f(users.getWidth(), 0), new Vector2f(200, logPanel.getHeight() - 16), true);
+		eventlog.setIsResizable(false);
+		eventlog.setIsMovable(false);
+		eventlog.setToolTipText("the events are displayed here");
+		logPanel.addChild(eventlog);
+		eventlog.setText("test2");
+//		eventlog.setIsScrollable(false);
 
-		chatlog = new ScrollArea(screen, "ChatLog", new Vector2f(users.width + eventlog.width, 0),new Vector2f(300 - 25, logPanel.height -16), true)
-		chatlog.isResizable = false
-		chatlog.isMovable = false
-		chatlog.setToolTipText("Chatmessages are displayed here")
-		logPanel.addChild(chatlog)
+		chatlog = new ScrollArea(screen, "ChatLog", new Vector2f(users.getWidth() + eventlog.getWidth(), 0),new Vector2f(300 - 25, logPanel.getHeight() -16), true);
+		chatlog.setIsResizable(false);
+		chatlog.setIsMovable(false);
+		chatlog.setToolTipText("Chatmessages are displayed here");
+		logPanel.addChild(chatlog);
 
 		logPanel.getLayout().layoutChildren();
 	}
@@ -111,23 +109,23 @@ class ServerControlAppState extends AbstractAppState {
 	}
 
 	@Subscribe
-	def logNetworkEvents(NetworkEvent evt) {
-		eventlog.text = "" + evt + "\n" + eventlog.text
+	private void logNetworkEvents(NetworkEvent evt) {
+		eventlog.setText("" + evt + "\n" + eventlog.getText());
 	}
 
 
 	@Subscribe
-	def logSeverEvents(ServerEvent evt) {
-		eventlog.text = "" + evt + "\n" + eventlog.text
+	private void logSeverEvents(ServerEvent evt) {
+		eventlog.setText("" + evt + "\n" + eventlog.getText());
 	}
 
 	@Subscribe
-	def logSeverEvents(ClientTrysToLoginEvent evt) {
-		users.addListItem(evt.user, evt)
+	private void logSeverEvents(ClientTrysToLoginEvent evt) {
+		users.addListItem(evt.getUser(), evt);
 	}
 
 	@Subscribe
-	def logSeverEvents(ClientLoggedOutEvent evt) {
-		users.removeListItem(evt.user)
+	private void logSeverEvents(ClientLoggedOutEvent evt) {
+		users.removeListItem(evt.getUser());
 	}
 }

@@ -1,9 +1,9 @@
 package brainless.openrts.event;
 
-import groovy.transform.ToString
+import java.sql.Date;
 
-@ToString
-abstract class ServerEvent {
+
+public abstract class ServerEvent {
 
 	private Date date;
 

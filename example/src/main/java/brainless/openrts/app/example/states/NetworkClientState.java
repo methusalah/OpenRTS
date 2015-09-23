@@ -1,32 +1,31 @@
 package brainless.openrts.app.example.states;
 
-import java.util.logging.Logger
+import java.io.IOException;
+import java.util.logging.Logger;
 
-import brainless.openrts.app.example.ClientStateListener
-import brainless.openrts.app.example.MessageListener
-import brainless.openrts.app.example.MultiplayerGame
-import brainless.openrts.event.ClientLoggedOutEvent
-import brainless.openrts.event.ClientTrysToLoginEvent
-import brainless.openrts.event.EventManager
-import brainless.openrts.event.network.AckEvent
-import brainless.openrts.event.network.CreateGameEvent
-import brainless.openrts.event.network.MultiSelectEntityEvent
-import brainless.openrts.event.network.SelectEntityEvent
+import brainless.openrts.app.example.ClientStateListener;
+import brainless.openrts.app.example.MessageListener;
+import brainless.openrts.app.example.MultiplayerGame;
+import brainless.openrts.event.ClientLoggedOutEvent;
+import brainless.openrts.event.ClientTrysToLoginEvent;
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.network.AckEvent;
+import brainless.openrts.event.network.CreateGameEvent;
+import brainless.openrts.event.network.MultiSelectEntityEvent;
+import brainless.openrts.event.network.SelectEntityEvent;
+import brainless.openrts.model.Player;
 
-import com.google.common.eventbus.Subscribe
-import com.google.inject.Inject
-import com.jme3.app.Application
-import com.jme3.app.state.AbstractAppState
-import com.jme3.app.state.AppStateManager
-import com.jme3.network.Client
-import com.jme3.network.Network
-import com.jme3.network.serializing.Serializer
-import brainless.openrts.model.Player
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.jme3.app.Application;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.app.state.AppStateManager;
+import com.jme3.network.Client;
+import com.jme3.network.Network;
+import com.jme3.network.serializing.Serializer;
 
-import exception.TechnicalException
-import groovy.transform.CompileStatic
+import exception.TechnicalException;
 
-@CompileStatic
 public class NetworkClientState extends AbstractAppState {
 
 	
@@ -41,7 +40,7 @@ public class NetworkClientState extends AbstractAppState {
 	private float tickTimer = 0;
 
 	@Inject
-	MultiplayerGame main
+	private MultiplayerGame main;
 	
 	public NetworkClientState() {
 		
@@ -76,10 +75,10 @@ public class NetworkClientState extends AbstractAppState {
 		networkClient.start(); 
 		waitUntilClientIsConnected(10);
 		EventManager.register(this);
-		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.game.mySelf.name, networkClient.getId());
+		ClientTrysToLoginEvent evt1 = new ClientTrysToLoginEvent(main.getGame().getMySelf().getName(), networkClient.getId());
 		EventManager.post(evt1);
-		main.game.players.add(new Player(main.game.mySelf.name,networkClient.getId()))
-		main.game.mySelf = new Player(main.game.mySelf.name, networkClient.getId());
+		main.getGame().getPlayers().add(new Player(main.getGame().getMySelf().getName(),networkClient.getId()));
+		main.getGame().setMySelf(new Player(main.getGame().getMySelf().getName(), networkClient.getId()));
 	}
 
 	@Override

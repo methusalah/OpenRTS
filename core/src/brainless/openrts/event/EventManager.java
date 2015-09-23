@@ -9,6 +9,9 @@ import java.util.logging.Logger;
 
 import brainless.openrts.event.client.Event;
 import brainless.openrts.event.network.NetworkEvent;
+
+import com.google.common.eventbus.EventBus;
+
 import exception.TechnicalException;
 
 public class EventManager {

@@ -1,25 +1,23 @@
-package brainless.openrts.server.states
+package brainless.openrts.server.states;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import brainless.openrts.event.ClientDisconnectedEvent;
 import brainless.openrts.event.ClientLoggedOutEvent;
 import brainless.openrts.event.ClientTrysToLoginEvent;
-import brainless.openrts.event.EventManager
-import brainless.openrts.model.Player
-import brainless.openrts.server.ServerMain;
+import brainless.openrts.event.EventManager;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 
-import groovy.transform.CompileStatic
-
-@CompileStatic
-class ServerLogicAppState extends AbstractAppState {
+public class ServerLogicAppState extends AbstractAppState {
 	
-	 Map<Integer,String> loggedInPlayer = [:]
+	 Map<Integer,String> loggedInPlayer = new HashMap<Integer, String>();
 	
-	ServerLogicAppState(){
+	public ServerLogicAppState(){
 	}
 	
 	@Override
@@ -29,19 +27,19 @@ class ServerLogicAppState extends AbstractAppState {
 	}
 	
 	@Subscribe
-	def logSeverEvents(ClientTrysToLoginEvent evt) {
-		loggedInPlayer.put(evt.connectionId, evt.getUser())
+	private void logSeverEvents(ClientTrysToLoginEvent evt) {
+		loggedInPlayer.put(evt.getConnectionId(), evt.getUser());
 	}
 	
 	@Subscribe
-	def logSeverEvents(ClientLoggedOutEvent evt) {
-		loggedInPlayer.remove(evt.getId())
+	private void logSeverEvents(ClientLoggedOutEvent evt) {
+		loggedInPlayer.remove(evt.getId());
 	}
 	
 	@Subscribe
-	def logSeverEvents(ClientDisconnectedEvent evt) {
-		EventManager.post(new ClientLoggedOutEvent(evt.id, loggedInPlayer.get(evt.id)))
-		loggedInPlayer.remove(evt.id)
+	private void logSeverEvents(ClientDisconnectedEvent evt) {
+		EventManager.post(new ClientLoggedOutEvent(evt.getId(), loggedInPlayer.get(evt.getId())));
+		loggedInPlayer.remove(evt.getId());
 	}
 	
 

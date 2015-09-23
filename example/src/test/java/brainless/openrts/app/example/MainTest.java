@@ -1,25 +1,18 @@
 package brainless.openrts.app.example;
-import java.util.logging.Logger;
-
-import exception.TechnicalException;
 import groovy.transform.CompileStatic;
+
+import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 import tonegod.gui.controls.buttons.ButtonAdapter;
-import app.GameGuiceModule;
-import brainless.openrts.app.example.MainTest;
-import brainless.openrts.app.example.MultiplayerGame;
-import brainless.openrts.app.example.states.gui.UserLoginAppState;
 import brainless.openrts.app.example.states.gui.network.GameLobbyState;
 import brainless.openrts.app.example.states.gui.network.OpenGameState;
 
-import com.google.inject.Guice;
 import com.jme3.system.AppSettings;
 
 /**
@@ -27,7 +20,6 @@ import com.jme3.system.AppSettings;
  * I just want to make sure nobody breaks the normenhansen blue box.
  * @author Gisler Garces
  */
-@CompileStatic
 public class MainTest {
     public static MultiplayerGame app;//Our test target application or class.
 	
@@ -48,33 +40,33 @@ public class MainTest {
         //GL-dependent resources can be initialized.
         //We don't have any display in our jenkins server so it is fine 
         //to calling manually here...
-		logger.info("start waiting for app instances")
-        waitUntil({app.initialized});
-		logger.info("app instances ready")
+		logger.info("start waiting for app instances");
+//        waitUntil({app.initialized});
+		logger.info("app instances ready");
 //    	Guice.createInjector(new GameGuiceModule(app)).injectMembers(app);
     }
 
-    private static void waitUntil(Closure condition,Integer maxTimes = 10) {
-		int waitingCounter = 0;
-		boolean waiting = true;
-		while (waiting) {
-
-			if (condition()) {
-				waiting = false;
-				return;
-			}
-
-			if (maxTimes > 0 && waitingCounter > maxTimes) {
-				throw new TechnicalException("I am waiting too long..");
-			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
-			waitingCounter++;
-		}
-	}
+//    private static void waitUntil(Closure condition,Integer maxTimes = 10) {
+//		int waitingCounter = 0;
+//		boolean waiting = true;
+//		while (waiting) {
+//
+//			if (condition()) {
+//				waiting = false;
+//				return;
+//			}
+//
+//			if (maxTimes > 0 && waitingCounter > maxTimes) {
+//				throw new TechnicalException("I am waiting too long..");
+//			}
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException ie) {
+//				ie.printStackTrace();
+//			}
+//			waitingCounter++;
+//		}
+//	}
     
     @AfterClass
     public static void afterRunTests() {
@@ -111,24 +103,24 @@ public class MainTest {
     public void testShowLoginGUIState() {
 //    	UserLoginAppState userLoginAppState = (UserLoginAppState)getState(UserLoginAppState.class);
 		
-    	waitUntil({!app.stateManager.initializing});
+//    	waitUntil({!app.stateManager.initializing});
     	
     	ButtonAdapter loginButton = (ButtonAdapter) app.getScreen().getElementById("loginWindow:btnOk");
 		Assert.assertEquals(loginButton.getText(), "Login");
     }
 	
 	public void testShowOpenGameGUIState() {		
-		app.createGame()
-		waitUntil({!app.stateManager.initializing});
-		def state = app.stateManager.getState(OpenGameState.class)
-		Assert.assertNotNull(state)
+		app.createGame();
+//		waitUntil({!app.stateManager.initializing});
+		OpenGameState state = app.getStateManager().getState(OpenGameState.class);
+		Assert.assertNotNull(state);
 	}
 
 	public void testShowNetworkLobbyGUIState() {
-		app.openGame()
-		waitUntil({!app.stateManager.initializing});
-		def state = app.stateManager.getState(GameLobbyState.class)
-		Assert.assertNotNull(state)
+		app.openGame();
+//		waitUntil({!app.stateManager.initializing});
+		GameLobbyState state = app.getStateManager().getState(GameLobbyState.class);
+		Assert.assertNotNull(state);
 	}
 	
   }

@@ -1,14 +1,15 @@
-package brainless.openrts.util
+package brainless.openrts.util;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.List;
 
 import exception.TechnicalException;
 
-class FileUtil {
+public class FileUtil {
 
-	static List<File> getFilesInDirectory(String folderPath, String allowedExtension = null) {
+	public static List<File> getFilesInDirectory(String folderPath, String allowedExtension) {
 		List<File> res = new ArrayList<File>();
 		File folder = new File(folderPath);
 		if (!folder.exists()) {
@@ -18,7 +19,7 @@ class FileUtil {
 
 			@Override
 			public boolean accept(File file) {
-				return file.isDirectory() || !allowedExtension || (allowedExtension && file.getPath().endsWith(allowedExtension));
+				return file.isDirectory() || allowedExtension ==null || (allowedExtension !=null && file.getPath().endsWith(allowedExtension));
 			}
 		})) {
 			res.add(f);

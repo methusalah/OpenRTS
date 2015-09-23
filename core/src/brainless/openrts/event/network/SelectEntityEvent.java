@@ -1,12 +1,9 @@
 package brainless.openrts.event.network;
 
-import groovy.transform.ToString;
-
 import com.jme3.network.serializing.Serializable;
 
 @Serializable
-@ToString
-class SelectEntityEvent extends NetworkEvent {
+public class SelectEntityEvent extends NetworkEvent {
 
 	int unitId;
 	
@@ -15,7 +12,11 @@ class SelectEntityEvent extends NetworkEvent {
 	}
 	
 	public SelectEntityEvent(int entityId) {
-		this.unitId = entityId
+		this.unitId = entityId;
+	}
+
+	public int getUnitId() {
+		return unitId;
 	}
 
 }

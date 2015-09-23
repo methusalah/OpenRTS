@@ -5,15 +5,12 @@
 package brainless.openrts.server.controls;
 
 import tonegod.gui.controls.buttons.ButtonAdapter;
-import groovy.transform.CompileStatic;
-import tonegod.gui.controls.buttons.ButtonAdapter;
 import tonegod.gui.controls.form.Form;
 import tonegod.gui.controls.text.Label;
 import tonegod.gui.controls.text.TextField;
 import tonegod.gui.controls.windows.Window;
 import tonegod.gui.core.Element;
 import tonegod.gui.core.ElementManager;
-import tonegod.gui.core.Element.Docking;
 import tonegod.gui.core.utils.UIDUtil;
 
 import com.jme3.font.BitmapFont;
@@ -26,7 +23,7 @@ import com.jme3.math.Vector4f;
  *
  * @author t0neg0d
  */
-@CompileStatic
+
 public abstract class ServerStartBox extends Window {
 	private ButtonAdapter btnStart, btnCancel;
 	private Element responseMsg;

@@ -1,9 +1,9 @@
-package brainless.openrts.server.states.gui
-;
+package brainless.openrts.server.states.gui;
 
 import java.util.logging.Logger;
 
 import tonegod.gui.core.Screen;
+import brainless.openrts.server.ServerMain;
 import brainless.openrts.server.controls.ServerStartBox;
 
 import com.jme3.app.Application;
@@ -11,10 +11,9 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.event.MouseButtonEvent;
 import com.jme3.math.Vector2f;
-import com.sun.corba.se.impl.activation.ServerMain;
 
 
-class ServerStartAppState extends AbstractAppState {
+public class ServerStartAppState extends AbstractAppState {
 
 	static final Logger logger = Logger.getLogger(ServerStartAppState.class.getName());
 	private ServerMain app;
@@ -22,7 +21,7 @@ class ServerStartAppState extends AbstractAppState {
 
 	private ServerStartBox loginWindow;
 
-	ServerStartAppState(ServerMain app ,Screen screen) {
+	public ServerStartAppState(ServerMain app ,Screen screen) {
 		this.app = app;
 		this.screen = screen;
 	}

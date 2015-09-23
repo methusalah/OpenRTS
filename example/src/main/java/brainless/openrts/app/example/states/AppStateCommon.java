@@ -4,20 +4,15 @@
  */
 package brainless.openrts.app.example.states;
 
-import groovy.transform.CompileStatic
-import tonegod.gui.core.Screen
-import brainless.openrts.app.example.MultiplayerGame
+import tonegod.gui.core.Screen;
+import brainless.openrts.app.example.MultiplayerGame;
 
-import com.google.inject.Inject
-import com.jme3.app.Application
-import com.jme3.app.state.AbstractAppState
-import com.jme3.app.state.AppStateManager
+import com.google.inject.Inject;
+import com.jme3.app.Application;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.app.state.AppStateManager;
 
-/**
- *
- * @author t0neg0d
- */
-@CompileStatic
+
 public abstract class AppStateCommon extends AbstractAppState {
 	protected String displayName = "Display Name";
 	protected boolean show = true;

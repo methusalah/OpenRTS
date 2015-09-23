@@ -76,7 +76,7 @@ public class ModelManager {
 		setBattlefield(factory.getNew(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
-	void setBattlefield(Battlefield battlefield) {
+	public void setBattlefield(Battlefield battlefield) {
 		if (battlefield != null) {
 			this.battlefield = battlefield;
 			battlefieldReady = true;

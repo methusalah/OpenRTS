@@ -1,42 +1,40 @@
 package brainless.openrts.app.example.states.gui.game;
 
-import groovy.transform.CompileStatic
-import openrts.guice.annotation.RootNodeRef
+import java.util.ArrayList;
+import java.util.List;
 
-import org.lwjgl.opengl.Display
+import openrts.guice.annotation.RootNodeRef;
 
-import tonegod.gui.controls.buttons.ButtonAdapter
-import tonegod.gui.controls.text.Label
-import tonegod.gui.controls.windows.Panel
-import tonegod.gui.controls.windows.Window
-import tonegod.gui.core.Element
-import tonegod.gui.core.Element.Docking
-import tonegod.gui.core.layouts.FlowLayout
-import tonegod.gui.core.layouts.LayoutHelper
-import tonegod.gui.core.utils.UIDUtil
+import org.lwjgl.opengl.Display;
+
+import tonegod.gui.controls.buttons.ButtonAdapter;
+import tonegod.gui.controls.text.Label;
+import tonegod.gui.controls.windows.Panel;
+import tonegod.gui.controls.windows.Window;
+import tonegod.gui.core.Element;
+import tonegod.gui.core.Element.Docking;
+import tonegod.gui.core.layouts.FlowLayout;
+import tonegod.gui.core.layouts.LayoutHelper;
+import tonegod.gui.core.utils.UIDUtil;
 import brainless.openrts.app.example.states.AppStateCommon;
-import brainless.openrts.event.EventManager
-import brainless.openrts.event.network.SelectEntityEvent
+import brainless.openrts.event.EventManager;
+import brainless.openrts.event.network.SelectEntityEvent;
 
-import com.google.common.eventbus.Subscribe
-import com.google.inject.Inject
-import com.jme3.input.event.JoyAxisEvent
-import com.jme3.input.event.JoyButtonEvent
-import com.jme3.input.event.KeyInputEvent
-import com.jme3.input.event.MouseButtonEvent
-import com.jme3.input.event.MouseMotionEvent
-import com.jme3.input.event.TouchEvent
-import com.jme3.math.Vector2f
-import com.jme3.math.Vector4f
-import com.jme3.scene.Node
-import com.jme3.texture.Texture
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.jme3.input.event.JoyAxisEvent;
+import com.jme3.input.event.JoyButtonEvent;
+import com.jme3.input.event.KeyInputEvent;
+import com.jme3.input.event.MouseButtonEvent;
+import com.jme3.input.event.MouseMotionEvent;
+import com.jme3.input.event.TouchEvent;
+import com.jme3.math.Vector2f;
+import com.jme3.math.Vector4f;
+import com.jme3.scene.Node;
+import com.jme3.texture.Texture;
 
-/**
- * 
- * @author t0neg0d
- */
-@CompileStatic
-class HudState extends AppStateCommon {
+
+public class HudState extends AppStateCommon {
 
 	private Panel cPanel;
 	private float iconSize = 20;
@@ -44,7 +42,7 @@ class HudState extends AppStateCommon {
 //	private InteractiveNode obj1Node, obj2Node, obj3Node;
 	private Texture objIcons;
 	private String iconDefault;
-	List<ButtonAdapter> slots = []
+	private List<ButtonAdapter> slots = new ArrayList<ButtonAdapter> ();
 	
 	Panel informationPanel;
 	
@@ -170,7 +168,7 @@ class HudState extends AppStateCommon {
 		int index = 0;
 		for (int y = 0; y < 4; y++) {
 			LayoutHelper.resetX();
-			if (lastEl) {
+			if (lastEl != null) {
 				LayoutHelper.advanceY(lastEl, true);
 			}
 			for (int x = 0; x < 4; x++) {
@@ -187,14 +185,14 @@ class HudState extends AppStateCommon {
 			}
 		}
 		
-		ActionPanel.addChild(cPanel)
+		ActionPanel.addChild(cPanel);
 //		cPanel.pack();
 	}
 	
 	@Subscribe
-	def handleSelectUnit(SelectEntityEvent evt) {
+	private void handleSelectUnit(SelectEntityEvent evt) {
 		informationPanel.removeAllChildren();
-		Label name = new Label(screen, new Vector2f(20, 20))
+		Label name = new Label(screen, new Vector2f(20, 20));
 		name.setText("Unit selected: "+ evt.getUnitId() );
 		name.setDimensions(300, 100);
 		informationPanel.addChild(name);

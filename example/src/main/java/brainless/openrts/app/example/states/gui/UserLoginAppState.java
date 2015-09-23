@@ -1,19 +1,15 @@
-package brainless.openrts.app.example.states.gui
+package brainless.openrts.app.example.states.gui;
 
-import groovy.transform.CompileStatic
+import javax.inject.Inject;
 
-import javax.inject.Inject
-
-import tonegod.gui.controls.windows.LoginBox
-import tonegod.gui.core.Screen
+import tonegod.gui.controls.windows.LoginBox;
 import brainless.openrts.app.example.states.AppStateCommon;
-import brainless.openrts.model.Player
 
-import com.jme3.input.event.MouseButtonEvent
-import com.jme3.math.Vector2f
+import com.jme3.input.event.MouseButtonEvent;
+import com.jme3.math.Vector2f;
 
-@CompileStatic
-class UserLoginAppState extends AppStateCommon {
+
+public class UserLoginAppState extends AppStateCommon {
 	LoginBox loginWindow;
 	String user;
 
@@ -58,18 +54,18 @@ class UserLoginAppState extends AppStateCommon {
 						public void onButtonLoginPressed(MouseButtonEvent evt, boolean toggled) {
 							// Some call to the server to log the client in
 							//@TODO handle passowrd aswell
-							finalizeUserLogin(loginWindow.textUserName);
+							finalizeUserLogin(loginWindow.getTextUserName());
 
 						}
 
 						@Override
 						public void onButtonCancelPressed(MouseButtonEvent arg0, boolean arg1) {
-							System.exit(0)
+							System.exit(0);
 
 						}
 					};
-			loginWindow.textUserName = "peter"
-			loginWindow.password.isEnabled = false
+			loginWindow.setTextUserName("peter");
+			loginWindow.getPassword().setIsEnabled(false);
 			screen.addElement(loginWindow);
 
 

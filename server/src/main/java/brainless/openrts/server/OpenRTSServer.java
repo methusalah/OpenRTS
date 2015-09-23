@@ -1,5 +1,11 @@
 package brainless.openrts.server;
 
+import exception.TechnicalException;
+import geometry.math.RandomUtil;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
@@ -9,16 +15,10 @@ import brainless.openrts.model.Game;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.jme3.network.Server;
-import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 
-import exception.TechnicalException;
-import geometry.math.RandomUtil;
-import groovy.transform.CompileStatic;
-
-@CompileStatic
 abstract class OpenRTSServer extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(OpenRTSServer.class.getName());

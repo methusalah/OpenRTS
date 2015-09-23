@@ -1,11 +1,10 @@
 package brainless.openrts.server;
 
-
-import groovy.transform.CompileStatic;
-
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
-import model.ModelManager;
 import tonegod.gui.core.Screen;
 import brainless.openrts.event.ClientLoggedOutEvent;
 import brainless.openrts.event.ClientTrysToLoginEvent;
@@ -23,19 +22,14 @@ import com.jme3.network.Network;
 import com.jme3.network.kernel.KernelException;
 import com.jme3.network.serializing.Serializer;
 
-
-class ServerMain extends OpenRTSServer {
+public class ServerMain extends OpenRTSServer {
 
 	static final Logger logger = Logger.getLogger(ServerMain.class.getName());
 
-	protected static List<Class> serializerClasses = [
-		SelectEntityEvent.class,
-		AckEvent.class,
-		CreateGameEvent.class,
-		MultiSelectEntityEvent.class,
-		ClientTrysToLoginEvent.class,
-		ClientLoggedOutEvent.class
-	]
+	protected static Class[] serializerClasses = new Class[] {
+			SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class,
+			MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class,
+			ClientLoggedOutEvent.class };
 
 	private Screen screen;
 	private ServerStartAppState serverStart;
@@ -45,14 +39,14 @@ class ServerMain extends OpenRTSServer {
 
 		// Properties preferences = new Properties();
 		// try {
-		// FileInputStream configFile = new FileInputStream("logging.properties");
+		// FileInputStream configFile = new
+		// FileInputStream("logging.properties");
 		// preferences.load(configFile);
 		// LogManager.getLogManager().readConfiguration(configFile);
 		// } catch (IOException ex) {
 		// System.err.println("WARNING: Could not open configuration file");
 		// System.err.println("WARNING: Logging not configured (console output only)");
 		// }
-
 		System.out.println("Server starting...");
 		ServerMain app = new ServerMain();
 		// app.start(JmeContext.Type.Headless); // headless type for servers!
@@ -61,21 +55,20 @@ class ServerMain extends OpenRTSServer {
 
 	@Override
 	public void simpleInitApp() {
-		//		flyCam.setDragToRotate(true);
+		// flyCam.setDragToRotate(true);
 		inputManager.setCursorVisible(true);
-		pauseOnLostFocus = false;
-		
+		setPauseOnLostFocus(false);
+
 		screen = new Screen(this);
 		guiNode.addControl(screen);
 
 		serverLogic = new ServerLogicAppState();
 		stateManager.attach(serverLogic);
-		
+
 		serverStart = new ServerStartAppState(this, screen);
 		stateManager.attach(serverStart);
-		serverStart.enabled = true;
+		serverStart.setEnabled(true);
 	}
-
 
 	@Override
 	public void simpleUpdate(float tpf) {
@@ -85,26 +78,31 @@ class ServerMain extends OpenRTSServer {
 		stateManager.update(maxedTPF);
 		// view.getActorManager().render();
 		// p1.getFieldCtrl().update(maxedTPF);
-//		modelManager.updateConfigs();
+		// modelManager.updateConfigs();
 	}
 
 	public void switchToServerControlAppStates() {
 
-		serverStart.enabled = false;
+		serverStart.setEnabled(false);
 		stateManager.detach(serverStart);
 		startServer();
 
-		ServerControlAppState severControl = new ServerControlAppState(this, screen);
+		ServerControlAppState severControl = new ServerControlAppState(this,screen);
 		stateManager.attach(severControl);
-		severControl.enabled = true;
+		severControl.setEnabled(true);
 	}
 
 	private void startServer() {
 		try {
-			//@TODO use static property here
-			Serializer.registerClasses(SelectEntityEvent.class,AckEvent.class,CreateGameEvent.class, MultiSelectEntityEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
+			// @TODO use static property here
+			Serializer.registerClasses(SelectEntityEvent.class, AckEvent.class,
+					CreateGameEvent.class, MultiSelectEntityEvent.class,
+					ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
 			myServer = Network.createServer(gameName, version, PORT, PORT);
-			myServer.addMessageListener(new InputEventMessageListener(), SelectEntityEvent.class, AckEvent.class, CreateGameEvent.class, ClientTrysToLoginEvent.class, ClientLoggedOutEvent.class);
+			myServer.addMessageListener(new InputEventMessageListener(),
+					SelectEntityEvent.class, AckEvent.class,
+					CreateGameEvent.class, ClientTrysToLoginEvent.class,
+					ClientLoggedOutEvent.class);
 			myServer.addConnectionListener(new ConnectionListener());
 
 			myServer.start();
@@ -112,7 +110,7 @@ class ServerMain extends OpenRTSServer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (KernelException e) {
-			EventManager.post(new ServerCouldNotStartetEvent(message: e.message));
+			EventManager.post(new ServerCouldNotStartetEvent(e.getMessage()));
 			e.printStackTrace();
 		}
 	}

@@ -89,7 +89,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		game = new Game();
 		userlogin = injector.getInstance(UserLoginAppState.class);
 		stateManager.attach(userlogin);
-		pauseOnLostFocus = false;
+		setPauseOnLostFocus(false);
 	}
 
 	private void initScreen() {
@@ -157,14 +157,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleRender(RenderManager rm) {  }
 
-	private void  sucessfullLoggedIn(String username) {
+	public void  sucessfullLoggedIn(String username) {
 		stateManager.detach(userlogin);
 		dashboardState = injector.getInstance(DashboardState.class);
 		game.getMySelf().setName(username);
 		stateManager.attach(dashboardState);
 	}
 
-	private void createGame(){
+	public void createGame(){
 		stateManager.detach(dashboardState);
 		stateManager.detach(networkDashboardState);
 
@@ -172,7 +172,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 		stateManager.attach(openGameState);
 	}
 
-	private void openGame(){
+	public void openGame(){
 		stateManager.detach(openGameState);
 		stateManager.detach(networkDashboardState);
 		
@@ -181,19 +181,19 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	}
 
-	private void joinGame(){
+	public void joinGame(){
 		stateManager.detach(networkDashboardState);
 		gameLobbyState = injector.getInstance(GameLobbyState.class);
 		stateManager.attach(gameLobbyState);
 	}
 
-	private void startGame() {
+	public void startGame() {
 		stateManager.detach(gameLobbyState);
 		loadingMapState = injector.getInstance(LoadingMapState.class);
 		stateManager.attach(loadingMapState);
 	}
 	
-	private void runGame() {
+	public void runGame() {
 		stateManager.detach(loadingMapState);
 		loadingMapState.setEnabled(false);
 
@@ -205,9 +205,9 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	}
 
-	private void connectToServer(String host) {
+	public void connectToServer(String host) {
 		NetworkClientState client = injector.getInstance(NetworkClientState.class);
-		client.host = host;
+		client.setHost(host);
 		stateManager.attach(client);
 
 		stateManager.detach(networkDashboardState);
@@ -224,6 +224,11 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	public void destroy() {
 		super.destroy();
 		this.stop();
+	}
+
+
+	public Game getGame() {
+		return game;
 	}
 
 }

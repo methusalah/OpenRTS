@@ -20,7 +20,6 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-import model.ModelManager;
 import brainless.openrts.util.FileUtil;
 
 import com.google.inject.Inject;

@@ -1,33 +1,29 @@
 package brainless.openrts.app.example.states.gui.network;
 
-import groovy.transform.CompileStatic
+import java.util.logging.Logger;
 
-import java.util.logging.Logger
+import model.ModelManager;
+import tonegod.gui.controls.buttons.ButtonAdapter;
+import tonegod.gui.controls.scrolling.ScrollArea;
+import tonegod.gui.controls.text.LabelElement;
+import tonegod.gui.controls.text.TextField;
+import tonegod.gui.controls.windows.Panel;
+import tonegod.gui.core.Element;
+import tonegod.gui.core.Element.Borders;
+import tonegod.gui.core.Element.Docking;
+import tonegod.gui.core.layouts.FlowLayout;
+import tonegod.gui.core.layouts.LayoutHelper;
+import tonegod.gui.core.utils.UIDUtil;
+import brainless.openrts.app.example.states.AppStateCommon;
+import brainless.openrts.event.ClientLoggedOutEvent;
+import brainless.openrts.event.EventManager;
 
-import model.ModelManager
-import tonegod.gui.controls.buttons.ButtonAdapter
-import tonegod.gui.controls.scrolling.ScrollArea
-import tonegod.gui.controls.text.LabelElement
-import tonegod.gui.controls.text.TextField
-import tonegod.gui.controls.windows.Panel
-import tonegod.gui.core.Element
-import tonegod.gui.core.Screen
-import tonegod.gui.core.Element.Borders
-import tonegod.gui.core.Element.Docking
-import tonegod.gui.core.layouts.FlowLayout
-import tonegod.gui.core.layouts.LayoutHelper
-import tonegod.gui.core.utils.UIDUtil
-import brainless.openrts.app.example.states.AppStateCommon
-import brainless.openrts.event.ClientLoggedOutEvent
-import brainless.openrts.event.EventManager
+import com.google.inject.Inject;
+import com.jme3.font.BitmapFont;
+import com.jme3.input.event.MouseButtonEvent;
+import com.jme3.math.Vector2f;
+import com.jme3.math.Vector4f;
 
-import com.google.inject.Inject
-import com.jme3.font.BitmapFont
-import com.jme3.input.event.MouseButtonEvent
-import com.jme3.math.Vector2f
-import com.jme3.math.Vector4f
-
-@CompileStatic
 public class GameLobbyState extends AppStateCommon {
 
 	private static final Logger logger = Logger.getLogger(GameLobbyState.class.getName());
@@ -36,17 +32,17 @@ public class GameLobbyState extends AppStateCommon {
 
 	private Element content;
 	private Panel panel;
-	private TextField chatBox
+	private TextField chatBox;
 	private LabelElement dispTitle, extTitle, testTitle;
 	protected ButtonAdapter close,startGame;
 
-	ScrollArea mapInfo
+	private ScrollArea mapInfo;
 
 	@Inject
-	ModelManager modelManager
+	ModelManager modelManager;
 
 	@Inject
-	public ServerConfigState() {
+	public GameLobbyState() {
 		displayName = "Game Lobby";
 		show = false;
 	}
@@ -64,7 +60,7 @@ public class GameLobbyState extends AppStateCommon {
 
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
-			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
+			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.getWidth(),screen.getHeight()), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 			// Add title label for Display
@@ -75,7 +71,7 @@ public class GameLobbyState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.mySelf.id, main.game.mySelf.name);
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.getGame().getMySelf().getId(), main.getGame().getMySelf().getName());
 							EventManager.post(evt1);
 							System.exit(0);
 						}
@@ -86,23 +82,23 @@ public class GameLobbyState extends AppStateCommon {
 
 			mapInfo = new ScrollArea(screen,"mapInfo", Vector2f.ZERO,true);
 			mapInfo.setToolTipText("infos about the selected Map");
-			mapInfo.setDimensions(200,200)
-			content.addChild(mapInfo)
-			mapInfo.layoutHints.set("wrap")
+			mapInfo.setDimensions(200,200);
+			content.addChild(mapInfo);
+			mapInfo.getLayoutHints().set("wrap");
 
 			startGame = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							main.startGame()
+							main.startGame();
 						}
 					};
 			startGame.setDocking(Docking.SW);
 			startGame.setText("Start Game");
 			startGame.setToolTipText("starts a game");
-			content.addChild(startGame)
+			content.addChild(startGame);
 
 			// Create the main display panel
-			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
+			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.getWidth() + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
 			panel.addChild(close);
 			panel.setIsMovable(false);
@@ -114,7 +110,7 @@ public class GameLobbyState extends AppStateCommon {
 			close.setY(contentPadding);
 			dispTitle.centerToParentH();
 			
-			content.layoutChildren()
+			content.layoutChildren();
 			initialized = true;
 		}
 
@@ -130,7 +126,7 @@ public class GameLobbyState extends AppStateCommon {
 	public void cleanupState() {
 		panel.hide();
 		panel.detachAllChildren();
-		panel.removeAllChildren()
+		panel.removeAllChildren();
 	}
 
 	private LabelElement getLabel(String text) {

@@ -1,32 +1,34 @@
 package brainless.openrts.app.example.states.gui.game;
 
-import java.util.logging.Logger
+import geometry.geom2d.AlignedBoundingBox;
+import geometry.geom2d.Point2D;
 
-import model.ModelManager
-import model.battlefield.army.ArmyManager
-import model.battlefield.army.components.Unit
-import view.EditorView
-import view.camera.Camera
-import view.camera.IsometricCamera
-import view.math.TranslateUtil
-import brainless.openrts.app.example.GameInputInterpreter
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import model.ModelManager;
+import model.battlefield.army.ArmyManager;
+import model.battlefield.army.components.Unit;
+import view.EditorView;
+import view.camera.Camera;
+import view.camera.IsometricCamera;
+import view.math.TranslateUtil;
+import brainless.openrts.app.example.GameInputInterpreter;
 import brainless.openrts.app.example.states.AppStateCommon;
 import brainless.openrts.event.BattleFieldUpdateEvent;
 import brainless.openrts.event.EventManager;
 
-import com.google.common.eventbus.Subscribe
-import com.google.inject.Inject
-import com.google.inject.Injector
-import com.jme3.app.state.AppStateManager
-import com.jme3.input.InputManager
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.jme3.app.state.AppStateManager;
+import com.jme3.input.InputManager;
 
-import controller.CommandManager
-import controller.SpatialSelector
-import geometry.geom2d.AlignedBoundingBox
-import geometry.geom2d.Point2D
-import groovy.transform.CompileStatic
+import controller.CommandManager;
+import controller.SpatialSelector;
 
-@CompileStatic
+
 public class BattlefieldState extends AppStateCommon {
 	
 	private static final Logger logger = Logger.getLogger(BattlefieldState.class.getName());
@@ -43,29 +45,29 @@ public class BattlefieldState extends AppStateCommon {
 	
 	protected Camera isometricCamera;
 	@Inject
-	protected Injector injector
+	protected Injector injector;
 	
 	@Inject
 	protected InputManager inputManager;
 	
 	@Inject
-	protected com.jme3.renderer.Camera cam
+	protected com.jme3.renderer.Camera cam;
 	
 	@Inject
-	protected GameInputInterpreter inputInterpreter
+	protected GameInputInterpreter inputInterpreter;
 	
 	@Inject
-	private ModelManager modelManager
+	private ModelManager modelManager;
 	
 	@Inject
-	private ArmyManager armyManager
+	private ArmyManager armyManager;
 	
 	@Inject
-	private CommandManager commandManager
+	private CommandManager commandManager;
 	
 	@Inject
 	public BattlefieldState() {
-		super()
+		super();
 		displayName = "GameBattlefieldState";
 		show = true;
 		EventManager.register(this);
@@ -77,7 +79,7 @@ public class BattlefieldState extends AppStateCommon {
 		updateContext();
 		//sguiController.update();
 
-		view.getActorManager().render()
+		view.getActorManager().render();
 		// update army
 		if (!paused) {
 			armyManager.update(elapsedTime);
@@ -138,8 +140,8 @@ public class BattlefieldState extends AppStateCommon {
 		placeCamera();
 	}
 
-	private placeCamera() {
-		((IsometricCamera)isometricCamera).move(modelManager.getBattlefield().getMap().xSize() / 2, modelManager.getBattlefield().getMap().ySize() / 2)
+	private void placeCamera() {
+		((IsometricCamera)isometricCamera).move(modelManager.getBattlefield().getMap().xSize() / 2, modelManager.getBattlefield().getMap().ySize() / 2);
 	}
 
 	// TODO: See AppState.setEnabled => use it, this is a better implementation

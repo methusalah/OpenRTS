@@ -1,35 +1,27 @@
 package brainless.openrts.app.example.states.gui.network;
 
-import groovy.transform.CompileStatic
+import java.util.logging.Logger;
 
-import java.util.logging.Logger
+import tonegod.gui.controls.buttons.ButtonAdapter;
+import tonegod.gui.controls.text.LabelElement;
+import tonegod.gui.controls.text.TextField;
+import tonegod.gui.controls.windows.Panel;
+import tonegod.gui.core.Element;
+import tonegod.gui.core.Element.Borders;
+import tonegod.gui.core.Element.Docking;
+import tonegod.gui.core.layouts.FlowLayout;
+import tonegod.gui.core.layouts.LayoutHelper;
+import tonegod.gui.core.utils.UIDUtil;
+import brainless.openrts.app.example.states.AppStateCommon;
+import brainless.openrts.event.ClientLoggedOutEvent;
+import brainless.openrts.event.EventManager;
 
-import tonegod.gui.controls.buttons.ButtonAdapter
-import tonegod.gui.controls.text.LabelElement
-import tonegod.gui.controls.text.TextField
-import tonegod.gui.controls.windows.Panel
-import tonegod.gui.core.Element
-import tonegod.gui.core.Screen
-import tonegod.gui.core.Element.Borders
-import tonegod.gui.core.Element.Docking
-import tonegod.gui.core.layouts.FlowLayout
-import tonegod.gui.core.layouts.LayoutHelper
-import tonegod.gui.core.utils.UIDUtil
-import brainless.openrts.app.example.states.AppStateCommon
-import brainless.openrts.event.ClientLoggedOutEvent
-import brainless.openrts.event.EventManager
+import com.google.inject.Inject;
+import com.jme3.font.BitmapFont;
+import com.jme3.input.event.MouseButtonEvent;
+import com.jme3.math.Vector2f;
+import com.jme3.math.Vector4f;
 
-import com.google.inject.Inject
-import com.jme3.font.BitmapFont
-import com.jme3.input.event.MouseButtonEvent
-import com.jme3.math.Vector2f
-import com.jme3.math.Vector4f
-
-/**
- *
- * @author t0neg0d
- */
-@CompileStatic
 public class NetworkDashboardState extends AppStateCommon {
 
 	private static final Logger logger = Logger.getLogger(NetworkDashboardState.class.getName());
@@ -38,13 +30,13 @@ public class NetworkDashboardState extends AppStateCommon {
 
 	private Element content;
 	private Panel panel;
-	private TextField chatBox
+	private TextField chatBox;
 	private LabelElement dispTitle, extTitle, testTitle;
 	protected ButtonAdapter close, createGame, joinGame;
 
 
 	@Inject
-	public ServerConfigState() {
+	public NetworkDashboardState() {
 		displayName = "NetworkDashboard";
 		show = false;
 	}
@@ -62,7 +54,7 @@ public class NetworkDashboardState extends AppStateCommon {
 
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
-			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
+			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.getWidth(),screen.getHeight()), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 			// Add title label for Display
@@ -73,7 +65,7 @@ public class NetworkDashboardState extends AppStateCommon {
 			close = new ButtonAdapter(screen, Vector2f.ZERO) {
 						@Override
 						public void onButtonMouseLeftUp(MouseButtonEvent evt, boolean toggled) {
-							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.game.mySelf.id, main.game.mySelf.name);
+							ClientLoggedOutEvent evt1 = new ClientLoggedOutEvent(main.getGame().getMySelf().getId(), main.getGame().getMySelf().getName());
 							EventManager.post(evt1);
 							System.exit(0);
 						}
@@ -109,7 +101,7 @@ public class NetworkDashboardState extends AppStateCommon {
 			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
 
 			// Create the main display panel
-			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
+			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.getWidth() + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
 
 			panel.setIsMovable(false);
@@ -136,7 +128,7 @@ public class NetworkDashboardState extends AppStateCommon {
 	public void cleanupState() {
 		panel.hide();
 		panel.detachAllChildren();
-		panel.removeAllChildren()
+		panel.removeAllChildren();
 	}
 
 	private LabelElement getLabel(String text) {

@@ -1,15 +1,12 @@
-package brainless.openrts.event.network
-
-import groovy.transform.ToString;
+package brainless.openrts.event.network;
 
 import com.jme3.network.serializing.Serializable;
 
 
 @Serializable
-@ToString
 class JoinGameEvent extends NetworkEvent {
 	
-	int playerId
-	int game
+	private int playerId;
+	private int game;
 
 }

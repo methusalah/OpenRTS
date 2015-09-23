@@ -34,6 +34,16 @@ public class Game {
 	}
 
 
+	public void setMySelf(Player mySelf) {
+		this.mySelf = mySelf;
+	}
+
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+
 	enum State {
 		OPEN, RUNNING, PAUSED, STOPPED
 	}

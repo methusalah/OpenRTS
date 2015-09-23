@@ -4,35 +4,34 @@
  */
 package brainless.openrts.app.example.states.gui;
 
-import groovy.transform.CompileStatic
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Logger;
 
-import java.util.logging.Logger
+import model.ModelManager;
+import model.battlefield.Battlefield;
+import tonegod.gui.controls.extras.Indicator;
+import tonegod.gui.controls.text.Label;
+import tonegod.gui.controls.windows.Panel;
+import tonegod.gui.core.Element;
+import tonegod.gui.core.Element.Borders;
+import tonegod.gui.core.Element.Orientation;
+import tonegod.gui.core.layouts.FlowLayout;
+import tonegod.gui.core.layouts.LayoutHelper;
+import tonegod.gui.core.utils.UIDUtil;
+import util.MapArtisanManager;
+import brainless.openrts.app.example.MultiplayerGame;
+import brainless.openrts.app.example.states.AppStateCommon;
 
-import model.ModelManager
-import model.battlefield.Battlefield
-import tonegod.gui.controls.extras.Indicator
-import tonegod.gui.controls.text.Label
-import tonegod.gui.controls.windows.Panel
-import tonegod.gui.core.Element
-import tonegod.gui.core.Screen
-import tonegod.gui.core.Element.Borders
-import tonegod.gui.core.Element.Orientation
-import tonegod.gui.core.layouts.FlowLayout
-import tonegod.gui.core.layouts.LayoutHelper
-import tonegod.gui.core.utils.UIDUtil
-import util.MapArtisanManager
-import brainless.openrts.app.example.MultiplayerGame
-import brainless.openrts.app.example.states.AppStateCommon
-
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.inject.Inject
-import com.google.inject.Injector
-import com.jme3.math.ColorRGBA
-import com.jme3.math.Vector2f
-import com.jme3.math.Vector4f
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector2f;
+import com.jme3.math.Vector4f;
 
 
-//@CompileStatic
+
 public class LoadingMapState extends AppStateCommon {
 
 	private static final Logger logger = Logger.getLogger(LoadingMapState.class.getName());
@@ -42,8 +41,8 @@ public class LoadingMapState extends AppStateCommon {
 	Element content;
 	Panel panel;
 
-	Indicator ind
-	Label loadingtext
+	private Indicator ind;
+	private Label loadingtext;
 
 	boolean load = false;
 	private float frameCount = 0;
@@ -51,16 +50,16 @@ public class LoadingMapState extends AppStateCommon {
 	Battlefield bField = null;
 
 	@Inject
-	Injector injector
+	private Injector injector;
 
 	@Inject
-	MultiplayerGame main
+	private MultiplayerGame main;
 
 	@Inject
-	ModelManager modelManager
+	private ModelManager modelManager;
 
 	@Inject
-	MapArtisanManager mapArtisanManager
+	private MapArtisanManager mapArtisanManager;
 
 	@Inject
 	public LoadingMapState() {
@@ -82,14 +81,14 @@ public class LoadingMapState extends AppStateCommon {
 
 			FlowLayout layout = new FlowLayout(screen,"clip","margins 0 0 0 0","pad 5 5 5 5");
 			// Container for harness panel content
-			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.width,screen.height), Vector4f.ZERO, null);
+			content = new Element(screen, UIDUtil.getUID(), Vector2f.ZERO, new Vector2f(screen.getWidth(),screen.getHeight()), Vector4f.ZERO, null);
 			content.setAsContainerOnly();
 			content.setLayout(layout);
 
 
 			final ColorRGBA color = new ColorRGBA();
 
-			ind = new Indicator(screen,new Vector2f(50,300),new Vector2f(300,30),Orientation.HORIZONTAL) {
+			ind = new Indicator(screen,new Vector2f(50,300),new Vector2f(300,30),Orientation.HORIZONTAL, true) {
 						@Override
 						public void onChange(float currentValue, float currentPercentage) {  }
 					};
@@ -100,24 +99,24 @@ public class LoadingMapState extends AppStateCommon {
 			ind.setIndicatorPadding(new Vector4f(7,7,7,7));
 			ind.setMaxValue(100);
 			ind.setDisplayPercentage();
-			ind.centerToParentH()
+			ind.centerToParentH();
 
 			content.addChild(ind);
 
-			loadingtext = new Label(screen, "loadingtext", new Vector2f(200,200), new Vector2f(300,30))
-			content.addChild(loadingtext)
-			loadingtext.centerToParentH()
+			loadingtext = new Label(screen, "loadingtext", new Vector2f(200,200), new Vector2f(300,30));
+			content.addChild(loadingtext);
+			loadingtext.centerToParentH();
 			content.setPosition(LayoutHelper.absPosition(contentPadding,contentPadding));
 
 			// Create the main display panel
-			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.width + (contentPadding*2)),screen.getHeight()));
+			panel = new Panel(screen,Vector2f.ZERO,	LayoutHelper.dimensions((Float)(content.getWidth() + (contentPadding*2)),screen.getHeight()));
 			panel.addChild(content);
 			//			panel.addChild(close);
 			panel.setIsMovable(false);
 			panel.setIsResizable(false);
 			screen.addElement(panel, true);
 
-			load = true
+			load = true;
 			initialized = true;
 		}
 
@@ -128,7 +127,7 @@ public class LoadingMapState extends AppStateCommon {
 	public void updateState(float tpf) {
 		if (load) { //loading is done over many frames
 			if (frameCount == 1) {
-				File file = main.game.file
+				File file = main.getGame().getFile();
 				modelManager.updateConfigs();
 				modelManager.setBattlefieldUnavailable();
 
@@ -157,7 +156,7 @@ public class LoadingMapState extends AppStateCommon {
 				setProgress(100, "Loading complete");
 
 			} else if (frameCount == 8) {
-				modelManager.setBattlefield(bField)
+				modelManager.setBattlefield(bField);
 				main.runGame();
 			}
 
@@ -173,7 +172,7 @@ public class LoadingMapState extends AppStateCommon {
 
 	public void setProgress(int value, String loadingText) {
 		ind.setCurrentValue(value);
-		loadingtext.text  = loadingText
+		loadingtext.setText(loadingText);
 	}
 
 }
