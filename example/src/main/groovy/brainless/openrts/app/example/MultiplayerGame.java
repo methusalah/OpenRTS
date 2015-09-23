@@ -1,42 +1,32 @@
 package brainless.openrts.app.example;
 
-import groovy.transform.CompileStatic
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
-import java.util.logging.Logger
+import tonegod.gui.core.Screen;
+import app.OpenRTSApplicationWithDI;
+import brainless.openrts.app.example.states.NetworkClientState;
+import brainless.openrts.app.example.states.gui.DashboardState;
+import brainless.openrts.app.example.states.gui.LoadingMapState;
+import brainless.openrts.app.example.states.gui.UserLoginAppState;
+import brainless.openrts.app.example.states.gui.game.BattlefieldState;
+import brainless.openrts.app.example.states.gui.game.HudState;
+import brainless.openrts.app.example.states.gui.network.GameLobbyState;
+import brainless.openrts.app.example.states.gui.network.NetworkDashboardState;
+import brainless.openrts.app.example.states.gui.network.OpenGameState;
+import brainless.openrts.model.Game;
 
-import tonegod.gui.core.Screen
-import tonegod.gui.tests.states.TestState
-import tonegod.gui.tests.states.buttons.ButtonState
-import tonegod.gui.tests.states.emitter.EmitterState
-import tonegod.gui.tests.states.spatial.SpatialState
-import tonegod.gui.tests.states.sprite.SpriteState
-import tonegod.gui.tests.states.subscreen.EmbeddedGUIState 
-import tonegod.gui.tests.states.text.AnimatedTextState
-import tonegod.gui.tests.states.text.TextLabelState
-import tonegod.gui.tests.states.windows.WindowState
-import app.OpenRTSApplicationWithDI
-import brainless.openrts.app.example.states.NetworkClientState
-import brainless.openrts.app.example.states.gui.DashboardState
-import brainless.openrts.app.example.states.gui.LoadingMapState
-import brainless.openrts.app.example.states.gui.UserLoginAppState
-import brainless.openrts.app.example.states.gui.game.BattlefieldState
-import brainless.openrts.app.example.states.gui.game.HudState
-import brainless.openrts.app.example.states.gui.network.GameLobbyState
-import brainless.openrts.app.example.states.gui.network.NetworkDashboardState
-import brainless.openrts.app.example.states.gui.network.OpenGameState
-import brainless.openrts.model.Game
-
-import com.google.inject.Module
-import com.jme3.font.BitmapFont
-import com.jme3.light.AmbientLight
-import com.jme3.light.DirectionalLight
-import com.jme3.math.ColorRGBA
-import com.jme3.math.Vector3f
-import com.jme3.renderer.RenderManager
-import com.jme3.system.AppSettings
+import com.google.inject.Module;
+import com.jme3.font.BitmapFont;
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
+import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.RenderManager;
+import com.jme3.system.AppSettings;
 
 
-@CompileStatic
 public class MultiplayerGame extends OpenRTSApplicationWithDI {
 
 	private static final Logger logger = Logger.getLogger(MultiplayerGame.class.getName());
@@ -49,7 +39,7 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	// Initial GUI Extras settings
 	public static final boolean USE_ATLAS = true;
 
-	Game game
+	private Game game;
  
 	private boolean fixCam = false;
 	private boolean hasLights = false;
@@ -60,14 +50,14 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	private Screen screen;
 	private BitmapFont defaultFont;
 
-	NetworkDashboardState networkDashboardState;
-	BattlefieldState gameState
-	HudState hudState
-	LoadingMapState loadingMapState
-	DashboardState dashboardState
-	GameLobbyState gameLobbyState
-	OpenGameState openGameState
-	UserLoginAppState userlogin;
+	private NetworkDashboardState networkDashboardState;
+	private BattlefieldState gameState;
+	private HudState hudState;
+	private LoadingMapState loadingMapState;
+	private DashboardState dashboardState;
+	private GameLobbyState gameLobbyState;
+	private OpenGameState openGameState;
+	private UserLoginAppState userlogin;
 
 	public static void main(String[] args) {
 		// Properties preferences = new Properties();
@@ -168,10 +158,10 @@ public class MultiplayerGame extends OpenRTSApplicationWithDI {
 	@Override
 	public void simpleRender(RenderManager rm) {  }
 
-	def sucessfullLoggedIn(String username) {
+	private void  sucessfullLoggedIn(String username) {
 		stateManager.detach(userlogin);
 		dashboardState = injector.getInstance(DashboardState.class);
-		game.mySelf.name = username;
+		game.getMySelf().name = username;
 		stateManager.attach(dashboardState);
 	}
 

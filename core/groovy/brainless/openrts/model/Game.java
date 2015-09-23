@@ -1,13 +1,17 @@
-package brainless.openrts.model
+package brainless.openrts.model;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 class Game {
 	
-	File file
+	private File file;
 	
-	State state = State.OPEN
-	List<Player> players = []
-	Player mySelf = new Player()
+	private State state = State.OPEN;
+	private List<Player> players = new ArrayList<Player>();
+	private Player mySelf = new Player();
 	
 	
 	enum State {
