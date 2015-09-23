@@ -1,7 +1,6 @@
 apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'java'
-apply plugin: 'groovy'
 
 mainClassName = 'openrts.server.OpenRTSServerTonegodGUI'
 if (!hasProperty('mainClass')) {
@@ -18,7 +17,6 @@ dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 	compile project(':core')
 //	testCompile 'org.testng:testng:6.8'
-	compile 'org.codehaus.groovy:groovy-all:2.3.10'
 //	compile 'tonegodgui:tonegodgui:0.0.1'
 //	compile 'net.sf.sociaal:jME3-tonegod-gui:0.4.6.1484'
 //	https://dl.bintray.com/brainless-studios/tonegodgui
@@ -43,7 +41,7 @@ eclipse {
 
 	project { 
 		name = appName + "-server" 
-		natures 'org.springsource.ide.eclipse.gradle.core.nature', 'org.eclipse.jdt.groovy.core.groovyNature'
+		natures 'org.springsource.ide.eclipse.gradle.core.nature'
 	}
 	
 }

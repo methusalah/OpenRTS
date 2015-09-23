@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'groovy'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
@@ -11,7 +10,6 @@ if (!hasProperty('mainClass')) {
 
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
-	compile 'org.codehaus.groovy:groovy-all:2.3.10'
 	compile "com.jme3:jme3-core:$jmonkeyengine_version"
 	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
 	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
@@ -48,26 +46,13 @@ dependencies {
 
 sourceSets {
 	main {
-		groovy {
-            // override the default locations, rather than adding additional ones
-            srcDirs = ['groovy', 'src'] 
-        }
         java {
-            srcDirs = [] // don't compile Java code twice 
+            srcDirs = ['src']  
         }
 		resources { srcDir 'assets' }
 	}
 }
 
-// remove GroovyCompile->JavaCompile task dependencies
-tasks.withType(GroovyCompile) {
-	dependsOn = []
-}
-
-// add JavaCompile->GroovyCompile task dependencies
-tasks.withType(JavaCompile) { task ->
-	dependsOn task.name.replace("Java", "Groovy")
-}
 eclipse {
 	classpath {
 		downloadSources=true
