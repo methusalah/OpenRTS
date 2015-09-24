@@ -1,6 +1,4 @@
 package brainless.openrts.app.example;
-import groovy.transform.CompileStatic;
-
 import java.util.logging.Logger;
 
 import org.junit.After;

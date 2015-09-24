@@ -1,7 +1,6 @@
 apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'java'
-apply plugin: 'groovy'
 
 mainClassName = 'brainless.openrts.app.example.MultiplayerGame'
 if (!hasProperty('mainClass')) {
@@ -17,7 +16,6 @@ repositories {
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
     compile project(':core')
-    compile 'org.codehaus.groovy:groovy-all:2.3.10'
     compile 'com.github.brainless-studios:tonegodgui:92f4924bce'
     compile 'com.github.brainless-studios:tonegodgui-test:c0dd91c1fd'
 	testCompile 'junit:junit:4.12'
@@ -25,26 +23,13 @@ dependencies {
 
 sourceSets {
 	 main {
-        groovy {
-            // override the default locations, rather than adding additional ones
-            srcDirs = ['src/main/groovy', 'src/main/java'] 
-        }
         java {
-            srcDirs = [] // don't compile Java code twice 
+            srcDirs = ['src/main/java'] // don't compile Java code twice 
         }
 		resources { srcDir 'assets' }
     }
 }
 
-// remove GroovyCompile->JavaCompile task dependencies
-tasks.withType(GroovyCompile) {
-	dependsOn = []
-}
-
-// add JavaCompile->GroovyCompile task dependencies
-tasks.withType(JavaCompile) { task ->
-	dependsOn task.name.replace("Java", "Groovy")
-}
 
 eclipse {
 	classpath {

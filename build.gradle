@@ -1,8 +1,6 @@
 subprojects {
 	apply plugin: "eclipse"
 	apply plugin: "idea"
-	apply plugin: 'pmd'
-	apply plugin: 'findbugs'
 	apply plugin: 'java'
 	apply plugin: 'maven'
 	
@@ -12,14 +10,6 @@ subprojects {
 	compileJava {
 		sourceCompatibility = '1.8'
 	 }
-	
-	pmd {
-		ignoreFailures = true
-	}
-	
-	findbugs {
-		ignoreFailures = true
-	}
 	
 	repositories {
 		mavenLocal()
