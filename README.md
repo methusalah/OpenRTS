@@ -11,6 +11,9 @@ OpenRTS is still under development. There is a long way to go and a huge and gro
 
 Watch <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">the engine in action!</a>
 
+# Attention !!!
+OpenRTS is searching a example project, which is using OpenRTS to realize a complete Realtimestrategy-Game. Like descibed above, OpenRTS is only a framework. But developing a framework in theory is not useful. So we need a example game idea with existing Models. Please create a issue to lets discuss it. thx.
+
 # How to set up?
 The project uses Gradle to support any IDE, or none.
 
