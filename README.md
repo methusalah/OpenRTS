@@ -11,9 +11,6 @@ OpenRTS is still under development. There is a long way to go and a huge and gro
 
 Watch <a href="https://www.youtube.com/watch?v=XjYJWFQFIVE" target="_blank">the engine in action!</a>
 
-# Attention !!!
-OpenRTS is searching a example project, which is using OpenRTS to realize a complete Realtimestrategy-Game. Like descibed above, OpenRTS is only a framework. But developing a framework in theory is not useful. So we need a example game idea with existing Models. Please create a issue to lets discuss it. thx.
-
 # How to set up?
 The project uses Gradle to support any IDE, or none.
 
@@ -48,6 +45,9 @@ OpenRTS wants to provide its own complete and workable dataset to allow immediat
 We are glad to welcome all your creations : models, sounds, maps, particle sprites, army data... And if your contribution respects the current <a href="https://pinterest.com/search/pins/?q=low%20poly" target="_blank">low-poly art style</a>, so much the only better!
 
 Please note that all your contributions will fall under the OpenRTS licence, and will become public and free-to-use, as is the engine itself.
+
+### Why not becoming a Patron ?
+Support the author with a <a href="https://www.patreon.com/user?u=2629002&ty=h" target="_blank">tiny financial contribution</a>. To grant time to the project, or buy assets pack, it helps a lot !
 
 ### Bug report
 If you find a bug (and you will probably see many), please search for existing <a href="https://github.com/methusalah/OpenRTS/issues?q=is%3Aopen+is%3Aissue+label%3Abug" target="_blank">bug reports</a> to avoid duplicates. Then open your issue with a little test case. You can also report it on the forum, if you prefer.
