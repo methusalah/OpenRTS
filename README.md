@@ -1,5 +1,7 @@
 ![please report broken links](http://s12.postimg.org/uvml3cmvx/code118.png)
 
+**<a href="https://twitter.com/dumas181" target="_blank">Follow me on twitter !</a>**
+
 # What is OpenRTS?
 OpenRTS is a 3D real-time strategy game engine. It's coded in Java 1.8, powered by jMonkeyEngine 3, and is open-source.
 
@@ -46,8 +48,7 @@ We are glad to welcome all your creations : models, sounds, maps, particle sprit
 
 Please note that all your contributions will fall under the OpenRTS licence, and will become public and free-to-use, as is the engine itself.
 
-### Why not becoming a Patron ?
-Support the author with a <a href="https://www.patreon.com/user?u=2629002&ty=h" target="_blank">tiny financial contribution</a>. To grant time to the project, or buy assets pack, it helps a lot !
+**Finaly, following (<a href="https://twitter.com/dumas181" target="_blank">twitter</a>), starring and sharing helps a lot !**
 
 ### Bug report
 If you find a bug (and you will probably see many), please search for existing <a href="https://github.com/methusalah/OpenRTS/issues?q=is%3Aopen+is%3Aissue+label%3Abug" target="_blank">bug reports</a> to avoid duplicates. Then open your issue with a little test case. You can also report it on the forum, if you prefer.
