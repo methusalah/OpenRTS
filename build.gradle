@@ -12,7 +12,7 @@ allprojects {
 	version = '0.0.1'
 	ext {
 		appName = 'OpenRTS'
-		jmonkeyengine_version = '3.0.10'
+		jmonkeyengine_version = '[3.0.10,)'
 	}
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
@@ -21,12 +21,25 @@ allprojects {
 	 }
 
 	repositories {
+		jcenter()
 		mavenLocal()
 		mavenCentral()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 		maven { url 'http://updates.jmonkeyengine.org/maven' }	
 		maven { url 'http://jcenter.bintray.com' }
+	}
+	
+	dependencies {
+		// jMonkey Engine
+		compile "org.jmonkeyengine:jme3-core:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version" 
+		compile "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-blender:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-bullet:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-bullet-native:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-niftygui:$jmonkeyengine_version"
 	}
 	
 	pmd {

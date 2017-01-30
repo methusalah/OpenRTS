@@ -6,7 +6,6 @@ import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import view.mesh.Circle;
 
-import com.bulletphysics.linearmath.TransformUtil;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;

@@ -101,7 +101,7 @@ public class ParticlePerformer extends Performer{
 			for(Particle p : getParticles(pe)){
 				double age = (p.startlife-p.life)*1000;
 				if(age < elapsedTime) {
-					p.position.interpolate((Vector3f)pe.getUserData("lastPos"), (float)(age/elapsedTime));
+					p.position.interpolateLocal((Vector3f)pe.getUserData("lastPos"), (float)(age/elapsedTime));
 				}
 			}
 		}

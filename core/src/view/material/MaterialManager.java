@@ -145,7 +145,7 @@ public class MaterialManager {
 		ColorRGBA roadsColor = ColorRGBA.LightGray;
 		ColorRGBA terrainColor = new ColorRGBA(0f / 255f, 50f / 255f, 14f / 255f, 255f / 255f);
 
-		am.registerLocator("assets/", FileLocator.class.getName());
+		am.registerLocator("assets/", FileLocator.class);
 
 		contourMaterial = new Material(am, "Common/MatDefs/Misc/Unshaded.j3md");
 		contourMaterial.setColor("Color", blackConcreteColor);
