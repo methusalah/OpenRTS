@@ -10,6 +10,23 @@ maven repository :
     mvn install:install-file -Dfile=./lib/jbullet.jar -DgroupId=jbullet -DartifactId=jbullet -Dversion=0.0.1 -Dpackaging=jar
     mvn install:install-file -Dfile=./lib/stack-alloc.jar -DgroupId=stack-alloc -DartifactId=stack-alloc -Dversion=0.0.1 -Dpackaging=jar
 
+## Debug
+
+    gradle run --debug-jvm
+
+## Problems
+
+### FixedPipeline
+
+The FixedPipeline light mode is not supported anymore.
+
+It impacts the MyTerrainLighting map.
+
+#### References
+
+- https://hub.jmonkeyengine.org/t/heightbasedterrain-with-lighting-support/27623
+- https://hub.jmonkeyengine.org/t/hacking-jme-3-1-to-support-opengl-1/34776/8
+
 # References
 
 ## IOS

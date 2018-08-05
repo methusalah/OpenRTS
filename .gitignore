@@ -24,3 +24,6 @@ local.properties
 /build/
 *.log
 /.nb-gradle/private/
+
+core/nullatlas
+core/nullcover
