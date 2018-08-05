@@ -8,20 +8,20 @@ if (!hasProperty('mainClass')) {
 }
 
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 version = '1.0'
 
 repositories {
     mavenCentral()
     maven {
-        url 'http://updates.jmonkeyengine.org/maven'
+        url 'http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine'
     }
 }
 
 dependencies {
     compile project(':core')
-//    compile 'com.jme3:jme3-desktop:$jmonkeyengine_version.+'
-//    compile 'com.jme3:jme3-lwjgl:$jmonkeyengine_version.+'
+//    compile 'org.jmonkeyengine:jme3-desktop:$jmonkeyengine_version.+'
+//    compile 'org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version.+'
 }
 
 sourceSets {
@@ -38,8 +38,8 @@ eclipse {
 	}
 
 	jdt {
-		sourceCompatibility = 1.7
-		targetCompatibility = 1.7
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
 	}
 
 	project { name = appName + "-example" }

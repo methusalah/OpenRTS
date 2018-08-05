@@ -8,7 +8,7 @@
 #*.jar
 *.war
 *.ear
-lib/jME3*
+lib/*
 **/bin/
 
 .project
