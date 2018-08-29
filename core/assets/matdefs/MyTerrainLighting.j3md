@@ -232,7 +232,6 @@ MaterialDef Terrain Lighting {
         }
     }
 
-
     //Technique {
     //    LightMode FixedPipeline
     //}

@@ -27,6 +27,27 @@ It impacts the MyTerrainLighting map.
 - https://hub.jmonkeyengine.org/t/heightbasedterrain-with-lighting-support/27623
 - https://hub.jmonkeyengine.org/t/hacking-jme-3-1-to-support-opengl-1/34776/8
 
+### Multiple warnings for 'non-existent material parameter' at start
+
+    AVERTISSEMENT: In technique 'GBuf':
+    Define 'VERTEX_COLOR' mapped to non-existent material parameter 'UseVertexColor', ignoring.
+    août 05, 2018 12:55:45 PM com.jme3.material.plugins.J3MLoader readDefine
+    AVERTISSEMENT: In technique 'GBuf':
+    Define 'MATERIAL_COLORS' mapped to non-existent material parameter 'UseMaterialColors', ignoring.
+    août 05, 2018 12:55:45 PM com.jme3.material.plugins.J3MLoader readDefine
+    AVERTISSEMENT: In technique 'GBuf':
+    Define 'V_TANGENT' mapped to non-existent material parameter 'VTangent', ignoring.
+    août 05, 2018 12:55:45 PM com.jme3.material.plugins.J3MLoader readDefine
+    AVERTISSEMENT: In technique 'GBuf':
+    Define 'MINNAERT' mapped to non-existent material parameter 'Minnaert', ignoring.
+    août 05, 2018 12:55:45 PM com.jme3.material.plugins.J3MLoader readDefine
+    AVERTISSEMENT: In technique 'GBuf':
+    Define 'PARALLAXMAP' mapped to non-existent material parameter 'ParallaxMap', ignoring.
+
+#### References
+
+- https://hub.jmonkeyengine.org/t/terrainlighting-in-jme-3-1/38079
+
 # References
 
 ## IOS
