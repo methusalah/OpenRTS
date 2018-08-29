@@ -10,9 +10,13 @@ maven repository :
     mvn install:install-file -Dfile=./lib/jbullet.jar -DgroupId=jbullet -DartifactId=jbullet -Dversion=0.0.1 -Dpackaging=jar
     mvn install:install-file -Dfile=./lib/stack-alloc.jar -DgroupId=stack-alloc -DartifactId=stack-alloc -Dversion=0.0.1 -Dpackaging=jar
 
+## Run
+
+    ./gradlew core:run
+
 ## Debug
 
-    gradle run --debug-jvm
+    ./gradlew core:run --debug-jvm
 
 ## Problems
 
@@ -51,6 +55,10 @@ It impacts the MyTerrainLighting map.
 ### No loader registered for type "mesh.xml"
 
 Added a dependency to compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version".
+
+#### References
+
+- https://hub.jmonkeyengine.org/t/problem-importing-ogre-models/23474/5
 
 # References
 
