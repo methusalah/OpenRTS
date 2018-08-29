@@ -48,6 +48,10 @@ It impacts the MyTerrainLighting map.
 
 - https://hub.jmonkeyengine.org/t/terrainlighting-in-jme-3-1/38079
 
+### No loader registered for type "mesh.xml"
+
+Added a dependency to compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version".
+
 # References
 
 ## IOS
