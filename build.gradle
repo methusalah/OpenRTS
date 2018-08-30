@@ -44,7 +44,7 @@ allprojects {
 		compile "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version" 
 		compile "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
 		compile "org.jmonkeyengine:jme3-blender:$jmonkeyengine_version"
-        compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
 		compile ("org.jmonkeyengine:jme3-bullet:$jmonkeyengine_version") {
 			exclude group: 'jbullet', module: 'jbullet'
 		}
