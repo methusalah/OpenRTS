@@ -1,5 +1,6 @@
 import model.ModelManager;
 import view.MapView;
+import view.material.MaterialManager;
 import app.OpenRTSApplication;
 
 import com.jme3.bullet.BulletAppState;
@@ -24,6 +25,7 @@ public class Game extends OpenRTSApplication {
 		flyCam.setUpVector(new Vector3f(0, 0, 1));
 		flyCam.setEnabled(false);
 
+		MaterialManager.setAssetManager(assetManager);
 		MapView view = new MapView(rootNode, guiNode, bulletAppState.getPhysicsSpace(), assetManager, viewPort);
 
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);

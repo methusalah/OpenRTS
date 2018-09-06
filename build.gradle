@@ -12,13 +12,13 @@ allprojects {
 	version = '0.0.1'
 	ext {
 		appName = 'OpenRTS'
-		jmonkeyengine_version = '[3.0.10,)'
+		jmonkeyengine_version = '3.2.1-stable'
 	}
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 	compileJava {
 		sourceCompatibility = '1.8'
-	 }
+	}
 
 	repositories {
 		jcenter()
@@ -26,18 +26,31 @@ allprojects {
 		mavenCentral()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		maven { url 'http://updates.jmonkeyengine.org/maven' }	
 		maven { url 'http://jcenter.bintray.com' }
+		maven { url 'http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine' }
+		flatDir {
+			dirs rootProject.file('lib')
+		}
 	}
 	
 	dependencies {
+		// 3rd party - see NOTES.md
+		compile ("jbullet:jbullet:0.0.1") {
+			force = true
+		}
+		compile "stack-alloc:stack-alloc:0.0.1"
 		// jMonkey Engine
 		compile "org.jmonkeyengine:jme3-core:$jmonkeyengine_version"
 		compile "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version" 
 		compile "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
 		compile "org.jmonkeyengine:jme3-blender:$jmonkeyengine_version"
-		compile "org.jmonkeyengine:jme3-bullet:$jmonkeyengine_version"
-		compile "org.jmonkeyengine:jme3-bullet-native:$jmonkeyengine_version"
+		compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
+		compile ("org.jmonkeyengine:jme3-bullet:$jmonkeyengine_version") {
+			exclude group: 'jbullet', module: 'jbullet'
+		}
+		compile ("org.jmonkeyengine:jme3-bullet-native:$jmonkeyengine_version") {
+			exclude group: 'jbullet', module: 'jbullet'
+		}
 		compile "org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version"
 		compile "org.jmonkeyengine:jme3-niftygui:$jmonkeyengine_version"
 	}

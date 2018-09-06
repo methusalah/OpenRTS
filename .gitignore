@@ -8,7 +8,7 @@
 #*.jar
 *.war
 *.ear
-lib/jME3*
+lib/*
 **/bin/
 
 .project
@@ -24,3 +24,6 @@ local.properties
 /build/
 *.log
 /.nb-gradle/private/
+
+core/nullatlas
+core/nullcover
