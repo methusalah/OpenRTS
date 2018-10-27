@@ -32,7 +32,7 @@ First, you should take a look at the <a href="https://github.com/methusalah/Open
 And of course, you shouldn't hesitate to write to us at openRTS.team@gmail.com
 
 # How to contribute?
-You want to participate and make OpenRTS a fully functionnal game engine? Please do&mdash;the more the merrier!
+You want to participate and make OpenRTS a fully functional game engine? Please do&mdash;the more the merrier!
 
 ### Forum
 The best place to start if you would like to contribute is in the
