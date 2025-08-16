@@ -1,5 +1,8 @@
 package event;
 
+import com.jme3.network.serializing.Serializable;
+
+@Serializable
 public class ControllerChangeEvent extends Event {
 
 	private final int index;

@@ -34,7 +34,7 @@ public class Game extends OpenRTSApplication {
 		niftyDisplay.getNifty().setIgnoreKeyboardEvents(true);
 		// TODO: validation is needed to be sure everyting in XML is fine. see http://wiki.jmonkeyengine.org/doku.php/jme3:advanced:nifty_gui_best_practices
 		// niftyDisplay.getNifty().validateXml("interface/screen.xml");
-		niftyDisplay.getNifty().fromXml("interface/screen.xml", "editor");
+		niftyDisplay.getNifty().fromXml("interface/screen.xml", "hud");
 
 		stateManager.attach(fieldCtrl);
 		fieldCtrl.setEnabled(true);

@@ -40,7 +40,7 @@ public class GroundController extends Controller {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		inputManager.setCursorVisible(false);
+		inputManager.setCursorVisible(true);
 		guiController.activate();
 		logger.info("ground controller on line");
 	}

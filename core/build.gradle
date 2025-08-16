@@ -1,130 +1,42 @@
-apply plugin: 'java'
-apply plugin: 'application'
-apply plugin: 'eclipse'
-
-mainClassName = 'app.MainRTS'
-if (!hasProperty('mainClass')) {
-	ext.mainClass = 'app.MainRTS'
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
 }
 
-dependencies {
-	compile fileTree(dir: 'lib', include: ['*.jar'])
-
-	compile "org.jmonkeyengine:jme3-core:$jmonkeyengine_version"
-	compile "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version" 
-	compile "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
-	//    	compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
-	////    	compile "org.jmonkeyengine:jme3-jogg:$jmonkeyengine_version"
-	////    	compile "org.jmonkeyengine:jme3-terrain:$jmonkeyengine_version"
-	compile "org.jmonkeyengine:jme3-blender:$jmonkeyengine_version"
-	compile "org.jmonkeyengine:jme3-jbullet:$jmonkeyengine_version"
-	//    	compile "org.jmonkeyengine:jme3-desktop:$jmonkeyengine_version"
-	compile "org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version"
-	    	//
-	    	//	compile "org.jmonkeyengine:jme3-bullet-natives:$jmonkeyengine_version"
-	    	//
-
-	compile "org.jmonkeyengine:jme3-niftygui:$jmonkeyengine_version"
-
-	//	compile 'com.google.code.gson:gson:2.3.1'
-	compile 'org.bushe:eventbus:1.4'
-	compile 'com.google.guava:guava:18.0'
-	compile 'org.apache.commons:commons-lang3:3.3.2'
-	//	compile 'org.reflections:reflections:0.9.8'
-	//	compile 'org.simpleframework:simple-xml:2.7.1'
-
-	testCompile 'org.testng:testng:6.8'
-	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
-	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
-	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
-	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
-	
+application {
+    mainClass = 'app.MainRTS'
 }
 
-eclipse.classpath.file {
-	beforeMerged { classpath ->
-		classpath.entries.removeAll() { c ->
-			c.kind == 'src'
-		}
-	}
-
-	withXml {
-		def node = it.asNode()
-
-		node.appendNode('classpathentry kind="src" path="src"')
-
-		node.children().removeAll() { c ->
-			def path = c.attribute('path')
-			path != null && (
-					path.contains('/com.android.support/support-v4')
-					)
-		}
-	}
-}
+// No additional dependencies needed here - they're inherited from the root project
 
 sourceSets {
-	main {
-		java { srcDir 'src'}
-		resources { srcDir 'assets' }
-	}
-	test {
-		java { srcDir 'test/java' }
-		resources { srcDir "test/resources" }
-	}
+    main {
+        java { srcDirs = ['src'] }
+        resources { srcDirs = ['assets'] }
+    }
+    test {
+        java { srcDirs = ['test/java'] }
+        resources { srcDirs = ['test/resources'] }
+    }
 }
 
-test {
-	// enable TestNG support (default is JUnit)
-	useTestNG()
-
-	// set a system property for the test JVM(s)
-	systemProperty 'some.prop', 'value'
-
-	// explicitly include or exclude tests
-	//	include 'org/foo/**'
-	//	exclude 'org/boo/**'
-
-	// show standard out and standard error of the test JVM(s) on the console
-	testLogging.showStandardStreams = true
-
-	// set heap size for the test JVM(s)
-	minHeapSize = "128m"
-	maxHeapSize = "512m"
-
-	// set JVM arguments for the test JVM(s)
-	jvmArgs '-XX:MaxPermSize=256m'
-
-	// listen to events in the test execution lifecycle
-	beforeTest { descriptor ->
-		logger.lifecycle("Running test: " + descriptor)
-	}
-
-	// listen to standard out and standard error of the test JVM(s)
-	onOutput { descriptor, event ->
-		logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
-	}
-
-	//	options {
-	//		listeners << 'org.uncommons.reportng.HTMLReporter'
-	//		listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-	//	}
+tasks.withType(JavaExec) {
+    // JVM arguments for running the application
+    jvmArgs = [
+        '-Xms512m',
+        '-Xmx2g',
+        '-XX:+UseG1GC'
+    ]
 }
 
-//sets up the Android Eclipse project, using the old Ant based build.
 eclipse {
-	// need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
-	// ignores any nodes added in classpath.file.withXml
-	sourceSets {
-		main { java.srcDirs "src" }
-	}
-	classpath {
-		downloadSources=true
-	 }
-
-	jdt {
-		sourceCompatibility = 1.8
-		targetCompatibility = 1.8
-	}
-
-	project { name = appName + "-core" }
+    project { 
+        name = "${appName}-core"
+    }
+    
+    classpath {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }

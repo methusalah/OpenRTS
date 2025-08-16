@@ -1,29 +1,76 @@
-/RTSForGit/nbproject/private/
+# Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+gradle-app.setting
+!gradle-wrapper.properties
 
-.gradle
-# Class Files #
+# Java
 *.class
-
-# Package Files #
-#*.jar
+*.jar
 *.war
 *.ear
-lib/*
-**/bin/
+*.nar
+hs_err_pid*
+replay_pid*
 
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
 .project
 .classpath
-.settings
+.factorypath
 
-**/gen/
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-**/Thumbs.db
-local.properties
-
-**/*.dylib
-/build/
+# Logs
 *.log
-/.nb-gradle/private/
+logs/
 
-core/nullatlas
-core/nullcover
+# Runtime
+tmp/
+temp/
+.tmp
+
+# JME specific
+assets/Textures/
+assets/Models/
+assets/Materials/
+assets/Shaders/
+
+# Local configuration
+local.properties
+*.properties.local
+
+# Build outputs
+out/
+target/
+dist/
+bin/
+
+# Maven
+.m2/
+
+# Test results
+.test/
+test-results/
+
+# Coverage reports
+.jacoco/
+jacoco.exec
+
+# Legacy
+/RTSForGit/nbproject/private/
+lib/*
+**/gen/

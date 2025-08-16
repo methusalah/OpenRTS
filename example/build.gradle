@@ -1,46 +1,34 @@
-apply plugin: 'application'
-apply plugin: 'java'
-apply plugin: 'eclipse'
-
-mainClassName = 'Game'
-if (!hasProperty('mainClass')) {
-	ext.mainClass = 'Game'
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
 }
 
-
-sourceCompatibility = 1.8
-version = '1.0'
-
-repositories {
-    mavenCentral()
-    maven {
-        url 'http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine'
-    }
+application {
+    mainClass = 'Game'
 }
 
+// Dependencies inherited from root project
 dependencies {
-    compile project(':core')
-//    compile 'org.jmonkeyengine:jme3-desktop:$jmonkeyengine_version.+'
-//    compile 'org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version.+'
+    implementation project(':core')
 }
 
 sourceSets {
-	main {
-		java { srcDir 'src' }
-		resources { srcDir 'assets' }
-	}
-	test { java { srcDir 'test' } }
+    main {
+        java { srcDirs = ['src'] }
+        resources { srcDirs = ['assets'] }
+    }
 }
 
+tasks.withType(JavaExec) {
+    jvmArgs = ['-Xms256m', '-Xmx1g', '-XX:+UseG1GC']
+}
+
+// Disable run task to prevent automatic execution
+run.enabled = false
+
 eclipse {
-	sourceSets {
-		main { java.srcDirs "src" }
-	}
-
-	jdt {
-		sourceCompatibility = 1.8
-		targetCompatibility = 1.8
-	}
-
-	project { name = appName + "-example" }
+    project { 
+        name = "${appName}-example"
+    }
 }

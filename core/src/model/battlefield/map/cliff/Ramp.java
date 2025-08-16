@@ -27,6 +27,10 @@ public class Ramp {
 	private double angle;
 	private List<Integer> tilesRef = new ArrayList<>();
 
+	// Default constructor for Jackson deserialization
+	public Ramp() {
+	}
+
 	public Ramp(Tile t) {
 		ModelManager.getBattlefield().getMap().getRamps().add(this);
 		if (!t.hasCliff()) {
