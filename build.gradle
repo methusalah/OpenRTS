@@ -12,7 +12,7 @@ allprojects {
 	version = '0.0.1'
 	ext {
 		appName = 'OpenRTS'
-		jmonkeyengine_version = '3.2.1-stable'
+		jmonkeyengine_version = '3.2.4-stable'
 	}
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
@@ -21,13 +21,10 @@ allprojects {
 	}
 
 	repositories {
-		jcenter()
-		mavenLocal()
 		mavenCentral()
+		mavenLocal()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		maven { url 'http://jcenter.bintray.com' }
-		maven { url 'http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine' }
 		flatDir {
 			dirs rootProject.file('lib')
 		}
