@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
 import network.client.ClientManager;
+import event.Event;
+import event.ControllerChangeEvent;
 
 import com.jme3.app.Application;
 import com.jme3.app.LegacyApplication;
@@ -25,6 +27,7 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.network.serializing.Serializer;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Node;
@@ -130,6 +133,14 @@ public abstract class OpenRTSApplication extends LegacyApplication implements Ph
 	
 	@Override
 	public void initialize() {
+		// Register networking serializers early to avoid registry lock issues
+		try {
+			Serializer.registerClass(Event.class);
+			Serializer.registerClass(ControllerChangeEvent.class);
+		} catch (Exception e) {
+			logger.warning("Failed to register Event classes for serialization: " + e.getMessage());
+		}
+		
 		bulletAppState = new BulletAppState();
 		bulletAppState.startPhysics();
 

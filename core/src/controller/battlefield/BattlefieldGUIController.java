@@ -16,6 +16,8 @@ import controller.Reporter;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
+import event.ControllerChangeEvent;
+import event.EventManager;
 
 /**
  *
@@ -33,6 +35,19 @@ public class BattlefieldGUIController extends GUIController {
 
 	public void selectAll(){
 		CommandManager.selectAll();
+	}
+
+	// Tab switching methods
+	public void switchToGameMode(){
+		EventManager.post(new ControllerChangeEvent(0));
+	}
+
+	public void switchToEditorMode(){
+		EventManager.post(new ControllerChangeEvent(1));
+	}
+
+	public void switchToNetworkMode(){
+		EventManager.post(new ControllerChangeEvent(2));
 	}
 
 	@Override

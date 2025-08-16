@@ -1,62 +1,130 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+}
 
-version = '1.0'
+version = '1.0.0'
+
+// Root project is just a container - delegate runs to core module
 
 allprojects {
-	apply plugin: "eclipse"
-	apply plugin: "idea"
-	apply plugin: 'pmd'
-	apply plugin: 'findbugs'
-	apply plugin: 'java'
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
 
-	version = '0.0.1'
-	ext {
-		appName = 'OpenRTS'
-		jmonkeyengine_version = '3.2.4-stable'
-	}
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
-	compileJava {
-		sourceCompatibility = '1.8'
-	}
+    version = '1.0.0'
+    
+    ext {
+        appName = 'OpenRTS'
+        jmonkeyengine_version = '3.8.1-stable'
+        guava_version = '33.2.1-jre'
+        jackson_version = '2.17.2'
+        slf4j_version = '2.0.13'
+        logback_version = '1.5.6'
+    }
 
-	repositories {
-		mavenCentral()
-		mavenLocal()
-		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		flatDir {
-			dirs rootProject.file('lib')
-		}
-	}
-	
-	dependencies {
-		// 3rd party - see NOTES.md
-		compile ("jbullet:jbullet:0.0.1") {
-			force = true
-		}
-		compile "stack-alloc:stack-alloc:0.0.1"
-		// jMonkey Engine
-		compile "org.jmonkeyengine:jme3-core:$jmonkeyengine_version"
-		compile "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version" 
-		compile "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
-		compile "org.jmonkeyengine:jme3-blender:$jmonkeyengine_version"
-		compile "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
-		compile ("org.jmonkeyengine:jme3-bullet:$jmonkeyengine_version") {
-			exclude group: 'jbullet', module: 'jbullet'
-		}
-		compile ("org.jmonkeyengine:jme3-bullet-native:$jmonkeyengine_version") {
-			exclude group: 'jbullet', module: 'jbullet'
-		}
-		compile "org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version"
-		compile "org.jmonkeyengine:jme3-niftygui:$jmonkeyengine_version"
-	}
-	
-	pmd {
-		ignoreFailures = true
-	}
-	
-	findbugs {
-		ignoreFailures = true
-	}
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        gradlePluginPortal()
+        // Fallback for legacy dependencies
+        flatDir {
+            dirs rootProject.file('lib')
+        }
+    }
+
+    dependencies {
+        // Logging
+        implementation "org.slf4j:slf4j-api:$slf4j_version"
+        implementation "ch.qos.logback:logback-classic:$logback_version"
+
+        // JMonkeyEngine - latest stable version (3.8.1)
+        implementation "org.jmonkeyengine:jme3-core:$jmonkeyengine_version"
+        implementation "org.jmonkeyengine:jme3-desktop:$jmonkeyengine_version"
+        implementation "org.jmonkeyengine:jme3-lwjgl3:$jmonkeyengine_version" // LWJGL3 for modern OpenGL
+        implementation "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version"
+        implementation "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
+        implementation "org.jmonkeyengine:jme3-terrain:$jmonkeyengine_version"
+        implementation "org.jmonkeyengine:jme3-niftygui:$jmonkeyengine_version"
+        implementation "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
+        
+        // Physics - Modern Minie physics (official JME Bullet replacement)
+        implementation "com.github.stephengold:Minie:8.1.0"
+        runtimeOnly "com.github.stephengold:Libbulletjme:21.2.1"
+
+        // Utilities
+        implementation "com.google.guava:guava:$guava_version"
+        implementation "org.apache.commons:commons-lang3:3.15.0"
+        implementation "org.bushe:eventbus:1.4"
+
+        // JSON processing
+        implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+        implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+        implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+        implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-smile:$jackson_version"
+
+        // Testing
+        testImplementation platform('org.junit:junit-bom:5.10.3')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'org.mockito:mockito-core:5.12.0'
+        testImplementation 'org.assertj:assertj-core:3.26.3'
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.release = 21
+        options.encoding = 'UTF-8'
+        options.compilerArgs.addAll(['-Xlint:all', '-Xlint:-processing'])
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+}
+
+// Global tasks
+tasks.register('checkDependencies') {
+    description = 'Check for dependency updates'
+    group = 'verification'
+    doLast {
+        println "Run './gradlew dependencyUpdates' to check for dependency updates"
+    }
+}
+
+// Custom run tasks to run only specific modules
+tasks.register('runEditor') {
+    description = 'Run the OpenRTS Editor (core module with F1/F2/F3 switching)'
+    group = 'application'
+    dependsOn ':core:run'
+    doFirst {
+        println "Starting OpenRTS Editor from core module..."
+    }
+}
+
+tasks.register('runGame') {
+    description = 'Run the standalone Game (example module - must be run separately)'
+    group = 'application'
+    dependsOn ':example:run'
+    doFirst {
+        println "Starting standalone Game from example module..."
+    }
+}
+
+// Default run task delegates to core module only
+tasks.register('run') {
+    description = 'Run the OpenRTS Editor (core module only - default)'
+    group = 'application'
+    dependsOn ':core:run'
+    doFirst {
+        println "Starting OpenRTS Editor (core module)..."
+    }
 }

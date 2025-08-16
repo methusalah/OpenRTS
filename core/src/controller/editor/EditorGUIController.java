@@ -19,6 +19,8 @@ import de.lessvoid.nifty.controls.DropDownSelectionChangedEvent;
 import de.lessvoid.nifty.controls.ListBoxSelectionChangedEvent;
 import de.lessvoid.nifty.controls.SliderChangedEvent;
 import de.lessvoid.nifty.screen.Screen;
+import event.ControllerChangeEvent;
+import event.EventManager;
 
 /**
  * @author Benoît
@@ -117,6 +119,19 @@ public class EditorGUIController extends GUIController {
 
 	public void settings() {
 		MainRTS.appInstance.changeSettings();
+	}
+
+	// Tab switching methods
+	public void switchToGameMode(){
+		EventManager.post(new ControllerChangeEvent(0));
+	}
+
+	public void switchToEditorMode(){
+		EventManager.post(new ControllerChangeEvent(1));
+	}
+
+	public void switchToNetworkMode(){
+		EventManager.post(new ControllerChangeEvent(2));
 	}
 
 	public void toggleGrid() {

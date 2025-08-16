@@ -22,6 +22,7 @@ import view.math.TranslateUtil;
 import com.google.common.eventbus.Subscribe;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsSpace.BroadphaseType;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
@@ -57,7 +58,7 @@ public class MapDrawer {
 	public Node castAndReceiveNode = new Node();
 	public Node receiveNode = new Node();
 
-	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
+	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace(BroadphaseType.DBVT);
 
 	public MapDrawer(MapView view, AssetManager am) {
 		this.view = view;

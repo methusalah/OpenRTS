@@ -9,10 +9,12 @@ import view.math.TranslateUtil;
 import com.google.common.eventbus.EventBus;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsSpace.BroadphaseType;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
+import com.jme3.bullet.collision.shapes.ConvexShape;
 import com.jme3.bullet.collision.shapes.HullCollisionShape;
 import com.jme3.bullet.collision.shapes.infos.ChildCollisionShape;
 import com.jme3.bullet.control.GhostControl;
@@ -53,7 +55,7 @@ public class CollisionTester {
 		Spatial s1 = getSpatialFromAsset(asset1); 
 		Spatial s2 = getSpatialFromAsset(asset2);
 
-		PhysicsSpace space = new PhysicsSpace();
+		PhysicsSpace space = new PhysicsSpace(BroadphaseType.DBVT);
 		
 		RigidBodyControl ghost1 = new RigidBodyControl(getCollisionShape(asset1));
 		s1.addControl(ghost1);
@@ -72,11 +74,19 @@ public class CollisionTester {
 		t.setRotation(s2.getLocalRotation());
 		t.setTranslation(s2.getLocalTranslation());
 		boolean collision = false;
-		for(ChildCollisionShape hull : getCollisionShape(asset2).getChildren())
-			if(!space.sweepTest(hull.shape, Transform.IDENTITY, t).isEmpty()){
-				collision = true;
-				break;
+		CompoundCollisionShape compound = getCollisionShape(asset2);
+		ChildCollisionShape[] children = compound.listChildren();
+		for(ChildCollisionShape child : children) {
+			CollisionShape childShape = child.getShape();
+			// Skip non-convex shapes as sweepTest only works with ConvexShape
+			if(childShape instanceof com.jme3.bullet.collision.shapes.ConvexShape) {
+				com.jme3.bullet.collision.shapes.ConvexShape convexShape = (com.jme3.bullet.collision.shapes.ConvexShape) childShape;
+				if(!space.sweepTest(convexShape, Transform.IDENTITY, t).isEmpty()){
+					collision = true;
+					break;
+				}
 			}
+		}
 				
 		
 		space.remove(ghost1);

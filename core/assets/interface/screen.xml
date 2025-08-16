@@ -6,6 +6,21 @@
     <useControls filename="nifty-default-controls.xml" />
     
     <screen id="network" controller="controller.ground.GroundGUIController">
+        <layer id="tablayer" childLayout="horizontal" width="100%" height="40px" valign="top">
+            <panel id="tabbar" childLayout="horizontal" width="100%" height="40px" backgroundColor="#333f" align="center">
+                <panel width="*" height="100%"></panel> <!-- Left spacer -->
+                <control name="myButton" id="gametab" childLayout="center" width="100px" label="Game Mode" height="35px" backgroundColor="#444f">
+                  <interact onClick="switchToGameMode()"/>
+                </control>
+                <control name="myButton" id="editortab" childLayout="center" width="100px" label="Editor" height="35px" backgroundColor="#444f">
+                  <interact onClick="switchToEditorMode()"/>
+                </control>
+                <control name="myButton" id="networktab" childLayout="center" width="100px" label="Network" height="35px" backgroundColor="#666f">
+                  <interact onClick="switchToNetworkMode()"/>
+                </control>
+                <panel width="*" height="100%"></panel> <!-- Right spacer -->
+            </panel>
+        </layer>
         <layer id="mainlayer" childLayout="center">
             <panel id="menupanel" childLayout="vertical" width="800px" style="nifty-panel-simple" height="600px">
 
@@ -31,6 +46,21 @@
     </screen>
     
     <screen id="hud" controller="controller.battlefield.BattlefieldGUIController">
+        <layer id="tablayer" childLayout="horizontal" width="100%" height="40px" valign="top">
+            <panel id="tabbar" childLayout="horizontal" width="100%" height="40px" backgroundColor="#333f" align="center">
+                <panel width="*" height="100%"></panel> <!-- Left spacer -->
+                <control name="myButton" id="gametab" childLayout="center" width="100px" label="Game Mode" height="35px" backgroundColor="#666f">
+                  <interact onClick="switchToGameMode()"/>
+                </control>
+                <control name="myButton" id="editortab" childLayout="center" width="100px" label="Editor" height="35px" backgroundColor="#444f">
+                  <interact onClick="switchToEditorMode()"/>
+                </control>
+                <control name="myButton" id="networktab" childLayout="center" width="100px" label="Network" height="35px" backgroundColor="#444f">
+                  <interact onClick="switchToNetworkMode()"/>
+                </control>
+                <panel width="*" height="100%"></panel> <!-- Right spacer -->
+            </panel>
+        </layer>
         <layer childLayout="horizontal">
             <image filename="interface/bg.png" width="100%" height="100%"></image>
         </layer>
@@ -60,9 +90,25 @@
   
   
     <screen id="editor" controller="controller.editor.EditorGUIController">
-        <layer id="mainlayer" childLayout="vertical">
-            <panel id="menupanel" childLayout="horizontal" width="100%" x="62" y="42" style="nifty-panel-simple" height="50px">
-                <control name="myButton" id="settings" childLayout="center" x="53" width="80px" y="19" label="Settings" height="30px">
+        <layer id="tablayer" childLayout="horizontal" width="100%" height="40px" valign="top">
+            <panel id="tabbar" childLayout="horizontal" width="100%" height="40px" backgroundColor="#333f" align="center">
+                <panel width="*" height="100%"></panel> <!-- Left spacer -->
+                <control name="myButton" id="gametab" childLayout="center" width="100px" label="Game Mode" height="35px" backgroundColor="#444f">
+                  <interact onClick="switchToGameMode()"/>
+                </control>
+                <control name="myButton" id="editortab" childLayout="center" width="100px" label="Editor" height="35px" backgroundColor="#666f">
+                  <interact onClick="switchToEditorMode()"/>
+                </control>
+                <control name="myButton" id="networktab" childLayout="center" width="100px" label="Network" height="35px" backgroundColor="#444f">
+                  <interact onClick="switchToNetworkMode()"/>
+                </control>
+                <panel width="*" height="100%"></panel> <!-- Right spacer -->
+            </panel>
+        </layer>
+        <layer id="mainlayer" childLayout="vertical" valign="top">
+            <panel width="100%" height="40px"></panel> <!-- Spacer for tab bar -->
+            <panel id="menupanel" childLayout="horizontal" width="100%" style="nifty-panel-simple" height="50px">
+                <control name="myButton" id="settings" childLayout="center" width="80px" label="Settings" height="30px">
                   <interact onClick="settings()"/>
                 </control>
 

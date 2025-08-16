@@ -19,7 +19,6 @@ public class ClientManager {
 	protected static Client client;
 
 	public static void startClient() {
-		Serializer.registerClass(Event.class);
 		try {
 			Thread.sleep(1000);
 			client = Network.connectToServer("localhost", OpenRTSServer.PORT);
