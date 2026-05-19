@@ -2,6 +2,8 @@ package app;
 
 import exception.TechnicalException;
 import geometry.math.RandomUtil;
+import com.simsilica.lemur.GuiGlobals;
+import com.simsilica.lemur.style.BaseStyles;
 
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -145,6 +147,11 @@ public abstract class OpenRTSApplication extends LegacyApplication implements Ph
 		bulletAppState.startPhysics();
 
 		super.initialize();
+
+		// Initialize Lemur GUI
+		GuiGlobals.initialize(this);
+		BaseStyles.loadGlassStyle();
+		GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
 
 		guiNode.setQueueBucket(Bucket.Gui);
 		guiNode.setCullHint(CullHint.Never);

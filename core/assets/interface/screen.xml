@@ -78,7 +78,7 @@
             </panel>
         </layer>
         <!-- Modernized Glassmorphism Bottom HUD -->
-        <layer childLayout="horizontal">
+        <layer id="bottomlayer" childLayout="horizontal">
             <panel height="30%" width="100%" childLayout="horizontal" valign="bottom" backgroundColor="#111520e5" padding="10px">
                 <effect>
                     <onActive name="border" color="#3df8" border="2"/>

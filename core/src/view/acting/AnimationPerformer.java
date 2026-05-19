@@ -29,13 +29,30 @@ public class AnimationPerformer extends Performer{
 		}
 		actor.launched = true;
 		Spatial s = actor.getParentModelActor().getViewElements().spatial;
-		AnimChannel channel = s.getControl(AnimControl.class).getChannel(0);
-		channel.setAnim(actor.animName);
-		switch (actor.cycle){
-			case Once : channel.setLoopMode(LoopMode.DontLoop); break;
-			case Loop : channel.setLoopMode(LoopMode.Loop); break;
-			case Cycle : channel.setLoopMode(LoopMode.Cycle); break;
+		
+		// Try modern JME3 AnimComposer
+		com.jme3.anim.AnimComposer composer = s.getControl(com.jme3.anim.AnimComposer.class);
+		if (composer != null) {
+			boolean loop = (actor.cycle != AnimationActor.Cycle.Once);
+			composer.setCurrentAction(actor.animName, com.jme3.anim.AnimComposer.DEFAULT_LAYER, loop);
+			composer.setGlobalSpeed((float)actor.speed);
+			return;
 		}
-		channel.setSpeed((float)actor.speed);
+
+		// Fallback to legacy AnimControl
+		AnimControl animCtrl = s.getControl(AnimControl.class);
+		if (animCtrl != null) {
+			AnimChannel channel = animCtrl.getChannel(0);
+			if (channel == null) {
+				channel = animCtrl.createChannel();
+			}
+			channel.setAnim(actor.animName);
+			switch (actor.cycle){
+				case Once : channel.setLoopMode(LoopMode.DontLoop); break;
+				case Loop : channel.setLoopMode(LoopMode.Loop); break;
+				case Cycle : channel.setLoopMode(LoopMode.Cycle); break;
+			}
+			channel.setSpeed((float)actor.speed);
+		}
 	}
 }

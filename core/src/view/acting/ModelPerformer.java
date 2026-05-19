@@ -49,12 +49,15 @@ public class ModelPerformer extends Performer {
 			Spatial s = actorDrawer.buildSpatial(actor);
 			actor.getViewElements().spatial = s;
 			// We force update here because we need imediatly to have access to bones' absolute position.
+			com.jme3.anim.AnimComposer animComposer = s.getControl(com.jme3.anim.AnimComposer.class);
 			AnimControl animControl = s.getControl(AnimControl.class);
-			if (animControl != null) {
+			if (animComposer != null) {
+				animComposer.update(0);
+			} else if (animControl != null) {
 				animControl.update(0);
 			} else if(actor.getComp() instanceof Unit &&
 					!((Unit)actor.getComp()).getTurrets().isEmpty()) {
-				throw new RuntimeException("The unit "+actor.getComp()+" attached to actor "+actor+" have one or more turret, but no AnimControl.");
+				throw new RuntimeException("The unit "+actor.getComp()+" attached to actor "+actor+" have one or more turret, but no AnimControl/AnimComposer.");
 			}
 		}
 
@@ -147,27 +150,50 @@ public class ModelPerformer extends Performer {
 
 	private void orientTurret(ModelActor actor) {
 		for (Turret t : ((Unit) actor.getComp()).getTurrets()) {
-			Bone turretBone = actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton().getBone(t.boneName);
-			if (turretBone == null) {
-				throw new RuntimeException("Can't find the bone " + t.boneName + " for turret.");
+			Spatial s = actor.getViewElements().spatial;
+
+			// Try modern SkinningControl / Joint
+			com.jme3.anim.SkinningControl skinCtrl = s.getControl(com.jme3.anim.SkinningControl.class);
+			if (skinCtrl != null) {
+				com.jme3.anim.Joint joint = skinCtrl.getArmature().getJoint(t.boneName);
+				if (joint != null) {
+					Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y);
+					joint.setLocalRotation(r);
+					continue;
+				}
 			}
 
-			//			Vector3f axis;
-			//			switch (t.boneAxis){
-			//			case "X" : axis = Vector3f.UNIT_X; break;
-			//			case "Y" : axis = Vector3f.UNIT_Y; break;
-			//			case "Z" : axis = Vector3f.UNIT_Z; break;
-			//			default : throw new IllegalArgumentException("Wrong bone axis for "+((Unit)actor.getComp()).builderID+" : "+t.boneAxis);
-			//			}
-			//			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, axis);
-			Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y);
-			turretBone.setUserControl(true);
-			turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
+			// Fallback to legacy AnimControl / Bone
+			AnimControl animCtrl = s.getControl(AnimControl.class);
+			if (animCtrl != null) {
+				Bone turretBone = animCtrl.getSkeleton().getBone(t.boneName);
+				if (turretBone != null) {
+					Quaternion r = new Quaternion().fromAngleAxis((float) t.yaw, Vector3f.UNIT_Y);
+					turretBone.setUserControl(true);
+					turretBone.setUserTransforms(Vector3f.ZERO, r, Vector3f.UNIT_XYZ);
+					continue;
+				}
+			}
+
+			throw new RuntimeException("Can't find the bone or joint " + t.boneName + " for turret.");
 		}
 	}
 
 	private void updateBoneCoords(ModelActor actor) {
-		AnimControl ctrl = actor.getViewElements().spatial.getControl(AnimControl.class);
+		Spatial s = actor.getViewElements().spatial;
+
+		// Try modern SkinningControl / Armature
+		com.jme3.anim.SkinningControl skinCtrl = s.getControl(com.jme3.anim.SkinningControl.class);
+		if (skinCtrl != null) {
+			com.jme3.anim.Armature armature = skinCtrl.getArmature();
+			for (com.jme3.anim.Joint j : armature.getJointList()) {
+				actor.setBone(j.getName(), getJointWorldPos(actor, j.getName()));
+			}
+			return;
+		}
+
+		// Fallback to legacy AnimControl
+		AnimControl ctrl = s.getControl(AnimControl.class);
 		if(ctrl == null) {
 			return;
 		}
@@ -178,27 +204,75 @@ public class ModelPerformer extends Performer {
 		}
 	}
 
+	private Point3D getJointWorldPos(ModelActor actor, String jointName) {
+		Spatial s = actor.getViewElements().spatial;
+		com.jme3.anim.SkinningControl skinCtrl = s.getControl(com.jme3.anim.SkinningControl.class);
+		if (skinCtrl != null) {
+			com.jme3.anim.Joint j = skinCtrl.getArmature().getJoint(jointName);
+			if (j != null) {
+				Vector3f modelSpacePos = j.getModelTransform().getTranslation();
+				Quaternion q = s.getLocalRotation();
+				modelSpacePos = q.mult(modelSpacePos);
+				modelSpacePos.multLocal(s.getLocalScale());
+				modelSpacePos = modelSpacePos.add(s.getLocalTranslation());
+				return TranslateUtil.toPoint3D(modelSpacePos);
+			}
+		}
+		return getBoneWorldPos(actor, jointName);
+	}
+
 	private Point3D getBoneWorldPos(ModelActor actor, String boneName) {
 		return getBoneWorldPos(actor, actor.getPos(), actor.getYaw(), boneName);
 	}
 
 	private Point3D getBoneWorldPos(ModelActor actor, int boneIndex) {
-		return getBoneWorldPos(actor, actor.getViewElements().spatial.getControl(AnimControl.class).getSkeleton().getBone(boneIndex).getName());
+		Spatial s = actor.getViewElements().spatial;
+		
+		com.jme3.anim.SkinningControl skinCtrl = s.getControl(com.jme3.anim.SkinningControl.class);
+		if (skinCtrl != null) {
+			com.jme3.anim.Joint j = skinCtrl.getArmature().getJointList().get(boneIndex);
+			if (j != null) {
+				return getJointWorldPos(actor, j.getName());
+			}
+		}
+
+		AnimControl ctrl = s.getControl(AnimControl.class);
+		if (ctrl != null) {
+			return getBoneWorldPos(actor, ctrl.getSkeleton().getBone(boneIndex).getName());
+		}
+		return TranslateUtil.toPoint3D(s.getLocalTranslation());
 	}
 
 	private Point3D getBoneWorldPos(ModelActor actor, Point3D actorPos, double actorYaw, String boneName) {
 		Spatial s = actor.getViewElements().spatial;
-		Vector3f modelSpacePos = s.getControl(AnimControl.class).getSkeleton().getBone(boneName).getModelSpacePosition();
+		Vector3f modelSpacePos = null;
+
+		com.jme3.anim.SkinningControl skinCtrl = s.getControl(com.jme3.anim.SkinningControl.class);
+		if (skinCtrl != null) {
+			com.jme3.anim.Joint j = skinCtrl.getArmature().getJoint(boneName);
+			if (j != null) {
+				modelSpacePos = j.getModelTransform().getTranslation();
+			}
+		}
+
+		if (modelSpacePos == null) {
+			AnimControl ctrl = s.getControl(AnimControl.class);
+			if (ctrl != null) {
+				Bone b = ctrl.getSkeleton().getBone(boneName);
+				if (b != null) {
+					modelSpacePos = b.getModelSpacePosition();
+				}
+			}
+		}
+
+		if (modelSpacePos == null) {
+			modelSpacePos = Vector3f.ZERO;
+		}
+
 		Quaternion q = actor.getViewElements().spatial.getLocalRotation();
 		modelSpacePos = q.mult(modelSpacePos);
 		modelSpacePos.multLocal(s.getLocalScale());
 		modelSpacePos = modelSpacePos.add(s.getLocalTranslation());
-		// float scale
-		// Point2D p2D = Translator.toPoint2D(modelSpacePos);
-		// p2D = p2D.getRotation(actorYaw+Angle.RIGHT);
-		// Point3D p3D = new Point3D(p2D.getMult(DEFAULT_SCALE), modelSpacePos.z*DEFAULT_SCALE, 1);
-		// p3D = p3D.getAddition(actorPos);
-		// return p3D;
 		return TranslateUtil.toPoint3D(modelSpacePos);
 	}
 }

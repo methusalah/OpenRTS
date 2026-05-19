@@ -20,7 +20,7 @@ public class SpatialSelector {
 
 	Camera cam;
 	InputManager im;
-	MapView view;
+	public MapView view;
 	public boolean centered = false;
 
 	public SpatialSelector(Camera c, InputManager im, MapView v) {

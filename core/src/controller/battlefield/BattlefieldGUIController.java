@@ -19,11 +19,24 @@ import de.lessvoid.nifty.screen.Screen;
 import event.ControllerChangeEvent;
 import event.EventManager;
 
+import view.jme.LemurHUD;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.ViewPort;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.RenderManager;
+import app.OpenRTSApplication;
+import model.ModelManager;
+import com.simsilica.lemur.Container;
+
 /**
  *
  * @author Benoît
  */
 public class BattlefieldGUIController extends GUIController {
+	private LemurHUD lemurHUD;
+	private Camera minimapCam;
+	private ViewPort minimapViewPort;
+
 	public BattlefieldGUIController(Nifty nifty, Controller controller) {
 		super(controller, nifty);
 	}
@@ -31,6 +44,26 @@ public class BattlefieldGUIController extends GUIController {
 	@Override
 	public void activate(){
 		nifty.gotoScreen("hud");
+		
+		// Hide legacy nifty overlay elements
+		de.lessvoid.nifty.elements.Element bottomL = getElement("bottomlayer");
+		if (bottomL != null) {
+			bottomL.hide();
+		}
+		de.lessvoid.nifty.elements.Element statusL = getElement("statuslayer");
+		if (statusL != null) {
+			statusL.hide();
+		}
+		
+		// Initialize and show Lemur HUD
+		if (lemurHUD == null) {
+			lemurHUD = new LemurHUD(
+				OpenRTSApplication.appInstance.getGuiNode(), 
+				OpenRTSApplication.appInstance, 
+				this
+			);
+		}
+		lemurHUD.show();
 	}
 
 	public void selectAll(){
@@ -88,35 +121,77 @@ public class BattlefieldGUIController extends GUIController {
 	@Override
 	public void update() {
 		if(!nifty.isActive("interface/screen.xml", "hud")) {
+			if (lemurHUD != null) {
+				lemurHUD.hide();
+			}
+			cleanupMinimap();
 			return;
 		}
-		String n = System.getProperty("line.separator");
 
-		// update info
-		if (CommandManager.selection.size() == 1) {
-			Unit u = CommandManager.selection.get(0);
-			getElement("unitName").getRenderer(TextRenderer.class).setText(Reporter.getName(u));
-			getElement("unitHealth").getRenderer(TextRenderer.class).setText(Reporter.getHealth(u));
-			getElement("unitState").getRenderer(TextRenderer.class).setText(Reporter.getState(u));
-			getElement("unitOrder").getRenderer(TextRenderer.class).setText(Reporter.getOrder(u));
-			getElement("unitHolding").getRenderer(TextRenderer.class).setText(Reporter.getHolding(u));
-			getElement("info").show();
-		} else if (CommandManager.selection.size() > 1) {
-			getElement("unitName").getRenderer(TextRenderer.class).setText(CommandManager.selection.size() + " Units Selected");
-			getElement("unitHealth").getRenderer(TextRenderer.class).setText("Group Health: " + getGroupHealthString());
-			getElement("unitState").getRenderer(TextRenderer.class).setText("Faction: " + CommandManager.selection.get(0).faction.getName());
-			getElement("unitOrder").getRenderer(TextRenderer.class).setText("Composition: " + getSelectionBreakdown());
-			getElement("unitHolding").getRenderer(TextRenderer.class).setText("Use Command Card / Hotkeys to issue orders.");
-			getElement("info").show();
-		} else {
-			getElement("info").hide();
+		// Update Lemur HUD selection details
+		if (lemurHUD != null) {
+			if (CommandManager.selection.size() == 1) {
+				Unit u = CommandManager.selection.get(0);
+				lemurHUD.updateSelection(
+					Reporter.getName(u),
+					Reporter.getHealth(u),
+					Reporter.getState(u),
+					Reporter.getOrder(u),
+					Reporter.getHolding(u),
+					true
+				);
+			} else if (CommandManager.selection.size() > 1) {
+				lemurHUD.updateSelection(
+					CommandManager.selection.size() + " Units Selected",
+					"Group Health: " + getGroupHealthString(),
+					"Faction: " + CommandManager.selection.get(0).faction.getName(),
+					"Composition: " + getSelectionBreakdown(),
+					"Use Command Card / Hotkeys to issue orders.",
+					true
+				);
+			} else {
+				lemurHUD.updateSelection("", "", "", "", "", false);
+			}
 		}
 
+		// Setup/Update Minimap Viewport
+		if (minimapViewPort == null && ModelManager.getBattlefield() != null && ModelManager.getBattlefield().getMap() != null) {
+			float xSize = ModelManager.getBattlefield().getMap().xSize();
+			float ySize = ModelManager.getBattlefield().getMap().ySize();
+			
+			minimapCam = new Camera(128, 128);
+			minimapCam.setParallelProjection(true);
+			minimapCam.setLocation(new Vector3f(xSize / 2f, ySize / 2f, 100f));
+			minimapCam.lookAt(new Vector3f(xSize / 2f, ySize / 2f, 0f), Vector3f.UNIT_Y);
+			
+			float halfX = xSize / 2f;
+			float halfY = ySize / 2f;
+			minimapCam.setFrustum(1.0f, 1000.0f, -halfX, halfX, halfY, -halfY);
+			
+			RenderManager rm = OpenRTSApplication.appInstance.getRenderManager();
+			minimapViewPort = rm.createMainView("Minimap Viewport", minimapCam);
+			minimapViewPort.setClearFlags(true, true, true);
+			minimapViewPort.attachScene(ctrl.spatialSelector.view.getRootNode());
+		}
 
-	}
-
-	@Override
-	public void bind(Nifty nifty, Screen screen) {
+		if (lemurHUD != null && minimapViewPort != null) {
+			Container mapC = lemurHUD.getMapOverlayContainer();
+			if (mapC != null) {
+				Camera mainCam = OpenRTSApplication.appInstance.getCamera();
+				float scrW = mainCam.getWidth();
+				float scrH = mainCam.getHeight();
+				
+				Vector3f pos = mapC.getLocalTranslation();
+				Vector3f size = mapC.getPreferredSize();
+				
+				float left = pos.x / scrW;
+				float right = (pos.x + size.x) / scrW;
+				float bottom = (pos.y - size.y) / scrH;
+				float top = pos.y / scrH;
+				
+				minimapCam.setViewPort(left + 0.005f, right - 0.005f, bottom + 0.005f, top - 0.005f);
+			}
+		}
 	}
 
 	@Override
@@ -124,6 +199,23 @@ public class BattlefieldGUIController extends GUIController {
 	}
 
 	@Override
+	public void bind(de.lessvoid.nifty.Nifty nifty, de.lessvoid.nifty.screen.Screen screen) {
+	}
+
+	public void cleanupMinimap() {
+		if (minimapViewPort != null) {
+			RenderManager rm = OpenRTSApplication.appInstance.getRenderManager();
+			rm.removeMainView(minimapViewPort);
+			minimapViewPort = null;
+			minimapCam = null;
+		}
+	}
+
+	@Override
 	public void onEndScreen() {
+		cleanupMinimap();
+		if (lemurHUD != null) {
+			lemurHUD.hide();
+		}
 	}
 }

@@ -26,7 +26,7 @@ allprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
+            languageVersion = JavaLanguageVersion.of(21)
         }
     }
 
@@ -54,6 +54,12 @@ allprojects {
         implementation "org.jmonkeyengine:jme3-terrain:$jmonkeyengine_version"
         implementation "org.jmonkeyengine:jme3-niftygui:$jmonkeyengine_version"
         implementation "org.jmonkeyengine:jme3-plugins:$jmonkeyengine_version"
+        
+        // Lemur GUI - Programmatic Java UI
+        implementation "com.simsilica:lemur:1.16.0"
+        implementation "com.simsilica:lemur-proto:1.13.0"
+        implementation "org.apache.groovy:groovy:4.0.21"
+        implementation "org.apache.groovy:groovy-jsr223:4.0.21"
         
         // Physics - Modern Minie physics (official JME Bullet replacement)
         implementation "com.github.stephengold:Minie:8.1.0"
