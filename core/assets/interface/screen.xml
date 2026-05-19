@@ -47,9 +47,9 @@
     
     <screen id="hud" controller="controller.battlefield.BattlefieldGUIController">
         <layer id="tablayer" childLayout="horizontal" width="100%" height="40px" valign="top">
-            <panel id="tabbar" childLayout="horizontal" width="100%" height="40px" backgroundColor="#333f" align="center">
+            <panel id="tabbar" childLayout="horizontal" width="100%" height="40px" backgroundColor="#151922dd" align="center">
                 <panel width="*" height="100%"></panel> <!-- Left spacer -->
-                <control name="myButton" id="gametab" childLayout="center" width="100px" label="Game Mode" height="35px" backgroundColor="#666f">
+                <control name="myButton" id="gametab" childLayout="center" width="100px" label="Game Mode" height="35px" backgroundColor="#3df">
                   <interact onClick="switchToGameMode()"/>
                 </control>
                 <control name="myButton" id="editortab" childLayout="center" width="100px" label="Editor" height="35px" backgroundColor="#444f">
@@ -64,24 +64,68 @@
         <layer childLayout="horizontal">
             <image filename="interface/bg.png" width="100%" height="100%"></image>
         </layer>
+        <!-- Modern Status Telemetry Overlay -->
+        <layer id="statuslayer" childLayout="absolute" width="100%" height="100%">
+            <panel x="80%" y="50px" width="19%" height="150px" backgroundColor="#151922ee" childLayout="vertical" padding="10px">
+                <effect>
+                    <onActive name="border" color="#3dfa" border="1"/>
+                </effect>
+                <text id="gameSpeed" width="100%" textHAlign="left" text="SYSTEM ONLINE (1.0x)" font="interface/fonts/arial.fnt" color="#3dff"/>
+                <text id="factionInfo" width="100%" textHAlign="left" text="Faction: Allied Forces" font="interface/fonts/arial.fnt" color="#ffff"/>
+                <text id="unitCap" width="100%" textHAlign="left" text="Telemetry: Realtime" font="interface/fonts/arial.fnt" color="#ccff"/>
+                <text id="helpTip" width="100%" textHAlign="left" text="Hotkeys: A (Attack), H (Hold)" font="interface/fonts/arial.fnt" color="#99ff" />
+                <text id="credit" width="100%" textHAlign="left" text="OpenRTS Modernized" font="interface/fonts/arial.fnt" color="#66ff" />
+            </panel>
+        </layer>
+        <!-- Modernized Glassmorphism Bottom HUD -->
         <layer childLayout="horizontal">
-            <panel height="30%" childLayout="horizontal" valign="bottom">
-                <panel width="22%" childLayout="vertical">
-                    <panel height="20%" backgroundColor="#0f08" childLayout="center">
-                        <control name="button" label="Select All Units" id="sabutton" color="#000" width="100%" height="100%" visibleToMose="true">
+            <panel height="30%" width="100%" childLayout="horizontal" valign="bottom" backgroundColor="#111520e5" padding="10px">
+                <effect>
+                    <onActive name="border" color="#3df8" border="2"/>
+                </effect>
+                <!-- Left Panel (Minimap & Control, 24% width) -->
+                <panel width="24%" childLayout="vertical" height="100%" paddingRight="10px">
+                    <panel height="25px" width="100%" childLayout="center" marginBottom="5px">
+                        <control name="myButton" label="SELECT ALL" id="sabutton" width="100%" height="100%">
                             <interact onClick="selectAll()"/>
                         </control>
                     </panel>
-                    <panel name="map" width="100%" height="80%" childLayout="vertical">
+                    <panel name="map" width="100%" height="*" childLayout="vertical">
+                        <effect>
+                            <onActive name="border" color="#5558" border="1"/>
+                        </effect>
                     </panel>
                 </panel>
-                <panel width="78%" childLayout="horizontal" valign="bottom">
-                    <panel name="info" id="info" width="50%" height="70%" childLayout="vertical" valign="bottom">
-                        <text id="unitName" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
-                        <text id="unitHealth" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
-                        <text id="unitState" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
-                        <text id="unitOrder" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
-                        <text id="unitHolding" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt"/>
+                <!-- Center Panel (Detailed Selection Telemetry, 48% width) -->
+                <panel width="48%" childLayout="vertical" valign="bottom" height="100%" paddingLeft="15px" paddingRight="15px" backgroundColor="#1c2230cc">
+                    <effect>
+                        <onActive name="border" color="#3df4" border="1"/>
+                    </effect>
+                    <panel name="info" id="info" width="100%" height="100%" childLayout="vertical" padding="8px">
+                        <text id="unitName" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt" color="#3dff"/>
+                        <text id="unitHealth" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt" color="#ffff"/>
+                        <text id="unitState" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt" color="#ccff"/>
+                        <text id="unitOrder" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt" color="#ffff"/>
+                        <text id="unitHolding" width="100%" textHAlign="left" text="error" font="interface/fonts/arial.fnt" color="#88ff"/>
+                    </panel>
+                </panel>
+                <!-- Right Panel (Interactive Command Card Grid, 28% width) -->
+                <panel width="28%" childLayout="vertical" valign="bottom" height="100%" paddingLeft="10px" paddingRight="10px" childLayout="center">
+                    <panel childLayout="horizontal" height="45%" width="100%" marginBottom="5px">
+                        <control name="myButton" id="btnAttack" label="ATTACK (A)" width="48%" height="100%" align="left">
+                            <interact onClick="orderAttack()"/>
+                        </control>
+                        <control name="myButton" id="btnHold" label="HOLD (H)" width="48%" height="100%" align="right">
+                            <interact onClick="orderHold()"/>
+                        </control>
+                    </panel>
+                    <panel childLayout="horizontal" height="45%" width="100%">
+                        <control name="myButton" id="btnStop" label="STOP" width="48%" height="100%" align="left">
+                            <interact onClick="orderStop()"/>
+                        </control>
+                        <control name="myButton" id="btnSelectAll" label="ALL UNITS" width="48%" height="100%" align="right">
+                            <interact onClick="selectAll()"/>
+                        </control>
                     </panel>
                 </panel>
             </panel>

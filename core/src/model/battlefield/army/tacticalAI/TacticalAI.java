@@ -93,6 +93,12 @@ public class TacticalAI {
 		stateMachine.pushState(HOLD);
 	}
 
+	public void orderStop(){
+		abandonAll();
+		stateMachine.pushState(WAIT_ORDERS);
+		stateMachine.pushState(STOP);
+	}
+
 	public void update(){
 		// TODO moche
 		filterAttackers();
