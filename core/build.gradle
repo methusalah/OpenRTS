@@ -28,6 +28,9 @@ tasks.withType(JavaExec) {
         '-Xmx2g',
         '-XX:+UseG1GC'
     ]
+    if (System.getProperty('os.name').toLowerCase().contains('mac')) {
+        jvmArgs += '-XstartOnFirstThread'
+    }
 }
 
 eclipse {

@@ -16,6 +16,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
+import com.jme3.post.filters.FXAAFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
@@ -55,12 +56,19 @@ public class LightDrawer implements ActionListener {
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
 		fpp.addFilter(sf);
 
-		// Ambiant occlusion filter
+		// Ambient occlusion filter
 		SSAOFilter ssaoFilter = new SSAOFilter(0.5f, 4f, 0.2f, 0.3f);
-		// fpp.addFilter(ssaoFilter);
+		fpp.addFilter(ssaoFilter);
+
 		// Glow filter
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
+		bloom.setBlurScale(2.0f);
 		fpp.addFilter(bloom);
+
+		// FXAA Anti-aliasing filter
+		FXAAFilter fxaa = new FXAAFilter();
+		fpp.addFilter(fxaa);
+
 		vp.addProcessor(fpp);
 
 	}

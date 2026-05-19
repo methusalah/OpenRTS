@@ -110,7 +110,7 @@
                     </panel>
                 </panel>
                 <!-- Right Panel (Interactive Command Card Grid, 28% width) -->
-                <panel width="28%" childLayout="vertical" valign="bottom" height="100%" paddingLeft="10px" paddingRight="10px" childLayout="center">
+                <panel width="28%" childLayout="vertical" valign="bottom" height="100%" paddingLeft="10px" paddingRight="10px">
                     <panel childLayout="horizontal" height="45%" width="100%" marginBottom="5px">
                         <control name="myButton" id="btnAttack" label="ATTACK (A)" width="48%" height="100%" align="left">
                             <interact onClick="orderAttack()"/>

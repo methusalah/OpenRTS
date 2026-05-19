@@ -22,6 +22,9 @@ sourceSets {
 
 tasks.withType(JavaExec) {
     jvmArgs = ['-Xms256m', '-Xmx1g', '-XX:+UseG1GC']
+    if (System.getProperty('os.name').toLowerCase().contains('mac')) {
+        jvmArgs += '-XstartOnFirstThread'
+    }
 }
 
 // Disable run task to prevent automatic execution

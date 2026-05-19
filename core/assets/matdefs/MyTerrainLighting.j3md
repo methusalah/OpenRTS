@@ -105,8 +105,8 @@ MaterialDef Terrain Lighting {
 
         LightMode MultiPass
 
-        VertexShader GLSL100:   matdefs/MyTerrainLighting.vert
-        FragmentShader GLSL100: matdefs/MyTerrainLighting.frag
+        VertexShader GLSL150:   matdefs/MyTerrainLighting150.vert
+        FragmentShader GLSL150: matdefs/MyTerrainLighting150.frag
 
         WorldParameters {
             WorldViewProjectionMatrix
@@ -165,8 +165,8 @@ MaterialDef Terrain Lighting {
 
     Technique PreShadow {
 
-        VertexShader GLSL100 :   matdefs/MyTerrainLighting.vert
-        FragmentShader GLSL100 : matdefs/MyTerrainLighting.frag
+        VertexShader GLSL150:   matdefs/MyTerrainLighting150.vert
+        FragmentShader GLSL150: matdefs/MyTerrainLighting150.frag
 
         WorldParameters {
             WorldViewProjectionMatrix
@@ -189,8 +189,8 @@ MaterialDef Terrain Lighting {
 
   Technique PreNormalPass {
 
-        VertexShader GLSL100 :   matdefs/MyTerrainLighting.vert
-        FragmentShader GLSL100 : matdefs/MyTerrainLighting.frag
+        VertexShader GLSL150:   matdefs/MyTerrainLighting150.vert
+        FragmentShader GLSL150: matdefs/MyTerrainLighting150.frag
 
         WorldParameters {
             WorldViewProjectionMatrix
@@ -210,8 +210,8 @@ MaterialDef Terrain Lighting {
 
     Technique GBuf {
 
-        VertexShader GLSL100:   matdefs/MyTerrainLighting.vert
-        FragmentShader GLSL100: matdefs/MyTerrainLighting.frag
+        VertexShader GLSL150:   matdefs/MyTerrainLighting150.vert
+        FragmentShader GLSL150: matdefs/MyTerrainLighting150.frag
 
         WorldParameters {
             WorldViewProjectionMatrix
@@ -238,8 +238,8 @@ MaterialDef Terrain Lighting {
 
     Technique Glow {
 
-        VertexShader GLSL100:   matdefs/MyTerrainLighting.vert
-        FragmentShader GLSL100: matdefs/MyTerrainLighting.frag
+        VertexShader GLSL150:   matdefs/MyTerrainLighting150.vert
+        FragmentShader GLSL150: matdefs/MyTerrainLighting150.frag
 
         WorldParameters {
             WorldViewProjectionMatrix
