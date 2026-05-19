@@ -64,6 +64,7 @@ public class ActorDrawer implements AnimEventListener {
 	List<PhysicsRigidBody> pausedPhysics = new ArrayList<>();
 	private List<Spatial> abandonedTrinkets = new ArrayList<>(); 
 
+	@SuppressWarnings("this-escape")
 	public ActorDrawer(AssetManager assetManager) {
 		this.assetManager = assetManager;
 		mainNode = new Node();
@@ -75,8 +76,6 @@ public class ActorDrawer implements AnimEventListener {
 		animationPfm = new AnimationPerformer(this);
 		physicPfm = new RagdollPerformer(this);
 		soundPfm = new SoundPerformer(this);
-		
-		EventManager.register(this);
 	}
 	
 	@Subscribe

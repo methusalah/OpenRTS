@@ -26,7 +26,7 @@ allprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(25)
         }
     }
 
@@ -62,7 +62,6 @@ allprojects {
         // Utilities
         implementation "com.google.guava:guava:$guava_version"
         implementation "org.apache.commons:commons-lang3:3.15.0"
-        implementation "org.bushe:eventbus:1.4"
 
         // JSON processing
         implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
@@ -73,6 +72,7 @@ allprojects {
         // Testing
         testImplementation platform('org.junit:junit-bom:5.10.3')
         testImplementation 'org.junit.jupiter:junit-jupiter'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         testImplementation 'org.mockito:mockito-core:5.12.0'
         testImplementation 'org.assertj:assertj-core:3.26.3'
     }

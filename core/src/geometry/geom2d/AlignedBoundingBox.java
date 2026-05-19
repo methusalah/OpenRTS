@@ -31,7 +31,7 @@ public class AlignedBoundingBox extends BoundingShape {
 		computeWith(points);
 	}
 
-	protected void computeWith(ArrayList<Point2D> points) {
+	protected final void computeWith(ArrayList<Point2D> points) {
 		maxX = points.get(0).x;
 		minX = points.get(0).x;
 		maxY = points.get(0).y;

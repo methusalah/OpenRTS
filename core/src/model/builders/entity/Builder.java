@@ -23,19 +23,19 @@ public abstract class Builder {
 
 	public abstract void readFinalizedLibrary();
 
-	public String getId(){
+	public final String getId(){
 		return def.getId();
 	}
 
-	public void printUnknownElement(String elementName){
+	public final void printUnknownElement(String elementName){
 		logger.warning("Element '" + elementName + "' unknown in definition '" + getId() + "'.");
 	}
 
-	public void printUnknownArgument(String elementName, String argumentName){
+	public final void printUnknownArgument(String elementName, String argumentName){
 		logger.warning("Argument '" + argumentName + "' unknown for element '" + elementName + "' in definition '" + getId() + "'.");
 	}
 
-	public void printUnknownValue(String elementName, String value){
+	public final void printUnknownValue(String elementName, String value){
 		logger.warning("value '" + value + "' unknown for element '" + elementName + "' in definition '" + getId() + "'.");
 	}
 }

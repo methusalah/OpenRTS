@@ -18,6 +18,7 @@ public abstract class GUIController implements ScreenController {
 
 	protected boolean redrawAsked = false;
 
+	@SuppressWarnings("this-escape")
 	public GUIController(Controller ctrl, Nifty nifty) {
 		this.ctrl = ctrl;
 		this.nifty = nifty;

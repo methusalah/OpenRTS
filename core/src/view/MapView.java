@@ -68,14 +68,17 @@ public class MapView {
 			EventManager.unregister(mapDrawer);
 		}
 		mapDrawer = new MapDrawer(this, assetManager);
+		EventManager.register(mapDrawer);
 		rootNode.attachChild(mapDrawer.mainNode);
 		mapDrawer.mainPhysicsSpace = physicsSpace;
 
 		// actor drawer
 		if(actorDrawer != null){
 			rootNode.detachChild(actorDrawer.mainNode);
+			EventManager.unregister(actorDrawer);
 		}
 		actorDrawer = new ActorDrawer(assetManager);
+		EventManager.register(actorDrawer);
 		rootNode.attachChild(actorDrawer.mainNode);
 		actorDrawer.mainPhysicsSpace = physicsSpace;
 
