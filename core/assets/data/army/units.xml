@@ -54,4 +54,17 @@
 		<WeaponList WeaponLink="MeleeWeapon" />
 		<ActorLink value="SmallAlien" />
 	</Unit>
-</catalog>
+	<Unit id="ScoutDrone">
+		<UIName value="UAV Scout Drone" />
+		<Race value="human" />
+		<Radius value="0.3" />
+		<SeparationRadius value="0.3" />
+		<Speed value="6.0" />
+		<Mass value="0.6" />
+		<MaxHealth value="90" />
+		<Sight value="10" />
+		<MoverLink value="Fly" />
+		<WeaponList WeaponLink="Rifle" />
+		<ActorLink value="Aircraft" />
+	</Unit>
+</catalog>

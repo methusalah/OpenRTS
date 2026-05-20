@@ -70,7 +70,9 @@ public class DemoMissionScript implements MissionScript {
             new CompleteObjectiveAction(secondaryObjective).execute(battlefield);
             new ShowDialogueAction("Marine Captain", "Thank goodness! Reinforcements have arrived. Let's push these creatures back!").execute(battlefield);
             new SpawnWaveAction("Marine", new Point2D(20, 20), 2, 0, new Point2D(25, 20)).execute(battlefield);
+            new SpawnWaveAction("ScoutDrone", new Point2D(21, 21), 1, 0, new Point2D(25, 20)).execute(battlefield);
         }
+
 
         // 6. Defeat check
         if (!defeatFired && startFired) {
