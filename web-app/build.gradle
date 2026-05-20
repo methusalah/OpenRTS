@@ -50,21 +50,28 @@ tasks.withType(JavaCompile).configureEach {
 sourceSets {
     main {
         java {
-            // Core game code — use fileTree so the exclude patterns apply only to
-            // ../core/src and do NOT suppress the same-path files in 'src' below.
-            source fileTree(dir: '../core/src', excludes: [
-                'app/MainRTS.java',
-                'app/OpenRTSApplication.java',  // replaced by web-app/src/app/ override
-                'app/example/**',
-                'network/**'                    // jme3-networking unavailable on web
-            ])
-            // Web-specific source: entry point, simplified base app, Minie stubs
+            // Web-specific source only: entry point, simplified base app, Minie stubs.
+            // Core game source is added via tasks.named('compileJava') below so that
+            // the exclude patterns target only ../core/src and do NOT accidentally
+            // suppress matching-path web overrides in this 'src' directory.
             srcDir 'src'
         }
         resources {
             // Include the game's assets
             srcDirs = ['../core/assets']
         }
+    }
+}
+
+// Add core game source with web-incompatible files excluded.
+// Doing this at the task level (not in sourceSets) avoids global exclude patterns
+// removing the same-named web overrides from 'src/' (e.g. OpenRTSApplication.java).
+tasks.named('compileJava').configure {
+    source fileTree('../core/src').matching {
+        exclude 'app/MainRTS.java'
+        exclude 'app/OpenRTSApplication.java'   // replaced by web-app/src version
+        exclude 'app/example/**'
+        exclude 'network/**'                    // jme3-networking unavailable on web
     }
 }
 
