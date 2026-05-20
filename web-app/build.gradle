@@ -67,13 +67,15 @@ sourceSets {
     }
 }
 
-teavm.js {
-    mainClass = 'app.WebMainRTS'
-    targetDir = layout.projectDirectory.dir('../web/js')
-    sourceMapsGenerated = true
-    debugInformationGenerated = false
-    minifying = true
-    properties = [
-        'teavm.platform': 'browser'
-    ]
+teavm {
+    js {
+        mainClass = 'app.WebMainRTS'
+        outputDir = layout.projectDirectory.dir('../web/js')
+        sourceMap = true
+        debugInformation = false
+        obfuscated = true
+        properties = [
+            'teavm.platform': 'browser'
+        ]
+    }
 }
