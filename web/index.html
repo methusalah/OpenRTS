@@ -113,11 +113,10 @@
       setProgress(5, 'Initialising runtime…');
 
       await cheerpjInit({
-        version: 21,
-        // version:21 tells CheerpJ to emulate a Java 21 runtime.
-        // Our JAR is compiled to Java 11 bytecode, which a Java 21 JVM runs fine
-        // (Java is backwards-compatible). Using version:11 causes CheerpJ to try
-        // loading a cj3n11.wasm native module that isn't found on all hosts.
+        // CheerpJ 3.0 supports version:8 (default) and version:11.
+        // version:21 is not supported and throws "unsupported Java version 21".
+        // version:11 requires cj3n11.wasm which has a path-resolution bug on
+        // some hosts. Omitting version uses the Java 8 default, which is stable.
         jnilibURL: 'https://cjrtnc.leaningtech.com/native/',
       });
 

@@ -34,12 +34,11 @@ tasks.withType(JavaExec) {
     }
 }
 
-// CheerpJ 3.x requires Java 11 class file format (format version 55).
-// Override the allprojects release=21 for this module so shadowJar produces
-// bytecode that CheerpJ can load. The Java 21 JVM still runs the desktop
-// build without issue — Java is backwards-compatible.
+// CheerpJ 3.0 only supports Java 8 runtime (version:8, the default).
+// Compile to Java 8 bytecode so the shadowJar is loadable by CheerpJ.
+// The Java 21 JVM still runs the desktop build without issue.
 tasks.withType(JavaCompile).configureEach {
-    options.release = 11
+    options.release = 8
 }
 
 shadowJar {
