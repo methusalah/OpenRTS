@@ -93,8 +93,8 @@ public class LemurHUD {
         Container row2 = commandCard.addChild(new Container(new SpringGridLayout(Axis.X, Axis.Y, FillMode.Even, FillMode.Even)));
         Button btnStop = row2.addChild(createStyledButton("STOP"));
         btnStop.addClickCommands(cmd -> controller.orderStop());
-        Button btnAllUnits = row2.addChild(createStyledButton("ALL ARMY"));
-        btnAllUnits.addClickCommands(cmd -> controller.selectAll());
+        Button btnBoost = row2.addChild(createStyledButton("BOOST (B)"));
+        btnBoost.addClickCommands(cmd -> controller.orderSpeedBoost());
 
         bottomBar.addChild(mapPlaceholder);
         bottomBar.addChild(centerTelemetry);

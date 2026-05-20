@@ -82,6 +82,10 @@ public class BattlefieldGUIController extends GUIController {
 		CommandManager.setMoveAttack();
 	}
 
+	public void orderSpeedBoost(){
+		CommandManager.orderSpeedBoost();
+	}
+
 	// Tab switching methods
 	public void switchToGameMode(){
 		EventManager.post(new ControllerChangeEvent(0));

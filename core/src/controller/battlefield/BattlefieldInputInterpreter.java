@@ -29,6 +29,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static String MULTIPLE_SELECTION = "multipleselection";
 	protected final static String HOLD = "hold";
 	protected final static String PAUSE = "pause";
+	protected final static String BOOST = "boost";
 
 	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
 	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
@@ -44,7 +45,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private void setMappings() {
-		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
+		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE, BOOST };
 	}
 
 	@Override
@@ -59,6 +60,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 				new KeyTrigger(KeyInput.KEY_RCONTROL));
 		inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
 		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
+		inputManager.addMapping(BOOST, new KeyTrigger(KeyInput.KEY_B));
 
 		inputManager.addListener(this, mappings);
 
@@ -118,6 +120,9 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					break;
 				case HOLD:
 					CommandManager.orderHold();
+					break;
+				case BOOST:
+					CommandManager.orderSpeedBoost();
 					break;
 				case PAUSE:
 					((BattlefieldController) ctrl).togglePause();

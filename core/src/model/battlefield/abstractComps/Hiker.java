@@ -55,12 +55,23 @@ public abstract class Hiker extends FieldComp {
 		StrongAccelerationAsked = true;
 	}
 
+	protected double speedBoostMultiplier = 1.0;
+
+	public double getMaxSpeed() {
+		return maxSpeed * speedBoostMultiplier;
+	}
+
+	public void setSpeedBoostMultiplier(double multiplier) {
+		this.speedBoostMultiplier = multiplier;
+	}
+
 	protected void incSpeed(double elapsedTime) {
-		if(speed < maxSpeed){
+		double currentMax = getMaxSpeed();
+		if(speed < currentMax){
 			speed += StrongAccelerationAsked?
 					acceleration*elapsedTime*10:
 					acceleration*elapsedTime;
-			speed = Math.min(maxSpeed, speed);
+			speed = Math.min(currentMax, speed);
 		}
 	}
 

@@ -24,6 +24,8 @@ public class UnitMemento {
 	private Point3D pos;
 	@JsonProperty
 	private double orientation;
+	@JsonProperty
+	public double health;
 
 	public UnitMemento() {
 
@@ -34,12 +36,16 @@ public class UnitMemento {
 		factionName = u.faction.getName();
 		pos = u.pos;
 		orientation = u.getOrientation();
+		health = u.health;
 	}
 
 	public Unit getUnit(List<Faction> factions) {
 		for(Faction f : factions) {
 			if (f.getName().equals(factionName)) {
 				Unit u = BuilderManager.getUnitBuilder(builderID).build(f, pos, orientation);
+				if (health > 0) {
+					u.health = (int) health;
+				}
 				u.drawOnBattlefield();
 				return u;
 			}

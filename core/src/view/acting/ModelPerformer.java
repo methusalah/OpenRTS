@@ -116,6 +116,7 @@ public class ModelPerformer extends Performer {
 		orientTurret(actor);
 		updateBoneCoords(actor);
 		drawSelectionCircle(actor);
+		drawOverheadHealthBar(actor);
 	}
 
 	protected void drawAsProjectile(ModelActor actor) {
@@ -145,6 +146,57 @@ public class ModelPerformer extends Performer {
 			}
 		} else if (actorDrawer.mainNode.hasChild(n)) {
 			actorDrawer.mainNode.detachChild(n);
+		}
+	}
+
+	private void drawOverheadHealthBar(ModelActor actor) {
+		Unit unit = (Unit) actor.getComp();
+		if (actor.getViewElements().healthBar == null) {
+			Node healthBarNode = new Node("HealthBarNode");
+			
+			// Background red quad
+			com.jme3.scene.shape.Quad bgQuad = new com.jme3.scene.shape.Quad(1.0f, 0.12f);
+			Geometry bgGeom = new Geometry("HP_BG", bgQuad);
+			bgGeom.setMaterial(MaterialManager.redMaterial);
+			bgGeom.setLocalTranslation(-0.5f, 0, 0);
+			healthBarNode.attachChild(bgGeom);
+			
+			// Foreground green quad with pivot for left-aligned scaling
+			Node fgPivot = new Node("HP_FG_Pivot");
+			com.jme3.scene.shape.Quad fgQuad = new com.jme3.scene.shape.Quad(1.0f, 0.12f);
+			Geometry fgGeom = new Geometry("HP_FG", fgQuad);
+			fgGeom.setMaterial(MaterialManager.greenMaterial);
+			fgGeom.setLocalTranslation(0, 0, 0.01f);
+			fgPivot.attachChild(fgGeom);
+			fgPivot.setLocalTranslation(-0.5f, 0, 0);
+			healthBarNode.attachChild(fgPivot);
+			
+			// Attach BillboardControl so it always faces the camera
+			com.jme3.scene.control.BillboardControl billboard = new com.jme3.scene.control.BillboardControl();
+			billboard.setAlignment(com.jme3.scene.control.BillboardControl.Alignment.Camera);
+			healthBarNode.addControl(billboard);
+			
+			actor.getViewElements().healthBar = healthBarNode;
+		}
+		
+		Node healthBarNode = actor.getViewElements().healthBar;
+		// Position the health bar above the unit's head (e.g. z offset based on radius)
+		healthBarNode.setLocalTranslation(TranslateUtil.toVector3f(actor.getPos().getAddition(0, 0, unit.getRadius() * 2.0 + 0.5)));
+		
+		// Update the green bar scale
+		Node fgPivot = (Node) healthBarNode.getChild("HP_FG_Pivot");
+		if (fgPivot != null) {
+			float healthPercent = (float) unit.health / unit.maxHealth;
+			fgPivot.setLocalScale(Math.max(0.0f, Math.min(1.0f, healthPercent)), 1.0f, 1.0f);
+		}
+		
+		// Only attach health bar if the unit is selected
+		if (unit.selected) {
+			if (!actorDrawer.mainNode.hasChild(healthBarNode)) {
+				actorDrawer.mainNode.attachChild(healthBarNode);
+			}
+		} else if (actorDrawer.mainNode.hasChild(healthBarNode)) {
+			actorDrawer.mainNode.detachChild(healthBarNode);
 		}
 	}
 

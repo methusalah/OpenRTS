@@ -121,6 +121,9 @@ public class ActorDrawer implements AnimEventListener {
 			if (a.getViewElements().selectionCircle != null) {
 				mainNode.detachChild(a.getViewElements().selectionCircle);
 			}
+			if (a.getViewElements().healthBar != null) {
+				mainNode.detachChild(a.getViewElements().healthBar);
+			}
 		}
 		//		LogUtil.logger.info("nb attached spatial to "+this+" : "+mainNode.getChildren().size());
 		List<ParticleEmitter> deleted = new ArrayList<>();
@@ -270,7 +273,7 @@ public class ActorDrawer implements AnimEventListener {
 
 	protected AudioNode getAudioNode(String soundPath) {
 		if (!sounds.containsKey(soundPath)) {
-			sounds.put(soundPath, new AudioNode(assetManager, "sounds/" + soundPath));
+			sounds.put(soundPath, new AudioNode(assetManager, "sounds/" + soundPath, com.jme3.audio.AudioData.DataType.Buffer));
 			mainNode.attachChild(sounds.get(soundPath));
 		}
 		return sounds.get(soundPath);

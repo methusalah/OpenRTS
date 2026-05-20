@@ -19,5 +19,6 @@ public class ActorViewElements {
     public Spatial spatial;
     public ParticleEmitter particleEmitter;
     public Node selectionCircle;
+    public Node healthBar;
     public ArrayList<Particle> lastParticles;
 }

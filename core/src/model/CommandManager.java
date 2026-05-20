@@ -50,6 +50,12 @@ public class CommandManager {
 		}
 	}
 
+	public static void orderSpeedBoost() {
+		for (Unit u : selection) {
+			u.activateSpeedBoost(6.0);
+		}
+	}
+
 	public static void select(long id, Point2D pos) {
 		if (pos == null) {
 			return;

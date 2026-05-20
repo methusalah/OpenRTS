@@ -31,6 +31,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Unit extends GroundHiker implements EffectSource, EffectTarget {
 	private static final Logger logger = Logger.getLogger(Mover.class.getName());
 
+	private double speedBoostDuration = 0.0;
+
+	public void activateSpeedBoost(double duration) {
+		this.speedBoostDuration = duration;
+		this.setSpeedBoostMultiplier(1.8);
+	}
+
 	public enum STATE {
 		MOVING, AIMING, IDLING, DESTROYED, STUCK
 	};
@@ -92,6 +99,14 @@ public class Unit extends GroundHiker implements EffectSource, EffectTarget {
 		if (destroyed()) {
 			return;
 		}
+
+		if (speedBoostDuration > 0.0) {
+			speedBoostDuration -= elapsedTime;
+			if (speedBoostDuration <= 0.0) {
+				setSpeedBoostMultiplier(1.0);
+			}
+		}
+
 		findNearbyMovers();
 		arming.updateWeapons();
 
