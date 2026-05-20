@@ -25,6 +25,15 @@ public class LemurHUD {
     private Container commandCard;
     private Container topRightBar;
 
+    // Campaign UI elements
+    private Container objectivesContainer;
+    private Container dialogueContainer;
+    private Label dialogueSpeaker;
+    private Label dialogueText;
+    private Container endScreenOverlay;
+
+    private java.util.Map<String, Boolean> objectives = new java.util.LinkedHashMap<>();
+
     // Telemetry labels
     private Label unitNameLabel;
     private Label unitHealthLabel;
@@ -115,6 +124,30 @@ public class LemurHUD {
         hotkeyLabel.setColor(new ColorRGBA(0.6f, 0.6f, 1.0f, 1f));
         Label footerLabel = topRightBar.addChild(new Label("OpenRTS Lemur Edition"));
         footerLabel.setColor(new ColorRGBA(0.4f, 0.4f, 1.0f, 1f));
+
+        // 3. Campaign Objectives Container (Top-Left)
+        objectivesContainer = new Container(new SpringGridLayout(Axis.Y, Axis.X, FillMode.None, FillMode.Even));
+        objectivesContainer.setPreferredSize(new Vector3f(300, 150, 0));
+        objectivesContainer.setLocalTranslation(10, screenHeight - 10, 0);
+        
+        Label objTitle = objectivesContainer.addChild(new Label("OBJECTIVES", new ElementId("title")));
+        objTitle.setColor(new ColorRGBA(0.24f, 0.97f, 1.0f, 1f));
+
+        // 4. Narrative Dialogue Panel (Bottom-Middle, above bottom bar)
+        dialogueContainer = new Container(new SpringGridLayout(Axis.Y, Axis.X, FillMode.None, FillMode.Even));
+        dialogueContainer.setPreferredSize(new Vector3f(screenWidth - 100, 120, 0));
+        dialogueContainer.setLocalTranslation(50, bottomHeight + 140, 0);
+
+        dialogueSpeaker = dialogueContainer.addChild(new Label("", new ElementId("title")));
+        dialogueSpeaker.setColor(new ColorRGBA(0.24f, 0.97f, 1.0f, 1f));
+        dialogueText = dialogueContainer.addChild(new Label(""));
+        dialogueText.setColor(ColorRGBA.White);
+
+        Button dismissBtn = dialogueContainer.addChild(createStyledButton("ACKNOWLEDGE"));
+        dismissBtn.addClickCommands(cmd -> hideDialogue());
+
+        // Initially hide dialogue
+        dialogueContainer.setCullHint(com.jme3.scene.Spatial.CullHint.Always);
     }
 
     private Button createStyledButton(String label) {
@@ -136,11 +169,89 @@ public class LemurHUD {
     public void show() {
         guiNode.attachChild(bottomBar);
         guiNode.attachChild(topRightBar);
+        guiNode.attachChild(objectivesContainer);
+        guiNode.attachChild(dialogueContainer);
     }
 
     public void hide() {
         bottomBar.removeFromParent();
         topRightBar.removeFromParent();
+        objectivesContainer.removeFromParent();
+        dialogueContainer.removeFromParent();
+        if (endScreenOverlay != null) {
+            endScreenOverlay.removeFromParent();
+            endScreenOverlay = null;
+        }
+    }
+
+    public void showDialogue(String speaker, String text) {
+        dialogueSpeaker.setText(speaker.toUpperCase());
+        dialogueText.setText(text);
+        dialogueContainer.setCullHint(com.jme3.scene.Spatial.CullHint.Inherit);
+    }
+
+    public void hideDialogue() {
+        dialogueContainer.setCullHint(com.jme3.scene.Spatial.CullHint.Always);
+    }
+
+    public void updateObjective(String objective, boolean active, boolean completed) {
+        if (!active) {
+            objectives.remove(objective);
+        } else {
+            objectives.put(objective, completed);
+        }
+        refreshObjectivesUI();
+    }
+
+    private void refreshObjectivesUI() {
+        objectivesContainer.clearChildren();
+        Label objTitle = objectivesContainer.addChild(new Label("OBJECTIVES", new ElementId("title")));
+        objTitle.setColor(new ColorRGBA(0.24f, 0.97f, 1.0f, 1f));
+
+        for (java.util.Map.Entry<String, Boolean> entry : objectives.entrySet()) {
+            String checkMark = entry.getValue() ? "[x] " : "[ ] ";
+            Label objLabel = objectivesContainer.addChild(new Label(checkMark + entry.getKey()));
+            if (entry.getValue()) {
+                objLabel.setColor(new ColorRGBA(0.4f, 1.0f, 0.4f, 1f));
+            } else {
+                objLabel.setColor(ColorRGBA.White);
+            }
+        }
+    }
+
+    public void showEndScreen(boolean victory) {
+        float screenWidth = app.getCamera().getWidth();
+        float screenHeight = app.getCamera().getHeight();
+
+        if (endScreenOverlay != null) {
+            endScreenOverlay.removeFromParent();
+        }
+
+        endScreenOverlay = new Container(new SpringGridLayout(Axis.Y, Axis.X, FillMode.Even, FillMode.Even));
+        endScreenOverlay.setPreferredSize(new Vector3f(400, 200, 0));
+        endScreenOverlay.setLocalTranslation(screenWidth / 2f - 200f, screenHeight / 2f + 100f, 10f);
+
+        Label title = endScreenOverlay.addChild(new Label(victory ? "VICTORY" : "MISSION FAILED", new ElementId("title")));
+        title.setColor(victory ? new ColorRGBA(0.24f, 1.0f, 0.4f, 1f) : new ColorRGBA(1.0f, 0.24f, 0.24f, 1f));
+        title.setTextHAlignment(HAlignment.Center);
+
+        if (victory) {
+            Button nextBtn = endScreenOverlay.addChild(createStyledButton("NEXT MISSION"));
+            nextBtn.addClickCommands(cmd -> {
+                endScreenOverlay.removeFromParent();
+                endScreenOverlay = null;
+                controller.nextCampaignMission();
+            });
+        } else {
+            Button retryBtn = endScreenOverlay.addChild(createStyledButton("RETRY MISSION"));
+            retryBtn.addClickCommands(cmd -> {
+                endScreenOverlay.removeFromParent();
+                endScreenOverlay = null;
+                controller.restartCampaignMission();
+            });
+        }
+
+        guiNode.attachChild(endScreenOverlay);
     }
 
     public void updateSelection(String name, String health, String state, String order, String holding, boolean showDetails) {

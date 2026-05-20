@@ -39,6 +39,7 @@ public class BattlefieldGUIController extends GUIController {
 
 	public BattlefieldGUIController(Nifty nifty, Controller controller) {
 		super(controller, nifty);
+		EventManager.register(this);
 	}
 
 	@Override
@@ -196,6 +197,45 @@ public class BattlefieldGUIController extends GUIController {
 				minimapCam.setViewPort(left + 0.005f, right - 0.005f, bottom + 0.005f, top - 0.005f);
 			}
 		}
+
+		// Campaign script ticking
+		if (model.campaign.CampaignManager.isCampaignActive()) {
+			model.campaign.MissionScript script = model.campaign.CampaignManager.getActiveScript();
+			if (script != null) {
+				float tpf = OpenRTSApplication.appInstance.getTimer().getTimePerFrame();
+				script.update(tpf, ModelManager.getBattlefield());
+				
+				if (script.isVictoryAchieved()) {
+					model.campaign.CampaignManager.setCampaignActive(false);
+					lemurHUD.showEndScreen(true);
+				} else if (script.isDefeatTriggered()) {
+					model.campaign.CampaignManager.setCampaignActive(false);
+					lemurHUD.showEndScreen(false);
+				}
+			}
+		}
+	}
+
+	@com.google.common.eventbus.Subscribe
+	public void handleDialogue(event.DialogueEvent event) {
+		if (lemurHUD != null) {
+			lemurHUD.showDialogue(event.speaker, event.text);
+		}
+	}
+
+	@com.google.common.eventbus.Subscribe
+	public void handleObjective(event.ObjectiveEvent event) {
+		if (lemurHUD != null) {
+			lemurHUD.updateObjective(event.objective, event.active, event.completed);
+		}
+	}
+
+	public void nextCampaignMission() {
+		model.campaign.CampaignManager.nextMission();
+	}
+
+	public void restartCampaignMission() {
+		model.campaign.CampaignManager.restartMission();
 	}
 
 	@Override

@@ -30,6 +30,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	protected final static String HOLD = "hold";
 	protected final static String PAUSE = "pause";
 	protected final static String BOOST = "boost";
+	protected final static String START_CAMPAIGN = "startcampaign";
 
 	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
 	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
@@ -45,7 +46,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 	}
 
 	private void setMappings() {
-		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE, BOOST };
+		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE, BOOST, START_CAMPAIGN };
 	}
 
 	@Override
@@ -61,6 +62,7 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
 		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
 		inputManager.addMapping(BOOST, new KeyTrigger(KeyInput.KEY_B));
+		inputManager.addMapping(START_CAMPAIGN, new KeyTrigger(KeyInput.KEY_C));
 
 		inputManager.addListener(this, mappings);
 
@@ -126,6 +128,12 @@ public class BattlefieldInputInterpreter extends InputInterpreter {
 					break;
 				case PAUSE:
 					((BattlefieldController) ctrl).togglePause();
+					break;
+				case START_CAMPAIGN:
+					if (!model.campaign.CampaignManager.isCampaignActive()) {
+						logger.info("Initializing Campaign mode...");
+						model.campaign.CampaignManager.startCampaign();
+					}
 					break;
 			}
 		} else {

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Mission 1: The Outpost",
+    "mapFile": "assets/maps/test.btf",
+    "description": "Establish a base and hold off initial alien incursions."
+  },
+  {
+    "name": "Mission 2: Counter-Attack",
+    "mapFile": "assets/maps/test2.btf",
+    "description": "Lead the strike team to eliminate the alien nesting ground."
+  }
+]
