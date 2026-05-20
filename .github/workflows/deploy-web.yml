@@ -30,6 +30,18 @@ jobs:
       - name: Compile game to JavaScript via TeaVM
         run: ./gradlew :web-app:generateJavaScript --no-daemon
 
+      - name: Collect TeaVM JS output into web/js
+        run: |
+          mkdir -p web/js
+          # TeaVM 0.14 writes to build/generated/teavm/js/ (or similar).
+          # We locate classes.js regardless of the exact sub-path.
+          JS=$(find web-app/build -name "classes.js" | head -1)
+          if [ -z "$JS" ]; then
+            echo "ERROR: classes.js not found under web-app/build/" && exit 1
+          fi
+          echo "Copying $JS → web/js/classes.js"
+          cp "$JS" web/js/classes.js
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

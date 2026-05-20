@@ -50,14 +50,15 @@ tasks.withType(JavaCompile).configureEach {
 sourceSets {
     main {
         java {
-            // Include core's source files, with exclusions for files replaced by web overrides
-            srcDir '../core/src'
-            exclude 'app/MainRTS.java'
-            exclude 'app/OpenRTSApplication.java'
-            exclude 'app/example/**'
-            // Exclude network (uses jme3-networking which isn't available in web build)
-            exclude 'network/**'
-            // Web-specific source: WebMainRTS, web OpenRTSApplication, Minie stubs
+            // Core game code — use fileTree so the exclude patterns apply only to
+            // ../core/src and do NOT suppress the same-path files in 'src' below.
+            source fileTree(dir: '../core/src', excludes: [
+                'app/MainRTS.java',
+                'app/OpenRTSApplication.java',  // replaced by web-app/src/app/ override
+                'app/example/**',
+                'network/**'                    // jme3-networking unavailable on web
+            ])
+            // Web-specific source: entry point, simplified base app, Minie stubs
             srcDir 'src'
         }
         resources {
@@ -67,15 +68,10 @@ sourceSets {
     }
 }
 
+// Only mainClass is required here; output directory is handled by the CI copy step
+// (TeaVM 0.14.0 writes to build/generated/teavm/js/ by default).
 teavm {
     js {
         mainClass = 'app.WebMainRTS'
-        outputDir = layout.projectDirectory.dir('../web/js')
-        sourceMap = true
-        debugInformation = false
-        obfuscated = true
-        properties = [
-            'teavm.platform': 'browser'
-        ]
     }
 }
