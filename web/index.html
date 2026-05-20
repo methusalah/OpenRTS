@@ -8,16 +8,14 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
 
-    #game-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    /* CheerpJ injects its own <canvas> inside the display div */
-    #cheerpj-display {
-      width: 100%;
-      height: 100%;
+    /* JME3 uses LWJGL/GLFW to create its own canvas. CheerpJ appends it to
+       <body>. We stretch any canvas that CheerpJ injects to fill the viewport. */
+    body > canvas,
+    body > div > canvas {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
       touch-action: none;
     }
 
@@ -73,9 +71,6 @@
   </style>
 </head>
 <body>
-  <div id="game-container">
-    <div id="cheerpj-display"></div>
-  </div>
 
   <div id="loading">
     <h1>OpenRTS</h1>
@@ -105,54 +100,57 @@
     }
 
     function hideLoading() {
+      if (!loadingDiv.parentNode) return;
       loadingDiv.style.opacity = '0';
       setTimeout(() => loadingDiv.remove(), 650);
+      if ('ontouchstart' in window) {
+        touchHint.style.opacity = '1';
+        setTimeout(() => { touchHint.style.opacity = '0'; }, 6000);
+      }
     }
 
     async function launch() {
       setProgress(5, 'Initialising runtime…');
 
       await cheerpjInit({
-        // CheerpJ 3.0 supports version:8 (default) and version:11.
-        // version:21 is not supported and throws "unsupported Java version 21".
-        // version:11 requires cj3n11.wasm which has a path-resolution bug on
-        // some hosts. Omitting version uses the Java 8 default, which is stable.
+        // Omitting version uses the stable Java 8 default.
+        // version:21 → "unsupported Java version 21" (not supported by CheerpJ 3.0)
+        // version:11 → cj3n11.wasm path-resolution bug on external hosts
         jnilibURL: 'https://cjrtnc.leaningtech.com/native/',
       });
 
-      setProgress(25, 'Creating display…');
+      setProgress(40, 'Loading game…');
 
-      // Create the JME3 game display inside our container div.
-      // Pass -1,-1 so CheerpJ uses the container's CSS dimensions.
-      const display = document.getElementById('cheerpj-display');
-      cheerpjCreateDisplay(-1, -1, display);
-
-      setProgress(50, 'Loading game…');
-
-      // The JAR is served from the same directory as this HTML file.
-      // CheerpJ's /app/ virtual path maps to the HTTP server root of this page.
-      const jarPath = '/app/openrts-web.jar';
-
-      setProgress(70, 'Starting OpenRTS…');
-
-      // Hide loading once the display receives its first paint.
+      // JME3 uses LWJGL3/GLFW to create its own window — NOT an AWT/Swing surface.
+      // cheerpjCreateDisplay() is for Swing apps and would conflict here.
+      // CheerpJ appends the GLFW canvas directly to <body>.
+      // We watch document.body for any new canvas or div that CheerpJ adds.
       let hidden = false;
-      const observer = new MutationObserver(() => {
-        if (!hidden) {
-          hidden = true;
-          setProgress(100, 'Running');
-          setTimeout(hideLoading, 800);
-          observer.disconnect();
-          if ('ontouchstart' in window) {
-            touchHint.style.opacity = '1';
-            setTimeout(() => { touchHint.style.opacity = '0'; }, 6000);
-          }
-        }
-      });
-      observer.observe(display, { childList: true, subtree: true, attributes: true });
+      function onGameVisible() {
+        if (hidden) return;
+        hidden = true;
+        setProgress(100, 'Running');
+        setTimeout(hideLoading, 600);
+      }
 
-      // This call blocks until the JVM exits.
-      await cheerpjRunJar(jarPath);
+      // Watch body for the GLFW/OpenGL canvas CheerpJ injects.
+      const observer = new MutationObserver(() => onGameVisible());
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Fallback: hide loading after 30 s even if the canvas never appears,
+      // so the user can at least see if something is rendered underneath.
+      const fallback = setTimeout(() => {
+        console.warn('OpenRTS: 30 s timeout — hiding loading screen. Check console for errors.');
+        onGameVisible();
+      }, 30000);
+
+      setProgress(60, 'Starting OpenRTS…');
+
+      // cheerpjRunJar blocks until the JVM exits.
+      await cheerpjRunJar('/app/openrts-web.jar');
+
+      clearTimeout(fallback);
+      observer.disconnect();
     }
 
     launch().catch(err => {
