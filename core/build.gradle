@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'eclipse'
+    id 'com.gradleup.shadow'
 }
 
 application {
@@ -33,11 +34,36 @@ tasks.withType(JavaExec) {
     }
 }
 
+shadowJar {
+    archiveBaseName.set('openrts-web')
+    archiveVersion.set('')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'app.MainRTS'
+    }
+    mergeServiceFiles()
+
+    // Strip all platform-native binaries — CheerpJ provides its own WASM runtime
+    // and does not use these JNI shared libraries.
+    exclude 'native/**'          // Minie/Bullet per-platform .dylib/.dll/.so
+    exclude 'lib/**'             // Minie Android .so files
+    exclude 'windows/**'         // LWJGL3 Windows natives
+    exclude 'linux/**'           // LWJGL3 Linux natives
+    exclude 'macos/**'           // LWJGL3 macOS natives
+    exclude '**/*.dll'
+    exclude '**/*.dylib'
+    exclude '**/*.jnilib'
+    // Keep *.so that are NOT in the above directories only (should be none left)
+    exclude 'native/osx/**'
+    exclude 'native/linux/**'
+    exclude 'native/windows/**'
+}
+
 eclipse {
-    project { 
+    project {
         name = "${appName}-core"
     }
-    
+
     classpath {
         downloadSources = true
         downloadJavadoc = true

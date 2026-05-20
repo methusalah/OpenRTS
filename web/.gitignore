@@ -1,0 +1,5 @@
+# The fat JAR is built by CI (./gradlew :core:shadowJar) and uploaded
+# as a GitHub Release artifact or copied here during deployment.
+# Do not commit it directly — it will exceed GitHub's 100 MB file limit
+# once assets are added in future.
+openrts-web.jar

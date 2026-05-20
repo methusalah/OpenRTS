@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>OpenRTS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* CheerpJ injects its own <canvas> inside the display div */
+    #cheerpj-display {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      color: #00e5ff;
+      font-family: monospace;
+      font-size: 1.1rem;
+      gap: 1.2rem;
+      z-index: 100;
+      transition: opacity 0.6s;
+    }
+    #loading h1 { font-size: 2rem; letter-spacing: 0.15em; color: #fff; }
+    #progress-bar {
+      width: 280px;
+      height: 6px;
+      background: #222;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    #progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #00e5ff;
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    #status-msg { font-size: 0.85rem; color: #888; }
+
+    #touch-hint {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.65);
+      color: #ccc;
+      font-family: monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+      white-space: nowrap;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <div id="cheerpj-display"></div>
+  </div>
+
+  <div id="loading">
+    <h1>OpenRTS</h1>
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+    <div id="status-msg">Loading runtime…</div>
+  </div>
+
+  <div id="touch-hint">
+    Tap: select &nbsp;|&nbsp; 2-finger tap: move &nbsp;|&nbsp; Drag: pan &nbsp;|&nbsp; Pinch: zoom
+  </div>
+
+  <!--
+    CheerpJ Community Edition — free for open-source projects.
+    See https://cheerpj.com/docs/getting-started/ for licensing.
+  -->
+  <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script>
+  <script src="touch.js"></script>
+  <script>
+    const progressFill = document.getElementById('progress-fill');
+    const statusMsg    = document.getElementById('status-msg');
+    const loadingDiv   = document.getElementById('loading');
+    const touchHint    = document.getElementById('touch-hint');
+
+    function setProgress(pct, msg) {
+      progressFill.style.width = pct + '%';
+      if (msg) statusMsg.textContent = msg;
+    }
+
+    function hideLoading() {
+      loadingDiv.style.opacity = '0';
+      setTimeout(() => loadingDiv.remove(), 650);
+    }
+
+    async function launch() {
+      setProgress(5, 'Initialising runtime…');
+
+      await cheerpjInit({
+        version: 21,
+        // CheerpJ's native bridge handles JNI calls where possible.
+        // Minie/Bullet JNI will be attempted; physics may degrade gracefully if unavailable.
+        jnilibURL: 'https://cjrtnc.leaningtech.com/native/',
+      });
+
+      setProgress(25, 'Creating display…');
+
+      // Create the JME3 game display inside our container div.
+      // Pass -1,-1 so CheerpJ uses the container's CSS dimensions.
+      const display = document.getElementById('cheerpj-display');
+      cheerpjCreateDisplay(-1, -1, display);
+
+      setProgress(50, 'Loading game…');
+
+      // The JAR is served from the same directory as this HTML file.
+      // CheerpJ's /app/ virtual path maps to the HTTP server root of this page.
+      const jarPath = '/app/openrts-web.jar';
+
+      setProgress(70, 'Starting OpenRTS…');
+
+      // Hide loading once the display receives its first paint.
+      let hidden = false;
+      const observer = new MutationObserver(() => {
+        if (!hidden) {
+          hidden = true;
+          setProgress(100, 'Running');
+          setTimeout(hideLoading, 800);
+          observer.disconnect();
+          if ('ontouchstart' in window) {
+            touchHint.style.opacity = '1';
+            setTimeout(() => { touchHint.style.opacity = '0'; }, 6000);
+          }
+        }
+      });
+      observer.observe(display, { childList: true, subtree: true, attributes: true });
+
+      // This call blocks until the JVM exits.
+      await cheerpjRunJar(jarPath);
+    }
+
+    launch().catch(err => {
+      console.error('Launch error:', err);
+      statusMsg.textContent = 'Error: ' + (err.message || err);
+      progressFill.style.background = '#f44';
+    });
+  </script>
+</body>
+</html>

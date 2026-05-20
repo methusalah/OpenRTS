@@ -5,9 +5,6 @@ import geometry.math.RandomUtil;
 import com.simsilica.lemur.GuiGlobals;
 import com.simsilica.lemur.style.BaseStyles;
 
-import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
@@ -239,15 +236,26 @@ public abstract class OpenRTSApplication extends LegacyApplication implements Ph
 	}
 
 	public void toggleToFullscreen() {
-		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		DisplayMode[] modes = device.getDisplayModes();
-		int i = 0; // note: there are usually several, let's pick the first
-		settings.setResolution(modes[i].getWidth(), modes[i].getHeight());
-		settings.setFrequency(modes[i].getRefreshRate());
-		settings.setBitsPerPixel(modes[i].getBitDepth());
-		settings.setFullscreen(device.isFullScreenSupported());
-		appInstance.setSettings(settings);
-		appInstance.restart(); // restart the context to apply changes
+		try {
+			Class<?> geClass = Class.forName("java.awt.GraphicsEnvironment");
+			Object ge = geClass.getMethod("getLocalGraphicsEnvironment").invoke(null);
+			Object device = ge.getClass().getMethod("getDefaultScreenDevice").invoke(ge);
+			Object[] modes = (Object[]) device.getClass().getMethod("getDisplayModes").invoke(device);
+			Object mode = modes[0];
+			int w = (int) mode.getClass().getMethod("getWidth").invoke(mode);
+			int h = (int) mode.getClass().getMethod("getHeight").invoke(mode);
+			int rate = (int) mode.getClass().getMethod("getRefreshRate").invoke(mode);
+			int depth = (int) mode.getClass().getMethod("getBitDepth").invoke(mode);
+			boolean full = (boolean) device.getClass().getMethod("isFullScreenSupported").invoke(device);
+			settings.setResolution(w, h);
+			settings.setFrequency(rate);
+			settings.setBitsPerPixel(depth);
+			settings.setFullscreen(full);
+			appInstance.setSettings(settings);
+			appInstance.restart();
+		} catch (Exception e) {
+			logger.warning("Fullscreen toggle not supported on this platform: " + e.getMessage());
+		}
 	}
 
 	public static void main(OpenRTSApplication app) {
