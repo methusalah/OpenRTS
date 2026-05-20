@@ -61,10 +61,17 @@ shadowJar {
     exclude '**/*.dll'
     exclude '**/*.dylib'
     exclude '**/*.jnilib'
-    // Keep *.so that are NOT in the above directories only (should be none left)
     exclude 'native/osx/**'
     exclude 'native/linux/**'
     exclude 'native/windows/**'
+
+    // Strip Java 17 and Java 21 multi-release JAR entries from LWJGL, Jackson,
+    // and Logback. These libraries ship optimised class files in META-INF/versions/
+    // for newer runtimes. CheerpJ (version:21) selects them but cannot load Java 17+
+    // bytecode (major versions 61/65). Removing them forces CheerpJ to fall back to
+    // the Java 8/11 base classes, which our bytecode target already matches.
+    exclude 'META-INF/versions/17/**'
+    exclude 'META-INF/versions/21/**'
 }
 
 eclipse {
