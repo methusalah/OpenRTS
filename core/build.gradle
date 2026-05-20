@@ -34,6 +34,14 @@ tasks.withType(JavaExec) {
     }
 }
 
+// CheerpJ 3.x requires Java 11 class file format (format version 55).
+// Override the allprojects release=21 for this module so shadowJar produces
+// bytecode that CheerpJ can load. The Java 21 JVM still runs the desktop
+// build without issue — Java is backwards-compatible.
+tasks.withType(JavaCompile).configureEach {
+    options.release = 11
+}
+
 shadowJar {
     archiveBaseName.set('openrts-web')
     archiveVersion.set('')
