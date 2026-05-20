@@ -113,9 +113,11 @@
       setProgress(5, 'Initialising runtime…');
 
       await cheerpjInit({
-        version: 11,
-        // CheerpJ's native bridge handles JNI calls where possible.
-        // Minie/Bullet JNI will be attempted; physics may degrade gracefully if unavailable.
+        version: 21,
+        // version:21 tells CheerpJ to emulate a Java 21 runtime.
+        // Our JAR is compiled to Java 11 bytecode, which a Java 21 JVM runs fine
+        // (Java is backwards-compatible). Using version:11 causes CheerpJ to try
+        // loading a cj3n11.wasm native module that isn't found on all hosts.
         jnilibURL: 'https://cjrtnc.leaningtech.com/native/',
       });
 
