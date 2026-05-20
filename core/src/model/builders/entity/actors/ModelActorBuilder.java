@@ -5,7 +5,7 @@ package model.builders.entity.actors;
 
 import geometry.math.AngleUtil;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.HashMap;
 import java.util.logging.Logger;
 

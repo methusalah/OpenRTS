@@ -2,7 +2,7 @@ package model.battlefield.map.cliff.faces.natural;
 
 import geometry.geom3d.Point3D;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.ArrayList;
 
 import model.battlefield.map.cliff.Cliff;

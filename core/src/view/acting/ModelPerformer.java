@@ -6,7 +6,7 @@ package view.acting;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.logging.Logger;
 
 import model.battlefield.abstractComps.FieldComp;

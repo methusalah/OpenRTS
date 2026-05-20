@@ -2,9 +2,9 @@ package model.battlefield.lighting;
 
 import geometry.math.AngleUtil;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import util.compat.Color;
+import util.compat.ActionEvent;
+import util.compat.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;

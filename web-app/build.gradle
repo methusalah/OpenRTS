@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'org.teavm' version '0.9.0-dev-10'
+}
+
+// Web-app module: compiles OpenRTS to JavaScript via TeaVM using webmonkeyengine
+// as the JME3 WebGL2 backend. Physics (Minie) is stubbed out for the web build.
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://teavm.org/maven/repository/' }
+    maven { url 'https://repo.repsy.io/mvn/riccardobl/jme3-teavm' }
+}
+
+// Inherit version properties from root project
+def jmonkeyengine_version = rootProject.ext.jmonkeyengine_version
+def guava_version = rootProject.ext.guava_version
+def jackson_version = rootProject.ext.jackson_version
+def slf4j_version = rootProject.ext.slf4j_version
+
+dependencies {
+    // webmonkeyengine — JME3 3.7.x fork with WebGL2/TeaVM backend
+    // Uses JitPack to build from source since no Maven Central release exists.
+    // These replace the standard jme3-* desktop artifacts.
+    implementation 'com.github.riccardobl.webmonkeyengine:jme3-core:master-SNAPSHOT'
+    implementation 'com.github.riccardobl.webmonkeyengine:jme3-effects:master-SNAPSHOT'
+    implementation 'com.github.riccardobl.webmonkeyengine:jme3-terrain:master-SNAPSHOT'
+    implementation 'com.github.riccardobl.webmonkeyengine:jme3-plugins:master-SNAPSHOT'
+    implementation 'com.github.riccardobl.webmonkeyengine:jme3-jogg:master-SNAPSHOT'
+    implementation 'com.github.riccardobl.webmonkeyengine:jme3-web:master-SNAPSHOT'
+
+    // TeaVM classlib (Java standard library emulation for the browser)
+    implementation 'org.teavm:teavm-classlib:0.9.0-dev-10'
+    implementation 'org.teavm:teavm-jso-apis:0.9.0-dev-10'
+
+    // Pure-Java utilities (TeaVM-compatible)
+    implementation "com.google.guava:guava:$guava_version"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+    implementation "org.slf4j:slf4j-api:$slf4j_version"
+}
+
+// Compile to Java 8 bytecode — TeaVM works best with Java 8 class files.
+// The game logic was already written at Java 8 level for the web build.
+tasks.withType(JavaCompile).configureEach {
+    options.release = 8
+    options.encoding = 'UTF-8'
+}
+
+sourceSets {
+    main {
+        java {
+            // Include most of core's source files
+            source fileTree('../core/src') {
+                // Exclude files replaced by web-specific overrides below
+                exclude 'app/MainRTS.java'
+                exclude 'app/OpenRTSApplication.java'
+                exclude 'app/example/**'
+                // Exclude network (uses jme3-networking which isn't available in web build)
+                exclude 'network/**'
+            }
+            // Web-specific source: WebMainRTS, web OpenRTSApplication, Minie stubs
+            srcDir 'src'
+        }
+        resources {
+            // Include the game's assets
+            srcDirs = ['../core/assets']
+        }
+    }
+}
+
+teavm.js {
+    mainClass = 'app.WebMainRTS'
+    targetDir = layout.projectDirectory.dir('../web/js')
+    sourceMapsGenerated = true
+    debugInformationGenerated = false
+    minifying = true
+    properties = [
+        'teavm.platform': 'browser'
+    ]
+}

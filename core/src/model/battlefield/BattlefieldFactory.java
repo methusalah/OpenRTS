@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import model.ModelManager;
 import model.builders.MapArtisanUtil;
 
@@ -37,15 +34,7 @@ public class BattlefieldFactory {
 	}
 
 	public Battlefield loadWithFileChooser() {
-		final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
-		fc.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*." + BATTLEFIELD_FILE_EXTENSION + ")", BATTLEFIELD_FILE_EXTENSION);
-		fc.addChoosableFileFilter(filter);
-		int returnVal = fc.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File f = fc.getSelectedFile();
-			return load(f);
-		}
+		// JFileChooser not available on web — caller must use load(String) directly.
 		return null;
 	}
 
@@ -91,23 +80,8 @@ public class BattlefieldFactory {
 				logger.info("Saving battlefield overwriting " + battlefield.getFileName() + "...");
 				mapper.writeValue(new File(battlefield.getFileName()), battlefield);
 			} else {
-				final JFileChooser fc = new JFileChooser(ModelManager.DEFAULT_MAP_PATH);
-				fc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("RTS Battlefield file (*." + BATTLEFIELD_FILE_EXTENSION + ")",
-						BATTLEFIELD_FILE_EXTENSION);
-				fc.addChoosableFileFilter(filter);
-				int returnVal = fc.showSaveDialog(null);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File f = fc.getSelectedFile();
-					int i = f.getName().lastIndexOf('.');
-					if (i == 0 || !f.getName().substring(i + 1).equals(BATTLEFIELD_FILE_EXTENSION)) {
-						f = new File(f.toString() + "." + BATTLEFIELD_FILE_EXTENSION);
-					}
-
-					battlefield.setFileName(f.getCanonicalPath());
-					logger.info("Saving map as " + battlefield.getFileName() + "...");
-					mapper.writeValue(new File(battlefield.getFileName()), battlefield);
-				}
+				// JFileChooser not available on web — cannot save without a filename.
+				logger.warning("Save failed: no filename set and file chooser not available.");
 			}
 		} catch (Exception ex) {
 			Logger.getLogger(BattlefieldFactory.class.getName()).log(Level.SEVERE, null, ex);

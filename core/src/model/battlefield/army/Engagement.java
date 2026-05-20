@@ -1,6 +1,6 @@
 package model.battlefield.army;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;

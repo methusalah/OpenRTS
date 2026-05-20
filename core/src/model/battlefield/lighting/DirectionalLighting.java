@@ -3,7 +3,7 @@ package model.battlefield.lighting;
 import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 
-import java.awt.Color;
+import util.compat.Color;
 
 
 /**

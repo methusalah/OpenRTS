@@ -1,6 +1,6 @@
 package view.acting;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

@@ -3,8 +3,8 @@
  */
 package view.mapDrawing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import util.compat.ActionEvent;
+import util.compat.ActionListener;
 
 import model.ModelManager;
 import view.MapView;

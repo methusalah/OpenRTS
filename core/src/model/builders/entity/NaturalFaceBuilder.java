@@ -4,7 +4,7 @@
  */
 package model.builders.entity;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.logging.Logger;
 
 import model.battlefield.map.cliff.Cliff;

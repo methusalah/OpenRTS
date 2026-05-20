@@ -4,7 +4,7 @@ import geometry.geom2d.Point2D;
 import geometry.geom3d.MyMesh;
 import geometry.geom3d.Point3D;
 
-import java.awt.Color;
+import util.compat.Color;
 
 import model.battlefield.lighting.AmbientLighting;
 import model.battlefield.lighting.DirectionalLighting;

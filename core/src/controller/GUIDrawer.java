@@ -4,7 +4,7 @@
  */
 package controller;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.List;
 
 import de.lessvoid.nifty.controls.DropDown;

@@ -7,7 +7,7 @@ import static model.editor.Pencil.SHAPE.Circle;
 import static model.editor.Pencil.SHAPE.Diamond;
 import static model.editor.Pencil.SHAPE.Square;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,7 +4,7 @@ import geometry.collections.Ring;
 import geometry.geom3d.Point3D;
 import geometry.math.RandomUtil;
 
-import java.awt.Color;
+import util.compat.Color;
 
 import model.battlefield.map.cliff.Cliff;
 

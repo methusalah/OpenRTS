@@ -8,7 +8,7 @@ import geometry.geom3d.Point3D;
 import geometry.math.AngleUtil;
 import geometry.math.RandomUtil;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.ArrayList;
 import java.util.List;
 

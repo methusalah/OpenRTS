@@ -1,6 +1,6 @@
 package model.battlefield.actors;
 
-import java.awt.Color;
+import util.compat.Color;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

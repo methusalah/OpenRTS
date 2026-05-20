@@ -2,7 +2,7 @@ package model.battlefield.map;
 
 import geometry.geom3d.Point3D;
 
-import java.awt.Color;
+import util.compat.Color;
 
 import model.battlefield.abstractComps.FieldComp;
 import model.battlefield.actors.ModelActor;

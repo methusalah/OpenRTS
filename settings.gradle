@@ -6,3 +6,4 @@ rootProject.name = 'OpenRTS'
 
 include 'core'
 include 'example'
+include 'web-app'

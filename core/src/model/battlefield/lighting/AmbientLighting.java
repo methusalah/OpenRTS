@@ -1,6 +1,6 @@
 package model.battlefield.lighting;
 
-import java.awt.Color;
+import util.compat.Color;
 
 /**
  *
