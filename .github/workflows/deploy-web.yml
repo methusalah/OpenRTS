@@ -27,11 +27,8 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Build fat JAR (no native binaries)
-        run: ./gradlew :core:shadowJar --no-daemon
-
-      - name: Copy JAR to web directory
-        run: cp core/build/libs/openrts-web.jar web/openrts-web.jar
+      - name: Compile game to JavaScript via TeaVM
+        run: ./gradlew :web-app:generateJavaScript --no-daemon
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

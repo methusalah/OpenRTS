@@ -7,18 +7,14 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
-
-    /* JME3 uses LWJGL/GLFW to create its own canvas. CheerpJ appends it to
-       <body>. We stretch any canvas that CheerpJ injects to fill the viewport. */
-    body > canvas,
-    body > div > canvas {
-      position: fixed !important;
-      inset: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
+    #canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
       touch-action: none;
     }
-
     #loading {
       position: fixed;
       inset: 0;
@@ -35,22 +31,9 @@
       transition: opacity 0.6s;
     }
     #loading h1 { font-size: 2rem; letter-spacing: 0.15em; color: #fff; }
-    #progress-bar {
-      width: 280px;
-      height: 6px;
-      background: #222;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    #progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #00e5ff;
-      border-radius: 3px;
-      transition: width 0.4s ease;
-    }
+    #progress-bar { width: 280px; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+    #progress-fill { height: 100%; width: 0%; background: #00e5ff; border-radius: 3px; transition: width 0.4s ease; }
     #status-msg { font-size: 0.85rem; color: #888; }
-
     #touch-hint {
       position: fixed;
       bottom: 1.5rem;
@@ -71,93 +54,67 @@
   </style>
 </head>
 <body>
+  <canvas id="canvas"></canvas>
 
   <div id="loading">
     <h1>OpenRTS</h1>
     <div id="progress-bar"><div id="progress-fill"></div></div>
-    <div id="status-msg">Loading runtime…</div>
+    <div id="status-msg">Loading…</div>
   </div>
 
   <div id="touch-hint">
     Tap: select &nbsp;|&nbsp; 2-finger tap: move &nbsp;|&nbsp; Drag: pan &nbsp;|&nbsp; Pinch: zoom
   </div>
 
-  <!--
-    CheerpJ Community Edition — free for open-source projects.
-    See https://cheerpj.com/docs/getting-started/ for licensing.
-  -->
-  <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script>
   <script src="touch.js"></script>
   <script>
-    const progressFill = document.getElementById('progress-fill');
-    const statusMsg    = document.getElementById('status-msg');
-    const loadingDiv   = document.getElementById('loading');
-    const touchHint    = document.getElementById('touch-hint');
+    const fill    = document.getElementById('progress-fill');
+    const msg     = document.getElementById('status-msg');
+    const loading = document.getElementById('loading');
+    const hint    = document.getElementById('touch-hint');
 
-    function setProgress(pct, msg) {
-      progressFill.style.width = pct + '%';
-      if (msg) statusMsg.textContent = msg;
+    function setProgress(pct, text) {
+      fill.style.width = pct + '%';
+      if (text) msg.textContent = text;
     }
 
     function hideLoading() {
-      if (!loadingDiv.parentNode) return;
-      loadingDiv.style.opacity = '0';
-      setTimeout(() => loadingDiv.remove(), 650);
+      loading.style.opacity = '0';
+      setTimeout(() => loading.remove(), 650);
       if ('ontouchstart' in window) {
-        touchHint.style.opacity = '1';
-        setTimeout(() => { touchHint.style.opacity = '0'; }, 6000);
+        hint.style.opacity = '1';
+        setTimeout(() => { hint.style.opacity = '0'; }, 6000);
       }
     }
 
-    async function launch() {
-      setProgress(5, 'Initialising runtime…');
+    setProgress(10, 'Loading game script…');
 
-      await cheerpjInit({
-        // Omitting version uses the stable Java 8 default.
-        // version:21 → "unsupported Java version 21" (not supported by CheerpJ 3.0)
-        // version:11 → cj3n11.wasm path-resolution bug on external hosts
-        jnilibURL: 'https://cjrtnc.leaningtech.com/native/',
-      });
-
-      setProgress(40, 'Loading game…');
-
-      // JME3 uses LWJGL3/GLFW to create its own window — NOT an AWT/Swing surface.
-      // cheerpjCreateDisplay() is for Swing apps and would conflict here.
-      // CheerpJ appends the GLFW canvas directly to <body>.
-      // We watch document.body for any new canvas or div that CheerpJ adds.
-      let hidden = false;
-      function onGameVisible() {
-        if (hidden) return;
-        hidden = true;
+    // TeaVM-compiled game JS
+    var script = document.createElement('script');
+    script.src = 'js/classes.js';
+    script.onload = function() {
+      setProgress(60, 'Initialising…');
+      // TeaVM's main() is invoked via the generated bootstrap
+      if (typeof main === 'function') {
+        try {
+          main();
+          setProgress(100, 'Running');
+          setTimeout(hideLoading, 600);
+        } catch (e) {
+          msg.textContent = 'Error: ' + e.message;
+          fill.style.background = '#f44';
+          console.error(e);
+        }
+      } else {
         setProgress(100, 'Running');
         setTimeout(hideLoading, 600);
       }
-
-      // Watch body for the GLFW/OpenGL canvas CheerpJ injects.
-      const observer = new MutationObserver(() => onGameVisible());
-      observer.observe(document.body, { childList: true, subtree: true });
-
-      // Fallback: hide loading after 30 s even if the canvas never appears,
-      // so the user can at least see if something is rendered underneath.
-      const fallback = setTimeout(() => {
-        console.warn('OpenRTS: 30 s timeout — hiding loading screen. Check console for errors.');
-        onGameVisible();
-      }, 30000);
-
-      setProgress(60, 'Starting OpenRTS…');
-
-      // cheerpjRunJar blocks until the JVM exits.
-      await cheerpjRunJar('/app/openrts-web.jar');
-
-      clearTimeout(fallback);
-      observer.disconnect();
-    }
-
-    launch().catch(err => {
-      console.error('Launch error:', err);
-      statusMsg.textContent = 'Error: ' + (err.message || err);
-      progressFill.style.background = '#f44';
-    });
+    };
+    script.onerror = function() {
+      msg.textContent = 'Failed to load game script';
+      fill.style.background = '#f44';
+    };
+    document.head.appendChild(script);
   </script>
 </body>
 </html>
