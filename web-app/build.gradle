@@ -27,7 +27,7 @@ dependencies {
     implementation 'com.github.riccardobl.webmonkeyengine:jme3-effects:master-SNAPSHOT'
     implementation 'com.github.riccardobl.webmonkeyengine:jme3-terrain:master-SNAPSHOT'
     implementation 'com.github.riccardobl.webmonkeyengine:jme3-plugins:master-SNAPSHOT'
-    implementation 'com.github.riccardobl.webmonkeyengine:jme3-jogg:master-SNAPSHOT'
+    // jme3-jogg removed — not a webmonkeyengine submodule; OGG audio unsupported on web
     implementation 'com.github.riccardobl.webmonkeyengine:jme3-web:master-SNAPSHOT'
 
     // TeaVM classlib (Java standard library emulation for the browser)
@@ -40,10 +40,9 @@ dependencies {
     implementation "org.slf4j:slf4j-api:$slf4j_version"
 }
 
-// Compile to Java 8 bytecode — TeaVM works best with Java 8 class files.
-// The game logic was already written at Java 8 level for the web build.
+// TeaVM 0.14.0 classlib requires Java 11+ bytecode.
 tasks.withType(JavaCompile).configureEach {
-    options.release = 8
+    options.release = 11
     options.encoding = 'UTF-8'
 }
 
